@@ -10,13 +10,27 @@ local tikz_doc_template = [[
 \end{document}
 ]]
 
+local function file_exists(name)
+  local f = io.open(name, 'r')
+  if f ~= nil then
+    io.close(f)
+    return true
+  else
+    return false
+  end
+end
+
 local function tikz2image(src, filetype, outfile)
   -- use os.execute to create the att/ directory if it doesn't exist
   os.execute("mkdir -p att")
   local f = io.open('tmp_tex.tex', 'w')
   f:write(tikz_doc_template:format(src))
   f:close()
-  os.execute('xelatex tmp_tex.tex')
+  if file_exists('~/.TinyTeX/bin/x86_64-linux/xelatex') then
+    os.execute('~/.TinyTeX/bin/x86_64-linux/xelatex tmp_tex.tex')
+  else
+    os.execute('xelatex tmp_tex.tex')
+  end
   if filetype == 'pdf' then
     os.rename('tmp_tex.pdf', "att/" .. outfile)
   else
@@ -37,15 +51,6 @@ extension_for = {
   latex = 'pdf',
   beamer = 'pdf' }
 
-local function file_exists(name)
-  local f = io.open(name, 'r')
-  if f ~= nil then
-    io.close(f)
-    return true
-  else
-    return false
-  end
-end
 
 local function starts_with(start, str)
   return str:sub(1, #start) == start

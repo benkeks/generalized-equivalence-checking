@@ -40,6 +40,13 @@ format:
   html:
     theme: cosmo
     html-math-method: katex
+    other-links:
+    - text: PDF version
+      icon: file-pdf
+      href: ./Generalized-Equivalence-Checking-of-Concurrent-Programs.pdf
+    - text: GitHub
+      icon: github
+      href: https://github.com/benkeks/generalized-equivalence-checking
   pdf:
     documentclass: report
     indent: true

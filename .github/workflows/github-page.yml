@@ -28,13 +28,30 @@ jobs:
       - name: Install dependencies
         run: sudo apt install pdf2svg
 
+      - name: Install TeXlive
+        uses: teatimeguest/setup-texlive-action@v3
+        with:
+          packages: |
+            xcolor
+            standalone
+            amsmath
+            amsthm
+            amssymb
+            stmaryrd
+            mathpartir
+            booktabs
+            fontawesome5
+            fontspec
+            unicode-math
+            newunicodechar
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           # To install LaTeX to build PDF book 
-          tinytex: true
+          tinytex: false
           # version: SPECIFIC-QUARTO-VERSION-HERE
        # add software dependencies here and any libraries 
          # From https://github.com/actions/setup-python

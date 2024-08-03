@@ -26,11 +26,7 @@ local function tikz2image(src, filetype, outfile)
   local f = io.open('tmp_tex.tex', 'w')
   f:write(tikz_doc_template:format(src))
   f:close()
-  if file_exists('~/.TinyTeX/bin/x86_64-linux/xelatex') then
-    os.execute('~/.TinyTeX/bin/x86_64-linux/xelatex tmp_tex.tex')
-  else
-    os.execute('xelatex tmp_tex.tex')
-  end
+  os.execute('xelatex tmp_tex.tex')
   if filetype == 'pdf' then
     os.rename('tmp_tex.pdf', "att/" .. outfile)
   else

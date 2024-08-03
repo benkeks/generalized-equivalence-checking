@@ -33,6 +33,7 @@ jobs:
         with:
           packages: |
             scheme-basic
+            collection-xetex
             xcolor
             standalone
             amsmath

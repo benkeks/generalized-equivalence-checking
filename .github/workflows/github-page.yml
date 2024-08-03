@@ -36,7 +36,7 @@ jobs:
             standalone
             amsmath
             amsthm
-            amssymb
+            amsfonts
             stmaryrd
             mathpartir
             booktabs

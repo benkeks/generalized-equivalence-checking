@@ -1,0 +1,60 @@
+project:
+  type: book
+  output-dir: _book
+  execute-dir: project
+  preview:
+    port: 5588
+
+filters:
+- teximg
+
+number-sections: true
+crossref:
+  chapters: false
+
+book:
+  title: "Generalized Equivalence Checking of Concurrent Programs"
+  author:
+  - name: Benjamin Bisping
+    email: benjamin.bisping@tu-berlin.de
+    url: https://bbisping.de
+    affiliation: MTV TU Berlin
+    affiliation-url: https://www.mtv.tu-berlin.de
+  date-format: long
+  abstract: "..."
+  chapters:
+    - index.qmd
+    - 01_introduction.qmd
+    - 02_background.qmd
+    - 03_equivalence-spectrum.qmd
+    - 04_spectrum-to-games.qmd
+    - 05_strong-spectroscopy.qmd
+    - 06_silent-step-spectroscopy.qmd
+    - 07_implementations.qmd
+    - 08_conclusion.qmd
+    - 09_references.qmd
+
+bibliography: similarities.bib
+
+format:
+  html:
+    theme: cosmo
+    html-math-method: katex
+  pdf:
+    documentclass: report
+    indent: true
+    top-level-division: chapter
+    toc: true
+    include-in-header: style/preamble.tex
+    include-before-body:
+      text: |
+        \renewcommand{\bibsection}{}
+    cite-method: natbib
+    biblio-config: true
+    latex-max-runs: 3
+
+# jupyter:
+#  kernelspec:
+#    display_name: Scala 3
+#    language: scala
+#    name: scala

@@ -1,0 +1,17 @@
+
+# Introduction: What's the difference?
+
+Can you subtract two programs?
+Or even more generally:
+Can you subtract a specification from a program to see what unspecified behavior remains?
+(For your program to be correct, there should be no relevant difference!)
+
+There is a rich body of work on *process equivalence checking* and *refinement checking* for programs and specifications.
+This thesis argues that most of it can be viewed through one unified lense of *finding differences* in behavior.
+
+## Linear-Time–Branching-Time Spectroscopy
+
+## This Thesis
+
+## Artifacts and Papers
+

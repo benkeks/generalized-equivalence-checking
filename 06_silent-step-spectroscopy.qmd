@@ -1,0 +1,9 @@
+---
+title: "Spectroscopy for the Silent-Step Spectrum"
+---
+
+{{< include style/macros.md >}}
+
+## Expressing the Weak Spectrum with Quantities
+
+

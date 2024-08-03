@@ -1,0 +1,5 @@
+---
+title: "Spectroscopy of the Strong Equivalence Spectrum"
+---
+
+{{< include style/macros.md >}}

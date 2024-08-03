@@ -1,0 +1,52 @@
+---
+title: "Context: The Spectrum of Equivalences"
+---
+
+{{< include style/macros.md >}}
+
+
+## Behavioral Difference
+
+::: {#def-difference}
+### Difference
+
+The difference between $P$ and $Q$ is defined as:
+$$\difference{P}{Q} := \semanticsObs{P} \setminus \semanticsObs{Q}.$$
+:::
+
+::: {#def-behavioraleq}
+### Behavioral preorder and equivalence
+
+Two processes are preordered with respect to a behavioral equivalence $E \subseteq \hml$
+$$P \bpreord{E} Q \defiff \difference{P}{Q} \cap E \subseteq \varnothing.$$
+If $P \bpreord{E} Q$ and $Q \bpreord{E} P$, the two are considered $E$-equivalent, $P \beq{E} Q$.
+:::
+
+::: {#def-bisimilarity}
+### Bisimilarity
+
+Two processes are bisimulation preordered (and moreover bisimilar)
+$$P \beq{B} Q \defiff \difference{P}{Q} \subseteq \varnothing.$$
+:::
+
+<!-- That the relational characterization of bisimilarity and the modal characterization of @def-bisimilarity coincide, is due to @hm1980hml.
+It makes sense to consider the $\hml$ characterization as primary.
+Van Glabbeek [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] shows how all the other common equivalences can be understood to be a lattice of sublanguages of $\hml$. -->
+
+
+- How to define sets of equivalences through notions.
+- Why is this approach cool?
+- The spectroscopy problem.
+- Pareto front suffices.
+
+::: {#def-spectrum}
+#### Equivalence Spectra
+
+An *equivalence spectrum* $(\notions, \leq, \observationsvar{N \in \notions})$ consists of
+
+- a set of equivalence notions $\notions$,
+- a partial order $\leq \; \subseteq \notions \times \notions$, and
+- corresponding observations $\observationsvar{} \, \colon \notions \to \powerset{\hml}$.
+
+For any two notions $N,M \in \notions$, $N \leq M$ implies $\observationsvar{N} \subseteq \observationsvar{M}$.
+:::

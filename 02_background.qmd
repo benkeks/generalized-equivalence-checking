@@ -1,0 +1,179 @@
+---
+title: "Preliminaries: Communicating Systems and Games"
+filters:
+- teximg
+# execute:
+#  freeze: auto
+# engine: jupyter
+---
+
+{{< include style/macros.md >}}
+
+TODO: Preliminaries....
+
+## Behavior of Programs
+
+### Labeled Transition Systems
+
+::: {#def-ts}
+#### Transition Systems
+
+A *labeled transition system* is a tuple $\system=(\states,\actions,\step{})$ where $\states$ is the set of *states,* $\actions$ is the set of *actions,* and ${\step{}}\subseteq \states\times\actions\times \states$ is the *transition relation*.
+:::
+
+TODO: Example.
+
+### Calculus of Communicating Systems
+
+[@milner1989comcon].
+
+TODO: proper def
+
+::: {#def-ccs}
+#### Calculus of Communicating Systems
+
+Let $\ccsactions$ be a set of channel names, and $\ccsnames$ a set of process names. Then, $\ccs$ processes are given by the following grammar:
+$$ P \grammardef
+  a.P \grammaror
+  \coaction{a}.P \grammaror
+  P \ccschoice P \grammaror
+  P \ccspar P \grammaror
+  0 \grammaror
+  X
+\qquad \text{with } a \in \ccsactions, X \in \ccsnames.$$
+Given an assignment of names to processes, $\ccsasg \colon \ccsnames \to \ccs$, the operational semantics ${\step{\cdot}_\ccs} \subseteq \ccs \times \ccslabels \times \ccs$ with $\ccslabels := \ccsactions \cup \{\coaction{a} \mid a \in \ccsactions\}$ is defined inductively by the rules:
+
+```{=latex}
+\begin{mathpar}
+\inferrule*{
+}{
+  a.P \step{a}_\ccs P
+}\and
+\inferrule*{
+  P_1 \step{a}_\ccs P_1'
+}{
+  P_1 \ccschoice P_2 \step{a}_\ccs P_1'
+}\and
+\inferrule*{
+  P_2 \step{a}_\ccs P_2'
+}{
+  P_1 \ccschoice P_2 \step{a}_\ccs P_2'
+}\and
+\inferrule*{
+  P \step{a}_\ccs P' \\ \ccsasg(X) = P
+}{
+  X \step{a}_\ccs P'
+}
+\end{mathpar}
+```
+:::
+
+A process $P \in \ccs$ now denotes a position in the transition system $(\ccs, \ccslabels, \step{}_\ccs)$ defined through @def-ccs.
+
+
+::: {#exm-ccs}
+#### CCS Hello world
+
+Consider the simple process
+It...
+
+See @fig-hello-world for the semantics.
+
+::: {#fig-hello-world}
+
+  Process of example @exm-ccs.
+
+:::
+
+:::
+
+## Behavioral Equivalences
+
+### Trace Equivalence
+
+::: {#def-traces}
+#### Traces
+
+The set of traces of a process $\traces{p}$ is recursively defined as
+
+- $() \in \traces{p}$,
+- $\alpha \cdot \vec w \in \traces{p}$ if there is $p'$ with $p \step{\alpha} p'$ and $\vec w \in \traces{p'}$.
+
+:::
+
+::: {#def-trace-eq}
+#### Trace Equivalence
+
+Two processes, $p$ and $q$ are considered *trace-equivalent*, written $p \beq{T} q$, if $\traces{p} = \traces{q}$.
+
+Processes are *trace-preordered*, $p \bpreord{T} q$, if $\traces{p} \subseteq \traces{q}$.
+:::
+
+### Simulation and Bisimulation
+
+
+## Observations as Modal Logic
+
+::: {#def-observations}
+#### Hennessy–Milner Logic
+
+For a set of actions $\actions$, the *observations* (expressed as Hennessy–Milner logic $\hml$) follow the grammar:
+
+$$
+\begin{array}{cllr}
+  \varphi ::= &
+    \hmlobserve{a}\varphi & \quad\text{with } a \in \actions &
+      \text{“observation”} \\
+    {}\grammaror \quad & \hmland{i}{I}\varphi_i & \quad\text{with index set } I & \text{“conjunction”} \\
+    {}\grammaror \quad & \hmlneg \varphi & & \text{“negation”} \\
+\end{array}
+$$
+Its semantics $\semantics{\cdot} \colon \hml \to \powerset{\states}$ is defined by:
+
+```{=latex}
+\begin{mathpar}
+\inferrule*{
+  p \step{a} p' \\ p' \in \semantics{\varphi}
+}{
+  p \in \semantics{\hmlobserve{a}\varphi}
+}\and
+\inferrule*{
+  \forall i \in I \ldotp p \in \semantics{\varphi_i}
+}{
+  p \in \semantics{\hmland{i}{I}\varphi_i}
+}\and
+\inferrule*{
+  p \notin \semantics{\varphi}
+}{
+  p \in \semantics{\hmlneg\varphi}
+}
+
+\end{mathpar}
+```
+:::
+
+::: {#lem-hennessy-milner}
+
+#### Hennessy–Milner Theorem
+
+:::
+
+<!-- We now use observations to give a denotational semantics for our $\ccs$ processes (overloading $\semantics{\cdot}$):
+
+::: {#def-denotational}
+#### Denotations
+
+The denotational semantics of processes, $\semantics{\cdot} \colon \states \to \powerset{\hml}$, is defined:
+$$\semantics{P} := \{ \varphi \in \hml \mid P \in \semantics{\varphi} \}.$$
+::: -->
+
+
+
+## Reachability Games
+
+Definition Game
+
+Small example game
+
+Semantics as Game
+

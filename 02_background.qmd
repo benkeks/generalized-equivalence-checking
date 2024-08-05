@@ -21,7 +21,41 @@ TODO: Preliminaries....
 A *labeled transition system* is a tuple $\system=(\states,\actions,\step{})$ where $\states$ is the set of *states,* $\actions$ is the set of *actions,* and ${\step{}} ⊆ \states × \actions × \states$ is the *transition relation*.
 :::
 
-TODO: Example.
+::: {#exm-ts}
+#### A standard example
+
+```{mermaid}
+flowchart TD
+  p0(p0) -- τ --> pAB(pAB)
+  pAB -- a --> pA( )
+  pAB -- b --> pB( )
+
+  q0(q0) -- τ --> qA(qA)
+  q0 -- τ --> qB(qB)
+  qA -- a --> qA0( )
+  qB -- b --> qB0( )
+```
+
+```{dot}
+#| fig-width: 5.5
+digraph G {
+  
+  pA[label=""];
+  pB[label=""];
+  p0 -> pAB [label="τ"];
+  pAB -> pA [label="a"];
+  pAB -> pB [label="b"];
+
+  qA0[label=""];
+  qB0[label=""];
+  q0 -> qA [label="τ"];
+  q0 -> qB [label="τ"];
+  qA -> qA0 [label="a"];
+  qB -> qB0 [label="b"];
+}
+```
+:::
+
 
 ### Calculus of Communicating Systems
 

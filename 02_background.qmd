@@ -2,9 +2,6 @@
 title: "Preliminaries: Communicating Systems and Games"
 filters:
 - teximg
-# execute:
-#  freeze: auto
-# engine: jupyter
 ---
 
 {{< include style/macros.md >}}
@@ -18,91 +15,135 @@ TODO: Preliminaries....
 ::: {#def-ts}
 #### Transition Systems
 
-A *labeled transition system* is a tuple $\system=(\states,\actions,\step{})$ where $\states$ is the set of *states,* $\actions$ is the set of *actions,* and ${\step{}} ⊆ \states × \actions × \states$ is the *transition relation*.
+A *labeled transition system* (LTS) $\system=(\states,\actions,\step{})$ consists of
+
+- $\states$, a set of *states,*
+- $\actions$, a set of *actions,* and
+- ${\step{}} ⊆ \states × \actions × \states$, a *transition relation*.
 :::
+
+{{<noindent>}} There is a canonical example used to discuss equivalences within transition systems.
+We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzinger.
 
 ::: {#exm-ts}
-#### A standard example
+#### A Classic Example
 
-```{mermaid}
-flowchart TD
-  p0(p0) -- τ --> pAB(pAB)
-  pAB -- a --> pA( )
-  pAB -- b --> pB( )
-
-  q0(q0) -- τ --> qA(qA)
-  q0 -- τ --> qB(qB)
-  qA -- a --> qA0( )
-  qB -- b --> qB0( )
-```
-
-```{dot}
-#| fig-width: 5.5
-digraph G {
+  Consider the LTS given by the following graph:
   
-  pA[label=""];
-  pB[label=""];
-  p0 -> pAB [label="τ"];
-  pAB -> pA [label="a"];
-  pAB -> pB [label="b"];
+  ```{mermaid}
+  flowchart TD
+    p0(P) -- τ --> pAB(pAB)
+    pAB -- a --> pA( )
+    pAB -- b --> pB( )
 
-  qA0[label=""];
-  qB0[label=""];
-  q0 -> qA [label="τ"];
-  q0 -> qB [label="τ"];
-  qA -> qA0 [label="a"];
-  qB -> qB0 [label="b"];
-}
-```
+    q0(Q) -- τ --> qA(qA)
+    q0 -- τ --> qB(qB)
+    qA -- a --> qA0( )
+    qB -- b --> qB0( )
+  ```
+
+  {{<noindent>}}
+  The program described by the transitions from $\literal{P}$ performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$.
+  The program $\literal{Q}$ on the other hand first decides non-deterministically during a $\tau$-step between two options and then offers only either $\literal a$ *or* $\literal b$.
+
 :::
 
+::: {#fig-henzinger}
+
+  ![](img/henzinger.jpg){.lightbox}
+
+  Tom Henzinger employing @exm-ts during CAV'23.
+
+:::
+
+{{<noindent>}}
+There are two things one might wonder about @exm-ts:
+
+1. What leads to non-determinism in concurrent programs?
+2. Should one consider $\literal P$ and $\literal Q$ equivalent?
 
 ### Calculus of Communicating Systems
 
-[@milner1989comcon].
-
-TODO: proper def
+To talk about programs in this thesis, we will use Milner's [-@milner1989comcon] *Calculus of Communicating Systems* (CCS).
 
 ::: {#def-ccs}
 #### Calculus of Communicating Systems
 
-Let $\ccsactions$ be a set of channel names, and $\ccsnames$ a set of process names. Then, $\ccs$ processes are given by the following grammar:
-$$ P \grammardef
-  a.P \grammaror
-  \coaction{a}.P \grammaror
-  P \ccschoice P \grammaror
-  P \ccspar P \grammaror
-  0 \grammaror
-  X
-\qquad \text{with } a ∈ \ccsactions, X ∈ \ccsnames.$$
-Given an assignment of names to processes, $\ccsasg \colon \ccsnames \to \ccs$, the operational semantics ${\step{\cdot}_\ccs} ⊆ \ccs × \ccslabels × \ccs$ with $\ccslabels := \ccsactions \cup \{\coaction{a} \mid a ∈ \ccsactions\}$ is defined inductively by the rules:
+Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names. Then, $\ccs$ processes, communicating via actions $\ccsactions := \ccschannels \cup \set{ \coaction{\alpha} \mid \alpha \in \ccschannels } \cup \set{τ}$, are given by the following grammar:
 
-```{=latex}
-\begin{mathpar}
-\inferrule*{
+$$
+\begin{array}{cllr}
+  P \grammardef
+  & \ccsprefix{α} P & \quad\text{with } α ∈ \ccschannels &
+      \text{“input action prefix”} \\
+  & \ccsprefix{\coaction α} P & \quad\text{with } α ∈ \ccschannels &
+      \text{“output action prefix”} \\
+  & \ccsprefix{τ} P & &
+      \text{“internal action”} \\
+  & P \ccschoice P & &
+      \text{“choice”} \\
+  & P \, \ccspar \, P & &
+      \text{“parallel composition”} \\
+  & P \, \ccsrestrict A & \quad\text{with } A ⊆ \ccschannels &
+      \text{“restriction”}
+\end{array}
+$$
+We call pairs of actions $α$ and $\coaction α$ *coactions*, and work with the aliasing $\coaction{\coaction{α}} = α$.
+
+Given an assignment of names to processes, $\ccsasg \colon \ccsnames \to \ccs$, the operational semantics ${\step{\cdot}_\ccs} ⊆ \ccs × \ccsactions × \ccs$ is defined inductively by the rules:
+
+$$
+\dfrac{
 }{
-  a.P \step{a}_\ccs P
-}\and
-\inferrule*{
-  P_1 \step{a}_\ccs P_1'
-}{
-  P_1 \ccschoice P_2 \step{a}_\ccs P_1'
-}\and
-\inferrule*{
-  P_2 \step{a}_\ccs P_2'
-}{
-  P_1 \ccschoice P_2 \step{a}_\ccs P_2'
-}\and
-\inferrule*{
-  P \step{a}_\ccs P' \\ \ccsasg(X) = P
-}{
-  X \step{a}_\ccs P'
+  \ccsprefix{α} P \step{a}_\ccs P
 }
-\end{mathpar}
-```
+\qquad
+\dfrac{
+  P \step{α}_\ccs P' \qquad \ccsasg(X) = P
+}{
+  X \step{α}_\ccs P'
+}
+$$
+$$
+\dfrac{
+  P_1 \step{α}_\ccs P_1'
+}{
+  P_1 \ccschoice P_2 \step{α}_\ccs P_1'
+}\qquad
+\dfrac{
+  P_2 \step{α}_\ccs P_2'
+}{
+  P_1 \ccschoice P_2 \step{α}_\ccs P_2'
+}
+$$
+$$
+\dfrac{
+  P_1 \step{α}_\ccs P_1'
+}{
+  P_1 \ccspar P_2 \step{α}_\ccs P_1' \ccspar P_2
+}\qquad
+\dfrac{
+  P_2 \step{α}_\ccs P_2'
+}{
+  P_1 \ccspar P_2 \step{α}_\ccs P_1 \ccspar P_2'
+}
+$$
+$$
+\dfrac{
+  P_1 \step{α}_\ccs P_1' \qquad
+  P_2 \step{\coaction α}_\ccs P_2'
+}{
+  P_1 \ccspar P_2 \step{τ}_\ccs P_1' \ccspar P_2'
+}\qquad
+\dfrac{
+  P \step{α}_\ccs P' \qquad
+  α, \coaction α \notin A
+}{
+  P \ccsrestrict A \step{α}_\ccs P' \ccsrestrict A
+}
+$$
 :::
-
-A process $P ∈ \ccs$ now denotes a position in the transition system $(\ccs, \ccslabels, \step{}_\ccs)$ defined through @def-ccs.
+{{< noindent >}}A process $P ∈ \ccs$ now denotes a position in the transition system $(\ccs, \ccsactions, \step{}_\ccs)$ defined through @def-ccs.
 
 
 ::: {#exm-ccs}
@@ -173,8 +214,8 @@ For a set of actions $\actions$, the *observations* (expressed as Hennessy–Mil
 
 $$
 \begin{array}{cllr}
-  \varphi ::= &
-    \hmlobserve{a}\varphi & \quad\text{with } a ∈ \actions &
+  \varphi \grammardef &
+    \hmlobserve{α}\varphi & \quad\text{with } α ∈ \actions &
       \text{“observation”} \\
     {}\grammaror \quad & \hmland{i}{I}\varphi_i & \quad\text{with index set } I & \text{“conjunction”} \\
     {}\grammaror \quad & \hmlneg \varphi & & \text{“negation”} \\

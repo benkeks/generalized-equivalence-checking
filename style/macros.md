@@ -8,8 +8,10 @@
 \providecommand{\setminus}{\mathbin{\backslash}}
 \providecommand{\powerset}[1]{2^{#1}}
 \providecommand{\defiff}{\mathrel{:\!\iff}}
+\providecommand{\set}[1]{\{#1\}}
 
-\lc{ ransition systems }
+
+\lc{ Transition systems }
 
 \providecommand{\step}[1]{\xrightarrow{#1}}
 \providecommand{\states}{\mathcal{P}}
@@ -18,6 +20,8 @@
 \providecommand{\actions}{\Sigma}
 \providecommand{\traces}[1]{\mathsf{Traces}(#1)}
 
+\providecommand{\literal}[1]{\mathsf{#1}}
+
 \lc{ Grammars }
 
 \providecommand{\grammardef}{\;::=\;}
@@ -25,14 +29,17 @@
 
 \lc{ CCS }
 
-\providecommand{\ccschoice}{+}
-\providecommand{\ccspar}{\mid}
 \providecommand{\ccs}{\textsf{CCS}}
-\providecommand{\ccsactions}{\mathcal{A}}
+\providecommand{\ccschannels}{\mathcal{A}}
+\providecommand{\ccsactions}{\actions_\ccs}
 \providecommand{\ccslabels}{\labels_\ccs}
 \providecommand{\coaction}[1]{\overline{#1}}
 \providecommand{\ccsnames}{\mathcal X}
 \providecommand{\ccsasg}{\mathcal V}
+\providecommand{\ccsprefix}[1]{#1\ldotp}
+\providecommand{\ccschoice}{+}
+\providecommand{\ccspar}{\mid}
+\providecommand{\ccsrestrict}{\setminus}
 
 \lc{ HML }
 

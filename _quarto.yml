@@ -22,6 +22,9 @@ book:
     affiliation-url: https://www.mtv.tu-berlin.de
   date-format: long
   abstract: "..."
+  repo-url: https://github.com/benkeks/generalized-equivalence-checking
+  repo-actions: [edit]
+  downloads: [pdf]
   chapters:
     - index.qmd
     - 01_introduction.qmd

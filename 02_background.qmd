@@ -97,14 +97,14 @@ See @fig-hello-world for the semantics.
 The set of traces of a process $\traces{p}$ is recursively defined as
 
 - $() ∈ \traces{p}$,
-- $\alpha \cdot \vec w ∈ \traces{p}$ if there is $p'$ with $p \step{\alpha} p'$ and $\vec w ∈ \traces{p'}$.
+- $α \cdot \vec w ∈ \traces{p}$ if there is $p'$ with $p \step α p'$ and $\vec w ∈ \traces{p'}$.
 
 :::
 
 ::: {#def-trace-eq}
 #### Trace Equivalence
 
-Two processes, $p$ and $q$ are considered *trace-equivalent*, written $p \beq{T} q$, if $\traces{p} = \traces{q}$.
+Two processes $p$ and $q$ are considered *trace-equivalent*, written $p \beq{T} q$, if $\traces{p} = \traces{q}$.
 
 Processes are *trace-preordered*, $p \bpreord{T} q$, if $\traces{p} ⊆ \traces{q}$.
 :::
@@ -114,7 +114,7 @@ Processes are *trace-preordered*, $p \bpreord{T} q$, if $\traces{p} ⊆ \traces{
 ::: {#def-simulation}
 #### Simulation
 
-A relation on states, $\rel R ⊆ \states × \states$, is called a *simulation* if, for each $(p, q) ∈ \rel R$ and $\alpha ∈ \actions$ with $p \step a p'$ there is a $q'$ with $q \step \alpha q'$ and $(p', q') ∈ \rel R$.
+A relation on states, $\rel R ⊆ \states × \states$, is called a *simulation* if, for each $(p, q) ∈ \rel R$ and $α ∈ \actions$ with $p \step a p'$ there is a $q'$ with $q \step α q'$ and $(p', q') ∈ \rel R$.
 
 :::
 

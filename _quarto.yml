@@ -7,10 +7,13 @@ project:
 
 filters:
 - teximg
+- noindent
 
 number-sections: true
 crossref:
   chapters: false
+linestretch: 1.15
+fig-align: center
 
 book:
   title: "Generalized Equivalence Checking of Concurrent Programs"
@@ -38,11 +41,15 @@ book:
     - 09_references.qmd
 
 bibliography: similarities.bib
+#csl: iso690-author-date-en
 
 format:
   html:
     theme: cosmo
     html-math-method: katex
+    fig-cap-location: margin
+    reference-location: margin
+    citation-location: margin
     other-links:
     - text: PDF version
       icon: file-pdf
@@ -53,6 +60,7 @@ format:
   pdf:
     documentclass: report
     indent: true
+    papersize: a4
     top-level-division: chapter
     toc: true
     include-in-header: style/preamble.tex

@@ -18,7 +18,7 @@ TODO: Preliminaries....
 ::: {#def-ts}
 #### Transition Systems
 
-A *labeled transition system* is a tuple $\system=(\states,\actions,\step{})$ where $\states$ is the set of *states,* $\actions$ is the set of *actions,* and ${\step{}}\subseteq \states\times\actions\times \states$ is the *transition relation*.
+A *labeled transition system* is a tuple $\system=(\states,\actions,\step{})$ where $\states$ is the set of *states,* $\actions$ is the set of *actions,* and ${\step{}} ⊆ \states × \actions × \states$ is the *transition relation*.
 :::
 
 TODO: Example.
@@ -40,8 +40,8 @@ $$ P \grammardef
   P \ccspar P \grammaror
   0 \grammaror
   X
-\qquad \text{with } a \in \ccsactions, X \in \ccsnames.$$
-Given an assignment of names to processes, $\ccsasg \colon \ccsnames \to \ccs$, the operational semantics ${\step{\cdot}_\ccs} \subseteq \ccs \times \ccslabels \times \ccs$ with $\ccslabels := \ccsactions \cup \{\coaction{a} \mid a \in \ccsactions\}$ is defined inductively by the rules:
+\qquad \text{with } a ∈ \ccsactions, X ∈ \ccsnames.$$
+Given an assignment of names to processes, $\ccsasg \colon \ccsnames \to \ccs$, the operational semantics ${\step{\cdot}_\ccs} ⊆ \ccs × \ccslabels × \ccs$ with $\ccslabels := \ccsactions \cup \{\coaction{a} \mid a ∈ \ccsactions\}$ is defined inductively by the rules:
 
 ```{=latex}
 \begin{mathpar}
@@ -68,7 +68,7 @@ Given an assignment of names to processes, $\ccsasg \colon \ccsnames \to \ccs$, 
 ```
 :::
 
-A process $P \in \ccs$ now denotes a position in the transition system $(\ccs, \ccslabels, \step{}_\ccs)$ defined through @def-ccs.
+A process $P ∈ \ccs$ now denotes a position in the transition system $(\ccs, \ccslabels, \step{}_\ccs)$ defined through @def-ccs.
 
 
 ::: {#exm-ccs}
@@ -96,8 +96,8 @@ See @fig-hello-world for the semantics.
 
 The set of traces of a process $\traces{p}$ is recursively defined as
 
-- $() \in \traces{p}$,
-- $\alpha \cdot \vec w \in \traces{p}$ if there is $p'$ with $p \step{\alpha} p'$ and $\vec w \in \traces{p'}$.
+- $() ∈ \traces{p}$,
+- $\alpha \cdot \vec w ∈ \traces{p}$ if there is $p'$ with $p \step{\alpha} p'$ and $\vec w ∈ \traces{p'}$.
 
 :::
 
@@ -106,10 +106,28 @@ The set of traces of a process $\traces{p}$ is recursively defined as
 
 Two processes, $p$ and $q$ are considered *trace-equivalent*, written $p \beq{T} q$, if $\traces{p} = \traces{q}$.
 
-Processes are *trace-preordered*, $p \bpreord{T} q$, if $\traces{p} \subseteq \traces{q}$.
+Processes are *trace-preordered*, $p \bpreord{T} q$, if $\traces{p} ⊆ \traces{q}$.
 :::
 
 ### Simulation and Bisimulation
+
+::: {#def-simulation}
+#### Simulation
+
+A relation on states, $\rel R ⊆ \states × \states$, is called a *simulation* if, for each $(p, q) ∈ \rel R$ and $\alpha ∈ \actions$ with $p \step a p'$ there is a $q'$ with $q \step \alpha q'$ and $(p', q') ∈ \rel R$.
+
+:::
+
+
+::: {#def-bisimilarity}
+#### (Bi-)similarity
+
+Simulation-preorder, similarity and bisimilarity are defined as follows:
+
+- $p$ is *simulated by* $q$, $p \bpreord{S} q$, iff there is a simulation $\rel R$ with $(p, q) ∈ \rel R$.
+- $p$ is *similar* to $q$, $p \beq{S} q$, iff $p \bpreord{S} q$ and $q \bpreord{S} p$.
+- $p$ is *bisimilar* to $q$, $p \beq{B} q$, iff there is a *symmetric* simulation $\rel R$ (i.e. $\rel R = \inverse{\rel R}$) with $(p, q) ∈ \rel R$.
+:::
 
 
 ## Observations as Modal Logic
@@ -122,7 +140,7 @@ For a set of actions $\actions$, the *observations* (expressed as Hennessy–Mil
 $$
 \begin{array}{cllr}
   \varphi ::= &
-    \hmlobserve{a}\varphi & \quad\text{with } a \in \actions &
+    \hmlobserve{a}\varphi & \quad\text{with } a ∈ \actions &
       \text{“observation”} \\
     {}\grammaror \quad & \hmland{i}{I}\varphi_i & \quad\text{with index set } I & \text{“conjunction”} \\
     {}\grammaror \quad & \hmlneg \varphi & & \text{“negation”} \\
@@ -133,19 +151,19 @@ Its semantics $\semantics{\cdot} \colon \hml \to \powerset{\states}$ is defined 
 ```{=latex}
 \begin{mathpar}
 \inferrule*{
-  p \step{a} p' \\ p' \in \semantics{\varphi}
+  p \step{a} p' \\ p' ∈ \semantics{\varphi}
 }{
-  p \in \semantics{\hmlobserve{a}\varphi}
+  p ∈ \semantics{\hmlobserve{a}\varphi}
 }\and
 \inferrule*{
-  \forall i \in I \ldotp p \in \semantics{\varphi_i}
+  \forall i ∈ I \ldotp p ∈ \semantics{\varphi_i}
 }{
-  p \in \semantics{\hmland{i}{I}\varphi_i}
+  p ∈ \semantics{\hmland{i}{I}\varphi_i}
 }\and
 \inferrule*{
   p \notin \semantics{\varphi}
 }{
-  p \in \semantics{\hmlneg\varphi}
+  p ∈ \semantics{\hmlneg\varphi}
 }
 
 \end{mathpar}
@@ -164,7 +182,7 @@ Its semantics $\semantics{\cdot} \colon \hml \to \powerset{\states}$ is defined 
 #### Denotations
 
 The denotational semantics of processes, $\semantics{\cdot} \colon \states \to \powerset{\hml}$, is defined:
-$$\semantics{P} := \{ \varphi \in \hml \mid P \in \semantics{\varphi} \}.$$
+$$\semantics{P} := \{ \varphi ∈ \hml \mid P ∈ \semantics{\varphi} \}.$$
 ::: -->
 
 

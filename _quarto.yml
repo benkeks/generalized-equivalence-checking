@@ -50,6 +50,8 @@ format:
     fig-cap-location: margin
     reference-location: margin
     citation-location: margin
+    linestretch: 1.5
+    mainfont: KaTeX_Main
     other-links:
     - text: PDF version
       icon: file-pdf

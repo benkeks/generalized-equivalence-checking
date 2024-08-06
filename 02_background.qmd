@@ -241,6 +241,17 @@ $$
 $$
 :::
 
+::: {#exm-deterministic-phil}
+#### Deterministic Philosophers
+
+A process matching the transitions from $\literal Q$ in @exm-ts would be the following, where the philosophers take the fork as a team and then let the environment choose who of them eats:
+
+$$
+\literal Q := (\coaction{\literal{fork}} \ccspar \ccsprefix{\literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
+$$
+
+:::
+
 ## Behavioral Equivalences {#sec-behavioral-eq}
 
 ### Trace Equivalence
@@ -250,7 +261,7 @@ $$
 
 The set of traces of a process $\traces{p}$ is recursively defined as
 
-- $() ∈ \traces{p}$,
+- $\emptyword ∈ \traces{p}$,^[We denote the empty word by $\emptyword$.]
 - $α \cdot \vec w ∈ \traces{p}$ if there is $p'$ with $p \step α p'$ and $\vec w ∈ \traces{p'}$.
 
 :::
@@ -261,6 +272,14 @@ The set of traces of a process $\traces{p}$ is recursively defined as
 Two processes $p$ and $q$ are considered *trace-equivalent*, written $p \beq{T} q$, if $\traces{p} = \traces{q}$.
 
 Processes are *trace-preordered*, $p \bpreord{T} q$, if $\traces{p} ⊆ \traces{q}$.
+:::
+
+::: {#exm-phil-traces}
+
+The traces for the processes of @exm-ts would be $\traces{\literal{P}} = \set{\emptyword, τ, τ\literal{a}, τ\literal{b}} = \traces{\literal Q}$. Consequently, $\literal P$ and $\literal Q$ are trace-equivalent, $\literal P \beq{T} \literal Q$.
+
+As $\traces{\literal{pA}} = \set{\emptyword, \literal{a}} ⊆ \set{\emptyword, \literal{a}, \literal{b}} = \traces{\literal{qAB}}$, $\literal{pA}$ is (strictly) trace-preordered to $\literal{qAB}$, $\literal{pA} \bpreord{T} \literal{qAB}$.
+
 :::
 
 ### Simulation and Bisimulation

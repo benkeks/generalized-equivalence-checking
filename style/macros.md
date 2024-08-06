@@ -9,7 +9,7 @@
 \providecommand{\powerset}[1]{2^{#1}}
 \providecommand{\defiff}{\mathrel{:\!\iff}}
 \providecommand{\set}[1]{\{#1\}}
-
+\providecommand{\emptyword}{\texttt{()}}
 
 \lc{ Transition systems }
 

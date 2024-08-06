@@ -47,7 +47,6 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
     q0(Q) -- τ --> qAB(qAB)
     qAB -- a --> qA( )
     qAB -- b --> qB( )
-
   ```
 
   {{<noindent>}}
@@ -59,36 +58,83 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
 {{<noindent>}}
 There are two things one might wonder about @exm-ts:
 
-1. What leads to non-determinism in concurrent programs?
-2. Should one consider $\literal P$ and $\literal Q$ equivalent?
+1. Should one care about non-determinism in programs? Subsection [-@sec-ccs] shows how non-determinism arises naturally in concurrent programs.
+2. Should one consider $\literal P$ and $\literal Q$ equivalent? This heavily depends. Section [-@sec-behavioral-eq] will introduce a notion of equivalence under which the two are equivalent and one under which they differ.
 
-### Calculus of Communicating Systems
+### Calculus of Communicating Systems {#sec-ccs}
 
 To talk about programs in this thesis, we will use Milner's [-@milner1989comcon] *Calculus of Communicating Systems* (CCS).
 
 ::: {#def-ccs}
 #### Calculus of Communicating Systems
 
-Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names. Then, $\ccs$ processes, communicating via actions $\ccsactions := \ccschannels \cup \set{ \coaction{\alpha} \mid \alpha \in \ccschannels } \cup \set{τ}$, are given by the following grammar:
+  Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names. Then, $\ccs$ processes, communicating via actions $\ccsactions := \ccschannels \cup \set{ \coaction{\alpha} \mid \alpha \in \ccschannels } \cup \set{τ}$, are given by the following grammar:
 
-$$
-\begin{array}{cllr}
-  P \grammardef
-  & \ccsprefix{α} P & \quad\text{with } α ∈ \ccschannels &
-      \text{“input action prefix”} \\
-  & \ccsprefix{\coaction α} P & \quad\text{with } α ∈ \ccschannels &
-      \text{“output action prefix”} \\
-  & \ccsprefix{τ} P & &
-      \text{“internal action”} \\
-  & P \ccschoice P & &
-      \text{“choice”} \\
-  & P \, \ccspar \, P & &
-      \text{“parallel composition”} \\
-  & P \, \ccsrestrict A & \quad\text{with } A ⊆ \ccschannels &
-      \text{“restriction”}
-\end{array}
-$$
-We call pairs of actions $α$ and $\coaction α$ *coactions*, and work with the aliasing $\coaction{\coaction{α}} = α$.
+  $$
+  \begin{array}{cllr}
+    P \grammardef
+    & \ccsprefix{α} P & \quad\text{with } α ∈ \ccschannels &
+        \text{“input action prefix”} \\
+    & \ccsprefix{\coaction α} P & \quad\text{with } α ∈ \ccschannels &
+        \text{“output action prefix”} \\
+    & \ccsprefix{τ} P & &
+        \text{“internal action”} \\
+    & \ccsnull & &
+        \text{“null process”} \\
+    & X & \quad\text{with } X ∈ \ccsnames &
+        \text{“recursion”} \\
+    & P \ccschoice P & &
+        \text{“choice”} \\
+    & P \, \ccspar \, P & &
+        \text{“parallel composition”} \\
+    & P \, \ccsrestrict A & \quad\text{with } A ⊆ \ccschannels &
+        \text{“restriction”}
+  \end{array}
+  $$
+  We call pairs of actions $α$ and $\coaction α$ *coactions*, and work with the aliasing $\coaction{\coaction{α}} = α$.
+  The intuition is that an action $α$ represents receiving and $\coaction α$ expresses sending in communication.
+  A pair of action and coaction can “react” in a communication situation and only become internal activity $τ$ in the view of the environment.
+
+  Each sub-process tree must end in a $\ccsnull$-process or recursion.
+  For brevity, we usually drop a final $\ccsnull$ when writing terms, e.g., just writing $\literal{ac}$ for $\ccsprefix{\literal{ac}} \ccsnull$.
+:::
+
+::: {#exm-ccs}
+#### Concurrent Philosophers
+
+  Following tradition, we will express our examples in terms of philosophers who need forks to eat spaghetti.^[
+    Of course, you can just as well read the examples to be about computer programs that race for resources.]
+  So, consider two philosophers $\literal{P_A}$ and $\literal{P_B}$ who want to grab a resource $\literal{fork}$ modeled as an action in order to eat where we express $\literal{P_A}$ eating with action $\literal{a}$ and $\literal{P_B}$ eating with $\literal{b}$.
+  The philosopher processes read:
+
+:::::: {.column-margin}
+  ```{mermaid}
+  flowchart TD
+    p0(P_A) -- fork --> pA(a.0)
+    pA -- a --> 0(0)
+  ```
+::::::
+
+  $$
+  \begin{gathered}
+    \literal{P_A} := \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull \\
+    \literal{P_B} := \ccsprefix{\literal{fork}} \ccsprefix{\literal b} \ccsnull
+  \end{gathered}
+  $$
+  An LTS representation of $\literal{P_A}$'s behavior can be seen in the margin.
+  Process $\literal P$ captures the whole scenario where the two philosophers compete for the fork using communication:
+  $$
+    \literal P := ( \ccsprefix{\coaction{\literal{fork}}} \ccsnull \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
+  $$
+  The restriction $… \ccsrestrict \set{\literal{fork}}$ expresses that the $\literal{fork}$-channel can only be used for communication within the system.
+
+  As the $\coaction{\literal{fork}}$-action can be consumed by just one of the two philosophers, process $\literal P$ expresses exactly the program behavior seen in state $\literal P$ of @exm-ts.
+:::
+
+{{<noindent>}} The formal relationship between process terms and their LTS semantics is given by the following definition.
+
+::: {#def-ccs-semantics}
+#### CCS Semantics
 
 Given an assignment of names to processes, $\ccsasg \colon \ccsnames \to \ccs$, the operational semantics ${\step{\cdot}_\ccs} ⊆ \ccs × \ccsactions × \ccs$ is defined inductively by the rules:
 
@@ -104,6 +150,7 @@ $$
   X \step{α}_\ccs P'
 }
 $$
+
 $$
 \dfrac{
   P_1 \step{α}_\ccs P_1'
@@ -116,6 +163,7 @@ $$
   P_1 \ccschoice P_2 \step{α}_\ccs P_2'
 }
 $$
+
 $$
 \dfrac{
   P_1 \step{α}_\ccs P_1'
@@ -128,6 +176,7 @@ $$
   P_1 \ccspar P_2 \step{α}_\ccs P_1 \ccspar P_2'
 }
 $$
+
 $$
 \dfrac{
   P_1 \step{α}_\ccs P_1' \qquad
@@ -143,18 +192,11 @@ $$
 }
 $$
 :::
+
 {{< noindent >}}A process $P ∈ \ccs$ now denotes a position in the transition system $(\ccs, \ccsactions, \step{}_\ccs)$ defined through @def-ccs.
 
 
-::: {#exm-ccs}
-#### CCS Hello world
-
-Consider the simple process
-It...
-
-:::
-
-## Behavioral Equivalences
+## Behavioral Equivalences {#sec-behavioral-eq}
 
 ### Trace Equivalence
 

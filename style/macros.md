@@ -36,7 +36,8 @@
 \providecommand{\coaction}[1]{\overline{#1}}
 \providecommand{\ccsnames}{\mathcal X}
 \providecommand{\ccsasg}{\mathcal V}
-\providecommand{\ccsprefix}[1]{#1\ldotp}
+\providecommand{\ccsprefix}[1]{#1\ldotp\!}
+\providecommand{\ccsnull}{\mathbf{0}}
 \providecommand{\ccschoice}{+}
 \providecommand{\ccspar}{\mid}
 \providecommand{\ccsrestrict}{\setminus}

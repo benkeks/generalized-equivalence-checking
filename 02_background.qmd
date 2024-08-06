@@ -97,6 +97,8 @@ To talk about programs in this thesis, we will use Milner's [-@milner1989comcon]
 
   Each sub-process tree must end in a $\ccsnull$-process or recursion.
   For brevity, we usually drop a final $\ccsnull$ when writing terms, e.g., just writing $\literal{ac}$ for $\ccsprefix{\literal{ac}} \ccsnull$.
+
+  We place parenthesis, $(…)$, in terms where the syntax trees are otherwise ambiguous, but understand the choice operator $\ccschoice$ and the parallel operator $\ccspar$ to be associative.
 :::
 
 ::: {#exm-ccs}
@@ -136,7 +138,7 @@ To talk about programs in this thesis, we will use Milner's [-@milner1989comcon]
 ::: {#def-ccs-semantics}
 #### CCS Semantics
 
-Given an assignment of names to processes, $\ccsasg \colon \ccsnames \to \ccs$, the operational semantics ${\step{\cdot}_\ccs} ⊆ \ccs × \ccsactions × \ccs$ is defined inductively by the rules:
+Given an assignment of names to processes, $\ccsasg \colon \ccsnames → \ccs$, the operational semantics ${\step{\cdot}_\ccs} ⊆ \ccs × \ccsactions × \ccs$ is defined inductively by the rules:
 
 $$
 \dfrac{
@@ -191,10 +193,53 @@ $$
   P \ccsrestrict A \step{α}_\ccs P' \ccsrestrict A
 }
 $$
+A process $P ∈ \ccs$ now denotes a position in the transition system $(\ccs, \ccsactions, \step{}_\ccs)$ defined through @def-ccs.
 :::
 
-{{< noindent >}}A process $P ∈ \ccs$ now denotes a position in the transition system $(\ccs, \ccsactions, \step{}_\ccs)$ defined through @def-ccs.
+{{< noindent >}} Feel free to go ahead an check that the transitions of @exm-ts indeed match those that @def-ccs-semantics prescribes for $\literal{P}$ of @exm-ccs!
+(For readability, @exm-ts, has shorter state names, however.)
+For instance, the transition $\literal P \step{τ} \literal{pA}$ of @exm-ts would be justified as follows:
 
+::: {.column-body-outset}
+$$
+\dfrac{
+  \dfrac{
+    \dfrac{
+      \begin{matrix}
+        \vphantom{\step{\coaction{\literal{fork}}}_\ccs}\\
+        \coaction{\literal{fork}} \step{\coaction{\literal{fork}}}_\ccs \ccsnull
+      \end{matrix}
+      \qquad
+      \dfrac{
+        \literal{P_A} \step{\literal{fork}}_\ccs \literal a
+      }{
+        \literal{P_A} \ccspar \literal{P_B} \step{\literal{fork}}_\ccs \literal a \ccspar \literal{P_B}
+      }
+    }{
+      \coaction{\literal{fork}} \ccspar \literal{P_A} \ccspar \literal{P_B}
+      \step{τ}_\ccs
+      \ccsnull \ccspar \literal a \ccspar \literal{P_B}
+    }
+    \qquad
+    \begin{matrix}
+      \vphantom{\step{\coaction{\literal{fork}}}_\ccs}\\
+      τ \notin A
+    \end{matrix}
+  }{
+    ( \coaction{\literal{fork}} \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
+    \step{τ}_\ccs
+    ( \ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
+  }
+  \qquad
+  \begin{matrix}
+    \vphantom{\step{\coaction{\literal{fork}}}_\ccs}\\
+    \ccsasg(\literal P) = ( \coaction{\literal{fork}} \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
+  \end{matrix}
+}{
+  \literal P \step{τ}_\ccs ( \ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
+}
+$$
+:::
 
 ## Behavioral Equivalences {#sec-behavioral-eq}
 

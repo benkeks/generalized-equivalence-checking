@@ -25,6 +25,13 @@ A *labeled transition system* (LTS) $\system=(\states,\actions,\step{})$ consist
 {{<noindent>}} There is a canonical example used to discuss equivalences within transition systems.
 We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzinger.
 
+::: {#fig-henzinger .column-margin}
+
+  ![](img/henzinger.jpg){.lightbox}
+
+  Tom Henzinger employing @exm-ts during CAV'23.
+:::
+
 ::: {#exm-ts}
 #### A Classic Example
 
@@ -32,29 +39,22 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
   
   ```{mermaid}
   flowchart TD
-    p0(P) -- τ --> pAB(pAB)
-    pAB -- a --> pA( )
-    pAB -- b --> pB( )
+    p0(P) -- τ --> pA(pA)
+    p0 -- τ --> pB(pB)
+    pA -- a --> pA0( )
+    pB -- b --> pB0( )
 
-    q0(Q) -- τ --> qA(qA)
-    q0 -- τ --> qB(qB)
-    qA -- a --> qA0( )
-    qB -- b --> qB0( )
+    q0(Q) -- τ --> qAB(qAB)
+    qAB -- a --> qA( )
+    qAB -- b --> qB( )
+
   ```
 
   {{<noindent>}}
-  The program described by the transitions from $\literal{P}$ performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$.
-  The program $\literal{Q}$ on the other hand first decides non-deterministically during a $\tau$-step between two options and then offers only either $\literal a$ *or* $\literal b$.
-
+  The program described by the transitions from $\literal{P}$ choses non-deterministically during a $τ$-step between two options and then offers only either $\literal a$ *or* $\literal b$.
+  The program $\literal{Q}$ on the other hand performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$ to the environment.
 :::
 
-::: {#fig-henzinger}
-
-  ![](img/henzinger.jpg){.lightbox}
-
-  Tom Henzinger employing @exm-ts during CAV'23.
-
-:::
 
 {{<noindent>}}
 There are two things one might wonder about @exm-ts:
@@ -95,7 +95,7 @@ Given an assignment of names to processes, $\ccsasg \colon \ccsnames \to \ccs$, 
 $$
 \dfrac{
 }{
-  \ccsprefix{α} P \step{a}_\ccs P
+  \ccsprefix{α} P \step{α}_\ccs P
 }
 \qquad
 \dfrac{
@@ -151,14 +151,6 @@ $$
 
 Consider the simple process
 It...
-
-See @fig-hello-world for the semantics.
-
-::: {#fig-hello-world}
-
-  Process of example @exm-ccs.
-
-:::
 
 :::
 
@@ -226,9 +218,9 @@ Its semantics $\semantics{\cdot} \colon \hml \to \powerset{\states}$ is defined 
 ```{=latex}
 \begin{mathpar}
 \inferrule*{
-  p \step{a} p' \\ p' ∈ \semantics{\varphi}
+  p \step{α} p' \\ p' ∈ \semantics{\varphi}
 }{
-  p ∈ \semantics{\hmlobserve{a}\varphi}
+  p ∈ \semantics{\hmlobserve{α}\varphi}
 }\and
 \inferrule*{
   \forall i ∈ I \ldotp p ∈ \semantics{\varphi_i}

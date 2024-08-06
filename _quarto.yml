@@ -47,11 +47,16 @@ format:
   html:
     theme: cosmo
     html-math-method: katex
-    fig-cap-location: margin
+    #fig-cap-location: margin
     reference-location: margin
     citation-location: margin
     linestretch: 1.5
     mainfont: KaTeX_Main
+    grid:
+      sidebar-width: 300px
+      body-width: 800px
+      margin-width: 300px
+      gutter-width: 1.5rem
     other-links:
     - text: PDF version
       icon: file-pdf
@@ -65,6 +70,11 @@ format:
     papersize: a4
     top-level-division: chapter
     toc: true
+    geometry:
+    - left=3cm
+    - textwidth=12cm
+    - marginparsep=0.5cm
+    - marginparwidth=4.5cm
     include-in-header: style/preamble.tex
     include-before-body:
       text: |

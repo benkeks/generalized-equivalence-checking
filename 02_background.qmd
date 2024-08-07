@@ -205,24 +205,21 @@ $$
 \dfrac{
   \dfrac{
     \dfrac{
-      \begin{matrix}
-        \vphantom{\step{\coaction{\literal{fork}}}_\ccs}\\
+      \dfrac{
+        \vphantom{\step{\coaction{\literal{fork}}}_\ccs}
+      }{
         \coaction{\literal{fork}} \step{\coaction{\literal{fork}}}_\ccs \ccsnull
-      \end{matrix}
-      \qquad
+      }
+      \quad
       \dfrac{
         \dfrac{
-          \dfrac{
-          }{
+          \overline{
             \ccsprefix{\literal{fork}} \literal a
             \step{\literal{fork}}_\ccs
             \literal a
           }
           \qquad
-          \begin{matrix}
-            \vphantom{\setminus} \\
-            \ccsasg(\literal{P_A}) = \ccsprefix{\literal{fork}} \literal a
-          \end{matrix}
+          \ccsasg(\literal{P_A}) = \ccsprefix{\literal{fork}} \literal a
         }{
           \literal{P_A} \step{\literal{fork}}_\ccs \literal a
         }
@@ -234,7 +231,7 @@ $$
       \step{τ}_\ccs
       \ccsnull \ccspar \literal a \ccspar \literal{P_B}
     }
-    \qquad
+    \quad
     \begin{matrix}
       \vphantom{\step{\coaction{\literal{fork}}}_\ccs}\\
       τ \notin A
@@ -244,7 +241,7 @@ $$
     \step{τ}_\ccs
     ( \ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
   }
-  \qquad
+  \quad
   \begin{matrix}
     \vphantom{\step{\coaction{\literal{fork}}}_\ccs}\\
     \ccsasg(\literal P) = ( \coaction{\literal{fork}} \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}

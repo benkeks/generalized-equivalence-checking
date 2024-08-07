@@ -300,6 +300,13 @@ This ordering is strict, that is, $\literal{q_{ab}} \nbpreord{T} \literal{p_a}$,
 We could say that trace $\literal{b}$ constitutes a *difference* between $\literal{q_{ab}}$ and $\literal{p_a}$.
 :::
 
+::: {#prp-trace-eq-rel}
+The trace preorder $\bpreord{T}$ is indeed a preorder (i.e., transitive and reflexive) and trace equivalence $\beq{T}$ is indeed an equivalence relation (i.e., transitive, reflexive, and moreover symmetric).
+:::
+::: {.proof}
+The properties carry over directly from $⊆$ and $=$ on sets of $\traces{\cdot}$.
+:::
+
 ### Simulation and Bisimulation
 
 ::: {#def-simulation}
@@ -328,18 +335,39 @@ The following relations are simulations on the LTS of @exm-ts:
 - the identity relation $\rel R_\mathrm{id} := \identity{\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}} = \set{(\literal P, \literal P),\allowbreak (\literal{p_a}, \literal{p_a}),\allowbreak (\literal{p_b}, \literal{p_b}), (\literal{p_1}, \literal{p_1}),\allowbreak (\literal{p_2}, \literal{p_2}), (\literal Q, \literal Q), (\literal{q_{ab}}, \literal{q_{ab}}), \allowbreak(\literal{q_1}, \literal{q_1}), (\literal{q_2}, \literal{q_2})}$;
 - the universal relation between all final states $\rel R_\mathrm{fin} := \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}}²$,
 - more generally, the relation from final states to all other states: $\rel R_\mathrm{up} := \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} × \states$;
-- a minimal simulation for $\literal P$ and $\literal Q$: $\rel R_\mathrm{sim} := \set{(\literal{P}, \literal{Q}), (\literal{p_a}, \literal{q_{ab}}), (\literal{p_b}, \literal{q_{ab}}), (\literal{p_1}, \literal{q_1}), (\literal{p_2}, \literal{q_2})}$;
+- a minimal simulation for $\literal P$ and $\literal Q$: $\rel R_\literal{PQ} := \set{(\literal{P}, \literal{Q}), (\literal{p_a}, \literal{q_{ab}}), (\literal{p_b}, \literal{q_{ab}}), (\literal{p_1}, \literal{q_1}), (\literal{p_2}, \literal{q_2})}$;
 - and the combination of the above $\rel R_\mathrm{max} := \rel R_\mathrm{sim} ∪ \rel R_\mathrm{id} ∪ \rel R_\mathrm{up}$.
 
-{{<noindent>}} This shows, among other things, that $\literal P \bpreord{S} \literal Q$.
+{{<noindent>}} The simulation $\rel R_\literal{PQ}$ shows that $\literal P \bpreord{S} \literal Q$.
 
 However, there is no simulation that preorders $\literal Q$ to $\literal P$, as there is no way to simulate the transition $\literal Q \step{\tau} \literal{q_{ab}}$ from $\literal P$ for lack of a successor that allows $\literal a$ *and* $\literal b$ as does $\literal{q_{ab}}$.
+(In @sec-hml, we will discuss how to capture such differences more formally.)
 
 Thus, $\literal Q \nbpreord{S} \literal P$, and $\literal P \nbeq{S} \literal Q$. Moreover, there cannot be a symmetric simulation, $\literal P \nbeq{B} \literal Q$.
 :::
 
+::: {#prp-sim-eq-rel}
+The simulation preorder $\bpreord{S}$ is indeed a preorder and $\beq{S}$ and $\beq{B}$ are equivalences.
+:::
+::: {.proof}
+1. Reflexivity of $\bpreord{S}$, $\beq{S}$ and $\beq{B}$:<br>
+  $\identity{\states}$ is a (symmetric) simulation on each transition system.
+2. Transitivity of $\bpreord{S}$:<br>
+  If $\rel R_1$ and $\rel R_2$ are simulations, then the composition $\rel R_1 \circ \rel R_2$ too is a simulation.
+  This also establishes transitivity of $\beq{S}$ and $\beq{B}$.
+3. Symmetry of $\beq{S}:$ By definition.
+4. Symmetry of $\beq{B}$:<br>
+  $p \beq{B} q$ implies there is a symmetric simulation $\rel R$ with $(p,q) \in \rel R$.
+  As $\rel R = \inverse{\rel R}$, this implies $(q,p) \in \rel R$ and thus $q \beq{B} p$.
 
-## Observations as Modal Logic
+:::
+
+#### The Hierarchy of Equivalences
+
+
+## Observations as Modal Logic {#sec-hml}
+
+### Hennessy–Milner Logic to Express Observations
 
 ::: {#def-observations}
 #### Hennessy–Milner Logic
@@ -378,6 +406,9 @@ Its semantics $\semantics{\cdot} \colon \hml \to \powerset{\states}$ is defined 
 \end{mathpar}
 ```
 :::
+
+
+### Characterizing Bisimilarity via HML
 
 ::: {#lem-hennessy-milner}
 

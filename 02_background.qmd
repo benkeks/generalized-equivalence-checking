@@ -39,14 +39,14 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
   
   ```{mermaid}
   flowchart TD
-    p0(P) -- τ --> pA(pA)
-    p0 -- τ --> pB(pB)
-    pA -- a --> pA0( )
-    pB -- b --> pB0( )
+    p0(P) -- τ --> pA(p<sub>a</sub>)
+    p0 -- τ --> pB(p<sub>b</sub>)
+    pA -- a --> pA0(p<sub>1</sub>)
+    pB -- b --> pB0(p<sub>2</sub>)
 
-    q0(Q) -- τ --> qAB(qAB)
-    qAB -- a --> qA( )
-    qAB -- b --> qB( )
+    q0(Q) -- τ --> qAB(q<sub>ab</sub>)
+    qAB -- a --> qA(q<sub>1</sub>)
+    qAB -- b --> qB(q<sub>2</sub>)
   ```
 
   {{<noindent>}}
@@ -112,8 +112,8 @@ To talk about programs in this thesis, we will use Milner's [-@milner1989comcon]
 :::::: {.column-margin}
   ```{mermaid}
   flowchart TD
-    p0(P_A) -- fork --> pA(a.0)
-    pA -- a --> 0(0)
+    p0(P<sub>A</sub>) -- fork --> pA(a.0)
+    pA -- a --> 0(<strong>0</strong>)
   ```
 ::::::
 
@@ -198,7 +198,7 @@ A process $P ∈ \ccs$ now denotes a position in the transition system $(\ccs, \
 
 {{< noindent >}} Feel free to go ahead an check that the transitions of @exm-ts indeed match those that @def-ccs-semantics prescribes for $\literal{P}$ of @exm-ccs!
 (For readability, @exm-ts, has shorter state names, however.)
-For instance, the transition $\literal P \step{τ} \literal{pA}$ of @exm-ts would be justified as follows:
+For instance, the transition $\literal P \step{τ} \literal{p_a}$ of @exm-ts would be justified as follows:
 
 ::: {.column-body-outset}
 $$
@@ -295,9 +295,9 @@ Processes are *trace-preordered*, $p \bpreord{T} q$, if $\traces{p} ⊆ \traces{
 
 The traces for the processes of @exm-ts would be $\traces{\literal{P}} = \set{\emptyword, τ, τ\literal{a}, τ\literal{b}} = \traces{\literal Q}$. Consequently, $\literal P$ and $\literal Q$ are trace-equivalent, $\literal P \beq{T} \literal Q$.
 
-As $\traces{\literal{pA}} = \set{\emptyword, \literal{a}} ⊆ \set{\emptyword, \literal{a}, \literal{b}} = \traces{\literal{qAB}}$, $\literal{pA}$ is trace-preordered to $\literal{qAB}$, $\literal{pA} \bpreord{T} \literal{qAB}$.
-This ordering is strict, that is, $\literal{qAB} \nbpreord{T} \literal{pA}$, due to $\literal{b} ∈ \traces{\literal{qAB}}$ but $\literal{b} \notin \traces{\literal{pA}}$.
-We could say that trace $\literal{b}$ constitutes a *difference* between $\literal{qAB}$ and $\literal{pA}$.
+As $\traces{\literal{p_a}} = \set{\emptyword, \literal{a}} ⊆ \set{\emptyword, \literal{a}, \literal{b}} = \traces{\literal{q_{ab}}}$, $\literal{p_a}$ is trace-preordered to $\literal{q_{ab}}$, $\literal{p_a} \bpreord{T} \literal{q_{ab}}$.
+This ordering is strict, that is, $\literal{q_{ab}} \nbpreord{T} \literal{p_a}$, due to $\literal{b} ∈ \traces{\literal{q_{ab}}}$ but $\literal{b} \notin \traces{\literal{p_a}}$.
+We could say that trace $\literal{b}$ constitutes a *difference* between $\literal{q_{ab}}$ and $\literal{p_a}$.
 :::
 
 ### Simulation and Bisimulation
@@ -309,7 +309,6 @@ A relation on states, $\rel R ⊆ \states × \states$, is called a *simulation* 
 
 :::
 
-
 ::: {#def-bisimilarity}
 #### (Bi-)similarity
 
@@ -318,6 +317,25 @@ Simulation-preorder, similarity and bisimilarity are defined as follows:
 - $p$ is *simulated by* $q$, $p \bpreord{S} q$, iff there is a simulation $\rel R$ with $(p, q) ∈ \rel R$.
 - $p$ is *similar* to $q$, $p \beq{S} q$, iff $p \bpreord{S} q$ and $q \bpreord{S} p$.
 - $p$ is *bisimilar* to $q$, $p \beq{B} q$, iff there is a *symmetric* simulation $\rel R$ (i.e. $\rel R = \inverse{\rel R}$) with $(p, q) ∈ \rel R$.
+:::
+
+
+::: {#exm-phil-sim}
+
+The following relations are simulations on the LTS of @exm-ts:
+
+- the empty relation $\rel R_\varnothing := \varnothing$;
+- the identity relation $\rel R_\mathrm{id} := \identity{\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}} = \set{(\literal P, \literal P),\allowbreak (\literal{p_a}, \literal{p_a}),\allowbreak (\literal{p_b}, \literal{p_b}), (\literal{p_1}, \literal{p_1}),\allowbreak (\literal{p_2}, \literal{p_2}), (\literal Q, \literal Q), (\literal{q_{ab}}, \literal{q_{ab}}), \allowbreak(\literal{q_1}, \literal{q_1}), (\literal{q_2}, \literal{q_2})}$;
+- the universal relation between all final states $\rel R_\mathrm{fin} := \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}}²$,
+- more generally, the relation from final states to all other states: $\rel R_\mathrm{up} := \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} × \states$;
+- a minimal simulation for $\literal P$ and $\literal Q$: $\rel R_\mathrm{sim} := \set{(\literal{P}, \literal{Q}), (\literal{p_a}, \literal{q_{ab}}), (\literal{p_b}, \literal{q_{ab}}), (\literal{p_1}, \literal{q_1}), (\literal{p_2}, \literal{q_2})}$;
+- and the combination of the above $\rel R_\mathrm{max} := \rel R_\mathrm{sim} ∪ \rel R_\mathrm{id} ∪ \rel R_\mathrm{up}$.
+
+{{<noindent>}} This shows, among other things, that $\literal P \bpreord{S} \literal Q$.
+
+However, there is no simulation that preorders $\literal Q$ to $\literal P$, as there is no way to simulate the transition $\literal Q \step{\tau} \literal{q_{ab}}$ from $\literal P$ for lack of a successor that allows $\literal a$ *and* $\literal b$ as does $\literal{q_{ab}}$.
+
+Thus, $\literal Q \nbpreord{S} \literal P$, and $\literal P \nbeq{S} \literal Q$. Moreover, there cannot be a symmetric simulation, $\literal P \nbeq{B} \literal Q$.
 :::
 
 

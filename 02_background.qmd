@@ -211,7 +211,21 @@ $$
       \end{matrix}
       \qquad
       \dfrac{
-        \literal{P_A} \step{\literal{fork}}_\ccs \literal a
+        \dfrac{
+          \dfrac{
+          }{
+            \ccsprefix{\literal{fork}} \literal a
+            \step{\literal{fork}}_\ccs
+            \literal a
+          }
+          \qquad
+          \begin{matrix}
+            \vphantom{\setminus} \\
+            \ccsasg(\literal{P_A}) = \ccsprefix{\literal{fork}} \literal a
+          \end{matrix}
+        }{
+          \literal{P_A} \step{\literal{fork}}_\ccs \literal a
+        }
       }{
         \literal{P_A} \ccspar \literal{P_B} \step{\literal{fork}}_\ccs \literal a \ccspar \literal{P_B}
       }

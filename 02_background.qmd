@@ -255,6 +255,12 @@ $$
 $$
 :::
 
+{{< noindent >}} Non-determinism like in $\literal P$ of @exm-ts can be understood as a natural phenomenon in models with concurrency.
+The model leaves unspecified which of two processes will consume an internal resource and, to the outsider, it is transparent which one took the resource until they communicate.
+There are other ways how non-determinism plays a crucial role in models, for instance, as consequence of abstraction or parts that are left open in specifications.
+
+The second process $\literal Q$ of @exm-ts can be understood as a deterministic sibling of $\literal P$.
+
 ::: {#exm-deterministic-phil}
 #### Deterministic Philosophers
 

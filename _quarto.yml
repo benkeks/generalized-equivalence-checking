@@ -66,15 +66,19 @@ format:
       href: https://github.com/benkeks/generalized-equivalence-checking
   pdf:
     documentclass: report
+    #classoption: [twoside]
     indent: true
     papersize: a4
     top-level-division: chapter
     toc: true
+    #keep-md: true
+    #keep-tex: true
     geometry:
     - left=3cm
     - textwidth=12cm
     - marginparsep=0.5cm
     - marginparwidth=4.5cm
+    reference-location: margin
     include-in-header: style/preamble.tex
     include-before-body:
       text: |
@@ -82,6 +86,8 @@ format:
     cite-method: natbib
     biblio-config: true
     latex-max-runs: 3
+    mermaid:
+      theme: neutral
 
 # jupyter:
 #  kernelspec:

@@ -35,8 +35,9 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
 ::: {#exm-ts}
 #### A Classic Example
 
-  Consider the LTS given by the following graph:
-  
+  Consider the LTS $\system_\literal{PQ} = (\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}, \set{\literal a, \literal b, \tau}, \step{\cdot}_\literal{PQ})$ given by the following graph:
+
+::::{#fig-ts-determinism fig-pos=H}
   ```{mermaid}
   flowchart TD
     p0(P) -- τ --> pA(p<sub>a</sub>)
@@ -48,6 +49,9 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
     qAB -- a --> qA(q<sub>1</sub>)
     qAB -- b --> qB(q<sub>2</sub>)
   ```
+
+  Example system $\system_\literal{PQ}$.
+::::
 
   {{<noindent>}}
   The program described by the transitions from $\literal{P}$ choses non-deterministically during a $τ$-step between two options and then offers only either $\literal a$ *or* $\literal b$.
@@ -363,6 +367,8 @@ The simulation preorder $\bpreord{S}$ is indeed a preorder and $\beq{S}$ and $\b
 :::
 
 #### The Hierarchy of Equivalences
+
+
 
 
 ## Observations as Modal Logic {#sec-hml}

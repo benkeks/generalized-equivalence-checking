@@ -1,7 +1,5 @@
 ---
 title: "Preliminaries: Communicating Systems and Games"
-filters:
-- teximg
 ---
 
 {{< include style/macros.md >}}
@@ -35,19 +33,19 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
 ::: {#exm-ts}
 #### A Classic Example
 
-  Consider the LTS $\system_\literal{PQ} = (\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}, \set{\literal a, \literal b, \tau}, \step{\cdot}_\literal{PQ})$ given by the following graph:
+  Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}, \set{\literal a, \literal b, \tau}, \step{\cdot}_\literal{PQ})$ given by the following graph:
 
 ::::{#fig-ts-determinism fig-pos=H}
   ```{mermaid}
   flowchart TD
-    p0(P) -- τ --> pA(p<sub>a</sub>)
-    p0 -- τ --> pB(p<sub>b</sub>)
-    pA -- a --> pA0(p<sub>1</sub>)
-    pB -- b --> pB0(p<sub>2</sub>)
+    p0([P]) -- τ --> pA([p<sub>a</sub>])
+    p0 -- τ --> pB([p<sub>b</sub>])
+    pA -- a --> pA0([p<sub>1</sub>])
+    pB -- b --> pB0([p<sub>2</sub>])
 
-    q0(Q) -- τ --> qAB(q<sub>ab</sub>)
-    qAB -- a --> qA(q<sub>1</sub>)
-    qAB -- b --> qB(q<sub>2</sub>)
+    q0([Q]) -- τ --> qAB([q<sub>ab</sub>])
+    qAB -- a --> qA([q<sub>1</sub>])
+    qAB -- b --> qB([q<sub>2</sub>])
   ```
 
   Example system $\system_\literal{PQ}$.
@@ -116,8 +114,8 @@ To talk about programs in this thesis, we will use Milner's [-@milner1989comcon]
 :::::: {.column-margin}
   ```{mermaid}
   flowchart TD
-    p0(P<sub>A</sub>) -- fork --> pA(a.0)
-    pA -- a --> 0(<strong>0</strong>)
+    p0([P<sub>A</sub>]) -- fork --> pA([a.0])
+    pA -- a --> 0([<strong>0</strong>])
   ```
 ::::::
 
@@ -330,7 +328,6 @@ Simulation-preorder, similarity and bisimilarity are defined as follows:
 - $p$ is *bisimilar* to $q$, $p \beq{B} q$, iff there is a *symmetric* simulation $\rel R$ (i.e. $\rel R = \inverse{\rel R}$) with $(p, q) ∈ \rel R$.
 :::
 
-
 ::: {#exm-phil-sim}
 
 The following relations are simulations on the LTS of @exm-ts:
@@ -366,8 +363,96 @@ The simulation preorder $\bpreord{S}$ is indeed a preorder and $\beq{S}$ and $\b
 
 :::
 
-#### The Hierarchy of Equivalences
+### The Hierarchy of Equivalences
 
+Bisimilarity, similarity and trace equivalence form a small hierarchy of equivalences in the sense that they imply one-another in one direction, but not in the other.
+Let us quickly make this formal:
+
+:::: {#fig-core-hierarchy .column-margin}
+```{mermaid}
+  flowchart TD
+    GI[Graph Isomorphism] -.-> B[Bisimilarity] --> S[Similarity] --> T[Trace Equivalence]
+    style GI stroke-dasharray: 3 3
+  ```
+
+  Core hierarchy of equivalences.
+::::
+
+::: {#lem-bisim-impl-sim}
+  If $p \beq{B} q$, then $p \beq{S} q$.
+:::
+
+::: {#lem-sim-impl-traces}
+  If $p \bpreord{S} q$, then $p \bpreord{T} q$. (Consequently, $p \beq{S} q$ also implies $p \beq{T} q$.)
+:::
+
+{{<noindent>}} We also have seen with example @exm-phil-sim that this hierarchy is strict between trace and simulation preorder in the sense that there exist $p,q$ with $p \bpreord{T} q$ but not $p \bpreord{S} q$.
+The hierarchy also is strict between similarity and bisimilarity as the following example shows.
+
+::: {#exm-bisim-sim}
+#### Trolled philosophers
+
+  Let us extend @exm-deterministic-phil with a troll process that might consume the $\literal{fork}$ and then do nothing:
+  $$
+  \literal {Q'} := (\coaction{\literal{fork}} \ccspar \ccsprefix{\literal{fork} \ccspar \literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
+  $$
+  This adds another deadlock state to the transition system, seen in @fig-bisim-sim-ts.
+
+:::: {#fig-bisim-sim-ts .column-margin}
+  ```{mermaid}
+  flowchart TD
+    q0([Q']) -- τ --> qAB([q<sub>ab</sub>])
+    qAB -- a --> qA([q<sub>1</sub>])
+    qAB -- b --> qB([q<sub>2</sub>])
+    q0 -- τ --> qT([q<sub>3</sub>])
+  ```
+  Example with new deadlock $\literal{q_3}$.
+::::
+
+  To similarity, this change is invisible, that is $\literal Q \beq{S} \literal{Q'}$.
+  (Reason: The relation $\set{(\literal Q, \literal{Q'}), (\literal{Q'}, \literal{Q})} \cup \identity{\set{ \literal{q_{ab}}, \literal{q_1}, \literal{q_2}, \literal{q_3}}}$ is a simulation.)
+
+  However, to bisimilarity, $\literal{Q'} \step{\tau} \literal{q_3}$ constitutes a difference.
+  There cannot be a symmetric simulation handling this transition as $\literal{Q}$ has no deadlocked successors.
+  Thus $\literal Q \nbeq{B} \literal{Q'}$.
+:::
+
+The equivalences we have been discussed so far could also be understood as abstractions of an even finer equivalence, namely graph isomorphism:
+
+::: {#def-graph-isomorphism}
+#### Graph Isomorphism
+
+A bijective function $\rel f \colon \states \to \states$ is called a *graph isomorphism* on a transition system if, for all $p,p', α$, the transition $p \step{α} p'$ exists if and only if the transition $\rel f(p) \step{α} \rel f(p')$ exists.
+
+Two states $p$ and $q$ are considered *graph-isomorphism-equivalent*, $p \beq{GI} q$, iff there is a graph isomorphism $\rel f$ with $\rel f(p) = q$.
+:::
+
+::: {#exm-graph-isomorphism}
+Consider the transition system in @fig-iso-ts.
+$\literal{p_{even}} \beq{GI} \literal{p_{odd}}$ because $\rel f := \set{\literal{p_{even}} \mapsto \literal{p_{odd}}, \literal{p_{odd}} \mapsto \literal{p_{even}}}$ is a graph isomorphism.
+
+:::: {#fig-iso-ts .column-margin}
+  ```{mermaid}
+  flowchart TD
+    pEven([p<sub>even</sub>]) -- τ --> pOdd([p<sub>odd</sub>]) -- τ --> pEven
+  ```
+  Transition system with an isomorphic cycle.
+::::
+:::
+
+::: {#lem-iso-impl-bisim}
+The relation $\beq{GI}$ is itself a symmetric simulation and thus $p \beq{GI} q$ implies $p \beq{B} q$.
+:::
+
+Once again, the hierarchy is strict because of bisimilarity being less restricted in the matching of equivalent states.
+
+::: {#exm-iso-vs-bisim}
+Consider the processes $\literal{P_1} := (\coaction{\literal{fork}} \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$ and $\literal{P_2} := (\coaction{\literal{fork}} \ccspar \literal{fork} \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$.
+$\literal{P_1}$ can transition to $(\ccsnull \ccspar \ccsnull) \ccsrestrict \set{\literal{fork}}$, while $\literal{P_2}$ has two options, namely $(\ccsnull \ccspar \ccsnull \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$ and $(\ccsnull \ccspar \literal{fork} \ccspar \ccsnull) \ccsrestrict \set{\literal{fork}}$.
+All three reachable processes are deadlocks and thus isomorphic.
+But $\literal{P_1} \nbeq{GI} \literal{P_2}$ because no bijection can connect the one successor of $\literal{P_1}$ and the two of $\literal{P_2}$.
+However, $\literal{P_1} \beq{B} \literal{P_2}$, as bisimilarity is more relaxed.
+:::
 
 
 

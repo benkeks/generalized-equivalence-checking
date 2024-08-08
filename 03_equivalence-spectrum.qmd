@@ -22,7 +22,7 @@ $$P \bpreord{E} Q \defiff \difference{P}{Q} \cap E \subseteq \varnothing.$$
 If $P \bpreord{E} Q$ and $Q \bpreord{E} P$, the two are considered $E$-equivalent, $P \beq{E} Q$.
 :::
 
-::: {#def-bisimilarity}
+::: {#def-bisimilarity-again}
 ### Bisimilarity
 
 Two processes are bisimulation preordered (and moreover bisimilar)

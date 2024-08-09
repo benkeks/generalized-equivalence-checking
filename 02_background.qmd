@@ -460,7 +460,7 @@ However, $\literal{P_1} \beq{B} \literal{P_2}$, as bisimilarity is more relaxed.
 
 ### Hennessy–Milner Logic to Express Observations
 
-::: {#def-observations}
+::: {#def-hml}
 #### Hennessy–Milner Logic
 
 For a set of actions $\actions$, the *observations* (expressed as Hennessy–Milner logic $\hml$) follow the grammar:
@@ -474,28 +474,19 @@ $$
     {}\grammaror \quad & \hmlneg \varphi & & \text{“negation”} \\
 \end{array}
 $$
-Its semantics $\semantics{\cdot} \colon \hml \to \powerset{\states}$ is defined by:
+:::
 
-```{=latex}
-\begin{mathpar}
-\inferrule*{
-  p \step{α} p' \\ p' ∈ \semantics{\varphi}
-}{
-  p ∈ \semantics{\hmlobserve{α}\varphi}
-}\and
-\inferrule*{
-  \forall i ∈ I \ldotp p ∈ \semantics{\varphi_i}
-}{
-  p ∈ \semantics{\hmland{i}{I}\varphi_i}
-}\and
-\inferrule*{
-  p \notin \semantics{\varphi}
-}{
-  p ∈ \semantics{\hmlneg\varphi}
-}
+::: {#def-hml-semantics}
+#### HML semantics
+The semantics of HML $\semantics{\cdot} \colon \hml → \powerset{\states}$ is defined recursively by:
 
-\end{mathpar}
-```
+$$
+\begin{array}{rcl}
+  \semantics{\hmlobserve{α}\varphi} & := & \set{p \mid \exists p' ∈ \semantics{\varphi} \ldotp p \step α p'},\\
+  \semantics{\hmland{i}{I}\varphi_i} & := & \bigcap_{i ∈ I} \semantics{\varphi_i},\\
+  \semantics{\hmlneg \varphi} & := & \states \setminus \semantics{\varphi}.
+\end{array}
+$$
 :::
 
 

@@ -378,7 +378,13 @@ Let us quickly make this formal:
   Core hierarchy of equivalences.
 ::::
 
-::: {#lem-bisim-impl-sim}
+
+
+::: {#lem-bisim-bisim}
+  The relation $\beq{B}$ is itself a symmetric simulation.
+:::
+
+::: {#cor-bisim-impl-sim}
   If $p \beq{B} q$, then $p \beq{S} q$.
 :::
 
@@ -468,7 +474,7 @@ Formulas of *Hennessy–Milner logic* $\hml$ are given by the grammar:
 $$
 \begin{array}{cllr}
   φ \grammardef &
-    \hmlobserve{α}φ & \quad\text{with } α ∈ \actions &
+    \hmlobs{α}φ & \quad\text{with } α ∈ \actions &
       \text{“observation”} \\
     {}\grammaror \quad & \hmland{i}{I}φ_i & \quad\text{with index set } I & \text{“conjunction”} \\
     {}\grammaror \quad & \hmlneg φ & & \text{“negation”} \\
@@ -478,10 +484,10 @@ $$
 
 {{<noindent>}} We also write conjunctions as sets $\hmlands \set{φ_1, φ_2…}$.
 The empty conjunction $\hmlands \varnothing$ is denoted by $\hmltrue$ and serves as the nil-element of HML syntax trees.
-We also usually omit them when writing down formulas, e.g., shortening $\hmlobserve{\literal a}\hmlobserve{\literal b}\hmltrue$ to $\hmlobserve{\literal a}\hmlobserve{\literal b}$.
+We also usually omit them when writing down formulas, e.g., shortening $\hmlobs{\literal a}\hmlobs{\literal b}\hmltrue$ to $\hmlobs{\literal a}\hmlobs{\literal b}$.
 
 The intuition behind HML is that it describes *what sequences of behavior* one may or may not *observe* of a system.
-Observations $\hmlobserve{α}…$ are used to build up possible action sequences;
+Observations $\hmlobs{α}…$ are used to build up possible action sequences;
 conjunctions $\hmlands\set{…}$ capture branching points in decision trees;
 and negations $\hmlneg …$ describe impossibilities.
 
@@ -491,7 +497,7 @@ The semantics of HML $\semantics{\cdot} \colon \hml → \powerset{\states}$ is d
 
 $$
 \begin{array}{rcl}
-  \semantics{\hmlobserve{α}φ} & := & \set{p \mid \exists p' ∈ \semantics{φ} \ldotp p \step α p'},\\
+  \semantics{\hmlobs{α}φ} & := & \set{p \mid \exists p' ∈ \semantics{φ} \ldotp p \step α p'},\\
   \semantics{\hmland{i}{I}φ_i} & := & \bigcap_{i ∈ I} \semantics{φ_i},\\
   \semantics{\hmlneg φ} & := & \states \setminus \semantics{φ}.
 \end{array}
@@ -502,9 +508,9 @@ $$
 
 Let us consider some observations on the system of @exm-ts.
 
-- $\literal P, \literal Q ∈ \semantics{\hmlobserve{τ}\hmlobserve{\literal a}}$ as both expose the trace $τ\literal{a}$,
-- $\literal Q ∈ \semantics{\hmlobserve{τ}\hmlands\set{\hmlobserve{\literal a}, \hmlobserve{\literal b}}}$, but $\literal P \notin \semantics{\hmlobserve{τ}\hmlands\set{\hmlobserve{\literal a}, \hmlobserve{\literal b}}}$.
-- $\literal P ∈ \semantics{\hmlobserve{τ}\hmlneg\hmlobserve{\literal a}}$, but $\literal Q \notin \semantics{\hmlobserve{τ}\hmlneg\hmlobserve{\literal a}}$.
+- $\literal P, \literal Q ∈ \semantics{\hmlobs{τ}\hmlobs{\literal a}}$ as both expose the trace $τ\literal{a}$,
+- $\literal Q ∈ \semantics{\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}}$, but $\literal P \notin \semantics{\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}}$.
+- $\literal P ∈ \semantics{\hmlobs{τ}\hmlneg\hmlobs{\literal a}}$, but $\literal Q \notin \semantics{\hmlobs{τ}\hmlneg\hmlobs{\literal a}}$.
 
 :::
 
@@ -512,33 +518,76 @@ Let us consider some observations on the system of @exm-ts.
 
 
 ::: {#def-distinctions}
-#### Distinguishing Formula
+#### Distinctions and Equivalences
 
 We say that formula $φ ∈ \hml$ *distinguishes* state $p$ *from* state $q$ if $p ∈ \semantics{φ}$ but $q \notin \semantics{φ}$.
 
-We say a sublogic $\observationsvar{X} \subseteq \hml$ *preorders* state $p$ to $q$ if no $φ ∈ \observationsvar{X}$ is distinguishing $p$ from $q$.
+We say a sublogic $\observationsvar{X} \subseteq \hml$ *preorders* state $p$ to $q$, $p \bpreordvar{\observationsvar{X}} q$, if no $φ ∈ \observationsvar{X}$ is distinguishing $p$ from $q$.
+If the preordering goes in both directions, we say that $p$ and $q$ are equivalent with respect to sublogic $\observationsvar{X}$, written $p \beqvar{\observationsvar{X}} q$.
 :::
 
-{{<noindent>}} By this account, $\hmlobserve{τ}\hmlneg\hmlobserve{\literal a}$ of @exm-hml distinguishes $\literal P$ from $\literal Q$.
-$\hmlobserve{τ}\hmlands\set{\hmlobserve{\literal a}, \hmlobserve{\literal b}}$, on the other hand, distinguishes $\literal Q$ from $\literal P$.
+{{<noindent>}} By this account, $\hmlobs{τ}\hmlneg\hmlobs{\literal a}$ of @exm-hml distinguishes $\literal P$ from $\literal Q$.
+$\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}$, on the other hand, distinguishes $\literal Q$ from $\literal P$.
 (The direction matters!)
-For instance, the sublogic $\set{\hmlobserve{τ}\hmlobserve{\literal a}, \hmlobserve{τ}\hmlobserve{\literal b}}$ preorders $\literal P$ and $\literal Q$ in both directions.
+For instance, the sublogic $\set{\hmlobs{τ}\hmlobs{\literal a}, \hmlobs{τ}\hmlobs{\literal b}}$ preorders $\literal P$ and $\literal Q$ in both directions; so the two states are equivalent with respect to this logic.
 
+
+::: {#prp-hml-eq}
+Consider an arbitrary HML sublogic $\observationsvar{X} \subseteq \hml$.
+Then, $\bpreordvar{\observationsvar{X}}$ is a preorder,
+and $\beqvar{\observationsvar{X}}$ an equivalence relation.
+:::
+
+::: {#lem-hml-eq-sim}
+Hennessy–Milner logic equivalence $\beqvar{\hml}$ is a simulation relation.
+:::
+::: {.proof}
+Assume it were not.
+Then there would need to be $p \beqvar{\hml} q$ with step $p \step \alpha p'$, and no $q'$ such that $q \step α q'$ and $p' \beqvar{\hml} q'$.
+So there would need to be a distinguishing formula $φ_{q'}$ for each $q'$ that $q$ can reach by an $α$-step.
+Consider the formula $φ_α := \hmlobs{α}\hmland{q'}{\set{q' \mid q \step α q'}} φ_{q'}$.
+It must be true for $p$ and false for $q$, contradicting $p \beqvar{\hml} q$.
+:::
+
+
+::: {#lem-hml-eq-bisim-invariant}
+#### HML Bisimulation Invariance
+
+If $p \in \semantics{φ}$ and $p \beq{B} q$ then $q \in \semantics{φ}$.
+:::
+::: {.proof}
+Induct over the structure of $φ$ with arbitrary $p$ and $q$.
+
+- Case $p ∈ \semantics{\hmlobs{α}φ}$.
+  Thus there is $p' ∈ \semantics{φ}$ with $p \step α p'$.
+  Because $\beq{B}$ is a simulation according to @lem-bisim-bisim, this implies $q'$ with $p' \beq{B} q'$.
+  The induction hypothesis makes $p' ∈ \semantics{φ}$ entail $q' ∈ \semantics{φ}$
+  and thus $q ∈ \semantics{\hmlobs{α}φ}$.
+- Case $p ∈ \semantics{\hmland{i}{I}φ_i}$.
+  The induction hypothesis on the $φ_i$ directly leads to
+  $q ∈ \semantics{\hmland{i}{I}φ_i}$.
+- Case $p ∈ \semantics{\hmlneg φ}$.
+  Symmetry of $\beq{B}$ accoding to @prp-sim-eq-rel, implies $q \beq{B} p$.
+  By induction hypothesis, $q ∈ \semantics{φ}$ implies $p ∈ \semantics{φ}$.
+  So, using contraposition, the case implies $q ∈ \semantics{\hmlneg φ}$.
+:::
+
+Combining the bisimulation invariance for one direction and that $\beq{\hml}$ is symmetric (@prp-hml-eq) simulation (@lem-hml-eq-sim) for the other, we obtain that $\hml$ precisely characterizes bisimilarity:
 
 ::: {#lem-hennessy-milner}
-
 #### Hennessy–Milner Theorem
 
+Bisimilarity and HML equivalence coincide, that is, $p \beq{B} q$ precisely if $p \beq{\hml} q$
 :::
 
-<!-- We now use observations to give a denotational semantics for our $\ccs$ processes (overloading $\semantics{\cdot}$):
-
-::: {#def-denotational}
-#### Denotations
-
-The denotational semantics of processes, $\semantics{\cdot} \colon \states \to \powerset{\hml}$, is defined:
-$$\semantics{P} := \{ φ ∈ \hml \mid P ∈ \semantics{φ} \}.$$
-::: -->
+::: {#rem-image-finiteness}
+In the standard presentation of the theorem, image finiteness of the transition system is assumed.
+This means that $p \step α \cdot$ is finite for every $p \in \states$.
+The amount of outgoing transitions matters precisely in the construction of $φ_α$ in the proof of @lem-hml-eq-sim.
+But as our definition of $\hml$ (@def-hml) allows infinite conjunctions $\hmland{i}{I} …$, we do not need an assumption here.
+The implicit assumption is that the cardinality of index sets $I$ can match that of $p \step α \cdot$.
+The original proof TODO: CITEHML used binary conjunction and thus could only express finitary conjunctions.
+:::
 
 
 

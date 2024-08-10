@@ -33,7 +33,7 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
 ::: {#exm-ts}
 #### A Classic Example
 
-  Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}, \set{\literal a, \literal b, \tau}, \step{\cdot}_\literal{PQ})$ given by the following graph:
+  Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}, \set{\literal a, \literal b, τ}, \step{\cdot}_\literal{PQ})$ given by the following graph:
 
 ::::{#fig-ts-determinism fig-pos=H}
   ```{mermaid}
@@ -341,7 +341,7 @@ The following relations are simulations on the LTS of @exm-ts:
 
 {{<noindent>}} The simulation $\rel R_\literal{PQ}$ shows that $\literal P \bpreord{S} \literal Q$.
 
-However, there is no simulation that preorders $\literal Q$ to $\literal P$, as there is no way to simulate the transition $\literal Q \step{\tau} \literal{q_{ab}}$ from $\literal P$ for lack of a successor that allows $\literal a$ *and* $\literal b$ as does $\literal{q_{ab}}$.
+However, there is no simulation that preorders $\literal Q$ to $\literal P$, as there is no way to simulate the transition $\literal Q \step{τ} \literal{q_{ab}}$ from $\literal P$ for lack of a successor that allows $\literal a$ *and* $\literal b$ as does $\literal{q_{ab}}$.
 (In @sec-hml, we will discuss how to capture such differences more formally.)
 
 Thus, $\literal Q \nbpreord{S} \literal P$, and $\literal P \nbeq{S} \literal Q$. Moreover, there cannot be a symmetric simulation, $\literal P \nbeq{B} \literal Q$.
@@ -412,7 +412,7 @@ The hierarchy also is strict between similarity and bisimilarity as the followin
   To similarity, this change is invisible, that is $\literal Q \beq{S} \literal{Q'}$.
   (Reason: The relation $\set{(\literal Q, \literal{Q'}), (\literal{Q'}, \literal{Q})} \cup \identity{\set{ \literal{q_{ab}}, \literal{q_1}, \literal{q_2}, \literal{q_3}}}$ is a simulation.)
 
-  However, to bisimilarity, $\literal{Q'} \step{\tau} \literal{q_3}$ constitutes a difference.
+  However, to bisimilarity, $\literal{Q'} \step{τ} \literal{q_3}$ constitutes a difference.
   There cannot be a symmetric simulation handling this transition as $\literal{Q}$ has no deadlocked successors.
   Thus $\literal Q \nbeq{B} \literal{Q'}$.
 :::
@@ -463,18 +463,27 @@ However, $\literal{P_1} \beq{B} \literal{P_2}$, as bisimilarity is more relaxed.
 ::: {#def-hml}
 #### Hennessy–Milner Logic
 
-For a set of actions $\actions$, the *observations* (expressed as Hennessy–Milner logic $\hml$) follow the grammar:
+Formulas of *Hennessy–Milner logic* $\hml$ are given by the grammar:
 
 $$
 \begin{array}{cllr}
-  \varphi \grammardef &
-    \hmlobserve{α}\varphi & \quad\text{with } α ∈ \actions &
+  φ \grammardef &
+    \hmlobserve{α}φ & \quad\text{with } α ∈ \actions &
       \text{“observation”} \\
-    {}\grammaror \quad & \hmland{i}{I}\varphi_i & \quad\text{with index set } I & \text{“conjunction”} \\
-    {}\grammaror \quad & \hmlneg \varphi & & \text{“negation”} \\
+    {}\grammaror \quad & \hmland{i}{I}φ_i & \quad\text{with index set } I & \text{“conjunction”} \\
+    {}\grammaror \quad & \hmlneg φ & & \text{“negation”} \\
 \end{array}
 $$
 :::
+
+{{<noindent>}} We also write conjunctions as sets $\hmlands \set{φ_1, φ_2…}$.
+The empty conjunction $\hmlands \varnothing$ is denoted by $\hmltrue$ and serves as the nil-element of HML syntax trees.
+We also usually omit them when writing down formulas, e.g., shortening $\hmlobserve{\literal a}\hmlobserve{\literal b}\hmltrue$ to $\hmlobserve{\literal a}\hmlobserve{\literal b}$.
+
+The intuition behind HML is that it describes *what sequences of behavior* one may or may not *observe* of a system.
+Observations $\hmlobserve{α}…$ are used to build up possible action sequences;
+conjunctions $\hmlands\set{…}$ capture branching points in decision trees;
+and negations $\hmlneg …$ describe impossibilities.
 
 ::: {#def-hml-semantics}
 #### HML semantics
@@ -482,15 +491,39 @@ The semantics of HML $\semantics{\cdot} \colon \hml → \powerset{\states}$ is d
 
 $$
 \begin{array}{rcl}
-  \semantics{\hmlobserve{α}\varphi} & := & \set{p \mid \exists p' ∈ \semantics{\varphi} \ldotp p \step α p'},\\
-  \semantics{\hmland{i}{I}\varphi_i} & := & \bigcap_{i ∈ I} \semantics{\varphi_i},\\
-  \semantics{\hmlneg \varphi} & := & \states \setminus \semantics{\varphi}.
+  \semantics{\hmlobserve{α}φ} & := & \set{p \mid \exists p' ∈ \semantics{φ} \ldotp p \step α p'},\\
+  \semantics{\hmland{i}{I}φ_i} & := & \bigcap_{i ∈ I} \semantics{φ_i},\\
+  \semantics{\hmlneg φ} & := & \states \setminus \semantics{φ}.
 \end{array}
 $$
 :::
 
+::: {#exm-hml}
+
+Let us consider some observations on the system of @exm-ts.
+
+- $\literal P, \literal Q ∈ \semantics{\hmlobserve{τ}\hmlobserve{\literal a}}$ as both expose the trace $τ\literal{a}$,
+- $\literal Q ∈ \semantics{\hmlobserve{τ}\hmlands\set{\hmlobserve{\literal a}, \hmlobserve{\literal b}}}$, but $\literal P \notin \semantics{\hmlobserve{τ}\hmlands\set{\hmlobserve{\literal a}, \hmlobserve{\literal b}}}$.
+- $\literal P ∈ \semantics{\hmlobserve{τ}\hmlneg\hmlobserve{\literal a}}$, but $\literal Q \notin \semantics{\hmlobserve{τ}\hmlneg\hmlobserve{\literal a}}$.
+
+:::
 
 ### Characterizing Bisimilarity via HML
+
+
+::: {#def-distinctions}
+#### Distinguishing Formula
+
+We say that formula $φ ∈ \hml$ *distinguishes* state $p$ *from* state $q$ if $p ∈ \semantics{φ}$ but $q \notin \semantics{φ}$.
+
+We say a sublogic $\observationsvar{X} \subseteq \hml$ *preorders* state $p$ to $q$ if no $φ ∈ \observationsvar{X}$ is distinguishing $p$ from $q$.
+:::
+
+{{<noindent>}} By this account, $\hmlobserve{τ}\hmlneg\hmlobserve{\literal a}$ of @exm-hml distinguishes $\literal P$ from $\literal Q$.
+$\hmlobserve{τ}\hmlands\set{\hmlobserve{\literal a}, \hmlobserve{\literal b}}$, on the other hand, distinguishes $\literal Q$ from $\literal P$.
+(The direction matters!)
+For instance, the sublogic $\set{\hmlobserve{τ}\hmlobserve{\literal a}, \hmlobserve{τ}\hmlobserve{\literal b}}$ preorders $\literal P$ and $\literal Q$ in both directions.
+
 
 ::: {#lem-hennessy-milner}
 
@@ -504,7 +537,7 @@ $$
 #### Denotations
 
 The denotational semantics of processes, $\semantics{\cdot} \colon \states \to \powerset{\hml}$, is defined:
-$$\semantics{P} := \{ \varphi ∈ \hml \mid P ∈ \semantics{\varphi} \}.$$
+$$\semantics{P} := \{ φ ∈ \hml \mid P ∈ \semantics{φ} \}.$$
 ::: -->
 
 

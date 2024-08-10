@@ -48,6 +48,8 @@
 \providecommand{\hml}{\textsf{HML}}
 \providecommand{\hmlobserve}[1]{\langle #1 \rangle}
 \providecommand{\hmland}[2]{\textstyle\bigwedge_{#1 \in #2}}
+\providecommand{\hmlands}[1]{\textstyle\bigwedge #1}
+\providecommand{\hmltrue}{\top}
 \providecommand{\hmlneg}{\neg}
 
 \lc{ Semantics }

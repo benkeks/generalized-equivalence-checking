@@ -25,7 +25,7 @@
 
 \lc{ Grammars }
 
-\providecommand{\grammardef}{\;::=\;}
+\providecommand{\grammardef}{\;⩴\;}
 \providecommand{\grammaror}{\;\mid\;}
 
 \lc{ CCS }
@@ -73,3 +73,14 @@
 \providecommand{\notions}{\mathbf{N}}
 \providecommand{\observations}[1]{\mathcal{O}_\mathrm{#1}}
 \providecommand{\observationsvar}[1]{\mathcal{O}_{#1}}
+
+\lc{ Games }
+\providecommand{\gamemove}[1]{\mathrel{\smash{›\!\!\frac{#1}{}\!\!›}}}
+\providecommand{\gamemoveblank}{\gamemove{\quad}}
+\providecommand{\ngamemove}[1]{\mathrel{\smash{{›/\!\!\!\!\frac{#1}{\;}\!\!›}}}}
+\providecommand{\ngamemoveblank}{\ngamemove{\quad}}
+\providecommand{\game}{\mathcal{G}}
+\providecommand{\attackerpos}[1]{{(#1)}_\mathtt{a}}
+\providecommand{\defenderpos}[1]{{(#1)}_\mathtt{d}}
+\providecommand{\attacker}{{\mathrm{a}}}
+\providecommand{\defender}{{\mathrm{d}}}

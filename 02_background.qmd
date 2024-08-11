@@ -70,7 +70,7 @@ To talk about programs in this thesis, we will use Milner's [-@milner1989comcon]
 ::: {#def-ccs}
 #### Calculus of Communicating Systems
 
-  Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names. Then, $\ccs$ processes, communicating via actions $\ccsactions := \ccschannels \cup \set{ \coaction{\alpha} \mid \alpha \in \ccschannels } \cup \set{τ}$, are given by the following grammar:
+  Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names. Then, $\ccs$ processes, communicating via actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{\alpha} \mid \alpha \in \ccschannels } \cup \set{τ}$, are given by the following grammar:
 
   $$
   \begin{array}{cllr}
@@ -121,14 +121,14 @@ To talk about programs in this thesis, we will use Milner's [-@milner1989comcon]
 
   $$
   \begin{gathered}
-    \literal{P_A} := \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull \\
-    \literal{P_B} := \ccsprefix{\literal{fork}} \ccsprefix{\literal b} \ccsnull
+    \literal{P_A} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull \\
+    \literal{P_B} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal b} \ccsnull
   \end{gathered}
   $$
   An LTS representation of $\literal{P_A}$'s behavior can be seen in the margin.
   Process $\literal P$ captures the whole scenario where the two philosophers compete for the fork using communication:
   $$
-    \literal P := ( \ccsprefix{\coaction{\literal{fork}}} \ccsnull \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
+    \literal P ≔ ( \ccsprefix{\coaction{\literal{fork}}} \ccsnull \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
   $$
   The restriction $… \ccsrestrict \set{\literal{fork}}$ expresses that the $\literal{fork}$-channel can only be used for communication within the system.
 
@@ -266,7 +266,7 @@ The second process $\literal Q$ of @exm-ts can be understood as a deterministic 
 A process matching the transitions from $\literal Q$ in @exm-ts would be the following, where the philosophers take the fork as a team and then let the environment choose who of them eats:
 
 $$
-\literal Q := (\coaction{\literal{fork}} \ccspar \ccsprefix{\literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
+\literal Q ≔ (\coaction{\literal{fork}} \ccspar \ccsprefix{\literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
 $$
 
 :::
@@ -332,12 +332,12 @@ Simulation-preorder, similarity and bisimilarity are defined as follows:
 
 The following relations are simulations on the LTS of @exm-ts:
 
-- the empty relation $\rel R_\varnothing := \varnothing$;
-- the identity relation $\rel R_\mathrm{id} := \identity{\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}} = \set{(\literal P, \literal P),\allowbreak (\literal{p_a}, \literal{p_a}),\allowbreak (\literal{p_b}, \literal{p_b}), (\literal{p_1}, \literal{p_1}),\allowbreak (\literal{p_2}, \literal{p_2}), (\literal Q, \literal Q), (\literal{q_{ab}}, \literal{q_{ab}}), \allowbreak(\literal{q_1}, \literal{q_1}), (\literal{q_2}, \literal{q_2})}$;
-- the universal relation between all final states $\rel R_\mathrm{fin} := \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}}²$,
-- more generally, the relation from final states to all other states: $\rel R_\mathrm{up} := \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} × \states$;
-- a minimal simulation for $\literal P$ and $\literal Q$: $\rel R_\literal{PQ} := \set{(\literal{P}, \literal{Q}), (\literal{p_a}, \literal{q_{ab}}), (\literal{p_b}, \literal{q_{ab}}), (\literal{p_1}, \literal{q_1}), (\literal{p_2}, \literal{q_2})}$;
-- and the combination of the above $\rel R_\mathrm{max} := \rel R_\mathrm{sim} ∪ \rel R_\mathrm{id} ∪ \rel R_\mathrm{up}$.
+- the empty relation $\rel R_\varnothing ≔ \varnothing$;
+- the identity relation $\rel R_\mathrm{id} ≔ \identity{\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}} = \set{(\literal P, \literal P),\allowbreak (\literal{p_a}, \literal{p_a}),\allowbreak (\literal{p_b}, \literal{p_b}), (\literal{p_1}, \literal{p_1}),\allowbreak (\literal{p_2}, \literal{p_2}), (\literal Q, \literal Q), (\literal{q_{ab}}, \literal{q_{ab}}), \allowbreak(\literal{q_1}, \literal{q_1}), (\literal{q_2}, \literal{q_2})}$;
+- the universal relation between all final states $\rel R_\mathrm{fin} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}}²$,
+- more generally, the relation from final states to all other states: $\rel R_\mathrm{up} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} × \states$;
+- a minimal simulation for $\literal P$ and $\literal Q$: $\rel R_\literal{PQ} ≔ \set{(\literal{P}, \literal{Q}), (\literal{p_a}, \literal{q_{ab}}), (\literal{p_b}, \literal{q_{ab}}), (\literal{p_1}, \literal{q_1}), (\literal{p_2}, \literal{q_2})}$;
+- and the combination of the above $\rel R_\mathrm{max} ≔ \rel R_\mathrm{sim} ∪ \rel R_\mathrm{id} ∪ \rel R_\mathrm{up}$.
 
 {{<noindent>}} The simulation $\rel R_\literal{PQ}$ shows that $\literal P \bpreord{S} \literal Q$.
 
@@ -400,7 +400,7 @@ The hierarchy also is strict between similarity and bisimilarity as the followin
 
   Let us extend @exm-deterministic-phil with a troll process that might consume the $\literal{fork}$ and then do nothing:
   $$
-  \literal {Q'} := (\coaction{\literal{fork}} \ccspar \ccsprefix{\literal{fork} \ccspar \literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
+  \literal {Q'} ≔ (\coaction{\literal{fork}} \ccspar \ccsprefix{\literal{fork} \ccspar \literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
   $$
   This adds another deadlock state to the transition system, seen in @fig-bisim-sim-ts.
 
@@ -435,7 +435,7 @@ Two states $p$ and $q$ are considered *graph-isomorphism-equivalent*, $p \beq{GI
 
 ::: {#exm-graph-isomorphism}
 Consider the transition system in @fig-iso-ts.
-$\literal{p_{even}} \beq{GI} \literal{p_{odd}}$ because $\rel f := \set{\literal{p_{even}} \mapsto \literal{p_{odd}}, \literal{p_{odd}} \mapsto \literal{p_{even}}}$ is a graph isomorphism.
+$\literal{p_{even}} \beq{GI} \literal{p_{odd}}$ because $\rel f ≔ \set{\literal{p_{even}} \mapsto \literal{p_{odd}}, \literal{p_{odd}} \mapsto \literal{p_{even}}}$ is a graph isomorphism.
 
 :::: {#fig-iso-ts .column-margin}
   ```{mermaid}
@@ -453,7 +453,7 @@ The relation $\beq{GI}$ is itself a symmetric simulation and thus $p \beq{GI} q$
 Once again, the hierarchy is strict because of bisimilarity being less restricted in the matching of equivalent states.
 
 ::: {#exm-iso-vs-bisim}
-Consider the processes $\literal{P_1} := (\coaction{\literal{fork}} \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$ and $\literal{P_2} := (\coaction{\literal{fork}} \ccspar \literal{fork} \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$.
+Consider the processes $\literal{P_1} ≔ (\coaction{\literal{fork}} \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$ and $\literal{P_2} ≔ (\coaction{\literal{fork}} \ccspar \literal{fork} \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$.
 $\literal{P_1}$ can transition to $(\ccsnull \ccspar \ccsnull) \ccsrestrict \set{\literal{fork}}$, while $\literal{P_2}$ has two options, namely $(\ccsnull \ccspar \ccsnull \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$ and $(\ccsnull \ccspar \literal{fork} \ccspar \ccsnull) \ccsrestrict \set{\literal{fork}}$.
 All three reachable processes are deadlocks and thus isomorphic.
 But $\literal{P_1} \nbeq{GI} \literal{P_2}$ because no bijection can connect the one successor of $\literal{P_1}$ and the two of $\literal{P_2}$.
@@ -472,12 +472,12 @@ However, $\literal{P_1} \beq{B} \literal{P_2}$, as bisimilarity is more relaxed.
 Formulas of *Hennessy–Milner logic* $\hml$ are given by the grammar:
 
 $$
-\begin{array}{cllr}
-  φ \grammardef &
+\begin{array}{rcllr}
+  φ & \grammardef &
     \hmlobs{α}φ & \quad\text{with } α ∈ \actions &
       \text{“observation”} \\
-    {}\grammaror \quad & \hmland{i}{I}φ_i & \quad\text{with index set } I & \text{“conjunction”} \\
-    {}\grammaror \quad & \hmlneg φ & & \text{“negation”} \\
+    & \grammaror & \hmland{i}{I}φ_i & \quad\text{with index set } I & \text{“conjunction”} \\
+    & \grammaror & \hmlneg φ & & \text{“negation”} \\
 \end{array}
 $$
 :::
@@ -497,9 +497,9 @@ The semantics of HML $\semantics{\cdot} \colon \hml → \powerset{\states}$ is d
 
 $$
 \begin{array}{rcl}
-  \semantics{\hmlobs{α}φ} & := & \set{p \mid \exists p' ∈ \semantics{φ} \ldotp p \step α p'},\\
-  \semantics{\hmland{i}{I}φ_i} & := & \bigcap_{i ∈ I} \semantics{φ_i},\\
-  \semantics{\hmlneg φ} & := & \states \setminus \semantics{φ}.
+  \semantics{\hmlobs{α}φ} & ≔ & \set{p \mid \exists p' ∈ \semantics{φ} \ldotp p \step α p'},\\
+  \semantics{\hmland{i}{I}φ_i} & ≔ & \bigcap_{i ∈ I} \semantics{φ_i},\\
+  \semantics{\hmlneg φ} & ≔ & \states \setminus \semantics{φ}.
 \end{array}
 $$
 :::
@@ -508,7 +508,7 @@ $$
 
 Let us consider some observations on the system of @exm-ts.
 
-- $\literal P, \literal Q ∈ \semantics{\hmlobs{τ}\hmlobs{\literal a}}$ as both expose the trace $τ\literal{a}$,
+- $\semantics{\hmlobs{τ}\hmlobs{\literal a}} = \set{\literal P, \literal Q}$ as both, $\literal P$ and $\literal Q$, expose the trace $τ\literal{a}$,
 - $\literal Q ∈ \semantics{\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}}$, but $\literal P \notin \semantics{\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}}$.
 - $\literal P ∈ \semantics{\hmlobs{τ}\hmlneg\hmlobs{\literal a}}$, but $\literal Q \notin \semantics{\hmlobs{τ}\hmlneg\hmlobs{\literal a}}$.
 
@@ -516,13 +516,12 @@ Let us consider some observations on the system of @exm-ts.
 
 ### Characterizing Bisimilarity via HML
 
-
 ::: {#def-distinctions}
 #### Distinctions and Equivalences
 
 We say that formula $φ ∈ \hml$ *distinguishes* state $p$ *from* state $q$ if $p ∈ \semantics{φ}$ but $q \notin \semantics{φ}$.
 
-We say a sublogic $\observationsvar{X} \subseteq \hml$ *preorders* state $p$ to $q$, $p \bpreordvar{\observationsvar{X}} q$, if no $φ ∈ \observationsvar{X}$ is distinguishing $p$ from $q$.
+We say a sublogic $\observationsvar{X} ⊆ \hml$ *preorders* state $p$ to $q$, $p \bpreordvar{\observationsvar{X}} q$, if no $φ ∈ \observationsvar{X}$ is distinguishing $p$ from $q$.
 If the preordering goes in both directions, we say that $p$ and $q$ are equivalent with respect to sublogic $\observationsvar{X}$, written $p \beqvar{\observationsvar{X}} q$.
 :::
 
@@ -533,7 +532,7 @@ For instance, the sublogic $\set{\hmlobs{τ}\hmlobs{\literal a}, \hmlobs{τ}\hml
 
 
 ::: {#prp-hml-eq}
-Consider an arbitrary HML sublogic $\observationsvar{X} \subseteq \hml$.
+Consider an arbitrary HML sublogic $\observationsvar{X} ⊆ \hml$.
 Then, $\bpreordvar{\observationsvar{X}}$ is a preorder,
 and $\beqvar{\observationsvar{X}}$ an equivalence relation.
 :::
@@ -545,7 +544,7 @@ Hennessy–Milner logic equivalence $\beqvar{\hml}$ is a simulation relation.
 Assume it were not.
 Then there would need to be $p \beqvar{\hml} q$ with step $p \step \alpha p'$, and no $q'$ such that $q \step α q'$ and $p' \beqvar{\hml} q'$.
 So there would need to be a distinguishing formula $φ_{q'}$ for each $q'$ that $q$ can reach by an $α$-step.
-Consider the formula $φ_α := \hmlobs{α}\hmland{q'}{\set{q' \mid q \step α q'}} φ_{q'}$.
+Consider the formula $φ_α ≔ \hmlobs{α}\hmland{q'}{\set{q' \mid q \step α q'}} φ_{q'}$.
 It must be true for $p$ and false for $q$, contradicting $p \beqvar{\hml} q$.
 :::
 
@@ -590,10 +589,59 @@ The original proof TODO: CITEHML used binary conjunction and thus could only exp
 :::
 
 
-
 ## Reachability Games
 
-Definition Game
+### Gale–Stewart Games
+
+*Gale--Stewart-style reachability games* where the defender wins all infinite plays.
+
+::: {#def-game}
+
+#### Reachability Game
+
+A *reachability game* $\game = (G, G_\defender, \gamemoveblank)$ is played on a directed graph consisting of
+
+- a set of *game positions* $G$, partitioned into
+  - *defender positions* $G_\defender ⊆ G$
+  - and *attacker positions* $G_\attacker ≔ G \setminus G_\defender$,
+- and a set of *game moves* ${\gamemoveblank} ⊆ G × G$.
+
+We denote by $\game[g_0]$ the game played from starting position $g_0 ∈ G$.
+:::
+
+
+::: {#def-game-plays}
+
+#### Plays and Wins
+
+We call the paths ${g_0}{g_1} … ∈ G^{\infty}$ with $g_{i} \gamemoveblank g_{i+1}$ *plays* of $\game[g_0]$.
+They may be finite or infinite.
+The defender *wins* infinite plays.
+If a finite play $g_{0}\dots g_{n}\!\ngamemoveblank$ is stuck, the stuck player loses: The defender wins if $g_{n}\in G_\attacker$, and the attacker wins if $g_{n}\in G_\defender$.
+:::
+
+<!--
+%
+\begin{defi}[Strategies and winning strategies]
+  \label{def:strategies}
+  A (positional, non-deterministic) \emph{attacker strategy} is a subset of the moves starting in attacker states,
+  $F ⊆ (G_\attackerSubscript × G) \cap \mathord{\gameMove}$.
+  Similarly, a \emph{defender strategy} is a subset of the moves starting in defender states,
+  $F ⊆ (G_\defenderSubscript × G) \cap \mathord{\gameMove}$.
+  If (fairly) picking elements of strategy $F$ ensures a player to win,
+  $F$ is called a \emph{winning strategy} for this player.
+  The player with a winning strategy for $\game[g_{0}]$ is said to \emph{win} $\game[g_{0}]$.
+  If $F$ is a function on $G_\attackerSubscript$ or $G_\defenderSubscript$, respectively, we call it a \emph{deterministic} strategy.
+\end{defi}
+%
+The games we use in this paper essentially are parity games only colored by 0. So they are positionally determined. This means, for each possible initial position, exactly one of the two players has a positional deterministic winning strategy $F$. We call this partitioning of the game positions the winning regions.
+
+\begin{defi}[Winning regions]
+  \label{def:winning-region}
+  The set $W_\attackerSubscript ⊆ G$ of all positions $g$ where the attacker wins $\game[g]$ is called the \emph{attacker winning region.}
+  (The defender winning region $W_\defenderSubscript$ is defined analogously.)
+\end{defi}
+-->
 
 Small example game
 

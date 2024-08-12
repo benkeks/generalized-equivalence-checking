@@ -521,8 +521,8 @@ Let us consider some observations on the system of @exm-ts.
 
 We say that formula $φ ∈ \hml$ *distinguishes* state $p$ *from* state $q$ if $p ∈ \semantics{φ}$ but $q \notin \semantics{φ}$.
 
-We say a sublogic $\observationsvar{X} ⊆ \hml$ *preorders* state $p$ to $q$, $p \bpreordvar{\observationsvar{X}} q$, if no $φ ∈ \observationsvar{X}$ is distinguishing $p$ from $q$.
-If the preordering goes in both directions, we say that $p$ and $q$ are equivalent with respect to sublogic $\observationsvar{X}$, written $p \beqvar{\observationsvar{X}} q$.
+We say a sublogic $\observationsvar{N} ⊆ \hml$ *preorders* state $p$ to $q$, $p \bpreordvar{\observationsvar{N}} q$, if no $φ ∈ \observationsvar{N}$ is distinguishing $p$ from $q$.
+If the preordering goes in both directions, we say that $p$ and $q$ are equivalent with respect to sublogic $\observationsvar{N}$, written $p \beqvar{\observationsvar{N}} q$.
 :::
 
 {{<noindent>}} By this account, $\hmlobs{τ}\hmlneg\hmlobs{\literal a}$ of @exm-hml distinguishes $\literal P$ from $\literal Q$.
@@ -532,9 +532,9 @@ For instance, the sublogic $\set{\hmlobs{τ}\hmlobs{\literal a}, \hmlobs{τ}\hml
 
 
 ::: {#prp-hml-eq}
-Consider an arbitrary HML sublogic $\observationsvar{X} ⊆ \hml$.
-Then, $\bpreordvar{\observationsvar{X}}$ is a preorder,
-and $\beqvar{\observationsvar{X}}$ an equivalence relation.
+Consider an arbitrary HML sublogic $\observationsvar{N} ⊆ \hml$.
+Then, $\bpreordvar{\observationsvar{N}}$ is a preorder,
+and $\beqvar{\observationsvar{N}}$ an equivalence relation.
 :::
 
 ::: {#lem-hml-eq-sim}

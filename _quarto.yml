@@ -6,7 +6,7 @@ project:
     port: 5588
 
 filters:
-- teximg
+#- teximg
 - noindent
 
 number-sections: true

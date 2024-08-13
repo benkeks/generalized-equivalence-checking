@@ -70,7 +70,7 @@ To talk about programs in this thesis, we will use Milner's [-@milner1989comcon]
 ::: {#def-ccs}
 #### Calculus of Communicating Systems
 
-  Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names. Then, $\ccs$ processes, communicating via actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{\alpha} \mid \alpha \in \ccschannels } \cup \set{τ}$, are given by the following grammar:
+  Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names. Then, $\ccs$ processes, communicating via actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{α} \mid α ∈ \ccschannels } \cup \set{τ}$, are given by the following grammar:
 
   $$
   \begin{array}{cllr}
@@ -358,8 +358,8 @@ The simulation preorder $\bpreord{S}$ is indeed a preorder and $\beq{S}$ and $\b
   This also establishes transitivity of $\beq{S}$ and $\beq{B}$.
 3. Symmetry of $\beq{S}:$ By definition.
 4. Symmetry of $\beq{B}$:<br>
-  $p \beq{B} q$ implies there is a symmetric simulation $\rel R$ with $(p,q) \in \rel R$.
-  As $\rel R = \inverse{\rel R}$, this implies $(q,p) \in \rel R$ and thus $q \beq{B} p$.
+  $p \beq{B} q$ implies there is a symmetric simulation $\rel R$ with $(p,q) ∈ \rel R$.
+  As $\rel R = \inverse{\rel R}$, this implies $(q,p) ∈ \rel R$ and thus $q \beq{B} p$.
 
 :::
 
@@ -521,8 +521,8 @@ Let us consider some observations on the system of @exm-ts.
 
 We say that formula $φ ∈ \hml$ *distinguishes* state $p$ *from* state $q$ if $p ∈ \semantics{φ}$ but $q \notin \semantics{φ}$.
 
-We say a sublogic $\observationsvar{N} ⊆ \hml$ *preorders* state $p$ to $q$, $p \bpreordvar{\observationsvar{N}} q$, if no $φ ∈ \observationsvar{N}$ is distinguishing $p$ from $q$.
-If the preordering goes in both directions, we say that $p$ and $q$ are equivalent with respect to sublogic $\observationsvar{N}$, written $p \beqvar{\observationsvar{N}} q$.
+We say a sublogic $\observationsvar{} ⊆ \hml$ *preorders* state $p$ to $q$, $p \bpreordvar{\observationsvar{}} q$, if no $φ ∈ \observationsvar{}$ is distinguishing $p$ from $q$.
+If the preordering goes in both directions, we say that $p$ and $q$ are equivalent with respect to sublogic $\observationsvar{}$, written $p \beqvar{\observationsvar{}} q$.
 :::
 
 {{<noindent>}} By this account, $\hmlobs{τ}\hmlneg\hmlobs{\literal a}$ of @exm-hml distinguishes $\literal P$ from $\literal Q$.
@@ -532,9 +532,9 @@ For instance, the sublogic $\set{\hmlobs{τ}\hmlobs{\literal a}, \hmlobs{τ}\hml
 
 
 ::: {#prp-hml-eq}
-Consider an arbitrary HML sublogic $\observationsvar{N} ⊆ \hml$.
-Then, $\bpreordvar{\observationsvar{N}}$ is a preorder,
-and $\beqvar{\observationsvar{N}}$ an equivalence relation.
+Consider an arbitrary HML sublogic $\observationsvar{} ⊆ \hml$.
+Then, $\bpreordvar{\observationsvar{}}$ is a preorder,
+and $\beqvar{\observationsvar{}}$ an equivalence relation.
 :::
 
 ::: {#lem-hml-eq-sim}
@@ -542,7 +542,7 @@ Hennessy–Milner logic equivalence $\beqvar{\hml}$ is a simulation relation.
 :::
 ::: {.proof}
 Assume it were not.
-Then there would need to be $p \beqvar{\hml} q$ with step $p \step \alpha p'$, and no $q'$ such that $q \step α q'$ and $p' \beqvar{\hml} q'$.
+Then there would need to be $p \beqvar{\hml} q$ with step $p \step α p'$, and no $q'$ such that $q \step α q'$ and $p' \beqvar{\hml} q'$.
 So there would need to be a distinguishing formula $φ_{q'}$ for each $q'$ that $q$ can reach by an $α$-step.
 Consider the formula $φ_α ≔ \hmlobs{α}\hmland{q'}{\set{q' \mid q \step α q'}} φ_{q'}$.
 It must be true for $p$ and false for $q$, contradicting $p \beqvar{\hml} q$.
@@ -552,7 +552,7 @@ It must be true for $p$ and false for $q$, contradicting $p \beqvar{\hml} q$.
 ::: {#lem-hml-eq-bisim-invariant}
 #### HML Bisimulation Invariance
 
-If $p \in \semantics{φ}$ and $p \beq{B} q$ then $q \in \semantics{φ}$.
+If $p ∈ \semantics{φ}$ and $p \beq{B} q$ then $q ∈ \semantics{φ}$.
 :::
 ::: {.proof}
 Induct over the structure of $φ$ with arbitrary $p$ and $q$.
@@ -581,7 +581,7 @@ Bisimilarity and HML equivalence coincide, that is, $p \beq{B} q$ precisely if $
 
 ::: {#rem-image-finiteness}
 In the standard presentation of the theorem, image finiteness of the transition system is assumed.
-This means that $p \step α \cdot$ is finite for every $p \in \states$.
+This means that $p \step α \cdot$ is finite for every $p ∈ \states$.
 The amount of outgoing transitions matters precisely in the construction of $φ_α$ in the proof of @lem-hml-eq-sim.
 But as our definition of $\hml$ (@def-hml) allows infinite conjunctions $\hmland{i}{I} …$, we do not need an assumption here.
 The implicit assumption is that the cardinality of index sets $I$ can match that of $p \step α \cdot$.
@@ -596,7 +596,6 @@ The original proof TODO: CITEHML used binary conjunction and thus could only exp
 *Gale--Stewart-style reachability games* where the defender wins all infinite plays.
 
 ::: {#def-game}
-
 #### Reachability Game
 
 A *reachability game* $\game = (G, G_\defender, \gamemoveblank)$ is played on a directed graph consisting of
@@ -606,44 +605,86 @@ A *reachability game* $\game = (G, G_\defender, \gamemoveblank)$ is played on a 
   - and *attacker positions* $G_\attacker ≔ G \setminus G_\defender$,
 - and a set of *game moves* ${\gamemoveblank} ⊆ G × G$.
 
-We denote by $\game[g_0]$ the game played from starting position $g_0 ∈ G$.
+{{<noindent>}} We denote by $\game[g_0]$ the game played from starting position $g_0 ∈ G$.
 :::
 
 
 ::: {#def-game-plays}
-
 #### Plays and Wins
 
 We call the paths ${g_0}{g_1} … ∈ G^{\infty}$ with $g_{i} \gamemoveblank g_{i+1}$ *plays* of $\game[g_0]$.
 They may be finite or infinite.
 The defender *wins* infinite plays.
-If a finite play $g_{0}\dots g_{n}\!\ngamemoveblank$ is stuck, the stuck player loses: The defender wins if $g_{n}\in G_\attacker$, and the attacker wins if $g_{n}\in G_\defender$.
+If a finite play $g_{0}\dots g_{n}\!\ngamemoveblank$ is stuck, the stuck player loses: The defender wins if $g_{n}∈ G_\attacker$, and the attacker wins if $g_{n}∈ G_\defender$.
 :::
 
-<!--
-%
-\begin{defi}[Strategies and winning strategies]
-  \label{def:strategies}
-  A (positional, non-deterministic) \emph{attacker strategy} is a subset of the moves starting in attacker states,
-  $F ⊆ (G_\attackerSubscript × G) \cap \mathord{\gameMove}$.
-  Similarly, a \emph{defender strategy} is a subset of the moves starting in defender states,
-  $F ⊆ (G_\defenderSubscript × G) \cap \mathord{\gameMove}$.
-  If (fairly) picking elements of strategy $F$ ensures a player to win,
-  $F$ is called a \emph{winning strategy} for this player.
-  The player with a winning strategy for $\game[g_{0}]$ is said to \emph{win} $\game[g_{0}]$.
-  If $F$ is a function on $G_\attackerSubscript$ or $G_\defenderSubscript$, respectively, we call it a \emph{deterministic} strategy.
-\end{defi}
-%
-The games we use in this paper essentially are parity games only colored by 0. So they are positionally determined. This means, for each possible initial position, exactly one of the two players has a positional deterministic winning strategy $F$. We call this partitioning of the game positions the winning regions.
+::: {#def-strategies}
+#### Strategies and Winning Strategies
 
-\begin{defi}[Winning regions]
-  \label{def:winning-region}
-  The set $W_\attackerSubscript ⊆ G$ of all positions $g$ where the attacker wins $\game[g]$ is called the \emph{attacker winning region.}
-  (The defender winning region $W_\defenderSubscript$ is defined analogously.)
-\end{defi}
--->
+A (positional, non-deterministic) *attacker strategy* is a subset of the moves starting in attacker states, $\rel F ⊆ (G_\attacker × G) \cap \mathord{\gamemoveblank}$.
+
+Similarly, a *defender strategy* is a subset of the moves starting in defender states, $\rel F ⊆ (G_\defender × G) \cap \mathord{\gamemoveblank}$.
+If (fairly) picking elements of strategy $\rel F$ ensures a player to win, $\rel F$ is called a *winning strategy* for this player.
+The player with a winning strategy for $\game[g_{0}]$ is said to *win* $\game[g_{0}]$.
+If $\rel F$ is a function on $G_\attacker$ or $G_\defender$, respectively, we call it a *deterministic* strategy.
+
+:::
+
+{{<noindent>}} This kind of games essentially is a subclass of parity games only colored by 0.
+So the games are positionally determined.
+This means, for each possible initial position, exactly one of the two players has a positional deterministic winning strategy $\rel F$.
+We call this partitioning of the game positions the winning regions.
+
+::: {#def-winning-region}
+#### Winning Region
+
+The set $W_\attacker ⊆ G$ of all positions $g$ where the attacker wins $\game[g]$ is called the *attacker winning region* of $\game$.
+(The defender winning region $W_\defender$ is defined analogously.)
+
+:::
 
 Small example game
 
-Semantics as Game
+### The Semantic Game of HML
+
+::: {#def-hml-game}
+#### HML Game
+
+For a transition system $\system = (\states,\actions,\step{})$,
+the $\hml$ *game* ${\game}_\hml^{\system} = (G_\hml,G_\defender,\gamemoveblank_\hml)$ is played on $G = \states × \hml$,
+where the defender controls observations and negated conjunctions,
+that is $(p, \hmlobs{α}φ) ∈ G_\defender$ and
+$(p,\hmlneg\hmland{i}{I}\varphi_i) ∈ G_\defender$ (for all $φ,p,I$), and the attacker controls the rest.
+
+- The defender can perform the moves:
+  $$
+  \begin{array}{rclr}
+      (p, \hmlobs{α}φ)
+      & \gamemoveblank_\hml
+      & (p', φ)
+      & \text{ if $p \step{α} p' \quad$ and} \\
+      (p, \hmlneg{\hmland{i}{I}\varphi_i})
+      & \gamemoveblank_\hml
+      & (p, \hmlneg\varphi_i)
+      & \text{ with $i ∈ I$;}
+  \end{array}
+  $$
+- and the attacker can move:
+  $$
+  \begin{array}{rclr}
+    (p, \hmlneg\hmlobs{α}φ)
+      & \gamemoveblank_\hml
+      & (p', \hmlneg φ)
+      & \text{ if $p \step{α} p' \quad$ and} \\
+    (p, \hmland{i}{I}\varphi_i)
+      & \gamemoveblank_\hml
+      & (p, \varphi_i)
+      & \text{ with $i ∈ I \quad$ and} \\
+    (p, \hmlneg\hmlneg φ)
+      & \gamemoveblank_\hml
+      & (p, φ).
+      &
+  \end{array}
+  $$
+:::
 

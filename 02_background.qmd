@@ -462,7 +462,7 @@ However, $\literal{P_1} \beq{B} \literal{P_2}$, as bisimilarity is more relaxed.
 
 
 
-## Observations as Modal Logic {#sec-hml}
+## Modal Logic {#sec-hml}
 
 ### Hennessy–Milner Logic to Express Observations
 
@@ -589,9 +589,9 @@ The original proof TODO: CITEHML used binary conjunction and thus could only exp
 :::
 
 
-## Reachability Games
+## Games {#sec-games}
 
-### Gale–Stewart Games
+### Reachability Games
 
 *Gale--Stewart-style reachability games* where the defender wins all infinite plays.
 
@@ -615,7 +615,7 @@ A *reachability game* $\game = (G, G_\defender, \gamemoveblank)$ is played on a 
 We call the paths ${g_0}{g_1} … ∈ G^{\infty}$ with $g_{i} \gamemoveblank g_{i+1}$ *plays* of $\game[g_0]$.
 They may be finite or infinite.
 The defender *wins* infinite plays.
-If a finite play $g_{0}\dots g_{n}\!\ngamemoveblank$ is stuck, the stuck player loses: The defender wins if $g_{n}∈ G_\attacker$, and the attacker wins if $g_{n}∈ G_\defender$.
+If a finite play $g_{0}\dots g_{n}\!\ngamemoveblank$ is stuck, the stuck player loses: The defender wins if $g_{n} ∈ G_\attacker$, and the attacker wins if $g_{n}∈ G_\defender$.
 :::
 
 ::: {#def-strategies}
@@ -640,18 +640,40 @@ We call this partitioning of the game positions the winning regions.
 
 The set $W_\attacker ⊆ G$ of all positions $g$ where the attacker wins $\game[g]$ is called the *attacker winning region* of $\game$.
 (The defender winning region $W_\defender$ is defined analogously.)
-
 :::
 
-Small example game
+::: {#exm-formula-game}
+#### A Simple Choice
+
+Consider the game in @fig-game-ex, where round nodes represent defender positions and rectangular ones attacker positions.
+Its valid plays starting from $(\literal{1})$ are
+$(\literal{1})$,
+$(\literal{1})[\literal{2a}]$,
+$(\literal{1})[\literal{2b}]$, and
+$(\literal{1})[\literal{2a}](\literal{3})$.
+The defender can win from $(\literal{1})$ with a strategy moving to $[\literal{2b}]$ where the attacker is stuck.
+Moving to $[\literal{2a}]$ instead would get the defender stuck.
+So, the defender winning region is $\set{(\literal{1}),[\literal{2b}]}$ and the attacker wins $\set{[\literal{2a}], (\literal{3})}$.
+
+:::: {#fig-game-ex .column-margin}
+  ```{mermaid}
+  flowchart TD
+    1([1]) --> 2a[2a] --> 3([3])
+    1 --> 2b[2b]
+  ```
+  A simple game.
+::::
+:::
 
 ### The Semantic Game of HML
+
+
 
 ::: {#def-hml-game}
 #### HML Game
 
 For a transition system $\system = (\states,\actions,\step{})$,
-the $\hml$ *game* ${\game}_\hml^{\system} = (G_\hml,G_\defender,\gamemoveblank_\hml)$ is played on $G = \states × \hml$,
+the $\hml$ *game* ${\game}_\hml^{\system} = (G_\hml,G_\defender,\gamemoveblank_\hml)$ is played on $G_\hml = \states × \hml$,
 where the defender controls observations and negated conjunctions,
 that is $(p, \hmlobs{α}φ) ∈ G_\defender$ and
 $(p,\hmlneg\hmland{i}{I}\varphi_i) ∈ G_\defender$ (for all $φ,p,I$), and the attacker controls the rest.
@@ -686,5 +708,15 @@ $(p,\hmlneg\hmland{i}{I}\varphi_i) ∈ G_\defender$ (for all $φ,p,I$), and the 
       &
   \end{array}
   $$
+
 :::
 
+@exm-formula-game is exactly the HML game ${\game}_\hml^{\system_\literal{PQ}}$ for formula $\hmlobs{τ}\hmlneg\hmlobs{\literal a}\hmltrue$ and state $\literal P$ of @exm-hml with
+$(\literal{1}) ≔ (\literal{P}, \hmlobs{τ}\hmlneg\hmlobs{\literal a}\hmltrue)$,
+$[\literal{2a}] ≔ (\literal{p_a}, \hmlneg\hmlobs{\literal a}\hmltrue)$,
+$[\literal{2b}] ≔ (\literal{p_b}, \hmlneg\hmlobs{\literal a}\hmltrue)$, and
+$(\literal{3}) ≔ (\literal{p_1}, \hmlneg\hmltrue)$.
+
+::: {#lem-hml-semantic-game}
+The defender wins ${\game}_\hml^{\system}[(p, φ)]$ precisely if $p ∈ \semantics{φ}$.
+:::

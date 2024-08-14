@@ -5,48 +5,83 @@ title: "Context: The Spectrum of Equivalences"
 {{< include style/macros.md >}}
 
 
-## Behavioral Difference
+## Observable Difference
 
-::: {#def-difference}
-### Difference
+### Observations as Denotations
 
-The difference between $P$ and $Q$ is defined as:
-$$\difference{P}{Q} := \semanticsObs{P} \setminus \semanticsObs{Q}.$$
+::: {#def-observfations}
+#### Observations
+
+the $\hml$-semantics,
+
+$$\semanticsobs{p} ≔ \set{φ ∈ \hml \mid p ∈ \semantics{φ}}$$
+
 :::
 
-::: {#def-behavioraleq}
+
+::: {#def-obs-difference}
+#### Observable Difference
+
+The difference between $p$ and $q$ is defined as:
+$$\difference{p}{q} ≔ \semanticsobs{p} \setminus \semanticsobs{q}.$$
+:::
+
+::: {#prp-behavioraleq}
 ### Behavioral preorder and equivalence
 
-Two processes are preordered with respect to a behavioral equivalence $E \subseteq \hml$
-$$P \bpreord{E} Q \defiff \difference{P}{Q} \cap E \subseteq \varnothing.$$
-If $P \bpreord{E} Q$ and $Q \bpreord{E} P$, the two are considered $E$-equivalent, $P \beq{E} Q$.
+Rephrasing @def-distinctions, two states are preordered with respect to a sublogic $\observationsvar{} ⊆ \hml$
+$$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsvar{} = \varnothing.$$
 :::
 
-::: {#def-bisimilarity-again}
-### Bisimilarity
+### Understanding the Equivalence Hierarchy Through Modal Logics
 
-Two processes are bisimulation preordered (and moreover bisimilar)
-$$P \beq{B} Q \defiff \difference{P}{Q} \subseteq \varnothing.$$
+Let us revisit the hierarchy between bisimilarity, similarity, and trace equivalence of Subsection [-@sec-hierarchy-equivalences].
+So far, we have only looked into the characterization of bisimilarity through the whole of $\hml$ in @lem-hennessy-milner.
+But there is merit in also characterizing other equivalences through sublogics $\observationsvar{} \subseteq \hml$.
+
+The first big advantage of modal characterizations is that they lead to proper preorders and equivalences *by design* due to @prp-hml-eq.
+That is, if a behavioral preorder (or equivalence) is defined through modal logics, there is no need of proving transitivity and reflexivity (and symmetry).
+
+The second big advantage of modal characterizations is that they can, if defined cleverly, directly unveil the hierarchy between preorders because of the following property.
+
+::: {#prp-difference-contraposition}
+
+If $\observationsvar{} \subseteq \observationsvar{}'$ then $p \bpreordvar{\observationsvar{}'} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.
+
 :::
+
+
 
 <!-- That the relational characterization of bisimilarity and the modal characterization of @def-bisimilarity coincide, is due to @hm1980hml.
 It makes sense to consider the $\hml$ characterization as primary.
 Van Glabbeek [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] shows how all the other common equivalences can be understood to be a lattice of sublanguages of $\hml$. -->
 
+## The Linear-Time–Branching-Time Spectrum
 
 - How to define sets of equivalences through notions.
 - Why is this approach cool?
 - The spectroscopy problem.
 - Pareto front suffices.
 
+### Observability Lattice
+
 ::: {#def-spectrum}
 #### Equivalence Spectra
 
 An *equivalence spectrum* $(\notions, \leq, \observationsvar{N \in \notions})$ consists of
 
-- a set of equivalence notions $\notions$,
+- a set of notions of observability $\notions$,
 - a partial order $\leq \; \subseteq \notions \times \notions$, and
 - corresponding observations $\observationsvar{} \, \colon \notions \to \powerset{\hml}$.
 
 For any two notions $N,M \in \notions$, $N \leq M$ implies $\observationsvar{N} \subseteq \observationsvar{M}$.
 :::
+
+### The Strong Spectrum
+
+## Spectroscopy
+
+### The Spectroscopy Problem
+
+### Complexities
+

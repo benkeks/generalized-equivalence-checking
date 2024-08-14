@@ -25,7 +25,7 @@
 
 \lc{ Grammars }
 
-\providecommand{\grammardef}{\;⩴\;}
+\providecommand{\grammardef}{\;\Coloneqq\;}
 \providecommand{\grammaror}{\;\mid\;}
 
 \lc{ CCS }
@@ -55,7 +55,7 @@
 \lc{ Semantics }
 
 \providecommand{\semantics}[1]{\llbracket #1 \rrbracket}
-\providecommand{\semanticsObs}[1]{\semantics{#1}^👁}
+\providecommand{\semanticsobs}[1]{\semantics{#1}^👁}
 \providecommand{\difference}[2]{\Delta(#1,#2)}
 
 \lc{ Relations }

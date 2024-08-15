@@ -1,9 +1,6 @@
----
-title: "Context: The Spectrum of Equivalences"
----
-
 {{< include style/macros.md >}}
 
+# Context: The Spectrum of Equivalences {#sec-spectrum}
 
 ## Observable Difference
 
@@ -12,10 +9,9 @@ title: "Context: The Spectrum of Equivalences"
 ::: {#def-observfations}
 #### Observations
 
-the $\hml$-semantics,
+On a transition system, the possible observations of a stete, $\semanticsobs{\cdot} \colon \states \to \powerset{\hml}$, are defined as:
 
-$$\semanticsobs{p} ≔ \set{φ ∈ \hml \mid p ∈ \semantics{φ}}$$
-
+$$\semanticsobs{p} ≔ \set{φ ∈ \hml \mid p ∈ \semantics{φ}}.$$
 :::
 
 
@@ -37,31 +33,38 @@ $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsva
 
 Let us revisit the hierarchy between bisimilarity, similarity, and trace equivalence of Subsection [-@sec-hierarchy-equivalences].
 So far, we have only looked into the characterization of bisimilarity through the whole of $\hml$ in @lem-hennessy-milner.
-But there is merit in also characterizing other equivalences through sublogics $\observationsvar{} \subseteq \hml$.
 
-The first big advantage of modal characterizations is that they lead to proper preorders and equivalences *by design* due to @prp-hml-eq.
-That is, if a behavioral preorder (or equivalence) is defined through modal logics, there is no need of proving transitivity and reflexivity (and symmetry).
+::: {#def-sim-trace-logics}
 
-The second big advantage of modal characterizations is that they can, if defined cleverly, directly unveil the hierarchy between preorders because of the following property.
+We define the two $\hml$-sublogics $\observations{T}$ and $\observations{S}$ by the grammars from $φ^\mathrm{T}$ and $φ^\mathrm{S}$.
 
-::: {#prp-difference-contraposition}
-
-If $\observationsvar{} \subseteq \observationsvar{}'$ then $p \bpreordvar{\observationsvar{}'} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.
-
+$$
+\begin{array}{rcll}
+  φ^\mathrm{T} & \grammardef &
+    \hmlobs{α}φ^\mathrm{T}
+    & \grammaror & \hmltrue \\
+  φ^\mathrm{S} & \grammardef &
+    \hmlobs{α}φ^\mathrm{S}
+    & \grammaror & \hmland{i}{I}φ^\mathrm{S}_i
+\end{array}
+$$
 :::
 
+Clearly, $\observations{T} \subset \observations{S} \subset \hml$.
+So, by @prp-difference-contraposition, the hierarchy of Subsection [-@sec-hierarchy-equivalences] can also be established by the following two characterization lemmas:
 
+::: {#lem-trace-logics}
+$p \bpreord{T} q$ precisely if $p \bpreordvar{\observations{T}} q$.
+:::
 
-<!-- That the relational characterization of bisimilarity and the modal characterization of @def-bisimilarity coincide, is due to @hm1980hml.
-It makes sense to consider the $\hml$ characterization as primary.
-Van Glabbeek [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] shows how all the other common equivalences can be understood to be a lattice of sublanguages of $\hml$. -->
+::: {#lem-sim-logics}
+$p \bpreord{S} q$ precisely if $p \bpreordvar{\observations{S}} q$.
+:::
 
 ## The Linear-Time–Branching-Time Spectrum
 
-- How to define sets of equivalences through notions.
-- Why is this approach cool?
-- The spectroscopy problem.
-- Pareto front suffices.
+Van Glabbeek [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] shows how all the other common equivalences can be understood to be a lattice of sublanguages of $\hml$. -->
+
 
 ### Observability Lattice
 
@@ -82,6 +85,8 @@ For any two notions $N,M \in \notions$, $N \leq M$ implies $\observationsvar{N} 
 ## Spectroscopy
 
 ### The Spectroscopy Problem
+
+### Spectroscopy as Abstract Interpretation
 
 ### Complexities
 

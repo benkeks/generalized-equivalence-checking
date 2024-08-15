@@ -461,7 +461,6 @@ However, $\literal{P_1} \beq{B} \literal{P_2}$, as bisimilarity is more relaxed.
 :::
 
 
-
 ## Modal Logic {#sec-hml}
 
 ### Hennessy–Milner Logic to Express Observations
@@ -497,9 +496,9 @@ The semantics of HML $\semantics{\cdot} \colon \hml → \powerset{\states}$ is d
 
 $$
 \begin{array}{rcl}
-  \semantics{\hmlobs{α}φ} & ≔ & \set{p \mid \exists p' ∈ \semantics{φ} \ldotp p \step α p'},\\
-  \semantics{\hmland{i}{I}φ_i} & ≔ & \bigcap_{i ∈ I} \semantics{φ_i},\\
-  \semantics{\hmlneg φ} & ≔ & \states \setminus \semantics{φ}.
+  \semantics{\hmlobs{α}φ} & ≔ & \set{p \mid \exists p' ∈ \semantics{φ} \ldotp p \step α p'}\\
+  \semantics{\hmland{i}{I}φ_i} & ≔ & \bigcap_{i ∈ I} \semantics{φ_i}\\
+  \semantics{\hmlneg φ} & ≔ & \states \setminus \semantics{φ}
 \end{array}
 $$
 :::
@@ -548,7 +547,6 @@ Consider the formula $φ_α ≔ \hmlobs{α}\hmland{q'}{\set{q' \mid q \step α q
 It must be true for $p$ and false for $q$, contradicting $p \beqvar{\hml} q$.
 :::
 
-
 ::: {#lem-hml-eq-bisim-invariant}
 #### HML Bisimulation Invariance
 
@@ -588,6 +586,25 @@ The implicit assumption is that the cardinality of index sets $I$ can match that
 The original proof by @hm1980hml uses binary conjunction and thus can only express finitary conjunctions.
 :::
 
+### The Perks of Modal Characterizations
+
+There is merit in also characterizing other equivalences through sublogics $\observationsvar{} \subseteq \hml$.
+There are three immediate big advantages to modal characterization:
+
+Modal characterizations lead to *proper preorders and equivalences by design* due to @prp-hml-eq.
+That is, if a behavioral preorder (or equivalence) is defined through modal logics, there is no need of proving transitivity and reflexivity (and symmetry).
+
+Secondly, modal characterizations can directly *unveil the hierarchy between preorders*, if defined cleverly, because of the following property.
+
+::: {#prp-difference-contraposition}
+
+  If $\observationsvar{} \subseteq \observationsvar{}'$ then $p \bpreordvar{\observationsvar{}'} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.
+:::
+
+Thirdly, as a corollary of @prp-difference-contraposition, modal characterizations *ensure equivalences to be refinements of bisimilarity*, which is a sensible base notion of equivalence.
+<!-- TODO: add forwards pointer on good complexities of bisimilarity -->
+
+In Chapter [-@sec-spectrum], we will discuss how the hierarchy of behavioral equivalences can be nicely and uniformly understood if viewed through the modal lense.
 
 ## Games {#sec-games}
 
@@ -667,8 +684,6 @@ So, the defender winning region is $\set{(\literal{1}),[\literal{2b}]}$ and the 
 
 ### The Semantic Game of HML
 
-
-
 ::: {#def-hml-game}
 #### HML Game
 
@@ -719,3 +734,7 @@ $(\literal{3}) ≔ (\literal{p_1}, \hmlneg\hmltrue)$.
 ::: {#lem-hml-semantic-game}
 The defender wins ${\game}_\hml^{\system}[(p, φ)]$ precisely if $p ∈ \semantics{φ}$.
 :::
+
+### The Bisimulation Game
+
+

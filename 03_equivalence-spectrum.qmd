@@ -39,7 +39,7 @@ So far, we have only looked into the characterization of bisimilarity through th
 We define the two $\hml$-sublogics $\observations{T}$ and $\observations{S}$ by the grammars from $φ^\mathrm{T}$ and $φ^\mathrm{S}$.
 
 $$
-\begin{array}{rcll}
+\begin{array}{rclll}
   φ^\mathrm{T} & \grammardef &
     \hmlobs{α}φ^\mathrm{T}
     & \grammaror & \hmltrue \\
@@ -63,22 +63,58 @@ $p \bpreord{S} q$ precisely if $p \bpreordvar{\observations{S}} q$.
 
 ## The Linear-Time–Branching-Time Spectrum
 
-Van Glabbeek [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] shows how all the other common equivalences can be understood to be a lattice of sublanguages of $\hml$. -->
-
+Van Glabbeek [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] shows how all common equivalences can be understood to be a lattice of sublanguages of $\hml$ and a variant of $\hml$ for equivalences with silent steps.
+His hierarchy of equivalences derives from a hierarchy of *notions of observability*.^[In particular, the weak spectrum [@glabbeek1993ltbt] makes this really formal.]
 
 ### Observability Lattice
 
+As we will discuss various equivalence spectra (van Glabbeek [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] already gives two different ones), let us first introduce an abstract description of such spectra.
+
 ::: {#def-spectrum}
-#### Equivalence Spectra
+#### Equivalence Spectrum
 
 An *equivalence spectrum* $(\notions, \leq, \observationsvar{N \in \notions})$ consists of
 
 - a set of notions of observability $\notions$,
-- a partial order $\leq \; \subseteq \notions \times \notions$, and
-- corresponding observations $\observationsvar{} \, \colon \notions \to \powerset{\hml}$.
+- a partial order ${\leq} \subseteq \notions \times \notions$, and
+- corresponding logics $\observationsvar{N} \colon \powerset{\hml}$ for $N \in \notions$.
 
-For any two notions $N,M \in \notions$, $N \leq M$ implies $\observationsvar{N} \subseteq \observationsvar{M}$.
+It must hold, for any two notions $N,M \in \notions$, that
+$$N \leq M \text{ implies } \observationsvar{N} \subseteq \observationsvar{M}.$$
 :::
+
+Effectively, we will be working with lattices $(\notions, \leq)$ where there are greatest lower bounds $\glb$ and least upper bounds $\lub$ between elements of $\notions$.
+
+::: {#exm-simple-spectrum}
+
+Consider the notions
+$$\notions^\literal{simple} ≔
+\powerset{\set{\literal{(\land)}, \literal{(\neg)} }},
+$$
+ordered by subset inclusion,
+and the family of observation languages $\observationsvar{N}$ given by
+
+$$
+\begin{array}{rcll}
+  φ^N & \grammardef & \hmltrue{} & \\
+      & \grammaror  & \hmlobs{α}φ^N & \\
+      & \grammaror  & \hmland{i}{I}φ^N_i & \text{ if $\literal{(\land)} \in N$} \\
+      & \grammaror  & \hmland{i}{I} \hmlneg \hmlobs{α_i}\hmltrue & \text{ if $\literal{(\neg)} \in N$} \\
+      & \grammaror  & \hmlneg φ^N & \text{ if $\set{\literal{(\land)}, \literal{(\neg)} } = N$.}
+\end{array}
+$$
+:::
+
+:::: {#fig-sample-hierarchy .column-margin}
+```{mermaid}
+  flowchart TD
+    B["Bisimilarity <br> {(∧), (¬)}"] --- S["Similarity <br> {(∧)}"] --- T["Trace Equivalence <br> ∅"]
+    B --- F["Failure Equivalence <br> {(¬)}"] --- T
+  ```
+
+  Hierarchy of simple notions of equivalence.
+::::
+
 
 ### The Strong Spectrum
 

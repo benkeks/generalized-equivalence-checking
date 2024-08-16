@@ -11,6 +11,8 @@
 \providecommand{\set}[1]{\{#1\}}
 \providecommand{\emptyword}{\texttt{()}}
 \providecommand{\identity}[1]{\mathrm{id}_{#1}}
+\providecommand{\lub}{\sqcup}
+\providecommand{\glb}{\sqcap}
 
 \lc{ Transition systems }
 

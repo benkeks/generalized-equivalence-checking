@@ -61,6 +61,42 @@ $p \bpreord{T} q$ precisely if $p \bpreordvar{\observations{T}} q$.
 $p \bpreord{S} q$ precisely if $p \bpreordvar{\observations{S}} q$.
 :::
 
+### Incomparabilities
+
+::: {#def-failures}
+
+We define failure observations $\observations{F}$ by the grammar:
+
+$$
+  φ^\mathrm{F} \grammardef
+    \hmlobs{α}φ^\mathrm{F}
+    \quad\grammaror\quad
+    \hmland{i}{I} \hmlneg \hmlobs{α}\hmltrue 
+$$
+:::
+
+Intuitively, a failure says that we may follow a trace and see which actions are *impossible* at its end.
+Clearly, this encompasses what we may observe via traces,
+but is something that we cannot observe using simulation.
+We consider $\bpreord{F}$ given by $\bpreordvar{\observations{F}}$.
+
+For instance, $\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observations{F}$, distinguishes $\literal P$ from $\literal Q$ on @fig-ts-determinism, but $\literal P \bpreord{S} \literal Q$ (cf. @exm-phil-sim).
+On the other hand, no failure from $\observations{F}$, distinguishes $\literal Q$ from $\literal P$, but $\literal Q \nbpreord{S} \literal P$.
+
+:::: {#fig-failure-hierarchy .column-margin}
+```{mermaid}
+  flowchart TD
+    B["Bisimilarity"] --> S["Similarity"] --> T["Trace Equivalence"]
+    B --> F["Failure Equivalence"] --> T
+  ```
+
+  Preorder/equivalence hierarchy.
+::::
+
+As a consequence, simulation preorder and failure preorder ar incomparable, that is, neither one implies the other.
+The same is true of the equivalences, similarity and failure equivalence.
+The situation is summed up by the non-linear hierarchy in @fig-failure-hierarchy.
+
 ## The Linear-Time–Branching-Time Spectrum
 
 Van Glabbeek [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] shows how all common equivalences can be understood to be a lattice of sublanguages of $\hml$ and a variant of $\hml$ for equivalences with silent steps.
@@ -92,7 +128,7 @@ $$\notions^\literal{simple} ≔
 \powerset{\set{\literal{(\land)}, \literal{(\neg)} }},
 $$
 ordered by subset inclusion,
-and the family of observation languages $\observationsvar{N}$ given by
+and the family of observation languages $\observationsvar{N \in \notions^\literal{simple}}$ given by the family of grammars:
 
 $$
 \begin{array}{rcll}
@@ -103,7 +139,9 @@ $$
       & \grammaror  & \hmlneg φ^N & \text{ if $\set{\literal{(\land)}, \literal{(\neg)} } = N$.}
 \end{array}
 $$
-:::
+
+{{<noindent>}} Clearly, $N \subseteq M$ implies $\observationsvar{N} \subseteq \observationsvar{M}$ for $N, M \in \notions^\literal{simple}$.
+We obtain the hierarchy of @fig-sample-hierarchy.
 
 :::: {#fig-sample-hierarchy .column-margin}
 ```{mermaid}
@@ -114,9 +152,18 @@ $$
 
   Hierarchy of simple notions of equivalence.
 ::::
+:::
 
 
 ### The Strong Spectrum
+
+### Non-Intersectionality
+
+TODO: Incomparability: failure and sim but not bisim, even failure and sim, but not ready sim.
+
+No-lattice of observations! $\observations{S} \cup \observations{F} \neq \observations{RS}$!
+
+Leads to spectroscopy problem...
 
 ## Spectroscopy
 

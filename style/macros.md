@@ -7,12 +7,14 @@
 \providecommand{\inverse}[1]{#1^{-1}}
 \providecommand{\setminus}{\mathbin{\backslash}}
 \providecommand{\powerset}[1]{2^{#1}}
+\providecommand{\nats}{\mathbb{N}}
 \providecommand{\defiff}{\mathrel{:\!\iff}}
 \providecommand{\set}[1]{\{#1\}}
 \providecommand{\emptyword}{\texttt{()}}
 \providecommand{\identity}[1]{\mathrm{id}_{#1}}
 \providecommand{\lub}{\sqcup}
 \providecommand{\glb}{\sqcap}
+\providecommand{\unit}[1]{\mathbf{\hat e}_{#1}}
 
 \lc{ Transition systems }
 

@@ -182,12 +182,12 @@ $$
       & \grammaror  & \hmlobs{α}φ^{N - \unit{1}} & \\
       & \grammaror  & \hmlands\set{ψ^{N-\unit{2}}_*, ψ^{N-\unit{2}}, ψ^{N-\unit{2}}, ψ^{N-\unit{2}} \ldots} & \\
   ψ_*^N & \grammardef &
-      φ^{N \sqcap (N_3, \infty, \infty, \infty, \infty, \infty)} & \\
+      \hmlobs{α}φ^{(N \sqcap (N_3, \infty, \infty, \infty, \infty, \infty)) - \unit{1}} & \\
       & \grammaror  & ψ^N & \\
   ψ^N & \grammardef &
-      φ^{N \sqcap (N_4, \infty, \infty, \infty, \infty, \infty)} & \\
+      \hmlobs{α}φ^{(N \sqcap (N_4, \infty, \infty, \infty, \infty, \infty)) - \unit{1}} & \\
       & \grammaror  &
-      \hmlneg φ^{(N \sqcap (N_5, \infty, \infty, \infty, \infty, \infty)) -\unit{6}} & \\
+      \hmlneg \hmlobs{α}φ^{(N \sqcap (N_5, \infty, \infty, \infty, \infty, \infty))- \unit{1} - \unit{6}} & \\
 \end{array}
 $$
 
@@ -195,6 +195,9 @@ $$
 For instance, $φ^N \leadsto \hmlobs{α}φ^{N - \unit{1}}$ is no valid production for $N=(0,1,0,0,0,0)$ because $(-1,1,0,0,0,0) \notin \notions^\literal{strong}$.
 
 :::
+
+TODO: Prove flattening and removability of disjunctions.
+Adapt following proofs.
 
 ::: {#lem-spectrum-characterization}
 

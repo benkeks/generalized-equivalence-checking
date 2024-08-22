@@ -561,10 +561,10 @@ Induct over the structure of $φ$ with arbitrary $p$ and $q$.
 - Case $p ∈ \semantics{\hmlneg φ}$.
   Symmetry of $\beq{B}$ accoding to @prp-sim-eq-rel, implies $q \beq{B} p$.
   By induction hypothesis, $q ∈ \semantics{φ}$ implies $p ∈ \semantics{φ}$.
-  So, using contraposition, the case implies $q ∈ \semantics{\hmlneg φ}$.
+  So, using contraposition, the case implies $q ∈ \semantics{\hmlneg φ}$.\qedhere
 :::
 
-Combining the bisimulation invariance for one direction and that $\beq{\hml}$ is symmetric (@prp-hml-eq) simulation (@lem-hml-eq-sim) for the other, we obtain that $\hml$ precisely characterizes bisimilarity:
+{{<noindent>}}Combining the bisimulation invariance for one direction and that $\beq{\hml}$ is symmetric (@prp-hml-eq) simulation (@lem-hml-eq-sim) for the other, we obtain that $\hml$ precisely characterizes bisimilarity:
 
 ::: {#lem-hennessy-milner}
 #### Hennessy–Milner Theorem
@@ -595,6 +595,8 @@ Secondly, modal characterizations can directly *unveil the hierarchy between pre
 If $\observationsvar{} \subseteq \observationsvar{}'$ then $p \bpreordvar{\observationsvar{}'} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.{{<isb lemma Hennessy_Milner_Logic lts.hml_preorder_contraposition>}}
 :::
 
+Pay attention to the opposing directions of $\subseteq$ and implication, here!
+
 Thirdly, as a corollary of @prp-difference-contraposition, modal characterizations *ensure equivalences to be refinements of bisimilarity*, which is a sensible base notion of equivalence.
 <!-- TODO: add forwards pointer on good complexities of bisimilarity -->
 
@@ -614,7 +616,7 @@ A *reachability game* $\game = (G, G_\defender, \gamemoveblank)$ is played on a 
 - a set of *game positions* $G$, partitioned into
   - *defender positions* $G_\defender ⊆ G$
   - and *attacker positions* $G_\attacker ≔ G \setminus G_\defender$,
-- and a set of *game moves* ${\gamemoveblank} ⊆ G × G$.
+- and a set of *game moves* ${\gamemoveblank} ⊆ G × G$.{{<isb locale Equivalence_Games game>}}
 
 {{<noindent>}} We denote by $\game[g_0]$ the game played from starting position $g_0 ∈ G$.
 :::
@@ -735,4 +737,32 @@ The defender wins ${\game}_\hml^{\system}[(p, φ)]$ precisely if $p ∈ \semanti
 
 ::: {#def-bisim-game}
 #### Bisimulation Game
+
+For a transition system $\system$, the *bisimulation game* ${\game}_\notionname{B}^{\system}${{<isb locale Equivalence_Games bisim_game>}} is played on
+attack positions $G^\notionname{B}_\attacker ≔ \states × \states$ and defense positions $G^\notionname{B}_\defender ≔ \actions × \states × \states$ with the following moves:
+
+- The attacker may swap sides
+  $$[p, q] \quad \gamemoveblank_\notionname{B} \quad [q, p],$$
+- or challenge simulation
+  $$[p, q] \quad \gamemoveblank_\notionname{B} \quad (α, p', q) \quad \text{if} \quad p \step{α} p';$$
+- and the defender answers simulation challenges
+  $$(α, p', q) \quad \gamemoveblank_\notionname{B} \quad (p', q') \quad \text{if} \quad q \step{α} q'.$$
+:::
+
+::: {#exm-bisim-game}
+TODO
+:::
+
+::: {#lem-bisim-game-characterization}
+The defender wins the bisimulation game ${\game}_\notionname{B}^{\system}$ starting at attacker position $[p, q]$ precisely if $p \beq{B} q$.{{<isb theorem Equivalence_Games bisim_game.bisim_game_characterization>}}
+:::
+::: proof
+Sketch for both directions:
+
+- If $\rel R$ is a symmetric simulation with $(p,q) ∈ \rel R$,
+  then the following positional defender strategy is well-defined and winning from $[p, q]$:{{<isb lemma Equivalence_Games bisim_game.bisim_implies_defender_winning_strategy>}}
+  $$\rel f (α, p', q) ≔ [p', \operatorname{choose} q'\ldotp (p', q') ∈ \rel R \land q \step{α} q'].$$
+- If there is a positional defender strategy $\rel f$ winning from $[p, q]$,
+  then the following relation $\rel R$ with $(p_0,q_0) ∈ \rel R$ is a symmetric simulation:{{<isb lemma Equivalence_Games bisim_game.defender_winning_strategy_implies_bisim>}}
+  $$\rel R ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),...,(p,q)$ following strategy $\rel f$}}.$$\qedhere
 :::

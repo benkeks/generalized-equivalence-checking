@@ -68,14 +68,15 @@
 
 \lc{ Behavioral Equivalences }
 
-\providecommand{\bpreord}[1]{\preceq_\mathrm{#1}}
-\providecommand{\nbpreord}[1]{\not\preceq_\mathrm{#1}}
+\providecommand{\bpreord}[1]{\preceq_\notionname{#1}}
+\providecommand{\nbpreord}[1]{\not\preceq_\notionname{#1}}
 \providecommand{\bpreordvar}[1]{\preceq_{#1}}
 \providecommand{\beq}[1]{\sim_\mathrm{#1}}
 \providecommand{\nbeq}[1]{\nsim_\mathrm{#1}}
 \providecommand{\beqvar}[1]{\sim_{#1}}
 \providecommand{\notions}{\mathbf{N}}
-\providecommand{\observations}[1]{\mathcal{O}_\mathrm{#1}}
+\providecommand{\notionname}[1]{\mathrm{#1}}
+\providecommand{\observations}[1]{\mathcal{O}_\notionname{#1}}
 \providecommand{\observationsvar}[1]{\mathcal{O}_{#1}}
 
 \lc{ Games }

@@ -1,3 +1,10 @@
+isb_types = {
+  locale = "locale",
+  abbreviation = "const",
+  definition = "const",
+  datatype = "type",
+  primrec = "const"
+}
 
 function noindent()
  
@@ -27,9 +34,11 @@ end
 
 function isb(args)
   qualified_name = args[2] .. "." .. args[3]
+  type = isb_types[args[1]] or "fact"
   return pandoc.Note {
     pandoc.Str(tostring(args[1] .. " ")),
     pandoc.Link(qualified_name,
-      "https://benkeks.github.io/ltbt-spectorscopy-isabelle/AFP/Lineartime_Branchingtime_Spectrum_I/" .. args[2] .. ".html#" .. qualified_name .. "|" .. args[1])
+      "https://benkeks.github.io/ltbt-spectroscopy-isabelle/AFP/Lineartime_Branchingtime_Spectrum_I/" ..
+      args[2] .. ".html#" .. qualified_name .. "|" .. type)
   }
 end

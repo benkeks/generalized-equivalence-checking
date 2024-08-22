@@ -57,8 +57,7 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
 :::
 
 
-{{<noindent>}}
-There are two things one might wonder about @exm-ts:
+{{<noindent>}} There are two things one might wonder about @exm-ts:
 
 1. Should one care about non-determinism in programs? Subsection [-@sec-ccs] shows how non-determinism arises naturally in concurrent programs.
 2. Should one consider $\literal P$ and $\literal Q$ equivalent? This heavily depends. Section [-@sec-behavioral-eq] will introduce a notion of equivalence under which the two are equivalent and one under which they differ.
@@ -268,7 +267,6 @@ A process matching the transitions from $\literal Q$ in @exm-ts would be the fol
 $$
 \literal Q ≔ (\coaction{\literal{fork}} \ccspar \ccsprefix{\literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
 $$
-
 :::
 
 ## Behavioral Equivalences {#sec-behavioral-eq}
@@ -281,20 +279,19 @@ $$
 The set of traces of a process $\traces{p}$ is recursively defined as
 
 - $\emptyword ∈ \traces{p}$,^[We denote the empty word by $\emptyword$.]
-- $α \cdot \vec w ∈ \traces{p}$ if there is $p'$ with $p \step α p'$ and $\vec w ∈ \traces{p'}$.
+- $α \cdot \vec w ∈ \traces{p}$ if there is $p'$ with $p \step α p'$ and $\vec w ∈ \traces{p'}$.{{<isb abbreviation Labeled_Transition_Systems lts.traces>}}
 
 :::
 
 ::: {#def-trace-eq}
 #### Trace Equivalence
 
-Two processes $p$ and $q$ are considered *trace-equivalent*, written $p \beq{T} q$, if $\traces{p} = \traces{q}$.
+Two processes $p$ and $q$ are considered *trace-equivalent*, written $p \beq{T} q$, if $\traces{p} = \traces{q}$.{{<isb abbreviation Strong_Equivalences lts.trace_equivalent>}}
 
-Processes are *trace-preordered*, $p \bpreord{T} q$, if $\traces{p} ⊆ \traces{q}$.
+Processes are *trace-preordered*, $p \bpreord{T} q$, if $\traces{p} ⊆ \traces{q}$.{{<isb definition Strong_Equivalences lts.trace_preordered>}}
 :::
 
 ::: {#exm-phil-traces}
-
 The traces for the processes of @exm-ts would be $\traces{\literal{P}} = \set{\emptyword, τ, τ\literal{a}, τ\literal{b}} = \traces{\literal Q}$. Consequently, $\literal P$ and $\literal Q$ are trace-equivalent, $\literal P \beq{T} \literal Q$.
 
 As $\traces{\literal{p_a}} = \set{\emptyword, \literal{a}} ⊆ \set{\emptyword, \literal{a}, \literal{b}} = \traces{\literal{q_{ab}}}$, $\literal{p_a}$ is trace-preordered to $\literal{q_{ab}}$, $\literal{p_a} \bpreord{T} \literal{q_{ab}}$.
@@ -303,9 +300,10 @@ We could say that trace $\literal{b}$ constitutes a *difference* between $\liter
 :::
 
 ::: {#prp-trace-eq-rel}
-The trace preorder $\bpreord{T}$ is indeed a preorder (i.e., transitive and reflexive) and trace equivalence $\beq{T}$ is indeed an equivalence relation (i.e., transitive, reflexive, and moreover symmetric).
+The trace preorder $\bpreord{T}$ is indeed a preorder (i.e., transitive and reflexive) {{<isb lemma Strong_Equivalences lts.trace_preorder_transitive>}} and trace equivalence $\beq{T}$ is indeed an equivalence relation (i.e., transitive, reflexive, and moreover symmetric).{{<isb lemma Strong_Equivalences lts.trace_equivalence_equiv>}}
 :::
-::: {.proof}
+
+::: proof
 The properties carry over directly from $⊆$ and $=$ on sets of $\traces{\cdot}$.
 :::
 
@@ -314,8 +312,7 @@ The properties carry over directly from $⊆$ and $=$ on sets of $\traces{\cdot}
 ::: {#def-simulation}
 #### Simulation
 
-A relation on states, $\rel R ⊆ \states × \states$, is called a *simulation* if, for each $(p, q) ∈ \rel R$ and $α ∈ \actions$ with $p \step a p'$ there is a $q'$ with $q \step α q'$ and $(p', q') ∈ \rel R$.
-
+A relation on states, $\rel R ⊆ \states × \states$, is called a *simulation* if, for each $(p, q) ∈ \rel R$ and $α ∈ \actions$ with $p \step a p'$ there is a $q'$ with $q \step α q'$ and $(p', q') ∈ \rel R$.{{<isb definition Strong_Equivalences lts.simulation>}}
 :::
 
 ::: {#def-bisimilarity}
@@ -323,13 +320,12 @@ A relation on states, $\rel R ⊆ \states × \states$, is called a *simulation* 
 
 Simulation-preorder, similarity and bisimilarity are defined as follows:
 
-- $p$ is *simulated by* $q$, $p \bpreord{S} q$, iff there is a simulation $\rel R$ with $(p, q) ∈ \rel R$.
-- $p$ is *similar* to $q$, $p \beq{S} q$, iff $p \bpreord{S} q$ and $q \bpreord{S} p$.
-- $p$ is *bisimilar* to $q$, $p \beq{B} q$, iff there is a *symmetric* simulation $\rel R$ (i.e. $\rel R = \inverse{\rel R}$) with $(p, q) ∈ \rel R$.
+- $p$ is *simulated by* $q$, $p \bpreord{S} q$, iff there is a simulation $\rel R$ with $(p, q) ∈ \rel R$.{{<isb definition Strong_Equivalences lts.simulated_by>}}
+- $p$ is *similar* to $q$, $p \beq{S} q$, iff $p \bpreord{S} q$ and $q \bpreord{S} p$.{{<isb abbreviation Strong_Equivalences lts.similar>}}
+- $p$ is *bisimilar* to $q$, $p \beq{B} q$, iff there is a *symmetric* simulation $\rel R$ (i.e. $\rel R = \inverse{\rel R}$) with $(p, q) ∈ \rel R$.{{<isb definition Strong_Equivalences lts.bisimilar>}}
 :::
 
 ::: {#exm-phil-sim}
-
 The following relations are simulations on the LTS of @exm-ts:
 
 - the empty relation $\rel R_\varnothing ≔ \varnothing$;
@@ -348,19 +344,19 @@ Thus, $\literal Q \nbpreord{S} \literal P$, and $\literal P \nbeq{S} \literal Q$
 :::
 
 ::: {#prp-sim-eq-rel}
-The simulation preorder $\bpreord{S}$ is indeed a preorder and $\beq{S}$ and $\beq{B}$ are equivalences.
+The simulation preorder $\bpreord{S}$ is indeed a preorder{{<isb lemma Strong_Equivalences lts.simulation_preorder_transitive>}}, and $\beq{S}$ and $\beq{B}$ are equivalences.{{<isb lemma Strong_Equivalences lts.bisimilarity_equiv>}}
 :::
-::: {.proof}
-1. Reflexivity of $\bpreord{S}$, $\beq{S}$ and $\beq{B}$:<br>
-  $\identity{\states}$ is a (symmetric) simulation on each transition system.
+
+::: proof
+1. Reflexivity of $\bpreord{S}$, $\beq{S}$ and $\beq{B}$:<br> $\identity{\states}$ is a (symmetric) simulation on each transition system.
 2. Transitivity of $\bpreord{S}$:<br>
-  If $\rel R_1$ and $\rel R_2$ are simulations, then the composition $\rel R_1 \circ \rel R_2$ too is a simulation.
-  This also establishes transitivity of $\beq{S}$ and $\beq{B}$.
+  If $\rel R_1$ and $\rel R_2$ are simulations, then the composition $\rel R_1 \rel R_2$ too is a simulation.
+  This also establishes transitivity of $\beq{S}$.
+  Moreover, that simulation $\rel R_1$ and $\rel R_2$ imply the composition $\rel R_1 \cup \rel R_2$ to be a simulation, allows to combine symmetric simulations to prove transitivity of $\beq{B}$.
 3. Symmetry of $\beq{S}:$ By definition.
 4. Symmetry of $\beq{B}$:<br>
   $p \beq{B} q$ implies there is a symmetric simulation $\rel R$ with $(p,q) ∈ \rel R$.
   As $\rel R = \inverse{\rel R}$, this implies $(q,p) ∈ \rel R$ and thus $q \beq{B} p$.
-
 :::
 
 ### The Hierarchy of Equivalences {#sec-hierarchy-equivalences}
@@ -373,7 +369,7 @@ Let us quickly make this formal:
   flowchart TD
     GI[Graph Isomorphism] -.-> B[Bisimilarity] --> S[Similarity] --> T[Trace Equivalence]
     style GI stroke-dasharray: 3 3
-  ```
+```
 
   Core hierarchy of equivalences.
 ::::
@@ -381,15 +377,16 @@ Let us quickly make this formal:
 
 
 ::: {#lem-bisim-bisim}
-  The relation $\beq{B}$ is itself a symmetric simulation.
+The relation $\beq{B}$ is itself a symmetric simulation.{{<isb lemma Strong_Equivalences lts.bisim_bisim>}}
 :::
 
 ::: {#cor-bisim-impl-sim}
-  If $p \beq{B} q$, then $p \beq{S} q$.
+If $p \beq{B} q$, then $p \beq{S} q$.{{<isb lemma Strong_Equivalences lts.bisim_bisim>}}
 :::
 
 ::: {#lem-sim-impl-traces}
-  If $p \bpreord{S} q$, then $p \bpreord{T} q$. (Consequently, $p \beq{S} q$ also implies $p \beq{T} q$.)
+If $p \bpreord{S} q$, then $p \bpreord{T} q$.{{<isb lemma Strong_Equivalences lts.sim_implies_trace_preord>}}
+(Consequently, $p \beq{S} q$ also implies $p \beq{T} q$.{{<isb lemma Strong_Equivalences lts.sim_eq_implies_trace_eq>}})
 :::
 
 {{<noindent>}} We also have seen with example @exm-phil-sim that this hierarchy is strict between trace and simulation preorder in the sense that there exist $p,q$ with $p \bpreord{T} q$ but not $p \bpreord{S} q$.
@@ -428,38 +425,36 @@ The equivalences we have been discussed so far could also be understood as abstr
 ::: {#def-graph-isomorphism}
 #### Graph Isomorphism
 
-A bijective function $\rel f \colon \states \to \states$ is called a *graph isomorphism* on a transition system if, for all $p,p', α$, the transition $p \step{α} p'$ exists if and only if the transition $\rel f(p) \step{α} \rel f(p')$ exists.
+A bijective function $\rel f \colon \states \to \states$ is called a *graph isomorphism* on a transition system if, for all $p,p', α$, the transition $p \step{α} p'$ exists if and only if the transition $\rel f(p) \step{α} \rel f(p')$ exists.{{<isb definition Strong_Equivalences lts.isomorphism>}}
 
-Two states $p$ and $q$ are considered *graph-isomorphism-equivalent*, $p \beq{GI} q$, iff there is a graph isomorphism $\rel f$ with $\rel f(p) = q$.
+Two states $p$ and $q$ are considered *graph-isomorphism-equivalent*, $p \beq{ISO} q$, iff there is a graph isomorphism $\rel f$ with $\rel f(p) = q$.{{<isb definition Strong_Equivalences lts.is_isomorphic_to>}}
 :::
 
-::: {#exm-graph-isomorphism}
-Consider the transition system in @fig-iso-ts.
-$\literal{p_{even}} \beq{GI} \literal{p_{odd}}$ because $\rel f ≔ \set{\literal{p_{even}} \mapsto \literal{p_{odd}}, \literal{p_{odd}} \mapsto \literal{p_{even}}}$ is a graph isomorphism.
+:::: {#exm-graph-isomorphism}
+Consider the transition system in @fig-iso-ts. $\literal{p_{even}} \beq{ISO} \literal{p_{odd}}$ because $\rel f ≔ \set{\literal{p_{even}} \mapsto \literal{p_{odd}}, \literal{p_{odd}} \mapsto \literal{p_{even}}}$ is a graph isomorphism.
 
-:::: {#fig-iso-ts .column-margin}
-  ```{mermaid}
-  flowchart TD
-    pEven([p<sub>even</sub>]) -- τ --> pOdd([p<sub>odd</sub>]) -- τ --> pEven
-  ```
-  Transition system with an isomorphic cycle.
+::: {#fig-iso-ts .column-margin}
+```{mermaid}
+flowchart TD
+  pEven([p<sub>even</sub>]) -- τ --> pOdd([p<sub>odd</sub>]) -- τ --> pEven
+```
+
+Transition system with an isomorphic cycle.
+:::
 ::::
-:::
 
 ::: {#lem-iso-impl-bisim}
-The relation $\beq{GI}$ is itself a symmetric simulation and thus $p \beq{GI} q$ implies $p \beq{B} q$.
+The relation $\beq{ISO}$ is itself a symmetric simulation and thus $p \beq{ISO} q$ implies $p \beq{B} q$.{{<isb lemma Strong_Equivalences lts.iso_implies_bisim>}}
 :::
 
 Once again, the hierarchy is strict because of bisimilarity being less restricted in the matching of equivalent states.
 
 ::: {#exm-iso-vs-bisim}
 Consider the processes $\literal{P_1} ≔ (\coaction{\literal{fork}} \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$ and $\literal{P_2} ≔ (\coaction{\literal{fork}} \ccspar \literal{fork} \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$.
-$\literal{P_1}$ can transition to $(\ccsnull \ccspar \ccsnull) \ccsrestrict \set{\literal{fork}}$, while $\literal{P_2}$ has two options, namely $(\ccsnull \ccspar \ccsnull \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$ and $(\ccsnull \ccspar \literal{fork} \ccspar \ccsnull) \ccsrestrict \set{\literal{fork}}$.
-All three reachable processes are deadlocks and thus isomorphic.
-But $\literal{P_1} \nbeq{GI} \literal{P_2}$ because no bijection can connect the one successor of $\literal{P_1}$ and the two of $\literal{P_2}$.
+$\literal{P_1}$ can transition to $(\ccsnull \ccspar \ccsnull) \ccsrestrict \set{\literal{fork}}$, while $\literal{P_2}$ has two options, namely $(\ccsnull \ccspar \ccsnull \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$ and $(\ccsnull \ccspar \literal{fork} \ccspar \ccsnull) \ccsrestrict \set{\literal{fork}}$. All three reachable processes are deadlocks and thus isomorphic.
+But $\literal{P_1} \nbeq{ISO} \literal{P_2}$ because no bijection can connect the one successor of $\literal{P_1}$ and the two of $\literal{P_2}$.
 However, $\literal{P_1} \beq{B} \literal{P_2}$, as bisimilarity is more relaxed.
 :::
-
 
 ## Modal Logic {#sec-hml}
 
@@ -468,7 +463,7 @@ However, $\literal{P_1} \beq{B} \literal{P_2}$, as bisimilarity is more relaxed.
 ::: {#def-hml}
 #### Hennessy–Milner Logic
 
-Formulas of *Hennessy–Milner logic* $\hml$ are given by the grammar:
+Formulas of *Hennessy–Milner logic* $\hml$ are given by the grammar:{{<isb datatype Hennessy_Milner_Logic hml_formula>}}
 
 $$
 \begin{array}{rcllr}
@@ -492,7 +487,8 @@ and negations $\hmlneg …$ describe impossibilities.
 
 ::: {#def-hml-semantics}
 #### HML semantics
-The semantics of HML $\semantics{\cdot} \colon \hml → \powerset{\states}$ is defined recursively by:
+
+The semantics of HML $\semantics{\cdot} \colon \hml → \powerset{\states}$ is defined recursively by:{{<isb primrec Hennessy_Milner_Logic lts.satisfies>}}
 
 $$
 \begin{array}{rcl}
@@ -504,13 +500,11 @@ $$
 :::
 
 ::: {#exm-hml}
-
 Let us consider some observations on the system of @exm-ts.
 
 - $\semantics{\hmlobs{τ}\hmlobs{\literal a}} = \set{\literal P, \literal Q}$ as both, $\literal P$ and $\literal Q$, expose the trace $τ\literal{a}$,
 - $\literal Q ∈ \semantics{\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}}$, but $\literal P \notin \semantics{\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}}$.
 - $\literal P ∈ \semantics{\hmlobs{τ}\hmlneg\hmlobs{\literal a}}$, but $\literal Q \notin \semantics{\hmlobs{τ}\hmlneg\hmlobs{\literal a}}$.
-
 :::
 
 ### Characterizing Bisimilarity via HML
@@ -518,10 +512,10 @@ Let us consider some observations on the system of @exm-ts.
 ::: {#def-distinctions}
 #### Distinctions and Equivalences
 
-We say that formula $φ ∈ \hml$ *distinguishes* state $p$ *from* state $q$ if $p ∈ \semantics{φ}$ but $q \notin \semantics{φ}$.
+We say that formula $φ ∈ \hml$ *distinguishes* state $p$ *from* state $q$ if $p ∈ \semantics{φ}$ but $q \notin \semantics{φ}$.{{<isb abbreviation Hennessy_Milner_Logic lts.distinguishes>}}
 
-We say a sublogic $\observationsvar{} ⊆ \hml$ *preorders* state $p$ to $q$, $p \bpreordvar{\observationsvar{}} q$, if no $φ ∈ \observationsvar{}$ is distinguishing $p$ from $q$.
-If the preordering goes in both directions, we say that $p$ and $q$ are equivalent with respect to sublogic $\observationsvar{}$, written $p \beqvar{\observationsvar{}} q$.
+We say a sublogic $\observationsvar{} ⊆ \hml$ *preorders* state $p$ to $q$, $p \bpreordvar{\observationsvar{}} q$, if no $φ ∈ \observationsvar{}$ is distinguishing $p$ from $q$.{{<isb definition Hennessy_Milner_Logic lts.hml_preordered>}}
+If the preordering goes in both directions, we say that $p$ and $q$ are equivalent with respect to sublogic $\observationsvar{}$, written $p \beqvar{\observationsvar{}} q$.{{<isb definition Hennessy_Milner_Logic lts.hml_equivalent>}}
 :::
 
 {{<noindent>}} By this account, $\hmlobs{τ}\hmlneg\hmlobs{\literal a}$ of @exm-hml distinguishes $\literal P$ from $\literal Q$.
@@ -532,14 +526,14 @@ For instance, the sublogic $\set{\hmlobs{τ}\hmlobs{\literal a}, \hmlobs{τ}\hml
 
 ::: {#prp-hml-eq}
 Consider an arbitrary HML sublogic $\observationsvar{} ⊆ \hml$.
-Then, $\bpreordvar{\observationsvar{}}$ is a preorder,
-and $\beqvar{\observationsvar{}}$ an equivalence relation.
+Then, $\bpreordvar{\observationsvar{}}$ is a preorder, and $\beqvar{\observationsvar{}}$ an equivalence relation.{{<isb lemma Hennessy_Milner_Logic lts.hml_equiv_equiv>}}
 :::
 
 ::: {#lem-hml-eq-sim}
-Hennessy–Milner logic equivalence $\beqvar{\hml}$ is a simulation relation.
+Hennessy–Milner logic equivalence $\beqvar{\hml}$ is a simulation relation.{{<isb lemma Hennessy_Milner_Logic lts.hml_equiv_sim>}}
 :::
-::: {.proof}
+
+::: proof
 Assume it were not.
 Then there would need to be $p \beqvar{\hml} q$ with step $p \step α p'$, and no $q'$ such that $q \step α q'$ and $p' \beqvar{\hml} q'$.
 So there would need to be a distinguishing formula $φ_{q'}$ for each $q'$ that $q$ can reach by an $α$-step.
@@ -550,9 +544,10 @@ It must be true for $p$ and false for $q$, contradicting $p \beqvar{\hml} q$.
 ::: {#lem-hml-eq-bisim-invariant}
 #### HML Bisimulation Invariance
 
-If $p ∈ \semantics{φ}$ and $p \beq{B} q$ then $q ∈ \semantics{φ}$.
+If $p ∈ \semantics{φ}$ and $p \beq{B} q$ then $q ∈ \semantics{φ}$.{{<isb lemma Hennessy_Milner_Logic lts.hml_bisim_invariant>}}
 :::
-::: {.proof}
+
+::: proof
 Induct over the structure of $φ$ with arbitrary $p$ and $q$.
 
 - Case $p ∈ \semantics{\hmlobs{α}φ}$.
@@ -574,7 +569,7 @@ Combining the bisimulation invariance for one direction and that $\beq{\hml}$ is
 ::: {#lem-hennessy-milner}
 #### Hennessy–Milner Theorem
 
-Bisimilarity and HML equivalence coincide, that is, $p \beq{B} q$ precisely if $p \beq{\hml} q$
+Bisimilarity and HML equivalence coincide, that is, $p \beq{B} q$ precisely if $p \beq{\hml} q$.{{<isb theorem Hennessy_Milner_Logic lts.Hennessy_Milner_theorem>}}
 :::
 
 ::: {#rem-image-finiteness}
@@ -597,8 +592,7 @@ That is, if a behavioral preorder (or equivalence) is defined through modal logi
 Secondly, modal characterizations can directly *unveil the hierarchy between preorders*, if defined cleverly, because of the following property.
 
 ::: {#prp-difference-contraposition}
-
-  If $\observationsvar{} \subseteq \observationsvar{}'$ then $p \bpreordvar{\observationsvar{}'} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.
+If $\observationsvar{} \subseteq \observationsvar{}'$ then $p \bpreordvar{\observationsvar{}'} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.{{<isb lemma Hennessy_Milner_Logic lts.hml_preorder_contraposition>}}
 :::
 
 Thirdly, as a corollary of @prp-difference-contraposition, modal characterizations *ensure equivalences to be refinements of bisimilarity*, which is a sensible base notion of equivalence.
@@ -624,7 +618,6 @@ A *reachability game* $\game = (G, G_\defender, \gamemoveblank)$ is played on a 
 
 {{<noindent>}} We denote by $\game[g_0]$ the game played from starting position $g_0 ∈ G$.
 :::
-
 
 ::: {#def-game-plays}
 #### Plays and Wins
@@ -740,4 +733,6 @@ The defender wins ${\game}_\hml^{\system}[(p, φ)]$ precisely if $p ∈ \semanti
 
 ### The Bisimulation Game
 
-
+::: {#def-bisim-game}
+#### Bisimulation Game
+:::

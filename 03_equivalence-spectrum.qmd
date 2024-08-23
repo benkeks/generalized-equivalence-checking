@@ -174,18 +174,17 @@ $$\notions^\literal{strong} ≔
 (\nats \cup \set{\infty})^6,
 $$
 be ordered by pointwise comparison of vector components,
-and the family of strong observation languages $\observationsvar{N \in \notions^\literal{strong}}^\literal{strong}$ given by the parameterized grammar starting from $φ^N$:
+and the family of strong observation languages $\observationsvar{N \in \notions^\literal{strong}}^\literal{strong}$ given by the parameterized grammar starting from $φ^N$:{{<isb primrec Priced_HML formula_of_price>}}
 
 $$
 \begin{array}{rcll}
   φ^N & \grammardef & \hmltrue{} & \\
       & \grammaror  & \hmlobs{α}φ^{N - \unit{1}} & \\
-      & \grammaror  & \hmlands\set{ψ^{N-\unit{2}}_*, ψ^{N-\unit{2}}, ψ^{N-\unit{2}}, ψ^{N-\unit{2}} \ldots} & \\
-  ψ_*^N & \grammardef &
-      \hmlobs{α}φ^{(N \sqcap (N_3, \infty, \infty, \infty, \infty, \infty)) - \unit{1}} & \\
-      & \grammaror  & ψ^N & \\
+      & \grammaror  & \hmlands\set{ψ^{N-\unit{2}},
+        ψ^{(N-\unit{2}) \sqcap (\infty, \infty, N_4, \infty, \infty, \infty)},
+        ψ^{(N-\unit{2}) \sqcap (\infty, \infty, N_4, \infty, \infty, \infty)}, \ldots} & \\
   ψ^N & \grammardef &
-      \hmlobs{α}φ^{(N \sqcap (N_4, \infty, \infty, \infty, \infty, \infty)) - \unit{1}} & \\
+      \hmlobs{α}φ^{(N \sqcap (N_3, \infty, \infty, \infty, \infty, \infty)) - \unit{1}} & \\
       & \grammaror  &
       \hmlneg \hmlobs{α}φ^{(N \sqcap (N_5, \infty, \infty, \infty, \infty, \infty))- \unit{1} - \unit{6}} & \\
 \end{array}

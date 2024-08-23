@@ -37,6 +37,7 @@ jobs:
             collection-xetex
             xcolor
             standalone
+            mathtools
             amsmath
             amsthm
             amsfonts

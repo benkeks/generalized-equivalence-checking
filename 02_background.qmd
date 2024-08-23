@@ -750,8 +750,24 @@ attack positions $G^\notionname{B}_\attacker ≔ \states × \states$ and defense
 :::
 
 ::: {#exm-bisim-game}
-TODO
+Consider $\literal{p_{even}} \beq{B} \literal{p_{odd}}$ of @exm-graph-isomorphism.
+The bisimulation game on this system is given by @fig-bisim-game-even-odd:
+
+:::: {#fig-bisim-game-even-odd}
+  ```{mermaid}
+  flowchart TD
+    eo["p<sub>even</sub>, p<sub>odd</sub>"] -->|challenge| too(["α, p<sub>odd</sub>, p<sub>odd</sub>"]) -->|answer| oe["p<sub>odd</sub>, p<sub>even</sub>"] -->|challenge| tee(["α, p<sub>even</sub>, p<sub>even</sub>"]) -->|answer| eo -->|swap| oe -->|swap| eo
+  ```
+  Bisimulation game under $\literal{p_{even}}, \literal{p_{odd}}$.
+  Moves are annotated with the game rules from which they derive.
+::::
+
+Clearly, there is no way for the attacker to get the defender stuck.
+Whatever strategy the attacker choses, the game will go on forever, leading to a win for the defender.
+That it is always safe for the defender to *answer* with moves to $[\literal{p_{even}}, \literal{p_{odd}}]$ and $[\literal{p_{odd}}, \literal{p_{even}}]$ corresponds to $\rel R ≔ \set{(\literal{p_{even}}, \literal{p_{odd}}), (\literal{p_{odd}}, \literal{p_{even}})}$ being a bisimulation.
 :::
+
+TODO non-bisim example
 
 ::: {#lem-bisim-game-characterization}
 The defender wins the bisimulation game ${\game}_\notionname{B}^{\system}$ starting at attacker position $[p, q]$ precisely if $p \beq{B} q$.{{<isb theorem Equivalence_Games bisim_game.bisim_game_characterization>}}
@@ -766,3 +782,5 @@ Sketch for both directions:
   then the following relation $\rel R$ with $(p_0,q_0) ∈ \rel R$ is a symmetric simulation:{{<isb lemma Equivalence_Games bisim_game.defender_winning_strategy_implies_bisim>}}
   $$\rel R ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),...,(p,q)$ following strategy $\rel f$}}.$$\qedhere
 :::
+
+### How Bisimulation Game and HML are connected

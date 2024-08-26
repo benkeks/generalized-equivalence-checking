@@ -604,6 +604,14 @@ In Chapter [-@sec-spectrum], we will discuss how the hierarchy of behavioral equ
 
 ## Games {#sec-games}
 
+
+```{mermaid}
+flowchart TD
+  bisim["<span class='katex'><span class='mathnormal'>p</span> ~<sub>B</sub> <span class='mathnormal'>q</span>"] x--o|"Hennessy–Milner theorem"| distinction["<span class='katex'>There is <span class='mathnormal'>φ</span> distinguishing <span class='mathnormal'>p</span> from <span class='mathnormal'>q</span>.</span>"]
+  bisim <-->|Strling's characterization| defWins["<span class='katex'>Defender wins bisimulation game from [<span class='mathnormal'>p, q</span>].</span>"] x--o|Determinacy of Games| attWins["<span class='katex'>Attacker wins bisimulation game from [<span class='mathnormal'>p, q</span>].</span>"]
+  distinction <-->|Section 4.4| attWins
+```
+
 ### Reachability Games
 
 *Gale--Stewart-style reachability games* where the defender wins all infinite plays.

@@ -89,3 +89,5 @@
 \providecommand{\defenderpos}[1]{{(#1)}_\mathtt{d}}
 \providecommand{\attacker}{{\mathrm{a}}}
 \providecommand{\defender}{{\mathrm{d}}}
+\providecommand{\attackerwins}{\mathsf{Win}_\mathrm{a}}
+\providecommand{\defenderwins}{\mathsf{Win}_\mathrm{d}}

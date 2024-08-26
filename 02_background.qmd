@@ -650,8 +650,8 @@ We call this partitioning of the game positions the winning regions.
 ::: {#def-winning-region}
 #### Winning Region
 
-The set $W_\attacker ⊆ G$ of all positions $g$ where the attacker wins $\game[g]$ is called the *attacker winning region* of $\game$.
-(The defender winning region $W_\defender$ is defined analogously.)
+The set $\attackerwins ⊆ G$ of all positions $g$ where the attacker wins $\game[g]$ is called the *attacker winning region* of $\game$.
+The defender winning region $\defenderwins$ is defined analogously.
 :::
 
 ::: {#exm-formula-game}
@@ -665,7 +665,7 @@ $(\literal{1})[\literal{2b}]$, and
 $(\literal{1})[\literal{2a}](\literal{3})$.
 The defender can win from $(\literal{1})$ with a strategy moving to $[\literal{2b}]$ where the attacker is stuck.
 Moving to $[\literal{2a}]$ instead would get the defender stuck.
-So, the defender winning region is $\set{(\literal{1}),[\literal{2b}]}$ and the attacker wins $\set{[\literal{2a}], (\literal{3})}$.
+So, the defender winning region is $\defenderwins = \set{(\literal{1}),[\literal{2b}]}$ and the attacker wins $\attackerwins = \set{[\literal{2a}], (\literal{3})}$.
 
 :::: {#fig-game-ex .column-margin}
   ```{mermaid}
@@ -675,6 +675,14 @@ So, the defender winning region is $\set{(\literal{1}),[\literal{2b}]}$ and the 
   ```
   A simple game.
 ::::
+:::
+
+::: {#prp-determinacy}
+#### Determinacy
+
+Reachability games are (positionally) determined, that is,
+for any game, each game position has exactly one winner:
+$G = \attackerwins \cup \defenderwins$ and $\attackerwins \cap \defenderwins = \varnothing$.
 :::
 
 ### The Semantic Game of HML

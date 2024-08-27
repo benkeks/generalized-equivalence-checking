@@ -12,6 +12,11 @@ filters:
 number-sections: true
 crossref:
   chapters: false
+  custom:
+    - kind: float
+      reference-prefix: Algorithm
+      key: alg
+      latex-env: algorithm
 linestretch: 1.15
 fig-align: center
 

@@ -604,6 +604,8 @@ In Chapter [-@sec-spectrum], we will discuss how the hierarchy of behavioral equ
 
 ## Games {#sec-games}
 
+So far, we have only seen behavioral equivalences and modal formulas as mathematical objects.
+This section introduces *game-theoretic characterizations* as a way of easily providing decision procedures for equivalences and logics alike.
 
 ```{mermaid}
 flowchart TD
@@ -691,6 +693,14 @@ So, the defender winning region is $\defenderwins = \set{(\literal{1}),[\literal
 Reachability games are (positionally) determined, that is,
 for any game, each game position has exactly one winner:
 $G = \attackerwins \cup \defenderwins$ and $\attackerwins \cap \defenderwins = \varnothing$.
+:::
+TODO: Provide soooome proof
+
+::: {#alg-deciding-games}
+
+TODO
+
+Deciding reachability games.
 :::
 
 ### The Semantic Game of HML
@@ -799,4 +809,59 @@ Sketch for both directions:
   $$\rel R ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),...,(p,q)$ following strategy $\rel f$}}.$$\qedhere
 :::
 
-### How Bisimulation Game and HML are connected
+### How Bisimulation Game and HML Are Connected
+
+You might have wondered why we even need a dedicated bisimulation game.
+The Hennessy–Milner theorem implies that we could directly use the HML game of @def-hml-game to decide bisimilarity:
+
+::: {#def-naive-bisim-game}
+
+#### Naive Bisimulation Game
+
+We extend the @def-hml-game by the following prefix:
+
+1. To challenge $[p,q]$, the attacker picks a formula $\varphi \in \hml$ (claiming that $\varphi$ distinguishes the states) and yields to the defender $(\varphi, p, q)$.
+2. The defender decides where to start the HML game:
+    1. Either at $(p, \hmlneg \varphi)$ (claiming $\varphi$ to be non-distinguishing because it is untrue for $p$)
+    2. or at $(q, \varphi)$ (claiming $\varphi$ to be non-distinguishing because it is true for $q$).
+3. After that the turns proceed as prescribed by @def-hml-game.
+
+:::
+
+This naive game, too, has the property that the defender from $[p,q]$ wins if $p \beq{B} q$.
+The downside of the game is that the attacker has infinitely many options $\varphi \in \hml$ to pick from!
+
+The proper bisimulation game of @def-bisim-game is finite for finite transition systems.
+Therefore, it induces decision procedures.
+
+We will now argue that the *bisimulation game actually is a variant of the naive game*, where (1) the attacker names its formula *gradually*, and (2) the formulas stem from a *functionally complete subset* $\observations{\floor{B}} \subseteq \hml$.
+To this end, we will show that attacker's winning strategies imply distinguishing formulas, and that a distinguishing formula from $\observations{\floor{B}}$ certify the existence of winning attacker strategies.
+
+::: {#def-game-formulas}
+
+$\observations{\floor{B}} \subseteq \hml$
+
+:::
+
+::: {#lem-attacks-imply-formulas}
+Let $\rel f$ be a deterministic winning strategy for the attacker on ${\game}_\notionname{B}$ from $[p,q]$.
+Construct formulas recursively from game positions, ${\varphi}_{\rel{f}}(g)$, as follows:
+
+$$
+\varphi_{\rel f}([p,q]) ≔ \begin{cases}
+  \hmlneg \varphi_{\rel f}([q,p])  & \text{if } \rel f([p,q]) = [q,p] \\
+  \hmlobs{\alpha} \hmlands \set{ \varphi_{rel f}([p',q']) \mid q \step{\alpha} q' } & \text{if } \rel f([p,q]) = (\alpha,p',q)
+\end{cases}
+$$
+
+Then $\varphi_{\rel f}([p,q])$ is well-defined and distinguishes $p$ from $q$.
+:::
+::: proof
+1. The given construction is well-defined as $\rel f$ must induce a well-founded order on game positions in order to be attacker-winning.
+2. The distinction can be derived by induction on the construction of $\varphi_{\rel f}([p,q])$.
+:::
+
+::: {#lem-formulas-imply-attack}
+$\varphi \in \observations{\floor{B}} \subseteq \hml$.
+Construct non-deterministic $\rel F_{\varphi}$
+:::

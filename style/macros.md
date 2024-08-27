@@ -15,6 +15,7 @@
 \providecommand{\lub}{\sqcup}
 \providecommand{\glb}{\sqcap}
 \providecommand{\unit}[1]{\mathbf{\hat e}_{#1}}
+\providecommand{\floor}[1]{\lfloor #1 \rfloor}
 
 \lc{ Transition systems }
 

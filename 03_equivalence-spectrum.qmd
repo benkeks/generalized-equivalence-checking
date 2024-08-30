@@ -29,7 +29,7 @@ Rephrasing @def-distinctions, two states are preordered with respect to a sublog
 $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsvar{} = \varnothing.$$
 :::
 
-### Understanding the Equivalence Hierarchy Through Modal Logics
+### Understanding the Equivalence Hierarchy through Modal Logics
 
 Let us revisit the hierarchy between bisimilarity, similarity, and trace equivalence of Subsection [-@sec-hierarchy-equivalences].
 So far, we have only looked into the characterization of bisimilarity through the whole of $\hml$ in @lem-hennessy-milner.
@@ -45,21 +45,25 @@ $$
     & \grammaror & \hmltrue \\
   φ^\mathrm{S} & \grammardef &
     \hmlobs{α}φ^\mathrm{S}
-    & \grammaror & \hmland{i}{I}φ^\mathrm{S}_i
+    & \grammaror & \hmland{i}{I}\hmlobs{α_i}φ^\mathrm{S}_i
 \end{array}
 $$
 :::
 
-Clearly, $\observations{T} \subset \observations{S} \subset \hml$.
-So, by @prp-difference-contraposition, the hierarchy of Subsection [-@sec-hierarchy-equivalences] can also be established by the following two characterization lemmas:
+{{<noindent>}} The logics characterize trace and simulation preorder (and equivalence):
 
 ::: {#lem-trace-logics}
-$p \bpreord{T} q$ precisely if $p \bpreordvar{\observations{T}} q$.
+$p \bpreord{T} q$ precisely if $p \bpreordvar{\observations{T}} q$.{{<isb theorem HML_Spectrum lts.observations_traces_characterizes_trace_preorder>}}
 :::
 
 ::: {#lem-sim-logics}
-$p \bpreord{S} q$ precisely if $p \bpreordvar{\observations{S}} q$.
+$p \bpreord{S} q$ precisely if $p \bpreordvar{\observations{S}} q$.{{<isb theorem HML_Spectrum lts.observations_simulation_characterize_simulation_preorder>}}
 :::
+
+{{<noindent>}} Clearly, $\observations{T} \subset \observations{S} \subset \hml$.
+So, @prp-difference-contraposition (together with @lem-hennessy-milner for $\beq{B}$ and $\hml$) yields another way of establishing the hierarchy between trace equivalence, similarity, and bisimilarity of Subsection [-@sec-hierarchy-equivalences].
+
+
 
 ### Incomparabilities
 
@@ -195,23 +199,20 @@ For instance, $φ^N \leadsto \hmlobs{α}φ^{N - \unit{1}}$ is no valid productio
 
 :::
 
-TODO: Prove flattening and removability of disjunctions.
-Adapt following proofs.
-
 ::: {#lem-spectrum-characterization}
 
 The strong spectrum of @def-strong-spectrum contains the notions of behavioral equivalence we have discussed so far.
 
-1. The observation language $\observationsvar{(\infty, 0, 0, 0, 0, 0)}^\literal{strong}$ exactly matches the characterization of traces $\observations{T}$ from @def-sim-trace-logics.
-2. The observation language $\observationsvar{(\infty, \infty, \infty, \infty, 0, 0)}^\literal{strong}$ exactly matches the characterization of simulation observations $\observations{S}$ from @def-sim-trace-logics.
-3. The observation language $\observationsvar{(\infty, \infty, \infty, \infty,  \infty, \infty)}^\literal{strong}$ matches $\hml$ in expressivity and thus characterizes bisimilarity.
+1. The observation language $\observationsvar{(\infty, 0, 0, 0, 0, 0)}^\literal{strong}$ exactly matches the characterization of traces $\observations{T}$ from @def-sim-trace-logics and thus characterizes trace preorder.{{<isb theorem Priced_Spectrum lts.traces_priced_characterization>}}
+2. The observation language $\observationsvar{(\infty, \infty, \infty, \infty, 0, 0)}^\literal{strong}$ exactly matches the characterization of simulation observations $\observations{S}$ from @def-sim-trace-logics and thus characterizes simulation.{{<isb theorem Priced_Spectrum lts.simulation_priced_characterization>}}
+3. The observation language $\observationsvar{(\infty, \infty, \infty, \infty,  \infty, \infty)}^\literal{strong}$ matches $\hml$ in distinctiveness and thus characterizes bisimilarity.
 4. The observation language $\observationsvar{(\infty, 1, 0, 0, 1, 1)}^\literal{strong}$ exactly matches failure observations $\observations{F}$ of @def-failures.
 :::
 
 ::: {.proof}
 The only non-trivial case is:
 
-3. The difference is that $\observationsvar{(\infty, \infty, \infty, \infty,  \infty, \infty)}^\literal{strong}$ forces negations to appear in negations. This does not affect expressive power as $\hmlneg \varphi \equiv \hmlands\set{\hmlneg \varphi}$.
+3. The difference is that $\observationsvar{(\infty, \infty, \infty, \infty,  \infty, \infty)}^\literal{strong}$ forces negations to appear in conjunctions. This does not affect expressive power as $\hmlneg \varphi \equiv \hmlands\set{\hmlneg \varphi}$.
 :::
 
 

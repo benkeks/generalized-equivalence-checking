@@ -25,6 +25,7 @@
 \providecommand{\labels}{\mathcal{L}}
 \providecommand{\actions}{\Sigma}
 \providecommand{\traces}[1]{\mathsf{Traces}(#1)}
+\providecommand{\derivatives}[1]{\operatorname{Der}(#1)}}
 
 \providecommand{\literal}[1]{\mathsf{#1}}
 

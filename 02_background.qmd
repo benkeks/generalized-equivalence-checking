@@ -18,6 +18,8 @@ A *labeled transition system* (LTS) $\system=(\states,\actions,\step{})$ consist
 - $\states$, a set of *states,*
 - $\actions$, a set of *actions,* and
 - ${\step{}} ⊆ \states × \actions × \states$, a *transition relation*.{{<isb locale Labeled_Transition_Systems lts>}}
+
+We write $\derivatives{p, α}$ for the set $\set{p' \mid p \step α p'}$.
 :::
 
 {{<noindent>}} There is a canonical example used to discuss equivalences within transition systems.
@@ -592,7 +594,7 @@ That is, if a behavioral preorder (or equivalence) is defined through modal logi
 Secondly, modal characterizations can directly *unveil the hierarchy between preorders*, if defined cleverly, because of the following property.
 
 ::: {#prp-difference-contraposition}
-If $\observationsvar{} \subseteq \observationsvar{}'$ then $p \bpreordvar{\observationsvar{}'} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.{{<isb lemma LTS_Semantics lts.preorder_contraposition>}}
+If $\observationsvar{} \subseteq \observationsvar{}'$ then $p \bpreordvar{\observationsvar{}'} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.{{<isb lemma LTS_Semantics lts_semantics.preorder_contraposition>}}
 :::
 
 Pay attention to the opposing directions of $\subseteq$ and implication, here!
@@ -601,6 +603,83 @@ Thirdly, as a corollary of @prp-difference-contraposition, modal characterizatio
 <!-- TODO: add forwards pointer on good complexities of bisimilarity -->
 
 In Chapter [-@sec-spectrum], we will discuss how the hierarchy of behavioral equivalences can be understood nicely and uniformly if viewed through the modal lense.
+
+### Expressiveness and Distinctiveness
+
+@prp-difference-contraposition actually is a weak version of another proposition about *distinctiveness* of logics.
+
+::: {#def-leq-expressive}
+We say that an $\actions$-observation language $\observationsvar{}$ is *less or equal in expressiveness* to another $\observationsvar{}'$ iff, for any $\actions$-transition system, for each $φ ∈ \observationsvar{}$, there is $φ' ∈ \observationsvar{}'$ such that $\semantics{φ} = \semantics{φ'}$.
+(The definition can also be read with regards to a fixed transition system $\system$.){{<isb definition LTS_Semantics lts_semantics.leq_expressive>}}
+If the inclusion holds in both directions, $\observationsvar{}$ and $\observationsvar{}'$ are *equally expressive*.
+:::
+
+::: {#def-leq-distincitve}
+We say that an $\actions$-observation language $\observationsvar{}$ is *less or equal in distintiveness* to another $\observationsvar{}'$ iff, for any $\actions$-transition system and states $p$ and $q$, for each $φ ∈ \observationsvar{}$ that distinguishes $p$ from $q$, there is $φ' ∈ \observationsvar{}'$ that distinguishes $p$ from $q$.{{<isb definition LTS_Semantics lts_semantics.leq_distintive>}}
+If the inclusion holds in both directions, $\observationsvar{}$ and $\observationsvar{}'$ are *equally distinctive*.
+:::
+
+::: {#lem-subset-expressiveness-distinctiveness}
+
+Subset relationship entails expressiveness entails distinctiveness.
+
+- If $\observationsvar{} ⊆ \observationsvar{}'$, then $\observationsvar{}$ is less or equal in expressiveness to $\observationsvar{}'$.{{<isb lemma LTS_Semantics lts_semantics.subset_expressiveness>}}
+- If $\observationsvar{}$ is less or equal in expressiveness to $\observationsvar{}'$, then $\observationsvar{}$ is less or equal in distinctiveness to $\observationsvar{}'$.{{<isb lemma LTS_Semantics lts_semantics.expressiveness_entails_distinctiveness>}}
+:::
+
+The other direction does not hold.
+For instance, $\hml ⊈ \hml \setminus \set{\hmltrue}$, but they are equally expressive as $\hmlneg\hmlneg\hmltrue$ can cover for the removed element.
+At the same time, $\set{\hmltrue}$ is more expressive than $\varnothing$, but equally distinctive.
+
+The stronger version of @prp-difference-contraposition is thus:
+
+::: {#prp-distinctiveness-contraposition}
+If $\observationsvar{}$ is less or equal *in distinctiveness* to $\observationsvar{}'$ then $p \bpreordvar{\observationsvar{}'} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.{{<isb lemma LTS_Semantics lts_semantics.preorder_expressiveness_contraposition>}}
+:::
+
+This fact is interesting because it means that the same equivalence may be characterized by different sublogics.
+In particular, one may often find smaller characterizations as in the following example.
+
+::: {#exm-game-formulas}
+
+Consider $\observations{\floor{B}} \subseteq \hml$ characterized by the following grammar.
+
+$$
+\begin{array}{rcll}
+  φ^\mathrm{\floor{B}}
+    & \grammardef & \hmlobs{α} \hmland{i}{I} φ^\mathrm{\floor{B}}_i \\
+    & \grammaror  & \hmlneg φ^\mathrm{\floor{B}}
+\end{array}
+$$
+:::
+
+{{<noindent>}} $\observations{\floor{B}}$ is a proper subset of $\hml$.
+For instance, it lacks the observation $\hmlobs{\literal a} \hmlobs{\literal b} \hmltrue$.
+Due to the subset relation, $\observations{\floor{B}}$ must be less or equal in expressiveness to $\hml$, but this inclusion too is strict as $\hmltrue$ cannot be covered for.
+But it is equally distinctive!
+
+::: {#lem-game-formula-hml}
+$\observations{\floor{B}}$ and $\hml$ are equally distinctive.{{<isb theorem HML_Spectrum lts.hml_and_bisimulation_game_observations_equally_expressive>}}
+:::
+::: proof
+
+One direction is immediate from @lem-subset-expressiveness-distinctiveness as $\observations{\floor{B}} \subseteq \hml$.
+
+For the other direction, we need to establish that for each $φ ∈ \hml$ distinguishing some $p$ from some $q$, there is a $φ' ∈ \observations{\floor{B}}$ distinguishing $p$ from $q$.
+We induct on the structure of $φ$ with arbitrary $p$ and $q$.
+
+- Case $\hmlobs{α}φ$ distinguishes $p$ from $q$.
+  Thus there is $p'$ with $p \step α p'$ distinguishing $p'$ from all $q' ∈ \derivatives{q, α}$.
+  By induction hypothesis, there must be $φ'_{q'} ∈ \observations{\floor{B}}$ distinguishing $p'$ from $q'$ for each $q'$.
+  Thus $\hmlobs{α}\hmland{q'}{\derivatives{q, α}} φ'_{q'} ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$.
+- Case $\hmland{i}{I}φ_i$ distinguishes $p$ from $q$.
+  Therefore some $φ_i$ already distinguishes $p$ from $q$.
+  By induction hypothesis, there must be $φ'_i ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$.
+- Case $\hmlneg φ$ distinguishes $p$ from $q$.
+  Thus $φ$ distinguishes $q$ from $p$.
+  By induction hypothesis, there is $φ' ∈ \observations{\floor{B}}$ distinguishing $q$ from $p$.
+  Accordingly, $\hmlneg φ' ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$.\qedhere
+:::
 
 ## Games {#sec-games}
 
@@ -806,7 +885,7 @@ Sketch for both directions:
   $$\rel f (α, p', q) ≔ [p', \operatorname{choose} q'\ldotp (p', q') ∈ \rel R \land q \step{α} q'].$$
 - If there is a positional defender strategy $\rel f$ winning from $[p, q]$,
   then the following relation $\rel R$ with $(p_0,q_0) ∈ \rel R$ is a symmetric simulation:{{<isb lemma Equivalence_Games bisim_game.defender_winning_strategy_implies_bisim>}}
-  $$\rel R ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),...,(p,q)$ following strategy $\rel f$}}.$$\qedhere
+  $$\rel R ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),...,(p,q)$ following strategy $\rel f$}}.$$
 :::
 
 ### How Bisimulation Game and HML Are Connected
@@ -836,12 +915,6 @@ Therefore, it induces decision procedures.
 
 We will now argue that the *bisimulation game actually is a variant of the naive game*, where (1) the attacker names their formula *gradually*, and (2) the formulas stem from a *functionally complete subset* $\observations{\floor{B}} \subseteq \hml$.
 To this end, we will show that attacker's winning strategies imply distinguishing formulas, and that a distinguishing formula from $\observations{\floor{B}}$ certifies the existence of winning attacker strategies.
-
-::: {#def-game-formulas}
-
-$\observations{\floor{B}} \subseteq \hml$
-
-:::
 
 ::: {#lem-attacks-imply-formulas}
 Let $\rel f$ be a deterministic winning strategy for the attacker on ${\game}_\notionname{B}$ from $[p,q]$.

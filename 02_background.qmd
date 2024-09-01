@@ -791,7 +791,7 @@ For a transition system $\system = (\states,\actions,\step{})$,
 the $\hml$ *game* ${\game}_\hml^{\system} = (G_\hml,G_\defender,\gamemoveblank_\hml)$ is played on $G_\hml = \states × \hml$,
 where the defender controls observations and negated conjunctions,
 that is $(p, \hmlobs{α}φ) ∈ G_\defender$ and
-$(p,\hmlneg\hmland{i}{I}\varphi_i) ∈ G_\defender$ (for all $φ,p,I$), and the attacker controls the rest.
+$(p,\hmlneg\hmland{i}{I}φ_i) ∈ G_\defender$ (for all $φ,p,I$), and the attacker controls the rest.
 
 - The defender can perform the moves:
   $$
@@ -800,9 +800,9 @@ $(p,\hmlneg\hmland{i}{I}\varphi_i) ∈ G_\defender$ (for all $φ,p,I$), and the 
       & \gamemoveblank_\hml
       & (p', φ)
       & \text{ if $p \step{α} p' \quad$ and} \\
-      (p, \hmlneg{\hmland{i}{I}\varphi_i})
+      (p, \hmlneg{\hmland{i}{I}φ_i})
       & \gamemoveblank_\hml
-      & (p, \hmlneg\varphi_i)
+      & (p, \hmlnegφ_i)
       & \text{ with $i ∈ I$;}
   \end{array}
   $$
@@ -813,9 +813,9 @@ $(p,\hmlneg\hmland{i}{I}\varphi_i) ∈ G_\defender$ (for all $φ,p,I$), and the 
       & \gamemoveblank_\hml
       & (p', \hmlneg φ)
       & \text{ if $p \step{α} p' \quad$ and} \\
-    (p, \hmland{i}{I}\varphi_i)
+    (p, \hmland{i}{I}φ_i)
       & \gamemoveblank_\hml
-      & (p, \varphi_i)
+      & (p, φ_i)
       & \text{ with $i ∈ I \quad$ and} \\
     (p, \hmlneg\hmlneg φ)
       & \gamemoveblank_\hml
@@ -899,42 +899,58 @@ The Hennessy–Milner theorem implies that we could directly use the HML game of
 
 We extend the @def-hml-game by the following prefix:
 
-1. To challenge $[p,q]$, the attacker picks a formula $\varphi \in \hml$ (claiming that $\varphi$ distinguishes the states) and yields to the defender $(\varphi, p, q)$.
+1. To challenge $[p,q]$, the attacker picks a formula $φ ∈ \hml$ (claiming that $φ$ distinguishes the states) and yields to the defender $(φ, p, q)$.
 2. The defender decides where to start the HML game:
-    1. Either at $(p, \hmlneg \varphi)$ (claiming $\varphi$ to be non-distinguishing because it is untrue for $p$)
-    2. or at $(q, \varphi)$ (claiming $\varphi$ to be non-distinguishing because it is true for $q$).
+    1. Either at $(p, \hmlneg φ)$ (claiming $φ$ to be non-distinguishing because it is untrue for $p$)
+    2. or at $(q, φ)$ (claiming $φ$ to be non-distinguishing because it is true for $q$).
 3. After that the turns proceed as prescribed by @def-hml-game.
 
 :::
 
 This naive game, too, has the property that the defender wins from $[p,q]$ iff $p \beq{B} q$.
-The downside of the game is that the attacker has infinitely many options $\varphi \in \hml$ to pick from!
+The downside of the game is that the attacker has infinitely many options $φ ∈ \hml$ to pick from!
 
 The proper bisimulation game of @def-bisim-game, on the other hand, is *finite for finite transition systems*.
 Therefore, it induces decision procedures.
 
-We will now argue that the *bisimulation game actually is a variant of the naive game*, where (1) the attacker names their formula *gradually*, and (2) the formulas stem from a *functionally complete subset* $\observations{\floor{B}} \subseteq \hml$.
+We will now argue that the *bisimulation game actually is a variant of the naive game*, where (1) the attacker names their formula *gradually*, and (2) the formulas stem from $\observations{\floor{B}} \subseteq \hml$ of @exm-game-formulas.
 To this end, we will show that attacker's winning strategies imply distinguishing formulas, and that a distinguishing formula from $\observations{\floor{B}}$ certifies the existence of winning attacker strategies.
 
 ::: {#lem-attacks-imply-formulas}
 Let $\rel f$ be a deterministic winning strategy for the attacker on ${\game}_\notionname{B}$ from $[p,q]$.
-Construct formulas recursively from game positions, ${\varphi}_{\rel{f}}(g)$, as follows:
+Construct formulas recursively from game positions, ${φ}_{\rel{f}}(g)$, as follows:
 
 $$
-\varphi_{\rel f}([p,q]) ≔ \begin{cases}
-  \hmlneg \varphi_{\rel f}([q,p])  & \text{if } \rel f([p,q]) = [q,p] \\
-  \hmlobs{\alpha} \hmlands \set{ \varphi_{rel f}([p',q']) \mid q \step{\alpha} q' } & \text{if } \rel f([p,q]) = (\alpha,p',q)
+φ_{\rel f}([p,q]) ≔ \begin{cases}
+  \hmlneg φ_{\rel f}([q,p])  & \text{if } \rel f([p,q]) = [q,p] \\
+  \hmlobs{\alpha} \hmlands \set{ φ_{rel f}([p',q']) \mid q \step{\alpha} q' } & \text{if } \rel f([p,q]) = (\alpha,p',q)
 \end{cases}
 $$
 
-Then $\varphi_{\rel f}([p,q])$ is well-defined and distinguishes $p$ from $q$.
+Then $φ_{\rel f}([p,q])$ is well-defined and distinguishes $p$ from $q$.
 :::
 ::: proof
 1. The given construction is well-defined as $\rel f$ must induce a well-founded order on game positions in order to be attacker-winning.
-2. The distinction can be derived by induction on the construction of $\varphi_{\rel f}([p,q])$.
+2. The distinction can be derived by induction on the construction of $φ_{\rel f}([p,q])$.
+   TODO
 :::
 
 ::: {#lem-formulas-imply-attack}
-$\varphi \in \observations{\floor{B}} \subseteq \hml$.
-Construct non-deterministic $\rel F_{\varphi}$
+If $φ ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$, then the attacker wins from $[p,q]$.
 :::
+::: proof
+
+By induction on the derivation of $φ ∈ \observations{\floor{B}}$ according to the definition from @exm-game-formulas with arbitrary $p$ and $q$.
+
+- Case $φ = \hmlobs{α} \hmland{i}{I} φ_i$.
+  As $φ$ distinguishes $p$ from $q$, there must be a $p'$ such that $p \step{α} p'$ and that $\hmland{i}{I} φ_i$ distinguishes $p'$ from every $q' \in \derivatives{q, α}$.
+  That is, for each $q' \in \derivatives{q, α}$, at least one $φ_i \in \observations{\floor{B}}$ must be false.
+  By induction hypothesis, the attacker thus wins each $[p',q']$.
+  As these attacker positions encompass all successors of $(α, p', q)$, the attacker also wins this defender position and can win from $[p,q]$ by moving there with a simulation challenge.
+- Case $φ = \hmlneg φ'$.
+  As $φ$ distinguishes $p$ from $q$, $φ'$ distinguishes $q$ from $p$.
+  By induction hypothesis, the attacker wins $[q, p]$.
+  So they can also win $[p, q]$ by performing a swap.\qedhere
+:::
+
+@lem-attacks-imply-formulas, @lem-formulas-imply-attack, and @lem-game-formula-hml together with the determinacy of games yield an alternative proof of the game characterization @lem-bisim-game-characterization.

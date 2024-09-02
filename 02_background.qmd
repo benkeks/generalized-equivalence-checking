@@ -802,7 +802,7 @@ $(p,\hmlneg\hmland{i}{I}φ_i) ∈ G_\defender$ (for all $φ,p,I$), and the attac
       & \text{ if $p \step{α} p' \quad$ and} \\
       (p, \hmlneg{\hmland{i}{I}φ_i})
       & \gamemoveblank_\hml
-      & (p, \hmlnegφ_i)
+      & (p, \hmlneg φ_i)
       & \text{ with $i ∈ I$;}
   \end{array}
   $$

@@ -637,12 +637,12 @@ The stronger version of @prp-difference-contraposition is thus:
 If $\observationsvar{}$ is less or equal *in distinctiveness* to $\observationsvar{}'$ then $p \bpreordvar{\observationsvar{}'} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.{{<isb lemma LTS_Semantics lts_semantics.preorder_expressiveness_contraposition>}}
 :::
 
-This fact is interesting because it means that the same equivalence may be characterized by different sublogics.
-In particular, one may often find smaller characterizations as in the following example.
+Often, an equivalence may be characterized by different sublogics.
+In particular, one may find smaller characterizations as in the following example for bisimilarity.
 
 ::: {#exm-game-formulas}
 
-Consider $\observations{\floor{B}} \subseteq \hml$ characterized by the following grammar.
+Consider $\observations{\floor{B}} \subseteq \hml$ described by the following grammar.
 
 $$
 \begin{array}{rcll}
@@ -953,4 +953,4 @@ By induction on the derivation of $φ ∈ \observations{\floor{B}}$ according to
   So they can also win $[p, q]$ by performing a swap.\qedhere
 :::
 
-@lem-attacks-imply-formulas, @lem-formulas-imply-attack, and @lem-game-formula-hml together with the determinacy of games yield an alternative proof of the game characterization @lem-bisim-game-characterization.
+{{<noindent>}} @lem-attacks-imply-formulas, @lem-formulas-imply-attack, and @lem-game-formula-hml together with the determinacy of games yield an alternative proof of the game characterization @lem-bisim-game-characterization.

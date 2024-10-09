@@ -32,7 +32,7 @@ $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsva
 ### Understanding the Equivalence Hierarchy through Modal Logics
 
 Let us revisit the hierarchy between bisimilarity, similarity, and trace equivalence of Subsection [-@sec-hierarchy-equivalences].
-So far, we have only looked into the characterization of bisimilarity through the whole of $\hml$ in @lem-hennessy-milner.
+So far, we have only looked into the characterization of bisimilarity through the whole of $\hml$ in @lem-hennessy-milner or through $\observations{\floor{B}}$ in @exm-game-formulas.
 
 ::: {#def-sim-trace-logics}
 
@@ -62,7 +62,6 @@ $p \bpreord{S} q$ precisely if $p \bpreordvar{\observations{S}} q$.{{<isb theore
 
 {{<noindent>}} Clearly, $\observations{T} \subset \observations{S} \subset \hml$.
 So, @prp-difference-contraposition (together with @lem-hennessy-milner for $\beq{B}$ and $\hml$) yields another way of establishing the hierarchy between trace equivalence, similarity, and bisimilarity of Subsection [-@sec-hierarchy-equivalences].
-
 
 
 ### Incomparabilities
@@ -97,13 +96,13 @@ On the other hand, no failure from $\observations{F}$, distinguishes $\literal Q
   Preorder/equivalence hierarchy.
 ::::
 
-As a consequence, simulation preorder and failure preorder ar incomparable, that is, neither one implies the other.
-The same is true of the equivalences, similarity and failure equivalence.
+As a consequence, simulation preorder and failure preorder are incomparable, that is, neither one implies the other.
+The same is true of the corresponding equivalences: similarity and failure equivalence.
 The situation is summed up by the non-linear hierarchy in @fig-failure-hierarchy.
 
 ## The Linear-Time–Branching-Time Spectrum
 
-Van Glabbeek [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] shows how all common equivalences can be understood to be a lattice of sublanguages of $\hml$ and a variant of $\hml$ for equivalences with silent steps.
+Van Glabbeek's two papers on the “linear-time--branching-time spectrum” [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] show how all common equivalences can be understood to be a lattice of sublanguages of $\hml$ (and a variant of $\hml$ for equivalences with silent steps).
 His hierarchy of equivalences derives from a hierarchy of *notions of observability*.^[In particular, the weak spectrum [@glabbeek1993ltbt] makes this really formal.]
 
 ### Observability Lattice
@@ -229,6 +228,35 @@ Leads to spectroscopy problem...
 ## Spectroscopy
 
 ### The Spectroscopy Problem
+
+
+> Given a spectrum $(\notions, \leq, \observationsvar{N \in \notions})$ and a pair of processes $p$ and $q$, what are the notions $N$ such that $p \bpreordvar{\observationsvar{N}} q$?
+
+Distinction formulation:
+
+> What are the notions $N$ such that $\difference{p}{q} \cap \observationsvar{N} \neq \varnothing$?
+
+<!--
+
+\begin{prob}[Abstract observation preorder problem]\label{prob:abstract-obs-problem}
+  Given a process $p$ and a set of processes $Q$,
+  what are the observation languages from \refDef{def:ltbts} (including $\obs{E}$)
+  for which $p$ is preordered to every $q \in Q$?
+\end{prob}
+
+Our approach to solve this problem looks for the set of minimal languages to tell the processes apart.
+We characterize these minimal distinguishing languages through a set of coordinates from the price lattice (\refDef{def:price-lattice}),
+where every coordinate is justified by a distinguishing formula with this price.
+In line with \refSubsec{subsec:negated-conjunctions}, we do not care about formulas with double negations and negated conjunctions.
+
+\begin{prob}[Cheapest distinction problem]\label{prob:cheapest-distinction}
+  Given a process $p$ and a set of processes $Q$,
+  what is the set of minimal prices (according to \refDef{def:formula-expressiveness}) of formulas with neither double negations nor negated conjunctions
+  that distinguish $p$ from every $q \in Q$?
+  What are illuminating witness formulas for each such price?
+\end{prob}
+
+-->
 
 ### Spectroscopy as Abstract Interpretation
 

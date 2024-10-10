@@ -229,6 +229,7 @@ Leads to spectroscopy problem...
 
 ### The Spectroscopy Problem
 
+Introduced in @bjn2022decidingAllBehavioralEqs.
 
 > Given a spectrum $(\notions, \leq, \observationsvar{N \in \notions})$ and a pair of processes $p$ and $q$, what are the notions $N$ such that $p \bpreordvar{\observationsvar{N}} q$?
 

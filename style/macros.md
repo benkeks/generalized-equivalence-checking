@@ -82,6 +82,7 @@
 \providecommand{\observationsvar}[1]{\mathcal{O}_{#1}}
 
 \lc{ Games }
+
 \providecommand{\gamemove}[1]{\mathrel{\smash{›\!\!\frac{#1}{}\!\!›}}}
 \providecommand{\gamemoveblank}{\gamemove{\quad}}
 \providecommand{\ngamemove}[1]{\mathrel{\smash{{›/\!\!\!\!\frac{#1}{\;}\!\!›}}}}
@@ -93,3 +94,9 @@
 \providecommand{\defender}{{\mathrm{d}}}
 \providecommand{\attackerwins}{\mathsf{Win}_\mathrm{a}}
 \providecommand{\defenderwins}{\mathsf{Win}_\mathrm{d}}
+
+\lc{ Energy Games }
+
+\providecommand{\abstractupdate}{\mathcal{upd}}
+\providecommand{\abstractenergies}{\mathcal{En}}
+\providecommand{\energylevel}{\operatorname{EL}}

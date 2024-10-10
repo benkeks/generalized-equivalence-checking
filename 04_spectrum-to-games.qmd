@@ -1,3 +1,73 @@
 ---
 title: "Approach: Equivalence Problems as Energy Games"
 ---
+
+{{< include style/macros.md >}}
+
+Purpose of section:
+
+- Introduce energy games
+- Illustrate approach
+
+## Energy Games
+
+### General Energy Games
+
+To introduce energy games, we generalize the definitions on games (@def-game and the following) to include *energy levels*.
+
+::: {#def-energy-game}
+#### Energy Reachability Game
+
+Given a partially ordered set of energies $(\abstractenergies, \leq)$, an *energy reachability game* $\game^🗲$ is a reachability game $(G, G_\defender, \gamemoveblank)$ extended by an edge labeling of energy updates $\abstractupdate \colon (\gamemoveblank) \to (\abstractenergies \to (\set{⊥} \cup \abstractenergies))$.
+
+{{<noindent>}} We denote by $\game^🗲[g_0, e_0]$ the game played from starting position $g_0 ∈ G$ with initial energy level $e_0 ∈ \abstractenergies$.
+:::
+
+::: {#def-energy-level}
+#### Energy Level
+
+For a finite play $ρ = {g_0}{g_1}…{g_{n-1}} ∈ G^{*}$ of $\game^🗲[g_0, e_0]$, its energy level $\energylevel(ρ)$ is computed recursively:
+
+- $\energylevel(g_0) ≔ e_0$
+- $\energylevel(g_0…{g_{i+1}}) ≔
+  \begin{cases}
+    \abstractupdate({g_{i}},{g_{i+1}})(\energylevel(g_0…{g_{i}})) & \text{if } \energylevel(g_0…{g_{i}}) \neq ⊥ \\
+    ⊥  & \text{otherwise}
+  \end{cases}$
+
+For infinite plays $ρ \in G^ω$, we consider energy levels to equal $⊥$.
+
+We consider the attacker to be energy-bound and understand $\energylevel(ρ) = ⊥$ to mean that they have run out of energy.
+Thus, we declare plays with $\energylevel(ρ) = ⊥$ to be won by the defender.
+:::
+
+We lift positional strategies of @def-strategies to be *energy-positional* in the sense that they pick next moves depending on the current energy level, i.e.\ $\rel F ⊆ (G_\attacker × \abstractenergies × G)$.
+
+Instead of a winning region as in @def-winning-region, we define *winning budgets* for game positions:
+
+::: {#def-winning-budgets}
+#### Winning Budgets
+
+For each position $g_0 \in G$ of energy game $\game^🗲$, the *attacker winning energy budgets*, $\attackerwins(g_0) \subseteq \abstractenergies$ are the energies $e_0$ where the attacker wins $\game^🗲[g_0, e_0]$.
+The defender winning budgets $\defenderwins$ are defined analogously.
+:::
+
+::: {#rem-energy-reachability}
+Ordinary reachability games can be seen as a special case of energy games with trivial energies, e.g.\ $\abstractenergies ≔ \set{1}$ and $\abstractupdate(\cdot) ≔ \identity{\abstractenergies}$.
+:::
+
+TODO: Example plus-minus energy game.
+
+### Declining Energy Games
+
+TODO: Declining energy games
+
+## A Bisimulation Energy Game
+
+TODO: Bisimulation game with energies
+TODO: Discussion of characterized eqs
+
+## How to Decide Declining Energy Games
+
+TODO: Refined algo for energy games
+TODO: Complexities

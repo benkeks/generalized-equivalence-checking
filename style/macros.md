@@ -8,14 +8,20 @@
 \providecommand{\setminus}{\mathbin{\backslash}}
 \providecommand{\powerset}[1]{2^{#1}}
 \providecommand{\nats}{\mathbb{N}}
+\providecommand{\ints}{\mathbb{Z}}
 \providecommand{\defiff}{\mathrel{:\!\iff}}
 \providecommand{\set}[1]{\{#1\}}
 \providecommand{\emptyword}{\texttt{()}}
 \providecommand{\identity}[1]{\mathrm{id}_{#1}}
+\providecommand{\domain}{\operatorname{\mathrm{dom}}}
 \providecommand{\lub}{\sqcup}
 \providecommand{\glb}{\sqcap}
-\providecommand{\unit}[1]{\mathbf{\hat e}_{#1}}
 \providecommand{\floor}[1]{\lfloor #1 \rfloor}
+\providecommand{\Min}{\operatorname{\mathrm{Min}}}
+\providecommand{\Max}{\operatorname{\mathrm{Max}}}
+\providecommand{\unit}[1]{\mathbf{\hat e}_{#1}}
+\providecommand{\vectorcomponents}[2][n]{({#2}_1,\ldots,{#2}_{#1})}
+\providecommand{\zerovec}{\mathbf{0}}
 
 \lc{ Transition systems }
 
@@ -100,3 +106,8 @@
 \providecommand{\abstractupdate}{\mathcal{upd}}
 \providecommand{\abstractenergies}{\mathcal{En}}
 \providecommand{\energylevel}{\operatorname{EL}}
+\providecommand{\energies}{\mathbf{En}}
+\providecommand{\energyupdates}{\mathbf{Up}}
+\providecommand{\energyupdate}{\mathsf{upd}}
+\providecommand{\updmin}[1]{\mathtt{min}_{\{\!#1\!\}}}
+

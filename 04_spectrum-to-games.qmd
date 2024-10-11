@@ -35,7 +35,7 @@ For a finite play $ρ = {g_0}{g_1}…{g_{n-1}} ∈ G^{*}$ of $\game^🗲[g_0, e_
     ⊥  & \text{otherwise}
   \end{cases}$
 
-For infinite plays $ρ \in G^ω$, we consider energy levels to equal $⊥$.
+{{<noindent>}} For infinite plays $ρ \in G^ω$, we consider energy levels to equal $⊥$.
 
 We consider the attacker to be energy-bound and understand $\energylevel(ρ) = ⊥$ to mean that they have run out of energy.
 Thus, we declare plays with $\energylevel(ρ) = ⊥$ to be won by the defender.
@@ -56,11 +56,39 @@ The defender winning budgets $\defenderwins$ are defined analogously.
 Ordinary reachability games can be seen as a special case of energy games with trivial energies, e.g.\ $\abstractenergies ≔ \set{1}$ and $\abstractupdate(\cdot) ≔ \identity{\abstractenergies}$.
 :::
 
-TODO: Example plus-minus energy game.
+TODO: Example plus-minus energy game. ... Upward-closure
 
 ### Declining Energy Games
 
-TODO: Declining energy games
+An $N$-dimensional declining energy game is played on energy vectors:
+
+::: {#def-energy-updates}
+
+#### Energies and Energy Updates
+
+For a dimensionality $N$, the set of *energies*, $\energies$, is given by $(\nats \cup \set{\infty})^N$.
+
+The set of *energy update labels*, $\energyupdates$, contains $\vectorcomponents[N]{u} \in \energyupdates$ where each component $u_k$ is a symbol of the form
+
+- $u_k \in \set{-1, 0}$ (relative update), or
+- $u_k = \mathtt{min}_D$ where $D \subseteq \{1, \ldots, 8\}$ and $k \in D$ (minimum selection update).
+
+{{<noindent>}} Applying an update to an energy, $\energyupdate(e, u)$, where $e = \vectorcomponents[N]{e} \in \energies$ and $u = \vectorcomponents[N]{u} \in \energyupdates$, yields a new energy vector $e'$ where $k$th components $e'_k ≔ e_k + u_k$ for $u_k \in \ints$ and $e'_k ≔ \min_{d\in D} e_d$ for $u_k = \mathtt{min}_D$.
+Updates that would cause any component to become negative are undefined, i.e., $\energyupdate$ is a partial function.
+:::
+
+::: {#exm-energy-update}
+
+For example, the update $\energyupdate((2,0,\infty,0,0,0,1,1), (\updmin{1,7},0,-1,0,0,0,0,-1))$ equals $(1,0,\infty,0,0,0,1,0)$.
+:::
+
+::: {#def-declining-energy-game}
+#### Declining Energy Game
+
+Given a weight labeling $w \colon (\gamemoveblank) \to \energyupdates$, an $N$-dimensional *declining energy game* $\game^🗲$ is an energy reachability game with energies $\abstractenergies ≔ \energies$ and with edges labeled $\abstractupdate(m) ≔ \energyupdate(\cdot, m)$.
+:::
+
+Upward closure
 
 ## A Bisimulation Energy Game
 

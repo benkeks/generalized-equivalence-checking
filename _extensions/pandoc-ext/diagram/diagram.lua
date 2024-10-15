@@ -414,14 +414,12 @@ end
 --- Converts a PDF to SVG.
 local pdf2svg = function (imgdata)
   local pdf_file = os.tmpname() .. '.pdf'
+  local out_file = os.tmpname() .. '.svg'
   write_file(pdf_file, imgdata)
-  local args = {
-    '--export-type=svg',
-    '--export-plain-svg',
-    '--export-filename=-',
-    pdf_file
-  }
-  return pandoc.pipe('inkscape', args, ''), os.remove(pdf_file)
+  --  pandoc.pipe('pdf2svg', args, ''),
+  os.execute('pdf2svg ' .. pdf_file .. ' ' .. out_file)
+  --return read_file(out_file), os.remove(pdf_file), os.remove(out_file)
+  return pandoc.pipe('cat', {out_file}, ''), os.remove(pdf_file)
 end
 
 local function properties_from_code (code, comment_start)

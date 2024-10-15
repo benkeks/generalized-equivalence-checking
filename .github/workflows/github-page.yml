@@ -49,6 +49,9 @@ jobs:
             unicode-math
             newunicodechar
             setspace
+            extarrows
+            pgf
+            pgfplots
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2

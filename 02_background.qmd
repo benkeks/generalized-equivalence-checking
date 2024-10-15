@@ -861,7 +861,7 @@ The bisimulation game on this system is given by @fig-bisim-game-even-odd:
 :::: {#fig-bisim-game-even-odd}
   ```{mermaid}
   flowchart TD
-    eo["p<sub>even</sub>, p<sub>odd</sub>"] -->|challenge| too(["α, p<sub>odd</sub>, p<sub>odd</sub>"]) -->|answer| oe["p<sub>odd</sub>, p<sub>even</sub>"] -->|challenge| tee(["α, p<sub>even</sub>, p<sub>even</sub>"]) -->|answer| eo -->|swap| oe -->|swap| eo
+    eo["p<sub>even</sub>, p<sub>odd</sub>"] -->|challenge| too(["τ, p<sub>odd</sub>, p<sub>odd</sub>"]) -->|answer| oe["p<sub>odd</sub>, p<sub>even</sub>"] -->|challenge| tee(["τ, p<sub>even</sub>, p<sub>even</sub>"]) -->|answer| eo -->|swap| oe -->|swap| eo
   ```
   Bisimulation game under $\literal{p_{even}}, \literal{p_{odd}}$.
   Moves are annotated with the game rules from which they derive.
@@ -872,7 +872,14 @@ Whatever strategy the attacker choses, the game will go on forever, leading to a
 That it is always safe for the defender to *answer* with moves to $[\literal{p_{even}}, \literal{p_{odd}}]$ and $[\literal{p_{odd}}, \literal{p_{even}}]$ corresponds to $\rel R ≔ \set{(\literal{p_{even}}, \literal{p_{odd}}), (\literal{p_{odd}}, \literal{p_{even}})}$ being a bisimulation.
 :::
 
-TODO non-bisim example
+
+::: {#exm-bisim-sim-game}
+
+Let us recall @exm-bisim-sim of the “trolled philosophers,” where we determined $Q$ and $Q'$ to be non-bisimilar.
+This bisimulation game graph for the system looks like this:
+
+TODO
+:::
 
 ::: {#lem-bisim-game-characterization}
 The defender wins the bisimulation game ${\game}_\notionname{B}^{\system}$ starting at attacker position $[p, q]$ precisely if $p \beq{B} q$.{{<isb theorem Equivalence_Games bisim_game.bisim_game_characterization>}}
@@ -888,7 +895,7 @@ Sketch for both directions:
   $$\rel R ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),...,(p,q)$ following strategy $\rel f$}}.$$
 :::
 
-### How Bisimulation Game and HML Are Connected
+### How Bisimulation Game and HML Are Connected {#sec-bisim-game-hml}
 
 You might have wondered why we even need a dedicated bisimulation game.
 The Hennessy–Milner theorem implies that we could directly use the HML game of @def-hml-game to decide bisimilarity:

@@ -35,7 +35,7 @@ For a finite play $ρ = {g_0}{g_1}…{g_{n-1}} ∈ G^{*}$ of $\game^🗲[g_0, e_
     ⊥  & \text{otherwise}
   \end{cases}$
 
-{{<noindent>}} For infinite plays $ρ \in G^ω$, we consider energy levels to equal $⊥$.
+{{<noindent>}} For infinite plays $ρ \in G^ω$, we define energy levels to equal $⊥$.
 
 We consider the attacker to be energy-bound and understand $\energylevel(ρ) = ⊥$ to mean that they have run out of energy.
 Thus, we declare plays with $\energylevel(ρ) = ⊥$ to be won by the defender.
@@ -85,17 +85,63 @@ For example, the update $\energyupdate((2,0,\infty,0,0,0,1,1), (\updmin{1,7},0,-
 ::: {#def-declining-energy-game}
 #### Declining Energy Game
 
-Given a weight labeling $w \colon (\gamemoveblank) \to \energyupdates$, an $N$-dimensional *declining energy game* $\game^🗲$ is an energy reachability game with energies $\abstractenergies ≔ \energies$ and with edges labeled $\abstractupdate(m) ≔ \energyupdate(\cdot, m)$.
+Given a weight labeling $w \colon (\gamemoveblank) \to \energyupdates$, an $N$-dimensional *declining energy game* $\game^🗲$ is an energy reachability game with energies $\abstractenergies ≔ \energies$ and with edges labeled $\abstractupdate(m) ≔ \energyupdate(w(m), \cdot)$.
+
+We write $g \gamemove{\;u\;} g'$ for a move $g \gamemoveblank g'$ labeled by weight $w(g, g') = u$.
 :::
 
 Upward closure
 
 ## A Bisimulation Energy Game
 
-TODO: Bisimulation game with energies
+Let us recall the bisimulation game of @def-bisim-game.
+As we have seen in Subsection [-@sec-bisim-game-hml], the game moves match the distinctive power of productions in the $\observations{\floor{B}}$-grammar of @exm-game-formulas.
+
+Consequently, we can *count* the use of HML constructs in the game.
+As the game stands, we can meaningfully count: 1.\ modal depth, 2.\ depth of negative clauses, and 3.\ nesting depth of negations (that is, the first, fifth and sixth dimension of the strong spectrum @def-strong-spectrum).
+Adding the respective energy updates to the bisimulation game, we obtain:
+
+<!--
+$$
+\begin{array}{rcll}
+  φ^N
+    & \grammardef & \hmlobs{α} \hmland{i}{I} φ^{N-\unit{1}}_i \\
+    & \grammaror  & \hmlneg φ^{ (N \sqcap (N_2, \infty, \infty)) - \unit{3} }
+\end{array}
+$$
+-->
+
+::: {#def-bisim-energy-game}
+#### Bisimulation Energy Game
+
+For a transition system $\system$, the *bisimulation energy game* ${\game}_\notionname{B}^{🗲\system}$ is played on the same graph as the *bisimulation game* ${\game}_\notionname{B}^{\system}$ (of @def-bisim-game), but the moves are weighted by the following energy updates:
+
+- The attacker may swap sides
+  $$[p, q] \quad \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} \quad [q, p],$$
+- or challenge simulation
+  $$[p, q] \quad \gamemove{-1,0,0}^🗲_\notionname{B} \quad (α, p', q) \quad \text{if} \quad p \step{α} p';$$
+- and the defender answers simulation challenges
+  $$(α, p', q) \quad \gamemove{0,0,0}^🗲_\notionname{B} \quad (p', q') \quad \text{if} \quad q \step{α} q'.$$
+:::
+
+Depending on the initial energy level, 
+
+::: {#exm-bisim-sim-energy-game}
+
+Let us label the bisimulation game of @#exm-bisim-sim-game (distinguishing the “trolled philosophers”) with energy updates:
+
+TODO
+
+:::
+
+::: {#lem-bisim-energy-game-characterizations}
+
+
 TODO: Discussion of characterized eqs
+
+:::
 
 ## How to Decide Declining Energy Games
 
-TODO: Refined algo for energy games
-TODO: Complexities
+- TODO: Refined algo for energy games
+- TODO: Complexities

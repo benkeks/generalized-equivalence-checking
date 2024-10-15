@@ -109,7 +109,6 @@ diagram:
         - '\usepackage{mathtools}'
         - '\usepackage{stmaryrd}'
         - '\usepackage{extarrows}'
-        - '\usepackage{centernot}'
         - '\usepackage{pgf}'
         - '\usepackage{pgfplots}'
         - '\pgfplotsset{compat=1.18}'

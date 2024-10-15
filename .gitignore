@@ -11,6 +11,7 @@ site_libs
 
 *.html
 tmp_*
+*_files/
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

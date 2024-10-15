@@ -879,6 +879,20 @@ Let us recall @exm-bisim-sim of the “trolled philosophers,” where we determi
 This bisimulation game graph for the system looks like this:
 
 TODO
+
+```tikz
+\begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm, rel/.style={dashed,font=\it},
+  posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
+    \node[posStyle, initial, initial text={}]
+      (Att){$[p,Q]$};
+    \node[posStyle]
+      (AttDelay) [right = 1.6cm of Att] {$[p,Q_\varepsilon]$};
+    \path
+      (Att) edge
+        node[label={-90:$\textcolor{gray}{\zerovec}$}] {$Q' \step{a} Q_\varepsilon$} (AttDelay);
+\end{tikzpicture}
+```
+
 :::
 
 ::: {#lem-bisim-game-characterization}

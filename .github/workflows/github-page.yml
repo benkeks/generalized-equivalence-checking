@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: sudo apt install pdf2svg
+        run: sudo apt install pdf2svg inkscape
 
       - name: Install TeXlive
         uses: teatimeguest/setup-texlive-action@v3

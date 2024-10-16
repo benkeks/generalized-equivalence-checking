@@ -416,10 +416,13 @@ local pdf2svg = function (imgdata)
   local pdf_file = os.tmpname() .. '.pdf'
   local out_file = os.tmpname() .. '.svg'
   write_file(pdf_file, imgdata)
-  --  pandoc.pipe('pdf2svg', args, ''),
-  os.execute('pdf2svg ' .. pdf_file .. ' ' .. out_file)
-  --return read_file(out_file), os.remove(pdf_file), os.remove(out_file)
-  return pandoc.pipe('cat', {out_file}, ''), os.remove(pdf_file)
+  args = {
+    pdf_file,
+    out_file
+  }
+  pandoc.pipe('pdf2svg', args, '')
+  os.remove(pdf_file)
+  return pandoc.pipe('cat', {out_file}, '')
 end
 
 local function properties_from_code (code, comment_start)
@@ -591,6 +594,10 @@ local function code_to_figure (conf)
 
     -- Create the image object.
     local image = pandoc.Image(dgr_opt.alt, fname, "", dgr_opt['image-attr'])
+
+    if imgtype == 'image/svg+xml' and conf.format.name == 'html' then
+      image = pandoc.RawInline('html', imgdata, imgdata)
+    end
 
     -- Create a figure if the diagram has a caption; otherwise return
     -- just the image.

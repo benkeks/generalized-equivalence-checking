@@ -894,7 +894,7 @@ The attacker exploits, that $\literal{Q'}$ can reach an early deadlock via $\lit
 
 \begin{adjustbox}{max width=\textwidth, center}
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
-    posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2cm, anchor=center, draw, black, fill=gray!5},
+    posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
     defender/.style={ellipse, inner sep=0ex},
     defWins/.style={fill=blue!5}]
 
@@ -911,13 +911,13 @@ The attacker exploits, that $\literal{Q'}$ can reach an early deadlock via $\lit
     \node[posStyle, defender]
       (Dfn_a_q1_q3) [above right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{a}, \literal{q_1}, \literal{q_3})$};
     \node[posStyle, defender]
-      (Dfn_b_q2_q3) [below right = .1cm and 1.6cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \literal{q_3})$};
+      (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \literal{q_3})$};
     \node[posStyle, defender, defWins]
-      (Dfn_t_qab_Q) [above right = .1cm and 1.6cm of Att_Qp_Q] {$(\tau, \literal{q_{AB}}, \literal{Q})$};
+      (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q})$};
     \node[posStyle, defender]
-      (Dfn_t_q3_Q) [below right = .1cm and 1.5cm of Att_Qp_Q] {$(\tau, \literal{q_{3}}, \literal{Q})$};
+      (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \literal{q_{3}}, \literal{Q})$};
     \node[posStyle]
-      (Att_q3_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Q] {$[\literal{q_3}, \literal{q_{AB}}]$};
+      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\literal{q_3}, \literal{q_{AB}}]$};
 
     \path
       (Att_Q_Qp)
@@ -934,8 +934,8 @@ The attacker exploits, that $\literal{Q'}$ can reach an early deadlock via $\lit
         edge [loop left] node {swap} ()
       (Att_Qp_Q)
         edge[bend left = 10] node {swap} (Att_Q_Qp)
-        edge node {$\literal{Q'} \step{\tau} \literal{q_{AB}}$} (Dfn_t_qab_Q)
-        edge node {$\literal{Q'} \step{\tau} \literal{q_{3}}$} (Dfn_t_q3_Q)
+        edge[swap] node {$\literal{Q'} \step{\tau} \literal{q_{AB}}$} (Dfn_t_qab_Q)
+        edge[swap] node {$\literal{Q'} \step{\tau} \literal{q_{3}}$} (Dfn_t_q3_Q)
       (Dfn_t_qab_Q)
         edge node[swap] {$\literal{Q} \step{\tau} \literal{q_{AB}}$} (Att_qab_qab)
       (Dfn_t_q3_Q)

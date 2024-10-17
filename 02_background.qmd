@@ -846,11 +846,11 @@ The defender wins ${\game}_\hml^{\system}[(p, φ)]$ precisely if $p ∈ \semanti
 For a transition system $\system$, the *bisimulation game* ${\game}_\notionname{B}^{\system}${{<isb locale Equivalence_Games bisim_game>}} is played on
 attack positions $G^\notionname{B}_\attacker ≔ \states × \states$ and defense positions $G^\notionname{B}_\defender ≔ \actions × \states × \states$ with the following moves:
 
-- The attacker may swap sides
+- The attacker may *swap sides*
   $$[p, q] \quad \gamemoveblank_\notionname{B} \quad [q, p],$$
-- or challenge simulation
+- or *challenge simulation*
   $$[p, q] \quad \gamemoveblank_\notionname{B} \quad (α, p', q) \quad \text{if} \quad p \step{α} p';$$
-- and the defender answers simulation challenges
+- and the defender *answers simulation challenges*
   $$(α, p', q) \quad \gamemoveblank_\notionname{B} \quad (p', q') \quad \text{if} \quad q \step{α} q'.$$
 :::
 
@@ -875,10 +875,18 @@ That it is always safe for the defender to *answer* with moves to $[\literal{p_{
 
 ::: {#exm-bisim-sim-game}
 
-Let us recall @exm-bisim-sim of the “trolled philosophers,” where we determined $Q$ and $Q'$ to be non-bisimilar.
-This bisimulation game graph for the system looks like this:
+Let us recall @exm-bisim-sim of the “trolled philosophers,” where we determined $\literal{Q}$ and $\literal{Q'}$ to be non-bisimilar.
+The bisimulation game graph for the system is depicted in @fig-bisim-sim-game.
 
-TODO
+The attacker can win by moving $[\literal{Q}, \literal{Q'}]
+\gamemoveblank_\notionname{B} [\literal{Q'}, \literal{Q}]
+\gamemoveblank_\notionname{B} (\tau, \literal{q_3}, \literal{Q})
+\gamemoveblank_\notionname{B} [\literal{q_3}, \literal{q_{AB}}]
+\gamemoveblank_\notionname{B} [\literal{q_{AB}}, \literal{q_3}]
+\gamemoveblank_\notionname{B} (\literal{a}, \literal{q_1}, \literal{q_3})
+\ngamemoveblank_\notionname{B}$.
+Along this sequence of positions, the defender never has a choice and is stuck in the end.
+The attacker exploits, that $\literal{Q'}$ can reach an early deadlock via $\literal{Q'} \step{\tau} \literal{q_{3}}$.
 :::
 
 ::: {#fig-bisim-sim-game}
@@ -887,23 +895,24 @@ TODO
 \begin{adjustbox}{max width=\textwidth, center}
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2cm, anchor=center, draw, black, fill=gray!5},
-    defender/.style={ellipse, inner sep=0ex}]
+    defender/.style={ellipse, inner sep=0ex},
+    defWins/.style={fill=blue!5}]
 
     \node[posStyle, initial, initial text={}]
       (Att_Q_Qp){$[\literal{Q}, \literal{Q'}]$};
     \node[posStyle]
-      (Att_Qp_Q) [below = 1.6cm of Att_Q_Qp] {$[\literal{Q'}, \literal{Q}]$};
-    \node[posStyle, defender]
-      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q})$};
-    \node[posStyle]
+      (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{Q'}, \literal{Q}]$};
+    \node[posStyle, defender, defWins]
+      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q'})$};
+    \node[posStyle, defWins]
       (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_{AB}}]$};
     \node[posStyle]
       (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_3}]$};
     \node[posStyle, defender]
-      (Dfn_a_q1_qab) [above right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{a}, \literal{q_1}, \literal{q_3})$};
+      (Dfn_a_q1_q3) [above right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{a}, \literal{q_1}, \literal{q_3})$};
     \node[posStyle, defender]
-      (Dfn_bs_q2_qab) [below right = .1cm and 1.6cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \literal{q_3})$};
-    \node[posStyle, defender]
+      (Dfn_b_q2_q3) [below right = .1cm and 1.6cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \literal{q_3})$};
+    \node[posStyle, defender, defWins]
       (Dfn_t_qab_Q) [above right = .1cm and 1.6cm of Att_Qp_Q] {$(\tau, \literal{q_{AB}}, \literal{Q})$};
     \node[posStyle, defender]
       (Dfn_t_q3_Q) [below right = .1cm and 1.5cm of Att_Qp_Q] {$(\tau, \literal{q_{3}}, \literal{Q})$};
@@ -911,13 +920,37 @@ TODO
       (Att_q3_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Q] {$[\literal{q_3}, \literal{q_{AB}}]$};
 
     \path
-      (Att_Q_Qp) edge
-          node {swap} (Att_Qp_Q)
-      (Att_Q_Qp) edge
-          node {$\literal{Q} \step{\tau} \literal{q_{AB}}$} (Dfn_t_qab_Qp);
+      (Att_Q_Qp)
+        edge[bend left = 10] node {swap} (Att_Qp_Q)
+        edge node {$\literal{Q} \step{\tau} \literal{q_{AB}}$} (Dfn_t_qab_Qp)
+      (Att_qab_q3)
+        edge[bend left = 60] node {} (Att_q3_qab)
+      (Att_q3_qab)
+        edge[bend right = 65] node[swap] {swap} (Att_qab_q3)
+      (Dfn_t_qab_Qp)
+        edge node {$\literal{Q'} \step{\tau} \literal{q_{3}}$} (Att_qab_q3)
+        edge node {$\literal{Q'} \step{\tau} \literal{q_{AB}}$} (Att_qab_qab)
+      (Att_qab_qab)
+        edge [loop left] node {swap} ()
+      (Att_Qp_Q)
+        edge[bend left = 10] node {swap} (Att_Q_Qp)
+        edge node {$\literal{Q'} \step{\tau} \literal{q_{AB}}$} (Dfn_t_qab_Q)
+        edge node {$\literal{Q'} \step{\tau} \literal{q_{3}}$} (Dfn_t_q3_Q)
+      (Dfn_t_qab_Q)
+        edge node[swap] {$\literal{Q} \step{\tau} \literal{q_{AB}}$} (Att_qab_qab)
+      (Dfn_t_q3_Q)
+        edge node[swap] {$\literal{Q} \step{\tau} \literal{q_{AB}}$} (Att_q3_qab)
+      (Att_qab_q3)
+        edge node {$\literal{q_{AB}} \step{\literal{a}} \literal{q_1}$} (Dfn_a_q1_q3)
+        edge node {$\literal{q_{AB}} \step{\literal{b}} \literal{q_2}$} (Dfn_b_q2_q3)
+    ;
   \end{tikzpicture}
 \end{adjustbox}
 ```
+
+Bisimulation game on non-bisimilar states $\literal{Q}$ and $\literal{Q'}$ of @exm-bisim-sim-game.
+Moves are labeled by their justification.
+Defender-won positions are tinted blue.
 :::
 
 ::: {#lem-bisim-game-characterization}
@@ -936,6 +969,8 @@ Sketch for both directions:
 
 ### How Bisimulation Game and HML Are Connected {#sec-bisim-game-hml}
 
+Let us pause to think how bisimulation game and Hennessy–Milner logic connect.
+
 You might have wondered why we even need a dedicated bisimulation game.
 The Hennessy–Milner theorem implies that we could directly use the HML game of @def-hml-game to decide bisimilarity:
 
@@ -953,7 +988,7 @@ We extend the @def-hml-game by the following prefix:
 
 :::
 
-This naive game, too, has the property that the defender wins from $[p,q]$ iff $p \beq{B} q$.
+{{<noindent>}} This naive game, too, has the property that the defender wins from $[p,q]$ iff $p \beq{B} q$.
 The downside of the game is that the attacker has infinitely many options $φ ∈ \hml$ to pick from!
 
 The proper bisimulation game of @def-bisim-game, on the other hand, is *finite for finite transition systems*.

@@ -37,7 +37,7 @@
 
 \lc{ Grammars }
 
-\providecommand{\grammardef}{\;\Coloneqq\;}
+\providecommand{\grammardef}{\;::=\;}
 \providecommand{\grammaror}{\;\mid\;}
 
 \lc{ CCS }

@@ -106,11 +106,6 @@ diagram:
     tikz:
       execpath: xelatex
       header-includes:
-        - '\usepackage{mathtools}'
-        - '\usepackage{stmaryrd}'
-        - '\usepackage{extarrows}'
-        - '\usepackage{pgf}'
-        - '\usepackage{pgfplots}'
-        - '\pgfplotsset{compat=1.18}'
+        - '\input{PROJECT/style/preamble.tex}'
         - '\input{PROJECT/style/macros.md}'
-        - '\usetikzlibrary{arrows, automata, positioning, decorations, shapes, shapes.geometric, shapes.multipart}'
+ 

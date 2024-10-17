@@ -4,12 +4,20 @@
 \usepackage{stmaryrd}
 \usepackage{mathpartir}
 \usepackage{cancel}
+\usepackage{extarrows}
+\usepackage{graphicx}
 
 \usepackage{booktabs}
 
 %\usepackage{unicode-math}
 %\setmathfont{STIXTwoMath-Regular.otf}
 
+\usepackage{adjustbox}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tikz}
+\usetikzlibrary{arrows, automata, positioning, decorations, shapes, shapes.geometric, shapes.multipart}
 
 \usepackage{fontawesome5}
 
@@ -18,5 +26,8 @@
 
 \newunicodechar{👁}{\text{\faIcon[regular]{eye}}}
 \newunicodechar{⩴}{\Coloneqq}
+
+% for some reason, otherwise quarto breaks adjustbox, cf. https://tex.stackexchange.com/questions/634099/latex-adjustbox-shrinks-table/634101?noredirect=1#comment1581050_634101
+\setkeys{Gin}{width=\linewidth,height=\textheight,keepaspectratio}
 
 %\input{style/macros.md}

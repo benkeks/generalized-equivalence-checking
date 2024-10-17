@@ -535,6 +535,11 @@ local function code_to_figure (conf)
       return nil
     end
 
+    -- Just let tikz be processed by LaTeX.
+    if diagram_type == 'tikz' and conf.format.name == 'latex' then
+      return pandoc.RawBlock('latex', block.text, block.text)
+    end
+
     -- Unified properties.
     local dgr_opt = diagram_options(block, engine.line_comment_start)
     for optname, value in pairs(engine.opt or {}) do

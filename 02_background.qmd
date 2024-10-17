@@ -924,9 +924,9 @@ The attacker exploits, that $\literal{Q'}$ can reach an early deadlock via $\lit
         edge[bend left = 10] node {swap} (Att_Qp_Q)
         edge node {$\literal{Q} \step{\tau} \literal{q_{AB}}$} (Dfn_t_qab_Qp)
       (Att_qab_q3)
-        edge[bend left = 60] node {} (Att_q3_qab)
+        edge[bend left = 65] node {swap} (Att_q3_qab)
       (Att_q3_qab)
-        edge[bend right = 65] node[swap] {swap} (Att_qab_q3)
+        edge[bend right = 60] node {} (Att_qab_q3)
       (Dfn_t_qab_Qp)
         edge node {$\literal{Q'} \step{\tau} \literal{q_{3}}$} (Att_qab_q3)
         edge node {$\literal{Q'} \step{\tau} \literal{q_{AB}}$} (Att_qab_qab)
@@ -997,6 +997,84 @@ Therefore, it induces decision procedures.
 We will now argue that the *bisimulation game actually is a variant of the naive game*, where (1) the attacker names their formula *gradually*, and (2) the formulas stem from $\observations{\floor{B}} \subseteq \hml$ of @exm-game-formulas.
 To this end, we will show that attacker's winning strategies imply distinguishing formulas, and that a distinguishing formula from $\observations{\floor{B}}$ certifies the existence of winning attacker strategies.
 
+::: {#exm-bisim-sim-game-formulas}
+
+Let us illustrate how to derive distinguishing formulas using the game of @exm-bisim-sim-game.
+
+Recall that the attacker wins by moving $[\literal{Q}, \literal{Q'}]
+\gamemoveblank_\notionname{B} [\literal{Q'}, \literal{Q}]
+\gamemoveblank_\notionname{B} (\tau, \literal{q_3}, \literal{Q})
+\gamemoveblank_\notionname{B} [\literal{q_3}, \literal{q_{AB}}]
+\gamemoveblank_\notionname{B} [\literal{q_{AB}}, \literal{q_3}]
+\gamemoveblank_\notionname{B} (\literal{a}, \literal{q_1}, \literal{q_3})
+\ngamemoveblank_\notionname{B}$.
+In @fig-bisim-sim-game-formulas, we label the game nodes with the (sub-)formulas this strategy corresponds to.
+Swap moves become negations, and simulation moves become observations with a conjunction of formulas for each defender option.
+This attacker strategy can thus be expressed by $\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observations{\floor{B}}$.
+:::
+
+::: {#fig-bisim-sim-game-formulas}
+```tikz
+
+\begin{adjustbox}{max width=\textwidth, center}
+  \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
+    posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
+    defender/.style={ellipse, inner sep=0ex},
+    defWins/.style={fill=blue!5}]
+
+    \node[posStyle, initial, initial text={}, label={100:$\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}$}]
+      (Att_Q_Qp){$[\literal{Q}, \literal{Q'}]$};
+    \node[posStyle, label={100:$\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}$}]
+      (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{Q'}, \literal{Q}]$};
+    \node[posStyle, defender, defWins]
+      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q'})$};
+    \node[posStyle, defWins]
+      (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_{AB}}]$};
+    \node[posStyle, label={100:$\hmlobs{\literal{a}}\hmltrue$}]
+      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_3}]$};
+    \node[posStyle, defender, above right = .1cm and 1.5cm of Att_qab_q3]
+      (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \literal{q_3})$};
+    \node[posStyle, defender]
+      (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \literal{q_3})$};
+    \node[posStyle, defender, defWins]
+      (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q})$};
+    \node[posStyle, defender]
+      (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \literal{q_{3}}, \literal{Q})$};
+    \node[posStyle, label={100:$\hmlneg\hmlobs{\literal{a}}\hmltrue$}]
+      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\literal{q_3}, \literal{q_{AB}}]$};
+
+    \path
+      (Att_Q_Qp)
+        edge[bend left = 10] node {} (Att_Qp_Q)
+        edge node {} (Dfn_t_qab_Qp)
+      (Att_qab_q3)
+        edge[bend left = 65] node {} (Att_q3_qab)
+      (Att_q3_qab)
+        edge[bend right = 60] node {} (Att_qab_q3)
+      (Dfn_t_qab_Qp)
+        edge node {} (Att_qab_q3)
+        edge node {} (Att_qab_qab)
+      (Att_qab_qab)
+        edge [loop left] node {} ()
+      (Att_Qp_Q)
+        edge[bend left = 10] node {} (Att_Q_Qp)
+        edge node {} (Dfn_t_qab_Q)
+        edge node {} (Dfn_t_q3_Q)
+      (Dfn_t_qab_Q)
+        edge node {} (Att_qab_qab)
+      (Dfn_t_q3_Q)
+        edge node {} (Att_q3_qab)
+      (Att_qab_q3)
+        edge node {} (Dfn_a_q1_q3)
+        edge node {} (Dfn_b_q2_q3)
+    ;
+  \end{tikzpicture}
+\end{adjustbox}
+```
+
+The bisimulation game of @exm-bisim-sim-game-formulas with attacker formulas.
+:::
+
 ::: {#lem-attacks-imply-formulas}
 Let $\rel f$ be a deterministic winning strategy for the attacker on ${\game}_\notionname{B}$ from $[p,q]$.
 Construct formulas recursively from game positions, ${φ}_{\rel{f}}(g)$, as follows:
@@ -1004,7 +1082,7 @@ Construct formulas recursively from game positions, ${φ}_{\rel{f}}(g)$, as foll
 $$
 φ_{\rel f}([p,q]) ≔ \begin{cases}
   \hmlneg φ_{\rel f}([q,p])  & \text{if } \rel f([p,q]) = [q,p] \\
-  \hmlobs{\alpha} \hmlands \set{ φ_{rel f}([p',q']) \mid q \step{\alpha} q' } & \text{if } \rel f([p,q]) = (\alpha,p',q)
+  \hmlobs{\alpha} \hmlands \set{ φ_{\rel f}([p',q']) \mid q \step{\alpha} q' } & \text{if } \rel f([p,q]) = (\alpha,p',q)
 \end{cases}
 $$
 

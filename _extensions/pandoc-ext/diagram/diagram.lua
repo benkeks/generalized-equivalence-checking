@@ -592,17 +592,20 @@ local function code_to_figure (conf)
     local basename, _extension = pandoc.path.split_extension(
       dgr_opt.filename or pandoc.sha1(imgdata)
     )
-    local fname = basename .. '.' .. extension_for_mimetype[imgtype]
 
     -- Store the data in the media bag:
-    pandoc.mediabag.insert(fname, imgtype, imgdata)
+    -- pandoc.mediabag.insert(fname, imgtype, imgdata)
+    os.execute("mkdir -p _diagrams")
+    local fname = '_diagrams/' .. basename .. '.' .. extension_for_mimetype[imgtype]
+    local save_location = system.get_working_directory() .. '/' .. fname
+    write_file(save_location, imgdata)
 
     -- Create the image object.
     local image = pandoc.Image(dgr_opt.alt, fname, "", dgr_opt['image-attr'])
 
-    if imgtype == 'image/svg+xml' and conf.format.name == 'html' then
-      image = pandoc.RawInline('html', imgdata, imgdata)
-    end
+    -- if imgtype == 'image/svg+xml' and conf.format.name == 'html' then
+    --   image = pandoc.RawInline('html', imgdata, imgdata)
+    -- end
 
     -- Create a figure if the diagram has a caption; otherwise return
     -- just the image.

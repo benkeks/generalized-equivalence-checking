@@ -8,6 +8,7 @@ _freeze
 _book
 _project
 site_libs
+_diagrams
 
 *.html
 tmp_*

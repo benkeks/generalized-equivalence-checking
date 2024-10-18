@@ -31,7 +31,7 @@ $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsva
 ### Understanding the Equivalence Hierarchy through Modal Logics
 
 Let us revisit the hierarchy between bisimilarity, similarity, and trace equivalence of Subsection [-@sec-hierarchy-equivalences].
-So far, we have only looked into the characterization of bisimilarity through the whole of $\hml$ in @lem-hennessy-milner or through $\observations{\floor{B}}$ in @exm-game-formulas.
+So far, we have only looked into the characterization of bisimilarity through the whole of $\hml$ in @thm-hennessy-milner or through $\observations{\floor{B}}$ in @exm-game-formulas.
 
 ::: {#def-sim-trace-logics}
 
@@ -60,7 +60,7 @@ $p \bpreord{S} q$ precisely if $p \bpreordvar{\observations{S}} q$.{{<isb theore
 :::
 
 {{<noindent>}} Clearly, $\observations{T} \subset \observations{S} \subset \hml$.
-So, @prp-difference-contraposition (together with @lem-hennessy-milner for $\beq{B}$ and $\hml$) yields another way of establishing the hierarchy between trace equivalence, similarity, and bisimilarity of Subsection [-@sec-hierarchy-equivalences].
+So, @prp-difference-contraposition (together with @thm-hennessy-milner for $\beq{B}$ and $\hml$) yields another way of establishing the hierarchy between trace equivalence, similarity, and bisimilarity of Subsection [-@sec-hierarchy-equivalences].
 
 
 ### Incomparabilities

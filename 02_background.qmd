@@ -304,7 +304,6 @@ We could say that trace $\literal{b}$ constitutes a *difference* between $\liter
 ::: {#prp-trace-eq-rel}
 The trace preorder $\bpreord{T}$ is indeed a preorder (i.e., transitive and reflexive) {{<isb lemma Strong_Equivalences lts.trace_preorder_transitive>}} and trace equivalence $\beq{T}$ is indeed an equivalence relation (i.e., transitive, reflexive, and moreover symmetric).{{<isb lemma Strong_Equivalences lts.trace_equivalence_equiv>}}
 :::
-
 ::: proof
 The properties carry over directly from $⊆$ and $=$ on sets of $\traces{\cdot}$.
 :::
@@ -348,7 +347,6 @@ Thus, $\literal Q \nbpreord{S} \literal P$, and $\literal P \nbeq{S} \literal Q$
 ::: {#prp-sim-eq-rel}
 The simulation preorder $\bpreord{S}$ is indeed a preorder{{<isb lemma Strong_Equivalences lts.simulation_preorder_transitive>}}, and $\beq{S}$ and $\beq{B}$ are equivalences.{{<isb lemma Strong_Equivalences lts.bisimilarity_equiv>}}
 :::
-
 ::: proof
 1. Reflexivity of $\bpreord{S}$, $\beq{S}$ and $\beq{B}$:<br> $\identity{\states}$ is a (symmetric) simulation on each transition system.
 2. Transitivity of $\bpreord{S}$:<br>
@@ -359,6 +357,7 @@ The simulation preorder $\bpreord{S}$ is indeed a preorder{{<isb lemma Strong_Eq
 4. Symmetry of $\beq{B}$:<br>
   $p \beq{B} q$ implies there is a symmetric simulation $\rel R$ with $(p,q) ∈ \rel R$.
   As $\rel R = \inverse{\rel R}$, this implies $(q,p) ∈ \rel R$ and thus $q \beq{B} p$.
+  \qedhere
 :::
 
 ### The Hierarchy of Equivalences {#sec-hierarchy-equivalences}
@@ -568,7 +567,7 @@ Induct over the structure of $φ$ with arbitrary $p$ and $q$.
 
 {{<noindent>}}Combining the bisimulation invariance for one direction and that $\beq{\hml}$ is symmetric (@prp-hml-eq) simulation (@lem-hml-eq-sim) for the other, we obtain that $\hml$ precisely characterizes bisimilarity:
 
-::: {#lem-hennessy-milner}
+::: {#thm-hennessy-milner}
 #### Hennessy–Milner Theorem
 
 Bisimilarity and HML equivalence coincide, that is, $p \beq{B} q$ precisely if $p \beq{\hml} q$.{{<isb theorem HML_Spectrum lts.Hennessy_Milner_theorem>}}
@@ -874,7 +873,6 @@ That it is always safe for the defender to *answer* with moves to $[\literal{p_{
 
 
 ::: {#exm-bisim-sim-game}
-
 Let us recall @exm-bisim-sim of the “trolled philosophers,” where we determined $\literal{Q}$ and $\literal{Q'}$ to be non-bisimilar.
 The bisimulation game graph for the system is depicted in @fig-bisim-sim-game.
 
@@ -953,7 +951,9 @@ Moves are labeled by their justification.
 Defender-won positions are tinted blue.
 :::
 
-::: {#lem-bisim-game-characterization}
+::: {#thm-bisim-game-characterization}
+#### Stirling's Game Characteirzation
+
 The defender wins the bisimulation game ${\game}_\notionname{B}^{\system}$ starting at attacker position $[p, q]$ precisely if $p \beq{B} q$.{{<isb theorem Equivalence_Games bisim_game.bisim_game_characterization>}}
 :::
 ::: proof
@@ -1075,6 +1075,8 @@ This attacker strategy can thus be expressed by $\hmlneg\hmlobs{\tau}\hmlands\se
 The bisimulation game of @exm-bisim-sim-game-formulas with attacker formulas.
 :::
 
+More generally, the following lemma explains the construction of distinguishing formulas from attacker strategies:
+
 ::: {#lem-attacks-imply-formulas}
 Let $\rel f$ be a deterministic winning strategy for the attacker on ${\game}_\notionname{B}$ from $[p,q]$.
 Construct formulas recursively from game positions, ${φ}_{\rel{f}}(g)$, as follows:
@@ -1087,6 +1089,7 @@ $$
 $$
 
 Then $φ_{\rel f}([p,q])$ is well-defined and distinguishes $p$ from $q$.
+Also, $φ_{\rel f}([p,q]) ∈ \observations{\floor{B}}$.
 :::
 ::: proof
 1. The given construction is well-defined as $\rel f$ must induce a well-founded order on game positions in order to be attacker-winning.
@@ -1112,4 +1115,19 @@ By induction on the derivation of $φ ∈ \observations{\floor{B}}$ according to
   So they can also win $[p, q]$ by performing a swap.\qedhere
 :::
 
-{{<noindent>}} @lem-attacks-imply-formulas, @lem-formulas-imply-attack, and @lem-game-formula-hml together with the determinacy of games yield an alternative proof of the game characterization @lem-bisim-game-characterization.
+{{<noindent>}} @lem-attacks-imply-formulas and @lem-formulas-imply-attack, together with the fact that $\observations{\floor{B}}$ and $\hml$ are equally distincitve (@lem-game-formula-hml), yield:
+
+::: {#thm-game-formulas}
+The attacker wins ${\game}_\notionname{B}$ from $[p,q]$ precisely if there is $φ ∈ \hml$ distinguishing $p$ from $q$.
+:::
+
+{{<noindent>}} Of course, we already knew this!
+@thm-game-formulas is just another way of gluing together the Hennessy–Milner theorem on bisimulation (@thm-hennessy-milner) and the Stirling's bisimulation game characterization (@thm-bisim-game-characterization), modulo the determinacy of games.
+
+## Discussion
+
+Insights:
+
+- Equivalence games (can) correspond to grammars of distinguishing formulas. ... a route to derive equivalence games from modal characterizations! (Prior standard: derive equivalence games from relational characterizations...)
+- relational characterizations = defender view; modal characterizations = attacker view.
+- HML-theorem a shadow of game determinacy when lifting from games to equivalences

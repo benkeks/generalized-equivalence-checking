@@ -58,11 +58,24 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
   The program $\literal{Q}$ on the other hand performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$ to the environment.
 :::
 
-
 {{<noindent>}} There are two things one might wonder about @exm-ts:
 
 1. Should one care about non-determinism in programs? Subsection [-@sec-ccs] shows how non-determinism arises naturally in concurrent programs.
 2. Should one consider $\literal P$ and $\literal Q$ equivalent? This heavily depends. Section [-@sec-behavioral-eq] will introduce a notion of equivalence under which the two are equivalent and one under which they differ.
+
+::: {#rem-tau}
+#### A Note on $τ$
+
+The action $τ$ (the greek letter “tau”) will in later chapters stand for *internal behavior* and receive special treatment.
+For the scope of this and the following three chapters, $τ$ is an action like every other.
+
+Generally, this thesis aims to be consistent with notation and naming in surrounding literature.
+But people who have been exposed to fewer compiler classes and semantics literature often find all the greek letters daunting.
+So, where there are two options, we prefer the less-greek one.
+After all, everything this thesis is about is simple, in a sense.
+Also, we will usually write literals and constant names in $\textsf{sans-serif}$ and variables in $\textit{italics}$.
+For the internal action, the whole field has converged to $τ$ in italics, however---so, we will run with this.
+:::
 
 ### Calculus of Communicating Systems {#sec-ccs}
 
@@ -237,7 +250,7 @@ $$
     \quad
     \begin{matrix}
       \vphantom{\step{\coaction{\literal{fork}}}_\ccs}\\
-      τ \notin A
+      τ \notin \set{\literal{fork}}
     \end{matrix}
   }{
     ( \coaction{\literal{fork}} \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}

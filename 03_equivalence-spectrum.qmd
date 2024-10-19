@@ -211,10 +211,55 @@ The strong spectrum of @def-strong-spectrum contains the notions of behavioral e
 The only non-trivial case is:
 
 3. The difference is that $\observationsvar{(\infty, \infty, \infty, \infty,  \infty, \infty)}^\literal{strong}$ forces negations to appear in conjunctions. This does not affect expressive power as $\hmlneg \varphi \equiv \hmlands\set{\hmlneg \varphi}$.
+TODO: Check, there have been changes to the grammar!
 :::
 
 
 ### The Full Strong Spectrum
+
+::: {#fig-full-strong-spectrum}
+
+```tikz
+\begin{tikzpicture}[auto,node distance=2.5cm,align=center]
+  \node (B){bisimulation $\notionname{B}$\\$\infty,\infty,\infty,\infty,\infty,\infty$};
+  \node (S2)[below of=B, node distance=1.2cm]{$2$-nested simulation $\notionname{2S}$\\$\infty,\infty,\infty,\infty,\infty,1$};
+  \node (RS)[below left of=S2]{ready simulation $\notionname{RS}$~\\$\infty,\infty,\infty,\infty,1,1$};
+  \node (RT)[below right of=RS]{readiness traces $\notionname{RT}$\\$\infty,\infty,\infty,1,1,1$};
+  \node (FT)[below left of=RT]{failure traces $\notionname{FT}$\\$\infty,\infty,\infty,0,1,1$};
+  \node (R)[below right of=RT]{readiness $\notionname{R}$\\$\infty,1,1,1,1,1$};
+  \node (PF)[above right of=R]{~possible futures $\notionname{PF}$\\$\infty,1,\infty,\infty,\infty,1$};
+  \node (IF)[below right of=R]{impossible futures $\notionname{IF}$\\$\infty,1,0,0,\infty,1$};
+  \node (S)[left of=FT, node distance=3.8cm]{simulation $\notionname{1S}$\\$\infty,\infty,\infty,\infty,0,0$};
+  \node (RV)[below left of=R]{revivals $\notionname{RV}$\\$\infty,1,1,0,1,1$};
+  \node (F)[below right of=RV]{failures $\notionname{F}$\\$\infty,1,0,0,1,1$};
+  \node (T)[below left of=F]{traces $\notionname{T}$\\$\infty,0,0,0,0,0$};
+  \node (E)[below of=T, node distance=1.2cm]{enabledness $\notionname{E}$\\$1,0,0,0,0,0$};
+
+  \path
+  (B) edge (S2)
+  (S2) edge (RS)
+  (S2) edge (PF)
+  (RS) edge (S)
+  (RS) edge (RT)
+  (RT) edge (R)
+  (RT) edge (FT)
+  (PF) edge (R)
+  (PF) edge (IF)
+  (S) edge (T)
+  (FT) edge (RV)
+  (R) edge (RV)
+  (IF) edge (F)
+  (RV) edge (F)
+  (F) edge (T)
+  (T) edge (E)
+  ;
+\end{tikzpicture}
+```
+
+Hierarchy of equivalences/preorders becoming finer towards the top.
+:::
+
+
 
 ### Non-Intersectionality
 
@@ -262,3 +307,9 @@ In line with \refSubsec{subsec:negated-conjunctions}, we do not care about formu
 
 ### Complexities
 
+## Discussion
+
+- Deviates slighly from @bisping2023equivalenceEnergyGames:
+  - Parameterized grammar instead of expressiveness price function
+  - Count $\hmltrue$ as zero-priced instead of one conjunction.
+  - Force observations in conjuncts

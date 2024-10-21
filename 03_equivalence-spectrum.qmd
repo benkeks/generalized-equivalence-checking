@@ -2,40 +2,21 @@
 
 # Context: The Spectrum of Equivalences {#sec-spectrum}
 
-## Observable Difference
+## Observability Hierarchies
 
-### Observations as Denotations
-
-::: {#def-observfations}
-#### Observations
-
-On a transition system, the possible observations of a stete, $\semanticsobs{\cdot} \colon \states \to \powerset{\hml}$, are defined as:
-
-$$\semanticsobs{p} ≔ \set{φ ∈ \hml \mid p ∈ \semantics{φ}}.$$
-:::
-
-::: {#def-obs-difference}
-#### Observable Difference
-
-The difference between $p$ and $q$ is defined as:
-$$\difference{p}{q} ≔ \semanticsobs{p} \setminus \semanticsobs{q}.$$
-:::
-
-::: {#prp-behavioraleq}
-### Behavioral preorder and equivalence
-
-Rephrasing @def-distinctions, two states are preordered with respect to a sublogic $\observationsvar{} ⊆ \hml$
-$$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsvar{} = \varnothing.$$
-:::
+@hm1980hml introduce HML as a “little language for talking about programs.”
+The idea is that HML formulas express “experiments” or “tests” that an observer performs interacting with a program.
+The intuition thus is that $\hml$ sublogics capture what we consider to be *observable*.
+The more we mark as observable, the finer the resulting equivalence relations do become.
 
 ### Understanding the Equivalence Hierarchy through Modal Logics
 
-Let us revisit the hierarchy between bisimilarity, similarity, and trace equivalence of Subsection [-@sec-hierarchy-equivalences].
+As promised, we revisit the hierarchy between bisimilarity, similarity, and trace equivalence of Subsection [-@sec-hierarchy-equivalences], modally.
 So far, we have only looked into the characterization of bisimilarity through the whole of $\hml$ in @thm-hennessy-milner or through $\observations{\floor{B}}$ in @exm-game-formulas.
 
 ::: {#def-sim-trace-logics}
 
-We define the two $\hml$-sublogics $\observations{T}$ and $\observations{S}$ by the grammars from $φ^\mathrm{T}$ and $φ^\mathrm{S}$.
+We define the two $\hml$-sublogics $\observations{T}$, the linear positive fragment, and $\observations{S}$, the positive fragment, by the grammars starting at $φ^\mathrm{T}$ and $φ^\mathrm{S}$.
 
 $$
 \begin{array}{rclll}
@@ -62,10 +43,43 @@ $p \bpreord{S} q$ precisely if $p \bpreordvar{\observations{S}} q$.{{<isb theore
 {{<noindent>}} Clearly, $\observations{T} \subset \observations{S} \subset \hml$.
 So, @prp-difference-contraposition (together with @thm-hennessy-milner for $\beq{B}$ and $\hml$) yields another way of establishing the hierarchy between trace equivalence, similarity, and bisimilarity of Subsection [-@sec-hierarchy-equivalences].
 
+While the relational definitions for (bi-)similarity of @def-bisimilarity and the denotational definition of trace equivalence @def-trace-eq live in different worlds, they become naturally comparable in the modal realm.
+
+The modal view also reveals an intuitive hierarchy of “testing scenarios” for the equivalences, framed as black box tests:
+
+Trace equivalence
+: matches an observer that can see sequences of events.
+They just watch repeated executions of the program.
+
+Similarity
+: matters to an experimenter that can also explore different branches of possibilities.
+This is valid if the experimenter can somehow copy the system state during the execution.
+
+Bisimilarity
+: captures that the experimenter can moreover determine if a future course of events is impossible at some point.
+This means that the experimenter can not only copy the execution state but also exhaustively test *every* possibility of how the system may continue.
+
+But these levels of observability do not need to be linear …
 
 ### Incomparabilities
 
+A well-known and natural notion of equivalence is that of *failure equivalence*.
+Intuitively, a failure says that the experimenter may follow a trace and see which actions are *impossible* at its end.
+Its standard definition is based on *failure* denotations:
+
 ::: {#def-failures}
+#### Failures
+
+The set of failures of a process $\failures{p}$ is recursively defined as
+
+- $(\emptyword, X) ∈ \failures{p}$ if no $X \cap \initials{p} = \varnothing$,
+- $(α \cdot \vec w, X) ∈ \failures{p}$ if there is $p'$ with $p \step α p'$ and $(\vec w, X) ∈ \failures{p'}$.
+:::
+
+But would it not be nice if we could prevent the invention of new mathematical objects for every new notions of observability we consider?
+Fortunately, we can, by directly employing modal logics:
+
+::: {#def-failures-modal}
 
 We define failure observations $\observations{F}$ by the grammar:
 
@@ -77,7 +91,6 @@ $$
 $$
 :::
 
-Intuitively, a failure says that we may follow a trace and see which actions are *impossible* at its end.
 Clearly, this encompasses what we may observe via traces,
 but is something that we cannot observe using simulation.
 We consider $\bpreord{F}$ given by $\bpreordvar{\observations{F}}$.
@@ -204,7 +217,7 @@ The strong spectrum of @def-strong-spectrum contains the notions of behavioral e
 1. The observation language $\observationsvar{(\infty, 0, 0, 0, 0, 0)}^\literal{strong}$ exactly matches the characterization of traces $\observations{T}$ from @def-sim-trace-logics and thus characterizes trace preorder.{{<isb theorem Priced_Spectrum lts.traces_priced_characterization>}}
 2. The observation language $\observationsvar{(\infty, \infty, \infty, \infty, 0, 0)}^\literal{strong}$ exactly matches the characterization of simulation observations $\observations{S}$ from @def-sim-trace-logics and thus characterizes simulation.{{<isb theorem Priced_Spectrum lts.simulation_priced_characterization>}}
 3. The observation language $\observationsvar{(\infty, \infty, \infty, \infty,  \infty, \infty)}^\literal{strong}$ matches $\hml$ in distinctiveness and thus characterizes bisimilarity.
-4. The observation language $\observationsvar{(\infty, 1, 0, 0, 1, 1)}^\literal{strong}$ exactly matches failure observations $\observations{F}$ of @def-failures.
+4. The observation language $\observationsvar{(\infty, 1, 0, 0, 1, 1)}^\literal{strong}$ exactly matches failure observations $\observations{F}$ of @def-failures-modal.
 :::
 
 ::: {.proof}
@@ -304,6 +317,30 @@ In line with \refSubsec{subsec:negated-conjunctions}, we do not care about formu
 -->
 
 ### Spectroscopy as Abstract Interpretation
+
+
+::: {#def-observations}
+#### Observations
+
+On a transition system, the possible observations of a stete, $\semanticsobs{\cdot} \colon \states \to \powerset{\hml}$, are defined as:
+
+$$\semanticsobs{p} ≔ \set{φ ∈ \hml \mid p ∈ \semantics{φ}}.$$
+:::
+
+::: {#def-obs-difference}
+#### Observable Difference
+
+The difference between $p$ and $q$ is defined as:
+$$\difference{p}{q} ≔ \semanticsobs{p} \setminus \semanticsobs{q}.$$
+:::
+
+::: {#prp-behavioraleq}
+### Behavioral preorder and equivalence
+
+Rephrasing @def-distinctions, two states are preordered with respect to a sublogic $\observationsvar{} ⊆ \hml$
+$$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsvar{} = \varnothing.$$
+:::
+s
 
 ### Complexities
 

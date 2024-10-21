@@ -19,7 +19,8 @@ A *labeled transition system* (LTS) $\system=(\states,\actions,\step{})$ consist
 - $\actions$, a set of *actions,* and
 - ${\step{}} ⊆ \states × \actions × \states$, a *transition relation*.{{<isb locale Labeled_Transition_Systems lts>}}
 
-We write $\derivatives{p, α}$ for the set $\set{p' \mid p \step α p'}$.
+We write $\derivatives{p, α}$ for the set $\set{p' \mid p \step α p'}$,
+and $\initials{p}$ for $\set{α \mid \exists p' \ldotp p \step α p'}$
 :::
 
 {{<noindent>}} There is a canonical example used to discuss equivalences within transition systems.

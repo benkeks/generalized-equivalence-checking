@@ -551,7 +551,7 @@ Hennessy–Milner logic equivalence $\beqvar{\hml}$ is a simulation relation.{{<
 Assume it were not.
 Then there would need to be $p \beqvar{\hml} q$ with step $p \step α p'$, and no $q'$ such that $q \step α q'$ and $p' \beqvar{\hml} q'$.
 So there would need to be a distinguishing formula $φ_{q'}$ for each $q'$ that $q$ can reach by an $α$-step.
-Consider the formula $φ_α ≔ \hmlobs{α}\hmland{q'}{\set{q' \mid q \step α q'}} φ_{q'}$.
+Consider the formula $φ_α ≔ \hmlobs{α}\hmland{q'}{\derivatives{q, α}} φ_{q'}$.
 It must be true for $p$ and false for $q$, contradicting $p \beqvar{\hml} q$.
 :::
 
@@ -578,7 +578,7 @@ Induct over the structure of $φ$ with arbitrary $p$ and $q$.
   So, using contraposition, the case implies $q ∈ \semantics{\hmlneg φ}$.\qedhere
 :::
 
-{{<noindent>}}Combining the bisimulation invariance for one direction and that $\beq{\hml}$ is symmetric (@prp-hml-eq) simulation (@lem-hml-eq-sim) for the other, we obtain that $\hml$ precisely characterizes bisimilarity:
+{{<noindent>}}Combining the bisimulation invariance for one direction and that $\beq{\hml}$ is a symmetric simulation (@prp-hml-eq and @lem-hml-eq-sim) for the other, we obtain that $\hml$ precisely characterizes bisimilarity:
 
 ::: {#thm-hennessy-milner}
 #### Hennessy–Milner Theorem
@@ -588,11 +588,11 @@ Bisimilarity and HML equivalence coincide, that is, $p \beq{B} q$ precisely if $
 
 ::: {#rem-image-finiteness}
 In the standard presentation of the theorem, image finiteness of the transition system is assumed.
-This means that $p \step α \cdot$ is finite for every $p ∈ \states$.
+This means that $\derivatives{p, α}$ is finite for every $p ∈ \states$.
 The amount of outgoing transitions matters precisely in the construction of $φ_α$ in the proof of @lem-hml-eq-sim.
 But as our definition of $\hml$ (@def-hml) allows infinite conjunctions $\hmland{i}{I} …$, we do not need an assumption here.
-The implicit assumption is that the cardinality of index sets $I$ can match that of $p \step α \cdot$.
-The original proof by @hm1980hml uses binary conjunction and thus can only express finitary conjunctions.
+The implicit assumption is that the cardinality of index sets $I$ can match that of $\derivatives{p, α}$.
+The original proof by @hm1980hml uses binary conjunction ($\varphi_1 \land \varphi_2$) and thus can only express finitary conjunctions.
 :::
 
 ### The Perks of Modal Characterizations
@@ -611,7 +611,7 @@ If $\observationsvar{} \subseteq \observationsvar{}'$ then $p \bpreordvar{\obser
 
 Pay attention to the opposing directions of $\subseteq$ and implication, here!
 
-Thirdly, as a corollary of @prp-difference-contraposition, modal characterizations *ensure equivalences to be refinements of bisimilarity*, which is a sensible base notion of equivalence.
+Thirdly, as a corollary of @prp-difference-contraposition, modal characterizations *ensure equivalences to be abstractions of bisimilarity*, which is a sensible base notion of equivalence.
 <!-- TODO: add forwards pointer on good complexities of bisimilarity -->
 
 In Chapter [-@sec-spectrum], we will discuss how the hierarchy of behavioral equivalences can be understood nicely and uniformly if viewed through the modal lense.

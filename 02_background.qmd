@@ -903,8 +903,6 @@ The attacker exploits, that $\literal{Q'}$ can reach an early deadlock via $\lit
 
 ::: {#fig-bisim-sim-game}
 ```tikz
-
-\begin{adjustbox}{max width=\textwidth, center}
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
     defender/.style={ellipse, inner sep=0ex},
@@ -957,7 +955,6 @@ The attacker exploits, that $\literal{Q'}$ can reach an early deadlock via $\lit
         edge node {$\literal{q_{AB}} \step{\literal{b}} \literal{q_2}$} (Dfn_b_q2_q3)
     ;
   \end{tikzpicture}
-\end{adjustbox}
 ```
 
 Bisimulation game on non-bisimilar states $\literal{Q}$ and $\literal{Q'}$ of @exm-bisim-sim-game.
@@ -1029,8 +1026,7 @@ This attacker strategy can thus be expressed by $\hmlneg\hmlobs{\tau}\hmlands\se
 
 ::: {#fig-bisim-sim-game-formulas}
 ```tikz
-
-\begin{adjustbox}{max width=\textwidth, center}
+%%| image-class: lightbox
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
     defender/.style={ellipse, inner sep=0ex},
@@ -1083,7 +1079,6 @@ This attacker strategy can thus be expressed by $\hmlneg\hmlobs{\tau}\hmlands\se
         edge node {} (Dfn_b_q2_q3)
     ;
   \end{tikzpicture}
-\end{adjustbox}
 ```
 
 The bisimulation game of @exm-bisim-sim-game-formulas with attacker formulas.

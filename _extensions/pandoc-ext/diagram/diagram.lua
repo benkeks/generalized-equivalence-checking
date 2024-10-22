@@ -172,7 +172,7 @@ local mermaid = {
 
 --- LaTeX template used to compile TikZ images.
 local tikz_template = pandoc.template.compile [[
-\documentclass{standalone}
+\documentclass[crop, border=2pt, varwidth=90cm]{standalone}
 \usepackage{tikz}
 $for(header-includes)$
 $it$
@@ -422,7 +422,16 @@ local pdf2svg = function (imgdata)
   }
   pandoc.pipe('pdf2svg', args, '')
   os.remove(pdf_file)
-  return pandoc.pipe('cat', {out_file}, '')
+  return pandoc.pipe('cat', {out_file}, ''), os.remove(pdf_file)
+  -- local pdf_file = os.tmpname() .. '.pdf'
+  -- write_file(pdf_file, imgdata)
+  -- local args = {
+  --   '--export-type=svg',
+  --   '--export-plain-svg',
+  --   '--export-filename=-',
+  --   pdf_file
+  -- }
+  -- return pandoc.pipe('inkscape', args, '')--, os.remove(pdf_file)
 end
 
 local function properties_from_code (code, comment_start)

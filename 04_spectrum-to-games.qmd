@@ -58,6 +58,51 @@ Ordinary reachability games can be seen as a special case of energy games with t
 
 TODO: Example plus-minus energy game. ... Upward-closure
 
+
+::: {#exm-simple-energy-game}
+Graph in @fig-simple-energy-game.
+
+:::
+
+::: {#fig-simple-energy-game}
+```tikz
+\begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
+  posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
+  defender/.style={ellipse, inner sep=0ex}]
+
+  \node[posStyle, initial, initial text={}]
+    (Att_1){$\literal{g_1}$};
+  \node[posStyle]
+    (Att_2) [above right = .5cm and 1cm of Att_1] {$\literal{g_2}$};
+  \node[posStyle]
+    (Att_3) [below right = .5cm and 1cm of Att_1] {$\literal{g_3}$};
+  \node[posStyle, defender]
+    (Dfn_4) [right = 4cm of Att_1] {$\literal{g_4}$};
+  \node[posStyle]
+    (Att_5) [right = 4cm of Att_2] {$\literal{g_5}$};
+  \node[posStyle, defender]
+    (Dfn_6) [right = 4cm of Att_3] {$\literal{g_6}$};
+
+  \path
+    (Att_1)
+      edge[bend left = 10] node {$+2,-1$} (Att_2)
+      edge[bend right = 10, swap] node {$-1,0$} (Att_3)
+    (Att_2)
+      edge[bend left = 10] node {$0,0$} (Dfn_4)
+    (Att_3)
+      edge[bend right = 10, swap] node {$0,0$} (Dfn_4)
+    (Dfn_4)
+      edge[bend left = 10] node {$0,0$} (Att_5)
+      edge[bend right = 10, swap] node {$-1,0$} (Dfn_6)
+    (Att_5)
+      edge[bend left = 10] node {$0,-1$} (Dfn_6)
+  ;
+\end{tikzpicture}
+```
+
+Simple energy game of @exm-simple-energy-game.
+:::
+
 ### Declining Energy Games
 
 An $N$-dimensional declining energy game is played on energy vectors:
@@ -66,12 +111,12 @@ An $N$-dimensional declining energy game is played on energy vectors:
 
 #### Energies and Energy Updates
 
-For a dimensionality $N$, the set of *energies*, $\energies$, is given by $(\nats \cup \set{\infty})^N$.
+For dimensionality $N$, the set of *energies*, $\energies$, is given by $(\nats \cup \set{\infty})^N$.
 
 The set of *energy update labels*, $\energyupdates$, contains $\vectorcomponents[N]{u} \in \energyupdates$ where each component $u_k$ is a symbol of the form
 
 - $u_k \in \set{-1, 0}$ (relative update), or
-- $u_k = \mathtt{min}_D$ where $D \subseteq \{1, \ldots, 8\}$ and $k \in D$ (minimum selection update).
+- $u_k = \mathtt{min}_D$ where $D \subseteq \{1, \ldots, N\}$ and $k \in D$ (minimum selection update).
 
 {{<noindent>}} Applying an update to an energy, $\energyupdate(e, u)$, where $e = \vectorcomponents[N]{e} \in \energies$ and $u = \vectorcomponents[N]{u} \in \energyupdates$, yields a new energy vector $e'$ where $k$th components $e'_k ≔ e_k + u_k$ for $u_k \in \ints$ and $e'_k ≔ \min_{d\in D} e_d$ for $u_k = \mathtt{min}_D$.
 Updates that would cause any component to become negative are undefined, i.e., $\energyupdate$ is a partial function.

@@ -52,6 +52,7 @@ jobs:
             extarrows
             pgf
             pgfplots
+            varwidth
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2

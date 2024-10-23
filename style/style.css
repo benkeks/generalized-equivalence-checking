@@ -1,0 +1,10 @@
+
+@media screen {
+  .spoiler {
+    filter: blur(3px);
+  }
+
+  .spoiler:hover, .spoiler:focus-within {
+    filter: inherit;
+  }
+}

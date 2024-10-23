@@ -230,6 +230,8 @@ TODO: Check, there have been changes to the grammar!
 
 ### The Full Strong Spectrum
 
+(When writing vectors in labels and figures, we omit the parentheses $(\dots)$ for readability.)
+
 ::: {#fig-full-strong-spectrum}
 
 ```tikz
@@ -340,7 +342,6 @@ $$\difference{p}{q} ≔ \semanticsobs{p} \setminus \semanticsobs{q}.$$
 Rephrasing @def-distinctions, two states are preordered with respect to a sublogic $\observationsvar{} ⊆ \hml$
 $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsvar{} = \varnothing.$$
 :::
-s
 
 ### Complexities
 

@@ -20,6 +20,7 @@ crossref:
       latex-env: algorithm
 linestretch: 1.15
 fig-align: center
+strip-comments: true
 
 book:
   title: "Generalized Equivalence Checking of Concurrent Programs"
@@ -58,6 +59,7 @@ format:
     citation-location: margin
     linestretch: 1.5
     mainfont: KaTeX_Main
+    css: style/style.css
     grid:
       sidebar-width: 300px
       body-width: 800px

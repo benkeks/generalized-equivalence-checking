@@ -720,13 +720,13 @@ A *reachability game* $\game = (G, G_\defender, \gamemoveblank)$ is played on a 
   - and *attacker positions* $G_\attacker ≔ G \setminus G_\defender$,
 - and a set of *game moves* ${\gamemoveblank} ⊆ G × G$.{{<isb locale Equivalence_Games game>}}
 
-{{<noindent>}} We denote by $\game[g_0]$ the game played from starting position $g_0 ∈ G$.
+{{<noindent>}} We denote by $\game(g_0)$ the game played from starting position $g_0 ∈ G$.
 :::
 
 ::: {#def-game-plays}
 #### Plays and Wins
 
-We call the paths ${g_0}{g_1} … ∈ G^{\infty}$ with $g_{i} \gamemoveblank g_{i+1}$ *plays* of $\game[g_0]$.
+We call the paths ${g_0}{g_1} … ∈ G^{\infty}$ with $g_{i} \gamemoveblank g_{i+1}$ *plays* of $\game(g_0)$.
 They may be finite or infinite.
 The defender *wins* infinite plays.
 If a finite play $g_{0}\dots g_{n}\!\ngamemoveblank$ is stuck, the stuck player loses: The defender wins if $g_{n} ∈ G_\attacker$, and the attacker wins if $g_{n}∈ G_\defender$.
@@ -739,7 +739,7 @@ A (positional, non-deterministic) *attacker strategy* is a subset of the moves s
 
 Similarly, a *defender strategy* is a subset of the moves starting in defender states, $\rel F ⊆ (G_\defender × G) \cap \mathord{\gamemoveblank}$.
 If (fairly) picking elements of strategy $\rel F$ ensures a player to win, $\rel F$ is called a *winning strategy* for this player.
-The player with a winning strategy for $\game[g_{0}]$ is said to *win* $\game[g_{0}]$.
+The player with a winning strategy for $\game(g_{0})$ is said to *win* $\game(g_{0})$.
 If $\rel F$ is a function on $G_\attacker$ or $G_\defender$, respectively, we call it a *deterministic* strategy.
 
 :::
@@ -752,7 +752,7 @@ We call this partitioning of the game positions the winning regions.
 ::: {#def-winning-region}
 #### Winning Region
 
-The set $\attackerwins ⊆ G$ of all positions $g$ where the attacker wins $\game[g]$ is called the *attacker winning region* of $\game$.
+The set $\attackerwins ⊆ G$ of all positions $g$ where the attacker wins $\game(g)$ is called the *attacker winning region* of $\game$.
 The defender winning region $\defenderwins$ is defined analogously.
 :::
 
@@ -848,7 +848,7 @@ $(\literal{3}) ≔ (\literal{p_1}, \hmlneg\hmltrue)$.
 :::
 
 ::: {#lem-hml-semantic-game}
-The defender wins ${\game}_\hml^{\system}[(p, φ)]$ precisely if $p ∈ \semantics{φ}$.
+The defender wins ${\game}_\hml^{\system}((p, φ))$ precisely if $p ∈ \semantics{φ}$.
 :::
 
 ### The Bisimulation Game

@@ -345,6 +345,17 @@ $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsva
 
 ### Complexities
 
+What complexities to expect when deciding spectroscopy problems?
+Clearly, details depend on the specific spectrum and flavor of Hennessy–Milner logic we are concerned with.
+But, obviously, solving the spectroscopy problem cannot be easier than solving the covered individual equivalence problems.
+
+To get a first idea, let us examine the complexities of common equivalence checking problems.
+The rule of thumb is that trace-like equivalences are $\complexityname{PSPACE}$-complete and bisimilarities are $\complexityname{P}$-complete [@hs1996complexityEquivalences;@bgs1992bisimPComplete].
+
+Bisimilarity finds itself in a *valley* of tractability,
+if we look at a cross section through the equivalence spectrum as in @fig-complexity-slope.
+The best known bisimilarity algorithms for finite-state transition systems take $\bigo{\relsize{\step{}} \log \relsize{S}}$ time [usually deriving from @paigetarjan1987partitionrefinement].
+
 ::: {#fig-complexity-slope}
 ```tikz
 \begin{tikzpicture}[]
@@ -372,6 +383,20 @@ $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsva
 ```
 Bisimilarity's complexity valley.
 :::
+
+For coarser simulation-like equivalences, the best known algorithms need $\bigo{\relsize{\step{}} \relsize{S}}$ time [@rt2010efficientSimulation].^[Or $\bigo{\relsize{\step{}} \relsize{\relqotient{S}{\beq{S}}}}$ to name the bound as @rt2010efficientSimulation present it.]
+
+The finer graph isomorphism equivalence again is harder with the best known solution [@babai2016graphIsomorphismQuasiPoly] in quasi-polynomial time $2^{\bigo{(\log n)^3}}$.
+
+There however are no strict hardness results at this level of granularity.
+So, better time complexities for graph isomorphism, bisimilarity, and similarity are conceivable (albeit unprobable).
+@gmv2023lowerboundsBisimPartitionRefinement show that at least partition-refinement algorithms for bisimilarity cannot do better than $\bigo{\relsize{\step{}} \log \relsize{S}}$.
+
+The trivial equivalences at the end of the cross section, identity $\notionname{ID}$ and universal equivalence $\notionname{U}$, can be solved directly.
+Enabledness equivalence $\notionname{E}$ can be also computed quite directly by just comparing outgoing transitions.
+
+In this thesis, we solve the spectroscopy problem for the strong and weak spectrum.
+So we must be at least as complex as the equivalences between bisimilarity and universal equivalence, boxed in @fig-complexity-slope.
 
 ## Discussion
 

@@ -182,6 +182,33 @@ Upward closure
 
 ### The Polynomial Slice
 
+
+::: {#fig-full-strong-spectrum}
+
+```tikz
+\begin{tikzpicture}[auto,node distance=2.5cm,align=center]
+  \node (B){bisimulation $\notionname{B}$\\$\infty,\infty,\infty$};
+  \node (kB)[below right of=B,node distance=5cm]{$k$-step bisimulation $k\notionname{B}$\\$k,\infty,\infty$};
+  \node (S2)[below left of=B]{$k$-nested simulation $k\notionname{S}$\\$\infty,\infty,k-1$};
+  \node (RS)[below left of=S2]{ready simulation $\notionname{RS}$~\\$\infty,1,1$};
+  \node (S)[below right of=RS]{simulation $\notionname{1S}$\\$\infty,0,0$};
+  \node (E)[below right of=S]{enabledness $\notionname{E}$\\$1,0,0$};
+
+  \path
+  (B) edge (kB)
+  (kB) edge (E)
+  (B) edge (S2)
+  (S2) edge (RS)
+  (RS) edge (S)
+  (S) edge (E)
+  ;
+\end{tikzpicture}
+```
+
+Hierarchy of polynomial-time decidable equivalences/preorders.
+:::
+
+
 ### A Bisimulation Energy Game
 
 Let us recall the bisimulation game of @def-bisim-game.

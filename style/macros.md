@@ -22,6 +22,9 @@
 \providecommand{\unit}[1]{\mathbf{\hat e}_{#1}}
 \providecommand{\vectorcomponents}[2][n]{({#2}_1,\ldots,{#2}_{#1})}
 \providecommand{\zerovec}{\mathbf{0}}
+\providecommand{\bigo}[1]{\mathcal{O}\left(#1\right)}
+\providecommand{\relsize}[1]{\left|#1\right|}
+\providecommand{\complexityname}[1]{\textrm{#1}}
 
 \lc{ Transition systems }
 

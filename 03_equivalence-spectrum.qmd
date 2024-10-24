@@ -345,6 +345,34 @@ $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsva
 
 ### Complexities
 
+::: {#fig-complexity-slope}
+```tikz
+\begin{tikzpicture}[]
+  \begin{axis}[
+        title = {},
+        width = 12cm,
+        height = 5cm,
+        symbolic x coords = {ID,GI,B,S,T,E,U},
+        xtick = data,
+        ytick = {0, 1, 2, 3, 4, 5},
+        yticklabels = {
+          $\bigo{1}$,
+          $\bigo{\relsize{\step{}}}$,
+          $\bigo{\relsize{\step{}} \log \relsize{S}}$,
+          $\bigo{\relsize{\step{}} \relsize{S}}$,
+          $\complexityname{NP}$,
+          $\complexityname{PSPACE}$,
+        }
+    ]
+    \addplot+ [smooth] coordinates {(ID,0) (GI,4) (B,2) (S,3) (T,5) (E,1) (U,0)};
+    \addplot [opacity=0.2]
+        coordinates {(B,0) (B,5) (U,5) (U,0) (B,0)};
+  \end{axis}
+\end{tikzpicture}
+```
+Bisimilarity's complexity valley.
+:::
+
 ## Discussion
 
 - Deviates slighly from @bisping2023equivalenceEnergyGames:

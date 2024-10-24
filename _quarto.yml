@@ -12,7 +12,7 @@ filters:
 
 number-sections: true
 crossref:
-  chapters: false
+  chapters: true
   custom:
     - kind: float
       reference-prefix: Algorithm

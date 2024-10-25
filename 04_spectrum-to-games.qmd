@@ -176,9 +176,19 @@ Given a weight labeling $w \colon (\gamemoveblank) \to \energyupdates$, an $N$-d
 We write $g \gamemove{\;u\;} g'$ for a move $g \gamemoveblank g'$ labeled by weight $w(g, g') = u$.
 :::
 
-Upward closure
+::: {#prp-declining-energies}
+In this model, energy levels can only decline.
 
-## Characterizing the P-Time Part of the Spectrum
+- Updates may only decrease energies, $\energyupdate(u, e) \leq e$.
+- Energy level changes are monotonic:
+  If $\energylevel(\rho g) \leq \energylevel(\sigma g)$ and $g \gamemoveblank g'$
+  then $\energylevel(\rho g g') \leq \energylevel(\sigma g g')$.
+- If $e_0 \leq e'_0$ and $\game^🗲(g_0, e_0)$ has non-$\bot$ play $\rho$, then $\game^🗲(g_0, e'_0)$ also has non-$\bot$ play $\rho$.
+:::
+
+## Characterizing the $\complexityname{P}$-Time Part of the Spectrum
+
+
 
 ### The Polynomial Slice
 
@@ -255,7 +265,7 @@ For instance, neither $(1,\infty,\infty)$ nor $(\infty,\infty,1)$ is enough.
 The second bound implies that the budgets, $(\infty,1,1)$ and $(\infty,0,0)$ are won by the defender as well.
 
 What this tells us is that the attacker needs at least two simulation moves (after swaps) and two swaps to tell $\literal{Q}$ apart from $\literal{Q'}$.
-Telling appart $\literal{Q'}$ from $\literal{Q}$ is slightly easier, only requiring one swap (and only one simulation move after the swap).
+Telling apart $\literal{Q'}$ from $\literal{Q}$ is slightly easier, only requiring one swap (and only one simulation move after the swap).
 :::
 
 ::: {#fig-bisim-sim-game-energies}

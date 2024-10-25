@@ -228,7 +228,7 @@ TODO: Check, there have been changes to the grammar!
 :::
 
 
-### The Full Strong Spectrum
+### The Full Strong Spectrum {#sec-full-spectrum}
 
 (When writing vectors in labels and figures, we omit the parentheses $(\dots)$ for readability.)
 
@@ -290,41 +290,78 @@ Leads to spectroscopy problem...
 
 Introduced in @bjn2022decidingAllBehavioralEqs.
 
-> Given a spectrum $(\notions, \leq, \observationsvar{N \in \notions})$ and a pair of processes $p$ and $q$, what are the notions $N$ such that $p \bpreordvar{\observationsvar{N}} q$?
+::: {#def-spectroscopy-problem}
+#### Spectroscopy problem
 
-Distinction formulation:
+In the context of a transition system $\system$ and a spectrum $(\notions, \leq, \observationsvar{N \in \notions})$, the *spectroscopy problem* asks:
 
-> What are the notions $N$ such that $\difference{p}{q} \cap \observationsvar{N} \neq \varnothing$?
+- Input:  A pair of processes $p$ and $q$.
+- Output: Set of notions $\notions_{p,q} \subseteq \notions$, such that $p \bpreordvar{\observationsvar{N}} q$ for each $N \in \notions_{p,q}$.
+:::
 
-<!--
+Technically, we will usually aim to compute the *Pareto front* of minimal notions that do not hold, $\Min(\notions \setminus \notions_{p,q})$.
+The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as upset-complemenet $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$
+(where ${\upset\! B} := \set{b \mid \exists b' \in B \ldotp b' \leq b}$ for $B$ subset of some partially-ordered set).
 
-\begin{prob}[Abstract observation preorder problem]\label{prob:abstract-obs-problem}
-  Given a process $p$ and a set of processes $Q$,
-  what are the observation languages from \refDef{def:ltbts} (including $\obs{E}$)
-  for which $p$ is preordered to every $q \in Q$?
-\end{prob}
+All spectra we are concerned with are well-quasi ordered, which means that each $\Min(\notions \setminus \notions_{p,q})$ must be finite in size [@kruskal1972wqo], and thus “more handy” than the full sets $\notions_{p,q}$ or $\notions \setminus \notions_{p,q}$.
 
-Our approach to solve this problem looks for the set of minimal languages to tell the processes apart.
-We characterize these minimal distinguishing languages through a set of coordinates from the price lattice (\refDef{def:price-lattice}),
-where every coordinate is justified by a distinguishing formula with this price.
-In line with \refSubsec{subsec:negated-conjunctions}, we do not care about formulas with double negations and negated conjunctions.
+::: {#exm-spectroscopy-front}
+For the “trolled philosophers” of @exm-bisim-sim, we have determined that the systems are simulation-preordered, but not bisimilar, that is, $\literal{Q} \bpreord{S} \literal{Q'}$, but $\literal{Q} \nbpreord{B} \literal{Q'}$.
+The first fact implies $\literal{Q} \bpreord{T} \literal{Q'}$.
 
-\begin{prob}[Cheapest distinction problem]\label{prob:cheapest-distinction}
-  Given a process $p$ and a set of processes $Q$,
-  what is the set of minimal prices (according to \refDef{def:formula-expressiveness}) of formulas with neither double negations nor negated conjunctions
-  that distinguish $p$ from every $q \in Q$?
-  What are illuminating witness formulas for each such price?
-\end{prob}
+But what about other notions from the strong spectrum of Subsection -@sec-full-spectrum?
+Besides similarity, there might well be incomparable or finer notions that too preorder $\literal{Q}$ to $\literal{Q'}$!
 
--->
+The solution to the spectroscopy problem on $\literal{Q}$ and $\literal{Q'}$ is $\notions^{\literal{strong}}_{p,q} = \set{N \in \notions^\literal{strong} \mid N \nleq (2,2,0,0,2,2)}$.^[The following chapters will reveal how to reliably arrive at this knowledge.]
+
+Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\infty,\infty,\infty,\infty,1) \nleq (2,2,0,0,2,2)$, we arrive at $\literal{Q} \bpreord{2S} \literal{Q'}$, which implies *all* preorders of @fig-full-strong-spectrum except for bisimilarity.
+
+TODO: Show how annoying explicit positive set is.
+
+::: {#fig-spectroscopy-front .column-margin}
+TODO: Update figure for new spectrum
+```tikz
+\begin{tikzpicture}[]
+    \begin{scope}[rotate=45, scale=1]
+      \draw[help lines] (0,0) grid (4.5,4.5);
+      \draw[thick, opacity=0.5, text opacity=.8] (-.25,2) -- (5,2) node[pos=0,left] {conjunctions = 2};
+      \draw[thick, opacity=0.5, text opacity=.8] (1,-.25) -- (1,5) node[pos=0,right] {neg.\ clause depth = 1};
+      \draw[draw=none, fill=pink, fill opacity=0.1, text opacity=1]
+        (-.05,-.05) rectangle (5,5) node[pos=.74, align=center] {bisimulation};
+      \draw[draw=violet, fill=violet, opacity=0.7, fill opacity=0.2, text opacity=1]
+        (-.05,-.05) rectangle (5,2.05) node[pos=.73, align=center] {(im)possible\\future};
+      \draw[draw=orange, fill=orange, opacity=0.4, fill opacity=0.2, text opacity=1]
+          (-.05,-.05) rectangle (1.05,5) node[pos=.73, align=center] {ready\\simulation};
+      \draw[draw=green, fill=green, opacity=0.7, fill opacity=0.2, text opacity=1]
+        (-.05,-.05) rectangle (1.05,2.05) node[below, align=center] {failure\\/ready};
+      \draw[draw=yellow, fill=yellow, opacity=0.7, fill opacity=0.3, text opacity=1]
+        (-.05,-.05) rectangle (.05,5) node[pos=.65] {simulation};
+      \draw[draw=red, fill=red, opacity=0.7, fill opacity=0.2, text opacity=1]
+        (-.05,-.05) rectangle (.05,1) node[below, align=center] {enabledness\\/trace};
+      %
+      \draw[draw=red, fill=none, opacity=0.5, text opacity=1, line width=2pt]
+        (1.95,3.5) -- (1.95, 2.95) node[above, align=center] {$\varphi_\literal{S'}$} -- (2.5,2.95);
+      \draw[draw=red, fill=none, opacity=0.5, text opacity=1, line width=2pt]
+        (0.95,2.5) -- (0.95, 1.95) node[above, align=center] {$\varphi_\literal{S}$} -- (1.5,1.95);
+    \end{scope}
+    \begin{scope}[transparency group]
+      \fill[transform canvas={rotate=45, scale=1},path fading=west, color=white]
+      (4,-.25) rectangle (5.05,5.05);
+      \fill[transform canvas={rotate=45, scale=1},path fading=south, color=white]
+      (-.25,4) rectangle (5.01,5.01);
+    \end{scope}
+  \end{tikzpicture}
+```
+:::
+
+:::
 
 ### Spectroscopy as Abstract Interpretation
-
 
 ::: {#def-observations}
 #### Observations
 
-On a transition system, the possible observations of a stete, $\semanticsobs{\cdot} \colon \states \to \powerset{\hml}$, are defined as:
+On a transition system, the possible observations of a state, $\semanticsobs{\cdot} \colon \states \to \powerset{\hml}$, are defined as:
 
 $$\semanticsobs{p} ≔ \set{φ ∈ \hml \mid p ∈ \semantics{φ}}.$$
 :::
@@ -332,7 +369,7 @@ $$\semanticsobs{p} ≔ \set{φ ∈ \hml \mid p ∈ \semantics{φ}}.$$
 ::: {#def-obs-difference}
 #### Observable Difference
 
-The difference between $p$ and $q$ is defined as:
+The *difference* between $p$ and $q$ is defined as:
 $$\difference{p}{q} ≔ \semanticsobs{p} \setminus \semanticsobs{q}.$$
 :::
 
@@ -342,6 +379,11 @@ $$\difference{p}{q} ≔ \semanticsobs{p} \setminus \semanticsobs{q}.$$
 Rephrasing @def-distinctions, two states are preordered with respect to a sublogic $\observationsvar{} ⊆ \hml$
 $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsvar{} = \varnothing.$$
 :::
+
+Distinction formulation:
+
+> What are the notions $N$ such that $\difference{p}{q} \cap \observationsvar{N} \neq \varnothing$?
+
 
 ### Complexities
 
@@ -400,7 +442,11 @@ So we must be at least as complex as the equivalences between bisimilarity and u
 
 ## Discussion
 
-- Deviates slighly from @bisping2023equivalenceEnergyGames:
+- Deviates slightly from @bisping2023equivalenceEnergyGames:
   - Parameterized grammar instead of expressiveness price function
   - Count $\hmltrue$ as zero-priced instead of one conjunction.
   - Force observations in conjuncts
+- Spectroscopy problem
+  - complexity must be at least $\complexityname{PSPACE}$ for whole strong spectrum
+  - polynomial part of spectrum (around bisimilarity and similarity) might be possible to capture in polynomial time (-> forward pointer to bisim energy game)
+

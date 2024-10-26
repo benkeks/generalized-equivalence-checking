@@ -193,7 +193,7 @@ In this model, energy levels can only decline.
 ### The Polynomial Slice
 
 
-::: {#fig-full-strong-spectrum}
+::: {#fig-polynomial-strong-spectrum}
 
 ```tikz
 \begin{tikzpicture}[auto,node distance=2.5cm,align=center]

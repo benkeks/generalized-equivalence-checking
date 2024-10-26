@@ -181,12 +181,11 @@ We will use six dimensions to characterize the strong spectrum:
 6. Formula nesting depth of negations.
 
 ::: {#def-strong-spectrum}
-
 #### Strong Equivalence Spectrum
 
-Let the strong notions of equivalence
+Let the strong notions of equivalence over vectors of extended naturals^[We write $\natsext$ for $\nats \cup \set{\infty}$.]
 $$\notions^\literal{strong} ≔
-(\nats \cup \set{\infty})^6,
+\natsext^6,
 $$
 be ordered by pointwise comparison of vector components,
 and the family of strong observation languages $\observationsvar{N \in \notions^\literal{strong}}^\literal{strong}$ given by the parameterized grammar starting from $φ^N$:{{<isb primrec Priced_HML formula_of_price>}}
@@ -207,7 +206,6 @@ $$
 
 {{<noindent>}} The productions only exist if the respective recursive invocations are defined on the domain of notions.
 For instance, $φ^N \leadsto \hmlobs{α}φ^{N - \unit{1}}$ is no valid production for $N=(0,1,0,0,0,0)$ because $(-1,1,0,0,0,0) \notin \notions^\literal{strong}$.
-
 :::
 
 ::: {#lem-spectrum-characterization}
@@ -312,48 +310,56 @@ The first fact implies $\literal{Q} \bpreord{T} \literal{Q'}$.
 But what about other notions from the strong spectrum of Subsection -@sec-full-spectrum?
 Besides similarity, there might well be incomparable or finer notions that too preorder $\literal{Q}$ to $\literal{Q'}$!
 
-The solution to the spectroscopy problem on $\literal{Q}$ and $\literal{Q'}$ is $\notions^{\literal{strong}}_{p,q} = \set{N \in \notions^\literal{strong} \mid N \nleq (2,2,0,0,2,2)}$.^[The following chapters will reveal how to reliably arrive at this knowledge.]
+The solution to the spectroscopy problem on $\literal{Q}$ and $\literal{Q'}$ is $\notions^{\literal{strong}}_{\literal{Q}, \literal{Q'}} = \set{N \in \notions^\literal{strong} \mid N \nleq (2,2,0,0,2,2)}$.
+A minimal formula to distinguish $\literal{Q}$ from $\literal{Q'}$ with this coordinate would be $\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}}$.
+(The following chapters will reveal how to reliably arrive at this knowledge, in particular, the minimality.)
 
-Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\infty,\infty,\infty,\infty,1) \nleq (2,2,0,0,2,2)$, we arrive at $\literal{Q} \bpreord{2S} \literal{Q'}$, which implies *all* preorders of @fig-full-strong-spectrum except for bisimilarity.
+Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\infty,\infty,\infty,\infty,1)$ is not less or equal to $(2,2,0,0,2,2)$, we arrive at $\literal{Q} \bpreord{2S} \literal{Q'}$, which implies *all* preorders of @fig-full-strong-spectrum except for bisimilarity.
 
-TODO: Show how annoying explicit positive set is.
-
-::: {#fig-spectroscopy-front .column-margin}
-TODO: Update figure for new spectrum
+::: {#fig-spectroscopy-front}
 ```tikz
 \begin{tikzpicture}[]
-    \begin{scope}[rotate=45, scale=1]
-      \draw[help lines] (0,0) grid (4.5,4.5);
-      \draw[thick, opacity=0.5, text opacity=.8] (-.25,2) -- (5,2) node[pos=0,left] {conjunctions = 2};
-      \draw[thick, opacity=0.5, text opacity=.8] (1,-.25) -- (1,5) node[pos=0,right] {neg.\ clause depth = 1};
-      \draw[draw=none, fill=pink, fill opacity=0.1, text opacity=1]
-        (-.05,-.05) rectangle (5,5) node[pos=.74, align=center] {bisimulation};
-      \draw[draw=violet, fill=violet, opacity=0.7, fill opacity=0.2, text opacity=1]
-        (-.05,-.05) rectangle (5,2.05) node[pos=.73, align=center] {(im)possible\\future};
-      \draw[draw=orange, fill=orange, opacity=0.4, fill opacity=0.2, text opacity=1]
-          (-.05,-.05) rectangle (1.05,5) node[pos=.73, align=center] {ready\\simulation};
-      \draw[draw=green, fill=green, opacity=0.7, fill opacity=0.2, text opacity=1]
-        (-.05,-.05) rectangle (1.05,2.05) node[below, align=center] {failure\\/ready};
-      \draw[draw=yellow, fill=yellow, opacity=0.7, fill opacity=0.3, text opacity=1]
-        (-.05,-.05) rectangle (.05,5) node[pos=.65] {simulation};
-      \draw[draw=red, fill=red, opacity=0.7, fill opacity=0.2, text opacity=1]
-        (-.05,-.05) rectangle (.05,1) node[below, align=center] {enabledness\\/trace};
+    \begin{scope}[rotate=30, scale=1]
+      \draw[step=1.0, xshift=-.7505cm, yshift=-1.3cm, opacity=0.4] (0,0) grid (3.5,3.5);
+      \draw[thick, opacity=0.5, text opacity=.8, xshift=-.7505cm, yshift=-1.3cm] (-.25,2) -- (4,2) node[pos=0,left] {conjunctions = 2};
+      \draw[thick, opacity=0.5, text opacity=.8, xshift=-.7505cm, yshift=-1.3cm] (2,-.25) -- (2,4) node[pos=0,right] {neg.\ clause depth = 2};
+      \draw[draw=yellow, fill=yellow, opacity=0.7, fill opacity=0.3, text opacity=1, xshift=-.7505cm, yshift=-1.3cm]
+        (-.05,-.05) rectangle (.05,4) node[pos=.65] {simulation};
+      \draw[draw=red, fill=red, opacity=0.7, fill opacity=0.2, text opacity=1, xshift=-.7505cm, yshift=-1.3cm]
+        (-.1,-.1) rectangle (.1,.1) node[below, align=center] {enabledness\\/trace};
       %
-      \draw[draw=red, fill=none, opacity=0.5, text opacity=1, line width=2pt]
-        (1.95,3.5) -- (1.95, 2.95) node[above, align=center] {$\varphi_\literal{S'}$} -- (2.5,2.95);
-      \draw[draw=red, fill=none, opacity=0.5, text opacity=1, line width=2pt]
-        (0.95,2.5) -- (0.95, 1.95) node[above, align=center] {$\varphi_\literal{S}$} -- (1.5,1.95);
-    \end{scope}
-    \begin{scope}[transparency group]
-      \fill[transform canvas={rotate=45, scale=1},path fading=west, color=white]
-      (4,-.25) rectangle (5.05,5.05);
-      \fill[transform canvas={rotate=45, scale=1},path fading=south, color=white]
-      (-.25,4) rectangle (5.01,5.01);
+      \draw[step=1.0, opacity=0.4] (0,0) grid (3.5,3.5);
+      \draw[draw=none, fill=pink, fill opacity=0.1, text opacity=1]
+        (-.05,-.05) rectangle (4,4) node[pos=.74, align=center] {2-nested sim};
+      \draw[draw=violet, fill=violet, opacity=0.7, fill opacity=0.2, text opacity=1]
+        (-.05,-.05) rectangle (4,1.05) node[pos=.73, align=center] {(im)possible\\future};
+      \draw[draw=orange, fill=orange, opacity=0.4, fill opacity=0.2, text opacity=1]
+          (-.05,-.05) rectangle (1.05,4) node[pos=.73, align=center] {ready\\simulation};
+      \draw[draw=green, fill=green, opacity=0.7, fill opacity=0.2, text opacity=1]
+        (-.05,-.05) rectangle (1.05,1.05) node[below, align=center] {failure\\/ready};
+      %
+      \draw[step=1.0, xshift=.7505cm, yshift=1.3cm, opacity=0.4] (0,0) grid (3.5,3.5);
+      \draw[draw=none, fill=violet, fill opacity=0.1, text opacity=1, xshift=.7505cm, yshift=1.3cm]
+        (-.05,-.05) rectangle (4,4) node[pos=.74, align=center] {bisimulation};
+      %
+      \draw[draw=red, fill=none, opacity=0.5, text opacity=1, line width=2pt, xshift=.7505cm, yshift=1.3cm]
+        (1.95,2.5) -- (1.95, 1.95) node[above right, align=center] {$\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}}$} -- (2.5,1.95);
     \end{scope}
   \end{tikzpicture}
 ```
+
+Cross section of the strong spectrum showing the dimensions conjunctions, negative clause depth, and negation depth.
+All preorders below the red mark hold in @exm-spectroscopy-front.
 :::
 
+Note that we have expressived $\notions^{\literal{strong}}_{\literal{Q}, \literal{Q'}}$ through a negation (“$\dots \nleq (2,2,0,0,2,2)$”).
+The reason is that a positive description is usually unwieldy.
+In this (comparably easy) case, we could for example list the half-spaces below the cheapest distinction, and this would read:
+$\notions^{\literal{strong}}_{\literal{Q}, \literal{Q'}} =
+(\set{0,1} \times \natsext^5) \cup
+(\natsext \times \set{0,1} \times \natsext^4) \cup
+(\natsext^4 \times \set{0,1} \times \natsext) \cup
+(\natsext^5 \times \set{0,1})$.
 :::
 
 ### Spectroscopy as Abstract Interpretation
@@ -445,7 +451,7 @@ So we must be at least as complex as the equivalences between bisimilarity and u
 - Deviates slightly from @bisping2023equivalenceEnergyGames:
   - Parameterized grammar instead of expressiveness price function
   - Count $\hmltrue$ as zero-priced instead of one conjunction.
-  - Force observations in conjuncts
+  - Force observations in clauses
 - Spectroscopy problem
   - complexity must be at least $\complexityname{PSPACE}$ for whole strong spectrum
   - polynomial part of spectrum (around bisimilarity and similarity) might be possible to capture in polynomial time (-> forward pointer to bisim energy game)

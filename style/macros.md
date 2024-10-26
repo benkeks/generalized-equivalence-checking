@@ -8,6 +8,7 @@
 \providecommand{\setminus}{\mathbin{\backslash}}
 \providecommand{\powerset}[1]{2^{#1}}
 \providecommand{\nats}{\mathbb{N}}
+\providecommand{\natsext}{\mathbb{N}_\infty}
 \providecommand{\ints}{\mathbb{Z}}
 \providecommand{\defiff}{\mathrel{:\!\iff}}
 \providecommand{\set}[1]{\{#1\}}

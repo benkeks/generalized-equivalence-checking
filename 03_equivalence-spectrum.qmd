@@ -321,8 +321,6 @@ Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\inf
 \begin{tikzpicture}[]
     \begin{scope}[rotate=30, scale=1]
       \draw[step=1.0, xshift=-.7505cm, yshift=-1.3cm, opacity=0.4] (0,0) grid (3.5,3.5);
-      \draw[thick, opacity=0.5, text opacity=.8, xshift=-.7505cm, yshift=-1.3cm] (-.25,2) -- (4,2) node[pos=0,left] {conjunctions = 2};
-      \draw[thick, opacity=0.5, text opacity=.8, xshift=-.7505cm, yshift=-1.3cm] (2,-.25) -- (2,4) node[pos=0,right] {neg.\ clause depth = 2};
       \draw[draw=yellow, fill=yellow, opacity=0.7, fill opacity=0.3, text opacity=1, xshift=-.7505cm, yshift=-1.3cm]
         (-.05,-.05) rectangle (.05,4) node[pos=.65] {simulation};
       \draw[draw=red, fill=red, opacity=0.7, fill opacity=0.2, text opacity=1, xshift=-.7505cm, yshift=-1.3cm]
@@ -339,6 +337,8 @@ Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\inf
         (-.05,-.05) rectangle (1.05,1.05) node[below, align=center] {failure\\/ready};
       %
       \draw[step=1.0, xshift=.7505cm, yshift=1.3cm, opacity=0.4] (0,0) grid (3.5,3.5);
+      \draw[thick, opacity=0.5, text opacity=.8, xshift=.7505cm, yshift=1.3cm] (-.25,2) -- (4,2) node[pos=1,right] {conjunctions = 2};
+      \draw[thick, opacity=0.5, text opacity=.8, xshift=.7505cm, yshift=1.3cm] (2,-.25) -- (2,4) node[pos=1,left] {neg.\ clause depth = 2};
       \draw[draw=none, fill=violet, fill opacity=0.1, text opacity=1, xshift=.7505cm, yshift=1.3cm]
         (-.05,-.05) rectangle (4,4) node[pos=.74, align=center] {bisimulation};
       %

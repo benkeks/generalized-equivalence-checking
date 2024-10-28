@@ -169,7 +169,7 @@ We obtain the hierarchy of @fig-sample-hierarchy.
 ::::
 :::
 
-### The Strong Spectrum
+### The Strong Notions of Observability
 
 We will use six dimensions to characterize the strong spectrum:
 
@@ -181,9 +181,9 @@ We will use six dimensions to characterize the strong spectrum:
 6. Formula nesting depth of negations.
 
 ::: {#def-strong-spectrum}
-#### Strong Equivalence Spectrum
+#### Strong Spectrum
 
-Let the strong notions of equivalence over vectors of extended naturals^[We write $\natsext$ for $\nats \cup \set{\infty}$.]
+We define the strong notions of observability using vectors of extended naturals^[We write $\natsext$ for $\nats \cup \set{\infty}$.]
 $$\notions^\literal{strong} ≔
 \natsext^6,
 $$
@@ -226,11 +226,14 @@ TODO: Check, there have been changes to the grammar!
 :::
 
 
-### The Full Strong Spectrum {#sec-full-spectrum}
+### The Strong Linear-Time–Branching-Time Spectrum {#sec-full-spectrum}
 
-(When writing vectors in labels and figures, we omit the parentheses $(\dots)$ for readability.)
+::: {#def-strong-ltbt-spectrum}
+#### Strong Linear-Time–Branching-Time Spectrum
 
-::: {#fig-full-strong-spectrum}
+Coordinates with respect to the notions of @def-strong-spectrum for the common notions of behavioral equivalences and preorders in the strong linear-time–branching-time spectrum are given in @fig-strong-ltbt-spectrum.^[When writing vectors in labels and figures, we omit the parentheses $(\dots)$ for readability.]
+
+::: {#fig-strong-ltbt-spectrum}
 
 ```tikz
 \begin{tikzpicture}[auto,node distance=2.5cm,align=center]
@@ -269,10 +272,60 @@ TODO: Check, there have been changes to the grammar!
 \end{tikzpicture}
 ```
 
-Hierarchy of equivalences/preorders becoming finer towards the top.
+Hierarchy of common equivalences/preorders ordered by observability coordinates.
+:::
 :::
 
+- TODO? Prove Characterizations?
 
+There are a few standard questions that come to mind for people who are familiar with the various spectra of equivalences when seeing @fig-strong-ltbt-spectrum.
+The following remarks try to address these points.
+
+::: {#rem-other-strong-notions}
+#### Selection of Notions
+
+At the core, we treat the same notions as @glabbeek2001ltbtsiReport.
+But we feature a slightly more modern selection.
+
+Our spectrum additionally includes *impossible futures* (@vm2001impossible) and *revivals* (@roscoe2009revivalsHierarchy) as equivalences whose relevance has only been noted after the publication of @glabbeek2001ltbtsiReport.
+
+On the other hand, we glimpse over completed trace, completed simulation, and possible worlds observations like @ke1999logicalProcessQuotients, who studied properties of “good” observation languages.
+These notions would need a different HML grammar, featuring exhaustive conjunctions $\hmland{a}{\actions}\varphi_a$, where the $\varphi_a$ are deactivated actions for completed traces, and more complex trees for possible worlds.
+<!-- While it could be provided for with additional operators, it would break the closure property of observation languages, without giving much in return.
+For instance, for $\actions = \set{a,b}$, completed trace and completed simulation observations contain the observation $\hmlands\set{ \hmlneg\hmlobs{a}, \hmlneg\hmlobs{b} }$, but not its subformula $\hmlands\set{\hmlneg\hmlobs{a}}$.-->
+:::
+
+::: {#rem-ambiguous-coordinates}
+#### Ambiguous Coordinates
+
+For many of the logics in @fig-strong-ltbt-spectrum, there are multiple coordinates that characterize the same logic.
+For instance, due to the second dimension (conjunctions) being set to $0$ for traces $\notionname{T}$, the higher dimensions do not matter and any coordinate $N = (\infty, 0, N_3, N_4, N_5, N_6)$ will lead to the same observation language $\observationsvar{N}^\literal{strong} = \observations{T}^\literal{strong}$.
+
+Indeed, @fig-strong-ltbt-spectrum always selects the least coordinate to characterize a sublogic, which ensures that domination of coordinates in the figure and entailment between behavioral preorders coincide.
+:::
+
+::: {#rem-other-coordinates}
+#### Other Coordinates
+
+We have singled out a handful of coordinates.
+Many other coordinates will still correspond to a distinct equivalence.
+For instance, we could consider $N^{\notionname{2T}} = (2,0,0,0,0,0)$, preordering states that cannot be distinguished by traces up to a length of $2$.
+But it is difficult to make a case for such a “notion of equivalence”---like most depth-bounded notions it fails to be a congruence.
+
+Two kinds of depth-bounded families, however, are common in the literature:
+
+- $k$-step bisimilarity: $(k,\infty,\infty,\infty,\infty,\infty)$ is a $k$-observation approximation of bisimilarity that sometimes appears in proofs.
+- $k$-nested similarity: $(\infty,\infty,\infty,\infty,\infty,k-1)$ for $k>1$ defines a spectrum of modal quantifier alternation depth between similarity and bisimilarity.
+:::
+
+::: {#rem-infinities}
+#### (In-)finitary Variants
+
+One can introduce more dimensions to the spectrum with respect to the possibility of infinitary observations.
+Our choice focuses on natural and most common versions of the equivalences, in particular:
+similarity and bisimilarity with unbounded (infinitary) branching and trace-like notions with finitary depth.
+Notions in @fig-strong-ltbt-spectrum correspond precisely to those without superscripts in the infinitary linear-time—branching-time spectrum of @glabbeek2001ltbtsiReport [Figure 9].
+:::
 
 ### Non-Intersectionality
 
@@ -314,7 +367,7 @@ The solution to the spectroscopy problem on $\literal{Q}$ and $\literal{Q'}$ is 
 A minimal formula to distinguish $\literal{Q}$ from $\literal{Q'}$ with this coordinate would be $\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}}$.
 (The following chapters will reveal how to reliably arrive at this knowledge, in particular, the minimality.)
 
-Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\infty,\infty,\infty,\infty,1)$ is not less or equal to $(2,2,0,0,2,2)$, we arrive at $\literal{Q} \bpreord{2S} \literal{Q'}$, which implies *all* preorders of @fig-full-strong-spectrum except for bisimilarity.
+Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\infty,\infty,\infty,\infty,1)$ is not less or equal to $(2,2,0,0,2,2)$, we arrive at $\literal{Q} \bpreord{2S} \literal{Q'}$, which implies *all* preorders of @fig-strong-ltbt-spectrum except for bisimilarity.
 
 ::: {#fig-spectroscopy-front}
 ```tikz
@@ -352,7 +405,7 @@ Cross section of the strong spectrum showing the dimensions conjunctions, negati
 All preorders below the red mark hold in @exm-spectroscopy-front.
 :::
 
-Note that we have expressived $\notions^{\literal{strong}}_{\literal{Q}, \literal{Q'}}$ through a negation (“$\dots \nleq (2,2,0,0,2,2)$”).
+Note that we have expressed $\notions^{\literal{strong}}_{\literal{Q}, \literal{Q'}}$ through a negation (“$\dots \nleq (2,2,0,0,2,2)$”).
 The reason is that a positive description is usually unwieldy.
 In this (comparably easy) case, we could for example list the half-spaces below the cheapest distinction, and this would read:
 $\notions^{\literal{strong}}_{\literal{Q}, \literal{Q'}} =

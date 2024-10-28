@@ -3,5 +3,8 @@
     "lightbox",
     "removability",
     "sublogic"
+  ],
+  "cSpell.enableFiletypes": [
+    "quarto"
   ]
 }

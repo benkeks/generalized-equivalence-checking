@@ -10,3 +10,7 @@ This is a work-in-progress document. Handle with care!
 :::
 
 Purpose: Take the time to explain and present the results of papers X and Y in a more detailed fashion.
+
+### TODO
+
+- Congruences in Preliminaries

@@ -79,6 +79,9 @@ format:
     papersize: a4
     top-level-division: chapter
     toc: true
+    template-partials:
+      - style/before-body.tex
+      - style/toc.tex
     #keep-md: true
     #keep-tex: true
     geometry:

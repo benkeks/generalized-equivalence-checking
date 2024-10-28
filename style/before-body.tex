@@ -1,0 +1,41 @@
+$if(has-frontmatter)$
+\frontmatter
+$endif$
+%
+\pagenumbering{roman}
+\newgeometry{margin=4cm}
+\begin{titlepage}
+    \begin{center}
+        {\huge\bfseries Generalized Equivalence Checking \\ of Concurrent Programs\\}
+        % --------s--------------------------------------------------------
+        \vspace{1.5cm}
+        \vfill
+        {\Large\bfseries Benjamin Bisping}\\[5pt]
+        \url{https://bbisping.de}\\[14pt]
+        % ----------------------------------------------------------------
+        \vspace{2cm}
+        %{Thesis  submitted to} \\[5pt]
+        \emph{{Technische Universität Berlin}}\\[2cm]
+        % {in partial fulfilment for the award of the degree
+        % of} \\[2cm]
+        % \textsc{\Large{{Doctor of Philosophy}}} \\[5pt]
+        % {in some subject} \vspace{0.4cm} \\[2cm]
+        % {By}\\[5pt] {\Large \sc {Me}}
+        \vfill
+        % ----------------------------------------------------------------
+        \includegraphics[width=0.19\textwidth]{example-image-a}\\[5pt]
+        % {Department of Subject}\\[5pt]
+        % {Address line -- 2}\\[5pt]
+        % {Address line -- 4,
+        % INDIA}\\
+        \vfill
+        {2025}
+    \end{center}
+\end{titlepage}
+\restoregeometry
+%
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$

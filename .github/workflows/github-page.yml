@@ -59,6 +59,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          # upgrade to version where browser incovations hopefully work again
+          version: 1.6.32
           # To install LaTeX to build PDF book 
           tinytex: false
           # version: SPECIFIC-QUARTO-VERSION-HERE
@@ -70,7 +72,7 @@ jobs:
       - name: Render with Quarto 
         uses: quarto-dev/quarto-actions/render@v2
         with:
-          to: html
+          to: all
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -96,7 +96,7 @@ format:
         \renewcommand{\bibsection}{}
     cite-method: natbib
     biblio-config: true
-    latex-max-runs: 3
+    latex-max-runs: 4
     mermaid:
       theme: neutral
 

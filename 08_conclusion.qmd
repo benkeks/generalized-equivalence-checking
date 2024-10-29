@@ -1,3 +1,6 @@
 ---
 title: "Conclusion"
 ---
+
+There is a rich body of work on *process equivalence checking* and *refinement checking* for programs and specifications.
+This thesis argues that most of it can be viewed through one unified lense of *finding differences* in behavior.

@@ -5,3 +5,19 @@ title: "Spectroscopy of the Strong Equivalence Spectrum"
 ::: {.content-hidden when-format="pdf"}
 {{< include style/macros.md >}}
 :::
+
+## The Strong Spectroscopy Game
+
+### The Game
+
+### Correctness
+
+### Complexity
+
+## More Specific Games
+
+### The Clever Game
+
+### Instance Games
+
+## Discussion

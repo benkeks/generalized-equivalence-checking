@@ -1,11 +1,21 @@
----
-title: "Spectroscopy for the Silent-Step Spectrum"
----
-
 ::: {.content-hidden when-format="pdf"}
 {{< include style/macros.md >}}
 :::
 
-## Expressing the Weak Spectrum with Quantities
+# Spectroscopy for the Silent-Step Spectrum
 
+## The Weak Spectrum
 
+### Weak Equivalences
+
+### HML with Silent Behavior
+
+### Expressing the Weak Spectrum with Quantities
+
+## The Weak Spectroscopy Game
+
+### The Game
+
+### Correctness
+
+## Discussion

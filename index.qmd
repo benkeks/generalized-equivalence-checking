@@ -1,16 +1,20 @@
----
-filters:
-- teximg
----
-
-## Welcome {.unnumbered .unlisted}
-
 ::: {.callout-warning}
 This is a work-in-progress document. Handle with care!
 :::
 
-Purpose: Take the time to explain and present the results of papers X and Y in a more detailed fashion.
+## Read this Book! (Once It's Finished) {.unnumbered .unlisted}
 
-### TODO
+
+You should read this book (once it's finished) if you're interested in the semantics of concurrent programs and want to understand ...
+
+- How behavioral process equivalences are treated uniformly in equivalence spectra.
+- How modal-logical and relational characterizations of behavioral equivalences are actually just “shadows” of game characterizations.
+- How energy games can be used to turn a family of qualitative equivalence problems into one quantitative problems.
+- How all behavioral equivalences can be decided at once.
+
+### TODO {.unnumbered .unlisted}
+
+(This is a space for TODOs that do not yet have a position in the text body.)
 
 - Congruences in Preliminaries
+

@@ -100,6 +100,7 @@ On the other hand, no failure from $\observations{F}$, distinguishes $\literal Q
 
 :::: {#fig-failure-hierarchy .column-margin}
 ```{mermaid}
+%%| fig-width: 2
   flowchart TD
     B["Bisimilarity"] --> S["Similarity"] --> T["Trace Equivalence"]
     B --> F["Failure Equivalence"] --> T
@@ -160,10 +161,11 @@ We obtain the hierarchy of @fig-sample-hierarchy.
 
 :::: {#fig-sample-hierarchy .column-margin}
 ```{mermaid}
-  flowchart TD
-    B["Bisimilarity <br> {(∧), (¬)}"] --- S["Similarity <br> {(∧)}"] --- T["Trace Equivalence <br> ∅"]
-    B --- F["Failure Equivalence <br> {(¬)}"] --- T
-  ```
+%%| fig-width: 2
+flowchart TD
+  B["Bisimilarity <br> {(∧), (¬)}"] --- S["Similarity <br> {(∧)}"] --- T["Trace Equivalence <br> ∅"]
+  B --- F["Failure Equivalence <br> {(¬)}"] --- T
+```
 
   Hierarchy of simple notions of equivalence.
 ::::

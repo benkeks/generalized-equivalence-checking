@@ -127,11 +127,12 @@ To talk about programs in this thesis, we will use Milner's [-@milner1989comcon]
   The philosopher processes read:
 
 :::::: {.column-margin}
-  ```{mermaid}
-  flowchart TD
-    p0([P<sub>A</sub>]) -- fork --> pA([a.0])
-    pA -- a --> 0([<strong>0</strong>])
-  ```
+```{mermaid}
+%%| fig-width: .7
+flowchart TD
+  p0([P<sub>A</sub>]) -- fork --> pA([a.0])
+  pA -- a --> 0([<strong>0</strong>])
+```
 ::::::
 
   $$
@@ -381,9 +382,10 @@ Let us quickly make this formal:
 
 :::: {#fig-core-hierarchy .column-margin}
 ```{mermaid}
-  flowchart TD
-    GI[Graph Isomorphism] -.-> B[Bisimilarity] --> S[Similarity] --> T[Trace Equivalence]
-    style GI stroke-dasharray: 3 3
+%%| fig-width: 1.5
+flowchart TD
+  GI[Graph Isomorphism] -.-> B[Bisimilarity] --> S[Similarity] --> T[Trace Equivalence]
+  style GI stroke-dasharray: 3 3
 ```
 
   Core hierarchy of equivalences.
@@ -417,14 +419,15 @@ The hierarchy also is strict between similarity and bisimilarity as the followin
   This adds another deadlock state to the transition system, seen in @fig-bisim-sim-ts.
 
 :::: {#fig-bisim-sim-ts .column-margin}
-  ```{mermaid}
-  flowchart TD
-    q0([Q']) -- τ --> qAB([q<sub>ab</sub>])
-    qAB -- a --> qA([q<sub>1</sub>])
-    qAB -- b --> qB([q<sub>2</sub>])
-    q0 -- τ --> qT([q<sub>3</sub>])
-  ```
-  Example with new deadlock $\literal{q_3}$.
+```{mermaid}
+%%| fig-width: 1.5
+flowchart TD
+  q0([Q']) -- τ --> qAB([q<sub>ab</sub>])
+  qAB -- a --> qA([q<sub>1</sub>])
+  qAB -- b --> qB([q<sub>2</sub>])
+  q0 -- τ --> qT([q<sub>3</sub>])
+```
+Example with new deadlock $\literal{q_3}$.
 ::::
 
   To similarity, this change is invisible, that is $\literal Q \beq{S} \literal{Q'}$.
@@ -450,6 +453,7 @@ Consider the transition system in @fig-iso-ts. $\literal{p_{even}} \beq{ISO} \li
 
 ::: {#fig-iso-ts .column-margin}
 ```{mermaid}
+%%| fig-width: 1
 flowchart TD
   pEven([p<sub>even</sub>]) -- τ --> pOdd([p<sub>odd</sub>]) -- τ --> pEven
 ```
@@ -770,12 +774,13 @@ Moving to $[\literal{2a}]$ instead would get the defender stuck.
 So, the defender winning region is $\defenderwins = \set{(\literal{1}),[\literal{2b}]}$ and the attacker wins $\attackerwins = \set{[\literal{2a}], (\literal{3})}$.
 
 :::: {#fig-game-ex .column-margin}
-  ```{mermaid}
-  flowchart TD
-    1([1]) --> 2a[2a] --> 3([3])
-    1 --> 2b[2b]
-  ```
-  A simple game.
+```{mermaid}
+%%| fig-width: 1.5
+flowchart TD
+  1([1]) --> 2a[2a] --> 3([3])
+  1 --> 2b[2b]
+```
+A simple game.
 ::::
 :::
 

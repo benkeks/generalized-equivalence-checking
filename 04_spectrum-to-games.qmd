@@ -2,7 +2,9 @@
 title: "Approach: Equivalence Problems as Energy Games"
 ---
 
+::: {.content-hidden when-format="pdf"}
 {{< include style/macros.md >}}
+:::
 
 Purpose of section:
 

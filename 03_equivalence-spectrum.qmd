@@ -1,4 +1,6 @@
+::: {.content-hidden when-format="pdf"}
 {{< include style/macros.md >}}
+:::
 
 # Context: The Spectrum of Equivalences {#sec-spectrum}
 

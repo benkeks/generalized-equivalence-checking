@@ -2,4 +2,6 @@
 title: "Spectroscopy of the Strong Equivalence Spectrum"
 ---
 
+::: {.content-hidden when-format="pdf"}
 {{< include style/macros.md >}}
+:::

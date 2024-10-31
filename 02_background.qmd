@@ -800,6 +800,48 @@ TODO
 Deciding reachability games.
 :::
 
+We care about reachability games because they are versatile in characterizing formal relations.
+Everyday inductive (and coinductive) definitions can easily be encoded as games as in the following example.
+
+::: {#exm-less-eq-game}
+#### The $\leq$-Game
+
+Consider the following recursive definition of a less-or-equal operator `≤` on natural numbers in some functional programming language.
+(Consider `nat` to be defined as recursive data type `nat = 0 | Succ nat`.)
+
+```haskell
+    ( 0 ≤ m )     = True
+(Succ n ≤ 0 )     = False
+(Succ n ≤ Succ m) = (n ≤ m)
+```
+
+We can think of this recursion as a game where the attacker tries to prove that the left number is bigger than the right by always decrementing the left number and challenging the defender to do the same for the right stack too.
+Whoever hits zero first, loses.
+
+This means we distribute the roles such that the defender winning matches output `True` and the attacker output `False`, and the two base cases need to be dead ends for one of the players.
+
+Formally, the game $\game_\literal{leq}$ consists of attacker positions $[n,m]$ and defender positions $(n,m)$ for all $n,m \in \nats$, connected by chains of moves:
+$$
+\begin{array}{rcl}
+    [n + 1, m]
+    & \gamemoveblank_\literal{leq}
+    & (n, m)\\
+    (n, m + 1)
+    & \gamemoveblank_\literal{leq}
+    & [n, m].
+\end{array}
+$$
+
+$\game_\literal{leq}$ now characterizes $\leq$ on $\nats$ in the sense that:
+The defender wins $\game_\literal{leq}$ from $[n, m]$ precisely if $n \leq m$.
+(Proof: Induct over $n$ with arbitrary $m$.)
+
+The game is *boring* because the players do not ever have any choices.
+They just count down their way through the natural numbers till they hit $[0, m - n]$ if $n \leq m$, or $(n - m, 0)$ otherwise.
+
+Still, $\game_\literal{leq}$ is quite archetypical for the preorder and equivalence games we will use in the following pages.
+:::
+
 ### The Semantic Game of HML
 
 ::: {#def-hml-game}

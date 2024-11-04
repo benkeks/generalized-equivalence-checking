@@ -355,7 +355,7 @@ In the context of a transition system $\system$ and a spectrum $(\notions, \leq,
 :::
 
 Technically, we will usually aim to compute the *Pareto front* of minimal notions that do not hold, $\Min(\notions \setminus \notions_{p,q})$.
-The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as upset-complemenet $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$
+The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as upset-complement $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$
 (where ${\upset\! B} := \set{b \mid \exists b' \in B \ldotp b' \leq b}$ for $B$ subset of some partially-ordered set).
 
 All spectra we are concerned with are well-quasi ordered, which means that each $\Min(\notions \setminus \notions_{p,q})$ must be finite in size [@kruskal1972wqo], and thus “more handy” than the full sets $\notions_{p,q}$ or $\notions \setminus \notions_{p,q}$.
@@ -374,35 +374,36 @@ A minimal formula to distinguish $\literal{Q}$ from $\literal{Q'}$ with this coo
 Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\infty,\infty,\infty,\infty,1)$ is not less or equal to $(2,2,0,0,2,2)$, we arrive at $\literal{Q} \bpreord{2S} \literal{Q'}$, which implies *all* preorders of @fig-strong-ltbt-spectrum except for bisimilarity.
 
 ::: {#fig-spectroscopy-front}
+
 ```tikz
 \begin{tikzpicture}[]
-    \begin{scope}[rotate=30, scale=1]
-      \draw[step=1.0, xshift=-.7505cm, yshift=-1.3cm, opacity=0.4] (0,0) grid (3.5,3.5);
-      \draw[draw=yellow, fill=yellow, opacity=0.7, fill opacity=0.3, text opacity=1, xshift=-.7505cm, yshift=-1.3cm]
-        (-.05,-.05) rectangle (.05,4) node[pos=.65] {simulation};
-      \draw[draw=red, fill=red, opacity=0.7, fill opacity=0.2, text opacity=1, xshift=-.7505cm, yshift=-1.3cm]
-        (-.1,-.1) rectangle (.1,.1) node[below, align=center] {enabledness\\/trace};
-      %
-      \draw[step=1.0, opacity=0.4] (0,0) grid (3.5,3.5);
-      \draw[draw=none, fill=pink, fill opacity=0.1, text opacity=1]
-        (-.05,-.05) rectangle (4,4) node[pos=.74, align=center] {2-nested sim};
-      \draw[draw=violet, fill=violet, opacity=0.7, fill opacity=0.2, text opacity=1]
-        (-.05,-.05) rectangle (4,1.05) node[pos=.73, align=center] {(im)possible\\future};
-      \draw[draw=orange, fill=orange, opacity=0.4, fill opacity=0.2, text opacity=1]
-          (-.05,-.05) rectangle (1.05,4) node[pos=.73, align=center] {ready\\simulation};
-      \draw[draw=green, fill=green, opacity=0.7, fill opacity=0.2, text opacity=1]
-        (-.05,-.05) rectangle (1.05,1.05) node[below, align=center] {failure\\/ready};
-      %
-      \draw[step=1.0, xshift=.7505cm, yshift=1.3cm, opacity=0.4] (0,0) grid (3.5,3.5);
-      \draw[thick, opacity=0.5, text opacity=.8, xshift=.7505cm, yshift=1.3cm] (-.25,2) -- (4,2) node[pos=1,right] {conjunctions = 2};
-      \draw[thick, opacity=0.5, text opacity=.8, xshift=.7505cm, yshift=1.3cm] (2,-.25) -- (2,4) node[pos=1,left] {neg.\ clause depth = 2};
-      \draw[draw=none, fill=violet, fill opacity=0.1, text opacity=1, xshift=.7505cm, yshift=1.3cm]
-        (-.05,-.05) rectangle (4,4) node[pos=.74, align=center] {bisimulation};
-      %
-      \draw[draw=red, fill=none, opacity=0.5, text opacity=1, line width=2pt, xshift=.7505cm, yshift=1.3cm]
-        (1.95,2.5) -- (1.95, 1.95) node[above right, align=center] {$\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}}$} -- (2.5,1.95);
-    \end{scope}
-  \end{tikzpicture}
+  \begin{scope}[rotate=30, scale=1]
+    \draw[step=1.0, xshift=-.7505cm, yshift=-1.3cm, opacity=0.4] (0,0) grid (3.5,3.5);
+    \draw[draw=yellow, fill=yellow, opacity=0.7, fill opacity=0.3, text opacity=1, xshift=-.7505cm, yshift=-1.3cm]
+      (-.05,-.05) rectangle (.05,4) node[pos=.65] {simulation};
+    \draw[draw=red, fill=red, opacity=0.7, fill opacity=0.2, text opacity=1, xshift=-.7505cm, yshift=-1.3cm]
+      (-.1,-.1) rectangle (.1,.1) node[below, align=center] {enabledness\\/trace};
+    %
+    \draw[step=1.0, opacity=0.4] (0,0) grid (3.5,3.5);
+    \draw[draw=none, fill=pink, fill opacity=0.1, text opacity=1]
+      (-.05,-.05) rectangle (4,4) node[pos=.74, align=center] {2-nested sim};
+    \draw[draw=violet, fill=violet, opacity=0.7, fill opacity=0.2, text opacity=1]
+      (-.05,-.05) rectangle (4,1.05) node[pos=.73, align=center] {(im)possible\\future};
+    \draw[draw=orange, fill=orange, opacity=0.4, fill opacity=0.2, text opacity=1]
+        (-.05,-.05) rectangle (1.05,4) node[pos=.73, align=center] {ready\\simulation};
+    \draw[draw=green, fill=green, opacity=0.7, fill opacity=0.2, text opacity=1]
+      (-.05,-.05) rectangle (1.05,1.05) node[below, align=center] {failure\\/ready};
+    %
+    \draw[step=1.0, xshift=.7505cm, yshift=1.3cm, opacity=0.4] (0,0) grid (3.5,3.5);
+    \draw[thick, opacity=0.5, text opacity=.8, xshift=.7505cm, yshift=1.3cm] (-.25,2) -- (4,2) node[pos=1,right] {conjunctions = 2};
+    \draw[thick, opacity=0.5, text opacity=.8, xshift=.7505cm, yshift=1.3cm] (2,-.25) -- (2,4) node[pos=1,left] {neg.\ clause depth = 2};
+    \draw[draw=none, fill=violet, fill opacity=0.1, text opacity=1, xshift=.7505cm, yshift=1.3cm]
+      (-.05,-.05) rectangle (4,4) node[pos=.74, align=center] {bisimulation};
+    %
+    \draw[draw=red, fill=none, opacity=0.5, text opacity=1, line width=2pt, xshift=.7505cm, yshift=1.3cm]
+      (1.95,2.5) -- (1.95, 1.95) node[above right, align=center] {$\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}}$} -- (2.5,1.95);
+  \end{scope}
+\end{tikzpicture}
 ```
 
 Cross section of the strong spectrum showing the dimensions conjunctions, negative clause depth, and negation depth.
@@ -494,7 +495,7 @@ For coarser simulation-like equivalences, the best known algorithms need $\bigo{
 The finer graph isomorphism equivalence again is harder with the best known solution [@babai2016graphIsomorphismQuasiPoly] in quasi-polynomial time $2^{\bigo{(\log n)^3}}$.
 
 There however are no strict hardness results at this level of granularity.
-So, better time complexities for graph isomorphism, bisimilarity, and similarity are conceivable (albeit unprobable).
+So, better time complexities for graph isomorphism, bisimilarity, and similarity are conceivable (albeit improbable).
 @gmv2023lowerboundsBisimPartitionRefinement show that at least partition-refinement algorithms for bisimilarity cannot do better than $\bigo{\relsize{\step{}} \log \relsize{S}}$.
 
 The trivial equivalences at the end of the cross section, identity $\notionname{ID}$ and universal equivalence $\notionname{U}$, can be solved directly.

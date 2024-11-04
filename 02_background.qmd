@@ -392,7 +392,6 @@ flowchart TD
 ::::
 
 
-
 ::: {#lem-bisim-bisim}
 The relation $\beq{B}$ is itself a symmetric simulation.{{<isb lemma Strong_Equivalences lts.bisim_bisim>}}
 :::
@@ -578,7 +577,7 @@ Induct over the structure of $φ$ with arbitrary $p$ and $q$.
   The induction hypothesis on the $φ_i$ directly leads to
   $q ∈ \semantics{\hmland{i}{I}φ_i}$.
 - Case $p ∈ \semantics{\hmlneg φ}$.
-  Symmetry of $\beq{B}$ accoding to @prp-sim-eq-rel, implies $q \beq{B} p$.
+  Symmetry of $\beq{B}$ according to @prp-sim-eq-rel, implies $q \beq{B} p$.
   By induction hypothesis, $q ∈ \semantics{φ}$ implies $p ∈ \semantics{φ}$.
   So, using contraposition, the case implies $q ∈ \semantics{\hmlneg φ}$.\qedhere
 :::
@@ -632,7 +631,7 @@ If the inclusion holds in both directions, $\observationsvar{}$ and $\observatio
 :::
 
 ::: {#def-leq-distincitve}
-We say that an $\actions$-observation language $\observationsvar{}$ is *less or equal in distintiveness* to another $\observationsvar{}'$ iff, for any $\actions$-transition system and states $p$ and $q$, for each $φ ∈ \observationsvar{}$ that distinguishes $p$ from $q$, there is $φ' ∈ \observationsvar{}'$ that distinguishes $p$ from $q$.{{<isb definition LTS_Semantics lts_semantics.leq_distintive>}}
+We say that an $\actions$-observation language $\observationsvar{}$ is *less or equal in distinctiveness* to another $\observationsvar{}'$ iff, for any $\actions$-transition system and states $p$ and $q$, for each $φ ∈ \observationsvar{}$ that distinguishes $p$ from $q$, there is $φ' ∈ \observationsvar{}'$ that distinguishes $p$ from $q$.{{<isb definition LTS_Semantics lts_semantics.leq_distinctive>}}
 If the inclusion holds in both directions, $\observationsvar{}$ and $\observationsvar{}'$ are *equally distinctive*.
 :::
 
@@ -1010,7 +1009,7 @@ Defender-won positions are tinted blue.
 :::
 
 ::: {#thm-bisim-game-characterization}
-#### Stirling's Game Characteirzation
+#### Stirling's Game Characterization
 
 The defender wins the bisimulation game ${\game}_\notionname{B}^{\system}$ starting at attacker position $[p, q]$ precisely if $p \beq{B} q$.{{<isb theorem Equivalence_Games bisim_game.bisim_game_characterization>}}
 :::
@@ -1171,7 +1170,7 @@ By induction on the derivation of $φ ∈ \observations{\floor{B}}$ according to
   So they can also win $[p, q]$ by performing a swap.\qedhere
 :::
 
-{{<noindent>}} @lem-attacks-imply-formulas and @lem-formulas-imply-attack, together with the fact that $\observations{\floor{B}}$ and $\hml$ are equally distincitve (@lem-game-formula-hml), yield:
+{{<noindent>}} @lem-attacks-imply-formulas and @lem-formulas-imply-attack, together with the fact that $\observations{\floor{B}}$ and $\hml$ are equally distinctive (@lem-game-formula-hml), yield:
 
 ::: {#thm-game-formulas}
 The attacker wins ${\game}_\notionname{B}$ from $[p,q]$ precisely if there is $φ ∈ \hml$ distinguishing $p$ from $q$.

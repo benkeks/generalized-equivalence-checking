@@ -9,7 +9,7 @@ Have you ever looked at two program models and wondered *how equivalent they are
 I have run into this question often, for instance when analyzing models or when devising examples for teaching.
 But obviously, the question already occurs every time one rewrites a program part and hopes for it to still do its job.
 
-The first time I had to face the question formally was when working as a student research assistant:
+The first time I had to formally face the question was when working as a student research assistant:
 I was tasked with implementing a translation from the process algebra Timed CSP to Timed Automata.^[
     The aim was to bridge between the tools FDR2 and UPPAAL for Göthel's dissertation [-@goethel12mechanicalVerificationRTS].
     Previous work I was to base the translations on had serious flaws:
@@ -17,7 +17,7 @@ I was tasked with implementing a translation from the process algebra Timed CSP 
     Clearly, we had to change the encoding!]
 … How to tell whether our translation would properly honor the semantics of the two formalisms?
 Did we translate CSP terms to automata *with the same meaning*?
-Unfortunately, there are different notions of what counts as “same meaning” in operational semantics.
+Even the meaning of the question is tricky, as there are different notions of what counts as “same meaning” in operational semantics.
 
 ::: {#fig-ltbts2-paper .column-margin}
 
@@ -27,9 +27,9 @@ The linear-time–branching-time spectrum with silent moves as depicted in @glab
 
 :::
 
-I then took my very first look into the seminal paper on the landscape of process equivalences, the “Linear-time–branching-time spectrum II” by van Glabbeek [-@glabbeek1993ltbt].
+I then took my very first look into the seminal paper on the landscape of process equivalences with internal behavior, the “Linear-time–branching-time spectrum II” by van Glabbeek [-@glabbeek1993ltbt].
 Its central figure, reproduced in @fig-ltbts2-paper, mesmerized me.
-But it is not straightforward how to use the spectrum to decide for a given pair of processes which of the many equivalences apply.
+But, how to use the spectrum to decide for a given pair of processes which of the many equivalences apply, is far from straightforward.
 
 With this thesis I want to enable future researchers to tap into the wisdom of the linear-time–branching-time spectrum and to easily determine what equivalences relate their models.
 

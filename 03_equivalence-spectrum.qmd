@@ -449,7 +449,7 @@ Distinction formulation:
 > What are the notions $N$ such that $\difference{p}{q} \cap \observationsvar{N} \neq \varnothing$?
 
 
-### Complexities
+### Complexities {#sec-equivalence-complexities}
 
 What complexities to expect when deciding spectroscopy problems?
 Clearly, details depend on the specific spectrum and flavor of Hennessy–Milner logic we are concerned with.

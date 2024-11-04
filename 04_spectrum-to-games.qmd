@@ -63,7 +63,8 @@ $$e \mapsto
 \begin{cases}
   e + \vec{u} & \text{if } e + \vec{u} \geq \zerovec \\
   ⊥        & \text{otherwise.}
-\end{cases}$$
+\end{cases}
+$$
 
 ::: {#fig-simple-energy-game}
 ```tikz
@@ -190,10 +191,34 @@ In this model, energy levels can only decline.
 
 ## Characterizing the $\complexityname{P}$-Time Part of the Spectrum
 
-
+As hinted at in Subsection [-@sec-equivalence-complexities], parts of the strong equivalence spectrum can be decided in polynomial time, whereas others require polynomial space (and thus effectively exponential time).
+In this section, we will show how to adapt the standard bisimulation game of @def-bisim-game to decide not just bisimulation, but *all* [polynomial-time] equivalences of the strong spectrum *at once*.
 
 ### The Polynomial Slice
 
+First, let us make explicit which equivalences we include in the polynomial-time slice of the spectrum.
+(The fact that they indeed can be decided efficiently is mostly well-known, but also itself a corollary of this section.)
+
+To define the polynomial slice, we only use three dimensions:
+1.\ modal depth, 2.\ depth of negative clauses, and 3.\ nesting depth of negations (that is, the first, fifth and sixth dimension of the strong spectrum @def-strong-spectrum).
+Other dimensions of the strong spectrum are effectively set to $∞$.
+
+::: {#def-polynomial-strong-spectrum}
+
+#### Polynomial-Time Strong Spectrum
+
+We denote as *polynomial-time strong spectrum* the projection of the strong spectrum (@def-strong-spectrum) to the first, fifth, and sixth dimension, thus by notions
+$$\notions^\literal{poly-strong} ≔
+\natsext^3,
+$$
+and the family of strong observation languages
+$$\observationsvar{(N_1, N_2, N_3) \in \notions^\literal{poly-strong}}^\literal{poly-strong} ≔ \observationsvar{(N_1,∞,∞,∞,N_2,N_3)}^\literal{strong}.$$
+
+@fig-polynomial-strong-spectrum gives names to coordinates that correspond to notions discussed previously.^[
+  The coordinate for enabledness $(1,0,0)$ unfolded to the original strong system, $(1,∞,∞,∞,0,0)$ differs from the one previously used $(1,0,0,0,0,0)$.
+  But the characterized language is equally distinctive.
+  TODO: Proof.
+]
 
 ::: {#fig-polynomial-strong-spectrum}
 
@@ -218,6 +243,8 @@ In this model, energy levels can only decline.
 ```
 
 Hierarchy of polynomial-time decidable equivalences/preorders.
+:::
+
 :::
 
 

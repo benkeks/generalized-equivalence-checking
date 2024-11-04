@@ -21,14 +21,13 @@
 \providecommand{\Min}{\operatorname{\mathrm{Min}}}
 \providecommand{\Max}{\operatorname{\mathrm{Max}}}
 \providecommand{\upset}{\uparrow}
-\providecommand{\unit}[1]{\mathbf{\hat e}_{#1}}
+\providecommand{\unit}[1]{\mathbf{\hat{e}}_{#1}}
 \providecommand{\vectorcomponents}[2][n]{({#2}_1,\ldots,{#2}_{#1})}
 \providecommand{\zerovec}{\mathbf{0}}
 \providecommand{\bigo}[1]{\mathit{O}(#1)}
 \providecommand{\relsize}[1]{\left|#1\right|}
 \providecommand{\complexityname}[1]{\textsf{#1}}
 \providecommand{\relqotient}[2]{#1_{/#2}}
-
 
 \lc{ Transition systems }
 
@@ -41,7 +40,6 @@
 \providecommand{\failures}[1]{\mathsf{Failures}(#1)}
 \providecommand{\derivatives}[1]{\operatorname{Der}(#1)}
 \providecommand{\initials}[1]{\operatorname{Ini}(#1)}
-
 \providecommand{\literal}[1]{\mathsf{#1}}
 
 \lc{ Grammars }

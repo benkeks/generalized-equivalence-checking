@@ -192,7 +192,7 @@ In this model, energy levels can only decline.
 ## Characterizing the $\complexityname{P}$-Time Part of the Spectrum
 
 As hinted at in Subsection [-@sec-equivalence-complexities], parts of the strong equivalence spectrum can be decided in polynomial time, whereas others require polynomial space (and thus effectively exponential time).
-In this section, we will show how to adapt the standard bisimulation game of @def-bisim-game to decide not just bisimulation, but *all* [polynomial-time] equivalences of the strong spectrum *at once*.
+In this section, we will show how to adapt the standard bisimulation game of @def-bisim-game to decide not just bisimulation, but *all polynomial-time* equivalences of the strong spectrum *at once*.
 
 ### The Polynomial Slice
 
@@ -201,7 +201,7 @@ First, let us make explicit which equivalences we include in the polynomial-time
 
 To define the polynomial slice, we only use three dimensions:
 1.\ modal depth, 2.\ depth of negative clauses, and 3.\ nesting depth of negations (that is, the first, fifth and sixth dimension of the strong spectrum @def-strong-spectrum).
-Other dimensions of the strong spectrum are effectively set to $∞$.
+Components for other dimensions of the strong spectrum are effectively set to $∞$.
 
 ::: {#def-polynomial-strong-spectrum}
 
@@ -213,15 +213,11 @@ $$\notions^\literal{poly-strong} ≔
 $$
 and the family of strong observation languages
 $$\observationsvar{(N_1, N_2, N_3) \in \notions^\literal{poly-strong}}^\literal{poly-strong} ≔ \observationsvar{(N_1,∞,∞,∞,N_2,N_3)}^\literal{strong}.$$
+:::
 
-@fig-polynomial-strong-spectrum gives names to coordinates that correspond to notions discussed previously.^[
-  The coordinate for enabledness $(1,0,0)$ unfolded to the original strong system, $(1,∞,∞,∞,0,0)$ differs from the one previously used $(1,0,0,0,0,0)$.
-  But the characterized language is equally distinctive.
-  TODO: Proof.
-]
+@fig-polynomial-strong-spectrum gives names to coordinates that correspond to notions discussed previously.
 
 ::: {#fig-polynomial-strong-spectrum}
-
 ```tikz
 \begin{tikzpicture}[auto,node distance=2.5cm,align=center]
   \node (B){bisimulation $\notionname{B}$\\$\infty,\infty,\infty$};
@@ -241,11 +237,12 @@ $$\observationsvar{(N_1, N_2, N_3) \in \notions^\literal{poly-strong}}^\literal{
   ;
 \end{tikzpicture}
 ```
-
 Hierarchy of polynomial-time decidable equivalences/preorders.
 :::
 
-:::
+Except for enabledness, $\notionname{E}$, all coordinates after unfolding them for $\notions^\literal{strong}$ are identical to the ones used previously.
+When one unfolds the coordinate for enabledness $(1,0,0)$ to the original strong system, $(1,∞,∞,∞,0,0)$, it differs from the one previously used, namely, $(1,0,0,0,0,0)$.
+The characterized language is strictly more expressive, as it contains conjunctions of enabled actions (e.g. $\hmlands\set{\hmlobs{\literal{a}}, \hmlobs{\literal{b}}}$), but it is equally distinctive.{{<isb lemma Priced_Spectrum lts.enabledness_conjunctions_are_neutral>}}
 
 
 ### A Bisimulation Energy Game

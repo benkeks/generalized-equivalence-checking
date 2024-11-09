@@ -245,35 +245,26 @@ When one unfolds the coordinate for enabledness $(1,0,0)$ to the original strong
 The characterized language is strictly more expressive, as it contains conjunctions of enabled actions (e.g. $\hmlands\set{\hmlobs{\literal{a}}, \hmlobs{\literal{b}}}$), but it is equally distinctive.{{<isb lemma Priced_Spectrum lts.enabledness_conjunctions_are_neutral>}}
 
 
-### A Bisimulation Energy Game
+### The Bisimulation *Energy* Game
 
-Let us recall the bisimulation game of @def-bisim-game.
+Let us upgrade the bisimulation game of @def-bisim-game.
 As we have seen in Subsection [-@sec-bisim-game-hml], the game moves match the distinctive power of productions in the $\observations{\floor{B}}$-grammar of @exm-game-formulas.
 
 Consequently, we can *count* the use of HML constructs in the game.
 As the game stands, we can meaningfully count: 1.\ modal depth, 2.\ depth of negative clauses, and 3.\ nesting depth of negations (that is, the first, fifth and sixth dimension of the strong spectrum @def-strong-spectrum).
+We cannot meaningfully count the amount of *necessary* conjunctions as the game's HML has conjunctions under each observation, even though they might not be necessary for a distinguishing formula.
 Adding the respective energy updates to the bisimulation game, we obtain:
-
-<!--
-$$
-\begin{array}{rcll}
-  φ^N
-    & \grammardef & \hmlobs{α} \hmland{i}{I} φ^{N-\unit{1}}_i \\
-    & \grammaror  & \hmlneg φ^{ (N \sqcap (N_2, \infty, \infty)) - \unit{3} }
-\end{array}
-$$
--->
 
 ::: {#def-bisim-energy-game}
 #### Bisimulation Energy Game
 
 For a transition system $\system$, the *bisimulation energy game* ${\game}_\notionname{B}^{🗲\system}$ is played on the same graph as the *bisimulation game* ${\game}_\notionname{B}^{\system}$ (of @def-bisim-game), but the moves are weighted by the following energy updates:
 
-- The attacker may swap sides
-  $$[p, q] \quad \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} \quad [q, p],$$
-- or challenge simulation
-  $$[p, q] \quad \gamemove{-1,0,0}^🗲_\notionname{B} \quad (α, p', q) \quad \text{if} \quad p \step{α} p';$$
-- and the defender answers simulation challenges
+- Attacker swaps are counted as a negation and limit the further observations to the depth of negative clauses:
+  $$[p, q] \quad \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} \quad [q, p].$$
+- Simulation challenges count as an observation (using up the budget for modal depth):
+  $$[p, q] \quad \gamemove{-1,0,0}^🗲_\notionname{B} \quad (α, p', q) \quad \text{if} \quad p \step{α} p'.$$
+- And defender answers come for free:
   $$(α, p', q) \quad \gamemove{0,0,0}^🗲_\notionname{B} \quad (p', q') \quad \text{if} \quad q \step{α} q'.$$
 :::
 
@@ -285,14 +276,7 @@ and the middle dimension bounds the amount of simulation moves after a swap.
 
 Let us label the bisimulation game of @exm-bisim-sim-game-formulas (distinguishing the “trolled philosophers”) with energy updates.
 @fig-bisim-sim-game-energies shows the game graph.
-The attacker wins ${\game}_\notionname{B}$ from $[\literal{Q}, \literal{Q'}]$  if they start out with an energy budget of $(2,2,2)$ or above.
-But if the budget does not dominate this bound, the attacker loses.
-For instance, neither $(1,\infty,\infty)$ nor $(\infty,\infty,1)$ is enough.
-The second bound implies that the budgets, $(\infty,1,1)$ and $(\infty,0,0)$ are won by the defender as well.
 
-What this tells us is that the attacker needs at least two simulation moves (after swaps) and two swaps to tell $\literal{Q}$ apart from $\literal{Q'}$.
-Telling apart $\literal{Q'}$ from $\literal{Q}$ is slightly easier, only requiring one swap (and only one simulation move after the swap).
-:::
 
 ::: {#fig-bisim-sim-game-energies}
 ```tikz
@@ -356,13 +340,45 @@ Telling apart $\literal{Q'}$ from $\literal{Q}$ is slightly easier, only requiri
 The bisimulation energy game of @exm-bisim-sim-energy-game with energy updates.
 :::
 
+The attacker wins ${\game}_\notionname{B}$ from $[\literal{Q}, \literal{Q'}]$ if they start out with an energy budget of $(2,2,2)$ or above.
+But if the budget does not dominate this bound, the attacker loses.
+For instance, neither $(1,\infty,\infty)$ nor $(\infty,\infty,1)$ is enough.
+The second bound implies that the budgets, $(\infty,1,1)$ and $(\infty,0,0)$ are won by the defender as well.
 
+::: {#fig-exm-bisim-sim-pareto-front .column-margin}
+```tikz
+\begin{tikzpicture}[]
+  \begin{scope}[rotate=45, scale=1]
+    \draw[help lines] (0,0) grid (3.5,3.5);
+    \draw[dotted] (2,2) -- (3.5,3.5);
+    \draw[thick, red, opacity=0.5, text opacity=.8]
+      (3.5,5.2) -- (3.5,3.5) node[below] {$(2,2,2)$} -- (5.2,3.5);
+    \draw[thick, red, opacity=0.5, text opacity=.8]
+      (3.5,3.5) -- (5,5);
+  \end{scope}
+\end{tikzpicture}
+```
+Attacker's Pareto front for $[\literal{Q}, \literal{Q'}]$ of the example bisim energy game.
+:::
+
+On the game-side, this tells us is that the attacker needs at least two simulation moves (after swaps) and two swaps to tell $\literal{Q}$ apart from $\literal{Q'}$.
+Telling apart $\literal{Q'}$ from $\literal{Q}$ is slightly easier, only requiring one swap (and only one simulation move after the swap).
+
+But, due to the correspondence of the game to modal formulas and of the energy updates to the pricing of formulas in the spectrum, the attacker winning budgets tell us more:
+They reveal that one needs two observations and two (or more) negations to distinguish $\literal{Q}$ from $\literal{Q'}$ using formulas from $\observations{\floor{B}}$.
+
+Thus, $\notions^{\literal{poly-strong}}_{\literal{Q}, \literal{Q'}} = \set{N \in \notions^\literal{poly-strong} \mid N \nleq (2,2,2)}$ is the solution for the (polynomial-time strong) spectroscopy problem.
+$\literal{Q}$ is preordered to $\literal{Q'}$ by 2-nested simulation, 1-step bisimulation, and all notions below;
+but distinguished by all above, in particular, 3-nested simulation and 2-step bisimulation.
+
+This is in line with the solution we thought of for the original strong spectrum in @exm-spectroscopy-front.
+:::
+
+We now sketch how to prove that the bisimulation energy game indeed characterizes the equivalences of the polynomial-time strong spectrum.
+In following chapters, we will prove stronger results for more general games in more detail.
 
 ::: {#lem-bisim-energy-game-characterizations}
-
-
-TODO: Discussion of characterized eqs
-
+TODO
 :::
 
 ## How to Decide Declining Energy Games

@@ -142,17 +142,40 @@ We can notice two things from the example:
 2. On this kind of energies, *attacker's winning budgets are upward-closed*, and defender budgets are downward-closed.
 :::
 
+::: {#prp-winning-budget-rules}
+Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game}$ are characterized inductively by the following rules:
+$$
+\dfrac{
+  g_\attacker \in G_\attacker \quad
+  g_\attacker \gamemove{u} g' \quad
+  \energyupdate(u, e) \in \attackerwins^{\game}(g')
+} {
+  e \in \attackerwins^{\game}(g_\attacker)
+}
+$$
+$$
+\dfrac{
+  g_\defender \in G_\defender \quad
+  \forall u,g' \ldotp \; g_\defender \gamemove{u} g' \longrightarrow
+  \energyupdate(u, e) \in \attackerwins^{\game}(g')
+} {
+  e \in \attackerwins^{\game}(g_\defender)
+}
+$$
+:::
+:::proof
+TODO: Pointer to Caro
+:::
+
 ::: {#rem-energy-reachability}
 Ordinary reachability games can be seen as a special case of energy games with trivial energies, e.g.\ $\abstractenergies = \set{1}$ and $\abstractupdate(\cdot) = \identity{\abstractenergies}$.
 :::
-
 
 ### Declining Energy Games
 
 An $N$-dimensional declining energy game is played on energy vectors:
 
 ::: {#def-energy-updates}
-
 #### Energies and Energy Updates
 
 For dimensionality $N$, the set of *energies*, $\energies$, is given by $(\nats \cup \set{\infty})^N$.
@@ -167,7 +190,6 @@ Updates that would cause any component to become negative are undefined, i.e., $
 :::
 
 ::: {#exm-energy-update}
-
 For example, the update $\energyupdate((2,0,\infty,0,0,0,1,1), (\updmin{1,7},0,-1,0,0,0,0,-1))$ equals $(1,0,\infty,0,0,0,1,0)$.
 :::
 
@@ -244,12 +266,13 @@ Except for enabledness, $\notionname{E}$, all coordinates after unfolding them f
 When one unfolds the coordinate for enabledness $(1,0,0)$ to the original strong system, $(1,∞,∞,∞,0,0)$, it differs from the one previously used, namely, $(1,0,0,0,0,0)$.
 The characterized language is strictly more expressive, as it contains conjunctions of enabled actions (e.g. $\hmlands\set{\hmlobs{\literal{a}}, \hmlobs{\literal{b}}}$), but it is equally distinctive.{{<isb lemma Priced_Spectrum lts.enabledness_conjunctions_are_neutral>}}
 
-
 ### The Bisimulation *Energy* Game
 
-Let us upgrade the bisimulation game of @def-bisim-game.
-As we have seen in Subsection [-@sec-bisim-game-hml], the game moves match the distinctive power of productions in the $\observations{\floor{B}}$-grammar of @exm-game-formulas.
+Let us upgrade the bisimulation game of @def-bisim-game with energies.
+The claim is that the resulting game ${\game}_\notionname{B}^🗲$ will characterize all equivalences of the polynomial-time strong spectrum in the sense that
+$p \bpreordvar{\observationsvar{e}} q$ for $e \in \notions^\literal{poly-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $e$.
 
+As we have seen in Subsection [-@sec-bisim-game-hml], the game moves match the distinctive power of productions in the $\observations{\floor{B}}$-grammar of @exm-game-formulas.
 Consequently, we can *count* the use of HML constructs in the game.
 As the game stands, we can meaningfully count: 1.\ modal depth, 2.\ depth of negative clauses, and 3.\ nesting depth of negations (that is, the first, fifth and sixth dimension of the strong spectrum @def-strong-spectrum).
 We cannot meaningfully count the amount of *necessary* conjunctions as the game's HML has conjunctions under each observation, even though they might not be necessary for a distinguishing formula.
@@ -265,7 +288,7 @@ For a transition system $\system$, the *bisimulation energy game* ${\game}_\noti
 - Simulation challenges count as an observation (using up the budget for modal depth):
   $$[p, q] \quad \gamemove{-1,0,0}^🗲_\notionname{B} \quad (α, p', q) \quad \text{if} \quad p \step{α} p'.$$
 - And defender answers come for free:
-  $$(α, p', q) \quad \gamemove{0,0,0}^🗲_\notionname{B} \quad (p', q') \quad \text{if} \quad q \step{α} q'.$$
+  $$(α, p', q) \quad \gamemove{0,0,0}^🗲_\notionname{B} \quad [p', q'] \quad \text{if} \quad q \step{α} q'.$$
 :::
 
 The first dimension thus bounds how often the attacker may challenge simulation down the road,
@@ -340,7 +363,7 @@ Let us label the bisimulation game of @exm-bisim-sim-game-formulas (distinguishi
 The bisimulation energy game of @exm-bisim-sim-energy-game with energy updates.
 :::
 
-The attacker wins ${\game}_\notionname{B}$ from $[\literal{Q}, \literal{Q'}]$ if they start out with an energy budget of $(2,2,2)$ or above.
+The attacker wins ${\game}^🗲_\notionname{B}$ from $[\literal{Q}, \literal{Q'}]$ if they start out with an energy budget of $(2,2,2)$ or above.
 But if the budget does not dominate this bound, the attacker loses.
 For instance, neither $(1,\infty,\infty)$ nor $(\infty,\infty,1)$ is enough.
 The second bound implies that the budgets, $(\infty,1,1)$ and $(\infty,0,0)$ are won by the defender as well.
@@ -374,11 +397,68 @@ but distinguished by all above, in particular, 3-nested simulation and 2-step bi
 This is in line with the solution we thought of for the original strong spectrum in @exm-spectroscopy-front.
 :::
 
+### Correctness of Characterization
+
 We now sketch how to prove that the bisimulation energy game indeed characterizes the equivalences of the polynomial-time strong spectrum.
 In following chapters, we will prove stronger results for more general games in more detail.
+The approach is to generalize the connection between winning attacks and distinguishing formulas that we have already explored in @lem-attacks-imply-formulas and @lem-formulas-imply-attack to energies and spectrum.
 
-::: {#lem-bisim-energy-game-characterizations}
+::: {#def-strategy-formulas-poly}
+#### Strategy Formulas for ${\game}_\notionname{B}^{🗲}$
+
+The set of *strategy formulas* for a game position $g$ and a budget $e$, $\strat_\notionname{B}(g, e)$, in the context of a bisimulation energy game ${\game}_\notionname{B}^{🗲\system}$ is defined inductively by the following rules:
+
+$$
+\dfrac{
+  [p, q] \gamemove{-1,0,0}^🗲_\notionname{B} (α, p', q) \quad
+  e' = \energyupdate((-1,0,0), e) \in \attackerwins^{\game_\notionname{B}^🗲}((α, p', q)) \quad
+  \varphi \in \strat_\notionname{B}((α, p', q), e')
+}{
+  (\hmlobs{α} \varphi) \in \strat_\notionname{B}([p, q], e)
+}
+$$
+$$
+\dfrac{
+  \forall q' \in \derivatives{q, α} \ldotp \quad
+  (α, p', q) \gamemove{0,0,0}^🗲_\notionname{B} [p', q'] \; \land \;
+  e \in \attackerwins^{\game_\notionname{B}^🗲}([p', q']) \; \land \;
+  \psi_{q'} \in \strat_\notionname{B}([p', q'], e)
+}{
+  (\hmland{q'}{\derivatives{q, α}} \psi_{q'}) \in \strat_\notionname{B}((α, p', q), e)
+}
+$$
+$$
+\dfrac{
+  [p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p] \quad
+  e' = \energyupdate((\updmin{1,2},0,-1), e) \in \attackerwins^{\game_\notionname{B}^🗲}([q, p]) \quad
+  \varphi \in \strat_\notionname{B}([q, p], e')
+}{
+  (\hmlneg \varphi) \in \strat_\notionname{B}([p, q], e)
+}
+$$
+:::
+
+{{<noindent>}} Effectively, this definition generalizes the construction of distinguishing formulas on ${\game}_\notionname{B}$ we introduced in @lem-attacks-imply-formulas.
+So the formulas we encountered before also serve as examples of such strategy formulas.
+
+::: {#lem-bisim-energy-game-soundness}
+If $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
+then there is $\varphi \in \strat([p, q], e)$ with $\varphi \in \observationsvar{e}^\literal{poly-strong}$, $p \in \semantics{\varphi}$ and $q \notin \semantics{\varphi}$.
+:::
+::: proof
 TODO
+:::
+
+::: {#lem-bisim-energy-game-completeness}
+If there is $\varphi \in \observationsvar{e}^\literal{poly-strong}$ with $p \in \semantics{\varphi}$ and $q \notin \semantics{\varphi}$,
+then $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
+:::
+::: proof
+TODO
+:::
+
+::: {#thm-bisim-energy-game-characterization}
+$p \bpreordvar{\observationsvar{e}} q$ for $e \in \notions^\literal{poly-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $e$.
 :::
 
 ## How to Decide Declining Energy Games

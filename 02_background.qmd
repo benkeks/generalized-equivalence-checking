@@ -910,7 +910,7 @@ attack positions $G^\notionname{B}_\attacker ≔ \states × \states$ and defense
 - or *challenge simulation*
   $$[p, q] \quad \gamemoveblank_\notionname{B} \quad (α, p', q) \quad \text{if} \quad p \step{α} p';$$
 - and the defender *answers simulation challenges*
-  $$(α, p', q) \quad \gamemoveblank_\notionname{B} \quad (p', q') \quad \text{if} \quad q \step{α} q'.$$
+  $$(α, p', q) \quad \gamemoveblank_\notionname{B} \quad [p', q'] \quad \text{if} \quad q \step{α} q'.$$
 :::
 
 ::: {#exm-bisim-game}

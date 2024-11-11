@@ -118,3 +118,6 @@
 \providecommand{\energyupdate}{\mathsf{upd}}
 \providecommand{\updmin}[1]{\mathtt{min}_{\{\!#1\!\}}}
 
+\lc{ Spectroscopy }
+
+\providecommand{\strat}{\mathsf{Strat}}

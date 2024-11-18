@@ -108,6 +108,9 @@ format:
 #    name: scala
 
 diagram:
+  cache: true
+  cache-dir:
+    _cache_diagrams
   engine:
     tikz:
       execpath: xelatex

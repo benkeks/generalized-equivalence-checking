@@ -9,6 +9,7 @@ _book
 _project
 site_libs
 _diagrams
+_cache_diagrams
 
 *.html
 tmp_*

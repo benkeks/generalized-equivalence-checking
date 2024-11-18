@@ -794,9 +794,65 @@ TODO: Provide soooome proof
 
 ::: {#alg-deciding-games}
 
-TODO
+$$
+\begin{array}{lr}
+  \kw{def} \literal{compute\_winning\_region}(\game=(G,G_\defender,\gamemoveblank)) \colon & \\
+  \quad \literal{defender\_options} :=
+    [g \mapsto n \mid g \in G \land n = \relsize{\set{g' \mid g \gamemoveblank g'}}] & \\
+  \quad \literal{attacker\_win} := \set{} & \\
+  \quad \literal{todo} := \set{g\in G_\defender \mid \literal{defender\_options}[g]=0} & \\
+  \quad \kw{while} \literal{todo} \neq \varnothing \colon & \\
+  \quad \quad \literal{g} := \kw{some} \literal{todo} & \\
+  \quad \quad \literal{todo} := \literal{todo} \setminus \set{\literal{g}} & \\
+  \quad \quad \kw{if} g \notin \literal{attacker\_win} \colon & \\
+  \quad \quad \quad \literal{attacker\_win} := \literal{attacker\_win} \cup \set{g} & \\
+  \quad \quad \quad \kw{for} g_{p}\in (\cdot \gamemoveblank g) \colon & \\
+  \quad \quad \quad \quad \literal{defender\_options}[g_{p}]:=\literal{defender\_options}[g_{p}]-1 & \\
+  \quad \quad \quad \quad \kw{if} g_{p}\in G_\attacker \lor \literal{defender\_options}[g_{p}]=0 \colon & \\
+  \quad \quad \quad \quad \quad \literal{todo} := \literal{todo} \cup \set{g_{p}} & \\
+  \quad \kw{return} \literal{attacker\_win} & \\
+\end{array}
+$$
+<!--
+```tikz
+\raggedright{
+\begin{minipage}[t]{10cm}
+\Fn{$\literal{compute\_winning\_region}(\game=(G,G_\defender,\gamemoveblank))$}{
+  
+  $\literal{defender\_options}\, :=
+    [g \mapsto n \mid g \in G \land n = \relsize{\set{p \mid g \gamemoveblank p}}]$
 
-Deciding reachability games.
+  $\literal{attacker\_win}\, := \set{}$
+
+  $\literal{todo}\, := \set{g\in G_\defender \mid \literal{defender\_options}[g]=0}$
+
+  \While{$\literal{propagate\_attacker\_win}(g)$}{
+
+    \If(){$g \notin \literal{attacker\_win}$}{
+
+      $\literal{attacker\_win} := \literal{attacker\_win} \cup \set{g}$
+
+      \For(){$g_{p}\in (\cdot \gamemoveblank g)$}{
+
+        $\literal{defender\_options}[g_{p}]:=\literal{defender\_options}[g_{p}]-1$
+
+        \If(){$g_{p}\in G_\attacker\lor\literal{defender\_options}[g_{p}]=0$}{
+
+          $\literal{propagate\_attacker\_win}(g_{p})$
+
+        }
+      }
+    }
+  }
+
+  \KwRet{$\literal{attacker\_win}$}
+}
+\end{minipage}
+}
+```
+-->
+
+Algorithm for deciding the attacker winning region $\attackerwins$ of a reachability game $\game$ in linear time of $\relsize{\gamemoveblank}$ and linear space of $\relsize{G}$.
 :::
 
 We care about reachability games because they are versatile in characterizing formal relations.

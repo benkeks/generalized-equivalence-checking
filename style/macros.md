@@ -40,7 +40,6 @@
 \providecommand{\failures}[1]{\mathsf{Failures}(#1)}
 \providecommand{\derivatives}[1]{\operatorname{Der}(#1)}
 \providecommand{\initials}[1]{\operatorname{Ini}(#1)}
-\providecommand{\literal}[1]{\mathsf{#1}}
 
 \lc{ Grammars }
 
@@ -76,6 +75,8 @@
 \providecommand{\semantics}[1]{\llbracket #1 \rrbracket}
 \providecommand{\semanticsobs}[1]{\semantics{#1}^👁}
 \providecommand{\difference}[2]{\Delta(#1,#2)}
+\providecommand{\literal}[1]{\mathsf{#1}}
+\providecommand{\kw}[1]{\operatorname{\mathbf{#1}}\;}
 
 \lc{ Relations }
 

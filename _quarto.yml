@@ -4,6 +4,9 @@ project:
   execute-dir: project
   preview:
     port: 5588
+    navigate: false
+    watch-inputs: false
+    timeout: 30
 
 filters:
 #- teximg
@@ -52,6 +55,7 @@ bibliography: similarities.bib
 
 format:
   html:
+    from: markdown
     theme: cosmo
     html-math-method: katex
     #fig-cap-location: margin

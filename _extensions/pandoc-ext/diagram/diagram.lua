@@ -172,7 +172,7 @@ local mermaid = {
 
 --- LaTeX template used to compile TikZ images.
 local tikz_template = pandoc.template.compile [[
-\documentclass[crop, border=2pt, varwidth=90cm]{standalone}
+\documentclass[crop, border=2pt, varwidth=20cm]{standalone}
 \usepackage{tikz}
 $for(header-includes)$
 $it$

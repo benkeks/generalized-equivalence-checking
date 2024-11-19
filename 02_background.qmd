@@ -711,7 +711,7 @@ flowchart TD
 
 ### Reachability Games
 
-*Gale--Stewart-style reachability games* where the defender wins all infinite plays.
+*Gale--Stewart-style reachability games* [in the tradition of @galeStewart1953infiniteGamesPerfectInformation] where the defender wins all infinite plays.
 
 ::: {#def-game}
 #### Reachability Game
@@ -786,73 +786,12 @@ A simple game.
 ::: {#prp-determinacy}
 #### Determinacy
 
-Reachability games are (positionally) determined, that is,
+Reachability games are positionally determined, that is,
 for any game, each game position has exactly one winner:
-$G = \attackerwins \cup \defenderwins$ and $\attackerwins \cap \defenderwins = \varnothing$.
-:::
-TODO: Provide soooome proof
-
-::: {#alg-deciding-games}
-
-$$
-\begin{array}{lr}
-  \kw{def} \literal{compute\_winning\_region}(\game=(G,G_\defender,\gamemoveblank)) \colon & \\
-  \quad \literal{defender\_options} :=
-    [g \mapsto n \mid g \in G \land n = \relsize{\set{g' \mid g \gamemoveblank g'}}] & \\
-  \quad \literal{attacker\_win} := \set{} & \\
-  \quad \literal{todo} := \set{g\in G_\defender \mid \literal{defender\_options}[g]=0} & \\
-  \quad \kw{while} \literal{todo} \neq \varnothing \colon & \\
-  \quad \quad \literal{g} := \kw{some} \literal{todo} & \\
-  \quad \quad \literal{todo} := \literal{todo} \setminus \set{\literal{g}} & \\
-  \quad \quad \kw{if} g \notin \literal{attacker\_win} \colon & \\
-  \quad \quad \quad \literal{attacker\_win} := \literal{attacker\_win} \cup \set{g} & \\
-  \quad \quad \quad \kw{for} g_{p}\in (\cdot \gamemoveblank g) \colon & \\
-  \quad \quad \quad \quad \literal{defender\_options}[g_{p}]:=\literal{defender\_options}[g_{p}]-1 & \\
-  \quad \quad \quad \quad \kw{if} g_{p}\in G_\attacker \lor \literal{defender\_options}[g_{p}]=0 \colon & \\
-  \quad \quad \quad \quad \quad \literal{todo} := \literal{todo} \cup \set{g_{p}} & \\
-  \quad \kw{return} \literal{attacker\_win} & \\
-\end{array}
-$$
-<!--
-```tikz
-\raggedright{
-\begin{minipage}[t]{10cm}
-\Fn{$\literal{compute\_winning\_region}(\game=(G,G_\defender,\gamemoveblank))$}{
-  
-  $\literal{defender\_options}\, :=
-    [g \mapsto n \mid g \in G \land n = \relsize{\set{p \mid g \gamemoveblank p}}]$
-
-  $\literal{attacker\_win}\, := \set{}$
-
-  $\literal{todo}\, := \set{g\in G_\defender \mid \literal{defender\_options}[g]=0}$
-
-  \While{$\literal{propagate\_attacker\_win}(g)$}{
-
-    \If(){$g \notin \literal{attacker\_win}$}{
-
-      $\literal{attacker\_win} := \literal{attacker\_win} \cup \set{g}$
-
-      \For(){$g_{p}\in (\cdot \gamemoveblank g)$}{
-
-        $\literal{defender\_options}[g_{p}]:=\literal{defender\_options}[g_{p}]-1$
-
-        \If(){$g_{p}\in G_\attacker\lor\literal{defender\_options}[g_{p}]=0$}{
-
-          $\literal{propagate\_attacker\_win}(g_{p})$
-
-        }
-      }
-    }
-  }
-
-  \KwRet{$\literal{attacker\_win}$}
-}
-\end{minipage}
-}
-```
--->
-
-Algorithm for deciding the attacker winning region $\attackerwins$ of a reachability game $\game$ in linear time of $\relsize{\gamemoveblank}$ and linear space of $\relsize{G}$.
+$G = \attackerwins \cup \defenderwins$ and $\attackerwins \cap \defenderwins = \varnothing$,
+and they can win using a memory-less strategy.^[
+  This is just an instantiation of positional determinacy of parity games @zielonka1998infiniteGameColoured.
+]
 :::
 
 We care about reachability games because they are versatile in characterizing formal relations.
@@ -895,6 +834,58 @@ The game is *boring* because the players do not ever have any choices.
 They just count down their way through the natural numbers till they hit $[0, m - n]$ if $n \leq m$, or $(n - m, 0)$ otherwise.
 
 Still, $\game_\literal{leq}$ is quite archetypical for the preorder and equivalence games we will use in the following pages.
+:::
+
+### Deciding Reachability Games
+
+All we need to turn a game characterization into a decision procedure, is a way to decide which player wins a position.
+@alg-deciding-games describes how to compute who wins a finite reachability game for each position in time linear to the size of the game graph $\relsize{\gamemoveblank}$.
+
+::: {#alg-deciding-games}
+
+$$
+\begin{array}{lr}
+  \kw{def} \literal{compute\_winning\_region}(\game=(G,G_\defender,\gamemoveblank)) \colon & \\
+  \quad \literal{defender\_options} :=
+    [g \mapsto n \mid g \in G \land n = \relsize{\set{g' \mid g \gamemoveblank g'}}] & \\
+  \quad \literal{attacker\_win} := \varnothing & \\
+  \quad \literal{todo} := \set{g\in G_\defender \mid \literal{defender\_options}[g]=0} & \\
+  \quad \kw{while} \literal{todo} \neq \varnothing \colon & \\
+  \quad \quad \literal{g} := \kw{some} \literal{todo} & \\
+  \quad \quad \literal{todo} := \literal{todo} \setminus \set{\literal{g}} & \\
+  \quad \quad \kw{if} g \notin \literal{attacker\_win} \colon & \\
+  % note: the if should not be necessary for sets.
+  \quad \quad \quad \literal{attacker\_win} := \literal{attacker\_win} \cup \set{g} & \\
+  \quad \quad \quad \kw{for} g_{p}\in (\cdot \gamemoveblank g) \colon & \\
+  \quad \quad \quad \quad \literal{defender\_options}[g_{p}]:=\literal{defender\_options}[g_{p}]-1 & \\
+  \quad \quad \quad \quad \kw{if} g_{p}\in G_\attacker \lor \literal{defender\_options}[g_{p}]=0 \colon & \\
+  \quad \quad \quad \quad \quad \literal{todo} := \literal{todo} \cup \set{g_{p}} & \\
+  \quad \attackerwins := \literal{attacker\_win} & \\
+  \quad \kw{return} \attackerwins & \\
+\end{array}
+$$
+
+Algorithm for deciding the attacker winning region $\attackerwins$ of a reachability game $\game$ in linear time of $\relsize{\gamemoveblank}$ and linear space of $\relsize{G}$.
+:::
+
+Intuitively, $\literal{compute\_winning\_region}$ first assumes that the defender were to win everywhere and that each outgoing move of every position might be a winning option for the defender.
+Over time, every position that is determined to be lost by the defender is added to a $\literal{todo}$ list.^[
+  Variants of this algorithm and explanation have also been used in @bisping2018coupledsim and @bjn2022decidingAllBehavioralEqs.
+]
+
+At first, the defender loses immediately exactly at the defender's dead-ends.
+Each defender-lost position is added to the $\literal{attacker\_win}$ set.
+To trigger the recursion, each predecessor is noted as defender-lost, if it is controlled by the attacker, or the amount of outgoing defender options is decremented if the predecessor is defender-controlled.
+If the count of a predecessor position hits 0, the defender also loses from there.
+
+Once we run out of $\literal{todo}$ positions, we know that the attacker has winning strategies exactly for each position we have visited.
+
+The inner loop clearly can run at most $\relsize{\gamemoveblank}$-many times.
+Using sufficiently clever data structures, @alg-deciding-games shows:
+
+::: {#prp-reachability-game-complexity}
+Given a finite reachability game $\game=(G,G_\defender,\gamemoveblank)$,
+the attacker's winning region $\attackerwins$ (and $\defenderwins$ as well) can be computed in $\bigo{\relsize{\gamemoveblank}}$ time and $\bigo{\relsize{G}}$ space.
 :::
 
 ### The Semantic Game of HML
@@ -986,7 +977,6 @@ Clearly, there is no way for the attacker to get the defender stuck.
 Whatever strategy the attacker choses, the game will go on forever, leading to a win for the defender.
 That it is always safe for the defender to *answer* with moves to $[\literal{p_{even}}, \literal{p_{odd}}]$ and $[\literal{p_{odd}}, \literal{p_{even}}]$ corresponds to $\rel R ≔ \set{(\literal{p_{even}}, \literal{p_{odd}}), (\literal{p_{odd}}, \literal{p_{even}})}$ being a bisimulation.
 :::
-
 
 ::: {#exm-bisim-sim-game}
 Let us recall @exm-bisim-sim of the “trolled philosophers,” where we determined $\literal{Q}$ and $\literal{Q'}$ to be non-bisimilar.

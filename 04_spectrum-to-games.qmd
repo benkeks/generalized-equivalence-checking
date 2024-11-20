@@ -9,7 +9,8 @@ title: "Approach: Equivalence Problems as Energy Games"
 Purpose of section:
 
 - Introduce energy games
-- Illustrate approach
+- Illustrate approach (Eq-Prob → Equivalence Energy Game → Pareto fronts → Most fitting eqs)
+
 
 ## Energy Games
 
@@ -463,6 +464,11 @@ $p \bpreordvar{\observationsvar{e}} q$ for $e \in \notions^\literal{poly-strong}
 
 ## How to Decide Declining Energy Games
 
+### Galois Connections
+
+### The Algorithm
+
+The algorithm can be understood as a generalization of @alg-deciding-games, but as positions can be updated more than once, we have to depart from the option counting trick.
 
 ::: {#alg-deciding-energy-games}
 
@@ -495,11 +501,10 @@ $$
 Algorithm determining the minimal attacker winning budgets $\attackerwinsmin$ of an energy game $\game^🗲$.
 :::
 
-
-- TODO: Refined algo for energy games
-- TODO: Complexities
+### Complexity
 
 ## Discussion
 
 - Sum up algorithm approach
+- Improvements compared to @bisping2023equivalenceEnergyGames game algo
 - Point out limitations (game cannot capture PSPACE eqs!)

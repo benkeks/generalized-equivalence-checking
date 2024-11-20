@@ -107,16 +107,19 @@
 \providecommand{\attacker}{{\mathrm{a}}}
 \providecommand{\defender}{{\mathrm{d}}}
 \providecommand{\attackerwins}{\mathsf{Win}_\mathrm{a}}
+\providecommand{\attackerwinsmin}{\mathsf{Win}^{\mathrm{min}}_\mathrm{a}}
 \providecommand{\defenderwins}{\mathsf{Win}_\mathrm{d}}
 
 \lc{ Energy Games }
 
 \providecommand{\abstractupdate}{\mathcal{upd}}
+\providecommand{\abstractupdateinv}{\mathcal{upd}^{-1}}
 \providecommand{\abstractenergies}{\mathcal{En}}
 \providecommand{\energylevel}{\operatorname{EL}}
 \providecommand{\energies}{\mathbf{En}}
 \providecommand{\energyupdates}{\mathbf{Up}}
 \providecommand{\energyupdate}{\mathsf{upd}}
+\providecommand{\energyupdateinv}{\mathsf{upd}^{-1}}
 \providecommand{\updmin}[1]{\mathtt{min}_{\{\!#1\!\}}}
 
 \lc{ Spectroscopy }

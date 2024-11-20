@@ -147,8 +147,8 @@ Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game
 $$
 \dfrac{
   g_\attacker \in G_\attacker \quad
-  g_\attacker \gamemove{u} g' \quad
-  \energyupdate(u, e) \in \attackerwins^{\game}(g')
+  g_\attacker \gamemoveblank g' \quad
+  \abstractupdate(g_\attacker, g')(e) \in \attackerwins^{\game}(g')
 } {
   e \in \attackerwins^{\game}(g_\attacker)
 }
@@ -156,8 +156,8 @@ $$
 $$
 \dfrac{
   g_\defender \in G_\defender \quad
-  \forall u,g' \ldotp \; g_\defender \gamemove{u} g' \longrightarrow
-  \energyupdate(u, e) \in \attackerwins^{\game}(g')
+  \forall u,g' \ldotp \; g_\defender \gamemoveblank g' \longrightarrow
+  \abstractupdate(g_\defender, g')(e) \in \attackerwins^{\game}(g')
 } {
   e \in \attackerwins^{\game}(g_\defender)
 }
@@ -462,6 +462,39 @@ $p \bpreordvar{\observationsvar{e}} q$ for $e \in \notions^\literal{poly-strong}
 :::
 
 ## How to Decide Declining Energy Games
+
+
+::: {#alg-deciding-energy-games}
+
+$$
+\begin{array}{l}
+  \kw{def} \literal{compute\_winning\_budgets}(\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate), \abstractupdateinv) \colon \\
+  \quad \literal{attacker\_win} := [ g \mapsto \varnothing \mid g\in G ] \\
+  \quad \literal{todo} := \set{g\in G_\defender \mid g \ngamemoveblank} \\
+  \quad \kw{while} \literal{todo} \neq \varnothing \colon \\
+  \quad \quad \literal{g} := \kw{some} \literal{todo} \\
+  \quad \quad \literal{todo} := \literal{todo} \setminus \set{\literal{g}} \\
+  \quad \quad \kw{if} \literal{g} \in G_\attacker \colon \\
+  \quad \quad \quad \literal{new\_attacker\_win} :=
+        \Min( \set{\abstractupdateinv(\literal{g}, g')(\mathit{e'}) \\
+  \quad \quad \quad \quad \mid {\literal{g} \gamemoveblank g'} \land \mathit{e'} \in \literal{attacker\_win}[g']}) \\
+  \quad \quad \kw{else \colon} \\
+  \quad \quad \quad \literal{new\_attacker\_win} := \set{\bot} \\
+  \quad \quad \quad \kw{for} \literal{g'} \in (\literal{g} \gamemoveblank \cdot) \colon \\
+  \quad \quad \quad \quad \literal{new\_attacker\_win} :=
+        \Min( \set{ \sup(e_\attacker, \abstractupdateinv(\literal{g}, g')(\mathit{e'})) \mid \\
+  \quad \quad \quad \qquad e_\attacker \in \literal{new\_attacker\_win} \land
+        {\literal{g} \gamemoveblank g'} \land \mathit{e'} \in \literal{attacker\_win}[g']} ) \\
+  \quad \quad \kw{if} \literal{new\_attacker\_win} \neq \literal{attacker\_win}[\literal{g}] \colon \\
+  \quad \quad \quad \literal{todo} := \literal{todo} \cup (\cdot \gamemoveblank \literal{g}) \\
+  \quad \attackerwinsmin := \literal{attacker\_win} \\
+  \quad \kw{return} \attackerwinsmin \\
+\end{array}
+$$
+
+Algorithm determining the minimal attacker winning budgets $\attackerwinsmin$ of an energy game $\game^🗲$.
+:::
+
 
 - TODO: Refined algo for energy games
 - TODO: Complexities

@@ -853,13 +853,13 @@ $$
   \quad \kw{while} \literal{todo} \neq \varnothing \colon & \\
   \quad \quad \literal{g} := \kw{some} \literal{todo} & \\
   \quad \quad \literal{todo} := \literal{todo} \setminus \set{\literal{g}} & \\
-  \quad \quad \kw{if} g \notin \literal{attacker\_win} \colon & \\
+  \quad \quad \kw{if} \literal{g} \notin \literal{attacker\_win} \colon & \\
   % note: the if should not be necessary for sets.
-  \quad \quad \quad \literal{attacker\_win} := \literal{attacker\_win} \cup \set{g} & \\
-  \quad \quad \quad \kw{for} g_{p}\in (\cdot \gamemoveblank g) \colon & \\
-  \quad \quad \quad \quad \literal{defender\_options}[g_{p}]:=\literal{defender\_options}[g_{p}]-1 & \\
-  \quad \quad \quad \quad \kw{if} g_{p}\in G_\attacker \lor \literal{defender\_options}[g_{p}]=0 \colon & \\
-  \quad \quad \quad \quad \quad \literal{todo} := \literal{todo} \cup \set{g_{p}} & \\
+  \quad \quad \quad \literal{attacker\_win} := \literal{attacker\_win} \cup \set{\literal{g}} & \\
+  \quad \quad \quad \kw{for} \literal{g_{p}} \in (\cdot \gamemoveblank \literal{g}) \colon & \\
+  \quad \quad \quad \quad \literal{defender\_options}[\literal{g_{p}}]:=\literal{defender\_options}[\literal{g_{p}}]-1 & \\
+  \quad \quad \quad \quad \kw{if} \literal{g_{p}} \in G_\attacker \lor \literal{defender\_options}[\literal{g_{p}}]=0 \colon & \\
+  \quad \quad \quad \quad \quad \literal{todo} := \literal{todo} \cup \set{\literal{g_{p}}} & \\
   \quad \attackerwins := \literal{attacker\_win} & \\
   \quad \kw{return} \attackerwins & \\
 \end{array}

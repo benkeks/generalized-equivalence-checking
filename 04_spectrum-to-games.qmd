@@ -491,18 +491,57 @@ A decision procedure for winning budgets in declining energy games.
 
 ## How to Decide Declining Energy Games
 
-Details: @lemke2024multiweightedEnergyGames
+This section is about adapting the idea of back-propagating how the defender loses in reachability games from @alg-deciding-games to work for (declining) energy games as well.
+
+The change is that we have to propagate not just attacker wins, but Pareto frontiers of attacker-winning energy levels.
+For this, we have to invert the energy update functions.
+But, as we have seen in @exm-energy-update, our specific declining energy updates are neither injective, and thus cannot be cleanly inverted.
+
+We will see how to tackle these challenges using Galois connections.
+For details, readers are referred to @lemke2024multiweightedEnergyGames.
 
 ### Galois Connections
+
+Galois connections can be thought of as a pair of *functions that invert each other up to some partial ordering relation*.
+Another standard intuition is that Galois connections couple a *concrete* and a more *abstract* domain, and this is what the variable naming in the following definition alludes to.
 
 ::: {#def-galois-connection}
 A *Galois connection* between two partially ordered sets $(C, \leq_C)$ and $(A,\leq_A)$ is a pair of functions $\alpha \colon C \to A$ and $\gamma \colon A \to C$ such that, for all $a \in A$ and $c \in C$:
 $$\alpha(c) \leq_A a \iff c \leq_C \gamma(a).$$
 :::
 
-### The Algorithm
+An illustration of the connection property can be seen in @fig-galois-connection.
 
-The algorithm can be understood as a generalization of @alg-deciding-games, but as positions can be updated more than once, we have to depart from the option counting trick.
+::: {#fig-galois-connection .column-margin}
+```tikz
+\begin{tikzpicture}[auto, node distance = 1cm, minimum width=.8cm]
+  \node (c) {$c$};
+  \node (cleq) [above of=c, rotate=90] {$\leq$};
+  \node (agamma) [above of=cleq] {$\gamma(a)$};
+  \node (C) [above of=agamma] {$C$};
+  \node (cabs) [right of=c, node distance=3cm] {$\alpha(c)$};
+  \node (aleq) [above of=cabs, rotate=90] {$\leq$};
+  \node (a) [above of=aleq] {$a$};
+  \node (A) [above of=a] {$A$};
+  \node (iff) [right of=cleq, node distance=1.5cm, rotate=-45] {$\iff$};
+  \path[->]
+    (c) edge[bend right=10, swap] node {$\alpha$} (cabs)
+    (a) edge[bend right=10, swap] node {$\gamma$} (agamma);
+  \draw (cleq) ellipse (1cm and 1.7cm);
+  \draw (aleq) ellipse (1cm and 1.7cm);
+\end{tikzpicture}
+```
+Visualization of Galois connections according to @def-galois-connection.
+:::
+
+The following example motivates why one can say Galois connections abstract function inversion:
+
+::: {#exm-galois-equality}
+If a function $f \colon C \to A$ is surjective and injective, it has a unique inverse function $f^{-1}$ such that $f^{-1} \circ f = \identity{C}$ and $f \circ f^{-1} = \identity{A}$.
+Clearly, $f$ and $f^{-1}$ form a Galois connection (for all partial orders on $A$ and $C$).
+:::
+
+### The Algorithm
 
 ::: {#alg-deciding-energy-games}
 
@@ -535,7 +574,11 @@ $$
 Algorithm determining the minimal attacker winning budgets $\attackerwinsmin$ of an energy game $\game^🗲$.
 :::
 
+The algorithm can be understood as a generalization of @alg-deciding-games, but as positions can be updated more than once, we have to depart from the option counting trick.
+
 ### Complexity
+
+### Solving Declining Energy Games
 
 ## Discussion
 

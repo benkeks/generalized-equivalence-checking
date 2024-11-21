@@ -172,6 +172,19 @@ TODO: Pointer to Caro
 Ordinary reachability games can be seen as a special case of energy games with trivial energies, e.g.\ $\abstractenergies = \set{1}$ and $\abstractupdate(\cdot) = \identity{\abstractenergies}$.
 :::
 
+::: {#rem-energy-games-in-general}
+We deviate in two important points from other work on energy games:
+
+- In the literature, it is more common to consider the defender instead of the attacker to be energy-bound [e.g. @fjls2011energyGamesMulti].
+  This choice follows the intuition that there is a party with scarce resources that wants to keep the system running.
+  For our purposes, however we want to bound the resources of an attacker, which is no fundamental change.
+  Still, one cannot have both at the same time: @kh2022energyGamesResourceBounded, studying both-bounded energy games, establish that their winner is only decidable if both parties have only one-dimensional energies.
+- We have defined energy-reachability games more abstractly than is common:
+  In other publications, energy games work on numbers with component-wise updates as seen in @exm-simple-energy-game.
+  We do not demand this as, in the next sections, we will need updates that combine information from different components of the energy vector.
+  Even prior generalizations on energy update functions such as @eflq2013kleeneEnergyProblems does not allow sufficient flexibility in this regard.
+:::
+
 ### Declining Energy Games
 
 An $N$-dimensional declining energy game is played on energy vectors:
@@ -187,11 +200,19 @@ The set of *energy update labels*, $\energyupdates$, contains $\vectorcomponents
 - $u_k = \mathtt{min}_D$ where $D \subseteq \{1, \ldots, N\}$ and $k \in D$ (minimum selection update).
 
 {{<noindent>}} Applying an update to an energy, $\energyupdate(e, u)$, where $e = \vectorcomponents[N]{e} \in \energies$ and $u = \vectorcomponents[N]{u} \in \energyupdates$, yields a new energy vector $e'$ where $k$th components $e'_k ≔ e_k + u_k$ for $u_k \in \ints$ and $e'_k ≔ \min_{d\in D} e_d$ for $u_k = \mathtt{min}_D$.
-Updates that would cause any component to become negative are undefined, i.e., $\energyupdate$ is a partial function.
+Updates that would cause any component to become negative yield $\bot$.
 :::
 
 ::: {#exm-energy-update}
-For example, the update $\energyupdate((2,0,\infty,0,0,0,1,1), (\updmin{1,7},0,-1,0,0,0,0,-1))$ equals $(1,0,\infty,0,0,0,1,0)$.
+Consider the update label $(\updmin{1,2},0,-1)$.
+
+- $\energyupdate((1,1,0), (\updmin{1,2},0,-1))$ equals $\bot$ because of the last component.
+- $\energyupdate((2,1,1), (\updmin{1,2},0,-1))$ equals $(1,1,0)$.
+- $\energyupdate((1,1,1), (\updmin{1,2},0,-1))$ equals $(1,1,0)$, as well.
+- There is no $e \in \energies$ such that $\energyupdate(e, (\updmin{1,2},0,-1)) = (1,0,0)$, because the second component would demand a lower first component.
+
+In summary, $\energyupdate((\updmin{1,2},0,-1), \cdot)$ is neither injective nor surjective with respect to $\energies$.
+The same is true for most other $u$ and $\energyupdate(u, \cdot)$ with a $\mathtt{min}$-update component.
 :::
 
 ::: {#def-declining-energy-game}
@@ -201,6 +222,8 @@ Given a weight labeling $w \colon (\gamemoveblank) \to \energyupdates$, an $N$-d
 
 We write $g \gamemove{\;u\;} g'$ for a move $g \gamemoveblank g'$ labeled by weight $w(g, g') = u$.
 :::
+
+Declining energy games differ from more common energy games with vector addition updates as seen in @exm-simple-energy-game due to the potential non-invertibility of updates we encountered in @exm-energy-update.
 
 ::: {#prp-declining-energies}
 In this model, energy levels can only decline.
@@ -462,9 +485,20 @@ TODO
 $p \bpreordvar{\observationsvar{e}} q$ for $e \in \notions^\literal{poly-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $e$.
 :::
 
+Thus, we have established that the bisimulation energy game ${\game}_\notionname{B}^🗲$ characterizes the equivalences of the polynomial-time strong spectrum $\notions^\literal{poly-strong}$.
+To use exploit this property to decide equivalences and solve the spectroscopy problem algorithmically, we need one more ingredient:
+A decision procedure for winning budgets in declining energy games.
+
 ## How to Decide Declining Energy Games
 
+Details: @lemke2024multiweightedEnergyGames
+
 ### Galois Connections
+
+::: {#def-galois-connection}
+A *Galois connection* between two partially ordered sets $(C, \leq_C)$ and $(A,\leq_A)$ is a pair of functions $\alpha \colon C \to A$ and $\gamma \colon A \to C$ such that, for all $a \in A$ and $c \in C$:
+$$\alpha(c) \leq_A a \iff c \leq_C \gamma(a).$$
+:::
 
 ### The Algorithm
 

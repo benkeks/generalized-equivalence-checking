@@ -23,7 +23,7 @@ To introduce energy games, we generalize the definitions on games (@def-game and
 
 Given a partially ordered set of energies $(\abstractenergies, \leq)$, an *energy reachability game* $\game^🗲$ is a reachability game $(G, G_\defender, \gamemoveblank)$ extended by an edge labeling of energy updates $\abstractupdate \colon (\gamemoveblank) \to (\abstractenergies \to (\set{⊥} \cup \abstractenergies))$.
 
-{{<noindent>}} We denote by $\game^🗲(g_0, e_0)$ the game played from starting position $g_0 ∈ G$ with initial energy level $e_0 ∈ \abstractenergies$.
+We denote by $\game^🗲(g_0, e_0)$ the game played from starting position $g_0 ∈ G$ with initial energy level $e_0 ∈ \abstractenergies$.
 :::
 
 ::: {#def-energy-level}
@@ -491,9 +491,20 @@ A decision procedure for winning budgets in declining energy games.
 
 ## How to Decide Declining Energy Games
 
-This section is about adapting the idea of back-propagating how the defender loses in reachability games from @alg-deciding-games to work for (declining) energy games as well.
+This section is about how to compute which energy budgets are winning for the attacker (or the defender) at positions of an energy game:
 
-The change is that we have to propagate not just attacker wins, but Pareto frontiers of attacker-winning energy levels.
+::: {#def-energy-game-problem}
+#### Monotone Energy Game Winner Problem
+
+In the context of an energy system $(\abstractenergies, \leq)$ and a finite energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$, the *energy game winner problem* goes:
+- Input:  A game position $g \in G$.
+- Output: Pareto front of minimal winning budget for the attacker at g, $\attackerwinsmin(g)$.
+:::
+
+We will show how to solve the problem for energy games with monotone updates.
+To this end, we will adapt the idea of back-propagating how the defender loses in reachability games from @alg-deciding-games.
+
+The change is that we have to propagate not just attacker wins, but Pareto fronts of attacker-winning energy levels.
 For this, we have to invert the energy update functions.
 But, as we have seen in @exm-energy-update, our specific declining energy updates are neither injective, and thus cannot be cleanly inverted.
 
@@ -511,6 +522,7 @@ $$\alpha(c) \leq_A a \iff c \leq_C \gamma(a).$$
 :::
 
 An illustration of the connection property can be seen in @fig-galois-connection.
+(The illustration also illuminates why the $\alpha$-function is often referred to as “lower adjoint“ and $\gamma$ as “upper adjoint” of a Galois connection.)
 
 ::: {#fig-galois-connection .column-margin}
 ```tikz
@@ -578,12 +590,21 @@ Illustration of the Galois connection of @exm-galois-abstraction-reals between $
 The following example motivates why one can say Galois connections abstract function inversion:
 
 ::: {#exm-galois-equality}
-If a function $f \colon C \to A$ is surjective and injective, it has a unique inverse function $f^{-1}$ such that $f^{-1} \circ f = \identity{C}$ and $f \circ f^{-1} = \identity{A}$.
-If $f$ is monotone, $f$ and $f^{-1}$ form a Galois connection (for all partial orders on $A$ and $C$).
+If a function $f \colon C \to A$ is surjective and injective, it has a unique inverse function $f^{-1} \colon A \to C$ such that $f^{-1} \circ f = \identity{C}$ and $f \circ f^{-1} = \identity{A}$.
+
+If $f$ is monotone with respect to some partial orders on $A$ and $C$,
+then both must be strictly monotone, and
+$f$ and $f^{-1}$ must form a Galois connection, because
+$$f(c) \leq_A a \implies f^{-1}(f(c)) \leq_A f^{-1}(a) \implies c \leq_C f^{-1}(a)$$
+and
+$$c \leq_C f^{-1}(a) \implies f(c) \leq_A f(f^{-1}(a)) \implies f(c) \leq_A a.$$
 :::
 
+This justifies why, in the following, we overload the notation for inversion to refer to adjoint functions that we use to undo energy updates.
 
 ### The Algorithm
+
+For the algorithm, we have to assume that we know a function that “undoes” energy updates, $\abstractupdateinv \colon (\gamemoveblank) \to (\abstractenergies \cup \set{\bot}) \to (\abstractenergies \cup \set{\bot})$ with $\abstractupdateinv(g, g')(e') = \inf \set{e \mid e' \leq_\bot \abstractupdate(g, g')(e)}$.
 
 ::: {#alg-deciding-energy-games}
 

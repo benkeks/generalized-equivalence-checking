@@ -534,12 +534,54 @@ An illustration of the connection property can be seen in @fig-galois-connection
 Visualization of Galois connections according to @def-galois-connection.
 :::
 
+::: {#exm-galois-abstraction-reals}
+Take the non-negative reals $\reals^{\geq 0}$ as concrete domain and the natural numbers $\nats$ as abstract domain.
+Then, as function $\alpha_{\reals} \colon \reals^{\geq 0} \to \nats$, take flooring, $x \mapsto \floor{x}$, and for the other direction, the identity $\identity{\nats}$, $n \mapsto n$.
+Clearly, $\floor{x} \leq n \iff x \leq n$.
+Therefore, $\alpha_{\reals}$ and $\identity{\nats}$ form a Galois connection.
+:::
+
+::: {#fig-galois-abstraction-reals .column-margin}
+```tikz
+\begin{tikzpicture}[]
+  \draw[draw=red, thick] (-.25,0) -- ++(.5,0);
+  \draw[draw=red, thick] (-.25,1) -- ++(.5,0);
+  \draw[draw=red, thick] (-.25,2) -- ++(.5,0);
+  \draw[draw=red, thick] (-.25,3) -- ++(.5,0);
+  \draw[draw=blue, thick] (1.75,0) -- ++(.5,0);
+  \draw[draw=blue, thick] (1.75,1) -- ++(.5,0);
+  \draw[draw=blue, thick] (1.75,2) -- ++(.5,0);
+  \draw[draw=blue, thick] (1.75,3) -- ++(.5,0);
+
+  \draw[draw=black] (-.125,0) rectangle ++(.25,1);
+  \draw[draw=black] (-.125,1) rectangle ++(.25,1);
+  \draw[draw=black] (-.125,2) rectangle ++(.25,1);
+  \draw[draw=gray] (0,0) -- ++(2,0) -- ++(-2,1);
+  \draw[draw=gray] (0,1) -- ++(2,0) -- ++(-2,1);
+  \draw[draw=gray] (0,2) -- ++(2,0) -- ++(-2,1);
+  \draw[] (0,3.6) node {$\vdots$};
+  \draw[] (2,3.6) node {$\vdots$};
+
+  \draw[] (0,-.5) node {$\reals^{\geq 0}$};
+  \draw[] (2,-.5) node {$\nats$};
+
+  \path[->, dotted]
+    (2,0) edge[bend right=15] (0,0)
+    (2,1) edge[bend right=15] (0,1)
+    (2,2) edge[bend right=15] (0,2)
+    (2,3) edge[bend right=15] (0,3);
+\end{tikzpicture}
+```
+Illustration of the Galois connection of @exm-galois-abstraction-reals between $\reals^{\geq 0}$ and $\nats$ using $\floor{\cdot}$-function, whose mapping is illustrated by the gray triangles.
+:::
+
 The following example motivates why one can say Galois connections abstract function inversion:
 
 ::: {#exm-galois-equality}
 If a function $f \colon C \to A$ is surjective and injective, it has a unique inverse function $f^{-1}$ such that $f^{-1} \circ f = \identity{C}$ and $f \circ f^{-1} = \identity{A}$.
-Clearly, $f$ and $f^{-1}$ form a Galois connection (for all partial orders on $A$ and $C$).
+If $f$ is monotone, $f$ and $f^{-1}$ form a Galois connection (for all partial orders on $A$ and $C$).
 :::
+
 
 ### The Algorithm
 

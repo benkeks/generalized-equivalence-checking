@@ -10,6 +10,7 @@
 \providecommand{\nats}{\mathbb{N}}
 \providecommand{\natsext}{\mathbb{N}_\infty}
 \providecommand{\ints}{\mathbb{Z}}
+\providecommand{\reals}{\mathbb{R}}
 \providecommand{\defiff}{\mathrel{:\!\iff}}
 \providecommand{\set}[1]{\{#1\}}
 \providecommand{\emptyword}{\texttt{()}}

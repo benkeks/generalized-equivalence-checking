@@ -587,14 +587,27 @@ Therefore, $\alpha_{\reals}$ and $\identity{\nats}$ form a Galois connection.
 Illustration of the Galois connection of @exm-galois-abstraction-reals between $\reals^{\geq 0}$ and $\nats$ using $\floor{\cdot}$-function, whose mapping is illustrated by the gray triangles.
 :::
 
-The following example motivates why one can say Galois connections abstract function inversion:
+Any monotone function naturally induces a Galois-connected abstraction function.
 
-::: {#exm-galois-equality}
-If a function $f \colon C \to A$ is surjective and injective, it has a unique inverse function $f^{-1} \colon A \to C$ such that $f^{-1} \circ f = \identity{C}$ and $f \circ f^{-1} = \identity{A}$.
+::: {#lem-galois-inversion}
+Precisely if $\gamma \colon A \to C$ is a monotone function, and $\alpha(c) = \inf \set{a \mid c \leq_C \gamma(a)}$ for all $c \in C$,
+$\alpha$ and $\gamma$ constitute a Galois connection between $C$ and $A$.^[
+  Proposition 4 of @ekms1993primerGaloisConnections.
+]
+:::
 
-If $f$ is monotone with respect to some partial orders on $A$ and $C$,
-then both must be strictly monotone, and
-$f$ and $f^{-1}$ must form a Galois connection, because
+We will refer to functions derived as in @lem-galois-inversion as “undo” functions.
+We understand them to generalize inverse functions of monotone functions as these will always be Galois connected.
+
+::: {#lem-galois-equality}
+If a function $f \colon A \to C$ is surjective and injective, it has a unique inverse function $f^{-1} \colon C \to A$ such that $f^{-1} \circ f = \identity{A}$ and $f \circ f^{-1} = \identity{C}$.
+
+If $f$ is monotone with respect to some partial orders on $C$ and $A$,
+then $f^{-1}$ and $f$ must form a Galois connection.
+:::
+:::proof
+Because of injectivity and monotonicity, $f$ and $f^{-1}$, must be (strictly) monotone.
+Together with the definition of function inversion, we can reason
 $$f(c) \leq_A a \implies f^{-1}(f(c)) \leq_A f^{-1}(a) \implies c \leq_C f^{-1}(a)$$
 and
 $$c \leq_C f^{-1}(a) \implies f(c) \leq_A f(f^{-1}(a)) \implies f(c) \leq_A a.$$
@@ -604,7 +617,10 @@ This justifies why, in the following, we overload the notation for inversion to 
 
 ### The Algorithm
 
-For the algorithm, we have to assume that we know a function that “undoes” energy updates, $\abstractupdateinv \colon (\gamemoveblank) \to (\abstractenergies \cup \set{\bot}) \to (\abstractenergies \cup \set{\bot})$ with $\abstractupdateinv(g, g')(e') = \inf \set{e \mid e' \leq_\bot \abstractupdate(g, g')(e)}$.
+To implement a back-propagation algorithm, we have to assume that we know a function that undoes energy updates, $\abstractupdateinv \colon (\gamemoveblank) \to (\abstractenergies \cup \set{\bot}) \to (\abstractenergies \cup \set{\bot})$ with $\abstractupdateinv(g, g')(e') = \inf \set{e \mid e' \leq_\bot \abstractupdate(g, g')(e)}$.
+That means, we assume that there is a Galois connection $(\abstractupdateinv, \abstractupdate)$ on energy vectors.
+
+@alg-deciding-energy-games can be used to compute the minimal attacker winning budgets.
 
 ::: {#alg-deciding-energy-games}
 
@@ -638,10 +654,29 @@ Algorithm determining the minimal attacker winning budgets $\attackerwinsmin$ of
 :::
 
 The algorithm can be understood as a generalization of @alg-deciding-games, but as positions can be updated more than once, we have to depart from the option counting trick.
+Whenever we learn about a new minimal energy for the attacker to win, we schedule a position to be (re-)visited.
+The chain-reaction starts at defender positions with no outgoing moves.
+
+TODO: Add illustrations how attacker winning budgets are combined at attacker position, and how they are intersected at defender positions.
 
 ### Complexity
 
+TODO: Write in accordance with @lemke2024multiweightedEnergyGames.
+
 ### Solving Declining Energy Games
+
+::: {#def-declining-upd-inv}
+The undo-update function $\energyupdateinv$ is defined
+$$\energyupdateinv(e', u) := \sup( \set{e} \cup \set{m(i) \mid \exists D. u_i = \mathtt{min}_D} )$$
+with $e_i = \begin{cases}
+  e'_i - u_i  & \text{if } u_i \in \set{0, -1}\\
+  e'_i        & \text{otherwise}
+\end{cases}$ for all $i$ and<br>
+with $(m(i))_j = \begin{cases}
+  e'_i        & \text{for } u_i = \mathtt{min}_D \text{ and } j \in D \\
+  0           & \text{otherwise}
+\end{cases}$ for all $i,j$.
+:::
 
 ## Discussion
 

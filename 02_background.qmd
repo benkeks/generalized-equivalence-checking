@@ -880,8 +880,18 @@ If the count of a predecessor position hits 0, the defender also loses from ther
 
 Once we run out of $\literal{todo}$ positions, we know that the attacker has winning strategies exactly for each position we have visited.
 
-The inner loop clearly can run at most $\relsize{\gamemoveblank}$-many times.
-Using sufficiently clever data structures, @alg-deciding-games shows:
+The following @tbl-game-example-execution lists how @alg-deciding-games computes the winning region $\attackerwins = \set{[\literal{2a}], (\literal{3})}$ of the game of @exm-game-formulas.
+
+| $\literal{g}$ | $\literal{defender\_options}$ | $\literal{todo}$ |
+|-------|------|------|
+|   -    |  $(\literal{1}) \mapsto 2$, $(\literal{3}) \mapsto 0$ | $(\literal{3})$  |
+| $(\literal{3})$ | $(\literal{1}) \mapsto 2$, $(\literal{3}) \mapsto 0$ | $[\literal{2a}]$  |
+| $[\literal{2a}]$ | $(\literal{1}) \mapsto 1$, $(\literal{3}) \mapsto 0$ | $\varnothing$ |
+
+: Solving the game of @exm-game-formulas {#tbl-game-example-execution}
+
+The inner loop of @alg-deciding-games clearly can run at most $\relsize{\gamemoveblank}$-many times.
+Using sufficiently clever data structures, the algorithm thus shows:
 
 ::: {#prp-reachability-game-complexity}
 Given a finite reachability game $\game=(G,G_\defender,\gamemoveblank)$,

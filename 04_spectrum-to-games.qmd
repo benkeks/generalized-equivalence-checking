@@ -88,10 +88,11 @@ $$
 
   \path
     (Att_1)
-      edge[bend left = 10] node {$+2,-1$} (Att_2)
+      edge[bend left = 10] node {$0,0$} (Att_2)
       edge[bend right = 10, swap] node {$-1,0$} (Att_3)
+      edge[bend left = 5] node {$-2,-1$} (Dfn_4)
     (Att_2)
-      edge[bend left = 10] node {$0,0$} (Dfn_4)
+      edge[bend left = 10] node {$+2,-1$} (Dfn_4)
     (Att_3)
       edge[bend right = 10, swap] node {$0,0$} (Dfn_4)
     (Dfn_4)
@@ -109,11 +110,13 @@ Simple energy game of @exm-simple-energy-game.
 Can the attacker win from $\literal{g_1}$ with energy $(0,0)$?
 
 ::: spoiler
-No, as both outgoing moves would lead to $⊥$-energy and thus to the defender winning.
+No, as all outgoing paths would lead to $⊥$-energy and thus to the defender winning.
 
 But if the attacker starts with budget $(0,2)$, they can take the upper path to $\literal{g_4}$ with energy $(2,1)$, from where both defender options lead to the defender being stuck in $\literal{g_6}$.
 
 Also, if the attacker starts with $(2,1)$, they win through the lower $\literal{g_3}$-path.
+
+Moving to $\literal{g_4}$ directly, would be more expensive than the  $\literal{g_2}$/$\literal{g_3}$-alternatives---so we can disregard this option.
 
 Starting with less energy means that the defender has an option of bankrupting the attacker at $\literal{g_4}$.
 
@@ -617,8 +620,8 @@ This justifies why, in the following, we overload the notation for inversion to 
 
 ### The Algorithm
 
-To implement a back-propagation algorithm, we have to assume that we know a function that undoes energy updates, $\abstractupdateinv \colon (\gamemoveblank) \to (\abstractenergies \cup \set{\bot}) \to (\abstractenergies \cup \set{\bot})$ with $\abstractupdateinv(g, g')(e') = \inf \set{e \mid e' \leq_\bot \abstractupdate(g, g')(e)}$.
-That means, we assume that there is a Galois connection $(\abstractupdateinv, \abstractupdate)$ on energy vectors.
+To implement a back-propagation algorithm, we have to assume that we know a function that undoes energy updates, $\abstractupdateinv \colon (\gamemoveblank) \to \abstractenergies \to \abstractenergies$ with $\abstractupdateinv(g, g')(e') = \inf \set{e \mid e' \leq \abstractupdate(g, g')(e)}$.
+That means, we assume that there is a Galois connection $(\abstractupdateinv, \abstractupdate)$ between energies $\abstractenergies$ and the domain of updates $\set{e \in \abstractenergies \mid \abstractupdate(e) \neq \bot}$.
 
 @alg-deciding-energy-games can be used to compute the minimal attacker winning budgets.
 
@@ -626,26 +629,26 @@ That means, we assume that there is a Galois connection $(\abstractupdateinv, \a
 
 $$
 \begin{array}{l}
-  \kw{def} \literal{compute\_winning\_budgets}(\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate), \abstractupdateinv) \colon \\
-  \quad \literal{attacker\_win} := [ g \mapsto \varnothing \mid g\in G ] \\
-  \quad \literal{todo} := \set{g\in G_\defender \mid g \ngamemoveblank} \\
-  \quad \kw{while} \literal{todo} \neq \varnothing \colon \\
-  \quad \quad \literal{g} := \kw{some} \literal{todo} \\
-  \quad \quad \literal{todo} := \literal{todo} \setminus \set{\literal{g}} \\
-  \quad \quad \kw{if} \literal{g} \in G_\attacker \colon \\
-  \quad \quad \quad \literal{new\_attacker\_win} :=
-        \Min( \set{\abstractupdateinv(\literal{g}, g')(\mathit{e'}) \\
-  \quad \quad \quad \quad \mid {\literal{g} \gamemoveblank g'} \land \mathit{e'} \in \literal{attacker\_win}[g']}) \\
+  \kw{def} \variable{compute\_winning\_budgets}(\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate), \abstractupdateinv) \colon \\
+  \quad \variable{attacker\_win} := [ g \mapsto \varnothing \mid g\in G ] \\
+  \quad \variable{todo} := \set{g\in G_\defender \mid g \ngamemoveblank} \\
+  \quad \kw{while} \variable{todo} \neq \varnothing \colon \\
+  \quad \quad \variable{g} := \kw{some} \variable{todo} \\
+  \quad \quad \variable{todo} := \variable{todo} \setminus \set{\variable{g}} \\
+  \quad \quad \kw{if} \variable{g} \in G_\attacker \colon \\
+  \quad \quad \quad \variable{new\_attacker\_win} :=
+        \Min( \set{\abstractupdateinv(\variable{g}, g')(\mathit{e'}) \\
+  \quad \quad \quad \quad \mid {\variable{g} \gamemoveblank g'} \land \mathit{e'} \in \variable{attacker\_win}[g']}) \\
   \quad \quad \kw{else \colon} \\
-  \quad \quad \quad \literal{new\_attacker\_win} := \set{\bot} \\
-  \quad \quad \quad \kw{for} \literal{g'} \in (\literal{g} \gamemoveblank \cdot) \colon \\
-  \quad \quad \quad \quad \literal{new\_attacker\_win} :=
-        \Min( \set{ \sup(e_\attacker, \abstractupdateinv(\literal{g}, g')(\mathit{e'})) \mid \\
-  \quad \quad \quad \qquad e_\attacker \in \literal{new\_attacker\_win} \land
-        {\literal{g} \gamemoveblank g'} \land \mathit{e'} \in \literal{attacker\_win}[g']} ) \\
-  \quad \quad \kw{if} \literal{new\_attacker\_win} \neq \literal{attacker\_win}[\literal{g}] \colon \\
-  \quad \quad \quad \literal{todo} := \literal{todo} \cup (\cdot \gamemoveblank \literal{g}) \\
-  \quad \attackerwinsmin := \literal{attacker\_win} \\
+  \quad \quad \quad \variable{new\_attacker\_win} := \set{\zerovec} \\
+  \quad \quad \quad \kw{for} \variable{g'} \in (\variable{g} \gamemoveblank \cdot) \colon \\
+  \quad \quad \quad \quad \variable{new\_attacker\_win} :=
+        \Min( \set{ \sup(e_\attacker, \abstractupdateinv(\variable{g}, g')(\mathit{e'})) \mid \\
+  \quad \quad \quad \qquad e_\attacker \in \variable{new\_attacker\_win} \land
+        {\variable{g} \gamemoveblank g'} \land \mathit{e'} \in \variable{attacker\_win}[g']} ) \\
+  \quad \quad \kw{if} \variable{new\_attacker\_win} \neq \variable{attacker\_win}[\variable{g}] \colon \\
+  \quad \quad \quad \variable{todo} := \variable{todo} \cup (\cdot \gamemoveblank \variable{g}) \\
+  \quad \attackerwinsmin := \variable{attacker\_win} \\
   \quad \kw{return} \attackerwinsmin \\
 \end{array}
 $$
@@ -656,8 +659,136 @@ Algorithm determining the minimal attacker winning budgets $\attackerwinsmin$ of
 The algorithm can be understood as a generalization of @alg-deciding-games, but as positions can be updated more than once, we have to depart from the option counting trick.
 Whenever we learn about a new minimal energy for the attacker to win, we schedule a position to be (re-)visited.
 The chain-reaction starts at defender positions with no outgoing moves.
+By $\zerovec$, we denote the minimal element of the energy system $\abstractenergies$.
 
-TODO: Add illustrations how attacker winning budgets are combined at attacker position, and how they are intersected at defender positions.
+We illustrate the algorithm by running it on the simple energy game of @exm-simple-energy-game.
+
+::: {#exm-simple-energy-game-execution}
+
+Let us execute @alg-deciding-energy-games on the $\nats^2$-game of @exm-simple-energy-game.
+The game graph, labeled by the minimal attacker winning energies we find, is reproduced in @fig-simple-energy-game-wins.
+
+::: {#fig-simple-energy-game-wins}
+```tikz
+\begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
+  posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
+  defender/.style={ellipse, inner sep=0ex}]
+
+  \node[posStyle, initial, initial text={}, label={100:$(0,2),(2,1)$}]
+    (Att_1){$\literal{g_1}$};
+  \node[posStyle, label={100:$(0,2)$}]
+    (Att_2) [above right = .5cm and 1cm of Att_1] {$\literal{g_2}$};
+  \node[posStyle, label={100:$(1,1)$}]
+    (Att_3) [below right = .5cm and 1cm of Att_1] {$\literal{g_3}$};
+  \node[posStyle, defender, label={10:$(1,1)$}]
+    (Dfn_4) [right = 4cm of Att_1] {$\literal{g_4}$};
+  \node[posStyle, label={100:$(0,1)$}]
+    (Att_5) [right = 4cm of Att_2] {$\literal{g_5}$};
+  \node[posStyle, defender, label={100:$(0,0)$}]
+    (Dfn_6) [right = 4cm of Att_3] {$\literal{g_6}$};
+
+  \path
+    (Att_1)
+      edge[bend left = 10] node {$0,0$} (Att_2)
+      edge[bend right = 10, swap] node {$-1,0$} (Att_3)
+      edge[bend left = 5] node {$-2,-1$} (Dfn_4)
+    (Att_2)
+      edge[bend left = 10] node {$+2,-1$} (Dfn_4)
+    (Att_3)
+      edge[bend right = 10, swap] node {$0,0$} (Dfn_4)
+    (Dfn_4)
+      edge[bend left = 10] node {$0,0$} (Att_5)
+      edge[bend right = 10, swap] node {$-1,0$} (Dfn_6)
+    (Att_5)
+      edge[bend left = 10] node {$0,-1$} (Dfn_6)
+  ;
+\end{tikzpicture}
+```
+
+Computed winning budgets $\attackerwinsmin$ on the game in @exm-simple-energy-game-execution.
+:::
+
+What we need for the algorithm to run, is some undo function $\abstractupdateinv \colon (\gamemoveblank) \to \abstractenergies \to \abstractenergies$.
+We define it as:
+
+$$\abstractupdateinv(e') := \sup(e - \vec{u}, \zerovec)$$
+
+We list the steps of the computation in @exm-simple-energy-game-execution, and the mechanics behind them below.
+
+| step | $\variable{g}$ | $\variable{new\_attacker\_win}$ | $\variable{todo}$ |
+|-----:|-------|------|:------|
+|    0 |   --    |  $\literal{g}_i \mapsto \varnothing$ | $\literal{g_6}$  |
+|    1 | $\literal{g_6}$ | $\set{(0,0)}$ | $\literal{g_4}, \literal{g_5}$  |
+|    2 | $\literal{g_4}$ | $\varnothing$ | $\literal{g_5}$  |
+|    3 | $\literal{g_5}$ | $\set{(0,1)}$ | $\literal{g_4}$  |
+|    4 | $\literal{g_4}$ | $\set{(1,1)}$ | $\literal{g_1}, \literal{g_2}, \literal{g_3}$  |
+|    5 | $\literal{g_1}$ | $\set{(3,2)}$ | $\literal{g_2}, \literal{g_3}$  |
+|    6 | $\literal{g_2}$ | $\set{(0,2)}$ | $\literal{g_3}, \literal{g_1}$  |
+|    7 | $\literal{g_3}$ | $\set{(1,1)}$ | $\literal{g_1}$  |
+|    8 | $\literal{g_1}$ | $\set{(0,2), (2,1)}$ | $\varnothing$  |
+
+: Steps while solving the game in @exm-simple-energy-game-execution. {#tbl-simple-energy-game-execution}
+
+::: {#fig-game-defender-intersection .column-margin}
+```tikz
+\begin{tikzpicture}[]
+  \begin{scope}[rotate=45, scale=1]
+    \draw[help lines] (0,0) grid (3.5,3.5);
+    \draw[opacity=0.9, text opacity=.8] (0,3.7) -- (0,1) node[below left] {$\literal{g_5}: (0,1)$} -- (3.7,1);
+    \draw[opacity=0.9, text opacity=.8] (1,3.7) -- (1,0) node[below right] {$(1,0)$} -- (3.7,0);
+    \path[thick, blue, opacity=0.9, ->] (0,0) edge node[left=-.1] {$\mathit{upd}^{-1}$} (1,0);
+    \node[label=270:{$\literal{g_6}: (0,0)$}] at (0,0) {};
+    \draw[thick, red, dashed, opacity=0.9, text opacity=.8] (1,3.7) -- (1,1) node[above=.5] {$(1,1)$} -- (3.7,1);
+  \end{scope}
+\end{tikzpicture}
+```
+
+Combination of successor Pareto fronts at defender position $\literal{g_4}$ in step 4.
+:::
+
+::: {#fig-game-attacker-intersection .column-margin}
+```tikz
+\begin{tikzpicture}[]
+  \begin{scope}[rotate=45, scale=1]
+    \draw[help lines] (0,0) grid (3.5,3.5);
+    \draw[opacity=0.9, text opacity=.8] (0,3.7) -- (0,2) node[below left] {$\literal{g_2}$} -- (3.7,2);
+    \draw[opacity=0.9, text opacity=.8] (2,3.7) -- (2,1) node[below right] {} -- (3.7,1);
+    \draw[opacity=0.9, text opacity=.8] (3,3.7) -- (3,2) node[below right] {$(3,2)$} -- (3.7,2);
+    \path[thick, blue, opacity=0.9, ->] (1,1) edge node[left=-.1] {$\mathit{upd}^{-1}$} (2,1);
+    \path[thick, blue, opacity=0.9, ->, bend right=30] (1,1) edge node {} (3,2);
+    \node [label=270:{$\literal{g_3,4}: (1,1)$}] at (1,1) {};
+    %\draw[thick, red, dashed, opacity=0.9, text opacity=.8] (1,3.7) -- (1,1) node[above=.5] {$(1,1)$} -- (3.7,1);
+    \draw[thick, red, dashed, opacity=0.9, text opacity=.8] (0,3.7) -- (0,2) node[above=.3] {$(0,2)$} -- (2,2) -- (2,1) node[below right] {$(2,1)$} -- (3.7,1);
+  \end{scope}
+\end{tikzpicture}
+```
+
+Combination of successor Pareto fronts at attacker position $\literal{g_1}$ in step 8.
+:::
+
+0. The algorithm begins with $\literal{g_6}$ in the $\variable{todo}$-set as this is the only position where the defender is stuck.
+1. Updating the defender node $\literal{g_6} \in G_\defender$, we set it its minimal attacker-winning budget to $\zerovec$.
+  This means that the attacker wins here with any budget.
+  As there has been a change, both predecessors $\literal{g_4}$ and $\literal{g_5}$ are added to the $\variable{todo}$.
+  (Their order is undefined; for the sake of the simulation we will always pick the first positions from the $\variable{todo}$.)
+2. Updating $\literal{g_4} \in G_\defender$ finds no attacker wins so far because one successor $\variable{attacker\_win}[\literal{g_5}] = \varnothing$.
+3. $\literal{g_4} \in G_\attacker$ is updated with the $\abstractupdateinv((0, -1))((0,0)) = \sup((0,0) - (0,-1), \zerovec) = (0,1)$.
+  This places $\literal{g_4}$ in $\variable{todo}$ again.
+4. Now, we can find attacker winning budgets for $\literal{g_4} \in G_\defender$:
+  The two successor options (after undo-update) are $(0,1)$ and $(1,0)$, as depicted in @fig-game-defender-intersection.
+  The unless the attacker at least arrives with energy $\sup((0,1), (1,0)) = (1,1)$, the defender has a way of winning.
+  Effectively, this amounts to intersecting attacker winning budgets of possible successor positions.
+5. For $\literal{g_1} \in G_\attacker$, it suffices to know a winning budget for one successor.
+   So we determine as a preliminary winning budget $\abstractupdateinv((-2, -1))((1,1)) = (3,2)$.
+6. $\literal{g_2} \in G_\attacker$ also derives its winning budget from $(1,1)$.
+  But $(1,1) - (2,-1) = (-1,2)$ would be outside the possible energy levels the attacker could carry here and is thus $\sup$-ed into $\nats^2$, yielding new win $(0,2)$.
+7. $\literal{g_3} \in G_\attacker$ just propagates $(1,1)$ from $\literal{g_4}$.
+8. Revisiting $\literal{g_1} \in G_\attacker$, we can now combine the three Pareto-fronts of its successors as illustrated in @fig-game-attacker-intersection as $\Min \set{(0,2), (2,1), (3,4)} = \set{(0,2), (2,1)}$.
+  This operation corresponds to taking the union of the three sets of attacker winning budgets.
+  The previous minimal budget $(3,4)$ of step&nbsp;5 is thus superseded.
+  As $\variable{todo}$ is empty, the algorithm terminates.
+:::
+
 
 ### Complexity
 

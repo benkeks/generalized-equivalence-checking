@@ -77,6 +77,7 @@
 \providecommand{\semanticsobs}[1]{\semantics{#1}^👁}
 \providecommand{\difference}[2]{\Delta(#1,#2)}
 \providecommand{\literal}[1]{\mathsf{#1}}
+\providecommand{\variable}[1]{\mathtt{#1}}
 \providecommand{\kw}[1]{\operatorname{\mathbf{#1}}\;}
 
 \lc{ Relations }

@@ -976,9 +976,34 @@ Consider $\literal{p_{even}} \beq{B} \literal{p_{odd}}$ of @exm-graph-isomorphis
 The bisimulation game on this system is given by @fig-bisim-game-even-odd:
 
 :::: {#fig-bisim-game-even-odd}
-  ```{mermaid}
-  flowchart TD
-    eo["p<sub>even</sub>, p<sub>odd</sub>"] -->|challenge| too(["τ, p<sub>odd</sub>, p<sub>odd</sub>"]) -->|answer| oe["p<sub>odd</sub>, p<sub>even</sub>"] -->|challenge| tee(["τ, p<sub>even</sub>, p<sub>even</sub>"]) -->|answer| eo -->|swap| oe -->|swap| eo
+  ```tikz
+  \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=4cm,
+    posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
+    defender/.style={ellipse, inner sep=0ex},
+    defWins/.style={fill=blue!5}]
+
+    \node[posStyle, initial, initial text={}]
+      (Att_EO){$[\literal{p_{even}}, \literal{p_{odd}}]$};
+    \node[posStyle, defender]
+      (Dfn_tOO) [below left of=Att_EO] {$(\tau, \literal{p_{odd}}, \literal{p_{odd}})$};
+    \node[posStyle, defender]
+      (Dfn_tEE) [below right of=Att_EO] {$(\tau, \literal{p_{even}}, \literal{p_{even}})$};
+    \node[posStyle]
+      (Att_OE) [below right of=Dfn_tOO] {$[\literal{p_{odd}}, \literal{p_{even}}]$};
+
+    \path
+      (Att_EO)
+        edge[bend left = 10] node {swap} (Att_OE)
+        edge[bend right = 10, swap] node {challenge} (Dfn_tOO)
+      (Att_OE)
+        edge[bend left = 10] node {swap} (Att_EO)
+        edge[bend right = 10, swap] node {challenge} (Dfn_tEE)
+      (Dfn_tOO)
+        edge[bend right = 10, swap] node {answer\vphantom{lg}} (Att_OE)
+      (Dfn_tEE)
+        edge[bend right = 10, swap] node {answer\vphantom{lg}} (Att_EO)
+    ;
+  \end{tikzpicture}
   ```
   Bisimulation game under $\literal{p_{even}}, \literal{p_{odd}}$.
   Moves are annotated with the game rules from which they derive.
@@ -1206,7 +1231,7 @@ Also, $φ_{\rel f}([p,q]) ∈ \observations{\floor{B}}$.
 ::: proof
 1. The given construction is well-defined as $\rel f$ must induce a well-founded order on game positions in order to be attacker-winning.
 2. The distinction can be derived by induction on the construction of $φ_{\rel f}([p,q])$.
-   TODO
+   TODO \qedhere
 :::
 
 ::: {#lem-formulas-imply-attack}

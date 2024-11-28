@@ -613,7 +613,7 @@ Because of injectivity and monotonicity, $f$ and $f^{-1}$, must be (strictly) mo
 Together with the definition of function inversion, we can reason
 $$f(c) \leq_A a \implies f^{-1}(f(c)) \leq_A f^{-1}(a) \implies c \leq_C f^{-1}(a)$$
 and
-$$c \leq_C f^{-1}(a) \implies f(c) \leq_A f(f^{-1}(a)) \implies f(c) \leq_A a.$$
+$$c \leq_C f^{-1}(a) \implies f(c) \leq_A f(f^{-1}(a)) \implies f(c) \leq_A a.$$\qedhere
 :::
 
 This justifies why, in the following, we overload the notation for inversion to refer to adjoint functions that we use to undo energy updates.
@@ -716,8 +716,8 @@ $$\abstractupdateinv(e') := \sup(e - \vec{u}, \zerovec)$$
 We list the steps of the computation in @exm-simple-energy-game-execution, and the mechanics behind them below.
 
 | step | $\variable{g}$ | $\variable{new\_attacker\_win}$ | $\variable{todo}$ |
-|-----:|-------|------|:------|
-|    0 |   --    |  $\literal{g}_i \mapsto \varnothing$ | $\literal{g_6}$  |
+|-----:|------|---------------------------------|:------------------|
+|    0 |   --            |  $\literal{g}_i \mapsto \varnothing$ | $\literal{g_6}$  |
 |    1 | $\literal{g_6}$ | $\set{(0,0)}$ | $\literal{g_4}, \literal{g_5}$  |
 |    2 | $\literal{g_4}$ | $\varnothing$ | $\literal{g_5}$  |
 |    3 | $\literal{g_5}$ | $\set{(0,1)}$ | $\literal{g_4}$  |

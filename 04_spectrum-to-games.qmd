@@ -202,17 +202,17 @@ The set of *energy update labels*, $\energyupdates$, contains $\vectorcomponents
 - $u_k \in \set{-1, 0}$ (relative update), or
 - $u_k = \mathtt{min}_D$ where $D \subseteq \{1, \ldots, N\}$ and $k \in D$ (minimum selection update).
 
-{{<noindent>}} Applying an update to an energy, $\energyupdate(e, u)$, where $e = \vectorcomponents[N]{e} \in \energies$ and $u = \vectorcomponents[N]{u} \in \energyupdates$, yields a new energy vector $e'$ where $k$th components $e'_k ≔ e_k + u_k$ for $u_k \in \ints$ and $e'_k ≔ \min_{d\in D} e_d$ for $u_k = \mathtt{min}_D$.
+{{<noindent>}} Applying an update to an energy, $\energyupdate(u, e)$, where $e = \vectorcomponents[N]{e} \in \energies$ and $u = \vectorcomponents[N]{u} \in \energyupdates$, yields a new energy vector $e'$ where $k$th components $e'_k ≔ e_k + u_k$ for $u_k \in \ints$ and $e'_k ≔ \min_{d\in D} e_d$ for $u_k = \mathtt{min}_D$.
 Updates that would cause any component to become negative yield $\bot$.
 :::
 
 ::: {#exm-energy-update}
 Consider the update label $(\updmin{1,2},0,-1)$.
 
-- $\energyupdate((1,1,0), (\updmin{1,2},0,-1))$ equals $\bot$ because of the last component.
-- $\energyupdate((2,1,1), (\updmin{1,2},0,-1))$ equals $(1,1,0)$.
-- $\energyupdate((1,1,1), (\updmin{1,2},0,-1))$ equals $(1,1,0)$, as well.
-- There is no $e \in \energies$ such that $\energyupdate(e, (\updmin{1,2},0,-1)) = (1,0,0)$, because the second component would demand a lower first component.
+- $\energyupdate((\updmin{1,2},0,-1), (1,1,0))$ equals $\bot$ because of the last component.
+- $\energyupdate((\updmin{1,2},0,-1), (2,1,1))$ equals $(1,1,0)$.
+- $\energyupdate((\updmin{1,2},0,-1), (1,1,1))$ equals $(1,1,0)$, as well.
+- There is no $e \in \energies$ such that $\energyupdate((\updmin{1,2},0,-1), e) = (1,0,0)$, because the second component would demand a lower first component.
 
 In summary, $\energyupdate((\updmin{1,2},0,-1), \cdot)$ is neither injective nor surjective with respect to $\energies$.
 The same is true for most other $u$ and $\energyupdate(u, \cdot)$ with a $\mathtt{min}$-update component.
@@ -263,6 +263,21 @@ $$
 and the family of strong observation languages
 $$\observationsvar{(N_1, N_2, N_3) \in \notions^\literal{poly-strong}}^\literal{poly-strong} ≔ \observationsvar{(N_1,∞,∞,∞,N_2,N_3)}^\literal{strong}.$$
 :::
+
+In effect, $\observationsvar{N \in \notions^\literal{poly-strong}}$ can be characterized by $φ^N$ in the following grammar:
+
+$$
+\begin{array}{rcll}
+  φ^N & \grammardef & \hmltrue{} & \\
+      & \grammaror  & \hmlobs{α}φ^{N - \unit{1}} & \\
+      & \grammaror  & \hmlands\set{ψ^N, ψ^N, ψ^N \ldots} & \\
+  ψ^N & \grammardef &
+      \hmlobs{α}φ^{N - \unit{1}} & \\
+      & \grammaror  &
+      \hmlneg \hmlobs{α}φ^{(N \sqcap (N_2, \infty, \infty))- \unit{1} - \unit{3}} & \\
+\end{array}
+$$
+
 
 @fig-polynomial-strong-spectrum gives names to coordinates that correspond to notions discussed previously.
 
@@ -463,6 +478,15 @@ $$
   (\hmlneg \varphi) \in \strat_\notionname{B}([p, q], e)
 }
 $$
+$$
+\dfrac{
+  [p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p] \quad
+  e' = \energyupdate((\updmin{1,2},0,-1), e) \in \attackerwins^{\game_\notionname{B}^🗲}([q, p]) \quad
+  (\hmlneg \varphi) \in \strat_\notionname{B}([q, p], e')
+}{
+  \varphi \in \strat_\notionname{B}([p, q], e)
+}
+$$
 :::
 
 {{<noindent>}} Effectively, this definition generalizes the construction of distinguishing formulas on ${\game}_\notionname{B}$ we introduced in @lem-attacks-imply-formulas.
@@ -470,10 +494,31 @@ So the formulas we encountered before also serve as examples of such strategy fo
 
 ::: {#lem-bisim-energy-game-soundness}
 If $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
-then there is $\varphi \in \strat([p, q], e)$ with $\varphi \in \observationsvar{e}^\literal{poly-strong}$, $p \in \semantics{\varphi}$ and $q \notin \semantics{\varphi}$.
+then there is $\varphi \in \strat_\notionname{B}([p, q], e)$ with $\varphi \in \observationsvar{e}^\literal{poly-strong}$, $p \in \semantics{\varphi}$ and $q \notin \semantics{\varphi}$.
 :::
 ::: proof
-TODO
+We prove the following, more general property by induction on the inductive characterizations of attacker winning budgets @prp-winning-budget-rules.
+
+1. If $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
+then there is $\psi \in \strat_\notionname{B}([p, q], e)$ of form $\psi = \hmlobs{α}\varphi'$ or $\hmlneg\hmlobs{α}\varphi'$ with $\hmlands\set{\psi} \in \observationsvar{e}^\literal{poly-strong}$, $p \in \semantics{\psi}$ and $q \notin \semantics{\psi}$.
+2. If $e \in \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$,
+then there is $\varphi \in \strat_\notionname{B}((α, p', q), e)$ of form $\varphi = \hmlands \Psi$ with $\varphi \in \observationsvar{e}^\literal{poly-strong}$, $p' \in \semantics{\varphi}$ and $q \notin \semantics{\hmlobs{α}\varphi}$.
+
+Proof.
+
+1. Assume $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
+  This must be due to one of the following moves:
+    - Case $[p, q] \gamemoveblank^🗲_\notionname{B} [q, p]$ with $e' = \energyupdate((\updmin{1,2},0,-1), e) \in \attackerwins^{\game_\notionname{B}^🗲}$.
+      By induction hypothesis, there is $\psi \in \strat_\notionname{B}([q, p], e')$ with $\hmlands\set{\psi} \in \observationsvar{e'}^\literal{poly-strong}$, $q \in \semantics{\psi}$ and $p \notin \semantics{\psi}$.
+      Consider the possible forms of $\psi$:
+        - $\psi = \hmlobs{α}\varphi'$.
+          By @def-strategy-formulas-poly of $\strat_\notionname{B}$, we obtain $\hmlneg\hmlobs{α}\varphi' \in \strat_\notionname{B}([p, q], e)$.
+          Because of the semantics of $\hml$, $\hmlneg\hmlobs{α}\varphi'$ must distinguish $p$ from $q$.
+          **TODO: Continue proof**
+        - $\psi = \hmlneg\hmlobs{α}\varphi'$
+      
+      
+
 :::
 
 ::: {#lem-bisim-energy-game-completeness}
@@ -798,7 +843,7 @@ TODO: Write in accordance with @lemke2024multiweightedEnergyGames.
 
 ::: {#def-declining-upd-inv}
 The undo-update function $\energyupdateinv$ is defined
-$$\energyupdateinv(e', u) := \sup( \set{e} \cup \set{m(i) \mid \exists D. u_i = \mathtt{min}_D} )$$
+$$\energyupdateinv(u, e') := \sup( \set{e} \cup \set{m(i) \mid \exists D. u_i = \mathtt{min}_D} )$$
 with $e_i = \begin{cases}
   e'_i - u_i  & \text{if } u_i \in \set{0, -1}\\
   e'_i        & \text{otherwise}

@@ -473,18 +473,9 @@ $$
 \dfrac{
   [p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p] \quad
   e' = \energyupdate((\updmin{1,2},0,-1), e) \in \attackerwins^{\game_\notionname{B}^🗲}([q, p]) \quad
-  \varphi \in \strat_\notionname{B}([q, p], e')
+  \hmlobs{α} \varphi \in \strat_\notionname{B}([q, p], e')
 }{
-  (\hmlneg \varphi) \in \strat_\notionname{B}([p, q], e)
-}
-$$
-$$
-\dfrac{
-  [p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p] \quad
-  e' = \energyupdate((\updmin{1,2},0,-1), e) \in \attackerwins^{\game_\notionname{B}^🗲}([q, p]) \quad
-  (\hmlneg \varphi) \in \strat_\notionname{B}([q, p], e')
-}{
-  \varphi \in \strat_\notionname{B}([p, q], e)
+  (\hmlneg  \hmlobs{α} \varphi) \in \strat_\notionname{B}([p, q], e)
 }
 $$
 :::
@@ -508,17 +499,27 @@ Proof.
 
 1. Assume $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
   This must be due to one of the following moves:
-    - Case $[p, q] \gamemoveblank^🗲_\notionname{B} [q, p]$ with $e' = \energyupdate((\updmin{1,2},0,-1), e) \in \attackerwins^{\game_\notionname{B}^🗲}$.
-      By induction hypothesis, there is $\psi \in \strat_\notionname{B}([q, p], e')$ with $\hmlands\set{\psi} \in \observationsvar{e'}^\literal{poly-strong}$, $q \in \semantics{\psi}$ and $p \notin \semantics{\psi}$.
+    - Case $[p, q] \gamemoveblank^🗲_\notionname{B} [q, p]$ with $e' = \energyupdate((\updmin{1,2},0,-1), e) \in \attackerwins^{\game_\notionname{B}^🗲}([q, p])$.
+      By induction hypothesis on $[q, p]$, there is $\psi \in \strat_\notionname{B}([q, p], e')$ with $\hmlands\set{\psi} \in \observationsvar{e'}^\literal{poly-strong}$, $q \in \semantics{\psi}$ and $p \notin \semantics{\psi}$.
       Consider the possible forms of $\psi$:
         - $\psi = \hmlobs{α}\varphi'$.
           By @def-strategy-formulas-poly of $\strat_\notionname{B}$, we obtain $\hmlneg\hmlobs{α}\varphi' \in \strat_\notionname{B}([p, q], e)$.
           Because of the semantics of $\hml$, $\hmlneg\hmlobs{α}\varphi'$ must distinguish $p$ from $q$.
-          **TODO: Continue proof**
-        - $\psi = \hmlneg\hmlobs{α}\varphi'$
-      
-      
-
+          Also, $\hmlands\set{\hmlneg\hmlobs{α}\varphi'} \in \observationsvar{e}^\literal{poly-strong}$, by the calculations of the grammar in @def-polynomial-strong-spectrum.
+        - $\psi = \hmlneg\hmlobs{α}\varphi'$.
+          This can only be in $\strat_\notionname{B}([q, p], e')$ due to $\varphi'$ being in $\strat_\notionname{B}([p, q], \energyupdate((\updmin{1,2},0,-1), e'))$.
+          Clearly, $\varphi'$ must distinguish $p$ from $q$ and $\hmlands\set{\varphi'} \in \observationsvar{e}^\literal{poly-strong}$.
+    - Case $[p, q] \gamemoveblank^🗲_\notionname{B} (α, p', q)$ with $p \step{α} p'$ and $e' = \energyupdate((-1,0,0), e) \in \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
+      By induction hypothesis on $(α, p', q)$, there is $\hmlands \Psi \in \strat_\notionname{B}((α, p', q), e')$ and $\hmlands \Psi \in \observationsvar{e'}^\literal{poly-strong}$ with $p' \in \semantics{\hmlands \Psi}$ and $q \notin \semantics{\hmlobs{α}\hmlands \Psi}$.
+      By @def-strategy-formulas-poly, we obtain $\hmlobs{α}\hmlands \Psi \in \strat_\notionname{B}([p, q], e)$.
+      Due to the semantics of $\hml$ and $p \step{α} p'$, $p \in \semantics{\hmlobs{α}\hmlands \Psi}$, thus distinguishing $p$ from $q$.
+      Also, $\hmlobs{α}\hmlands \Psi \in \observationsvar{e}^\literal{poly-strong}$ as $\hmlands \Psi \in \observationsvar{e - \unit{1}}^\literal{poly-strong}$.
+2. Assume $e \in \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
+  This means that $e$ suffices for the attacker to win every $q'$-move $(α, p', q) \gamemoveblank^🗲_\notionname{B} [p', q']$ with $q \step{α} q'$ that the defender might take, with $e \in \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$.
+  For each $q'$, we employ the induction hypothesis to obtain $\psi_{q'} \in \strat_\notionname{B}([p', q'], e)$ of form $\psi_{q'} = \hmlobs{α}\varphi'$ or $\hmlneg\hmlobs{α}\varphi'$ with $\hmlands\set{\psi_{q'}} \in \observationsvar{e}^\literal{poly-strong}$, $p' \in \semantics{\psi_{q'}}$ and $q' \notin \semantics{\psi_{q'}}$.
+  By @def-strategy-formulas-poly, $(\hmland{q'}{\derivatives{q, α}} \psi_{q'}) \in \strat_\notionname{B}((α, p', q), e)$.
+  By the $\hml$-semantics, $(\hmland{q'}{\derivatives{q, α}} \psi_{q'})$ must be true for $p'$, and also taking the semantics of observation, $\hmlobs{α}(\hmland{q'}{\derivatives{q, α}} \psi_{q'})$ false for $q$.
+  Moreover, $(\hmland{q'}{\derivatives{q, α}} \psi_{q'}) \in \observationsvar{e}^\literal{poly-strong}$ by the grammar.\qedhere 
 :::
 
 ::: {#lem-bisim-energy-game-completeness}

@@ -21,7 +21,7 @@ To introduce energy games, we generalize the definitions on games (@def-game and
 ::: {#def-energy-game}
 #### Energy Reachability Game
 
-Given a partially ordered set of energies $(\abstractenergies, \leq)$, an *energy reachability game* $\game^🗲$ is a reachability game $(G, G_\defender, \gamemoveblank)$ extended by an edge labeling of energy updates $\abstractupdate \colon (\gamemoveblank) \to (\abstractenergies \to (\set{⊥} \cup \abstractenergies))$.
+Given a partially ordered set of energies $(\abstractenergies, \leq)$, an *energy reachability game* $\game^🗲$ is a reachability game $(G, G_\defender, \gamemoveblank)$ extended by an edge labeling of energy updates $\abstractupdate \colon (\gamemoveblank) \to (\abstractenergies \to (\set{⊥} ∪ \abstractenergies))$.
 
 We denote by $\game^🗲(g_0, e_0)$ the game played from starting position $g_0 ∈ G$ with initial energy level $e_0 ∈ \abstractenergies$.
 :::
@@ -38,7 +38,7 @@ For a finite play $ρ = {g_0}{g_1}…{g_{n-1}} ∈ G^{*}$ of $\game^🗲(g_0, e_
     ⊥  & \text{otherwise}
   \end{cases}$
 
-{{<noindent>}} For infinite plays $ρ \in G^ω$, we define energy levels to equal $⊥$.
+{{<noindent>}} For infinite plays $ρ ∈ G^ω$, we define energy levels to equal $⊥$.
 
 We consider the attacker to be energy-bound and understand $\energylevel(ρ) = ⊥$ to mean that they have run out of energy.
 Thus, we declare plays with $\energylevel(ρ) = ⊥$ to be won by the defender.
@@ -51,7 +51,7 @@ Instead of a winning region as in @def-winning-region, we define *winning budget
 ::: {#def-winning-budgets}
 #### Winning Budgets
 
-For each position $g_0 \in G$ of energy game $\game^🗲$, the *attacker winning energy budgets*, $\attackerwins(g_0) \subseteq \abstractenergies$ are the energies $e_0$ where the attacker wins $\game^🗲(g_0, e_0)$.
+For each position $g_0 ∈ G$ of energy game $\game^🗲$, the *attacker winning energy budgets*, $\attackerwins(g_0) \subseteq \abstractenergies$ are the energies $e_0$ where the attacker wins $\game^🗲(g_0, e_0)$.
 The defender winning budgets $\defenderwins$ are defined analogously.
 :::
 
@@ -59,7 +59,7 @@ Classical energy games use $\nats$-vectors for energies and vector addition for 
 
 ::: {#exm-simple-energy-game}
 Consider vector energies $\abstractenergies = \nats^2$ with point-wise order and the energy game with graph in @fig-simple-energy-game.
-Edges are labeled by update vectors $\vec{u} \in \ints^2$, each representing an update function
+Edges are labeled by update vectors $\vec{u} ∈ \ints^2$, each representing an update function
 $$e \mapsto
 \begin{cases}
   e + \vec{u} & \text{if } e + \vec{u} \geq \zerovec \\
@@ -150,20 +150,20 @@ We can notice two things from the example:
 Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game}$ are characterized inductively by the following rules:
 $$
 \dfrac{
-  g_\attacker \in G_\attacker \quad
+  g_\attacker ∈ G_\attacker \quad
   g_\attacker \gamemoveblank g' \quad
-  \abstractupdate(g_\attacker, g')(e) \in \attackerwins^{\game}(g')
+  \abstractupdate(g_\attacker, g')(e) ∈ \attackerwins^{\game}(g')
 } {
-  e \in \attackerwins^{\game}(g_\attacker)
+  e ∈ \attackerwins^{\game}(g_\attacker)
 }
 $$
 $$
 \dfrac{
-  g_\defender \in G_\defender \quad
+  g_\defender ∈ G_\defender \quad
   \forall u,g' \ldotp \; g_\defender \gamemoveblank g' \longrightarrow
-  \abstractupdate(g_\defender, g')(e) \in \attackerwins^{\game}(g')
+  \abstractupdate(g_\defender, g')(e) ∈ \attackerwins^{\game}(g')
 } {
-  e \in \attackerwins^{\game}(g_\defender)
+  e ∈ \attackerwins^{\game}(g_\defender)
 }
 $$
 :::
@@ -195,14 +195,14 @@ An $N$-dimensional declining energy game is played on energy vectors:
 ::: {#def-energy-updates}
 #### Energies and Energy Updates
 
-For dimensionality $N$, the set of *energies*, $\energies$, is given by $(\nats \cup \set{\infty})^N$.
+For dimensionality $N$, the set of *energies*, $\energies$, is given by $(\nats ∪ \set{\infty})^N$.
 
-The set of *energy update labels*, $\energyupdates$, contains $\vectorcomponents[N]{u} \in \energyupdates$ where each component $u_k$ is a symbol of the form
+The set of *energy update labels*, $\energyupdates$, contains $\vectorcomponents[N]{u} ∈ \energyupdates$ where each component $u_k$ is a symbol of the form
 
-- $u_k \in \set{-1, 0}$ (relative update), or
-- $u_k = \mathtt{min}_D$ where $D \subseteq \{1, \ldots, N\}$ and $k \in D$ (minimum selection update).
+- $u_k ∈ \set{-1, 0}$ (relative update), or
+- $u_k = \mathtt{min}_D$ where $D \subseteq \{1, \ldots, N\}$ and $k ∈ D$ (minimum selection update).
 
-{{<noindent>}} Applying an update to an energy, $\energyupdate(u, e)$, where $e = \vectorcomponents[N]{e} \in \energies$ and $u = \vectorcomponents[N]{u} \in \energyupdates$, yields a new energy vector $e'$ where $k$th components $e'_k ≔ e_k + u_k$ for $u_k \in \ints$ and $e'_k ≔ \min_{d\in D} e_d$ for $u_k = \mathtt{min}_D$.
+{{<noindent>}} Applying an update to an energy, $\energyupdate(u, e)$, where $e = \vectorcomponents[N]{e} ∈ \energies$ and $u = \vectorcomponents[N]{u} ∈ \energyupdates$, yields a new energy vector $e'$ where $k$th components $e'_k ≔ e_k + u_k$ for $u_k ∈ \ints$ and $e'_k ≔ \min_{d∈ D} e_d$ for $u_k = \mathtt{min}_D$.
 Updates that would cause any component to become negative yield $\bot$.
 :::
 
@@ -212,7 +212,7 @@ Consider the update label $(\updmin{1,2},0,-1)$.
 - $\energyupdate((\updmin{1,2},0,-1), (1,1,0))$ equals $\bot$ because of the last component.
 - $\energyupdate((\updmin{1,2},0,-1), (2,1,1))$ equals $(1,1,0)$.
 - $\energyupdate((\updmin{1,2},0,-1), (1,1,1))$ equals $(1,1,0)$, as well.
-- There is no $e \in \energies$ such that $\energyupdate((\updmin{1,2},0,-1), e) = (1,0,0)$, because the second component would demand a lower first component.
+- There is no $e ∈ \energies$ such that $\energyupdate((\updmin{1,2},0,-1), e) = (1,0,0)$, because the second component would demand a lower first component.
 
 In summary, $\energyupdate((\updmin{1,2},0,-1), \cdot)$ is neither injective nor surjective with respect to $\energies$.
 The same is true for most other $u$ and $\energyupdate(u, \cdot)$ with a $\mathtt{min}$-update component.
@@ -261,10 +261,10 @@ $$\notions^\literal{poly-strong} ≔
 \natsext^3,
 $$
 and the family of strong observation languages
-$$\observationsvar{(N_1, N_2, N_3) \in \notions^\literal{poly-strong}}^\literal{poly-strong} ≔ \observationsvar{(N_1,∞,∞,∞,N_2,N_3)}^\literal{strong}.$$
+$$\observationsvar{(N_1, N_2, N_3) ∈ \notions^\literal{poly-strong}}^\literal{poly-strong} ≔ \observationsvar{(N_1,∞,∞,∞,N_2,N_3)}^\literal{strong}.$$
 :::
 
-In effect, $\observationsvar{N \in \notions^\literal{poly-strong}}$ can be characterized by $φ^N$ in the following grammar:
+In effect, $\observationsvar{N ∈ \notions^\literal{poly-strong}}$ can be characterized by $φ^N$ in the following grammar:
 
 $$
 \begin{array}{rcll}
@@ -312,7 +312,7 @@ The characterized language is strictly more expressive, as it contains conjuncti
 
 Let us upgrade the bisimulation game of @def-bisim-game with energies.
 The claim is that the resulting game ${\game}_\notionname{B}^🗲$ will characterize all equivalences of the polynomial-time strong spectrum in the sense that
-$p \bpreordvar{\observationsvar{e}} q$ for $e \in \notions^\literal{poly-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $e$.
+$p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{poly-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $e$.
 
 As we have seen in Subsection [-@sec-bisim-game-hml], the game moves match the distinctive power of productions in the $\observations{\floor{B}}$-grammar of @exm-game-formulas.
 Consequently, we can *count* the use of HML constructs in the game.
@@ -432,7 +432,7 @@ Telling apart $\literal{Q'}$ from $\literal{Q}$ is slightly easier, only requiri
 But, due to the correspondence of the game to modal formulas and of the energy updates to the pricing of formulas in the spectrum, the attacker winning budgets tell us more:
 They reveal that one needs two observations and two (or more) negations to distinguish $\literal{Q}$ from $\literal{Q'}$ using formulas from $\observations{\floor{B}}$.
 
-Thus, $\notions^{\literal{poly-strong}}_{\literal{Q}, \literal{Q'}} = \set{N \in \notions^\literal{poly-strong} \mid N \nleq (2,2,2)}$ is the solution for the (polynomial-time strong) spectroscopy problem.
+Thus, $\notions^{\literal{poly-strong}}_{\literal{Q}, \literal{Q'}} = \set{N ∈ \notions^\literal{poly-strong} \mid N \nleq (2,2,2)}$ is the solution for the (polynomial-time strong) spectroscopy problem.
 $\literal{Q}$ is preordered to $\literal{Q'}$ by 2-nested simulation, 1-step bisimulation, and all notions below;
 but distinguished by all above, in particular, 3-nested simulation and 2-step bisimulation.
 
@@ -453,29 +453,29 @@ The set of *strategy formulas* for a game position $g$ and a budget $e$, $\strat
 $$
 \dfrac{
   [p, q] \gamemove{-1,0,0}^🗲_\notionname{B} (α, p', q) \quad
-  e' = \energyupdate((-1,0,0), e) \in \attackerwins^{\game_\notionname{B}^🗲}((α, p', q)) \quad
-  φ \in \strat_\notionname{B}((α, p', q), e')
+  e' = \energyupdate((-1,0,0), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q)) \quad
+  φ ∈ \strat_\notionname{B}((α, p', q), e')
 }{
-  (\hmlobs{α} φ) \in \strat_\notionname{B}([p, q], e)
+  (\hmlobs{α} φ) ∈ \strat_\notionname{B}([p, q], e)
 }
 $$
 $$
 \dfrac{
-  \forall q' \in \derivatives{q, α} \ldotp \quad
+  \forall q' ∈ \derivatives{q, α} \ldotp \quad
   (α, p', q) \gamemove{0,0,0}^🗲_\notionname{B} [p', q'] \; \land \;
-  e \in \attackerwins^{\game_\notionname{B}^🗲}([p', q']) \; \land \;
-  \psi_{q'} \in \strat_\notionname{B}([p', q'], e)
+  e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q']) \; \land \;
+  ψ_{q'} ∈ \strat_\notionname{B}([p', q'], e)
 }{
-  (\hmland{q'}{\derivatives{q, α}} \psi_{q'}) \in \strat_\notionname{B}((α, p', q), e)
+  (\hmland{q'}{\derivatives{q, α}} ψ_{q'}) ∈ \strat_\notionname{B}((α, p', q), e)
 }
 $$
 $$
 \dfrac{
   [p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p] \quad
-  e' = \energyupdate((\updmin{1,2},0,-1), e) \in \attackerwins^{\game_\notionname{B}^🗲}([q, p]) \quad
-  \hmlobs{α} φ \in \strat_\notionname{B}([q, p], e')
+  e' = \energyupdate((\updmin{1,2},0,-1), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}([q, p]) \quad
+  \hmlobs{α} φ ∈ \strat_\notionname{B}([q, p], e')
 }{
-  (\hmlneg  \hmlobs{α} φ) \in \strat_\notionname{B}([p, q], e)
+  (\hmlneg  \hmlobs{α} φ) ∈ \strat_\notionname{B}([p, q], e)
 }
 $$
 :::
@@ -484,86 +484,71 @@ $$
 So the formulas we encountered before also serve as examples of such strategy formulas.
 
 ::: {#lem-bisim-energy-game-soundness}
-If $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
-then there is $φ \in \strat_\notionname{B}([p, q], e)$ with $φ \in \observationsvar{e}^\literal{poly-strong}$, $p \in \semantics{φ}$ and $q \notin \semantics{φ}$.
+If $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
+then there is $φ ∈ \strat_\notionname{B}([p, q], e)$ with $φ ∈ \observationsvar{e}^\literal{poly-strong}$, $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$.
 :::
 ::: proof
 We prove the following, more general, property by induction.
 
-1. If $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
-then there is $\psi \in \strat_\notionname{B}([p, q], e)$ of form $\psi = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{\psi} \in \observationsvar{e}^\literal{poly-strong}$, $p \in \semantics{\psi}$ and $q \notin \semantics{\psi}$.
-2. If $e \in \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$,
-then there is $φ \in \strat_\notionname{B}((α, p', q), e)$ of form $φ = \hmlands \Psi$ with $φ \in \observationsvar{e}^\literal{poly-strong}$, $p' \in \semantics{φ}$ and $q \notin \semantics{\hmlobs{α}φ}$.
+1. If $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
+then there is $ψ ∈ \strat_\notionname{B}([p, q], e)$ of form $ψ = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{ψ} ∈ \observationsvar{e}^\literal{poly-strong}$, $p ∈ \semantics{ψ}$ and $q \notin \semantics{ψ}$.
+2. If $e ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$,
+then there is $φ ∈ \strat_\notionname{B}((α, p', q), e)$ of form $φ = \hmlands Ψ$ with $φ ∈ \observationsvar{e}^\literal{poly-strong}$, $p' ∈ \semantics{φ}$ and $q \notin \semantics{\hmlobs{α}φ}$.
 
 Proof by induction on the inductive characterizations of attacker winning budgets @prp-winning-budget-rules.
 
-1. Assume $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
+1. Assume $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
   This must be due to one of the following moves:
-    - Case $[p, q] \gamemoveblank^🗲_\notionname{B} [q, p]$ with $e' = \energyupdate((\updmin{1,2},0,-1), e) \in \attackerwins^{\game_\notionname{B}^🗲}([q, p])$.
-      By induction hypothesis on $[q, p]$, there is $\psi \in \strat_\notionname{B}([q, p], e')$ with $\hmlands\set{\psi} \in \observationsvar{e'}^\literal{poly-strong}$, $q \in \semantics{\psi}$ and $p \notin \semantics{\psi}$.
-      Consider the possible forms of $\psi$:
-        - $\psi = \hmlobs{α}φ'$.
-          By @def-strategy-formulas-poly of $\strat_\notionname{B}$, we obtain $\hmlneg\hmlobs{α}φ' \in \strat_\notionname{B}([p, q], e)$.
+    - Case $[p, q] \gamemoveblank^🗲_\notionname{B} [q, p]$ with $e' = \energyupdate((\updmin{1,2},0,-1), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}([q, p])$.
+      By induction hypothesis on $[q, p]$, there is $ψ ∈ \strat_\notionname{B}([q, p], e')$ with $\hmlands\set{ψ} ∈ \observationsvar{e'}^\literal{poly-strong}$, $q ∈ \semantics{ψ}$ and $p \notin \semantics{ψ}$.
+      Consider the possible forms of $ψ$:
+        - $ψ = \hmlobs{α}φ'$.
+          By @def-strategy-formulas-poly of $\strat_\notionname{B}$, we obtain $\hmlneg\hmlobs{α}φ' ∈ \strat_\notionname{B}([p, q], e)$.
           Because of the semantics of $\hml$, $\hmlneg\hmlobs{α}φ'$ must distinguish $p$ from $q$.
-          Also, $\hmlands\set{\hmlneg\hmlobs{α}φ'} \in \observationsvar{e}^\literal{poly-strong}$, by the calculations of the grammar in @def-polynomial-strong-spectrum.
-        - $\psi = \hmlneg\hmlobs{α}φ'$.
+          Also, $\hmlands\set{\hmlneg\hmlobs{α}φ'} ∈ \observationsvar{e}^\literal{poly-strong}$, by the calculations of the grammar in @def-polynomial-strong-spectrum.
+        - $ψ = \hmlneg\hmlobs{α}φ'$.
           This can only be in $\strat_\notionname{B}([q, p], e')$ due to $φ'$ being in $\strat_\notionname{B}([p, q], \energyupdate((\updmin{1,2},0,-1), e'))$.
-          Clearly, $φ'$ must distinguish $p$ from $q$ and $\hmlands\set{φ'} \in \observationsvar{e}^\literal{poly-strong}$.
-    - Case $[p, q] \gamemoveblank^🗲_\notionname{B} (α, p', q)$ with $p \step{α} p'$ and $e' = \energyupdate((-1,0,0), e) \in \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
-      By induction hypothesis on $(α, p', q)$, there is $\hmlands \Psi \in \strat_\notionname{B}((α, p', q), e')$ and $\hmlands \Psi \in \observationsvar{e'}^\literal{poly-strong}$ with $p' \in \semantics{\hmlands \Psi}$ and $q \notin \semantics{\hmlobs{α}\hmlands \Psi}$.
-      By @def-strategy-formulas-poly, we obtain $\hmlobs{α}\hmlands \Psi \in \strat_\notionname{B}([p, q], e)$.
-      Due to the semantics of $\hml$ and $p \step{α} p'$, $p \in \semantics{\hmlobs{α}\hmlands \Psi}$, thus distinguishing $p$ from $q$.
-      Also, $\hmlobs{α}\hmlands \Psi \in \observationsvar{e}^\literal{poly-strong}$ as $\hmlands \Psi \in \observationsvar{e - \unit{1}}^\literal{poly-strong}$.
-2. Assume $e \in \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
-  This means that $e$ suffices for the attacker to win every $q'$-move $(α, p', q) \gamemoveblank^🗲_\notionname{B} [p', q']$ with $q \step{α} q'$ that the defender might take, with $e \in \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$.
-  For each $q'$, we employ the induction hypothesis to obtain $\psi_{q'} \in \strat_\notionname{B}([p', q'], e)$ of form $\psi_{q'} = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{\psi_{q'}} \in \observationsvar{e}^\literal{poly-strong}$, $p' \in \semantics{\psi_{q'}}$ and $q' \notin \semantics{\psi_{q'}}$.
-  By @def-strategy-formulas-poly, $(\hmland{q'}{\derivatives{q, α}} \psi_{q'}) \in \strat_\notionname{B}((α, p', q), e)$.
-  By the $\hml$-semantics, $(\hmland{q'}{\derivatives{q, α}} \psi_{q'})$ must be true for $p'$, and also taking the semantics of observation, $\hmlobs{α}(\hmland{q'}{\derivatives{q, α}} \psi_{q'})$ false for $q$.
-  Moreover, $(\hmland{q'}{\derivatives{q, α}} \psi_{q'}) \in \observationsvar{e}^\literal{poly-strong}$ by the grammar.\qedhere 
+          Clearly, $φ'$ must distinguish $p$ from $q$ and $\hmlands\set{φ'} ∈ \observationsvar{e}^\literal{poly-strong}$.
+    - Case $[p, q] \gamemoveblank^🗲_\notionname{B} (α, p', q)$ with $p \step{α} p'$ and $e' = \energyupdate((-1,0,0), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
+      By induction hypothesis on $(α, p', q)$, there is $\hmlands Ψ ∈ \strat_\notionname{B}((α, p', q), e')$ and $\hmlands Ψ ∈ \observationsvar{e'}^\literal{poly-strong}$ with $p' ∈ \semantics{\hmlands Ψ}$ and $q \notin \semantics{\hmlobs{α}\hmlands Ψ}$.
+      By @def-strategy-formulas-poly, we obtain $\hmlobs{α}\hmlands Ψ ∈ \strat_\notionname{B}([p, q], e)$.
+      Due to the semantics of $\hml$ and $p \step{α} p'$, $p ∈ \semantics{\hmlobs{α}\hmlands Ψ}$, thus distinguishing $p$ from $q$.
+      Also, $\hmlobs{α}\hmlands Ψ ∈ \observationsvar{e}^\literal{poly-strong}$ as $\hmlands Ψ ∈ \observationsvar{e - \unit{1}}^\literal{poly-strong}$.
+2. Assume $e ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
+  This means that $e$ suffices for the attacker to win every $q'$-move $(α, p', q) \gamemoveblank^🗲_\notionname{B} [p', q']$ with $q \step{α} q'$ that the defender might take, with $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$.
+  For each $q'$, we employ the induction hypothesis to obtain $ψ_{q'} ∈ \strat_\notionname{B}([p', q'], e)$ of form $ψ_{q'} = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{ψ_{q'}} ∈ \observationsvar{e}^\literal{poly-strong}$, $p' ∈ \semantics{ψ_{q'}}$ and $q' \notin \semantics{ψ_{q'}}$.
+  By @def-strategy-formulas-poly, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'}) ∈ \strat_\notionname{B}((α, p', q), e)$.
+  By the $\hml$-semantics, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'})$ must be true for $p'$, and also taking the semantics of observation, $\hmlobs{α}(\hmland{q'}{\derivatives{q, α}} ψ_{q'})$ false for $q$.
+  Moreover, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'}) ∈ \observationsvar{e}^\literal{poly-strong}$ by the grammar.\qedhere 
 :::
 
 ::: {#lem-bisim-energy-game-completeness}
-If there is $φ \in \observationsvar{e}^\literal{poly-strong}$ with $p \in \semantics{φ}$ and $q \notin \semantics{φ}$,
-then $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
+If there is $φ ∈ \observationsvar{e}^\literal{poly-strong}$ with $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$,
+then $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
 :::
 ::: proof
 By induction on the grammar of $\observationsvar{e}^{\literal{poly-strong}}$.
 
-Consider the cases of $φ \in \observationsvar{e}^\literal{poly-strong}$ with $p \in \semantics{φ}$ and $q \notin \semantics{φ}$.
+Consider the cases of $φ ∈ \observationsvar{e}^\literal{poly-strong}$ with $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$.
 
 - $φ = \hmltrue$.
   This cannot be the case as $q \notin \semantics{φ}$ and $\semantics{\hmltrue} = \states$.
-- $φ = \hmlobs{α}φ'$ with $φ' \in \observationsvar{e - \unit{1}}^\literal{poly-strong}$.
-  As $φ$ distinguishes $p$ from $q$, there must be a $p' \in \semantics{φ'}$ such that $p \step{α} p'$ and, for all $q' \in \derivatives{q, α}$, $q' \notin \semantics{φ'}$.
-  Due to the induction hypothesis, $e - \unit{1} \in \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$ for all such $q' \in \derivatives{q, α}$.
-  Therefore, $e - \unit{1} \in \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
-  As the attacker can move $[p, q] \gamemove{-\unit{1}} (α, p', q)$, this proves $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$ by @prp-winning-budget-rules.
-- $φ = \hmlands\set\Psi$ one of the $ψ \in \Psi$ must be false for $q$.
+- $φ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar{e - \unit{1}}^\literal{poly-strong}$.
+  As $φ$ distinguishes $p$ from $q$, there must be a $p' ∈ \semantics{φ'}$ such that $p \step{α} p'$ and, for all $q' ∈ \derivatives{q, α}$, $q' \notin \semantics{φ'}$.
+  Due to the induction hypothesis, $e - \unit{1} ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$ for all such $q' ∈ \derivatives{q, α}$.
+  Therefore, $e - \unit{1} ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
+  As the attacker can move $[p, q] \gamemove{-\unit{1}} (α, p', q)$, this proves $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$ by @prp-winning-budget-rules.
+- $φ = \hmlands\setΨ$ one of the $ψ ∈ Ψ$ must be false for $q$.
   Consider the possible forms of $ψ$:
-    - Case $ψ = \hmlobs{α}φ'$ with $φ' \in \observationsvar{e - \unit{1}}^\literal{poly-strong}$.
+    - Case $ψ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar{e - \unit{1}}^\literal{poly-strong}$.
       Then we can apply the same argument as in the case of $φ = \hmlobs{α}φ'$.
-    - Case $ψ = \hmlneg\hmlobs{α}φ'$ with $φ' \in \observationsvar{(e \sqcap (e_2, \infty, \infty)) - \unit{1} - \unit{3}}^\literal{poly-strong}$.
+    - Case $ψ = \hmlneg\hmlobs{α}φ'$ with $φ' ∈ \observationsvar{(e \sqcap (e_2, \infty, \infty)) - \unit{1} - \unit{3}}^\literal{poly-strong}$.
       Then we can employ the same argument as in the case of $φ = \hmlobs{α}φ'$ to obtain that the attacker wins **TODO**
-
-
-\begin{array}{rcll}
-  φ^N & \grammardef & \hmltrue{} & \\
-      & \grammaror  & \hmlobs{α}φ^{N - \unit{1}} & \\
-      & \grammaror  & \hmlands\set{ψ^N, ψ^N, ψ^N \ldots} & \\
-  ψ^N & \grammardef &
-      \hmlobs{α}φ^{N - \unit{1}} & \\
-      & \grammaror  &
-      \hmlneg \hmlobs{α}φ^{(N \sqcap (N_2, \infty, \infty))- \unit{1} - \unit{3}} & \\
-\end{array}
-
-
-
-
-then $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
+      \qedhere
 :::
 
 ::: {#thm-bisim-energy-game-characterization}
-$p \bpreordvar{\observationsvar{e}} q$ for $e \in \notions^\literal{poly-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $e$.
+$p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{poly-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $e$.
 :::
 
 Thus, we have established that the bisimulation energy game ${\game}_\notionname{B}^🗲$ characterizes the equivalences of the polynomial-time strong spectrum $\notions^\literal{poly-strong}$.
@@ -578,7 +563,7 @@ This section is about how to compute which energy budgets are winning for the at
 #### Monotone Energy Game Winner Problem
 
 In the context of an energy system $(\abstractenergies, \leq)$ and a finite energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$, the *energy game winner problem* goes:
-- Input:  A game position $g \in G$.
+- Input:  A game position $g ∈ G$.
 - Output: Pareto front of minimal winning budget for the attacker at g, $\attackerwinsmin(g)$.
 :::
 
@@ -598,7 +583,7 @@ Galois connections can be thought of as a pair of *functions that invert each ot
 Another standard intuition is that Galois connections couple a *concrete* and a more *abstract* domain, and this is what the variable naming in the following definition alludes to.
 
 ::: {#def-galois-connection}
-A *Galois connection* between two partially ordered sets $(C, \leq_C)$ and $(A,\leq_A)$ is a pair of functions $α \colon C \to A$ and $\gamma \colon A \to C$ such that, for all $a \in A$ and $c \in C$:
+A *Galois connection* between two partially ordered sets $(C, \leq_C)$ and $(A,\leq_A)$ is a pair of functions $α \colon C \to A$ and $\gamma \colon A \to C$ such that, for all $a ∈ A$ and $c ∈ C$:
 $$α(c) \leq_A a \iff c \leq_C \gamma(a).$$
 :::
 
@@ -671,7 +656,7 @@ Illustration of the Galois connection of @exm-galois-abstraction-reals between $
 Any monotone function naturally induces a Galois-connected abstraction function.
 
 ::: {#lem-galois-inversion}
-Precisely if $\gamma \colon A \to C$ is a monotone function, and $α(c) = \inf \set{a \mid c \leq_C \gamma(a)}$ for all $c \in C$,
+Precisely if $\gamma \colon A \to C$ is a monotone function, and $α(c) = \inf \set{a \mid c \leq_C \gamma(a)}$ for all $c ∈ C$,
 $α$ and $\gamma$ constitute a Galois connection between $C$ and $A$.^[
   Proposition 4 of @ekms1993primerGaloisConnections.
 ]
@@ -699,7 +684,7 @@ This justifies why, in the following, we overload the notation for inversion to 
 ### The Algorithm
 
 To implement a back-propagation algorithm, we have to assume that we know a function that undoes energy updates, $\abstractupdateinv \colon (\gamemoveblank) \to \abstractenergies \to \abstractenergies$ with $\abstractupdateinv(g, g')(e') = \inf \set{e \mid e' \leq \abstractupdate(g, g')(e)}$.
-That means, we assume that there is a Galois connection $(\abstractupdateinv, \abstractupdate)$ between energies $\abstractenergies$ and the domain of updates $\set{e \in \abstractenergies \mid \abstractupdate(e) \neq \bot}$.
+That means, we assume that there is a Galois connection $(\abstractupdateinv, \abstractupdate)$ between energies $\abstractenergies$ and the domain of updates $\set{e ∈ \abstractenergies \mid \abstractupdate(e) \neq \bot}$.
 
 @alg-deciding-energy-games can be used to compute the minimal attacker winning budgets.
 
@@ -708,24 +693,24 @@ That means, we assume that there is a Galois connection $(\abstractupdateinv, \a
 $$
 \begin{array}{l}
   \kw{def} \variable{compute\_winning\_budgets}(\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate), \abstractupdateinv) \colon \\
-  \quad \variable{attacker\_win} := [ g \mapsto \varnothing \mid g\in G ] \\
-  \quad \variable{todo} := \set{g\in G_\defender \mid g \ngamemoveblank} \\
+  \quad \variable{attacker\_win} := [ g \mapsto \varnothing \mid g ∈ G ] \\
+  \quad \variable{todo} := \set{g ∈ G_\defender \mid g \ngamemoveblank} \\
   \quad \kw{while} \variable{todo} \neq \varnothing \colon \\
   \quad \quad \variable{g} := \kw{some} \variable{todo} \\
   \quad \quad \variable{todo} := \variable{todo} \setminus \set{\variable{g}} \\
-  \quad \quad \kw{if} \variable{g} \in G_\attacker \colon \\
+  \quad \quad \kw{if} \variable{g} ∈ G_\attacker \colon \\
   \quad \quad \quad \variable{new\_attacker\_win} :=
         \Min( \set{\abstractupdateinv(\variable{g}, g')(\mathit{e'}) \\
-  \quad \quad \quad \quad \mid {\variable{g} \gamemoveblank g'} \land \mathit{e'} \in \variable{attacker\_win}[g']}) \\
+  \quad \quad \quad \quad \mid {\variable{g} \gamemoveblank g'} \land \mathit{e'} ∈ \variable{attacker\_win}[g']}) \\
   \quad \quad \kw{else \colon} \\
   \quad \quad \quad \variable{new\_attacker\_win} := \set{\zerovec} \\
-  \quad \quad \quad \kw{for} \variable{g'} \in (\variable{g} \gamemoveblank \cdot) \colon \\
+  \quad \quad \quad \kw{for} \variable{g'} ∈ (\variable{g} \gamemoveblank \cdot) \colon \\
   \quad \quad \quad \quad \variable{new\_attacker\_win} :=
         \Min( \set{ \sup(e_\attacker, \abstractupdateinv(\variable{g}, g')(\mathit{e'})) \mid \\
-  \quad \quad \quad \qquad e_\attacker \in \variable{new\_attacker\_win} \land
-        {\variable{g} \gamemoveblank g'} \land \mathit{e'} \in \variable{attacker\_win}[g']} ) \\
+  \quad \quad \quad \qquad e_\attacker ∈ \variable{new\_attacker\_win} \land
+        {\variable{g} \gamemoveblank g'} \land \mathit{e'} ∈ \variable{attacker\_win}[g']} ) \\
   \quad \quad \kw{if} \variable{new\_attacker\_win} \neq \variable{attacker\_win}[\variable{g}] \colon \\
-  \quad \quad \quad \variable{todo} := \variable{todo} \cup (\cdot \gamemoveblank \variable{g}) \\
+  \quad \quad \quad \variable{todo} := \variable{todo} ∪ (\cdot \gamemoveblank \variable{g}) \\
   \quad \attackerwinsmin := \variable{attacker\_win} \\
   \quad \kw{return} \attackerwinsmin \\
 \end{array}
@@ -845,23 +830,23 @@ Combination of successor Pareto fronts at attacker position $\literal{g_1}$ in s
 :::
 
 0. The algorithm begins with $\literal{g_6}$ in the $\variable{todo}$-set as this is the only position where the defender is stuck.
-1. Updating the defender node $\literal{g_6} \in G_\defender$, we set it its minimal attacker-winning budget to $\zerovec$.
+1. Updating the defender node $\literal{g_6} ∈ G_\defender$, we set it its minimal attacker-winning budget to $\zerovec$.
   This means that the attacker wins here with any budget.
   As there has been a change, both predecessors $\literal{g_4}$ and $\literal{g_5}$ are added to the $\variable{todo}$.
   (Their order is undefined; for the sake of the simulation we will always pick the first positions from the $\variable{todo}$.)
-2. Updating $\literal{g_4} \in G_\defender$ finds no attacker wins so far because one successor $\variable{attacker\_win}[\literal{g_5}] = \varnothing$.
-3. $\literal{g_4} \in G_\attacker$ is updated with the $\abstractupdateinv((0, -1))((0,0)) = \sup((0,0) - (0,-1), \zerovec) = (0,1)$.
+2. Updating $\literal{g_4} ∈ G_\defender$ finds no attacker wins so far because one successor $\variable{attacker\_win}[\literal{g_5}] = \varnothing$.
+3. $\literal{g_4} ∈ G_\attacker$ is updated with the $\abstractupdateinv((0, -1))((0,0)) = \sup((0,0) - (0,-1), \zerovec) = (0,1)$.
   This places $\literal{g_4}$ in $\variable{todo}$ again.
-4. Now, we can find attacker winning budgets for $\literal{g_4} \in G_\defender$:
+4. Now, we can find attacker winning budgets for $\literal{g_4} ∈ G_\defender$:
   The two successor options (after undo-update) are $(0,1)$ and $(1,0)$, as depicted in @fig-game-defender-intersection.
   The unless the attacker at least arrives with energy $\sup((0,1), (1,0)) = (1,1)$, the defender has a way of winning.
   Effectively, this amounts to intersecting attacker winning budgets of possible successor positions.
-5. For $\literal{g_1} \in G_\attacker$, it suffices to know a winning budget for one successor.
+5. For $\literal{g_1} ∈ G_\attacker$, it suffices to know a winning budget for one successor.
    So we determine as a preliminary winning budget $\abstractupdateinv((-2, -1))((1,1)) = (3,2)$.
-6. $\literal{g_2} \in G_\attacker$ also derives its winning budget from $(1,1)$.
+6. $\literal{g_2} ∈ G_\attacker$ also derives its winning budget from $(1,1)$.
   But $(1,1) - (2,-1) = (-1,2)$ would be outside the possible energy levels the attacker could carry here and is thus $\sup$-ed into $\nats^2$, yielding new win $(0,2)$.
-7. $\literal{g_3} \in G_\attacker$ just propagates $(1,1)$ from $\literal{g_4}$.
-8. Revisiting $\literal{g_1} \in G_\attacker$, we can now combine the three Pareto-fronts of its successors as illustrated in @fig-game-attacker-intersection as $\Min \set{(0,2), (2,1), (3,4)} = \set{(0,2), (2,1)}$.
+7. $\literal{g_3} ∈ G_\attacker$ just propagates $(1,1)$ from $\literal{g_4}$.
+8. Revisiting $\literal{g_1} ∈ G_\attacker$, we can now combine the three Pareto-fronts of its successors as illustrated in @fig-game-attacker-intersection as $\Min \set{(0,2), (2,1), (3,4)} = \set{(0,2), (2,1)}$.
   This operation corresponds to taking the union of the three sets of attacker winning budgets.
   The previous minimal budget $(3,4)$ of step&nbsp;5 is thus superseded.
   As $\variable{todo}$ is empty, the algorithm terminates.
@@ -876,13 +861,13 @@ TODO: Write in accordance with @lemke2024multiweightedEnergyGames.
 
 ::: {#def-declining-upd-inv}
 The undo-update function $\energyupdateinv$ is defined
-$$\energyupdateinv(u, e') := \sup( \set{e} \cup \set{m(i) \mid \exists D. u_i = \mathtt{min}_D} )$$
+$$\energyupdateinv(u, e') := \sup( \set{e} ∪ \set{m(i) \mid \exists D. u_i = \mathtt{min}_D} )$$
 with $e_i = \begin{cases}
-  e'_i - u_i  & \text{if } u_i \in \set{0, -1}\\
+  e'_i - u_i  & \text{if } u_i ∈ \set{0, -1}\\
   e'_i        & \text{otherwise}
 \end{cases}$ for all $i$ and<br>
 with $(m(i))_j = \begin{cases}
-  e'_i        & \text{for } u_i = \mathtt{min}_D \text{ and } j \in D \\
+  e'_i        & \text{for } u_i = \mathtt{min}_D \text{ and } j ∈ D \\
   0           & \text{otherwise}
 \end{cases}$ for all $i,j$.
 :::

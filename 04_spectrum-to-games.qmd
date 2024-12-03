@@ -454,9 +454,9 @@ $$
 \dfrac{
   [p, q] \gamemove{-1,0,0}^🗲_\notionname{B} (α, p', q) \quad
   e' = \energyupdate((-1,0,0), e) \in \attackerwins^{\game_\notionname{B}^🗲}((α, p', q)) \quad
-  \varphi \in \strat_\notionname{B}((α, p', q), e')
+  φ \in \strat_\notionname{B}((α, p', q), e')
 }{
-  (\hmlobs{α} \varphi) \in \strat_\notionname{B}([p, q], e)
+  (\hmlobs{α} φ) \in \strat_\notionname{B}([p, q], e)
 }
 $$
 $$
@@ -473,9 +473,9 @@ $$
 \dfrac{
   [p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p] \quad
   e' = \energyupdate((\updmin{1,2},0,-1), e) \in \attackerwins^{\game_\notionname{B}^🗲}([q, p]) \quad
-  \hmlobs{α} \varphi \in \strat_\notionname{B}([q, p], e')
+  \hmlobs{α} φ \in \strat_\notionname{B}([q, p], e')
 }{
-  (\hmlneg  \hmlobs{α} \varphi) \in \strat_\notionname{B}([p, q], e)
+  (\hmlneg  \hmlobs{α} φ) \in \strat_\notionname{B}([p, q], e)
 }
 $$
 :::
@@ -485,30 +485,30 @@ So the formulas we encountered before also serve as examples of such strategy fo
 
 ::: {#lem-bisim-energy-game-soundness}
 If $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
-then there is $\varphi \in \strat_\notionname{B}([p, q], e)$ with $\varphi \in \observationsvar{e}^\literal{poly-strong}$, $p \in \semantics{\varphi}$ and $q \notin \semantics{\varphi}$.
+then there is $φ \in \strat_\notionname{B}([p, q], e)$ with $φ \in \observationsvar{e}^\literal{poly-strong}$, $p \in \semantics{φ}$ and $q \notin \semantics{φ}$.
 :::
 ::: proof
-We prove the following, more general property by induction on the inductive characterizations of attacker winning budgets @prp-winning-budget-rules.
+We prove the following, more general, property by induction.
 
 1. If $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
-then there is $\psi \in \strat_\notionname{B}([p, q], e)$ of form $\psi = \hmlobs{α}\varphi'$ or $\hmlneg\hmlobs{α}\varphi'$ with $\hmlands\set{\psi} \in \observationsvar{e}^\literal{poly-strong}$, $p \in \semantics{\psi}$ and $q \notin \semantics{\psi}$.
+then there is $\psi \in \strat_\notionname{B}([p, q], e)$ of form $\psi = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{\psi} \in \observationsvar{e}^\literal{poly-strong}$, $p \in \semantics{\psi}$ and $q \notin \semantics{\psi}$.
 2. If $e \in \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$,
-then there is $\varphi \in \strat_\notionname{B}((α, p', q), e)$ of form $\varphi = \hmlands \Psi$ with $\varphi \in \observationsvar{e}^\literal{poly-strong}$, $p' \in \semantics{\varphi}$ and $q \notin \semantics{\hmlobs{α}\varphi}$.
+then there is $φ \in \strat_\notionname{B}((α, p', q), e)$ of form $φ = \hmlands \Psi$ with $φ \in \observationsvar{e}^\literal{poly-strong}$, $p' \in \semantics{φ}$ and $q \notin \semantics{\hmlobs{α}φ}$.
 
-Proof.
+Proof by induction on the inductive characterizations of attacker winning budgets @prp-winning-budget-rules.
 
 1. Assume $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
   This must be due to one of the following moves:
     - Case $[p, q] \gamemoveblank^🗲_\notionname{B} [q, p]$ with $e' = \energyupdate((\updmin{1,2},0,-1), e) \in \attackerwins^{\game_\notionname{B}^🗲}([q, p])$.
       By induction hypothesis on $[q, p]$, there is $\psi \in \strat_\notionname{B}([q, p], e')$ with $\hmlands\set{\psi} \in \observationsvar{e'}^\literal{poly-strong}$, $q \in \semantics{\psi}$ and $p \notin \semantics{\psi}$.
       Consider the possible forms of $\psi$:
-        - $\psi = \hmlobs{α}\varphi'$.
-          By @def-strategy-formulas-poly of $\strat_\notionname{B}$, we obtain $\hmlneg\hmlobs{α}\varphi' \in \strat_\notionname{B}([p, q], e)$.
-          Because of the semantics of $\hml$, $\hmlneg\hmlobs{α}\varphi'$ must distinguish $p$ from $q$.
-          Also, $\hmlands\set{\hmlneg\hmlobs{α}\varphi'} \in \observationsvar{e}^\literal{poly-strong}$, by the calculations of the grammar in @def-polynomial-strong-spectrum.
-        - $\psi = \hmlneg\hmlobs{α}\varphi'$.
-          This can only be in $\strat_\notionname{B}([q, p], e')$ due to $\varphi'$ being in $\strat_\notionname{B}([p, q], \energyupdate((\updmin{1,2},0,-1), e'))$.
-          Clearly, $\varphi'$ must distinguish $p$ from $q$ and $\hmlands\set{\varphi'} \in \observationsvar{e}^\literal{poly-strong}$.
+        - $\psi = \hmlobs{α}φ'$.
+          By @def-strategy-formulas-poly of $\strat_\notionname{B}$, we obtain $\hmlneg\hmlobs{α}φ' \in \strat_\notionname{B}([p, q], e)$.
+          Because of the semantics of $\hml$, $\hmlneg\hmlobs{α}φ'$ must distinguish $p$ from $q$.
+          Also, $\hmlands\set{\hmlneg\hmlobs{α}φ'} \in \observationsvar{e}^\literal{poly-strong}$, by the calculations of the grammar in @def-polynomial-strong-spectrum.
+        - $\psi = \hmlneg\hmlobs{α}φ'$.
+          This can only be in $\strat_\notionname{B}([q, p], e')$ due to $φ'$ being in $\strat_\notionname{B}([p, q], \energyupdate((\updmin{1,2},0,-1), e'))$.
+          Clearly, $φ'$ must distinguish $p$ from $q$ and $\hmlands\set{φ'} \in \observationsvar{e}^\literal{poly-strong}$.
     - Case $[p, q] \gamemoveblank^🗲_\notionname{B} (α, p', q)$ with $p \step{α} p'$ and $e' = \energyupdate((-1,0,0), e) \in \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
       By induction hypothesis on $(α, p', q)$, there is $\hmlands \Psi \in \strat_\notionname{B}((α, p', q), e')$ and $\hmlands \Psi \in \observationsvar{e'}^\literal{poly-strong}$ with $p' \in \semantics{\hmlands \Psi}$ and $q \notin \semantics{\hmlobs{α}\hmlands \Psi}$.
       By @def-strategy-formulas-poly, we obtain $\hmlobs{α}\hmlands \Psi \in \strat_\notionname{B}([p, q], e)$.
@@ -516,18 +516,50 @@ Proof.
       Also, $\hmlobs{α}\hmlands \Psi \in \observationsvar{e}^\literal{poly-strong}$ as $\hmlands \Psi \in \observationsvar{e - \unit{1}}^\literal{poly-strong}$.
 2. Assume $e \in \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
   This means that $e$ suffices for the attacker to win every $q'$-move $(α, p', q) \gamemoveblank^🗲_\notionname{B} [p', q']$ with $q \step{α} q'$ that the defender might take, with $e \in \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$.
-  For each $q'$, we employ the induction hypothesis to obtain $\psi_{q'} \in \strat_\notionname{B}([p', q'], e)$ of form $\psi_{q'} = \hmlobs{α}\varphi'$ or $\hmlneg\hmlobs{α}\varphi'$ with $\hmlands\set{\psi_{q'}} \in \observationsvar{e}^\literal{poly-strong}$, $p' \in \semantics{\psi_{q'}}$ and $q' \notin \semantics{\psi_{q'}}$.
+  For each $q'$, we employ the induction hypothesis to obtain $\psi_{q'} \in \strat_\notionname{B}([p', q'], e)$ of form $\psi_{q'} = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{\psi_{q'}} \in \observationsvar{e}^\literal{poly-strong}$, $p' \in \semantics{\psi_{q'}}$ and $q' \notin \semantics{\psi_{q'}}$.
   By @def-strategy-formulas-poly, $(\hmland{q'}{\derivatives{q, α}} \psi_{q'}) \in \strat_\notionname{B}((α, p', q), e)$.
   By the $\hml$-semantics, $(\hmland{q'}{\derivatives{q, α}} \psi_{q'})$ must be true for $p'$, and also taking the semantics of observation, $\hmlobs{α}(\hmland{q'}{\derivatives{q, α}} \psi_{q'})$ false for $q$.
   Moreover, $(\hmland{q'}{\derivatives{q, α}} \psi_{q'}) \in \observationsvar{e}^\literal{poly-strong}$ by the grammar.\qedhere 
 :::
 
 ::: {#lem-bisim-energy-game-completeness}
-If there is $\varphi \in \observationsvar{e}^\literal{poly-strong}$ with $p \in \semantics{\varphi}$ and $q \notin \semantics{\varphi}$,
+If there is $φ \in \observationsvar{e}^\literal{poly-strong}$ with $p \in \semantics{φ}$ and $q \notin \semantics{φ}$,
 then $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
 :::
 ::: proof
-TODO
+By induction on the grammar of $\observationsvar{e}^{\literal{poly-strong}}$.
+
+Consider the cases of $φ \in \observationsvar{e}^\literal{poly-strong}$ with $p \in \semantics{φ}$ and $q \notin \semantics{φ}$.
+
+- $φ = \hmltrue$.
+  This cannot be the case as $q \notin \semantics{φ}$ and $\semantics{\hmltrue} = \states$.
+- $φ = \hmlobs{α}φ'$ with $φ' \in \observationsvar{e - \unit{1}}^\literal{poly-strong}$.
+  As $φ$ distinguishes $p$ from $q$, there must be a $p' \in \semantics{φ'}$ such that $p \step{α} p'$ and, for all $q' \in \derivatives{q, α}$, $q' \notin \semantics{φ'}$.
+  Due to the induction hypothesis, $e - \unit{1} \in \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$ for all such $q' \in \derivatives{q, α}$.
+  Therefore, $e - \unit{1} \in \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
+  As the attacker can move $[p, q] \gamemove{-\unit{1}} (α, p', q)$, this proves $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$ by @prp-winning-budget-rules.
+- $φ = \hmlands\set\Psi$ one of the $ψ \in \Psi$ must be false for $q$.
+  Consider the possible forms of $ψ$:
+    - Case $ψ = \hmlobs{α}φ'$ with $φ' \in \observationsvar{e - \unit{1}}^\literal{poly-strong}$.
+      Then we can apply the same argument as in the case of $φ = \hmlobs{α}φ'$.
+    - Case $ψ = \hmlneg\hmlobs{α}φ'$ with $φ' \in \observationsvar{(e \sqcap (e_2, \infty, \infty)) - \unit{1} - \unit{3}}^\literal{poly-strong}$.
+      Then we can employ the same argument as in the case of $φ = \hmlobs{α}φ'$ to obtain that the attacker wins **TODO**
+
+
+\begin{array}{rcll}
+  φ^N & \grammardef & \hmltrue{} & \\
+      & \grammaror  & \hmlobs{α}φ^{N - \unit{1}} & \\
+      & \grammaror  & \hmlands\set{ψ^N, ψ^N, ψ^N \ldots} & \\
+  ψ^N & \grammardef &
+      \hmlobs{α}φ^{N - \unit{1}} & \\
+      & \grammaror  &
+      \hmlneg \hmlobs{α}φ^{(N \sqcap (N_2, \infty, \infty))- \unit{1} - \unit{3}} & \\
+\end{array}
+
+
+
+
+then $e \in \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
 :::
 
 ::: {#thm-bisim-energy-game-characterization}
@@ -566,12 +598,12 @@ Galois connections can be thought of as a pair of *functions that invert each ot
 Another standard intuition is that Galois connections couple a *concrete* and a more *abstract* domain, and this is what the variable naming in the following definition alludes to.
 
 ::: {#def-galois-connection}
-A *Galois connection* between two partially ordered sets $(C, \leq_C)$ and $(A,\leq_A)$ is a pair of functions $\alpha \colon C \to A$ and $\gamma \colon A \to C$ such that, for all $a \in A$ and $c \in C$:
-$$\alpha(c) \leq_A a \iff c \leq_C \gamma(a).$$
+A *Galois connection* between two partially ordered sets $(C, \leq_C)$ and $(A,\leq_A)$ is a pair of functions $α \colon C \to A$ and $\gamma \colon A \to C$ such that, for all $a \in A$ and $c \in C$:
+$$α(c) \leq_A a \iff c \leq_C \gamma(a).$$
 :::
 
 An illustration of the connection property can be seen in @fig-galois-connection.
-(The illustration also illuminates why the $\alpha$-function is often referred to as “lower adjoint“ and $\gamma$ as “upper adjoint” of a Galois connection.)
+(The illustration also illuminates why the $α$-function is often referred to as “lower adjoint“ and $\gamma$ as “upper adjoint” of a Galois connection.)
 
 ::: {#fig-galois-connection .column-margin}
 ```tikz
@@ -580,13 +612,13 @@ An illustration of the connection property can be seen in @fig-galois-connection
   \node (cleq) [above of=c, rotate=90] {$\leq$};
   \node (agamma) [above of=cleq] {$\gamma(a)$};
   \node (C) [above of=agamma] {$C$};
-  \node (cabs) [right of=c, node distance=3cm] {$\alpha(c)$};
+  \node (cabs) [right of=c, node distance=3cm] {$α(c)$};
   \node (aleq) [above of=cabs, rotate=90] {$\leq$};
   \node (a) [above of=aleq] {$a$};
   \node (A) [above of=a] {$A$};
   \node (iff) [right of=cleq, node distance=1.5cm, rotate=-45] {$\iff$};
   \path[->]
-    (c) edge[bend right=10, swap] node {$\alpha$} (cabs)
+    (c) edge[bend right=10, swap] node {$α$} (cabs)
     (a) edge[bend right=10, swap] node {$\gamma$} (agamma);
   \draw (cleq) ellipse (1cm and 1.7cm);
   \draw (aleq) ellipse (1cm and 1.7cm);
@@ -597,9 +629,9 @@ Visualization of Galois connections according to @def-galois-connection.
 
 ::: {#exm-galois-abstraction-reals}
 Take the non-negative reals $\reals^{\geq 0}$ as concrete domain and the natural numbers $\nats$ as abstract domain.
-Then, as function $\alpha_{\reals} \colon \reals^{\geq 0} \to \nats$, take flooring, $x \mapsto \floor{x}$, and for the other direction, the identity $\identity{\nats}$, $n \mapsto n$.
+Then, as function $α_{\reals} \colon \reals^{\geq 0} \to \nats$, take flooring, $x \mapsto \floor{x}$, and for the other direction, the identity $\identity{\nats}$, $n \mapsto n$.
 Clearly, $\floor{x} \leq n \iff x \leq n$.
-Therefore, $\alpha_{\reals}$ and $\identity{\nats}$ form a Galois connection.
+Therefore, $α_{\reals}$ and $\identity{\nats}$ form a Galois connection.
 :::
 
 ::: {#fig-galois-abstraction-reals .column-margin}
@@ -639,8 +671,8 @@ Illustration of the Galois connection of @exm-galois-abstraction-reals between $
 Any monotone function naturally induces a Galois-connected abstraction function.
 
 ::: {#lem-galois-inversion}
-Precisely if $\gamma \colon A \to C$ is a monotone function, and $\alpha(c) = \inf \set{a \mid c \leq_C \gamma(a)}$ for all $c \in C$,
-$\alpha$ and $\gamma$ constitute a Galois connection between $C$ and $A$.^[
+Precisely if $\gamma \colon A \to C$ is a monotone function, and $α(c) = \inf \set{a \mid c \leq_C \gamma(a)}$ for all $c \in C$,
+$α$ and $\gamma$ constitute a Galois connection between $C$ and $A$.^[
   Proposition 4 of @ekms1993primerGaloisConnections.
 ]
 :::

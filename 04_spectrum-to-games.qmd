@@ -543,7 +543,9 @@ Consider the cases of $φ ∈ \observationsvar{e}^\literal{poly-strong}$ with $p
     - Case $ψ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar{e - \unit{1}}^\literal{poly-strong}$.
       Then we can apply the same argument as in the case of $φ = \hmlobs{α}φ'$.
     - Case $ψ = \hmlneg\hmlobs{α}φ'$ with $φ' ∈ \observationsvar{(e \sqcap (e_2, \infty, \infty)) - \unit{1} - \unit{3}}^\literal{poly-strong}$.
-      Then we can employ the same argument as in the case of $φ = \hmlobs{α}φ'$ to obtain that the attacker wins **TODO**
+      Therefore, $\hmlobs{α}φ' ∈ \observationsvar{(e \sqcap (e_2, \infty, \infty)) - \unit{3}}^\literal{poly-strong}$ distinguishes $q$ from $p$.
+      This time, we can employ the same argument as in the case of $φ = \hmlobs{α}φ'$ to obtain that $(e \sqcap (e_2, \infty, \infty)) - \unit{3} ∈ \attackerwins^{\game_\notionname{B}^🗲}([q, p])$.
+      The move $[p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p]$ and $\energyupdate((\updmin{1,2},0,-1), e) = (e \sqcap (e_2, \infty, \infty)) - \unit{3}$ justify that $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
       \qedhere
 :::
 

@@ -785,22 +785,26 @@ The defender *wins* infinite plays.
 If a finite play $g_{0}\dots g_{n}\!\ngamemoveblank$ is stuck, the stuck player loses: The defender wins if $g_{n} ∈ G_\attacker$, and the attacker wins if $g_{n}∈ G_\defender$.
 :::
 
+Usually, games are non-deterministic, that is, players have choices how a play proceeds at their positions.
+The player choices are formalized by *strategies*:
+
 ::: {#def-strategies}
 #### Strategies and Winning Strategies
 
-A (positional, non-deterministic) *attacker strategy* is a subset of the moves starting in attacker states, $\rel F ⊆ (G_\attacker × G) \cap \mathord{\gamemoveblank}$.
+An *attacker strategy* is a (partial) function mapping play fragments ending at attacker positions to next positions to move to, $\rel f_\attacker \colon G^*G_\attacker \to G$, where $g_\attacker \gamemoveblank \rel f_\attacker(\rho g_\attacker)$ must hold for all $\rho g_\attacker$ where $\rel f_\attacker$ is defined.
 
-Similarly, a *defender strategy* is a subset of the moves starting in defender states, $\rel F ⊆ (G_\defender × G) \cap \mathord{\gamemoveblank}$.
-If (fairly) picking elements of strategy $\rel F$ ensures a player to win, $\rel F$ is called a *winning strategy* for this player.
+A play ${g_0}{g_1} … ∈ G^{\infty}$ is consistent with an attacker strategy $\rel f_\attacker$ if, for all its prefixes $g_0 … g_i$ ending in $g_i \in G_\attacker$, $g_{i + 1} = \rel f_\attacker(g_0 … g_i)$.
+
+*Defender strategies* are defined analogously, $\rel f_\defender \colon G^*G_\defender \to G$.
+
+If $\rel f$ ensures a player to win, $\rel f$ is called a *winning strategy* for this player.
 The player with a winning strategy for $\game(g_{0})$ is said to *win* $\game(g_{0})$.
-If $\rel F$ is a function on $G_\attacker$ or $G_\defender$, respectively, we call it a *deterministic* strategy.
 
+Usually, we will focus on positional strategies, that is, strategies that only depend on the most recent position, which we will type $\rel f_\attacker \colon G_\attacker \to G$ (or $\rel f_\defender \colon G_\defender \to G$, respectively).
 :::
 
-{{<noindent>}} This kind of games essentially is a subclass of parity games only colored by 0.
-So the games are positionally determined.
-This means, for each possible initial position, exactly one of the two players has a positional deterministic winning strategy $\rel F$.
-We call this partitioning of the game positions the winning regions.
+{{<noindent>}}
+We call the positions where a player has a winning strategy their winning region.
 
 ::: {#def-winning-region}
 #### Winning Region
@@ -833,13 +837,17 @@ A simple game.
 ::::
 :::
 
+The reachability games we consider essentially are a subclass of parity games only colored by 0.
+So the games are positionally determined.
+This means, for each possible initial position, exactly one of the two players has a positional winning strategy $\rel f$.
+
 ::: {#prp-determinacy}
 #### Determinacy
 
 Reachability games are positionally determined, that is,
 for any game, each game position has exactly one winner:
 $G = \attackerwins \cup \defenderwins$ and $\attackerwins \cap \defenderwins = \varnothing$,
-and they can win using a memory-less strategy.^[
+and they can win using a positional strategy.^[
   This is just an instantiation of positional determinacy of parity games @zielonka1998infiniteGameColoured.
 ]
 :::
@@ -1215,7 +1223,7 @@ The bisimulation game of @exm-bisim-sim-game-formulas with attacker formulas.
 More generally, the following lemma explains the construction of distinguishing formulas from attacker strategies:
 
 ::: {#lem-attacks-imply-formulas}
-Let $\rel f$ be a deterministic winning strategy for the attacker on ${\game}_\notionname{B}$ from $[p,q]$.
+Let $\rel f$ be a positional winning strategy for the attacker on ${\game}_\notionname{B}$ from $[p,q]$.
 Construct formulas recursively from game positions, ${φ}_{\rel{f}}(g)$, as follows:
 
 $$

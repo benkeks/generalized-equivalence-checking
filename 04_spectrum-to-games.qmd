@@ -693,37 +693,37 @@ That means, we assume that there is a Galois connection $(\abstractupdateinv, \a
 ::: {#alg-deciding-energy-games}
 
 $$
-\begin{array}{l}
-  \kw{def} \variable{compute\_winning\_budgets}(\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate), \abstractupdateinv) \colon \\
-  \quad \variable{attacker\_win} := [ g \mapsto \varnothing \mid g ∈ G ] \\
-  \quad \variable{todo} := \set{g ∈ G_\defender \mid g \ngamemoveblank} \\
-  \quad \kw{while} \variable{todo} \neq \varnothing \colon \\
-  \quad \quad \variable{g} := \kw{some} \variable{todo} \\
-  \quad \quad \variable{todo} := \variable{todo} \setminus \set{\variable{g}} \\
-  \quad \quad \kw{if} \variable{g} ∈ G_\attacker \colon \\
-  \quad \quad \quad \variable{new\_attacker\_win} :=
-        \Min( \set{\abstractupdateinv(\variable{g}, g')(\mathit{e'}) \\
-  \quad \quad \quad \quad \mid {\variable{g} \gamemoveblank g'} \land \mathit{e'} ∈ \variable{attacker\_win}[g']}) \\
-  \quad \quad \kw{else \colon} \\
-  \quad \quad \quad \variable{new\_attacker\_win} := \set{\zerovec} \\
-  \quad \quad \quad \kw{for} \variable{g'} ∈ (\variable{g} \gamemoveblank \cdot) \colon \\
-  \quad \quad \quad \quad \variable{new\_attacker\_win} :=
-        \Min( \set{ \sup(e_\attacker, \abstractupdateinv(\variable{g}, g')(\mathit{e'})) \mid \\
-  \quad \quad \quad \qquad e_\attacker ∈ \variable{new\_attacker\_win} \land
-        {\variable{g} \gamemoveblank g'} \land \mathit{e'} ∈ \variable{attacker\_win}[g']} ) \\
-  \quad \quad \kw{if} \variable{new\_attacker\_win} \neq \variable{attacker\_win}[\variable{g}] \colon \\
-  \quad \quad \quad \variable{todo} := \variable{todo} ∪ (\cdot \gamemoveblank \variable{g}) \\
-  \quad \attackerwinsmin := \variable{attacker\_win} \\
-  \quad \kw{return} \attackerwinsmin \\
+\begin{array}{rl}
+   1 &  \kw{def} \variable{compute\_winning\_budgets}(\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate), \abstractupdateinv) \colon \\
+   2 &  \quad \variable{attacker\_win} := [ g \mapsto \varnothing \mid g ∈ G ] \\
+   3 &  \quad \variable{todo} := \set{g ∈ G_\defender \mid g \ngamemoveblank} \\
+   4 &  \quad \kw{while} \variable{todo} \neq \varnothing \colon \\
+   5 &  \quad \quad \variable{g} := \kw{some} \variable{todo} \\
+   6 &  \quad \quad \variable{todo} := \variable{todo} \setminus \set{\variable{g}} \\
+   7 &  \quad \quad \kw{if} \variable{g} ∈ G_\attacker \colon \\
+   8 &  \quad \quad \quad \variable{new\_attacker\_win} :=
+            \Min( \set{\abstractupdateinv(\variable{g}, g')(\mathit{e'}) \\
+     &  \quad \quad \quad \quad \mid {\variable{g} \gamemoveblank g'} \land \mathit{e'} ∈ \variable{attacker\_win}[g']}) \\
+   9 &  \quad \quad \kw{else \colon} \\
+  10 &  \quad \quad \quad \variable{new\_attacker\_win} := \set{\zerovec} \\
+  11 &  \quad \quad \quad \kw{for} \variable{g'} ∈ (\variable{g} \gamemoveblank \cdot) \colon \\
+  12 &  \quad \quad \quad \quad \variable{new\_attacker\_win} :=
+            \Min( \set{ \sup(e_\attacker, \abstractupdateinv(\variable{g}, g')(\mathit{e'})) \mid \\
+     &  \quad \quad \quad \qquad e_\attacker ∈ \variable{new\_attacker\_win} \land
+            {\variable{g} \gamemoveblank g'} \land \mathit{e'} ∈ \variable{attacker\_win}[g']} ) \\
+  13 &  \quad \quad \kw{if} \variable{new\_attacker\_win} \neq \variable{attacker\_win}[\variable{g}] \colon \\
+  14 &  \quad \quad \quad \variable{todo} := \variable{todo} ∪ (\cdot \gamemoveblank \variable{g}) \\
+  15 &  \quad \attackerwinsmin := \variable{attacker\_win} \\
+  16 &  \quad \kw{return} \attackerwinsmin \\
 \end{array}
 $$
 
 Algorithm determining the minimal attacker winning budgets $\attackerwinsmin$ of an energy game $\game^🗲$.
 :::
 
-The algorithm can be understood as a generalization of @alg-deciding-games, but as positions can be updated more than once, we have to depart from the option counting trick.
+The algorithm can be understood as a generalization of @alg-deciding-games, but as positions might need to be revisited more than once, we have to depart from the option counting trick.
 Whenever we learn about a new minimal energy for the attacker to win, we schedule a position to be (re-)visited.
-The chain-reaction starts at defender positions with no outgoing moves.
+The chain-reaction starts at defender positions with no outgoing moves (lines 3 and 10).
 By $\zerovec$, we denote the minimal element of the energy system $\abstractenergies$.
 
 We illustrate the algorithm by running it on the simple energy game of @exm-simple-energy-game.
@@ -858,6 +858,23 @@ Additive combination (dashed red) of successor Pareto fronts (black) at attacker
 ### Complexity
 
 TODO: Write in accordance with @lemke2024multiweightedEnergyGames.
+
+TODO: Handle different graph traversal
+
+:::{#thm-energy-game-complexity}
+
+Consider the following parameters of an energy game problem on $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$:
+
+- $t_{\sup}$, time to calculate the supremum between two elements of $\abstractenergies$,
+- $t_\leq$, time to compare two elements of $\abstractenergies$,
+- $t_{\abstractupdateinv}$, time to compute $\abstractupdateinv$ on an energy,
+- $e_{\game}$, the highest energy that can be achieved by applying permutations of $\abstractupdateinv(\cdot)$ for $\relsize{G}-1$ times.
+- $o_{\gamemoveblank}$, the out-degree of the game graph $\gamemoveblank$.
+
+Then, @alg-deciding-energy-games computes the minimal attacker winning budgets in
+$$\bigo{ (\relsize{G} + h(e_{\game})) \cdot \relsize{G} \cdot o_{\gamemoveblank} \cdot (w(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + t_\leq) }.$$
+
+:::
 
 ### Solving Declining Energy Games
 

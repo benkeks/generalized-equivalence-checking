@@ -861,9 +861,15 @@ TODO: Write in accordance with @lemke2024multiweightedEnergyGames.
 
 TODO: Handle different graph traversal
 
-:::{#thm-energy-game-complexity}
+::: {#def-lattice-width-below}
+The *width* $w_B(b)$ of a (semi-)lattice $(B, \leq)$ below a point $b$ is defined as the maximal size of anti-chains $B' \subseteq \downset \set{b}$. (Cf. @def-lattice.)
 
-Consider the following parameters of an energy game problem on $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$:
+The *height* $h_B(b)$ below $b$ is defined as the size of the maximal size of chains $B' \subseteq \downset \set{b}$.
+:::
+
+::: {#thm-energy-game-complexity}
+
+Consider the following parameters of an energy game problem on $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$ where the energies at leas form a finite bounded $\lub$-semi-lattice $(\abstractenergies, \leq)$:
 
 - $t_{\sup}$, time to calculate the supremum between two elements of $\abstractenergies$,
 - $t_\leq$, time to compare two elements of $\abstractenergies$,
@@ -872,7 +878,7 @@ Consider the following parameters of an energy game problem on $\game^🗲=(G,G_
 - $o_{\gamemoveblank}$, the out-degree of the game graph $\gamemoveblank$.
 
 Then, @alg-deciding-energy-games computes the minimal attacker winning budgets in
-$$\bigo{ (\relsize{G} + h(e_{\game})) \cdot \relsize{G} \cdot o_{\gamemoveblank} \cdot (w(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + t_\leq) }.$$
+$$\bigo{ (\relsize{G} + h_\abstractenergies(e_{\game})) \cdot \relsize{G} \cdot o_{\gamemoveblank} \cdot (w_\abstractenergies(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + t_\leq) }.$$
 
 :::
 

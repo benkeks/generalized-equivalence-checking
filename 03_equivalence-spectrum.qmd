@@ -138,10 +138,11 @@ $$N \leq M \text{ implies } \observationsvar{N} \subseteq \observationsvar{M}.$$
 :::
 
 Effectively, we will be working with lattices $(\notions, \leq)$ of notions.
+The following definition gives the preliminaries to talk about this kind of partial orders.
 
 ::: {#def-lattice}
 
-#### Lattices and Bounds
+#### Lattices, Bounds, Chains
 
 A *lattice* is a partially ordered set $(B, \leq)$, where there are greatest lower bounds $\inf\set{b_1, b_2}$ and least upper bounds $\sup\set{b_1, b_2}$ between each pair of elements $b_1, b_2 \in B$.
 
@@ -156,6 +157,10 @@ It refers to the least element $b \in B$ such that $b \geq b'$ for all $b' \in B
 For the pair-wise infimum we also use infix notation $b_1 \glb b_2 = \inf \set{b_1, b_2}$, and analogously $b_1 \lub b_2 = \sup \set{b_1, b_2}$.
 
 If a lattice $(B, \leq)$ not only allows infima and suprema for pairs but for any set $B' \subseteq B$, it is called *complete*.
+
+We call totally ordered subset $B' \subseteq B$ a *chain*.
+
+Dually, some $B' \subseteq B$ with no two elements $b_1, b_2 \in B'$ such that $b_1 \leq b_2$ is called an *anti-chain*.
 :::
 
 ::: {#exm-simple-spectrum}
@@ -374,8 +379,9 @@ In the context of a transition system $\system$ and a spectrum $(\notions, \leq,
 :::
 
 Technically, we will usually aim to compute the *Pareto front* of minimal notions that do not hold, $\Min(\notions \setminus \notions_{p,q})$.
-The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as upset-complement $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$
-(where ${\upset\! B} := \set{b \mid \exists b' \in B \ldotp b' \leq b}$ for $B$ subset of some partially-ordered set).
+The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as complement of the upwards closure $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$
+(where ${\upset\! B} := \set{b \mid \exists b' \in B \ldotp b' \leq b}$ is the upwards closure for $B$ subset of some partially-ordered set).
+Clearly, Pareto fronts form *anti-chains*.
 
 All spectra we are concerned with are well-quasi ordered, which means that each $\Min(\notions \setminus \notions_{p,q})$ must be finite in size [@kruskal1972wqo], and thus “more handy” than the full sets $\notions_{p,q}$ or $\notions \setminus \notions_{p,q}$.
 
@@ -466,7 +472,6 @@ $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsva
 Distinction formulation:
 
 > What are the notions $N$ such that $\difference{p}{q} \cap \observationsvar{N} \neq \varnothing$?
-
 
 ### Complexities {#sec-equivalence-complexities}
 

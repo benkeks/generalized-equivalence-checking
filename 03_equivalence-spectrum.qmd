@@ -137,7 +137,26 @@ It must hold, for any two notions $N,M \in \notions$, that
 $$N \leq M \text{ implies } \observationsvar{N} \subseteq \observationsvar{M}.$$
 :::
 
-Effectively, we will be working with lattices $(\notions, \leq)$ where there are greatest lower bounds $\glb$ and least upper bounds $\lub$ between elements of $\notions$.
+Effectively, we will be working with lattices $(\notions, \leq)$ of notions.
+
+::: {#def-lattice}
+
+#### Lattices and Bounds
+
+A *lattice* is a partially ordered set $(B, \leq)$, where there are greatest lower bounds $\inf\set{b_1, b_2}$ and least upper bounds $\sup\set{b_1, b_2}$ between each pair of elements $b_1, b_2 \in B$.
+
+The *greatest lower bound* of a set $B' \subseteq B$ is called its *infimum*, $\inf B'$.
+It refers to the greatest element $b \in B$ such that $b \leq b'$ for all $b' \in B'$.^[
+  Note that not necessarily $b \in B'$!
+]
+
+Dually, the *least upper bound* of a set $B' \subseteq B$ is called its *supremum*, $\sup B'$.
+It refers to the least element $b \in B$ such that $b \geq b'$ for all $b' \in B'$.
+
+For the pair-wise infimum we also use infix notation $b_1 \glb b_2 = \inf \set{b_1, b_2}$, and analogously $b_1 \lub b_2 = \sup \set{b_1, b_2}$.
+
+If a lattice $(B, \leq)$ not only allows infima and suprema for pairs but for any set $B' \subseteq B$, it is called *complete*.
+:::
 
 ::: {#exm-simple-spectrum}
 

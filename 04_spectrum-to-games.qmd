@@ -168,7 +168,7 @@ $$
 $$
 :::
 :::proof
-TODO: Pointer to Caro
+This is proved as Theorem 3 in @lemke2024multiweightedEnergyGames.
 :::
 
 ::: {#rem-energy-reachability}
@@ -566,7 +566,7 @@ This section is about how to compute which energy budgets are winning for the at
 
 In the context of an energy system $(\abstractenergies, \leq)$ and a finite energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$, the *energy game winner problem* goes:
 - Input:  A game position $g ∈ G$.
-- Output: Pareto front of minimal winning budget for the attacker at g, $\attackerwinsmin(g)$.
+- Output: Pareto front of minimal winning budget for the attacker at $g$, $\attackerwinsmin(g)$.
 :::
 
 We will show how to solve the problem for energy games with monotone updates.
@@ -681,7 +681,7 @@ and
 $$c \leq_C f^{-1}(a) \implies f(c) \leq_A f(f^{-1}(a)) \implies f(c) \leq_A a.$$\qedhere
 :::
 
-This justifies why, in the following, we overload the notation for inversion to refer to adjoint functions that we use to undo energy updates.
+In the following, we will use a $↺$-symbol to label the adjoint functions that we use to undo energy updates.
 
 ### The Algorithm
 
@@ -801,7 +801,7 @@ We list the steps of the computation in @exm-simple-energy-game-execution, and t
     \draw[help lines] (0,0) grid (3.5,3.5);
     \draw[opacity=0.9, text opacity=.8] (0,3.7) -- (0,1) node[below left] {$\literal{g_5}: (0,1)$} -- (3.7,1);
     \draw[opacity=0.9, text opacity=.8] (1,3.7) -- (1,0) node[below right] {$(1,0)$} -- (3.7,0);
-    \path[thick, blue, opacity=0.9, ->] (0,0) edge node[left=-.1] {$\mathit{upd}^{-1}$} (1,0);
+    \path[thick, blue, opacity=0.9, ->] (0,0) edge node[left=-.1] {$\mathit{upd}^{\circlearrowleft}$} (1,0);
     \node[label=270:{$\literal{g_6}: (0,0)$}] at (0,0) {};
     \draw[thick, red, dashed, opacity=0.9, text opacity=.8, shift={(-.05,-.05)}] (1,3.7) -- (1,1) node[above=.5] {$(1,1)$} -- (3.7,1);
   \end{scope}
@@ -819,7 +819,7 @@ Multiplicative combination (dashed red) of successor Pareto fronts (black) at de
     \draw[opacity=0.9, text opacity=.8] (0,3.7) -- (0,2) node[below left] {$\literal{g_2}$} -- (3.7,2);
     \draw[opacity=0.9, text opacity=.8] (2,3.7) -- (2,1) node[below right] {} -- (3.7,1);
     \draw[opacity=0.9, text opacity=.8] (3,3.7) -- (3,2) node[below right] {$(3,2)$} -- (3.7,2);
-    \path[thick, blue, opacity=0.9, ->] (1,1) edge node[left=-.1] {$\mathit{upd}^{-1}$} (2,1);
+    \path[thick, blue, opacity=0.9, ->] (1,1) edge node[left=-.1] {$\mathit{upd}^{\circlearrowleft}$} (2,1);
     \path[thick, blue, opacity=0.9, ->, bend right=30] (1,1) edge node {} (3,2);
     \node [label=270:{$\literal{g_3},\literal{g_4}: (1,1)$}] at (1,1) {};
     %\draw[thick, red, dashed, opacity=0.9, text opacity=.8] (1,3.7) -- (1,1) node[above=.5] {$(1,1)$} -- (3.7,1);
@@ -854,6 +854,23 @@ Additive combination (dashed red) of successor Pareto fronts (black) at attacker
   As $\variable{todo}$ is empty, the algorithm terminates.
 :::
 
+::: {#thm-energy-game-correctness}
+Assume energies form a well-founded bounded $\lub$-semi-lattice $(\abstractenergies, \leq)$.
+Given a finite-state energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$
+with monotone $\abstractupdateinv$-functions for all moves
+and with computable undo function $\abstractupdateinv(g, g')(e') = \min \set{e \mid e' \leq \abstractupdate(g, g')(e)}$,
+@alg-deciding-energy-games computes the Pareto frontier of minimal attacker winning budgets, solving 
+the *monotone energy game winner problem* (@def-energy-game-problem).
+:::
+:::proof
+@alg-deciding-energy-games is a work-list variant of a fixed-point iteration computing the least fixed point of attacker winning budgets $\attackerwins$ according to the inductive characterization of @prp-winning-budget-rules.
+
+The “least” here refers to the size of the $\attackerwins$-sets characterized by the $\attackerwinsmin$-Pareto front.
+
+A detailed proof, employing Kleene's fixed point theorem, can be found in @lemke2024multiweightedEnergyGames.
+Theorem 5 of @lemke2024multiweightedEnergyGames refers to a variant of @alg-deciding-energy-games, where *all* game positions are updated *simultaneously* in each iteration, which aligns more directly with the underlying functor.
+As is common for graph algorithms, @alg-deciding-energy-games with updates of single vertices whose neighborhood has changed computes the same result, and usually in a more efficient manner.
+:::
 
 ### Complexity
 
@@ -862,25 +879,32 @@ TODO: Write in accordance with @lemke2024multiweightedEnergyGames.
 TODO: Handle different graph traversal
 
 ::: {#def-lattice-width-below}
-The *width* $w_B(b)$ of a (semi-)lattice $(B, \leq)$ below a point $b$ is defined as the maximal size of anti-chains $B' \subseteq \downset \set{b}$. (Cf. @def-lattice.)
+The *width*, $w_B(b)$, of a (semi-)lattice $(B, \leq)$ below a point $b$ is defined as the maximal size of anti-chains $B' \subseteq \downset \set{b}$. (Cf. @def-lattice.)
 
-The *height* $h_B(b)$ below $b$ is defined as the size of the maximal size of chains $B' \subseteq \downset \set{b}$.
+The *height*, $h_B(b)$, below $b$ is defined as the size of the maximal size of chains $B' \subseteq \downset \set{b}$.
 :::
 
 ::: {#thm-energy-game-complexity}
 
-Consider the following parameters of an energy game problem on $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$ where the energies at leas form a finite bounded $\lub$-semi-lattice $(\abstractenergies, \leq)$:
+Consider the following parameters of an energy game problem on $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$ where the energies at least form a well-founded bounded $\lub$-semi-lattice $(\abstractenergies, \leq)$:
 
 - $t_{\sup}$, time to calculate the supremum between two elements of $\abstractenergies$,
 - $t_\leq$, time to compare two elements of $\abstractenergies$,
 - $t_{\abstractupdateinv}$, time to compute $\abstractupdateinv$ on an energy,
-- $e_{\game}$, the highest energy that can be achieved by applying permutations of $\abstractupdateinv(\cdot)$ for $\relsize{G}-1$ times.
+- $e_{\game}$, the highest energy that can be achieved by applying permutations of $\abstractupdateinv(\cdot)$ to $\zerovec$ for $\relsize{G}-1$ times.
 - $o_{\gamemoveblank}$, the out-degree of the game graph $\gamemoveblank$.
 
 Then, @alg-deciding-energy-games computes the minimal attacker winning budgets in
 $$\bigo{ (\relsize{G} + h_{\abstractenergies}(e_{\game})) \cdot \relsize{G} \cdot o_{\gamemoveblank} \cdot (w_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + t_\leq) }.$$
 
+If $\abstractupdateinv$ is strictly declining, then the following suffices:
+
+$$\bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (w_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + t_\leq) }.$$
 :::
+:::proof
+As in @thm-energy-game-correctness, we refer to @lemke2024multiweightedEnergyGames for a very detailed proof, where the corresponding fact is proved as Theorem&nbsp;7.
+:::
+
 
 ### Solving Declining Energy Games
 

@@ -11,6 +11,9 @@ Purpose of section:
 - Introduce energy games
 - Illustrate approach (Eq-Prob → Equivalence Energy Game → Pareto fronts → Most fitting eqs)
 
+TODO:
+
+- when exactly to demand upward closure and monotonicity?
 
 ## Energy Games
 
@@ -44,7 +47,7 @@ We consider the attacker to be energy-bound and understand $\energylevel(ρ) = �
 Thus, we declare plays with $\energylevel(ρ) = ⊥$ to be won by the defender.
 :::
 
-We lift positional strategies of @def-strategies to be *energy-positional* in the sense that they pick next moves depending on the current energy level, i.e.\ $\rel F ⊆ (G_\attacker × \abstractenergies × G)$.
+We lift positional strategies of @def-strategies to be *energy-positional* in the sense that they pick next moves depending on the current energy level, i.e.\ $\rel f \colon G_\attacker × \abstractenergies \to G$.
 
 Instead of a winning region as in @def-winning-region, we define *winning budgets* for game positions:
 
@@ -581,7 +584,7 @@ For details, readers are referred to @lemke2024multiweightedEnergyGames.
 
 ### Galois Connections
 
-Galois connections can be thought of as a pair of *functions that invert each other up to some partial ordering relation*.
+Galois connections can be thought of as a pair of *monotone functions that invert each other up to their partial ordering relations*.
 Another standard intuition is that Galois connections couple a *concrete* and a more *abstract* domain, and this is what the variable naming in the following definition alludes to.
 
 ::: {#def-galois-connection}
@@ -658,8 +661,9 @@ Illustration of the Galois connection of @exm-galois-abstraction-reals between $
 Any monotone function naturally induces a Galois-connected abstraction function.
 
 ::: {#lem-galois-inversion}
-Precisely if $\gamma \colon A \to C$ is a monotone function, and $α(c) = \inf \set{a \mid c \leq_C \gamma(a)}$ for all $c ∈ C$,
-$α$ and $\gamma$ constitute a Galois connection between $C$ and $A$.^[
+The following are equivalent:
+- $\gamma \colon A \to C$ is a monotone function, and $α(c) = \inf \set{a \mid c \leq_C \gamma(a)}$ for all $c ∈ C$.
+- $α$ and $\gamma$ constitute a Galois connection between $C$ and $A$.^[
   Proposition 4 of @ekms1993primerGaloisConnections.
 ]
 :::
@@ -874,10 +878,6 @@ As is common for graph algorithms, @alg-deciding-energy-games with updates of si
 
 ### Complexity
 
-TODO: Write in accordance with @lemke2024multiweightedEnergyGames.
-
-TODO: Handle different graph traversal
-
 ::: {#def-lattice-width-below}
 The *width*, $w_B(b)$, of a (semi-)lattice $(B, \leq)$ below a point $b$ is defined as the maximal size of anti-chains $B' \subseteq \downset \set{b}$. (Cf. @def-lattice.)
 
@@ -903,23 +903,46 @@ $$\bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (w_{\abstractenergies}(e_{
 :::
 :::proof
 As in @thm-energy-game-correctness, we refer to @lemke2024multiweightedEnergyGames for a very detailed proof, where the corresponding fact is proved as Theorem&nbsp;7.
-:::
 
+TODO: Add a proof sketch regardless.
+:::
 
 ### Solving Declining Energy Games
 
+Let us instantiate the previous two subsections to declining energy games.
+All we have to do is instantiate $\abstractupdateinv$ to obtain an algorithm and think about the structure of the energies to tell its complexity.
+
 ::: {#def-declining-upd-inv}
-The undo-update function $\energyupdateinv$ is defined
-$$\energyupdateinv(u, e') := \sup( \set{e} ∪ \set{m(i) \mid \exists D. u_i = \mathtt{min}_D} )$$
-with $e_i = \begin{cases}
-  e'_i - u_i  & \text{if } u_i ∈ \set{0, -1}\\
-  e'_i        & \text{otherwise}
-\end{cases}$ for all $i$ and<br>
-with $(m(i))_j = \begin{cases}
-  e'_i        & \text{for } u_i = \mathtt{min}_D \text{ and } j ∈ D \\
-  0           & \text{otherwise}
-\end{cases}$ for all $i,j$.
+The undo-update function $\energyupdateinv$ on an $N$-dimensional declining energy game is defined component-wise for $i \in \set{1 … N}$ as:
+$$
+\begin{array}{rl}
+(\energyupdateinv(u, e'))_i := \max(
+      & \set{e'_i - u_i  \mid  u_i \in \set{0,-1}} \\
+  \cup & \set{e'_j        \mid \exists D \ldotp u_j = \mathtt{min}_D \land i \in D}).
+\end{array}
+$$
 :::
+
+::: {#lem-declining-update-galois}
+For all updates $u \in \energyupdates$, $\energyupdateinv(u, \cdot)$ and $\energyupdate(u, \cdot)$ form a Galois connection on the domain $\domain(u) = \set{e ∈ \energies \mid \energyupdate(u, e) \neq \bot}$.
+:::
+:::proof
+We show $\energyupdateinv(u, e') \leq e$ iff $e' \leq \energyupdate(u, e)$ for all $e, e' \in \domain(u)$.
+
+- Assume $\energyupdateinv(u, e') \leq e$.
+This means that, for all $i$, $\max(\set{e'_i - u_i \mid u_i \in \set{0,-1}} \cup \set{e'_j \mid \exists D \ldotp u_j = \mathtt{min}_D \land i \in D}) \leq e_i$.
+
+  - Case $u_i \in \set{0,-1}$.
+    Then $e'_i - u_i \leq e_i$.
+    Thus $e'_i \leq e_i + u_i = (\energyupdate(u, e))_i$.
+  - Case there is $D$ such that $u_i = \mathtt{min}_D$.
+    For all $j \in D$, we have $e'_j \leq e_i$.
+    TODO!!
+    Thus, $e'_i \leq \min\set{e_j \mid j \in D} = (\energyupdate(u, e))_i$
+Moreover, if $$
+
+:::
+
 
 ## Discussion
 

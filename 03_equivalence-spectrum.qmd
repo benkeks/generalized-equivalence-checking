@@ -120,24 +120,9 @@ The situation is summed up by the non-linear hierarchy in @fig-failure-hierarchy
 Van Glabbeek's two papers on the “linear-time--branching-time spectrum” [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] show how all common equivalences can be understood to be a lattice of sublanguages of $\hml$ (and a variant of $\hml$ for equivalences with silent steps).
 His hierarchy of equivalences derives from a hierarchy of *notions of observability*.^[In particular, the weak spectrum [@glabbeek1993ltbt] makes this really formal.]
 
-### Observability Lattice
+### Preliminaries: Lattices
 
-As we will discuss various equivalence spectra (van Glabbeek [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] already gives two different ones), let us first introduce an abstract description of such spectra.
-
-::: {#def-spectrum}
-#### Equivalence Spectrum
-
-An *equivalence spectrum* $(\notions, \leq, \observationsvar{N \in \notions})$ consists of
-
-- a set of notions of observability $\notions$,
-- a partial order ${\leq} \subseteq \notions \times \notions$, and
-- corresponding logics $\observationsvar{N} \colon \powerset{\hml}$ for $N \in \notions$.
-
-It must hold, for any two notions $N,M \in \notions$, that
-$$N \leq M \text{ implies } \observationsvar{N} \subseteq \observationsvar{M}.$$
-:::
-
-Effectively, we will be working with lattices $(\notions, \leq)$ of notions.
+We will be working with lattices $(\notions, \leq)$ of notions of behavioral equivalence.
 The following definition gives the preliminaries to talk about this kind of partial orders.
 
 ::: {#def-lattice}
@@ -161,6 +146,54 @@ If a lattice $(B, \leq)$ not only allows infima and suprema for pairs but for an
 We call totally ordered subset $B' \subseteq B$ a *chain*.
 
 Dually, some $B' \subseteq B$ with no two elements $b_1, b_2 \in B'$ such that $b_1 \leq b_2$ is called an *anti-chain*.
+:::
+
+TODO: introduce illustration notation for lattices
+
+::: {#exm-set-lattice}
+
+#### Subset Lattice
+
+Given any set $B$, its subsets and ordered by set inclusion, $(\powerset{B}, {\subseteq})$, form a complete lattice.
+
+The *greatest lower bound* is given by set intersection $\bigcap B'$ with $B' \subseteq B$.
+The *least upper bound* is set union $\bigcup B'$ with $B' \subseteq B$.
+$\varnothing \in \powerset{B}$ is the least element, $B \in \powerset{B}$ is itself the greatest bound.
+
+Consider the subset lattice over $B = \set{1,2,3}$.
+Then $\set{\varnothing, \set{1}, \set{1,2}, B}$ forms a chain, because its members are ordered linearly $\varnothing \subset \set{1} \subset \set{1,2} \subset B$.
+$\set{\set{1}, \set{2}, \set{3}}$ forms an anti-chain, because its members do not include each other.
+Their respective subsets are chains / anti-chains as well.
+:::
+
+::: {#exm-nat-lattice}
+
+#### Vector Lattice
+
+Given a linear-ordered set $(B, \leq_B)$, its $n$-ary Cartesian product with pointwise order $(B^n, \leq)$ forms a lattice, where $b \leq b'$ iff $b_k \leq b'_k$ for all $k \in \set{1, …, n}$.
+Greatest lower bounds and least upper bounds can be transferred pointwisely from $B$.
+
+For instance, pairs of natural numbers, $(\nats^2, \leq)$, form a lattice.
+It is $\glb$-complete, that is, for any set from $\nats^2$, one can pick a greatest lower bound.
+However, the lattice is not $\lub$-complete: For instance, the set $\nats \times \set{0}$ has no upper bound.
+If we take the natural numbers enriched with an upper bound $\infty$, $\nats_\infty$, as basis, then $(\nats_\infty^2, \leq)$ forms a complete lattice.
+:::
+
+### Observability Lattices
+
+As we will discuss various equivalence spectra (van Glabbeek [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] already gives two different ones), let us first introduce an abstract description of such spectra.
+
+::: {#def-spectrum}
+#### Equivalence Spectrum
+
+An *equivalence spectrum* $(\notions, \leq, \observationsvar{N \in \notions})$ consists of
+
+- a set of notions of observability $\notions$,
+- a partial order ${\leq} \subseteq \notions \times \notions$, and
+- corresponding logics $\observationsvar{N} \colon \powerset{\hml}$ for $N \in \notions$.
+
+It must hold, for any two notions $N,M \in \notions$, that
+$$N \leq M \text{ implies } \observationsvar{N} \subseteq \observationsvar{M}.$$
 :::
 
 ::: {#exm-simple-spectrum}

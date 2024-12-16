@@ -924,6 +924,8 @@ $$
 $$
 :::
 
+TODO: Example
+
 ::: {#lem-declining-update-galois}
 For all updates $u \in \energyupdates$, $\energyupdateinv(u, \cdot)$ and $\energyupdate(u, \cdot)$ form a Galois connection on the domain $\domain(u) = \set{e ∈ \energies \mid \energyupdate(u, e) \neq \bot}$.
 :::
@@ -956,7 +958,7 @@ As $\energyupdate(u, \cdot)$ is monotonic, all that needs to be shown according 
     Assume it were the case that $d' > e_k$.
     For this to be true there would need to be $j$ and $D$ such that $u_j = \mathtt{min}_D$, $k \in D$, and $e'_j \geq d' > e_k$.
     By definition of $\mathtt{min}$-update at $j$, we calculate $(\energyupdate(u, e))_j \leq e_k < e'_j$.
-    But this would contradict the global assumption that $e' \leq \energyupdate(u, e)$.
+    But this would contradict the global assumption that $e' \leq \energyupdate(u, e)$. \qedhere
 :::
 
 ## Discussion

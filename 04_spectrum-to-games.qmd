@@ -235,6 +235,7 @@ Declining energy games differ from more common energy games with vector addition
 In this model, energy levels can only decline.
 
 - Updates may only decrease energies, $\energyupdate(u, e) \leq e$.
+- Updates are monotonic: If $e_A \leq e_B$, then $\energyupdate(u, e_A) \leq \energyupdate(u, e_B)$.
 - Energy level changes are monotonic:
   If $\energylevel(\rho g) \leq \energylevel(\sigma g)$ and $g \gamemoveblank g'$
   then $\energylevel(\rho g g') \leq \energylevel(\sigma g g')$.
@@ -913,12 +914,12 @@ Let us instantiate the previous two subsections to declining energy games.
 All we have to do is instantiate $\abstractupdateinv$ to obtain an algorithm and think about the structure of the energies to tell its complexity.
 
 ::: {#def-declining-upd-inv}
-The undo-update function $\energyupdateinv$ on an $N$-dimensional declining energy game is defined component-wise for $i \in \set{1 … N}$ as:
+The undo-update function $\energyupdateinv$ on an $N$-dimensional declining energy game is defined component-wise for $k \in \set{1 … N}$ as:
 $$
 \begin{array}{rl}
-(\energyupdateinv(u, e'))_i := \max(
-      & \set{e'_i - u_i  \mid  u_i \in \set{0,-1}} \\
-  \cup & \set{e'_j        \mid \exists D \ldotp u_j = \mathtt{min}_D \land i \in D}).
+(\energyupdateinv(u, e'))_k := \max(
+      & \set{e'_k - u_k  \mid  u_k \in \set{0,-1}} \\
+  \cup & \set{e'_j        \mid \exists D \ldotp u_j = \mathtt{min}_D \land k \in D}).
 \end{array}
 $$
 :::
@@ -927,22 +928,36 @@ $$
 For all updates $u \in \energyupdates$, $\energyupdateinv(u, \cdot)$ and $\energyupdate(u, \cdot)$ form a Galois connection on the domain $\domain(u) = \set{e ∈ \energies \mid \energyupdate(u, e) \neq \bot}$.
 :::
 :::proof
-We show $\energyupdateinv(u, e') \leq e$ iff $e' \leq \energyupdate(u, e)$ for all $e, e' \in \domain(u)$.
+As $\energyupdate(u, \cdot)$ is monotonic, all that needs to be shown according to @lem-galois-inversion, is that $\energyupdateinv(u, e') = \min \set{e \mid e' \leq \energyupdate(u, e)}$.
 
-- Assume $\energyupdateinv(u, e') \leq e$.
-This means that, for all $i$, $\max(\set{e'_i - u_i \mid u_i \in \set{0,-1}} \cup \set{e'_j \mid \exists D \ldotp u_j = \mathtt{min}_D \land i \in D}) \leq e_i$.
-
-  - Case $u_i \in \set{0,-1}$.
-    Then $e'_i - u_i \leq e_i$.
-    Thus $e'_i \leq e_i + u_i = (\energyupdate(u, e))_i$.
-  - Case there is $D$ such that $u_i = \mathtt{min}_D$.
-    For all $j \in D$, we have $e'_j \leq e_i$.
-    TODO!!
-    Thus, $e'_i \leq \min\set{e_j \mid j \in D} = (\energyupdate(u, e))_i$
-Moreover, if $$
-
+- Soundness: $\energyupdateinv(u, e') \in \set{e \mid e' \leq \energyupdate(u, e)}$.
+  This boils down to showing $e'_k \leq (\energyupdate(u, \energyupdateinv(u, e')))_k$.
+  Consider the cases of $u_k$.
+  - Case $u_k \in \set{0,-1}$.
+    Then, we have to show $e'_k \leq \energyupdateinv(u, e') + u_k$.
+    Due to $\energyupdateinv$ being increasing, this must be the case as $e'_k \leq e'_k + u_k$.
+  - Case there is $D$ such that $u_k = \mathtt{min}_D$ and $k \in D$.
+    Then, by definition of $\mathtt{min}$-updates, we have to show $e'_k \leq \min\set{(\energyupdateinv(u, e'))_j \mid j \in D}$,
+    that is, $e'_k \leq \energyupdateinv(u, e')_j$ for all $j \in D$.
+    We do so by contradiction:
+    Assume there were a $j$ where this ordering does not hold, meaning $e'_k > \energyupdateinv(u, e')_j$.
+    As $k \in D$, this is impossible due to the definition of $\energyupdateinv$ in terms of $\max$.
+- Minimality: For all $e' \leq \energyupdate(u, e)$, we show $\energyupdateinv(u, e') \leq e$.
+  More specifically, $(\energyupdateinv(u, e'))_k \leq e_k$.
+  Let us define $d' := \max \set{e'_j \mid \exists D \ldotp u_j = \mathtt{min}_D \land k \in D}$.
+  Consider the cases of $u_k \in \energyupdates$.
+  - Case $u_k \in \set{0,-1}$ and $e'_k - u_k \geq d'$.
+    Then $e'_k \leq (\energyupdate(u, e))_k = e_k + u_k$,
+    implying $e'_k - u_k \leq (\energyupdate(u, e))_k = e_k$.
+    By definition, $(\energyupdateinv(u, e'))_k = \max(e'_k - u_k, d')$.
+    As $e'_k - u_k \geq d'$, we can connect to the previous inequality, getting $(\energyupdateinv(u, e'))_k = e'_k - u_k \leq e_k$.
+  - Otherwise, $(\energyupdateinv(u, e'))_k = d'$.
+    We show $d' \leq e_k$ by contradiction.
+    Assume it were the case that $d' > e_k$.
+    For this to be true there would need to be $j$ and $D$ such that $u_j = \mathtt{min}_D$, $k \in D$, and $e'_j \geq d' > e_k$.
+    By definition of $\mathtt{min}$-update at $j$, we calculate $(\energyupdate(u, e))_j \leq e_k < e'_j$.
+    But this would contradict the global assumption that $e' \leq \energyupdate(u, e)$.
 :::
-
 
 ## Discussion
 

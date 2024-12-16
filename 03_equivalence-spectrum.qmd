@@ -122,7 +122,7 @@ His hierarchy of equivalences derives from a hierarchy of *notions of observabil
 
 ### Preliminaries: Lattices
 
-We will be working with lattices $(\notions, \leq)$ of notions of behavioral equivalence.
+We will be working with lattices of notions of behavioral equivalence.
 The following definition gives the preliminaries to talk about this kind of partial orders.
 
 ::: {#def-lattice}
@@ -148,10 +148,53 @@ We call totally ordered subset $B' \subseteq B$ a *chain*.
 Dually, some $B' \subseteq B$ with no two elements $b_1, b_2 \in B'$ such that $b_1 \leq b_2$ is called an *anti-chain*.
 :::
 
-TODO: introduce illustration notation for lattices
+::: {#fig-set-lattice .column-margin}
+
+```tikz
+\begin{tikzpicture}[auto,node distance=2.5cm,align=center]
+  \node (B123){$\set{1,2,3}$};
+  \node (B13)[below of=B123]{$\set{1,3}$};
+  \node (B12)[left of=B13]{$\set{1,2}$};
+  \node (B23)[right of=B13]{$\set{2,3}$};
+  \node (B2)[below of=B13]{$\set{2}$};
+  \node (B1)[left of=B2]{$\set{1}$};
+  \node (B3)[right of=B2]{$\set{3}$};
+  \node (Bnil)[below of=B2]{$\varnothing$};
+  
+  \path
+  (B123)
+    edge (B12)
+    edge (B13)
+    edge (B23)
+  (B12)
+    edge (B1)
+    edge (B2)
+  (B13)
+    edge (B1)
+    edge (B3)
+  (B23)
+    edge (B2)
+    edge (B3)
+  (B1)
+    edge (Bnil)
+  (B2)
+    edge (Bnil)
+  (B3)
+    edge (Bnil);
+  \path[dotted, thick, blue, transform canvas={xshift=1mm}]
+    (B123) edge (B12)
+    (B12) edge (B1)
+    (B1) edge (Bnil);
+  \path[dashed, thick, red]
+    (B1) edge (B2)
+    (B2) edge (B3);
+\end{tikzpicture}
+```
+
+Lattice of subsets from @exm-set-lattice.
+:::
 
 ::: {#exm-set-lattice}
-
 #### Subset Lattice
 
 Given any set $B$, its subsets and ordered by set inclusion, $(\powerset{B}, {\subseteq})$, form a complete lattice.
@@ -161,19 +204,44 @@ The *least upper bound* is set union $\bigcup B'$ with $B' \subseteq B$.
 $\varnothing \in \powerset{B}$ is the least element, $B \in \powerset{B}$ is itself the greatest bound.
 
 Consider the subset lattice over $B = \set{1,2,3}$.
-Then $\set{\varnothing, \set{1}, \set{1,2}, B}$ forms a chain, because its members are ordered linearly $\varnothing \subset \set{1} \subset \set{1,2} \subset B$.
-$\set{\set{1}, \set{2}, \set{3}}$ forms an anti-chain, because its members do not include each other.
+It is “cube-like,” as can be seen in its Hasse diagram in @fig-set-lattice.
+An example of a (maximal) chain would be $\set{\varnothing, \set{1}, \set{1,2}, B}$ (the nodes connected by a blue dotted line in the figure), because its members are ordered linearly $\varnothing \subset \set{1} \subset \set{1,2} \subset B$.
+$\set{\set{1}, \set{2}, \set{3}}$ forms a (maximal) anti-chain (the nodes connected by a red dashed line in the figure), because its members do not include each other.
 Their respective subsets are chains / anti-chains as well.
 :::
 
-::: {#exm-nat-lattice}
+::: {#fig-nat-lattice .column-margin}
+```tikz
+\begin{tikzpicture}[]
+  \begin{scope}[rotate=45, scale=1]
+    \draw[help lines] (0,0) grid (2.5,2.5);
+    \draw (-.25,-.25) node {$(0,0)$};
+    \draw (1,-.25) node {$1$};
+    \draw (2,-.25) node {$2$};
+    \draw (-.25,1) node {$1$};
+    \draw (-.25,2) node {$2$};
+    \node[gray] (NInf0) at (3.4,0) {$(\infty, 0)$};
+    \node[gray] (N0Inf) at (0,3.4) {$(0, \infty)$};
+    \node[gray] (NInfInf) at (3.4,3.4) {$(\infty, \infty)$};
+    \path[dotted, gray]
+      (2.5,0) edge (NInf0)
+      (0,2.5) edge (N0Inf)
+      (N0Inf) edge (NInfInf)
+      (NInf0) edge (NInfInf);
+  \end{scope}
+\end{tikzpicture}
+```
 
+Visualization of the infinitary grid of $\nats^2$ (and in gray, $\nats_\infty^2$) in @exm-nat-lattice.
+:::
+
+::: {#exm-nat-lattice}
 #### Vector Lattice
 
 Given a linear-ordered set $(B, \leq_B)$, its $n$-ary Cartesian product with pointwise order $(B^n, \leq)$ forms a lattice, where $b \leq b'$ iff $b_k \leq b'_k$ for all $k \in \set{1, …, n}$.
 Greatest lower bounds and least upper bounds can be transferred pointwisely from $B$.
 
-For instance, pairs of natural numbers, $(\nats^2, \leq)$, form a lattice.
+For instance, pairs of natural numbers, $(\nats^2, \leq)$, form a lattice, as visualized in @fig-nat-lattice.
 It is $\glb$-complete, that is, for any set from $\nats^2$, one can pick a greatest lower bound.
 However, the lattice is not $\lub$-complete: For instance, the set $\nats \times \set{0}$ has no upper bound.
 If we take the natural numbers enriched with an upper bound $\infty$, $\nats_\infty$, as basis, then $(\nats_\infty^2, \leq)$ forms a complete lattice.

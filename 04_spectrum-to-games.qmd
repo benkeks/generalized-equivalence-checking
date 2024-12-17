@@ -873,9 +873,9 @@ As is common for graph algorithms, @alg-deciding-energy-games with updates of si
 ### Complexity
 
 ::: {#def-lattice-width-below}
-The *width*, $w_B(b)$, of a (semi-)lattice $(B, \leq)$ below a point $b$ is defined as the maximal size of anti-chains $B' \subseteq \downset \set{b}$. (Cf. @def-lattice.)
+The *width*, $\relwidth_B(b)$, of a (semi-)lattice $(B, \leq)$ below a point $b$ is defined as the maximal size of anti-chains $B' \subseteq \downset \set{b}$. (Cf. @def-lattice.)
 
-The *height*, $h_B(b)$, below $b$ is defined as the size of the maximal size of chains $B' \subseteq \downset \set{b}$.
+The *height*, $\relheight_B(b)$, below $b$ is defined as the size of the maximal size of chains $B' \subseteq \downset \set{b}$.
 :::
 
 ::: {#thm-energy-game-complexity}
@@ -889,11 +889,11 @@ Consider the following parameters of an energy game problem on $\game^🗲=(G,G_
 - $o_{\gamemoveblank}$, the out-degree of the game graph $\gamemoveblank$.
 
 Then, @alg-deciding-energy-games computes the minimal attacker winning budgets in
-$$\bigo{ (\relsize{G} + h_{\abstractenergies}(e_{\game})) \cdot \relsize{G} \cdot o_{\gamemoveblank} \cdot (w_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + t_\leq) }.$$
+$$\bigo{ (\relsize{G} + \relheight_{\abstractenergies}(e_{\game})) \cdot \relsize{G} \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.$$
 
 If $\abstractupdateinv$ is strictly declining, then the following suffices:
 
-$$\bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (w_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + t_\leq) }.$$
+$$\bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.$$
 :::
 :::proof
 As in @thm-energy-game-correctness, we refer to @lemke2024multiweightedEnergyGames for a very detailed proof, where the corresponding fact is proved as Theorem&nbsp;7.
@@ -953,6 +953,48 @@ As $\energyupdate(u, \cdot)$ is monotonic, all that needs to be shown according 
     By definition of $\mathtt{min}$-update at $j$, we calculate $(\energyupdate(u, e))_j \leq e_k < e'_j$.
     But this would contradict the global assumption that $e' \leq \energyupdate(u, e)$. \qedhere
 :::
+
+::: {#lem-declining-update-complexity}
+@alg-deciding-energy-games solves the energy game problem on an $N$-dimensional *declining* energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in
+$$
+\bigo{o_{\gamemoveblank} \cdot \relsize{G}^{2 \cdot N} \cdot (N^2 + \relsize{G}^{N-1} \cdot N)}.
+$$
+:::
+::: proof
+For declining updates, we instantiate the second case of @thm-energy-game-complexity:
+
+$$\bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.$$
+
+For declining energy games, we can fill in several blanks:
+
+- $t_{\sup}$, the time to calculate the supremum between two elements of $\energies$ is in $\bigo{N}$,
+- $t_\leq$, time to compare two elements of $\energies$ is in $\bigo{N}$,
+- $t_{\abstractupdateinv}$, time to compute $\energyupdateinv$ on an energy is in $\bigo{N^2}$,
+- $e_{\game}$, the highest energy that can be achieved by applying permutations of $\energyupdateinv$ to $\zerovec$ for $\relsize{G}-1$ times, is the $N$-ary vector $(\relsize{G}-1, …, \relsize{G}-1)$,
+- $\relwidth_{\energies}(e_{\game})$, the widest anti-chain under $e_{\game}$, can be bounded $\bigo{\relsize{G}^{N-1}}$.
+
+This yields:
+
+$$
+\begin{array}{rl}
+    & \bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relwidth_{\energies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\energies}(e_{\game}) \cdot t_\leq) } \\
+  = & \bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relsize{G}^{N-1})^2 \cdot (N^2 + N + \relsize{G}^{N-1} \cdot N) } \\
+  = & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2N+2-2} \cdot (N^2 + \relsize{G}^{N-1} \cdot N) } \\
+  = & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2N} \cdot (N^2 + \relsize{G}^{N-1} \cdot N) } \\
+\end{array}
+$$\qedhere
+
+:::
+
+
+::: {#lem-declining-update-complexity-bounded}
+@alg-deciding-energy-games solves the *abstracted* energy game problem on an $N$-dimensional declining energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in
+TODO
+:::
+
+### Spectroscopy Complexity
+
+TODO
 
 ## Discussion
 

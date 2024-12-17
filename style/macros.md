@@ -27,9 +27,7 @@
 \providecommand{\vectorcomponents}[2][n]{({#2}_1,\ldots,{#2}_{#1})}
 \providecommand{\zerovec}{\mathbf{0}}
 \providecommand{\bigo}[1]{\mathit{O}(#1)}
-\providecommand{\relsize}[1]{\left|#1\right|}
 \providecommand{\complexityname}[1]{\textsf{#1}}
-\providecommand{\relqotient}[2]{#1_{/#2}}
 
 \lc{ Transition systems }
 
@@ -84,6 +82,11 @@
 \lc{ Relations }
 
 \providecommand{\rel}[1]{\mathcal{#1}}
+\providecommand{\relsize}[1]{\left|#1\right|}
+\providecommand{\relqotient}[2]{#1_{/#2}}
+\providecommand{\relwidth}{\operatorname{wdh}}
+\providecommand{\relheight}{\operatorname{hgt}}
+
 
 \lc{ Behavioral Equivalences }
 

@@ -24,7 +24,7 @@ To introduce energy games, we generalize the definitions on games (@def-game and
 ::: {#def-energy-game}
 #### Energy Reachability Game
 
-Given a partially ordered set of energies $(\abstractenergies, \leq)$, an *energy reachability game* $\game^🗲$ is a reachability game $(G, G_\defender, \gamemoveblank)$ extended by an edge labeling of energy updates $\abstractupdate \colon (\gamemoveblank) \to (\abstractenergies \to (\set{⊥} ∪ \abstractenergies))$.
+Given a partially ordered set of energies $(\abstractenergies, \leq)$, an *energy reachability game* $\game^🗲$ is a reachability game $(G, G_\defender, \gamemoveblank)$ extended by an edge labeling of energy updates $\abstractupdate \colon (\gamemoveblank) \to (\abstractenergies \to (\set{⊥} ∪ \abstractenergies))$, where $⊥ \notin \abstractenergies$ is final in the sense that $\abstractupdate(m)(⊥) = ⊥$.
 
 We denote by $\game^🗲(g_0, e_0)$ the game played from starting position $g_0 ∈ G$ with initial energy level $e_0 ∈ \abstractenergies$.
 :::
@@ -35,11 +35,7 @@ We denote by $\game^🗲(g_0, e_0)$ the game played from starting position $g_0 
 For a finite play $ρ = {g_0}{g_1}…{g_{n-1}} ∈ G^{*}$ of $\game^🗲(g_0, e_0)$, its energy level $\energylevel(ρ)$ is computed recursively:
 
 - $\energylevel(g_0) ≔ e_0$
-- $\energylevel(g_0…{g_{i+1}}) ≔
-  \begin{cases}
-    \abstractupdate({g_{i}},{g_{i+1}})(\energylevel(g_0…{g_{i}})) & \text{if } \energylevel(g_0…{g_{i}}) \neq ⊥ \\
-    ⊥  & \text{otherwise}
-  \end{cases}$
+- $\energylevel(g_0…{g_{i+1}}) ≔ \abstractupdate({g_{i}},{g_{i+1}})(\energylevel(g_0…{g_{i}}))$
 
 {{<noindent>}} For infinite plays $ρ ∈ G^ω$, we define energy levels to equal $⊥$.
 
@@ -346,8 +342,7 @@ and the middle dimension bounds the amount of simulation moves after a swap.
 Let us label the bisimulation game of @exm-bisim-sim-game-formulas (distinguishing the “trolled philosophers”) with energy updates.
 @fig-bisim-sim-game-energies shows the game graph.
 
-
-::: {#fig-bisim-sim-game-energies}
+:::: {#fig-bisim-sim-game-energies}
 ```tikz
 
 \begin{adjustbox}{max width=\textwidth, center}
@@ -407,14 +402,14 @@ Let us label the bisimulation game of @exm-bisim-sim-game-formulas (distinguishi
 ```
 
 The bisimulation energy game of @exm-bisim-sim-energy-game with energy updates.
-:::
+::::
 
 The attacker wins ${\game}^🗲_\notionname{B}$ from $[\literal{Q}, \literal{Q'}]$ if they start out with an energy budget of $(2,2,2)$ or above.
 But if the budget does not dominate this bound, the attacker loses.
 For instance, neither $(1,\infty,\infty)$ nor $(\infty,\infty,1)$ is enough.
 The second bound implies that the budgets, $(\infty,1,1)$ and $(\infty,0,0)$ are won by the defender as well.
 
-::: {#fig-exm-bisim-sim-pareto-front .column-margin}
+:::: {#fig-exm-bisim-sim-pareto-front .column-margin}
 ```tikz
 \begin{tikzpicture}[]
   \begin{scope}[rotate=45, scale=1]
@@ -428,7 +423,7 @@ The second bound implies that the budgets, $(\infty,1,1)$ and $(\infty,0,0)$ are
 \end{tikzpicture}
 ```
 Attacker's Pareto front for $[\literal{Q}, \literal{Q'}]$ of the example bisim energy game.
-:::
+::::
 
 On the game-side, this tells us is that the attacker needs at least two simulation moves (after swaps) and two swaps to tell $\literal{Q}$ apart from $\literal{Q'}$.
 Telling apart $\literal{Q'}$ from $\literal{Q}$ is slightly easier, only requiring one swap (and only one simulation move after the swap).
@@ -454,8 +449,7 @@ The approach is to generalize the connection between winning attacks and disting
 
 The set of *strategy formulas* for a game position $g$ and a budget $e$, $\strat_\notionname{B}(g, e)$, in the context of a bisimulation energy game ${\game}_\notionname{B}^{🗲\system}$ is defined inductively by the following rules:
 
-$$
-\dfrac{
+$$\dfrac{
   [p, q] \gamemove{-1,0,0}^🗲_\notionname{B} (α, p', q) \quad
   e' = \energyupdate((-1,0,0), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q)) \quad
   φ ∈ \strat_\notionname{B}((α, p', q), e')
@@ -480,8 +474,7 @@ $$
   \hmlobs{α} φ ∈ \strat_\notionname{B}([q, p], e')
 }{
   (\hmlneg  \hmlobs{α} φ) ∈ \strat_\notionname{B}([p, q], e)
-}
-$$
+}$$
 :::
 
 {{<noindent>}} Effectively, this definition generalizes the construction of distinguishing formulas on ${\game}_\notionname{B}$ we introduced in @lem-attacks-imply-formulas.

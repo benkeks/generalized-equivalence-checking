@@ -1,3 +1,15 @@
----
-title: "Implementations"
----
+::: {.content-hidden when-format="pdf"}
+{{< include style/macros.md >}}
+:::
+
+# Implementations
+
+## Prototype Implementation: *equiv.io*
+
+## GPU Implementation: *gpuequiv*
+
+## Other Implementations
+
+### Computer Game: *The Spectroscopy Invaders*
+
+### CAAL Extension

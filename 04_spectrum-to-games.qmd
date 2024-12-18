@@ -449,7 +449,8 @@ The approach is to generalize the connection between winning attacks and disting
 
 The set of *strategy formulas* for a game position $g$ and a budget $e$, $\strat_\notionname{B}(g, e)$, in the context of a bisimulation energy game ${\game}_\notionname{B}^{🗲\system}$ is defined inductively by the following rules:
 
-$$\dfrac{
+$$
+\dfrac{
   [p, q] \gamemove{-1,0,0}^🗲_\notionname{B} (α, p', q) \quad
   e' = \energyupdate((-1,0,0), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q)) \quad
   φ ∈ \strat_\notionname{B}((α, p', q), e')
@@ -474,7 +475,8 @@ $$
   \hmlobs{α} φ ∈ \strat_\notionname{B}([q, p], e')
 }{
   (\hmlneg  \hmlobs{α} φ) ∈ \strat_\notionname{B}([p, q], e)
-}$$
+}
+$$
 :::
 
 {{<noindent>}} Effectively, this definition generalizes the construction of distinguishing formulas on ${\game}_\notionname{B}$ we introduced in @lem-attacks-imply-formulas.
@@ -562,6 +564,7 @@ This section is about how to compute which energy budgets are winning for the at
 #### Monotone Energy Game Winner Problem
 
 In the context of an energy system $(\abstractenergies, \leq)$ and a finite energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$, the *energy game winner problem* goes:
+
 - Input:  A game position $g ∈ G$.
 - Output: Pareto front of minimal winning budget for the attacker at $g$, $\attackerwinsmin(g)$.
 :::
@@ -986,15 +989,70 @@ $$\qedhere
 
 :::
 
+::: {#def-flattened-energies}
 
-::: {#lem-declining-update-complexity-bounded}
-@alg-deciding-energy-games solves the *abstracted* energy game problem on an $N$-dimensional declining energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in
-TODO
+For $N$-dimensional energy games, we define the *flattened energies* as $\energiesflattened := (\set{0,1,\infty})^N$.
+A standard energy $e \in \energies$ is cast to $\energiesflattened$ by $\widehat{e}$ where
+$$
+(\widehat{e})_k :=
+\begin{cases}
+  e_k     & \text{if } e_k \leq 1 \\
+  \infty  & \text{otherwise}
+\end{cases}.
+$$
+
+We denote as *flattened* monotone energy game winner problem the variant of @def-energy-game-problem that outputs
+$$
+\widehat{\attackerwinsmin}(g) := \Min (\attackerwins(g) \cap \energiesflattened).
+$$
 :::
 
-### Spectroscopy Complexity
+Clearly, @alg-deciding-energy-games can too be used to solve the flattened version of the problem by adapting $\energyupdateinv$ to represent all components above 1 by $\infty$.
+Effectively, this makes decouples the size of Pareto frontiers from the game size.
+In this instance, @lem-declining-update-complexity becomes:
 
-TODO
+::: {#lem-declining-update-complexity-flattened}
+@alg-deciding-energy-games solves the *flattened* energy game problem on an $N$-dimensional declining energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in
+$$
+\bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2N} \cdot (N^2 + 3^{N-1} \cdot N) }
+$$
+:::
+
+TODO: Also consider space bound!
+
+The bounds we have established are *exponential* with regard to the dimensionality $N$.
+But in our use case, we care for energy games of fixed dimensionality.
+The time bounds are *polynomial* with regard to game graph size.
+
+### Polynomial Spectroscopy Complexity
+
+We have now gathered enough material to have this section prove that the spectroscopy problem for the polynomial-time strong spectrum is indeed solvable in polynomial time, thus justifying the name we chose for the spectrum.
+
+::: {#thm-bisim-energy-game-complexity}
+Given a transition system $\system=(\states,\actions,\step{})$
+The 
+:::
+:::proof
+@thm-bisim-energy-game-characterization has established that we can solve the spectroscopy problem for the $\notions^\literal{poly-strong}$-spectrum by deciding the winning budgets of the bisimulation energy game ${\game}_\notionname{B}^🗲$.
+Thus, all that remains to do is to instantiate @lem-declining-update-complexity for the case $N=3$ with the size of ${\game}_\notionname{B}^🗲$ according to @def-bisim-energy-game.
+
+The amount of attacker positions is bounded by $\relsize{\states}^2$.
+These positions can initiate up to $\relsize{\states} \cdot \relsize{\step{}}$ simulation challenges, leading to similarly bounded amount of defender positions, which again can be left by $\relsize{\states} \cdot \relsize{\step{}}$ moves.
+
+In total, this amounts to $\bigo{o_{\gamemoveblank_\notionname{B}^🗲}} = \bigo{\relsize{\states} \cdot \relsize{\step{}}}$ and $\bigo{G_\notionname{B}^🗲} = \relsize{\states}^2$.
+
+Inserting the parameters in @lem-declining-update-complexity yields:
+
+$$
+\begin{array}{rl}
+    & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2N} \cdot (N^2 + \relsize{G}^{N-1} \cdot N) } \\
+  = & \bigo{ (\relsize{\states} \cdot \relsize{\step{}}) \cdot (\relsize{\states}^2)^{2 \cdot 3} \cdot (3^2 + (\relsize{\states}^2)^{3-1} \cdot 3)} \\
+  = & \bigo{ (\relsize{\states} \cdot \relsize{\step{}}) \cdot \relsize{\states}^{12} \cdot \relsize{\states}^4}\\
+  = & \bigo{ \relsize{\states}^{17} \cdot \relsize{\step{}}}.
+\end{array}
+$$\qedhere
+:::
+
 
 ## Discussion
 

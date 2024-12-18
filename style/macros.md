@@ -123,7 +123,8 @@
 \providecommand{\abstractenergies}{\mathcal{E}}
 \providecommand{\energylevel}{\operatorname{EL}}
 \providecommand{\energies}{\mathbf{En}}
-\providecommand{\energyupdates}{\mathbf{Up}}
+\providecommand{\energiesflattened}{\widehat{\energies}}
+\providecommand{\energyupdates}{\mathbf{Up}} 
 \providecommand{\energyupdate}{\mathsf{upd}}
 \providecommand{\energyupdateinv}{\mathsf{upd}^{↺}}
 \providecommand{\updmin}[1]{\mathtt{min}_{\{\!#1\!\}}}

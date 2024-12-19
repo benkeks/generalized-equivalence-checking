@@ -1029,26 +1029,26 @@ The time bounds are *polynomial* with regard to game graph size.
 We have now gathered enough material to have this section prove that the spectroscopy problem for the polynomial-time strong spectrum is indeed solvable in polynomial time, thus justifying the name we chose for the spectrum.
 
 ::: {#thm-bisim-energy-game-complexity}
-Given a transition system $\system=(\states,\actions,\step{})$
-The 
+Given a transition system $\system$,
+the spectroscopy problem for the $\notions^\literal{poly-strong}$-spectrum can be solved in polynomial time with respect to the size of $\system$.
 :::
 :::proof
-@thm-bisim-energy-game-characterization has established that we can solve the spectroscopy problem for the $\notions^\literal{poly-strong}$-spectrum by deciding the winning budgets of the bisimulation energy game ${\game}_\notionname{B}^🗲$.
-Thus, all that remains to do is to instantiate @lem-declining-update-complexity for the case $N=3$ with the size of ${\game}_\notionname{B}^🗲$ according to @def-bisim-energy-game.
+@thm-bisim-energy-game-characterization has established that we can solve the spectroscopy problem for the $\notions^\literal{poly-strong}$-spectrum by deciding the winning budgets of the bisimulation energy game ${\game}_\notionname{B}^🗲$ on $\system=(\states,\actions,\step{})$.
+Thus, all that remains to be done is to instantiate the winning budget complexity of @lem-declining-update-complexity for the case $N=3$ with the size of ${\game}_\notionname{B}^🗲$ according to @def-bisim-energy-game.
 
 The amount of attacker positions is bounded by $\relsize{\states}^2$.
-These positions can initiate up to $\relsize{\states} \cdot \relsize{\step{}}$ simulation challenges, leading to similarly bounded amount of defender positions, which again can be left by $\relsize{\states} \cdot \relsize{\step{}}$ moves.
+These positions can initiate up to $\relsize{\states} \cdot \relsize{\step{}}$ simulation challenges, leading to a similarly-bounded amount of defender positions, which again can be left by $\relsize{\states} \cdot \relsize{\step{}}$ moves.
 
-In total, this amounts to $\bigo{o_{\gamemoveblank_\notionname{B}^🗲}} = \bigo{\relsize{\states} \cdot \relsize{\step{}}}$ and $\bigo{G_\notionname{B}^🗲} = \relsize{\states}^2$.
+In total, this amounts to $o_{\gamemoveblank_\notionname{B}^🗲}$ in $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ and to $\relsize{G_\notionname{B}^🗲}$ in $\bigo{\relsize{\states}^2}$.
 
 Inserting the parameters in @lem-declining-update-complexity yields:
 
 $$
-\begin{array}{rl}
-    & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2N} \cdot (N^2 + \relsize{G}^{N-1} \cdot N) } \\
-  = & \bigo{ (\relsize{\states} \cdot \relsize{\step{}}) \cdot (\relsize{\states}^2)^{2 \cdot 3} \cdot (3^2 + (\relsize{\states}^2)^{3-1} \cdot 3)} \\
-  = & \bigo{ (\relsize{\states} \cdot \relsize{\step{}}) \cdot \relsize{\states}^{12} \cdot \relsize{\states}^4}\\
-  = & \bigo{ \relsize{\states}^{17} \cdot \relsize{\step{}}}.
+\begin{array}{rlccccccc}
+    & O( & o_{\gamemoveblank} & \cdot & \relsize{G}^{2N} & \cdot & (N^2 + \relsize{G}^{N-1} \cdot N) & ) \\
+  = & O( & (\relsize{\states} \cdot \relsize{\step{}}) & \cdot & (\relsize{\states}^2)^{2 \cdot 3} & \cdot & (3^2 + (\relsize{\states}^2)^{3-1} \cdot 3) & ) \\
+  = & O( & (\relsize{\states} \cdot \relsize{\step{}}) & \cdot & \relsize{\states}^{12} & \cdot & \relsize{\states}^4 & )\\
+  = & O( & \relsize{\states}^{17} \cdot \relsize{\step{}} & ).
 \end{array}
 $$\qedhere
 :::

@@ -897,6 +897,8 @@ $$\bigo{ (\relsize{G} + \relheight_{\abstractenergies}(e_{\game})) \cdot \relsiz
 If $\abstractupdateinv$ is strictly declining, then the following suffices:
 
 $$\bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.$$
+
+In both cases, the algorithm needs $\bigo{\relsize{G} \cdot \relwidth_{\abstractenergies}(e_{\game}) \cdot N}$ space to store the Pareto frontiers.
 :::
 :::proof
 As in @thm-energy-game-correctness, we refer to @lemke2024multiweightedEnergyGames for a very detailed proof, where the corresponding fact is proved as Theorem&nbsp;7.
@@ -958,17 +960,18 @@ As $\energyupdate(u, \cdot)$ is monotonic, all that needs to be shown according 
 :::
 
 ::: {#lem-declining-update-complexity}
-@alg-deciding-energy-games solves the energy game problem on an $N$-dimensional *declining* energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in
+@alg-deciding-energy-games solves the energy game problem on an $N$-dimensional *declining* energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
 $$
-\bigo{o_{\gamemoveblank} \cdot \relsize{G}^{2 \cdot N} \cdot (N^2 + \relsize{G}^{N-1} \cdot N)}.
+\bigo{o_{\gamemoveblank} \cdot \relsize{G}^{2 \cdot N} \cdot (N^2 + \relsize{G}^{N-1} \cdot N)}
 $$
+and space $\bigo{ \relsize{G}^{N} \cdot N }$.
 :::
 ::: proof
 For declining updates, we instantiate the second case of @thm-energy-game-complexity:
 
 $$\bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.$$
 
-For declining energy games, we can fill in several blanks:
+For *declining energy games* as defined in @def-declining-energy-game, we can fill in several blanks:
 
 - $t_{\sup}$, the time to calculate the supremum between two elements of $\energies$ is in $\bigo{N}$,
 - $t_\leq$, time to compare two elements of $\energies$ is in $\bigo{N}$,
@@ -984,6 +987,16 @@ $$
   = & \bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relsize{G}^{N-1})^2 \cdot (N^2 + N + \relsize{G}^{N-1} \cdot N) } \\
   = & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2N+2-2} \cdot (N^2 + \relsize{G}^{N-1} \cdot N) } \\
   = & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2N} \cdot (N^2 + \relsize{G}^{N-1} \cdot N) } \\
+\end{array}
+$$
+
+For space complexity, we obtain:
+
+$$
+\begin{array}{rl}
+    & \bigo{ \relsize{G} \cdot \relwidth_{\energies}(e_{\game}) \cdot N } \\
+    & \bigo{ \relsize{G} \cdot \relsize{G}^{N-1} \cdot N } \\
+    & \bigo{ \relsize{G}^{N} \cdot N }
 \end{array}
 $$\qedhere
 
@@ -1008,21 +1021,22 @@ $$
 :::
 
 Clearly, @alg-deciding-energy-games can too be used to solve the flattened version of the problem by adapting $\energyupdateinv$ to represent all components above 1 by $\infty$.
-Effectively, this makes decouples the size of Pareto frontiers from the game size.
+Effectively, this decouples the size of Pareto frontiers from the game size.
 In this instance, @lem-declining-update-complexity becomes:
 
 ::: {#lem-declining-update-complexity-flattened}
-@alg-deciding-energy-games solves the *flattened* energy game problem on an $N$-dimensional declining energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in
+@alg-deciding-energy-games solves the *flattened* energy game problem on an $N$-dimensional declining energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
 $$
 \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2N} \cdot (N^2 + 3^{N-1} \cdot N) }
 $$
-:::
 
-TODO: Also consider space bound!
+and in space $\bigo{ \relsize{G} \cdot 3^{N-1} \cdot N }$.
+:::
 
 The bounds we have established are *exponential* with regard to the dimensionality $N$.
 But in our use case, we care for energy games of fixed dimensionality.
 The time bounds are *polynomial* with regard to game graph size.
+The space bounds behave similarly, but in the *flattened* variant fixed energy makes the space usage even drop to be *linear* in terms of game graph size.
 
 ### Polynomial Spectroscopy Complexity
 
@@ -1041,7 +1055,7 @@ These positions can initiate up to $\relsize{\states} \cdot \relsize{\step{}}$ s
 
 In total, this amounts to $o_{\gamemoveblank_\notionname{B}^🗲}$ in $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ and to $\relsize{G_\notionname{B}^🗲}$ in $\bigo{\relsize{\states}^2}$.
 
-Inserting the parameters in @lem-declining-update-complexity yields:
+Inserting the parameters in the time bounds of @lem-declining-update-complexity yields:
 
 $$
 \begin{array}{rlccccccc}
@@ -1050,7 +1064,10 @@ $$
   = & O( & (\relsize{\states} \cdot \relsize{\step{}}) & \cdot & \relsize{\states}^{12} & \cdot & \relsize{\states}^4 & )\\
   = & O( & \relsize{\states}^{17} \cdot \relsize{\step{}} & ).
 \end{array}
-$$\qedhere
+$$
+
+For space complexity, the approach arrives at $\bigo{ (\relsize{\states} \cdot \relsize{\step{}})^3}$.
+The bound drops to $\bigo{ (\relsize{\states} \cdot \relsize{\step{}})}$ in the flattened variant of @lem-declining-update-complexity-flattened. \qedhere
 :::
 
 

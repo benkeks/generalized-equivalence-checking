@@ -475,7 +475,7 @@ Introduced in @bjn2022decidingAllBehavioralEqs.
 
 In the context of a transition system $\system$ and a spectrum $(\notions, \leq, \observationsvar{N \in \notions})$, the *spectroscopy problem* asks:
 
-- Input:  A pair of processes $p$ and $q$.
+- Input:  A pair of states $p$ and $q$.
 - Output: Set of notions $\notions_{p,q} \subseteq \notions$, such that $p \bpreordvar{\observationsvar{N}} q$ for each $N \in \notions_{p,q}$.
 :::
 
@@ -533,7 +533,7 @@ Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\inf
 ```
 
 Cross section of the strong spectrum showing the dimensions conjunctions, negative clause depth, and negation depth.
-All preorders below the red mark hold in @exm-spectroscopy-front.
+All preorders below the red mark at $(2,2,2)$ hold in @exm-spectroscopy-front.
 :::
 
 Note that we have expressed $\notions^{\literal{strong}}_{\literal{Q}, \literal{Q'}}$ through a negation (“$\dots \nleq (2,2,0,0,2,2)$”).
@@ -547,6 +547,8 @@ $\notions^{\literal{strong}}_{\literal{Q}, \literal{Q'}} =
 :::
 
 ### Spectroscopy as Abstract Interpretation
+
+TODO: Either flesh out or throw out
 
 ::: {#def-observations}
 #### Observations

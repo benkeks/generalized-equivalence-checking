@@ -13,6 +13,28 @@ Purpose of section:
 - Introduce energy games
 - Illustrate approach (Eq-Prob → Equivalence Energy Game → Pareto fronts → Most fitting eqs)
 
+::: {#fig-equivalence-big-picture}
+```tikz
+\begin{tikzpicture}[auto,node distance=1.1cm,
+  algstep/.style={minimum width=4.3cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
+  \node[algstep, draw] (States) {$p, q$ in transition \\ system $\system$};
+  \node[algstep, draw, right of=States, node distance=8.1cm] (Preorders) {Finest notions \\ to preorder $p,q$};
+  \node[algstep, draw=TealBlue, below of=States, node distance=2.5cm] (EnergyGame) {Bisimulation energy \\ game ${\game}_\notionname{B}^{🗲\system}$};
+  \node[algstep, draw=Peach, below of=Preorders, node distance=2.5cm] (AttackerWinningBudgets) {Minimal attacker winning \\ budgets $\attackerwinsmin([p,q])$};
+  \path
+    (States) edge[->] node {Spectroscopy problem} (Preorders)
+    (States) edge[->, draw=TealBlue] node {Definition 4.7} (EnergyGame)
+    (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Theorem 4.1} (Preorders)
+    (EnergyGame) edge[->, draw=Peach] node {Algorithm 4.1} (AttackerWinningBudgets);
+  \node[right=2mm of Preorders] (Chp3) {Chapter 3};
+  \node[text=TealBlue, above right=4mm and 2mm of AttackerWinningBudgets] (Sec42) {Section 4.2};
+  \node[text=Peach, right=2mm of AttackerWinningBudgets] (Sec43) {Section 4.3};
+\end{tikzpicture}
+```
+
+How we will employ energy games to solve the spectroscopy problem.
+:::
+
 ## Energy Games
 
 ### Monotonic Energy Games

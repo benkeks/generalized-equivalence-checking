@@ -14,9 +14,9 @@ The very core concepts are described in @sec-programs.
 
 @fig-equivalence-big-picture shows the scaffold of this section to understand behavioral equivalences, instantiated to the classic notion of bisimilarity:
 
-- @sec-behavioral-eq introduces bisimilarity through its *relational characterization* in terms of symmetric simulation relations.
-- @sec-hml treats the 1:1-connection of bisimilarity to the distinguishing powers of a *modal logic*, known as the *Hennessy--Milner theorem*.
-- @sec-games shows that both, the relations to validate bisimilarity and modal formulas to falsify it, appear as certificates of defender and attacker strategies in a *reachability game*.
+- @sec-behavioral-eq introduces (among other notions) bisimilarity through its *relational characterization* in terms of symmetric simulation relations.
+- @sec-hml treats the dual connection of bisimilarity and the distinguishing powers of a *modal logic*, known as the *Hennessy--Milner theorem*.
+- @sec-games shows that both, the relations to validate bisimilarity and the modal formulas to falsify it, appear as certificates of strategies in a *reachability game* where an attacker tries to states apart and a defender tries to prevent this.
 
 ::: {#fig-equivalence-big-picture}
 ```tikz
@@ -66,7 +66,14 @@ To provide them with a bridge, we will start with relational and denotational de
 
 ## Behavior of Programs {#sec-programs}
 
+Every computer scientist has some model in their head of what it is that their algorithms and programs are doing.
+Usually these models are wrong,^[But some are useful, as the saying goes.] especially, once concurrency enters the picture.
+The area of *formal methods* tries to make models sufficiently precise that one at least can say what went wrong.
+
 ### Labeled Transition Systems
+
+Labeled transition systems are the standard formalism to discretely express the state space of programs, algorithms, and more.
+One can think of them as nondeterministic finite automata where the finiteness constraint has been lifted.
 
 ::: {#def-ts}
 #### Transition Systems
@@ -77,11 +84,11 @@ A *labeled transition system* (LTS) $\system=(\states,\actions,\step{})$ consist
 - $\actions$, a set of *actions,* and
 - ${\step{}} ⊆ \states × \actions × \states$, a *transition relation*.{{<isb locale Labeled_Transition_Systems lts>}}
 
-We write $\derivatives{p, α}$ for the set $\set{p' \mid p \step α p'}$,
-and $\initials{p}$ for $\set{α \mid \exists p' \ldotp p \step α p'}$
+We write $\derivatives{p, α}$ for the set of derivative states $\set{p' \mid p \step α p'}$,
+and $\initials{p}$ for the set of enabled actions $\set{α \mid \exists p' \ldotp p \step α p'}$.
 :::
 
-{{<noindent>}} There is a canonical example used to discuss equivalences within transition systems.
+{{<noindent>}} There is a canonical example used to discuss equivalences within transition systems, which we want to draw from.
 We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzinger.
 
 ::: {#fig-henzinger .column-margin}
@@ -138,7 +145,8 @@ For the internal action, the whole field has converged to $τ$ in italics, howev
 
 ### Calculus of Communicating Systems {#sec-ccs}
 
-To talk about programs in this thesis, we will use Milner's [-@milner1989comcon] *Calculus of Communicating Systems* (CCS).
+To talk about programs in this thesis, we use Milner's [-@milner1989comcon] *Calculus of Communicating Systems* (CCS).
+It is like a concurrent programming language that fits in your pocket (and can properly be described mathematically).
 
 ::: {#def-ccs}
 #### Calculus of Communicating Systems

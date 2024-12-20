@@ -17,9 +17,9 @@ Purpose of section:
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.1cm,
   algstep/.style={minimum width=4.3cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
-  \node[algstep, draw] (States) {$p, q$ in transition \\ system $\system$};
-  \node[algstep, draw, right of=States, node distance=8.1cm] (Preorders) {Finest notions \\ to preorder $p,q$};
-  \node[algstep, draw=TealBlue, below of=States, node distance=2.5cm] (EnergyGame) {Bisimulation energy \\ game ${\game}_\notionname{B}^{🗲\system}$};
+  \node[algstep, draw] (States) {States $p, q$ in \\ transition system $\system$};
+  \node[algstep, draw, right of=States, node distance=8.1cm] (Preorders) {Finest notions \\ to preorder $p$ to $q$};
+  \node[algstep, draw=TealBlue, below of=States, node distance=2.5cm] (EnergyGame) {Bisimulation \\ energy game ${\game}_\notionname{B}^{🗲\system}$};
   \node[algstep, draw=Peach, below of=Preorders, node distance=2.5cm] (AttackerWinningBudgets) {Minimal attacker winning \\ budgets $\attackerwinsmin([p,q])$};
   \path
     (States) edge[->] node {Spectroscopy problem} (Preorders)

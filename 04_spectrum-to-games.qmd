@@ -6,25 +6,29 @@ title: "Approach: Equivalence Problems as Energy Games"
 {{< include style/macros.md >}}
 :::
 
+
+
 Purpose of section:
 
 - Introduce energy games
 - Illustrate approach (Eq-Prob → Equivalence Energy Game → Pareto fronts → Most fitting eqs)
 
-TODO:
-
-- when exactly to demand upward closure and monotonicity?
-
 ## Energy Games
 
-### General Energy Games
+### Monotonic Energy Games
 
 To introduce energy games, we generalize the definitions on games (@def-game and the following) to include *energy levels*.
 
 ::: {#def-energy-game}
 #### Energy Reachability Game
 
-Given a partially ordered set of energies $(\abstractenergies, \leq)$, an *energy reachability game* $\game^🗲$ is a reachability game $(G, G_\defender, \gamemoveblank)$ extended by an edge labeling of energy updates $\abstractupdate \colon (\gamemoveblank) \to (\abstractenergies \to (\set{⊥} ∪ \abstractenergies))$, where $⊥ \notin \abstractenergies$ is final in the sense that $\abstractupdate(m)(⊥) = ⊥$.
+Given a partially ordered set of energies $(\abstractenergies, \leq)$, an *energy reachability game* $\game^🗲$ is a reachability game $(G, G_\defender, \gamemoveblank)$ extended by an edge labeling of energy updates $\abstractupdate \colon (\gamemoveblank) \to (\abstractenergies \to (\set{⊥} ∪ \abstractenergies))$.
+
+We demand the following for monotonic energy games:
+
+- $⊥ \notin \abstractenergies$ is final in the sense that $\abstractupdate(m)(⊥) = ⊥$.
+- All update functions $u =\abstractupdate(m)$ with $m \in {\gamemoveblank}$ are monotonic and upward-closed with respect to $\leq$.
+  More formally, this means that for any energies $e, e' \in \abstractenergies$, if $e \in \domain(u)$ and $e \leq e'$, then $e' \in \domain(u)$ and $u(e) \leq u(e')$, where $\domain(u) := \set{e ∈ \abstractenergies \mid u(e) \neq \bot}$.
 
 We denote by $\game^🗲(g_0, e_0)$ the game played from starting position $g_0 ∈ G$ with initial energy level $e_0 ∈ \abstractenergies$.
 :::
@@ -142,11 +146,22 @@ We can notice two things from the example:
   Then, the level with either be $(0,1)$ or $(3,0)$ at $\literal{g_4}$.
   The defender has to either move to $\literal{g_5}$ or $\literal{g_6}$, depending on the play so far.
   So, either the defender must know the history, or at least the current energy level to make an ideal decision.
-2. On this kind of energies, *attacker's winning budgets are upward-closed*, and defender budgets are downward-closed.
+2. *Attacker's winning budgets are upward-closed*, and defender budgets are downward-closed.
+:::
+
+Both are effects of @def-energy-game.
+More formally, the winning budgets are characterized by the following two propositions:
+
+::: {#prp-winning-budget-upward-closure}
+Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game}$ are point-wise upward-closed, that is, $\upset \attackerwins^{\game}(g) = \attackerwins^{\game}(g)$ for all positions $g \in G$.^[
+  This is formalized as Lemma 3.2 in @lemke2024multiweightedEnergyGames.
+]
 :::
 
 ::: {#prp-winning-budget-rules}
-Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game}$ are characterized inductively by the following rules:
+Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game}$ are characterized inductively by the following rules:^[
+  Proved as Theorem 3 in @lemke2024multiweightedEnergyGames.
+]
 $$
 \dfrac{
   g_\attacker ∈ G_\attacker \quad
@@ -166,9 +181,6 @@ $$
 }
 $$
 :::
-:::proof
-This is proved as Theorem 3 in @lemke2024multiweightedEnergyGames.
-:::
 
 ::: {#rem-energy-reachability}
 Ordinary reachability games can be seen as a special case of energy games with trivial energies, e.g.\ $\abstractenergies = \set{1}$ and $\abstractupdate(\cdot) = \identity{\abstractenergies}$.
@@ -184,7 +196,7 @@ We deviate in two important points from other work on energy games:
 - We have defined energy-reachability games more abstractly than is common:
   In other publications, energy games work on numbers with component-wise updates as seen in @exm-simple-energy-game.
   We do not demand this as, in the next sections, we will need updates that combine information from different components of the energy vector.
-  Even prior generalizations on energy update functions such as @eflq2013kleeneEnergyProblems does not allow sufficient flexibility in this regard.
+  Even prior generalizations on energy update functions such as @eflq2013kleeneEnergyProblems do not allow sufficient flexibility in this regard.
 :::
 
 ### Declining Energy Games
@@ -925,7 +937,7 @@ $$
 TODO: Example
 
 ::: {#lem-declining-update-galois}
-For all updates $u \in \energyupdates$, $\energyupdateinv(u, \cdot)$ and $\energyupdate(u, \cdot)$ form a Galois connection on the domain $\domain(u) = \set{e ∈ \energies \mid \energyupdate(u, e) \neq \bot}$.
+For all updates $u \in \energyupdates$, $\energyupdateinv(u, \cdot)$ and $\energyupdate(u, \cdot)$ form a Galois connection on the domain $\domain(u)$.
 :::
 :::proof
 As $\energyupdate(u, \cdot)$ is monotonic, all that needs to be shown according to @lem-galois-inversion, is that $\energyupdateinv(u, e') = \min \set{e \mid e' \leq \energyupdate(u, e)}$.

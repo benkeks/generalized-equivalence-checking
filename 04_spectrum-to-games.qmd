@@ -590,7 +590,7 @@ Thus, we have established that the bisimulation energy game ${\game}_\notionname
 To use exploit this property to decide equivalences and solve the spectroscopy problem algorithmically, we need one more ingredient:
 A decision procedure for winning budgets in declining energy games.
 
-## How to Decide Declining Energy Games
+## Deciding Energy Games
 
 This section is about how to compute which energy budgets are winning for the attacker (or the defender) at positions of an energy game:
 
@@ -1110,3 +1110,12 @@ The bound drops to $\bigo{ (\relsize{\states} \cdot \relsize{\step{}})}$ in the 
 - Sum up algorithm approach
 - Improvements compared to @bisping2023equivalenceEnergyGames game algo
 - Point out limitations (game cannot capture PSPACE eqs!)
+
+:::{#rem-shortest-paths}
+The energy game problem of this chapter can be seen as a *generalization of the shortest path problem* on graphs to account for two players as well as for much more general distances and cost functions.
+
+To see how, consider energy games on $(\ints, \leq)$ where only deadlock positions belong to the defender
+and where all updates constitute one-dimensional integer addition.
+Then, $e \in \attackerwinsmin(g)$ iff $e$ is the length of a shortest path from $g$ to some defender position (where negative $(-z)$-updates stand for what is usually written as a positive edge weight $z$ for graphs).
+In this instance, @alg-deciding-energy-games behaves like the well-know Bellman-Ford algorithm for shortest paths.
+:::

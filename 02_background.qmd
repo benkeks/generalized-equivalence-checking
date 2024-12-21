@@ -145,8 +145,8 @@ For the internal action, the whole field has converged to $τ$ in italics, howev
 
 ### Calculus of Communicating Systems {#sec-ccs}
 
-To talk about programs in this thesis, we use Milner's [-@milner1989comcon] *Calculus of Communicating Systems* (CCS).
-It is like a concurrent programming language that fits in your pocket (and can properly be described mathematically).
+To talk about programs in this thesis, we use Milner's [-@milner1989comcon] *Calculus of Communicating Systems* (CCS), which---together with other great contributions---earned him the Turing award.
+It is a tiny concurrent programming language that fits in your pocket, and can be properly described mathematically!
 
 ::: {#def-ccs}
 #### Calculus of Communicating Systems

@@ -357,10 +357,10 @@ But are $\literal{P}$ and $\literal{Q}$ equivalent?
 ## Behavioral Equivalences {#sec-behavioral-eq}
 
 A behvioral equivalence formally defines when to consider two processes (or states, or programs) as *equivalent*.
-Clearly, there might be different ways of chosing such a notion of equivalence.
-Also, sometimes we are interested in a behavioral preorder, for instance as a way of saying that a program does “less than” what some specification allows.
+Clearly, there might be different ways of choosing such a notion of equivalence.
+Also, sometimes we are interested in a behavioral *preorder*, for instance, as a way of saying that a program does “less than” what some specification allows.
 
-We will quickly introduce the most common representatives of behavioral equivalences:
+This section will quickly introduce the most common representatives of behavioral equivalences:
 Trace equivalence (and preorder), simulation equivalence (and preorder), and bisimilarity.
 We will then observe that the notions themselves can be compared in a hierarchy of equivalences.
 

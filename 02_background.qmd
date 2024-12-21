@@ -352,26 +352,38 @@ $$
 $$
 :::
 
+But are $\literal{P}$ and $\literal{Q}$ equivalent?
+
 ## Behavioral Equivalences {#sec-behavioral-eq}
 
+A behvioral equivalence formally defines when to consider two processes (or states, or programs) as *equivalent*.
+Clearly, there might be different ways of chosing such a notion of equivalence.
+Also, sometimes we are interested in a behavioral preorder, for instance as a way of saying that a program does “less than” what some specification allows.
+
+We will quickly introduce the most common representatives of behavioral equivalences:
+Trace equivalence (and preorder), simulation equivalence (and preorder), and bisimilarity.
+We will then observe that the notions themselves can be compared in a hierarchy of equivalences.
+
 ### Trace Equivalence
+
+Every computer science curriculum features automata and their languages sometime at the beginning.
+Accordingly, comparing two programs in terms of the sequences of input/ouput events they might expose, referred to as their *traces*, is a natural starting point to talk about behavioral equivalences.
 
 ::: {#def-traces}
 #### Traces
 
-The set of traces of a process $\traces{p}$ is recursively defined as
+The set of traces of a state $\traces{p}$ is recursively defined as
 
 - $\emptyword ∈ \traces{p}$,^[We denote the empty word by $\emptyword$.]
 - $α \cdot \vec w ∈ \traces{p}$ if there is $p'$ with $p \step α p'$ and $\vec w ∈ \traces{p'}$.{{<isb abbreviation Labeled_Transition_Systems lts.traces>}}
-
 :::
 
 ::: {#def-trace-eq}
 #### Trace Equivalence
 
-Two processes $p$ and $q$ are considered *trace-equivalent*, written $p \beq{T} q$, if $\traces{p} = \traces{q}$.{{<isb abbreviation Strong_Equivalences lts.trace_equivalent>}}
+Two states $p$ and $q$ are considered *trace-equivalent*, written $p \beq{T} q$, if $\traces{p} = \traces{q}$.{{<isb abbreviation Strong_Equivalences lts.trace_equivalent>}}
 
-Processes are *trace-preordered*, $p \bpreord{T} q$, if $\traces{p} ⊆ \traces{q}$.{{<isb definition Strong_Equivalences lts.trace_preordered>}}
+States are *trace-preordered*, $p \bpreord{T} q$, if $\traces{p} ⊆ \traces{q}$.{{<isb definition Strong_Equivalences lts.trace_preordered>}}
 :::
 
 ::: {#exm-phil-traces}
@@ -383,13 +395,29 @@ We could say that trace $\literal{b}$ constitutes a *difference* between $\liter
 :::
 
 ::: {#prp-trace-eq-rel}
-The trace preorder $\bpreord{T}$ is indeed a preorder (i.e., transitive and reflexive) {{<isb lemma Strong_Equivalences lts.trace_preorder_transitive>}} and trace equivalence $\beq{T}$ is indeed an equivalence relation (i.e., transitive, reflexive, and moreover symmetric).{{<isb lemma Strong_Equivalences lts.trace_equivalence_equiv>}}
+The trace preorder $\bpreord{T}$ is indeed a preorder (i.e., transitive and reflexive){{<isb lemma Strong_Equivalences lts.trace_preorder_transitive>}} and trace equivalence $\beq{T}$ is indeed an equivalence relation (i.e., transitive, reflexive, and moreover symmetric).{{<isb lemma Strong_Equivalences lts.trace_equivalence_equiv>}}
 :::
-::: proof
+<!-- ::: proof
 The properties carry over directly from $⊆$ and $=$ on sets of $\traces{\cdot}$.
-:::
+:::-->
+
+Trace equivalence and preorder assign programs straightforward *denotational semantics*:
+The sets of traces they might expose.
+For many languages, these mathematical objects can be constructed directly from the expressions of the language.
+With the idea that the program text “denotes” its possible executions, the set of traces is called a “denotation” in this context.
+CCS, as we use it, follows another approach to semantics, namely the one of “operational semantics,” where the meaning of a program is in how it might execute.
+
+There are several reasons why computer scientist did content semselves with trace equivalence when studying interactive systems.
+The core argument is that, in this context, one usually does not want to consider processes like $\literal{P}$ and $\literal{Q}$ to be equivalent:
+The two might interact differently with an environment.
+For instance, assume there is a user that wants to communicate $(\dots \ccspar \ccsprefix{\literal{a}}\ccsprefix{\literal{success}} \ccsnull) \ccsrestrict \set{\literal{a}}$.
+In interactions with $\literal{Q}$, they will always reach $\literal{success}$;
+with $\literal{P}$, there is a possibility of ending up deadlocked in parallel with $\literal{p_b}$, never achieving success.
 
 ### Simulation and Bisimulation
+
+The other big approach to behavioral equivalence of programs is the one of relating parts of their state spaces to one-another.
+The idea here is to identify which states of one program can be used to *simulate* the behavior of the another.
 
 ::: {#def-simulation}
 #### Simulation
@@ -400,14 +428,17 @@ A relation on states, $\rel R ⊆ \states × \states$, is called a *simulation* 
 ::: {#def-bisimilarity}
 #### (Bi-)similarity
 
-Simulation-preorder, similarity and bisimilarity are defined as follows:
+Simulation preorder, simulation equivalence and bisimilarity are defined as follows:
 
 - $p$ is *simulated by* $q$, $p \bpreord{S} q$, iff there is a simulation $\rel R$ with $(p, q) ∈ \rel R$.{{<isb definition Strong_Equivalences lts.simulated_by>}}
 - $p$ is *similar* to $q$, $p \beq{S} q$, iff $p \bpreord{S} q$ and $q \bpreord{S} p$.{{<isb abbreviation Strong_Equivalences lts.similar>}}
 - $p$ is *bisimilar* to $q$, $p \beq{B} q$, iff there is a *symmetric* simulation $\rel R$ (i.e. $\rel R = \inverse{\rel R}$) with $(p, q) ∈ \rel R$.{{<isb definition Strong_Equivalences lts.bisimilar>}}
 :::
 
-We also call a symmetric simulation “bisimulation” for short.
+We also call a symmetric simulation *bisimulation* for short.^[
+  Other authors use a weaker definition, namely, that $\rel R$ is a bisimulation if $\rel{R}$ and $\inverse{\rel{R}}$ are simulations.
+  Both definitions lead to the characterization of the same notion of bisimilarity.
+]
 Canceled symbols of relations refer to their negations, for instance, $p \nbeq{S} q$ iff there is *no* simulation $\rel R$ with $(p, q) ∈ \rel R$.
 
 ::: {#exm-phil-sim}
@@ -431,6 +462,7 @@ Thus, $\literal Q \nbpreord{S} \literal P$, and $\literal P \nbeq{S} \literal Q$
 ::: {#prp-sim-eq-rel}
 The simulation preorder $\bpreord{S}$ is indeed a preorder{{<isb lemma Strong_Equivalences lts.simulation_preorder_transitive>}}, and $\beq{S}$ and $\beq{B}$ are equivalences.{{<isb lemma Strong_Equivalences lts.bisimilarity_equiv>}}
 :::
+<!-- Too trivial.
 ::: proof
 1. Reflexivity of $\bpreord{S}$, $\beq{S}$ and $\beq{B}$:<br> $\identity{\states}$ is a (symmetric) simulation on each transition system.
 2. Transitivity of $\bpreord{S}$:<br>
@@ -443,6 +475,7 @@ The simulation preorder $\bpreord{S}$ is indeed a preorder{{<isb lemma Strong_Eq
   As $\rel R = \inverse{\rel R}$, this implies $(q,p) ∈ \rel R$ and thus $q \beq{B} p$.
   \qedhere
 :::
+-->
 
 ### The Hierarchy of Equivalences {#sec-hierarchy-equivalences}
 
@@ -542,6 +575,10 @@ $\literal{P_1}$ can transition to $(\ccsnull \ccspar \ccsnull) \ccsrestrict \set
 But $\literal{P_1} \nbeq{ISO} \literal{P_2}$ because no bijection can connect the one successor of $\literal{P_1}$ and the two of $\literal{P_2}$.
 However, $\literal{P_1} \beq{B} \literal{P_2}$, as bisimilarity is more relaxed.
 :::
+
+### Congruences
+
+TODO
 
 ## Modal Logic {#sec-hml}
 

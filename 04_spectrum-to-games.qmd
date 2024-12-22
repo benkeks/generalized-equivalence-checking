@@ -595,7 +595,7 @@ A decision procedure for winning budgets in declining energy games.
 This section is about how to compute which energy budgets are winning for the attacker (or the defender) at positions of an energy game:
 
 ::: {#def-energy-game-problem}
-#### Monotone Energy Game Winner Problem
+#### Monotonic Energy Game Winner Problem
 
 In the context of an energy system $(\abstractenergies, \leq)$ and a finite energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$, the *energy game winner problem* goes:
 
@@ -603,7 +603,7 @@ In the context of an energy system $(\abstractenergies, \leq)$ and a finite ener
 - Output: Pareto front of minimal winning budget for the attacker at $g$, $\attackerwinsmin(g)$.
 :::
 
-We will show how to solve the problem for energy games with monotone updates.
+We will show how to solve the problem for energy games with monotonic updates.
 To this end, we will adapt the idea of back-propagating how the defender loses in reachability games from @alg-deciding-games.
 
 The change is that we have to propagate not just attacker wins, but Pareto fronts of attacker-winning energy levels.
@@ -615,7 +615,7 @@ For details, readers are referred to @lemke2024multiweightedEnergyGames.
 
 ### Galois Connections
 
-Galois connections can be thought of as a pair of *monotone functions that invert each other up to their partial ordering relations*.
+Galois connections can be thought of as a pair of *monotonic functions that invert each other up to their partial ordering relations*.
 Another standard intuition is that Galois connections couple a *concrete* and a more *abstract* domain, and this is what the variable naming in the following definition alludes to.
 
 ::: {#def-galois-connection}
@@ -689,27 +689,27 @@ Therefore, $α_{\reals}$ and $\identity{\nats}$ form a Galois connection.
 Illustration of the Galois connection of @exm-galois-abstraction-reals between $\reals^{\geq 0}$ and $\nats$ using $\floor{\cdot}$-function, whose mapping is illustrated by the gray triangles.
 :::
 
-Any monotone function naturally induces a Galois-connected abstraction function.
+Any monotonic function naturally induces a Galois-connected abstraction function.
 
 ::: {#lem-galois-inversion}
 The following are equivalent:
-- $\gamma \colon A \to C$ is a monotone function, and $α(c) = \inf \set{a \mid c \leq_C \gamma(a)}$ for all $c ∈ C$.
+- $\gamma \colon A \to C$ is a monotonic function, and $α(c) = \inf \set{a \mid c \leq_C \gamma(a)}$ for all $c ∈ C$.
 - $α$ and $\gamma$ constitute a Galois connection between $C$ and $A$.^[
   Proposition 4 of @ekms1993primerGaloisConnections.
 ]
 :::
 
 We will refer to functions derived as in @lem-galois-inversion as “undo” functions.
-We understand them to generalize inverse functions of monotone functions as these will always be Galois connected.
+We understand them to generalize inverse functions of monotonic functions as these will always be Galois connected.
 
 ::: {#lem-galois-equality}
 If a function $f \colon A \to C$ is surjective and injective, it has a unique inverse function $f^{-1} \colon C \to A$ such that $f^{-1} \circ f = \identity{A}$ and $f \circ f^{-1} = \identity{C}$.
 
-If $f$ is monotone with respect to some partial orders on $C$ and $A$,
+If $f$ is monotonic with respect to some partial orders on $C$ and $A$,
 then $f^{-1}$ and $f$ must form a Galois connection.
 :::
 :::proof
-Because of injectivity and monotonicity, $f$ and $f^{-1}$, must be (strictly) monotone.
+Because of injectivity and monotonicity, $f$ and $f^{-1}$, must be (strictly) monotonic.
 Together with the definition of function inversion, we can reason
 $$f(c) \leq_A a \implies f^{-1}(f(c)) \leq_A f^{-1}(a) \implies c \leq_C f^{-1}(a)$$
 and
@@ -892,10 +892,10 @@ Additive combination (dashed red) of successor Pareto fronts (black) at attacker
 ::: {#thm-energy-game-correctness}
 Assume energies form a well-founded bounded $\lub$-semi-lattice $(\abstractenergies, \leq)$.
 Given a finite-state energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$
-with monotone $\abstractupdateinv$-functions for all moves
+with monotonic $\abstractupdateinv$-functions for all moves
 and with computable undo function $\abstractupdateinv(g, g')(e') = \min \set{e \mid e' \leq \abstractupdate(g, g')(e)}$,
 @alg-deciding-energy-games computes the Pareto frontier of minimal attacker winning budgets, solving 
-the *monotone energy game winner problem* (@def-energy-game-problem).
+the *monotonic energy game winner problem* (@def-energy-game-problem).
 :::
 :::proof
 @alg-deciding-energy-games is a work-list variant of a fixed-point iteration computing the least fixed point of attacker winning budgets $\attackerwins$ according to the inductive characterization of @prp-winning-budget-rules.
@@ -1048,7 +1048,7 @@ $$
 \end{cases}.
 $$
 
-We denote as *flattened* monotone energy game winner problem the variant of @def-energy-game-problem that outputs
+We denote as *flattened* monotonic energy game winner problem the variant of @def-energy-game-problem that outputs
 $$
 \widehat{\attackerwinsmin}(g) := \Min (\attackerwins(g) \cap \energiesflattened).
 $$

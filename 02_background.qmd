@@ -578,7 +578,21 @@ However, $\literal{P_1} \beq{B} \literal{P_2}$, as bisimilarity is more relaxed.
 
 ### Congruences
 
-TODO
+::: {#def-monotonic}
+#### Monotonicity and Congruence
+
+An $n$-ary function $f \colon B_1 \times \dots \times B_n \to C$ is called *monotonic* with respect to a family of partial orders $(B_k, \leq_k)$ and $(C, \leq)$ iff, for all $b \in B_1 \times \dots \times B_n$ and $b' \in B_1 \times \dots \times B_n$, it is the case that $b_k \leq b'_k$ for all $k \leq n$ implies that $f(b) \leq f(b')$.
+
+In a setting where all components use the same order $(B_1, \leq_1) = \cdots = (B_n, \leq_n) = (C, \leq)$, the relation $\leq$ is then referred to as a *congruence* for $f$.^[
+  Sometimes it is also demanded that congruences are equivalence relations, and relations without symmetry are called *pre-*congruences.
+  For our discussion, this disambiguation is not necessary.
+]
+:::
+
+::: {#lem-ccs-congruences}
+The operators of CCS are congruences for trace preorder, trace equivalence and bisimilarity.
+TODO: Check, prove!
+:::
 
 ## Modal Logic {#sec-hml}
 

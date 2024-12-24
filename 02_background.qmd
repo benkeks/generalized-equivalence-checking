@@ -136,9 +136,9 @@ The action $τ$ (the greek letter “tau”) will in later chapters stand for *i
 For the scope of this and the following three chapters, $τ$ is an action like every other.
 
 Generally, this thesis aims to be consistent with notation and naming in surrounding literature.
-But people who have been exposed to fewer compiler classes and semantics literature often find all the greek letters daunting.
-So, where there are two options, we prefer the less-greek one.
-After all, everything this thesis is about is simple, in a sense.
+<!--But people who have been exposed to fewer compiler classes and semantics literature often find all the greek letters daunting.-->
+Where there are different options, we usually prefer the less-greek one.
+<!--After all, everything this thesis is about is simple, in a sense.-->
 Also, we will usually write literals and constant names in $\textsf{sans-serif}$ and variables in $\textit{italics}$.
 For the internal action, the whole field has converged to $τ$ in italics, however---so, we will run with this.
 :::
@@ -578,19 +578,50 @@ However, $\literal{P_1} \beq{B} \literal{P_2}$, as bisimilarity is more relaxed.
 
 ### Congruences
 
+One of the prime quality criteria for behavioral equivalences is whether they form *congruences* with respect to fitting semantics or other important transformations.
+A congruence relates mathematical objects that can stand in for one-another in certain contexts, which, for instance, allows term rewriting.
+The concept is closely linked to another core notion of mathematics: monotonicity.
+
 ::: {#def-monotonic}
 #### Monotonicity and Congruence
 
 An $n$-ary function $f \colon B_1 \times \dots \times B_n \to C$ is called *monotonic* with respect to a family of partial orders $(B_k, \leq_k)$ and $(C, \leq)$ iff, for all $b \in B_1 \times \dots \times B_n$ and $b' \in B_1 \times \dots \times B_n$, it is the case that $b_k \leq b'_k$ for all $k \leq n$ implies that $f(b) \leq f(b')$.
+We will usually encounter settings where all components use the same order $(B_1, \leq_1) = \cdots = (B_n, \leq_n) = (C, \leq)$
 
-In a setting where all components use the same order $(B_1, \leq_1) = \cdots = (B_n, \leq_n) = (C, \leq)$, the relation $\leq$ is then referred to as a *precongruence* for $f$.
+The relation $\leq$ is then referred to as a *precongruence* for $f$.
 If $\leq$ moreover is symmetric (and thus an equivalence relation), then $\leq$ is called a *congruence* for $f$.
 :::
 
-::: {#lem-ccs-congruences}
-The operators of CCS are congruences for trace preorder, trace equivalence and bisimilarity.
-TODO: Check, prove!
+::: {#exm-congruence-oddity}
+#### Parity as Congruence
+As a standard example for a congruence, consider the equivalence relation of equally odd numbers
+$${\sim_\literal{odd}} := \set{(m,n) \in \nats \times \nats \mid m \mod 2 = n \mod 2}.$$
+For instance, $1 \sim_\literal{odd} 3$ and $0 \sim_\literal{odd} 42$, but not $42 \sim_\literal{odd} 23$.
+
+$\sim_\literal{odd}$ is a congruence for addition and multiplication.
+For instance, the sum of two odd numbers will always be even; the product of two odd numbers, will always be odd.
+
+But $\sim_\literal{odd}$ is no congruence for integer division.
+For instance, $2 \sim_\literal{odd} 4$, but $2 / 2 = 1 \not\sim_\literal{odd} 2 = 4 / 2$.
 :::
+
+::: {#lem-ccs-congruences}
+The operators of CCS (@def-ccs) are congruences for trace equivalence and bisimilarity on the CCS transition system (@def-ccs-semantics).
+:::
+:::proof
+This is a well-established fact.
+TODO: Citation!
+
+As an example, let us prove the congruence property for choice, $\ccschoice$, on bisimilarity, $\beq{B}$.
+For any CCS context, we assume $P \beq{B} R$ and $Q \beq{B} T$.
+We have to show that $P \ccschoice Q \beq{B} R \ccschoice T$,
+that is due to symmetry, that for any $\alpha$ with $P \ccschoice Q \step{\alpha}_\ccs \mathit{PQ}'$ there is $\mathit{RT}'$ such that $R \ccschoice T \step{\alpha}_\ccs \mathit{RT}'$ and $\mathit{PQ}' \beq{B} \mathit{RT}'$.
+By the semantics of CCS, the first step must be either due to $P \step{\alpha}_\ccs \mathit{PQ}'$ or, analogously, $Q \step{\alpha}_\ccs \mathit{PQ}'$.
+Without loss of generality, we only consider $P \step{\alpha}_\ccs \mathit{PQ}'$.
+Due to $P \beq{B} R$, this step implies some $R'$ with $R \step{\alpha}_\ccs R'$ and $\mathit{PQ}' \beq{B} R'$.
+As $R \ccschoice T \step{\alpha}_\ccs R'$, we can take this $R'$ to prove our goal.
+:::
+
 
 ## Modal Logic {#sec-hml}
 

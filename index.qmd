@@ -16,5 +16,3 @@ You should read this book (once it's finished) if you're interested in the seman
 
 (This is a space for TODOs that do not yet have a position in the text body.)
 
-- Congruences in Preliminaries
-

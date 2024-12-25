@@ -6,8 +6,7 @@
 
 ## Observability Hierarchies
 
-@hm1980hml introduce HML as a “little language for talking about programs.”
-The idea is that HML formulas express “experiments” or “tests” that an observer performs interacting with a program.
+TODO: intro
 The intuition thus is that $\hml$ sublogics capture what we consider to be *observable*.
 The more we mark as observable, the finer the resulting equivalence relations do become.
 

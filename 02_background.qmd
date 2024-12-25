@@ -624,9 +624,17 @@ As $R \ccschoice T \step{\alpha}_\ccs R'$, we can take this $R'$ to prove our go
 
 ## Modal Logic {#sec-hml}
 
+Modal logics are logics in which one can formalize how facts in one possible world relate to other possible worlds.
+In the computer science interpretation, the possible worlds are *program states*, and typical statements have the form:
+“If $X$ happens during the execution, then $Y$ will happen in the next step.”
 
+We care about modal logics as they too can be used to characterize behavioral equivalences.
+In this section, we will show how this characterization works and argue that, for our purposes of comparative semantics, modal characterizations are a superb medium.
 
 ### Hennessy–Milner Logic to Express Observations
+
+@hm1980hml introduce the modal logic that is now commonly called *Hennessy–Milner logic* as a “little language for talking about programs.”
+The idea is that HML formulas express “experiments” or “tests” that an observer performs interacting with a program.
 
 ::: {#def-hml}
 #### Hennessy–Milner Logic
@@ -676,6 +684,9 @@ Let us consider some observations on the system of @exm-ts.
 :::
 
 ### Characterizing Bisimilarity via HML
+
+We can now add the middle layer of our overview graphic in @fig-equivalence-big-picture:
+That two states are bisimilar precisely if they cannot be told apart using HML formulas.
 
 ::: {#def-distinctions}
 #### Distinctions and Equivalences
@@ -765,8 +776,9 @@ If $\observationsvar{} \subseteq \observationsvar{}'$ then $p \bpreordvar{\obser
 
 Pay attention to the opposing directions of $\subseteq$ and implication, here!
 
-Thirdly, as a corollary of @prp-difference-contraposition, modal characterizations *ensure equivalences to be abstractions of bisimilarity*, which is a sensible base notion of equivalence.
-<!-- TODO: add forwards pointer on good complexities of bisimilarity -->
+Thirdly, as a corollary of @prp-difference-contraposition, modal characterizations *ensure equivalences to be abstractions of bisimilarity*, which is a sensible base notion of equivalence.^[
+  Among other things, bisimilarity checking has a better time complexity than other notions as will be discussed in Subsection [-@sec-equivalence-complexities].
+]
 
 In Chapter [-@sec-spectrum], we will discuss how the hierarchy of behavioral equivalences can be understood nicely and uniformly if viewed through the modal lense.
 
@@ -822,7 +834,7 @@ $$
 {{<noindent>}} $\observations{\floor{B}}$ is a proper subset of $\hml$.
 For instance, it lacks the observation $\hmlobs{\literal a} \hmlobs{\literal b} \hmltrue$.
 Due to the subset relation, $\observations{\floor{B}}$ must be less or equal in expressiveness to $\hml$, but this inclusion too is strict as $\hmltrue$ cannot be covered for.
-But it is equally distinctive!
+But both logics are equally distinctive!
 
 ::: {#lem-game-formula-hml}
 $\observations{\floor{B}}$ and $\hml$ are equally distinctive.{{<isb theorem HML_Spectrum lts.hml_and_bisimulation_game_observations_equally_expressive>}}
@@ -846,6 +858,8 @@ We induct on the structure of $φ$ with arbitrary $p$ and $q$.
   By induction hypothesis, there is $φ' ∈ \observations{\floor{B}}$ distinguishing $q$ from $p$.
   Accordingly, $\hmlneg φ' ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$.\qedhere
 :::
+
+The smaller bisimulation logic $\observations{\floor{B}}$ will become important again later in the next section (in Subsection [-@sec-bisim-game-hml]).
 
 ## Games {#sec-games}
 

@@ -7,12 +7,13 @@ title: "Preliminaries: Communicating Systems and Games"
 There is a virtually infinite supply of formalisms to model programs and communicating systems.
 They are accompanied by many notions for behavioral equivalence and refinement to relate or distinguish their models.
 
-This chapter takes an agnostic *and* opinionated tour into this field.
-We are *agnostic* in building on the most basic and versatile formalism of *labeled transition systems* and on standard equivalences such as *trace equivalence* and *bisimilarity*.
-The approach is *opinionated* in focussing on Robin Milner's tradition of concurrency theory with a strong pull towards *game characterizations*.
+This chapter takes a tour into this field.
+The tour is *agnostic* in building on the most basic and versatile formalism of *labeled transition systems* and on standard equivalences such as *trace equivalence* and *bisimilarity*.
+The approach is also *opinionated* in focussing on Robin Milner's tradition of concurrency theory with a strong pull towards *game characterizations*.
 The very core concepts are described in @sec-programs.
 
-@fig-equivalence-big-picture shows the scaffold of this section to understand behavioral equivalences, instantiated to the classic notion of bisimilarity:
+We will explore the trinity of relational, modal, and game-theoretic characterizations of behavioral equivalences.
+@fig-equivalence-big-picture shows the scaffold of this section, instantiated to the classic notion of bisimilarity:
 
 - @sec-behavioral-eq introduces (among other notions) bisimilarity through its *relational characterization* in terms of symmetric simulation relations.
 - @sec-hml treats the dual connection of bisimilarity and the distinguishing powers of a *modal logic*, known as the *Hennessy--Milner theorem*.
@@ -493,7 +494,6 @@ flowchart TD
   Core hierarchy of equivalences.
 ::::
 
-
 ::: {#lem-bisim-bisim}
 The relation $\beq{B}$ is itself a symmetric simulation.{{<isb lemma Strong_Equivalences lts.bisim_bisim>}}
 :::
@@ -513,17 +513,17 @@ The hierarchy also is strict between similarity and bisimilarity as the followin
 ::: {#exm-bisim-sim}
 #### Trolled philosophers
 
-  Let us extend @exm-deterministic-phil with a troll process that might consume the $\literal{fork}$ and then do nothing:
-  $$
-  \literal {Q'} ≔ (\coaction{\literal{fork}} \ccspar \ccsprefix{\literal{fork} \ccspar \literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
-  $$
-  This adds another deadlock state to the transition system, seen in @fig-bisim-sim-ts.
+Let us extend $\literal{Q}$ of @exm-deterministic-phil to include a troll process that might consume the $\literal{fork}$ and then do nothing:
+$$
+\literal {T} ≔ (\coaction{\literal{fork}} \ccspar \ccsprefix{\literal{fork} \ccspar \literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
+$$
+This adds another deadlock state to the transition system, seen in @fig-bisim-sim-ts.
 
 :::: {#fig-bisim-sim-ts .column-margin}
 ```{mermaid}
 %%| fig-width: 1.5
 flowchart TD
-  q0([Q']) -- τ --> qAB([q<sub>ab</sub>])
+  q0([T]) -- τ --> qAB([q<sub>ab</sub>])
   qAB -- a --> qA([q<sub>1</sub>])
   qAB -- b --> qB([q<sub>2</sub>])
   q0 -- τ --> qT([q<sub>3</sub>])
@@ -531,12 +531,12 @@ flowchart TD
 Example with new deadlock $\literal{q_3}$.
 ::::
 
-  To similarity, this change is invisible, that is $\literal Q \beq{S} \literal{Q'}$.
-  (Reason: The relation $\set{(\literal Q, \literal{Q'}), (\literal{Q'}, \literal{Q})} \cup \identity{\set{ \literal{q_{ab}}, \literal{q_1}, \literal{q_2}, \literal{q_3}}}$ is a simulation.)
+To similarity, this change is invisible, that is $\literal Q \beq{S} \literal{T}$.
+(Reason: The relation $\set{(\literal Q, \literal{T}), (\literal{T}, \literal{Q})} \cup \identity{\set{ \literal{q_{ab}}, \literal{q_1}, \literal{q_2}, \literal{q_3}}}$ is a simulation.)
 
-  However, to bisimilarity, $\literal{Q'} \step{τ} \literal{q_3}$ constitutes a difference.
-  There cannot be a symmetric simulation handling this transition as $\literal{Q}$ has no deadlocked successors.
-  Thus $\literal Q \nbeq{B} \literal{Q'}$.
+However, to bisimilarity, $\literal{T} \step{τ} \literal{q_3}$ constitutes a difference.
+There cannot be a symmetric simulation handling this transition as $\literal{Q}$ has no deadlocked successors.
+Thus $\literal Q \nbeq{B} \literal{T}$.
 :::
 
 The equivalences we have been discussed so far could also be understood as abstractions of an even finer equivalence, namely graph isomorphism:
@@ -622,8 +622,9 @@ Due to $P \beq{B} R$, this step implies some $R'$ with $R \step{\alpha}_\ccs R'$
 As $R \ccschoice T \step{\alpha}_\ccs R'$, we can take this $R'$ to prove our goal.
 :::
 
-
 ## Modal Logic {#sec-hml}
+
+
 
 ### Hennessy–Milner Logic to Express Observations
 
@@ -1115,18 +1116,18 @@ That it is always safe for the defender to *answer* with moves to $[\literal{p_{
 :::
 
 ::: {#exm-bisim-sim-game}
-Let us recall @exm-bisim-sim of the “trolled philosophers,” where we determined $\literal{Q}$ and $\literal{Q'}$ to be non-bisimilar.
+Let us recall @exm-bisim-sim of the “trolled philosophers,” where we determined $\literal{Q}$ and $\literal{T}$ to be non-bisimilar.
 The bisimulation game graph for the system is depicted in @fig-bisim-sim-game.
 
-The attacker can win by moving $[\literal{Q}, \literal{Q'}]
-\gamemoveblank_\notionname{B} [\literal{Q'}, \literal{Q}]
+The attacker can win by moving $[\literal{Q}, \literal{T}]
+\gamemoveblank_\notionname{B} [\literal{T}, \literal{Q}]
 \gamemoveblank_\notionname{B} (\tau, \literal{q_3}, \literal{Q})
 \gamemoveblank_\notionname{B} [\literal{q_3}, \literal{q_{AB}}]
 \gamemoveblank_\notionname{B} [\literal{q_{AB}}, \literal{q_3}]
 \gamemoveblank_\notionname{B} (\literal{a}, \literal{q_1}, \literal{q_3})
 \ngamemoveblank_\notionname{B}$.
 Along this sequence of positions, the defender never has a choice and is stuck in the end.
-The attacker exploits, that $\literal{Q'}$ can reach an early deadlock via $\literal{Q'} \step{\tau} \literal{q_{3}}$.
+The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\literal{T} \step{\tau} \literal{q_{3}}$.
 :::
 
 ::: {#fig-bisim-sim-game}
@@ -1137,11 +1138,11 @@ The attacker exploits, that $\literal{Q'}$ can reach an early deadlock via $\lit
     defWins/.style={fill=blue!5}]
 
     \node[posStyle, initial, initial text={}]
-      (Att_Q_Qp){$[\literal{Q}, \literal{Q'}]$};
+      (Att_Q_Qp){$[\literal{Q}, \literal{T}]$};
     \node[posStyle]
-      (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{Q'}, \literal{Q}]$};
+      (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{T}, \literal{Q}]$};
     \node[posStyle, defender, defWins]
-      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q'})$};
+      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{AB}}, \literal{T})$};
     \node[posStyle, defWins]
       (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_{AB}}]$};
     \node[posStyle]
@@ -1166,14 +1167,14 @@ The attacker exploits, that $\literal{Q'}$ can reach an early deadlock via $\lit
       (Att_q3_qab)
         edge[bend right = 60] node {} (Att_qab_q3)
       (Dfn_t_qab_Qp)
-        edge node {$\literal{Q'} \step{\tau} \literal{q_{3}}$} (Att_qab_q3)
-        edge node {$\literal{Q'} \step{\tau} \literal{q_{AB}}$} (Att_qab_qab)
+        edge node {$\literal{T} \step{\tau} \literal{q_{3}}$} (Att_qab_q3)
+        edge node {$\literal{T} \step{\tau} \literal{q_{AB}}$} (Att_qab_qab)
       (Att_qab_qab)
         edge [loop left] node {swap} ()
       (Att_Qp_Q)
         edge[bend left = 10] node {swap} (Att_Q_Qp)
-        edge[swap] node {$\literal{Q'} \step{\tau} \literal{q_{AB}}$} (Dfn_t_qab_Q)
-        edge[swap] node {$\literal{Q'} \step{\tau} \literal{q_{3}}$} (Dfn_t_q3_Q)
+        edge[swap] node {$\literal{T} \step{\tau} \literal{q_{AB}}$} (Dfn_t_qab_Q)
+        edge[swap] node {$\literal{T} \step{\tau} \literal{q_{3}}$} (Dfn_t_q3_Q)
       (Dfn_t_qab_Q)
         edge node[swap] {$\literal{Q} \step{\tau} \literal{q_{AB}}$} (Att_qab_qab)
       (Dfn_t_q3_Q)
@@ -1185,7 +1186,7 @@ The attacker exploits, that $\literal{Q'}$ can reach an early deadlock via $\lit
   \end{tikzpicture}
 ```
 
-Bisimulation game on non-bisimilar states $\literal{Q}$ and $\literal{Q'}$ of @exm-bisim-sim-game.
+Bisimulation game on non-bisimilar states $\literal{Q}$ and $\literal{T}$ of @exm-bisim-sim-game.
 Moves are labeled by their justification.
 Defender-won positions are tinted blue.
 :::
@@ -1240,8 +1241,8 @@ To this end, we will show that attacker's winning strategies imply distinguishin
 
 Let us illustrate how to derive distinguishing formulas using the game of @exm-bisim-sim-game.
 
-Recall that the attacker wins by moving $[\literal{Q}, \literal{Q'}]
-\gamemoveblank_\notionname{B} [\literal{Q'}, \literal{Q}]
+Recall that the attacker wins by moving $[\literal{Q}, \literal{T}]
+\gamemoveblank_\notionname{B} [\literal{T}, \literal{Q}]
 \gamemoveblank_\notionname{B} (\tau, \literal{q_3}, \literal{Q})
 \gamemoveblank_\notionname{B} [\literal{q_3}, \literal{q_{AB}}]
 \gamemoveblank_\notionname{B} [\literal{q_{AB}}, \literal{q_3}]
@@ -1261,11 +1262,11 @@ This attacker strategy can thus be expressed by $\hmlneg\hmlobs{\tau}\hmlands\se
     defWins/.style={fill=blue!5}]
 
     \node[posStyle, initial, initial text={}, label={100:$\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}$}]
-      (Att_Q_Qp){$[\literal{Q}, \literal{Q'}]$};
+      (Att_Q_Qp){$[\literal{Q}, \literal{T}]$};
     \node[posStyle, label={100:$\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}$}]
-      (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{Q'}, \literal{Q}]$};
+      (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{T}, \literal{Q}]$};
     \node[posStyle, defender, defWins]
-      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q'})$};
+      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{AB}}, \literal{T})$};
     \node[posStyle, defWins]
       (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_{AB}}]$};
     \node[posStyle, label={100:$\hmlobs{\literal{a}}\hmltrue$}]

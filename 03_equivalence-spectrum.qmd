@@ -487,17 +487,17 @@ Clearly, Pareto fronts form *anti-chains*.
 All spectra we are concerned with are well-quasi ordered, which means that each $\Min(\notions \setminus \notions_{p,q})$ must be finite in size [@kruskal1972wqo], and thus “more handy” than the full sets $\notions_{p,q}$ or $\notions \setminus \notions_{p,q}$.
 
 ::: {#exm-spectroscopy-front}
-For the “trolled philosophers” of @exm-bisim-sim, we have determined that the systems are simulation-preordered, but not bisimilar, that is, $\literal{Q} \bpreord{S} \literal{Q'}$, but $\literal{Q} \nbpreord{B} \literal{Q'}$.
-The first fact implies $\literal{Q} \bpreord{T} \literal{Q'}$.
+For the “trolled philosophers” of @exm-bisim-sim, we have determined that the systems are simulation-preordered, but not bisimilar, that is, $\literal{Q} \bpreord{S} \literal{T}$, but $\literal{Q} \nbpreord{B} \literal{T}$.
+The first fact implies $\literal{Q} \bpreord{T} \literal{T}$.
 
 But what about other notions from the strong spectrum of Subsection -@sec-full-spectrum?
-Besides similarity, there might well be incomparable or finer notions that too preorder $\literal{Q}$ to $\literal{Q'}$!
+Besides similarity, there might well be incomparable or finer notions that too preorder $\literal{Q}$ to $\literal{T}$!
 
-The solution to the spectroscopy problem on $\literal{Q}$ and $\literal{Q'}$ is $\notions^{\literal{strong}}_{\literal{Q}, \literal{Q'}} = \set{N \in \notions^\literal{strong} \mid N \nleq (2,2,0,0,2,2)}$.
-A minimal formula to distinguish $\literal{Q}$ from $\literal{Q'}$ with this coordinate would be $\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}}$.
+The solution to the spectroscopy problem on $\literal{Q}$ and $\literal{T}$ is $\notions^{\literal{strong}}_{\literal{Q}, \literal{T}} = \set{N \in \notions^\literal{strong} \mid N \nleq (2,2,0,0,2,2)}$.
+A minimal formula to distinguish $\literal{Q}$ from $\literal{T}$ with this coordinate would be $\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}}$.
 (The following chapters will reveal how to reliably arrive at this knowledge, in particular, the minimality.)
 
-Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\infty,\infty,\infty,\infty,1)$ is not less or equal to $(2,2,0,0,2,2)$, we arrive at $\literal{Q} \bpreord{2S} \literal{Q'}$, which implies *all* preorders of @fig-strong-ltbt-spectrum except for bisimilarity.
+Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\infty,\infty,\infty,\infty,1)$ is not less or equal to $(2,2,0,0,2,2)$, we arrive at $\literal{Q} \bpreord{2S} \literal{T}$, which implies *all* preorders of @fig-strong-ltbt-spectrum except for bisimilarity.
 
 ::: {#fig-spectroscopy-front}
 
@@ -536,10 +536,10 @@ Cross section of the strong spectrum showing the dimensions conjunctions, negati
 All preorders below the red mark at $(2,2,2)$ hold in @exm-spectroscopy-front.
 :::
 
-Note that we have expressed $\notions^{\literal{strong}}_{\literal{Q}, \literal{Q'}}$ through a negation (“$\dots \nleq (2,2,0,0,2,2)$”).
+Note that we have expressed $\notions^{\literal{strong}}_{\literal{Q}, \literal{T}}$ through a negation (“$\dots \nleq (2,2,0,0,2,2)$”).
 The reason is that a positive description is usually unwieldy.
 In this (comparably easy) case, we could for example list the half-spaces below the cheapest distinction, and this would read:
-$\notions^{\literal{strong}}_{\literal{Q}, \literal{Q'}} =
+$\notions^{\literal{strong}}_{\literal{Q}, \literal{T}} =
 (\set{0,1} \times \natsext^5) \cup
 (\natsext \times \set{0,1} \times \natsext^4) \cup
 (\natsext^4 \times \set{0,1} \times \natsext) \cup

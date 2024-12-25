@@ -863,12 +863,13 @@ The smaller bisimulation logic $\observations{\floor{B}}$ will become important 
 
 ## Games {#sec-games}
 
-So far, we have only seen behavioral equivalences and modal formulas as mathematical objects.
+So far, we have only seen behavioral equivalences and modal formulas as mathematical objects and not cared about decision procedures.
 This section introduces *game-theoretic characterizations* as a way of easily providing decision procedures for equivalences and logics alike.
+Intuitively, the games can be understood as dialogs between a party that tries to defend a claim and a party that tries to attack it.
 
 ### Reachability Games
 
-*Gale--Stewart-style reachability games* [in the tradition of @galeStewart1953infiniteGamesPerfectInformation] where the defender wins all infinite plays.
+We use *Gale--Stewart-style reachability games* [in the tradition of @galeStewart1953infiniteGamesPerfectInformation] where the defender wins all infinite plays.
 
 ::: {#def-game}
 #### Reachability Game
@@ -898,16 +899,16 @@ The player choices are formalized by *strategies*:
 ::: {#def-strategies}
 #### Strategies and Winning Strategies
 
-An *attacker strategy* is a (partial) function mapping play fragments ending at attacker positions to next positions to move to, $\rel f_\attacker \colon G^*G_\attacker \to G$, where $g_\attacker \gamemoveblank \rel f_\attacker(\rho g_\attacker)$ must hold for all $\rho g_\attacker$ where $\rel f_\attacker$ is defined.
+An *attacker strategy* is a (partial) function mapping play fragments ending at attacker positions to next positions to move to, $\rel s_\attacker \colon G^*G_\attacker \to G$, where $g_\attacker \gamemoveblank \rel f_\attacker(\rho g_\attacker)$ must hold for all $\rho g_\attacker$ where $\rel s_\attacker$ is defined.
 
-A play ${g_0}{g_1} … ∈ G^{\infty}$ is consistent with an attacker strategy $\rel f_\attacker$ if, for all its prefixes $g_0 … g_i$ ending in $g_i \in G_\attacker$, $g_{i + 1} = \rel f_\attacker(g_0 … g_i)$.
+A play ${g_0}{g_1} … ∈ G^{\infty}$ is consistent with an attacker strategy $\rel s_\attacker$ if, for all its prefixes $g_0 … g_i$ ending in $g_i \in G_\attacker$, $g_{i + 1} = \rel s_\attacker(g_0 … g_i)$.
 
-*Defender strategies* are defined analogously, $\rel f_\defender \colon G^*G_\defender \to G$.
+*Defender strategies* are defined analogously, $\rel s_\defender \colon G^*G_\defender \to G$.
 
-If $\rel f$ ensures a player to win, $\rel f$ is called a *winning strategy* for this player.
+If $\rel s$ ensures a player to win, $\rel s$ is called a *winning strategy* for this player.
 The player with a winning strategy for $\game(g_{0})$ is said to *win* $\game(g_{0})$.
 
-Usually, we will focus on positional strategies, that is, strategies that only depend on the most recent position, which we will type $\rel f_\attacker \colon G_\attacker \to G$ (or $\rel f_\defender \colon G_\defender \to G$, respectively).
+Usually, we will focus on positional strategies, that is, strategies that only depend on the most recent position, which we will type $\rel s_\attacker \colon G_\attacker \to G$ (or $\rel s_\defender \colon G_\defender \to G$, respectively).
 :::
 
 {{<noindent>}}
@@ -944,9 +945,8 @@ A simple game.
 ::::
 :::
 
-The reachability games we consider essentially are a subclass of parity games only colored by 0.
-So the games are positionally determined.
-This means, for each possible initial position, exactly one of the two players has a positional winning strategy $\rel f$.
+The games we consider are positionally determined.
+This means, for each possible initial position, exactly one of the two players has a positional winning strategy $\rel s$.
 
 ::: {#prp-determinacy}
 #### Determinacy
@@ -955,7 +955,8 @@ Reachability games are positionally determined, that is,
 for any game, each game position has exactly one winner:
 $G = \attackerwins \cup \defenderwins$ and $\attackerwins \cap \defenderwins = \varnothing$,
 and they can win using a positional strategy.^[
-  This is just an instantiation of positional determinacy of parity games @zielonka1998infiniteGameColoured.
+  This is just an instantiation of positional determinacy of parity games [@zielonka1998infiniteGameColoured].
+  Reachability games are the subclass of parity games only colored by 0.
 ]
 :::
 
@@ -977,7 +978,8 @@ Consider the following recursive definition of a less-or-equal operator `≤` on
 We can think of this recursion as a game where the attacker tries to prove that the left number is bigger than the right by always decrementing the left number and challenging the defender to do the same for the right stack too.
 Whoever hits zero first, loses.
 
-This means we distribute the roles such that the defender winning matches output `True` and the attacker output `False`, and the two base cases need to be dead ends for one of the players.
+This means we distribute the roles such that the defender wins for output `True` and the attacker for output `False`.
+The two base cases need to be dead ends for one of the players.
 
 Formally, the game $\game_\literal{leq}$ consists of attacker positions $[n,m]$ and defender positions $(n,m)$ for all $n,m \in \nats$, connected by chains of moves:
 $$
@@ -999,7 +1001,7 @@ The game is *boring* because the players do not ever have any choices.
 They just count down their way through the natural numbers till they hit $[0, m - n]$ if $n \leq m$, or $(n - m, 0)$ otherwise.
 
 $\game_\literal{leq}$ is quite archetypical for the preorder and equivalence games we will use in the following pages.
-But the following games will demand the players to make choices.
+But do not worry, the following games will demand the players to make choices.
 :::
 
 ### The Semantic Game of HML
@@ -1053,7 +1055,7 @@ At conjunctive constructs ($\hmlneg\hmlobs{\cdot}\cdots$, $\hmlands \cdots$) the
 
 ::: {#exm-formula-game-cont}
 
-@exm-formula-game is exactly the HML game ${\game}_\hml^{\system_\literal{PQ}}$ for formula $\hmlobs{τ}\hmlneg\hmlobs{\literal a}\hmltrue$ and state $\literal P$ of @exm-hml with
+The game of @exm-formula-game is exactly the HML game ${\game}_\hml^{\system_\literal{PQ}}$ for formula $\hmlobs{τ}\hmlneg\hmlobs{\literal a}\hmltrue$ and state $\literal P$ of @exm-hml with
 $(\literal{1}) ≔ (\literal{P}, \hmlobs{τ}\hmlneg\hmlobs{\literal a}\hmltrue)$,
 $[\literal{2a}] ≔ (\literal{p_a}, \hmlneg\hmlobs{\literal a}\hmltrue)$,
 $[\literal{2b}] ≔ (\literal{p_b}, \hmlneg\hmlobs{\literal a}\hmltrue)$, and
@@ -1063,7 +1065,7 @@ The defender winning region $\defenderwins = \set{(\literal{P}, \hmlobs{τ}\hmln
 :::
 
 As the technicalities are tangential to this thesis, we state the characterization result without proof:^[
-  A detailed presentation of a more general HML game, also extending to recursive HML, can be found in [@woe2015caal2hml, Chapter 3].
+  A detailed presentation of a more general HML game, also extending to recursive HML, can be found in @woe2015caal2hml [Chapter 3].
 ]
 
 ::: {#lem-hml-semantic-game}
@@ -1071,6 +1073,10 @@ The defender wins ${\game}_\hml^{\system}((p, φ))$ precisely if $p ∈ \semanti
 :::
 
 ### The Bisimulation Game
+
+We now can add the bottom layer of @fig-equivalence-big-picture:
+That bisimilarity can be characterized through a game.
+This approach has been popularized by @stirling1996modal.
 
 ::: {#def-bisim-game}
 #### Bisimulation Game
@@ -1215,10 +1221,26 @@ Sketch for both directions:
 
 - If $\rel R$ is a symmetric simulation with $(p,q) ∈ \rel R$,
   then the following positional defender strategy is well-defined and winning from $[p, q]$:{{<isb lemma Equivalence_Games bisim_game.bisim_implies_defender_winning_strategy>}}
-  $$\rel f (α, p', q) ≔ [p', \operatorname{choose} q'\ldotp (p', q') ∈ \rel R \land q \step{α} q'].$$
-- If there is a positional defender strategy $\rel f$ winning from $[p, q]$,
+  $$\rel s (α, p', q) ≔ [p', \operatorname{choose} q'\ldotp (p', q') ∈ \rel R \land q \step{α} q'].$$
+- If there is a positional defender strategy $\rel s$ winning from $[p, q]$,
   then the following relation $\rel R$ with $(p_0,q_0) ∈ \rel R$ is a symmetric simulation:{{<isb lemma Equivalence_Games bisim_game.defender_winning_strategy_implies_bisim>}}
-  $$\rel R ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),...,(p,q)$ following strategy $\rel f$}}.$$
+  $$\rel R ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),...,(p,q)$ following strategy $\rel s$}}.$$
+:::
+
+::: {#rem-computer-game}
+One of the big advantages of game characterizations is that they provide a way to discuss equivalence and inequivalence interactively among humans.
+There also are several computer game implementations of bisimulation games.
+
+:::: {#fig-peacock-game .column-margin}
+![](img/peacock-bisim-video-game.png){.lightbox}
+
+Screenshot of [Peacock's bisimulation computer game](https://www.concurrency-theory.org/rvg-game/).
+::::
+
+For instance, @peacock2020 implements a game about simulation and bisimulation as well as several weaker notions.
+The human plays the attacker trying to point out the inequivalence of systems according to the rules of @def-bisim-game.
+@fig-peacock-game shows a screenshot of said game.
+It can be played on <https://www.concurrency-theory.org/rvg-game/>.
 :::
 
 ### How Bisimulation Game and HML Are Connected {#sec-bisim-game-hml}
@@ -1330,22 +1352,22 @@ The bisimulation game of @exm-bisim-sim-game-formulas with attacker formulas.
 More generally, the following lemma explains the construction of distinguishing formulas from attacker strategies:
 
 ::: {#lem-attacks-imply-formulas}
-Let $\rel f$ be a positional winning strategy for the attacker on ${\game}_\notionname{B}$ from $[p,q]$.
-Construct formulas recursively from game positions, ${φ}_{\rel{f}}(g)$, as follows:
+Let $\rel s$ be a positional winning strategy for the attacker on ${\game}_\notionname{B}$ from $[p,q]$.
+Construct formulas recursively from game positions, ${φ}_{\rel{s}}(g)$, as follows:
 
 $$
-φ_{\rel f}([p,q]) ≔ \begin{cases}
-  \hmlneg φ_{\rel f}([q,p])  & \text{if } \rel f([p,q]) = [q,p] \\
-  \hmlobs{\alpha} \hmlands \set{ φ_{\rel f}([p',q']) \mid q \step{\alpha} q' } & \text{if } \rel f([p,q]) = (\alpha,p',q)
+φ_{\rel s}([p,q]) ≔ \begin{cases}
+  \hmlneg φ_{\rel f}([q,p])  & \text{if } \rel s([p,q]) = [q,p] \\
+  \hmlobs{\alpha} \hmlands \set{ φ_{\rel s}([p',q']) \mid q \step{\alpha} q' } & \text{if } \rel f([p,q]) = (\alpha,p',q)
 \end{cases}
 $$
 
-Then $φ_{\rel f}([p,q])$ is well-defined and distinguishes $p$ from $q$.
-Also, $φ_{\rel f}([p,q]) ∈ \observations{\floor{B}}$.
+Then $φ_{\rel s}([p,q])$ is well-defined and distinguishes $p$ from $q$.
+Also, $φ_{\rel s}([p,q]) ∈ \observations{\floor{B}}$.
 :::
 ::: proof
-1. The given construction is well-defined as $\rel f$ must induce a well-founded order on game positions in order to be attacker-winning.
-2. The distinction can be derived by induction on the construction of $φ_{\rel f}([p,q])$.
+1. The given construction is well-defined as $\rel s$ must induce a well-founded order on game positions in order to be attacker-winning.
+2. The distinction can be derived by induction on the construction of $φ_{\rel s}([p,q])$.
    TODO \qedhere
 :::
 
@@ -1375,6 +1397,7 @@ The attacker wins ${\game}_\notionname{B}$ from $[p,q]$ precisely if there is $�
 
 {{<noindent>}} Of course, we already knew this!
 @thm-game-formulas is just another way of gluing together the Hennessy–Milner theorem on bisimulation (@thm-hennessy-milner) and the Stirling's bisimulation game characterization (@thm-bisim-game-characterization), modulo the determinacy of games.
+We thus have added the last arrow on the right side of @fig-equivalence-big-picture.
 
 ### Deciding Reachability Games
 
@@ -1446,3 +1469,4 @@ Insights:
 - relational characterizations = defender view; modal characterizations = attacker view.
   - mention axiomatic characterizations
 - HML-theorem a shadow of game determinacy when lifting from games to equivalences
+- decision problem

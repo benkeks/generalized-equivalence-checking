@@ -760,7 +760,7 @@ The implicit assumption is that the cardinality of index sets $I$ can match that
 The original proof by @hm1980hml uses binary conjunction ($\varphi_1 \land \varphi_2$) and thus can only express finitary conjunctions.
 :::
 
-### The Perks of Modal Characterizations
+### The Perks of Modal Characterizations {#sec-perks-modal-characterizations}
 
 There is merit in also characterizing other equivalences through sublogics $\observationsvar{} \subseteq \hml$.
 There are three immediate big advantages to modal characterization:
@@ -1092,6 +1092,34 @@ attack positions $G^\notionname{B}_\attacker ≔ \states × \states$ and defense
   $$(α, p', q) \quad \gamemoveblank_\notionname{B} \quad [p', q'] \quad \text{if} \quad q \step{α} q'.$$
 :::
 
+A schematic depiction of the game rules can be seen in @#fig-game-scheme.
+From dashed nodes, the game proceeds analogously to the initial attacker position.
+
+::: {#fig-game-scheme}
+
+```tikz
+\begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm, rel/.style={dashed,font=\it},
+  posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
+    \node[posStyle, initial, initial text={}]
+      (Att){$[p,q]$};
+    \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
+      (Def) [right = 1.5cm of Att] {$(\alpha, p', q)$};
+    \node[posStyle, dashed]
+      (AttContinue) [right = 1.5cm of Def] {$[p', q']$};
+    \node[posStyle, dashed]
+      (AttContinueSwap) [below = 1.2cm of AttContinue] {$[q, p]$};
+    \path
+      (Att)
+        edge node {$p \step{\alpha} p'$} (Def)
+        edge[bend right=10] node {} (AttContinueSwap)
+      (Def)
+        edge node {$q \step{\alpha} q'$} (AttContinue);
+\end{tikzpicture}
+```
+
+Game scheme of the bisimulation game (@def-bisim-game).
+:::
+
 ::: {#exm-bisim-game}
 Consider $\literal{p_{even}} \beq{B} \literal{p_{odd}}$ of @exm-graph-isomorphism.
 The bisimulation game on this system is given by @fig-bisim-game-even-odd:
@@ -1223,8 +1251,8 @@ Sketch for both directions:
   then the following positional defender strategy is well-defined and winning from $[p, q]$:{{<isb lemma Equivalence_Games bisim_game.bisim_implies_defender_winning_strategy>}}
   $$\rel s (α, p', q) ≔ [p', \operatorname{choose} q'\ldotp (p', q') ∈ \rel R \land q \step{α} q'].$$
 - If there is a positional defender strategy $\rel s$ winning from $[p, q]$,
-  then the following relation $\rel R$ with $(p_0,q_0) ∈ \rel R$ is a symmetric simulation:{{<isb lemma Equivalence_Games bisim_game.defender_winning_strategy_implies_bisim>}}
-  $$\rel R ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),...,(p,q)$ following strategy $\rel s$}}.$$
+  then the following relation $\rel{R_s}$ with $(p_0,q_0) ∈ \rel{R_s}$ is a symmetric simulation:{{<isb lemma Equivalence_Games bisim_game.defender_winning_strategy_implies_bisim>}}
+  $$\rel{R_s} ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),...,(p,q)$ following strategy $\rel s$}}.$$
 :::
 
 ::: {#rem-computer-game}
@@ -1357,8 +1385,8 @@ Construct formulas recursively from game positions, ${φ}_{\rel{s}}(g)$, as foll
 
 $$
 φ_{\rel s}([p,q]) ≔ \begin{cases}
-  \hmlneg φ_{\rel f}([q,p])  & \text{if } \rel s([p,q]) = [q,p] \\
-  \hmlobs{\alpha} \hmlands \set{ φ_{\rel s}([p',q']) \mid q \step{\alpha} q' } & \text{if } \rel f([p,q]) = (\alpha,p',q)
+  \hmlneg φ_{\rel s}([q,p])  & \text{if } \rel s([p,q]) = [q,p] \\
+  \hmlobs{\alpha} \hmlands \set{ φ_{\rel s}([p',q']) \mid q \step{\alpha} q' } & \text{if } \rel s([p,q]) = (\alpha,p',q)
 \end{cases}
 $$
 
@@ -1463,10 +1491,57 @@ the attacker's winning region $\attackerwins$ (and $\defenderwins$ as well) can 
 
 ## Discussion
 
-Insights:
+This chapter has taken a tour of characterizations for standard notions of behavioral preorder and equivalence on transition systems such as trace equivalence and bisimilarity.
 
-- Equivalence games (can) correspond to grammars of distinguishing formulas. ... a route to derive equivalence games from modal characterizations! (Prior standard: derive equivalence games from relational characterizations...)
-- relational characterizations = defender view; modal characterizations = attacker view.
-  - mention axiomatic characterizations
-- HML-theorem a shadow of game determinacy when lifting from games to equivalences
-- decision problem
+In particular, in constructing the relationships of @fig-equivalence-big-picture for bisimilarity, we have collected the theoretical ingredients for a *certifying algorithm* to check bisimilarity of states.
+
+::: {#fig-game-algo-overview}
+```tikz
+\begin{tikzpicture}[auto,node distance=2.7cm,
+  algstep/.style={minimum width=2.5cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
+  \node[algstep] (TS) {$p$ and $q$ in\\ system $\system$};
+  \node[algstep, below of=TS, node distance=7.8cm] (BisimGame) {Bisimulation \\ game ${{\game}^{\system}_{\notionname{B}}}$};
+  \node[algstep, right of=BisimGame, node distance=7cm] (WinningRegion) {Winning regions\\$\attackerwins^{{\game}^{\system}_{\notionname{B}}}$ and $\defenderwins^{{\game}^{\system}_{\notionname{B}}}$};
+  \node[draw, diamond, above of=WinningRegion, node distance=2cm, minimum width=.8cm, minimum height=.8cm] (Decision) {};
+  \node[algstep, above left of=Decision] (Relation) {Bisimulation \\ relation $\rel{R}_s$};
+  \node[algstep, above right of=Decision] (Formula) {Distinguishing \\ formula $\varphi_s$};
+  \node[algstep, above of=WinningRegion, node distance=7.8cm] (Output) {Yes / No};
+  \node[above of=Relation, node distance=2.5cm] (Yes) {Certifiably yes $✔$};
+  \node[above of=Formula, node distance=2.5cm] (No) {$✗$ Certifiably no};
+  \path
+    (TS) edge[->, swap] node {Def.~2.20} (BisimGame)
+    (TS) edge[->, dashed] node {Bisimilar?} (Output)
+    (BisimGame) edge[->] node {Alg.~2.1} (WinningRegion)
+    (WinningRegion) edge[->, swap] node {$[p,q] \in \defenderwins^{{\game}^{\system}_{\notionname{B}}}$} (Decision)
+    (Decision) edge[->] node {Yes: Thm.~2.2\vphantom{p}} (Relation)
+    (Decision) edge[->, swap] node {No: Lem.~2.10\vphantom{p}} (Formula)
+    (Relation) edge[->] node[align=right] {Check relation fulfills \\ bisimulation Def.~2.6\vphantom{p}} (Yes)
+    (Formula) edge[->, swap] node[align=left] {Check distinction using \\ HML game Def~2.19 + Alg.~2.1\vphantom{p}} (No);
+  \draw
+    (Output.south) |- (Yes.east)
+    (Output.south) |- (No.west);
+\end{tikzpicture}
+```
+
+Checking bisimilarity and providing certificates.
+:::
+
+@fig-game-algo-overview describes how to not only answer the question whether two states $p$ and $q$ are bisimilar, but how to also either provide a bisimulation relation or a distinguishing formula for the two as certificates for the answer.
+(The arrows stand for computations, the boxes for data.)
+
+In this view, the game of possible distinctions and their preventability between attacker and defender serves as the “ground truth” about the bisimilarity of two states.
+Bisimulation relations and modal formulas only appear as witnesses of defender and attacker strategies, mediating between game and transition system.
+The Hennessy--Milner theorem emerges on this level as a shadow of the determinacy of the bisimulation game (@nte-idea-games).
+This whole framework draws heavily from @stirling1996modal.
+
+We have disregarded the topic of axiomatic characterizations for behavioral equivalences.
+In these, sets of equations on process algebra terms (such as $\ccs$) define behavioral congruences.
+Thus, they tend to be coupled to specific process languages and lack the genericity we pursue in starting out from transition systems.
+
+We have observed that behavioral equivalences can be arranged in hierarchies and how these hierarchies can be handled nicely using modal characterizations to rank distinguishing powers (Subsection [-@sec-perks-modal-characterizations]).
+We have also seen how to link game rules to productions in a language of potentially distinguishing formulas (Subsection [-@sec-bisim-game-hml]).
+This departs from common textbook presentations that motivate the bisimulation game through the relational (coinductive) characterization [e.g. @sangiorgi2012].
+In later chapters, we will rather derive equivalence games from grammars of modal formulas (@nte-idea-modal-first), to generalize the framework of @fig-game-algo-overview for whole spectra of equivalences.
+
+But first, we have to make formal what we mean by *equivalence spectra*.
+

@@ -1538,7 +1538,7 @@ We have disregarded the topic of axiomatic characterizations for behavioral equi
 In these, sets of equations on process algebra terms (such as $\ccs$) define behavioral congruences.
 Thus, they tend to be coupled to specific process languages and lack the genericity we pursue in starting out from transition systems.
 
-We have observed that behavioral equivalences can be arranged in hierarchies and how these hierarchies can be handled nicely using modal characterizations to rank distinguishing powers (Subsection [-@sec-perks-modal-characterizations]).
+We have observed that behavioral equivalences can be arranged in hierarchies and that these hierarchies could be handled nicely using modal characterizations to rank distinguishing powers (Subsection [-@sec-perks-modal-characterizations]).
 We have also seen how to link game rules to productions in a language of potentially distinguishing formulas (Subsection [-@sec-bisim-game-hml]).
 This departs from common textbook presentations that motivate the bisimulation game through the relational (coinductive) characterization [e.g. @sangiorgi2012].
 In later chapters, we will rather derive equivalence games from grammars of modal formulas (@nte-idea-modal-first), to generalize the framework of @fig-game-algo-overview for whole spectra of equivalences.

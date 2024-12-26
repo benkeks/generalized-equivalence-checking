@@ -4,9 +4,34 @@
 
 # Context: The Spectrum of Equivalences {#sec-spectrum}
 
+We will now take a deeper dive into how groups of behavioral equivalences and preorders can be ranked in equivalence spectra.
+
+For the following chapters, we will focus on the main “linear-time--branching-time spectrum“ for the semantics of concrete processes treated by @glabbeek1990ltbt1, the so-called “strong spectrum.”
+However, we will order the equivalences using the approach of parameterized *notions of observability* from the later @glabbeek1993ltbt.
+
+The first core idea of this chapter is:
+
+::: {#nte-idea-hierarchy .callout-note}
+#### Notions of observability bring order
+
+Groups of equivalences can be defined and ranked in lattices of notions of observability.
+:::
+
+In particular, @sec-ltbt-spectrum will introduce such a spectrum, forming a hierarchy of modal logics for the *strong spectrum*.
+
+From there, we will quickly run into the second core idea:
+
+::: {#nte-idea-spectroscopy .callout-note}
+#### We have a Spectroscopy problem
+
+We can ask what equivalences from a spectrum are the most fitting to relate two states.
+:::
+
+@sec-spectroscopy will define the problem formally and give lower-bounds for its complexity on the strong spectrum.
+
 ## Observability Hierarchies
 
-TODO: intro
+Let us begin to pick up the idea from Subsection [-@sec-perks-modal-characterizations] that modal logics can nicely rank equivalences.
 The intuition thus is that $\hml$ sublogics capture what we consider to be *observable*.
 The more we mark as observable, the finer the resulting equivalence relations do become.
 
@@ -114,14 +139,9 @@ As a consequence, simulation preorder and failure preorder are incomparable, tha
 The same is true of the corresponding equivalences: similarity and failure equivalence.
 The situation is summed up by the non-linear hierarchy in @fig-failure-hierarchy.
 
-## The Linear-Time–Branching-Time Spectrum
-
-Van Glabbeek's two papers on the “linear-time--branching-time spectrum” [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] show how all common equivalences can be understood to be a lattice of sublanguages of $\hml$ (and a variant of $\hml$ for equivalences with silent steps).
-His hierarchy of equivalences derives from a hierarchy of *notions of observability*.^[In particular, the weak spectrum [@glabbeek1993ltbt] makes this really formal.]
-
 ### Preliminaries: Lattices
 
-We will be working with lattices of notions of behavioral equivalence.
+To handle non-linearity, we will be working with lattices of notions of behavioral equivalence.
 The following definition gives the preliminaries to talk about this kind of partial orders.
 
 ::: {#def-lattice}
@@ -246,6 +266,11 @@ However, the lattice is not $\lub$-complete: For instance, the set $\nats \times
 If we take the natural numbers enriched with an upper bound $\infty$, $\nats_\infty$, as basis, then $(\nats_\infty^2, \leq)$ forms a complete lattice.
 :::
 
+## The Linear-Time–Branching-Time Spectrum {#sec-ltbt-spectrum}
+
+Van Glabbeek's two papers on the “linear-time--branching-time spectrum” [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] show how all common equivalences can be understood to be a lattice of sublanguages of $\hml$ (and a variant of $\hml$ for equivalences with silent steps).
+His hierarchy of equivalences derives from a hierarchy of *notions of observability*.^[In particular, the weak spectrum [@glabbeek1993ltbt] makes this really formal.]
+
 ### Observability Lattices
 
 As we will discuss various equivalence spectra (van Glabbeek [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] already gives two different ones), let us first introduce an abstract description of such spectra.
@@ -353,8 +378,9 @@ The only non-trivial case is:
 TODO: Check, there have been changes to the grammar!
 :::
 
-
 ### The Strong Linear-Time–Branching-Time Spectrum {#sec-full-spectrum}
+
+We are now ready to define the full strong linear-time–branching-time spectrum.
 
 ::: {#def-strong-ltbt-spectrum}
 #### Strong Linear-Time–Branching-Time Spectrum
@@ -463,7 +489,7 @@ No-lattice of observations! $\observations{S} \cup \observations{F} \neq \observ
 
 Leads to spectroscopy problem...
 
-## Spectroscopy
+## Spectroscopy {#sec-spectroscopy}
 
 ### The Spectroscopy Problem
 

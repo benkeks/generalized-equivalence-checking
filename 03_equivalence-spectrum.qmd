@@ -32,7 +32,7 @@ We can ask what equivalences from a spectrum are the most fitting to relate two 
 ## Observability Hierarchies
 
 Let us begin to pick up the idea from Subsection [-@sec-perks-modal-characterizations] that modal logics can nicely rank equivalences.
-The intuition thus is that $\hml$ sublogics capture what we consider to be *observable*.
+The intuition is that $\hml$ sublogics capture what we consider to be *observable*.
 The more we mark as observable, the finer the resulting equivalence relations do become.
 
 ### Understanding the Equivalence Hierarchy through Modal Logics
@@ -67,27 +67,27 @@ $p \bpreord{S} q$ precisely if $p \bpreordvar{\observations{S}} q$.{{<isb theore
 :::
 
 {{<noindent>}} Clearly, $\observations{T} \subset \observations{S} \subset \hml$.
-So, @prp-difference-contraposition (together with @thm-hennessy-milner for $\beq{B}$ and $\hml$) yields another way of establishing the hierarchy between trace equivalence, similarity, and bisimilarity of Subsection [-@sec-hierarchy-equivalences].
+So, @prp-difference-contraposition that sublogics will equate at least as much as their parent logic, yields another way of establishing the entailment hierarchy between bisimilarity, similarity, and trace equivalence of Subsection [-@sec-hierarchy-equivalences].^[Taking the two previous lemmas together with @thm-hennessy-milner for $\beq{B}$ and $\hml$.]
 
-While the relational definitions for (bi-)similarity of @def-bisimilarity and the denotational definition of trace equivalence @def-trace-eq live in different worlds, they become naturally comparable in the modal realm.
+While the relational definitions for (bi-)similarity of @def-bisimilarity and the denotational definition of trace equivalence @def-trace-eq live in different worlds, the two equivalences become naturally comparable in the modal realm.
 
 The modal view also reveals an intuitive hierarchy of “testing scenarios” for the equivalences, framed as black box tests:
 
 Trace equivalence
-: matches an observer that can see sequences of events.
-They just watch repeated executions of the program.
+: matches an observer that can see *sequences of events*.
+They *just watch repeated executions* of the program, but are oblivious to possibilities and decisions.
 
 Similarity
-: matters to an experimenter that can also explore different branches of possibilities.
-This is valid if the experimenter can somehow copy the system state during the execution.
+: matters to an experimenter that can also explore different *branches of possibilities*.
+This is valid if the experimenter can somehow *copy the system state* during the execution.
 
 Bisimilarity
-: captures that the experimenter can moreover determine if a future course of events is impossible at some point.
+: captures that the experimenter can moreover determine if a future course of events is *impossible at some point*.
 This means that the experimenter can not only copy the execution state but also exhaustively test *every* possibility of how the system may continue.
 
-But these levels of observability do not need to be linear …
+But such levels of observability do not need to be linear, as we will see in the next subsection …
 
-### Incomparabilities
+### Incomparabilities {#sec-incomparabilities}
 
 A well-known and natural notion of equivalence is that of *failure equivalence*.
 Intuitively, a failure says that the experimenter may follow a trace and see which actions are *impossible* at its end.
@@ -98,12 +98,14 @@ Its standard definition is based on *failure* denotations:
 
 The set of failures of a process $\failures{p}$ is recursively defined as
 
-- $(\emptyword, X) ∈ \failures{p}$ if no $X \cap \initials{p} = \varnothing$,
+- $(\emptyword, X) ∈ \failures{p}$ if $X \cap \initials{p} = \varnothing$,
 - $(α \cdot \vec w, X) ∈ \failures{p}$ if there is $p'$ with $p \step α p'$ and $(\vec w, X) ∈ \failures{p'}$.
 :::
 
-But would it not be nice if we could prevent the invention of new mathematical objects for every new notions of observability we consider?
-Fortunately, we can, by directly employing modal logics:
+For instance, the failure $(\tau, \set{\literal{a}})$ is in $\failures(\literal{P})$ but not in $\failures(\literal{Q})$ on @fig-ts-determinism.
+
+But would it not be nice if we could prevent the invention of new mathematical objects as denotations for every new notions of observability we consider?
+Fortunately, we can save the work, by directly employing modal logics:
 
 ::: {#def-failures-modal}
 
@@ -113,7 +115,7 @@ $$
   φ^\mathrm{F} \grammardef
     \hmlobs{α}φ^\mathrm{F}
     \quad\grammaror\quad
-    \hmland{i}{I} \hmlneg \hmlobs{α}\hmltrue 
+    \hmland{i}{I} \hmlneg \hmlobs{α_i}\hmltrue 
 $$
 :::
 
@@ -121,7 +123,8 @@ Clearly, this encompasses what we may observe via traces,
 but is something that we cannot observe using simulation.
 We consider $\bpreord{F}$ given by $\bpreordvar{\observations{F}}$.
 
-For instance, $\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observations{F}$, distinguishes $\literal P$ from $\literal Q$ on @fig-ts-determinism, but $\literal P \bpreord{S} \literal Q$ (cf. @exm-phil-sim).
+The distinguishing failure $(\tau, \set{\literal{a}})$ can be as $\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observations{F}$ in HML.
+The formula distinguishes $\literal P$ from $\literal Q$ on @fig-ts-determinism, but $\literal P \bpreord{S} \literal Q$ (cf. @exm-phil-sim).
 On the other hand, no failure from $\observations{F}$, distinguishes $\literal Q$ from $\literal P$, but $\literal Q \nbpreord{S} \literal P$.
 
 :::: {#fig-failure-hierarchy .column-margin}
@@ -135,11 +138,12 @@ On the other hand, no failure from $\observations{F}$, distinguishes $\literal Q
   Preorder/equivalence hierarchy.
 ::::
 
-As a consequence, simulation preorder and failure preorder are incomparable, that is, neither one implies the other.
+As a consequence, simulation preorder and failure preorder are *incomparable*, that is, neither one implies the other.
 The same is true of the corresponding equivalences: similarity and failure equivalence.
 The situation is summed up by the non-linear hierarchy in @fig-failure-hierarchy.
+After a quick glance at the diamond-like figure, it probably comes as no surprise, what kind of mathematical structure we employ to handle the hierarchy: Lattices.
 
-### Preliminaries: Lattices
+### Lattices
 
 To handle non-linearity, we will be working with lattices of notions of behavioral equivalence.
 The following definition gives the preliminaries to talk about this kind of partial orders.
@@ -161,6 +165,7 @@ It refers to the least element $b \in B$ such that $b \geq b'$ for all $b' \in B
 For the pair-wise infimum we also use infix notation $b_1 \glb b_2 = \inf \set{b_1, b_2}$, and analogously $b_1 \lub b_2 = \sup \set{b_1, b_2}$.
 
 If a lattice $(B, \leq)$ not only allows infima and suprema for pairs but for any set $B' \subseteq B$, it is called *complete*.
+We say $\glb$-complete or $\lub$-complete if only one of the two is true.
 
 We call totally ordered subset $B' \subseteq B$ a *chain*.
 
@@ -251,25 +256,28 @@ Their respective subsets are chains / anti-chains as well.
 \end{tikzpicture}
 ```
 
-Visualization of the infinitary grid of $\nats^2$ (and in gray, $\nats_\infty^2$) in @exm-nat-lattice.
+Visualization of the infinitary grid of $\nats^2$ (and in gray, $\natsext^2$) in @exm-nat-lattice.
 :::
 
 ::: {#exm-nat-lattice}
 #### Vector Lattice
 
-Given a linear-ordered set $(B, \leq_B)$, its $n$-ary Cartesian product with pointwise order $(B^n, \leq)$ forms a lattice, where $b \leq b'$ iff $b_k \leq b'_k$ for all $k \in \set{1, …, n}$.
+Given linearly-ordered set $(B, \leq_B)$, its $n$-ary Cartesian product with pointwise order $(B^n, \leq)$ forms a lattice, where $b \leq b'$ iff $b_k \leq b'_k$ for all $k \in \set{1, …, n}$.
 Greatest lower bounds and least upper bounds can be transferred pointwisely from $B$.
 
 For instance, pairs of natural numbers, $(\nats^2, \leq)$, form a lattice, as visualized in @fig-nat-lattice.
 It is $\glb$-complete, that is, for any set from $\nats^2$, one can pick a greatest lower bound.
 However, the lattice is not $\lub$-complete: For instance, the set $\nats \times \set{0}$ has no upper bound.
-If we take the natural numbers enriched with an upper bound $\infty$, $\nats_\infty$, as basis, then $(\nats_\infty^2, \leq)$ forms a complete lattice.
+If we take the natural numbers extended with an upper bound $\infty$, $\natsext$, as basis, then $(\natsext^2, \leq)$ forms a complete lattice.
 :::
 
 ## The Linear-Time–Branching-Time Spectrum {#sec-ltbt-spectrum}
 
-Van Glabbeek's two papers on the “linear-time--branching-time spectrum” [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] show how all common equivalences can be understood to be a lattice of sublanguages of $\hml$ (and a variant of $\hml$ for equivalences with silent steps).
-His hierarchy of equivalences derives from a hierarchy of *notions of observability*.^[In particular, the weak spectrum [@glabbeek1993ltbt] makes this really formal.]
+Van Glabbeek's two papers on the “linear-time--branching-time spectrum” [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] show how all common equivalences can be understood to form a lattice of sublanguages of $\hml$ (and a variant of $\hml$ for equivalences with silent steps).
+His hierarchy of equivalences derives from a hierarchy of *notions of observability*.^[
+  In particular, the weak spectrum [@glabbeek1993ltbt] makes this really formal.
+]
+We will introduce a similar construction: at first, in a generic form, then for the strong spectrum of @glabbeek2001ltbtsiReport.
 
 ### Observability Lattices
 
@@ -280,13 +288,14 @@ As we will discuss various equivalence spectra (van Glabbeek [-@glabbeek2001ltbt
 
 An *equivalence spectrum* $(\notions, \leq, \observationsvar{N \in \notions})$ consists of
 
-- a set of notions of observability $\notions$,
-- a partial order ${\leq} \subseteq \notions \times \notions$, and
+- a lattice of notions of observability, $\notions$, partially ordered by ${\leq} \subseteq \notions \times \notions$, and
 - corresponding logics $\observationsvar{N} \colon \powerset{\hml}$ for $N \in \notions$.
 
 It must hold, for any two notions $N,M \in \notions$, that
 $$N \leq M \text{ implies } \observationsvar{N} \subseteq \observationsvar{M}.$$
 :::
+
+Let us use our new definition to construct a subset lattice as in @exm-set-lattice to recreate the hierarchy of @fig-failure-hierarchy.
 
 ::: {#exm-simple-spectrum}
 
@@ -308,7 +317,8 @@ $$
 $$
 
 {{<noindent>}} Clearly, $N \subseteq M$ implies $\observationsvar{N} \subseteq \observationsvar{M}$ for $N, M \in \notions^\literal{simple}$.
-We obtain the hierarchy of @fig-sample-hierarchy.
+We obtain the diamond hierarchy of @fig-sample-hierarchy.
+It matches the diamond of @fig-failure-hierarchy, but this time, the hierarchy is an effect of the ordered notions.
 
 :::: {#fig-sample-hierarchy .column-margin}
 ```{mermaid}
@@ -322,9 +332,14 @@ flowchart TD
 ::::
 :::
 
+While the incomparable languages of Subsection @sec-incomparabilities form no lattice, e.g. $\observations{S} \cup \observations{F} \neq \hml$, the incomparable notions of the present @exm-simple-spectrum do form a lattice, as $\set{\literal{(\land)}} \cup \set{\literal{(\neg)}} = \set{\literal{(\land)}, \literal{(\neg)}}$.
+This is one of the reasons why it is convenient to add *notions of observability* as an abstraction layer.
+
 ### The Strong Notions of Observability
 
-We will use six dimensions to characterize the strong spectrum:
+Now we can approach the *strong spectrum*.
+We will encode its notions as a $\natsext$-vector lattice as in @exm-nat-lattice.
+To cover all common behavioral preorders, we use six dimensions, counting certain syntactic features of $\hml$-formulas:
 
 1. Formula modal depth of observations.
 2. Formula nesting depth of conjunctions.
@@ -336,11 +351,11 @@ We will use six dimensions to characterize the strong spectrum:
 ::: {#def-strong-spectrum}
 #### Strong Spectrum
 
-We define the strong notions of observability using vectors of extended naturals^[We write $\natsext$ for $\nats \cup \set{\infty}$.]
+We define the *strong notions of observability* using vectors of extended naturals
 $$\notions^\literal{strong} ≔
 \natsext^6,
 $$
-be ordered by pointwise comparison of vector components,
+ordered by pointwise comparison of vector components,
 and the family of strong observation languages $\observationsvar{N \in \notions^\literal{strong}}^\literal{strong}$ given by the parameterized grammar starting from $φ^N$:{{<isb primrec Priced_HML formula_of_price>}}
 
 $$
@@ -361,8 +376,26 @@ $$
 For instance, $φ^N \leadsto \hmlobs{α}φ^{N - \unit{1}}$ is no valid production for $N=(0,1,0,0,0,0)$ because $(-1,1,0,0,0,0) \notin \notions^\literal{strong}$.
 :::
 
-::: {#lem-spectrum-characterization}
+::: {#exm-formula-language}
+The smallest notion to cover the failure formula of Subsection [-@sec-incomparabilities] would be $(2,1,0,0,1,1)$, that is, 
+$$\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observationsvar{(2,1,0,0,1,1)^\literal{strong}}.$$
+This is because the formula has two levels of modal observations, where the inner one is negated.
+The negation is wrapped in a conjunction with no positive clauses.
+Formally, the reason is that the following derivation is optimal:
 
+$$
+\begin{array}{rcl}
+\varphi^{(2,1,0,0,1,1)} & \leadsto & \hmlobs{τ}\varphi^{(1,1,0,0,1,1)} \\
+                        & \leadsto & \hmlobs{τ}\hmlands\set{\psi^{(1,0,0,0,1,1)}} \\
+                        & \leadsto & \hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\varphi^{(0,0,0,0,1,0)}} \\
+                        & \leadsto & \hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}.
+\end{array}
+$$
+
+If we reexamine the grammar of $\observations{F}$ in @def-failures-modal, we notice that the formulas it can produce match those of $\observationsvar{(\infty,1,0,0,1,1)}^\literal{strong}$ of the strong spectrum in @def-strong-spectrum.
+:::
+
+::: {#lem-spectrum-characterization}
 The strong spectrum of @def-strong-spectrum contains the notions of behavioral equivalence we have discussed so far.
 
 1. The observation language $\observationsvar{(\infty, 0, 0, 0, 0, 0)}^\literal{strong}$ exactly matches the characterization of traces $\observations{T}$ from @def-sim-trace-logics and thus characterizes trace preorder.{{<isb theorem Priced_Spectrum lts.traces_priced_characterization>}}
@@ -370,22 +403,24 @@ The strong spectrum of @def-strong-spectrum contains the notions of behavioral e
 3. The observation language $\observationsvar{(\infty, \infty, \infty, \infty,  \infty, \infty)}^\literal{strong}$ matches $\hml$ in distinctiveness and thus characterizes bisimilarity.
 4. The observation language $\observationsvar{(\infty, 1, 0, 0, 1, 1)}^\literal{strong}$ exactly matches failure observations $\observations{F}$ of @def-failures-modal.
 :::
-
 ::: {.proof}
-The only non-trivial case is:
+The only non-trivial case is (3) for bisimilarity:
 
-3. The difference is that $\observationsvar{(\infty, \infty, \infty, \infty,  \infty, \infty)}^\literal{strong}$ forces negations to appear in conjunctions. This does not affect expressive power as $\hmlneg \varphi \equiv \hmlands\set{\hmlneg \varphi}$.
-TODO: Check, there have been changes to the grammar!
+Observe that $\observations{\floor{B}} \subseteq \observationsvar{(\infty, \infty, \infty, \infty,  \infty, \infty)}^\literal{strong}$ by examining its grammar in @exm-game-formulas.
+As $\observations{\floor{B}}$ already has complete $\hml$-distinctiveness by @lem-game-formula-hml, so must its superlogic $\observationsvar{(\infty, \infty, \infty, \infty,  \infty, \infty)}^\literal{strong}$.
 :::
+
+So far, we have only established that the six-dimensional spectrum also covers the notions that @exm-simple-spectrum has already covered–in a more complicated way.
+The extra dimensions will pay off in the next subsection.
 
 ### The Strong Linear-Time–Branching-Time Spectrum {#sec-full-spectrum}
 
-We are now ready to define the full strong linear-time–branching-time spectrum.
+Using the six dimensions of @def-strong-spectrum, we can assign coordinates to all other common notions of the strong linear-time--branching-time spectrum.
 
 ::: {#def-strong-ltbt-spectrum}
 #### Strong Linear-Time–Branching-Time Spectrum
 
-Coordinates with respect to the notions of @def-strong-spectrum for the common notions of behavioral equivalences and preorders in the strong linear-time–branching-time spectrum are given in @fig-strong-ltbt-spectrum.^[When writing vectors in labels and figures, we omit the parentheses $(\dots)$ for readability.]
+Coordinates with respect to the notions of @def-strong-spectrum for the common notions of behavioral equivalence and preorder in the strong linear-time–branching-time spectrum are given in @fig-strong-ltbt-spectrum.^[When writing vectors in labels and figures, we omit the parentheses $(\dots)$ for readability.]
 
 ::: {#fig-strong-ltbt-spectrum}
 
@@ -430,10 +465,17 @@ Hierarchy of common equivalences/preorders ordered by observability coordinates.
 :::
 :::
 
-- TODO? Prove Characterizations?
+For the rest of the thesis, we will take the equivalences as defined by the coordinates as canonical.
+@lem-spectrum-characterization has established that the coordinates of traces, simulation, failures, and bisimulation match the definitions one commonly finds in the literature.
+To establish the same for the other notions, would mean a lot of (repetitive) definitions, which mostly reproduce van Glabbeek's survey [-@glabbeek2001ltbtsiReport].
+@mattes2023expressivePowerHML proves in Isabelle/HOL that the coordinate system of the conference version of this spectrum [@bisping2023equivalenceEnergyGames] match distinctiveness of the modal characterizations in [@glabbeek2001ltbtsiReport].
+
+::: {.callout-warning}
+I might add such a marathon if there's strong popular demand.
+:::
 
 There are a few standard questions that come to mind for people who are familiar with the various spectra of equivalences when seeing @fig-strong-ltbt-spectrum.
-The following remarks try to address these points.
+The following remarks address these points.
 
 ::: {#rem-other-strong-notions}
 #### Selection of Notions
@@ -441,7 +483,7 @@ The following remarks try to address these points.
 At the core, we treat the same notions as @glabbeek2001ltbtsiReport.
 But we feature a slightly more modern selection.
 
-Our spectrum additionally includes *impossible futures* (@vm2001impossible) and *revivals* (@roscoe2009revivalsHierarchy) as equivalences whose relevance has only been noted after the publication of @glabbeek2001ltbtsiReport.
+Our spectrum additionally includes strong versions of *impossible futures* (@vm2001impossible) and *revivals* (@roscoe2009revivalsHierarchy) as equivalences whose relevance has only been noted after the publication of @glabbeek2001ltbtsiReport.
 
 On the other hand, we glimpse over completed trace, completed simulation, and possible worlds observations like @ke1999logicalProcessQuotients, who studied properties of “good” observation languages.
 These notions would need a different HML grammar, featuring exhaustive conjunctions $\hmland{a}{\actions}\varphi_a$, where the $\varphi_a$ are deactivated actions for completed traces, and more complex trees for possible worlds.
@@ -462,13 +504,13 @@ Indeed, @fig-strong-ltbt-spectrum always selects the least coordinate to charact
 #### Other Coordinates
 
 We have singled out a handful of coordinates.
-Many other coordinates will still correspond to a distinct equivalence.
+Many other coordinates will still correspond to distinct equivalences.
 For instance, we could consider $N^{\notionname{2T}} = (2,0,0,0,0,0)$, preordering states that cannot be distinguished by traces up to a length of $2$.
-But it is difficult to make a case for such a “notion of equivalence”---like most depth-bounded notions it fails to be a congruence.
+But it is difficult to make a case for such a “notion of equivalence,” which washes away differences of future behavior.
 
-Two kinds of depth-bounded families, however, are common in the literature:
+Two kinds of depth-bounded families, however, are common in the literature, and can also be placed in our spectrum:
 
-- $k$-step bisimilarity: $(k,\infty,\infty,\infty,\infty,\infty)$ is a $k$-observation approximation of bisimilarity that sometimes appears in proofs.
+- $k$-step bisimilarity: $(k,\infty,\infty,\infty,\infty,\infty)$ is a $k$-observation approximation of bisimilarity that sometimes appears in proofs.^[TODO: look up example]
 - $k$-nested similarity: $(\infty,\infty,\infty,\infty,\infty,k-1)$ for $k>1$ defines a spectrum of modal quantifier alternation depth between similarity and bisimilarity.
 :::
 
@@ -478,7 +520,7 @@ Two kinds of depth-bounded families, however, are common in the literature:
 One can introduce more dimensions to the spectrum with respect to the possibility of infinitary observations.
 Our choice focuses on natural and most common versions of the equivalences, in particular:
 similarity and bisimilarity with unbounded (infinitary) branching and trace-like notions with finitary depth.
-Notions in @fig-strong-ltbt-spectrum correspond precisely to those without superscripts in the infinitary linear-time—branching-time spectrum of @glabbeek2001ltbtsiReport [Figure 9].
+Notions in @fig-strong-ltbt-spectrum correspond precisely to those without superscripts in the infinitary linear-time–branching-time spectrum of @glabbeek2001ltbtsiReport [Figure 9].
 :::
 
 ### Non-Intersectionality

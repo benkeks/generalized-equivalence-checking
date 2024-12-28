@@ -742,11 +742,24 @@ Consequently, the spectroscopy problem for the standard equivalence spectra is $
 
 ## Discussion
 
-- Deviates slightly from @bisping2023equivalenceEnergyGames:
-  - Parameterized grammar instead of expressiveness price function
-  - Count $\hmltrue$ as zero-priced instead of one conjunction.
-  - Force observations in clauses
-- Spectroscopy problem
-  - complexity must be at least $\complexityname{PSPACE}$ for whole strong spectrum
-  - polynomial part of spectrum (around bisimilarity and similarity) might be possible to capture in polynomial time (-> forward pointer to bisim energy game)
+In this chapter, we have formalized how to handle *spectra of equivalence* (@nte-idea-hierarchy), and instantiated the approach to the strong spectrum of @glabbeek2001ltbtsiReport.
+From there, we have introduced the *spectroscopy problem*, which asks for notions to preorder compared states (@nte-idea-spectroscopy).
 
+By formulating the problem in terms of a lattice over $\natsext$-vectors, the family of qualitative strong preorder/equivalence problems becomes a single quantitative problem:
+The spectroscopy problem for the strong spectrum.
+
+We have already laid the groundwork to shift the semantic question of equivalence into a syntactic question of the shape of distinguishing formulas.
+
+The core ideas of this section have already been explored in @bjn2022decidingAllBehavioralEqs and @bisping2023equivalenceEnergyGames for the strong spectrum.
+However, in my prior work the expressiveness prices played a more crucial role.
+Here, we instead opted for a parameterized grammar to define notions and their observations $\observationsvar{N}$.
+In this grammar, we force observations in clauses of conjunctions and count $\hmltrue$ as part of the $\zerovec$-notion.
+These are mostly superficial changes to streamline the following presentation.
+We have shown that traces, failures, simulation and bisimulation equivalence as defined by the notion coordinates match their textbook definitions.
+
+So far, we have a problem and confidence that its solution conveys information about equivalences of the strong spectrum.
+Subsection [-@sec-equivalence-complexities] has established that spectroscopy complexity must be at least $\complexityname{PSPACE}$ on the strong spectrum.
+
+However, there is a polynomial-time part of spectrum around bisimilarity and (ready) similarity.
+In the next two chapters, we will first solve the spectroscopy problem for this polynomial slice and then extend to the whole strong spectrum.
+After that, we will also consider the weak spectrum.

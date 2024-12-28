@@ -102,7 +102,7 @@ The set of failures of a process $\failures{p}$ is recursively defined as
 - $(α \cdot \vec w, X) ∈ \failures{p}$ if there is $p'$ with $p \step α p'$ and $(\vec w, X) ∈ \failures{p'}$.
 :::
 
-For instance, the failure $(\tau, \set{\literal{a}})$ is in $\failures(\literal{P})$ but not in $\failures(\literal{Q})$ on @fig-ts-determinism.
+For instance, the failure $(\tau, \set{\literal{a}})$ is in $\failures{\literal{P}}$ but not in $\failures{\literal{Q}}$ on @fig-ts-determinism.
 
 But would it not be nice if we could prevent the invention of new mathematical objects as denotations for every new notions of observability we consider?
 Fortunately, we can save the work, by directly employing modal logics:
@@ -525,33 +525,49 @@ Notions in @fig-strong-ltbt-spectrum correspond precisely to those without super
 
 ### Non-Intersectionality
 
-TODO: Incomparability: failure and sim but not bisim, even failure and sim, but not ready sim.
+The strong spectrum of @def-strong-ltbt-spectrum is much richer than the diamond spectrum from @exm-simple-spectrum.
+Still, its observation languages form no lattice.
+For instance, the lines of simulation and failures join at ready simulation---and their coordinates as well $(\infty,\infty,\infty,\infty,0,0) \lub (\infty,1,0,0,1,1) = (\infty,\infty,\infty,\infty,1,1)$.
+But $\observations{S}^\literal{strong} \cup \observations{F}^\literal{strong} \neq \observations{RS}^\literal{strong}$ and this makes a difference:
 
-No-lattice of observations! $\observations{S} \cup \observations{F} \neq \observations{RS}$!
+::: {#exm-non-ready-sim}
 
-Leads to spectroscopy problem...
+Consider the $\ccs$ processes
+$\ccsprefix{\literal{a}} (\ccsprefix{\literal{a}} \literal{b} \ccschoice \literal{a})$ and
+$\ccsprefix{\literal{a}} \ccsprefix{\literal{a}} \literal{b} \ccschoice \ccsprefix{\literal{a}}\literal{a}$.
+They cannot be told apart by $\observations{S}^\literal{strong}$ or $\observations{F}^\literal{strong}$ and thus are simulation and failure equivalent (and moreover even ready-trace equivalent).
+
+Still, the formula $\hmlobs{\literal{a}}\hmlands\set{\hmlobs{\literal a}\hmlands\set{\hmlneg \hmlobs{\literal b}}, \hmlobs{\literal a}\hmlobs{\literal b}} \in \observations{RS}^\literal{strong}$ distinguishes the first process from the second.
+Therefore, the processes are not ready-simulation equivalent.
+:::
+
+What this shows is that one cannot prove two states to be ready-equivalent by showing that they are equated by simulation and failures:
+$${\beq{S}} \cap {\beq{F}} \, \nsubseteq \, {\beq{RS}}.$$
+The relationship between the characterized equivalences is *non-intersectional*.
+
+In general, multiple preorders may relate two states without this entailing a stronger equivalence.
+So the question “Which equivalence from a spectrum relates two states?” is to simple, one has to ask: “Which equivalence**s** relate two processes?”
+
+This motivates the *spectroscopy problem*.
 
 ## Spectroscopy {#sec-spectroscopy}
 
+Now that we have a formal way of describing equivalence spectra, we can make formal the *spectroscopy problem*---the core topic of this thesis.
+We will also collect first thoughts on its complexity.
+
 ### The Spectroscopy Problem
 
-Introduced in @bjn2022decidingAllBehavioralEqs.
+The problem has originally been introduced in @bjn2022decidingAllBehavioralEqs as the “abstract observation preorder problem” with respect to modal characterizations of the strong spectrum.
+We here reintroduce it in a more generic form.
 
 ::: {#def-spectroscopy-problem}
-#### Spectroscopy problem
+#### Spectroscopy Problem
 
 In the context of a transition system $\system$ and a spectrum $(\notions, \leq, \observationsvar{N \in \notions})$, the *spectroscopy problem* asks:
 
-- Input:  A pair of states $p$ and $q$.
+- Input:  States $p$ and $q$.
 - Output: Set of notions $\notions_{p,q} \subseteq \notions$, such that $p \bpreordvar{\observationsvar{N}} q$ for each $N \in \notions_{p,q}$.
 :::
-
-Technically, we will usually aim to compute the *Pareto front* of minimal notions that do not hold, $\Min(\notions \setminus \notions_{p,q})$.
-The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as complement of the upwards closure $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$
-(where ${\upset\! B} := \set{b \mid \exists b' \in B \ldotp b' \leq b}$ is the upwards closure for $B$ subset of some partially-ordered set).
-Clearly, Pareto fronts form *anti-chains*.
-
-All spectra we are concerned with are well-quasi ordered, which means that each $\Min(\notions \setminus \notions_{p,q})$ must be finite in size [@kruskal1972wqo], and thus “more handy” than the full sets $\notions_{p,q}$ or $\notions \setminus \notions_{p,q}$.
 
 ::: {#exm-spectroscopy-front}
 For the “trolled philosophers” of @exm-bisim-sim, we have determined that the systems are simulation-preordered, but not bisimilar, that is, $\literal{Q} \bpreord{S} \literal{T}$, but $\literal{Q} \nbpreord{B} \literal{T}$.
@@ -613,35 +629,41 @@ $\notions^{\literal{strong}}_{\literal{Q}, \literal{T}} =
 (\natsext^5 \times \set{0,1})$.
 :::
 
-### Spectroscopy as Abstract Interpretation
+Technically, it is convenient to not compute $\notions_{p,q}$ directly.
+Rather we aim to construct the *Pareto front* of minimal notions that do not hold, $\Min(\notions \setminus \notions_{p,q})$.
+The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as complement of the upwards closure $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$
+(where ${\upset\! B} := \set{b \mid \exists b' \in B \ldotp b' \leq b}$ is the upwards closure for $B$ subset of some partially-ordered set).
+Clearly, Pareto fronts form *anti-chains*.
 
-TODO: Either flesh out or throw out
+All spectra we are concerned with are well-quasi ordered, which means that each $\Min(\notions \setminus \notions_{p,q})$ must be finite in size [@kruskal1972wqo] and thus “more handy” than the full sets $\notions_{p,q}$ or $\notions \setminus \notions_{p,q}$.
+
+### Spectroscopy as Abstract Subtraction
+
+Another way of viewing the spectroscopy problem is that we aim to compute an abstracted kind of *difference* between programs.
 
 ::: {#def-observations}
-#### Observations
+#### Observations and Difference
 
-On a transition system, the possible observations of a state, $\semanticsobs{\cdot} \colon \states \to \powerset{\hml}$, are defined as:
+On a transition system $\system$, the possible observations of a state, $\semanticsobs{\cdot} \colon \states \to \powerset{\hml}$, are defined as:
 
 $$\semanticsobs{p} ≔ \set{φ ∈ \hml \mid p ∈ \semantics{φ}}.$$
-:::
-
-::: {#def-obs-difference}
-#### Observable Difference
 
 The *difference* between $p$ and $q$ is defined as:
 $$\difference{p}{q} ≔ \semanticsobs{p} \setminus \semanticsobs{q}.$$
 :::
 
-::: {#prp-behavioraleq}
-### Behavioral preorder and equivalence
+$\difference{p}{q}$ expresses the set of observations one could make of $p$ that one cannot make of $q$.
+This set will be empty, when the states are bisimilar, or infinite, otherwise.
 
-Rephrasing @def-distinctions, two states are preordered with respect to a sublogic $\observationsvar{} ⊆ \hml$
+With this notation, we could rephrase @def-distinctions:
+
+::: {#prp-behavioraleq}
+Two states $p$ and $q$ are preordered with respect to a sublogic $\observationsvar{} ⊆ \hml$:
 $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsvar{} = \varnothing.$$
 :::
 
-Distinction formulation:
-
-> What are the notions $N$ such that $\difference{p}{q} \cap \observationsvar{N} \neq \varnothing$?
+A spectroscopy then is about computing some abstraction $\Delta_\alpha$ such that
+$N \in \Delta_\alpha(p,q)$ precisely if $\difference{p}{q} \cap \observationsvar{N} \neq \varnothing$.
 
 ### Complexities {#sec-equivalence-complexities}
 
@@ -649,7 +671,7 @@ What complexities to expect when deciding spectroscopy problems?
 Details depend, of course, on the specific spectrum and flavor of Hennessy–Milner logic we are concerned with.
 Still, solving the spectroscopy problem cannot be easier than solving the covered individual equivalence problems.
 
-To get a first idea, let us examine the complexities of common equivalence checking problems.
+To get a first idea, let us examine the complexities of common equivalence checking problems in the strong spectrum.
 The rule of thumb is that trace-like equivalences are $\complexityname{PSPACE}$-complete and bisimilarities are $\complexityname{P}$-complete [@hs1996complexityEquivalences;@bgs1992bisimPComplete].
 
 Bisimilarity finds itself in a *valley* of tractability,
@@ -676,7 +698,7 @@ The best known bisimilarity algorithms for finite-state transition systems take 
         }
     ]
     \addplot+ [smooth] coordinates {(ID,0) (GI,4) (B,2) (S,3) (T,5) (E,1) (U,0)};
-    \addplot [opacity=0.2]
+    \addplot [opacity=0.2, dashed, thick]
         coordinates {(B,0) (B,5) (U,5) (U,0) (B,0)};
   \end{axis}
 \end{tikzpicture}
@@ -686,11 +708,12 @@ Bisimilarity's complexity valley.
 
 For coarser simulation-like equivalences, the best known algorithms need $\bigo{\relsize{\step{}} \relsize{S}}$ time [@rt2010efficientSimulation].^[Or $\bigo{\relsize{\step{}} \relsize{\relqotient{S}{\beq{S}}}}$ to name the bound as @rt2010efficientSimulation present it.]
 
-The finer graph-isomorphism equivalence again is harder with the best known solution [@babai2016graphIsomorphismQuasiPoly] in quasi-polynomial time $2^{\bigo{(\log n)^3}}$.
+The finer graph-isomorphism equivalence (@def-graph-isomorphism) again is harder with the best known solution [@babai2016graphIsomorphismQuasiPoly] in quasi-polynomial time $2^{\bigo{(\log n)^3}}$.
 
-There however are no strict hardness results at this level of granularity.
+There however are little strict hardness results at this level of granularity.
 So, better time complexities for graph isomorphism, bisimilarity, and similarity are conceivable (albeit improbable).
 @gmv2023lowerboundsBisimPartitionRefinement show that at least partition-refinement algorithms for bisimilarity cannot do better than $\bigo{\relsize{\step{}} \log \relsize{S}}$.
+In a recent preprint, @groote2024quadraticlowerboundsimulation establish that similarity is strictly more complex than bisimilarity.
 
 The trivial equivalences at the end of the cross section, identity $\notionname{ID}$ and universal equivalence $\notionname{U}$, can be solved directly.
 Enabledness equivalence $\notionname{E}$ can as well be computed quite quickly by just comparing outgoing transitions.

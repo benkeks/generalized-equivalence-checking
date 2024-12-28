@@ -279,7 +279,7 @@ His hierarchy of equivalences derives from a hierarchy of *notions of observabil
 ]
 We will introduce a similar construction: at first, in a generic form, then for the strong spectrum of @glabbeek2001ltbtsiReport.
 
-### Observability Lattices
+### Spectra as Observability Lattices
 
 As we will discuss various equivalence spectra (van Glabbeek [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] already gives two different ones), let us first introduce an abstract description of such spectra.
 
@@ -304,7 +304,7 @@ $$\notions^\literal{simple} ≔
 \powerset{\set{\literal{(\land)}, \literal{(\neg)} }},
 $$
 ordered by subset inclusion,
-and the family of observation languages $\observationsvar{N \in \notions^\literal{simple}}$ given by the family of grammars:
+and the family of observation languages $\observationsvar{N \in \notions^\literal{simple}}$ given by the family of grammars with some conditional productions:
 
 $$
 \begin{array}{rcll}
@@ -328,12 +328,25 @@ flowchart TD
   B --- F["Failure Equivalence <br> {(¬)}"] --- T
 ```
 
-  Hierarchy of simple notions of equivalence.
+Hierarchy of simple notions of equivalence.
 ::::
 :::
 
 While the incomparable languages of Subsection @sec-incomparabilities form no lattice, e.g. $\observations{S} \cup \observations{F} \neq \hml$, the incomparable notions of the present @exm-simple-spectrum do form a lattice, as $\set{\literal{(\land)}} \cup \set{\literal{(\neg)}} = \set{\literal{(\land)}, \literal{(\neg)}}$.
 This is one of the reasons why it is convenient to add *notions of observability* as an abstraction layer.
+
+We can also ask what the least notion is to include a specific formula:
+
+::: {#def-expressiveness-price}
+In the context of a $\glb$-complete spectrum $(\notions, \leq, \observationsvar{N \in \notions})$, the *expressiveness price* of a formula $\varphi$ that appears in one of the logics is defined as
+$$\expr(\varphi) := \inf \set{N \in \notions \mid \varphi \in \observationsvar{N}}.$$
+:::
+
+Thinking of the lattice of notions as a hierarchy of how difficult it is to tell processes apart, we consider this as a kind of “price tag” to put on formulas depending on their syntactic complexity.
+Higher syntactic complexity allows formula sets of higher expressiveness.
+
+In this view, a trace formula is *cheaper* than a failure formula.
+Using @exm-simple-spectrum: $\expr(\hmlobs{\tau}\hmlobs{\literal a}) = \varnothing \subset \set{(\neg)} = \expr(\hmlobs{\tau} \hmlands\set{\hmlneg\hmlobs{\literal{a}}})$, which captures that we need a strictly smaller part of the grammar to construct the trace formula.
 
 ### The Strong Notions of Observability
 
@@ -637,6 +650,10 @@ Clearly, Pareto fronts form *anti-chains*.
 
 All spectra we are concerned with are well-quasi ordered, which means that each $\Min(\notions \setminus \notions_{p,q})$ must be finite in size [@kruskal1972wqo] and thus “more handy” than the full sets $\notions_{p,q}$ or $\notions \setminus \notions_{p,q}$.
 
+So, effectively, we will be asking:
+What are the minimal notions to distinguish $p$ from $q$---and then often talk about the converse: The most-fitting notions to preorder or equate the states.
+Everything else is implied.
+
 ### Spectroscopy as Abstract Subtraction
 
 Another way of viewing the spectroscopy problem is that we aim to compute an abstracted kind of *difference* between programs.
@@ -667,7 +684,7 @@ $N \in \Delta_\alpha(p,q)$ precisely if $\difference{p}{q} \cap \observationsvar
 
 ### Complexities {#sec-equivalence-complexities}
 
-What complexities to expect when deciding spectroscopy problems?
+What complexities to expect when deciding spectroscopy problems on finite systems?
 Details depend, of course, on the specific spectrum and flavor of Hennessy–Milner logic we are concerned with.
 Still, solving the spectroscopy problem cannot be easier than solving the covered individual equivalence problems.
 

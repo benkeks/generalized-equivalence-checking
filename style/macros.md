@@ -100,6 +100,7 @@
 \providecommand{\notionname}[1]{\mathrm{#1}}
 \providecommand{\observations}[1]{\mathcal{O}_\notionname{#1}}
 \providecommand{\observationsvar}[1]{\mathcal{O}_{#1}}
+\providecommand{\expr}{\mathsf{expr}}
 
 \lc{ Games }
 

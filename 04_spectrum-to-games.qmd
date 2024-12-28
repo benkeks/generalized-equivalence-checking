@@ -693,13 +693,14 @@ Any monotonic function naturally induces a Galois-connected abstraction function
 
 ::: {#lem-galois-inversion}
 The following are equivalent:
+
 - $\gamma \colon A \to C$ is a monotonic function, and $α(c) = \inf \set{a \mid c \leq_C \gamma(a)}$ for all $c ∈ C$.
 - $α$ and $\gamma$ constitute a Galois connection between $C$ and $A$.^[
   Proposition 4 of @ekms1993primerGaloisConnections.
 ]
 :::
 
-We will refer to functions derived as in @lem-galois-inversion as “undo” functions.
+We will refer to functions derived like $α(c)$ in @lem-galois-inversion as “undo” functions.
 We understand them to generalize inverse functions of monotonic functions as these will always be Galois connected.
 
 ::: {#lem-galois-equality}
@@ -717,6 +718,16 @@ $$c \leq_C f^{-1}(a) \implies f(c) \leq_A f(f^{-1}(a)) \implies f(c) \leq_A a.$$
 :::
 
 In the following, we will use a $↺$-symbol to label the adjoint functions that we use to undo energy updates.
+
+::: {#rem-galois-expr}
+@def-spectrum demands monotonicity of our observation languages for a spectrum, $\observationsvar{N \in \notions}$.
+If we construct an abstraction function as in @lem-galois-inversion to undo the language selection for a set of formulas $\Phi$, the result would read: 
+$$\alpha_{\observations{}}(\Phi) := \inf \set{N \in \notions \mid \Phi \subseteq \observationsvar{N}}.$$
+
+The singleton case of this function exactly matches our expressiveness prices of @def-expressiveness-price:
+
+$$\expr(\varphi) := \inf \set{N \in \notions \mid \varphi \in \observationsvar{N}}.$$
+:::
 
 ### The Algorithm
 

@@ -1,28 +1,55 @@
----
-title: "Approach: Equivalence Problems as Energy Games"
----
+# Approach: Equivalence Problems as Energy Games {#sec-approach}
 
 ::: {.content-hidden when-format="pdf"}
 {{< include style/macros.md >}}
 :::
 
+Time to get real.
+This chapter will demonstrate my core approach by solving the spectroscopy problem in an *easy* instance.
 
+It will be easy in two regards:
+Firstly, complexity-wise---we narrow our focus on equivalences of polynomial-time.
+Secondly, conceptually---we just use the bisimulation game of Chapter [-@sec-preliminaries], almost directly!
 
-Purpose of section:
+We already know that winning attacker strategies in the bisimulation game correspond to distinguishing formulas, and that these can be computed quite straightforwardly.
+All we need on top of this is a way of quantifying the amount of syntactic expressiveness in these formulas *during the game*.
+For this, we employ the first core idea of this chapter:
 
-- Introduce energy games
-- Illustrate approach (Eq-Prob → Equivalence Energy Game → Pareto fronts → Most fitting eqs)
+::: {#nte-idea-energy-games .callout-note}
+#### Quantitative games for quantitative problems
 
-::: {#fig-equivalence-big-picture}
+Spectra of equivalence problems can be encoded as energy games.
+:::
+
+Energy games are games in which players have limited resources that can be used up or recharged during moves.
+Players running out of a resource lose the game.
+After introducing such games in @sec-energy-games, we will prove in @sec-characterzing-ptime-part that several core equivalences can be characterized as defender's winning energy budgets by adding three-dimensional energies to the bisimulation game.
+
+The second core idea is how to compute these winning budgets:
+
+::: {#nte-idea-deciding-energy-games .callout-note}
+#### Computing cheapest wins
+
+Attacker's winning budgets in energy reachability games can be computed by a generalized shortest paths algorithm.
+:::
+
+@sec-deciding-energy-games will provide an algorithm to solve a range of energy-game-like quantitative problems as long as the energy updates can be *undone* through a *Galois connection*, which is a generalization of invertibility on monotonic functions.
+
+By combining the two contributions, we arrive at a polynomial-time solution of the spectroscopy problem for the polynomial slice of the strong spectrum.
+
+Effectively, we adapt the game framework of @fig-game-algo-overview to not treat one equivalence, but a spectrum of equivalences.
+This approach is summarized in @fig-spectroscopy-big-picture.
+
+::: {#fig-spectroscopy-big-picture}
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.1cm,
   algstep/.style={minimum width=4.3cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
   \node[algstep, draw] (States) {States $p, q$ in \\ transition system $\system$};
-  \node[algstep, draw, right of=States, node distance=8.1cm] (Preorders) {Finest notions \\ to preorder $p$ to $q$};
+  \node[algstep, draw, right of=States, node distance=8.1cm] (Preorders) {Polynomial notions that fit \\ to preorder $p$ to $q$};
   \node[algstep, draw=TealBlue, below of=States, node distance=2.5cm] (EnergyGame) {Bisimulation \\ energy game ${\game}_\notionname{B}^{🗲\system}$};
   \node[algstep, draw=Peach, below of=Preorders, node distance=2.5cm] (AttackerWinningBudgets) {Minimal attacker winning \\ budgets $\attackerwinsmin([p,q])$};
   \path
-    (States) edge[->] node {Spectroscopy problem} (Preorders)
+    (States) edge[->, dashed] node {Spectroscopy problem} (Preorders)
     (States) edge[->, draw=TealBlue] node {Definition 4.7} (EnergyGame)
     (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Theorem 4.1} (Preorders)
     (EnergyGame) edge[->, draw=Peach] node {Algorithm 4.1} (AttackerWinningBudgets);
@@ -32,14 +59,21 @@ Purpose of section:
 \end{tikzpicture}
 ```
 
-How we will employ energy games to solve the spectroscopy problem.
+How we will employ energy games to solve the spectroscopy problem on an easy spectrum.
 :::
 
-## Energy Games
+## Energy Games {#sec-energy-games}
 
-### Monotonic Energy Games
+Energy games extend games as discussed in @sec-games with resources of the players, called energies.
+We will focus on reachability games with an energy-bounded attacker.
+In most publications, energy games update vector-valued energy levels by vector addition or subtraction.
+We work with more general *monotonic energy games* (Subsection [-@sec-monotonic-energy-games]) and then zoom in on *declining energy games* (Subsection [-@sec-deciding-energy-games]), which include updates that combine vector components by taking their minimum.
+The latter are exactly what we need for the following @sec-characterzing-ptime-part.
+
+### Monotonic Energy Games {#sec-monotonic-energy-games}
 
 To introduce energy games, we generalize the definitions on games (@def-game and the following) to include *energy levels*.
+We define how winning regions then become quantitative winning *budgets*, which can still be characterized inductively.
 
 ::: {#def-energy-game}
 #### Energy Reachability Game
@@ -65,11 +99,12 @@ For a finite play $ρ = {g_0}{g_1}…{g_{n-1}} ∈ G^{*}$ of $\game^🗲(g_0, e_
 
 {{<noindent>}} For infinite plays $ρ ∈ G^ω$, we define energy levels to equal $⊥$.
 
-We consider the attacker to be energy-bound and understand $\energylevel(ρ) = ⊥$ to mean that they have run out of energy.
-Thus, we declare plays with $\energylevel(ρ) = ⊥$ to be won by the defender.
+We consider the attacker to be energy-bounded and understand $\energylevel(ρ) = ⊥$ to mean that they have run out of energy.
+Thus, we declare plays with $\energylevel(ρ) = ⊥$ to be won by the defender (even if they are stuck).
 :::
 
-We lift positional strategies of @def-strategies to be *energy-positional* in the sense that they pick next moves depending on the current energy level, i.e.\ $\rel f \colon G_\attacker × \abstractenergies \to G$.
+Strategies and winning strategies work exactly as in the energy-less scenario.
+Additionally, we lift positional strategies of @def-strategies to be *energy-positional* in the sense that they pick next moves depending on the current energy level, i.e.\ $\rel f \colon G_\attacker × \abstractenergies \to G$.
 
 Instead of a winning region as in @def-winning-region, we define *winning budgets* for game positions:
 
@@ -80,7 +115,7 @@ For each position $g_0 ∈ G$ of energy game $\game^🗲$, the *attacker winning
 The defender winning budgets $\defenderwins$ are defined analogously.
 :::
 
-Classical energy games use $\nats$-vectors for energies and vector addition for updates.
+Classical energy games use $\nats$-vectors for energies and vector addition for updates as in the following example:
 
 ::: {#exm-simple-energy-game}
 Consider vector energies $\abstractenergies = \nats^2$ with point-wise order and the energy game with graph in @fig-simple-energy-game.
@@ -147,7 +182,7 @@ Starting with less energy means that the defender has an option of bankrupting t
 
 Summing up our observations, $(0,2)$ and $(2,1)$ define a Pareto front of minimal budgets where the attacker wins from $\literal{g_4}$, as depicted in @fig-exm-pareto-front.
 
-::: {#fig-exm-pareto-front .column-margin}
+:::: {#fig-exm-pareto-front .column-margin}
 ```tikz
 \begin{tikzpicture}[]
   \begin{scope}[rotate=45, scale=1]
@@ -158,7 +193,7 @@ Summing up our observations, $(0,2)$ and $(2,1)$ define a Pareto front of minima
 ```
 
 Attacker's Pareto front for $\literal{g_1}$ of example energy game.
-:::
+::::
 :::
 
 We can notice two things from the example:
@@ -204,6 +239,13 @@ $$
 $$
 :::
 
+The inductive definition is nice as it allows for local proves of how the attacker wins.
+Defender's wins on the other hand would dually be a coinductive concept because the defender wins loops.^[
+  By the way, to those wondering:
+  It is intentional that this thesis aims to achieve all its constructions without recurring to coinduction.
+  Therefore, coinduction is only mentioned in side remarks and is not required to understand what is going on.
+]
+
 ::: {#rem-energy-reachability}
 Ordinary reachability games can be seen as a special case of energy games with trivial energies, e.g.\ $\abstractenergies = \set{1}$ and $\abstractupdate(\cdot) = \identity{\abstractenergies}$.
 :::
@@ -211,11 +253,11 @@ Ordinary reachability games can be seen as a special case of energy games with t
 ::: {#rem-energy-games-in-general}
 We deviate in two important points from other work on energy games:
 
-- In the literature, it is more common to consider the defender instead of the attacker to be energy-bound [e.g. @fjls2011energyGamesMulti].
+- In the literature, it is more common to consider the defender instead of the attacker to be energy-bounded [e.g. @fjls2011energyGamesMulti].
   This choice follows the intuition that there is a party with scarce resources that wants to keep the system running.
   For our purposes, however we want to bound the resources of an attacker, which is no fundamental change.
   Still, one cannot have both at the same time: @kh2022energyGamesResourceBounded, studying both-bounded energy games, establish that their winner is only decidable if both parties have only one-dimensional energies.
-- We have defined energy-reachability games more abstractly than is common:
+- We define energy-reachability games more abstractly than is common:
   In other publications, energy games work on numbers with component-wise updates as seen in @exm-simple-energy-game.
   We do not demand this as, in the next sections, we will need updates that combine information from different components of the energy vector.
   Even prior generalizations on energy update functions such as @eflq2013kleeneEnergyProblems do not allow sufficient flexibility in this regard.
@@ -223,7 +265,8 @@ We deviate in two important points from other work on energy games:
 
 ### Declining Energy Games
 
-An $N$-dimensional declining energy game is played on energy vectors:
+We now turn to special kind of monotonic energy games with vector-valued energy levels where updates will never increase energy levels in any component.
+An $N$-dimensional *declining energy game* is played on energy vectors:
 
 ::: {#def-energy-updates}
 #### Energies and Energy Updates
@@ -259,32 +302,37 @@ Given a weight labeling $w \colon (\gamemoveblank) \to \energyupdates$, an $N$-d
 We write $g \gamemove{\;u\;} g'$ for a move $g \gamemoveblank g'$ labeled by weight $w(g, g') = u$.
 :::
 
-Declining energy games differ from more common energy games with vector addition updates as seen in @exm-simple-energy-game due to the potential non-invertibility of updates we encountered in @exm-energy-update.
+Declining energy games differ from more common energy games with vector addition updates as seen in @exm-simple-energy-game due to the non-invertibility of updates we encountered in @exm-energy-update.
 
 ::: {#prp-declining-energies}
 In this model, energy levels can only decline.
 
 - Updates may only decrease energies, $\energyupdate(u, e) \leq e$.
-- Updates are monotonic: If $e_A \leq e_B$, then $\energyupdate(u, e_A) \leq \energyupdate(u, e_B)$.
+- Updates are monotonic as demanded: If $e_A \leq e_B$, then $\energyupdate(u, e_A) \leq \energyupdate(u, e_B)$.<
+<!-- These are actually already covered by the previous subsection 
 - Energy level changes are monotonic:
   If $\energylevel(\rho g) \leq \energylevel(\sigma g)$ and $g \gamemoveblank g'$
   then $\energylevel(\rho g g') \leq \energylevel(\sigma g g')$.
-- If $e_0 \leq e'_0$ and $\game^🗲(g_0, e_0)$ has non-$\bot$ play $\rho$, then $\game^🗲(g_0, e'_0)$ also has non-$\bot$ play $\rho$.
+- If $e_0 \leq e'_0$ and $\game^🗲(g_0, e_0)$ has non-$\bot$ play $\rho$, then $\game^🗲(g_0, e'_0)$ also has non-$\bot$ play $\rho$.-->
 :::
 
-## Characterizing the $\complexityname{P}$-Time Part of the Spectrum
+## Characterizing the $\complexityname{P}$-Time Part of the Spectrum {#sec-characterzing-ptime-part}
 
 As hinted at in Subsection [-@sec-equivalence-complexities], parts of the strong equivalence spectrum can be decided in polynomial time, whereas others require polynomial space (and thus effectively exponential time).
 In this section, we will show how to adapt the standard bisimulation game of @def-bisim-game to decide not just bisimulation, but *all polynomial-time* equivalences of the strong spectrum *at once*.
 
-### The Polynomial Slice
+### The Polynomial Slice {#sec-poly-slice}
 
 First, let us make explicit which equivalences we include in the polynomial-time slice of the spectrum.
 (The fact that they indeed can be decided efficiently is mostly well-known, but also itself a corollary of this section.)
 
 To define the polynomial slice, we only use three dimensions:
-1.\ modal depth, 2.\ depth of negative clauses, and 3.\ nesting depth of negations (that is, the first, fifth and sixth dimension of the strong spectrum @def-strong-spectrum).
-Components for other dimensions of the strong spectrum are effectively set to $∞$.
+
+1. modal depth
+2. depth of negative clauses, and
+3. nesting depth of negations (that is, the first, fifth and sixth dimension of the strong spectrum @def-strong-spectrum).
+
+Components for other dimensions of the strong spectrum of the previous chapter are effectively set to $∞$.
 
 ::: {#def-polynomial-strong-spectrum}
 
@@ -350,9 +398,12 @@ $p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{poly-strong}
 
 As we have seen in Subsection [-@sec-bisim-game-hml], the game moves match the distinctive power of productions in the $\observations{\floor{B}}$-grammar of @exm-game-formulas.
 Consequently, we can *count* the use of HML constructs in the game.
-As the game stands, we can meaningfully count: 1.\ modal depth, 2.\ depth of negative clauses, and 3.\ nesting depth of negations (that is, the first, fifth and sixth dimension of the strong spectrum @def-strong-spectrum).
-We cannot meaningfully count the amount of *necessary* conjunctions as the game's HML has conjunctions under each observation, even though they might not be necessary for a distinguishing formula.
-Adding the respective energy updates to the bisimulation game, we obtain:
+As the game stands, we can meaningfully count the three dimensions used in Subsection [-@sec-poly-slice].^[
+  We cannot hope to count the other dimensions of @def-strong-spectrum:
+  the bisimulation game washes away the amount of *necessary* conjunctions as its HML has conjunctions under each observation, even though they might not be necessary for a distinguishing formula.
+]
+
+We add the computations that happen in the grammar of @def-polynomial-strong-spectrum as energy updates to the bisimulation game and obtain:
 
 ::: {#def-bisim-energy-game}
 #### Bisimulation Energy Game
@@ -374,7 +425,8 @@ and the middle dimension bounds the amount of simulation moves after a swap.
 ::: {#exm-bisim-sim-energy-game}
 
 Let us label the bisimulation game of @exm-bisim-sim-game-formulas (distinguishing the “trolled philosophers”) with energy updates.
-@fig-bisim-sim-game-energies shows the game graph.
+@fig-bisim-sim-game-energies shows the game graph,
+also exhibiting the cheapest formulas with regards to the polynomial spectrum that correspond to attacker winning strategies.
 
 :::: {#fig-bisim-sim-game-energies}
 ```tikz
@@ -385,15 +437,15 @@ Let us label the bisimulation game of @exm-bisim-sim-game-formulas (distinguishi
     defender/.style={ellipse, inner sep=0ex},
     defWins/.style={fill=blue!5}]
 
-    \node[posStyle, initial, initial text={}, label={100:$\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}$}]
+    \node[posStyle, initial, initial text={}, label={[text=gray]90:$\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}} \in \observationsvar{(2,2,2)}^\literal{poly-strong}$}]
       (Att_Q_Qp){$[\literal{Q}, \literal{T}]$};
-    \node[posStyle, label={100:$\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}$}]
+    \node[posStyle, label={[text=gray]270:$\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar{(2,1,1)}^\literal{poly-strong}$}]
       (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{T}, \literal{Q}]$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{AB}}, \literal{T})$};
     \node[posStyle, defWins]
       (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_{AB}}]$};
-    \node[posStyle, label={100:$\hmlobs{\literal{a}}\hmltrue$}]
+    \node[posStyle, label={[text=gray]95:$\hmlobs{\literal{a}}\hmltrue \in \observationsvar{(1,0,0)}^\literal{poly-strong}$}]
       (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_3}]$};
     \node[posStyle, defender, above right = .1cm and 1.5cm of Att_qab_q3]
       (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \literal{q_3})$};
@@ -403,7 +455,7 @@ Let us label the bisimulation game of @exm-bisim-sim-game-formulas (distinguishi
       (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q})$};
     \node[posStyle, defender]
       (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \literal{q_{3}}, \literal{Q})$};
-    \node[posStyle, label={100:$\hmlneg\hmlobs{\literal{a}}\hmltrue$}]
+    \node[posStyle, label={[text=gray]270:$\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar{(1,1,1)}^\literal{poly-strong}$}]
       (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\literal{q_3}, \literal{q_{AB}}]$};
 
     \path
@@ -435,7 +487,7 @@ Let us label the bisimulation game of @exm-bisim-sim-game-formulas (distinguishi
 \end{adjustbox}
 ```
 
-The bisimulation energy game of @exm-bisim-sim-energy-game with energy updates.
+The bisimulation energy game of @exm-bisim-sim-energy-game with energy updates and implied formulas.
 ::::
 
 The attacker wins ${\game}^🗲_\notionname{B}$ from $[\literal{Q}, \literal{T}]$ if they start out with an energy budget of $(2,2,2)$ or above.
@@ -474,7 +526,7 @@ This is in line with the solution we thought of for the original strong spectrum
 
 ### Correctness of Characterization
 
-We now sketch how to prove that the bisimulation energy game indeed characterizes the equivalences of the polynomial-time strong spectrum.
+We now prove that the bisimulation energy game indeed characterizes the equivalences of the polynomial-time strong spectrum.
 In following chapters, we will prove stronger results for more general games in more detail.
 The approach is to generalize the connection between winning attacks and distinguishing formulas that we have already explored in @lem-attacks-imply-formulas and @lem-formulas-imply-attack to energies and spectrum.
 
@@ -587,30 +639,33 @@ $p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{poly-strong}
 :::
 
 Thus, we have established that the bisimulation energy game ${\game}_\notionname{B}^🗲$ characterizes the equivalences of the polynomial-time strong spectrum $\notions^\literal{poly-strong}$.
-To use exploit this property to decide equivalences and solve the spectroscopy problem algorithmically, we need one more ingredient:
+To exploit this property to decide equivalences and solve the spectroscopy problem algorithmically, we need one more ingredient:
 A decision procedure for winning budgets in declining energy games.
 
-## Deciding Energy Games
+## Deciding Energy Games {#sec-deciding-energy-games}
 
 This section is about how to compute which energy budgets are winning for the attacker (or the defender) at positions of an energy game:
 
-::: {#def-energy-game-problem}
+::: {#def-energy-game-problem .problem}
 #### Monotonic Energy Game Winner Problem
 
 In the context of an energy system $(\abstractenergies, \leq)$ and a finite energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$, the *energy game winner problem* goes:
 
-- Input:  A game position $g ∈ G$.
-- Output: Pareto front of minimal winning budget for the attacker at $g$, $\attackerwinsmin(g)$.
+Input
+:  Game position $g ∈ G$.
+
+Output
+:  $\attackerwinsmin(g)$---the Pareto front of minimal winning budgets for the attacker at $g$.
 :::
 
 We will show how to solve the problem for energy games with monotonic updates.
 To this end, we will adapt the idea of back-propagating how the defender loses in reachability games from @alg-deciding-games.
 
 The change is that we have to propagate not just attacker wins, but Pareto fronts of attacker-winning energy levels.
-For this, we have to invert the energy update functions.
-But, as we have seen in @exm-energy-update, our specific declining energy updates are neither injective, and thus cannot be cleanly inverted.
+For this, we have to “invert” the energy update functions.
+But, as we have seen in @exm-energy-update, our specific declining energy updates are neither injective nor surjective, and thus cannot be cleanly inverted.
 
-We will see how to tackle these challenges using Galois connections.
+We will see how to tackle these challenges using *Galois connections*.
 For details, readers are referred to @lemke2024multiweightedEnergyGames.
 
 ### Galois Connections
@@ -905,7 +960,7 @@ Assume energies form a well-founded bounded $\lub$-semi-lattice $(\abstractenerg
 Given a finite-state energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$
 with monotonic $\abstractupdateinv$-functions for all moves
 and with computable undo function $\abstractupdateinv(g, g')(e') = \min \set{e \mid e' \leq \abstractupdate(g, g')(e)}$,
-@alg-deciding-energy-games computes the Pareto frontier of minimal attacker winning budgets, solving 
+@alg-deciding-energy-games computes the Pareto front of minimal attacker winning budgets, solving 
 the *monotonic energy game winner problem* (@def-energy-game-problem).
 :::
 :::proof
@@ -943,7 +998,7 @@ If $\abstractupdateinv$ is strictly declining, then the following suffices:
 
 $$\bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.$$
 
-In both cases, the algorithm needs $\bigo{\relsize{G} \cdot \relwidth_{\abstractenergies}(e_{\game}) \cdot N}$ space to store the Pareto frontiers.
+In both cases, the algorithm needs $\bigo{\relsize{G} \cdot \relwidth_{\abstractenergies}(e_{\game}) \cdot N}$ space to store the Pareto fronts.
 :::
 :::proof
 As in @thm-energy-game-correctness, we refer to @lemke2024multiweightedEnergyGames for a very detailed proof, where the corresponding fact is proved as Theorem&nbsp;7.
@@ -1066,7 +1121,7 @@ $$
 :::
 
 Clearly, @alg-deciding-energy-games can too be used to solve the flattened version of the problem by adapting $\energyupdateinv$ to represent all components above 1 by $\infty$.
-Effectively, this decouples the size of Pareto frontiers from the game size.
+Effectively, this decouples the size of Pareto fronts from the game size.
 In this instance, @lem-declining-update-complexity becomes:
 
 ::: {#lem-declining-update-complexity-flattened}
@@ -1085,7 +1140,7 @@ The space bounds behave similarly, but in the *flattened* variant fixed energy m
 
 ### Polynomial Spectroscopy Complexity
 
-We have now gathered enough material to have this section prove that the spectroscopy problem for the polynomial-time strong spectrum is indeed solvable in polynomial time, thus justifying the name we chose for the spectrum.
+We have gathered enough material to have this section prove that the spectroscopy problem for the polynomial-time strong spectrum is indeed solvable in polynomial time, thus justifying the name we chose for the spectrum.
 
 ::: {#thm-bisim-energy-game-complexity}
 Given a transition system $\system$,

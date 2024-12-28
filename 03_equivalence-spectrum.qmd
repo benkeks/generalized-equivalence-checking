@@ -574,13 +574,16 @@ We will also collect first thoughts on its complexity.
 The problem has originally been introduced in @bjn2022decidingAllBehavioralEqs as the “abstract observation preorder problem” with respect to modal characterizations of the strong spectrum.
 We here reintroduce it in a more generic form.
 
-::: {#def-spectroscopy-problem}
+::: {#def-spectroscopy-problem .problem}
 #### Spectroscopy Problem
 
 In the context of a transition system $\system$ and a spectrum $(\notions, \leq, \observationsvar{N \in \notions})$, the *spectroscopy problem* asks:
 
-- Input:  States $p$ and $q$.
-- Output: Set of notions $\notions_{p,q} \subseteq \notions$, such that $p \bpreordvar{\observationsvar{N}} q$ for each $N \in \notions_{p,q}$.
+Input
+:  States $p$ and $q$.
+
+Output
+:  Set of notions $\notions_{p,q} \subseteq \notions$, such that $p \bpreordvar{\observationsvar{N}} q$ for each $N \in \notions_{p,q}$.
 :::
 
 ::: {#exm-spectroscopy-front}
@@ -647,7 +650,7 @@ Technically, it is convenient to not compute $\notions_{p,q}$ directly.
 Rather we aim to construct the *Pareto front* of minimal notions that do not hold, $\Min(\notions \setminus \notions_{p,q})$.
 The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as complement of the upwards closure $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$
 (where ${\upset\! B} := \set{b \mid \exists b' \in B \ldotp b' \leq b}$ is the upwards closure for $B$ subset of some partially-ordered set).
-Clearly, Pareto fronts form *anti-chains*.
+Clearly, Pareto fronts form *anti-chains* and appear naturally in optimization problems.
 
 All spectra we are concerned with are well-quasi ordered, which means that each $\Min(\notions \setminus \notions_{p,q})$ must be finite in size [@kruskal1972wqo] and thus “more handy” than the full sets $\notions_{p,q}$ or $\notions \setminus \notions_{p,q}$.
 

@@ -1,6 +1,4 @@
----
-title: "Preliminaries: Communicating Systems and Games"
----
+# Preliminaries: Communicating Systems and Games {#sec-preliminaries}
 
 {{< include style/macros.md >}}
 

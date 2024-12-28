@@ -8,3 +8,9 @@
     filter: inherit;
   }
 }
+
+.problem {
+  border: 1px solid gray;
+  padding: .5em;
+  margin: 1em;
+}

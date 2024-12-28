@@ -1271,6 +1271,16 @@ The human plays the attacker trying to point out the inequivalence of systems ac
 It can be played on <https://www.concurrency-theory.org/rvg-game/>.
 :::
 
+::: {#exm-leq-bisim-game}
+If one plays the bisimulation game of @def-bisim-game without the swapping moves, it will characterize the simulation preorder.
+
+Consider the family of processes $\literal{N}_n$ with $n \in \nats$.
+Define $\literal{N}_0 := \ccsnull$ and $\literal{N}_{n + 1} := \ccsprefix{\literal{a}} \literal{N}_n$.
+Then, the simulation game played from $[\literal{N}_{n}, \literal{N}_{m}]$ is isomorphic to the $\leq$-game $\game_{\literal{leq}}$ from @exm-less-eq-game.
+
+In this sense, comparisons of programs and of numbers are … comparable.
+:::
+
 ### How Bisimulation Game and HML Are Connected {#sec-bisim-game-hml}
 
 Let us pause to think how bisimulation game and Hennessy–Milner logic connect.

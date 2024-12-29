@@ -395,8 +395,8 @@ The smallest notion to cover the failure formula of Subsection [-@sec-incomparab
 $$\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observationsvar{(2,1,0,0,1,1)^\literal{strong}}.$$
 This is because the formula has two levels of modal observations, where the inner one is negated.
 The negation is wrapped in a conjunction with no positive clauses.
+A visualization for how $\expr^\literal{strong}(\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}) = (2,1,0,0,1,1)$ (according to @def-expressiveness-price) comes together is given in the upcoming @fig-formula-pricing.
 Formally, the reason is that the following derivation is optimal:
-
 $$
 \begin{array}{rcl}
 \varphi^{(2,1,0,0,1,1)} & \leadsto & \hmlobs{τ}\varphi^{(1,1,0,0,1,1)} \\
@@ -408,6 +408,86 @@ $$
 
 If we reexamine the grammar of $\observations{F}$ in @def-failures-modal, we notice that the formulas it can produce match those of $\observationsvar{(\infty,1,0,0,1,1)}^\literal{strong}$ of the strong spectrum in @def-strong-spectrum.
 :::
+
+::: {#fig-formula-pricing}
+```tikz
+\definecolor{obsColor}{RGB}{218, 0, 99}
+\definecolor{conjColor}{RGB}{242, 75, 42}
+\definecolor{mainPosColor}{RGB}{200, 180, 0}
+\definecolor{otherPosColor}{RGB}{143, 209, 79}
+\definecolor{negObsColor}{RGB}{18, 205, 212}
+\definecolor{negsColor}{RGB}{101, 44, 179}
+
+\begin{tikzpicture}
+  \node(Obs1) {$\hmlobs\tau$};
+  \node(Conj0)[right=2cm of Obs1.center] {$\land$};
+  \node(Neg)[right=3cm of Conj0.center] {$\neg$};
+  \node(ObsA)[right=2cm of Neg.center] {$\hmlobs{a}$};
+  \node(Top)[right=2cm of ObsA.center] {$\top$};
+
+  \node(E1) [above left=6mm and 1mm of Obs1.center]{$e_{\textcolor{obsColor}{1}} = 2$};
+  \node(E2) [above left=2mm and 1mm of Obs1.center]{$e_{\textcolor{conjColor}{2}} = 1$};
+  \node(E5) [below right=2mm and 16mm of Conj0.center]{$e_{\textcolor{negObsColor}{5}} = 1$};
+  \node(E6) [below left=2mm and 1mm of Obs1.center]{$e_{\textcolor{negsColor}{6}} = 1$};
+
+  \draw[draw=obsColor] ([yshift=8mm]Obs1.center) circle[fill, radius=1pt] to ([yshift=8mm]Conj0.center) to ([yshift=8mm]ObsA.center) circle[fill, radius=1pt] to ([yshift=8mm]Top.center);
+  \draw[draw=conjColor] ([yshift=4mm]Obs1.center) to ([yshift=4mm]Conj0.center) circle[fill, radius=1pt] to ([yshift=4mm]ObsA.center) to ([yshift=4mm]Top.center);
+  \draw[draw=negObsColor] ([yshift=-2mm]Conj0) to[out=0,in=180] ([yshift=-4mm]Neg.center) to  ([yshift=-4mm]ObsA.center) circle[fill, radius=1pt] to ([yshift=-4mm]Top.center);
+  \draw[draw=negsColor] ([yshift=-4mm]Obs1.center) to ([yshift=-4mm]Conj0.center) to[out=0,in=180] ([yshift=-8mm]Neg.center) circle[fill, radius=1pt] to ([yshift=-8mm]ObsA.center) to ([yshift=-8mm]Top.center);
+
+  \draw[thick] (Obs1) to (Conj0) to (Neg) to (ObsA) to (Top);
+\end{tikzpicture}
+```
+
+Pricing formula $\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}$ with syntactic expressiveness $e = (2,1,0,0,1,1)$.
+:::
+
+An example for the pricing of a more complex tree-like formula is given in @fig-formula-pricing-complex.
+
+::: {#fig-formula-pricing-complex}
+```tikz
+\definecolor{obsColor}{RGB}{218, 0, 99}
+\definecolor{conjColor}{RGB}{242, 75, 42}
+\definecolor{mainPosColor}{RGB}{200, 180, 0}
+\definecolor{otherPosColor}{RGB}{143, 209, 79}
+\definecolor{negObsColor}{RGB}{18, 205, 212}
+\definecolor{negsColor}{RGB}{101, 44, 179}
+
+\begin{tikzpicture}
+  \node(Obs1) {$\hmlobs\tau$};
+  \node(Conj0)[right=2cm of Obs1.center] {$\land$};
+  \node(ObsEC1)[above right=1cm and 3cm of Conj0.center] {$\hmlobs{ec_A}$};
+  \node(ObsLC1)[right=2cm of ObsEC1.center] {$\hmlobs{lc_A}$};
+  \node(Top1)[right=2cm of ObsLC1.center] {$\top$};
+  \node(ObsEC2)[right=3cm of Conj0.center] {$\hmlobs{\tau}$};
+  \node(Top2)[right=2cm of ObsEC2.center] {$\top$};
+  \node(Neg)[below right=1cm and 3cm of Conj0.center] {$\neg$};
+  \node(NegObsEC)[right=2cm of Neg.center] {$\hmlobs{ec_B}$};
+  \node(Top3)[right=2cm of NegObsEC.center] {$\top$};
+
+  \node(E1) [above left=10mm and 1mm of Obs1.center]{$e_{\textcolor{obsColor}{1}} = 3$};
+  \node(E2) [above left=6mm and 1mm of Obs1.center]{$e_{\textcolor{conjColor}{2}} = 1$};
+  \node(E3) [above right=3mm and 0mm of Conj0.center]{$e_{\textcolor{mainPosColor}{3}} = 2$};
+  \node(E4) [above right=3mm and 20mm of Conj0.center]{$e_{\textcolor{otherPosColor}{4}} = 1$};
+  \node(E5) [below right=2mm and 20mm of Conj0.center]{$e_{\textcolor{negObsColor}{5}} = 1$};
+  \node(E6) [below left=2mm and 1mm of Obs1.center]{$e_{\textcolor{negsColor}{6}} = 1$};
+
+  \draw[draw=obsColor] ([yshift=12mm]Obs1.center) circle[fill, radius=1pt] to ([yshift=12mm]Conj0.center) to[out=0,in=180] ([yshift=12mm]ObsEC1.center) circle[fill, radius=1pt] to ([yshift=12mm]ObsLC1.center) circle[fill, radius=1pt] to ([yshift=12mm]Top1.center);
+  \draw[draw=conjColor] ([yshift=8mm]Obs1.center) to ([yshift=8mm]Conj0.center) circle[fill, radius=1pt] to[out=0,in=180] ([yshift=8mm]ObsEC1.center) to ([yshift=8mm]ObsLC1.center) to ([yshift=8mm]Top1.center);
+  \draw[draw=mainPosColor] ([yshift=2mm]Conj0) to[out=0,in=180] ([yshift=4mm]ObsEC1.center) circle[fill, radius=1pt] to ([yshift=4mm]ObsLC1.center) circle[fill, radius=1pt] to ([yshift=4mm]Top1.center);
+  \draw[draw=otherPosColor] ([yshift=2mm]Conj0) to[out=0,in=180] ([yshift=4mm]ObsEC2.center) circle[fill, radius=1pt] to ([yshift=4mm]Top2.center);
+  \draw[draw=negObsColor] ([yshift=-2mm]Conj0) to[out=0,in=180] ([yshift=4mm]Neg.center) to  ([yshift=4mm]NegObsEC.center) circle[fill, radius=1pt] to ([yshift=4mm]Top3.center);
+  \draw[draw=negsColor] ([yshift=-4mm]Obs1.center) to ([yshift=-4mm]Conj0.center) to[out=0,in=180] ([yshift=-4mm]Neg.center) circle[fill, radius=1pt] to ([yshift=-4mm]NegObsEC.center) to ([yshift=-4mm]Top3.center);
+
+  \draw[thick] (Obs1) to (Conj0) to[out=0,in=180] (ObsEC1) to (ObsLC1) to (Top1);
+  \draw[thick] (Conj0) to (ObsEC2) to (Top2);
+  \draw[thick] (Conj0) to[out=0,in=180] (Neg) to (NegObsEC) to (Top3);
+\end{tikzpicture}
+```
+
+Pricing formula $\hmlobs{\tau}\hmlands\{\hmlobs{ec_A}\hmlobs{lc_A}\hmltrue, \hmlobs{\tau}\hmltrue, \hmlneg\hmlobs{ec_B}\hmltrue\}$ with syntactic expressiveness $e = (3,1,2,1,1,1)$.
+:::
+
 
 ::: {#lem-spectrum-characterization}
 The strong spectrum of @def-strong-spectrum contains the notions of behavioral equivalence we have discussed so far.

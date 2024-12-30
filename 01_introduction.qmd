@@ -6,8 +6,14 @@
 Have you ever looked at two program models and wondered *how equivalent they are*
 ---or, conversely: how they can be distinguished?
 
-I have run into this question often, for instance when analyzing models or when devising examples for teaching.
+I have run into this problem often, for instance when analyzing models of distributed algorithms or when devising examples for teaching.
 But obviously, the question already occurs every time one rewrites a program part and hopes for it to still do its job.
+
+::: {#fig-ltbts2-paper .column-margin}
+![](img/ltbts2.png){.lightbox}
+
+The linear-time–branching-time spectrum with silent moves as depicted in @glabbeek1993ltbt.
+:::
 
 The first time I had to formally face the question was when working as a student research assistant:
 I was tasked with implementing a translation from the process algebra Timed CSP to Timed Automata.^[
@@ -15,34 +21,35 @@ I was tasked with implementing a translation from the process algebra Timed CSP 
     Previous work I was to base the translations on had serious flaws:
     One approach introduced spurious deadlocks to the model, the other was unable to handle nesting of choices and parallel composition.
     Clearly, we had to change the encoding!]
-… How to tell whether our translation would properly honor the semantics of the two formalisms?
-Did we translate CSP terms to automata *with the same meaning*?
-Even the meaning of the question is tricky, as there are different notions of what counts as “same meaning” in operational semantics.
-
-::: {#fig-ltbts2-paper .column-margin}
-
-![](img/ltbts2.png){.lightbox}
-
-The linear-time–branching-time spectrum with silent moves as depicted in @glabbeek1993ltbt.
-
-:::
+… How to tell whether the translation would properly honor the semantics of the two formalisms?
+Did it translate CSP terms to automata *with the same meaning*?
+Even the definition of the question is tricky, as there are different notions of what counts as “same meaning” in the semantics of programs.
 
 I then took my very first look into the seminal paper on the landscape of process equivalences with internal behavior, the “Linear-time–branching-time spectrum II” by van Glabbeek [-@glabbeek1993ltbt].
 Its central figure, reproduced in @fig-ltbts2-paper, mesmerized me.
 But, how to use the spectrum to decide for a given pair of processes which of the many equivalences apply, is far from straightforward.
+The problem I ran into can be summarized as follows:
 
-With this thesis I want to enable future researchers to tap into the wisdom of the linear-time–branching-time spectrum and to easily determine what equivalences relate their models.
+> How does one conveniently decide for a pair of systems which notions from a spectrum of behavioral equivalences equate the two?
+
+\noindent
+Above question will be the *research question of this thesis*.
+We^[
+    As you might have noticed, this text uses more personal pronouns than is common in much of computer science literature.
+    Their meaning is the same as in a lecture:
+    “I” = “The author”; “You” = “The audience”; “We” = “The asynchronous collective of author and readers.”
+] want to enable future researchers to tap into the wisdom of the linear-time–branching-time spectrum and to easily determine what equivalences fit their models.
 
 ## Linear-Time–Branching-Time Spectroscopy
 
-Van Glabbeek's papers [-@glabbeek1990ltbt1;-@glabbeek1993ltbt] treat a zoo of distinct *qualitative questions* of the form “Are processes $p$ and $q$ equivalent with respect to notion $N$?”, where $N$ would for example be trace or bisimulation equivalence.
+Van Glabbeek's papers on comparative concurrency semantics [-@glabbeek1990ltbt1;-@glabbeek1993ltbt] treat a zoo of distinct *qualitative questions* of the form “Are processes $p$ and $q$ equivalent with respect to notion $N$?”, where $N$ would for example be trace or bisimulation equivalence.
 He unveils an underlying structure where the questions can easily be compared with respect to their distinctive power.
 This is analogous to the *spectrum of light* where seemingly qualitative properties (“The light is blue / green / red.”) happen to be *quantitative* (“The distribution of wavelengths peaks at $460 / 550 / 630~\mathrm{nm}$.”).
 
 For light (i.e. electromagnetic radiation), the mix of wavelengths can be determined through a process called *spectroscopy*.
-So, we ask:
+So, we may ask:
 
-> If there exists a “linear-time–branching time spectrum,” does this mean, there also is some kind of “linear-time–branching-time spectroscopy”?
+> If there exists a “linear-time–branching time spectrum,” does this mean, there also is some kind of “linear-time–branching-time *spectroscopy*”?
 
 {{<noindent>}} This thesis answers the question positively.
 One can compute what mix of (in-)distinguishabilities positions a pair of processes on the spectrum of equivalences.

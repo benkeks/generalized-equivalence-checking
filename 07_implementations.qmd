@@ -12,4 +12,6 @@
 
 ### Computer Game: *The Spectroscopy Invaders*
 
+@trzeciakiewicz2021ltbtBrowserGame
+
 ### CAAL Extension

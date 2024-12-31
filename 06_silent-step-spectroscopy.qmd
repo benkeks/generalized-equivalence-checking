@@ -1,8 +1,8 @@
+# Spectroscopy for the Weak Silent-Step Spectrum {#sec-weak-spectrum}
+
 ::: {.content-hidden when-format="pdf"}
 {{< include style/macros.md >}}
 :::
-
-# Spectroscopy for the Silent-Step Spectrum
 
 ::: {.callout-warning}
 This section will be filled, once the journal version of [One Energy Game for the Spectrum between Branching Bisimilarity and Weak Trace Semantics](https://doi.org/10.4204/EPTCS.412.6) is ready.

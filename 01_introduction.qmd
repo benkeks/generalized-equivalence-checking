@@ -51,8 +51,9 @@ So, we may ask:
 
 > If there exists a “linear-time–branching time spectrum,” does this mean, there also is some kind of “linear-time–branching-time *spectroscopy*”?
 
-{{<noindent>}} This thesis answers the question positively.
-One can compute what mix of (in-)distinguishabilities positions a pair of processes on the spectrum of equivalences.
+{{<noindent>}} This thesis answers the question positively, which is the key step to tackle our research question.
+One can compute what mix of (in-)distinguishabilities exists between a pair of processes,
+and this places the two on the spectrum of equivalences.
 We thus turn a set of qualitative equivalence problems into one quantitative problem of *how equivalent* two systems are.
 As we will see, this amounts to an abstract form of subtraction between programs, determining what kinds of differences an outside examiner might observe.
 
@@ -61,7 +62,12 @@ As we will see, this amounts to an abstract form of subtraction between programs
 The algorithm at the core of this thesis describes how to *decide all behavioral equivalences at once.*
 More precisely, we make the following contributions:
 
-- TODO at the end
+- Chapter [-@sec-preliminaries] lays some foundations and makes precise *how bisimilarity games relate to grammars of distinguishing formulas* of Hennessy–Milner modal logic. 
+- Chapter [-@sec-spectrum] shows *how to understand the strong linear-time--branching-time spectrum quantitatively*.
+- Chapter [-@sec-approach] introduces the approach of *characterize equivalence spectra through a class of energy games* and *how to decide such games*.
+- Chapter [-@sec-strong-spectrum] applies the approach to decide the whole strong spectrum through one +game for linear-time--branching-time spectroscopy*.
+- Chapter [-@sec-weak-spectrum] adapt the game for the *weak spectrum of equivalences accounting for silent-steps*.
+- Chapter [-@sec-implementations] showcases implementations to conveniently perform equivalence spectroscopies in web browsers and using GPU parallelization.
 
 ## Artifacts and Papers
 

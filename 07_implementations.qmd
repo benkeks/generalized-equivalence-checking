@@ -1,8 +1,8 @@
+# Implementations {#sec-implementations}
+
 ::: {.content-hidden when-format="pdf"}
 {{< include style/macros.md >}}
 :::
-
-# Implementations
 
 ## Prototype Implementation: *equiv.io*
 

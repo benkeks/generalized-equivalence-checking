@@ -1,6 +1,4 @@
----
-title: "Spectroscopy of the Strong Equivalence Spectrum"
----
+# Spectroscopy of the Strong Equivalence Spectrum {#sec-strong-spectrum}
 
 ::: {.content-hidden when-format="pdf"}
 {{< include style/macros.md >}}

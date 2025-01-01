@@ -1263,7 +1263,7 @@ There also are several computer game implementations of bisimulation games.
 Screenshot of [Peacock's bisimulation computer game](https://www.concurrency-theory.org/rvg-game/).
 ::::
 
-For instance, @peacock2020 implements a game about simulation and bisimulation as well as several weaker notions.
+For instance, @peacock2020videoGameEquivalences implements a game about simulation and bisimulation as well as several weaker notions.
 The human plays the attacker trying to point out the inequivalence of systems according to the rules of @def-bisim-game.
 @fig-peacock-game shows a screenshot of said game.
 It can be played on <https://www.concurrency-theory.org/rvg-game/>.

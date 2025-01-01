@@ -6,12 +6,17 @@
 
 ## Prototype Implementation: *equiv.io*
 
-## GPU Implementation: *gpuequiv*
+## GPU Implementation: *gpuequiv* {#sec-gpu-equiv}
+
+@vogel2024energyGamesWebGPU
 
 ## Other Implementations
 
-### Computer Game: *The Spectroscopy Invaders*
+### Computer Game: *The Spectroscopy Invaders* {#sec-spectro-invaders}
 
 @trzeciakiewicz2021ltbtBrowserGame
 
-### CAAL Extension
+### CAAL Extension {#sec-spectroscopy-caal}
+
+@ozegowski2023eqCAAL
+mention Timo

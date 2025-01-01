@@ -28,7 +28,9 @@ Even the definition of the question is tricky, as there are different notions of
 I then took my very first look into the seminal paper on the landscape of process equivalences with internal behavior, the “Linear-time–branching-time spectrum II” by van Glabbeek [-@glabbeek1993ltbt].
 Its central figure, reproduced in @fig-ltbts2-paper, mesmerized me.
 But, how to use the spectrum to decide for a given pair of processes which of the many equivalences apply, is far from straightforward.
-The problem I ran into can be summarized as follows:
+Over the years, I have learned that others too have run into this problem:
+For instance, @nestmann1996decoding thinking about process algebra encodings and @bell2013certifiably verifying compiler optimizations.
+The problem can be summarized as follows:
 
 > How does one conveniently decide for a pair of systems which notions from a spectrum of behavioral equivalences equate the two?
 
@@ -59,42 +61,82 @@ As we will see, this amounts to an abstract form of subtraction between programs
 
 ## This Thesis
 
-The algorithm at the core of this thesis describes how to *decide all behavioral equivalences at once* for varying spectra of equivalence using *games that can count*.
+The algorithm at the core of this thesis describes how to *decide all behavioral equivalences at once* for varying spectra of equivalence using *games that can count* to *limit possible distinctions by attacker energy levels*.
 More precisely, we make the following contributions:
 
 - Chapter [-@sec-preliminaries] lays some foundations and makes precise *how bisimilarity games relate to grammars of distinguishing formulas* of Hennessy–Milner modal logic. 
 - Chapter [-@sec-spectrum] shows *how to understand the strong linear-time--branching-time spectrum quantitatively* and formalizes the *spectroscopy problem*.
-- Chapter [-@sec-approach] introduces the approach of *characterize equivalence spectra through a class of energy games* and *how to decide such games*.
-- Chapter [-@sec-strong-spectrum] applies the approach to decide the whole strong spectrum through one +game for linear-time--branching-time spectroscopy*.
-- Chapter [-@sec-weak-spectrum] adapt the game for the *weak spectrum of equivalences accounting for silent-steps*.
-- Chapter [-@sec-implementations] showcases implementations to conveniently perform equivalence spectroscopies in web browsers and using GPU parallelization.
+- Chapter [-@sec-approach] introduces the approach of *characterizing equivalence spectra through a class of energy games* and *how to decide such games*.
+- TODO Chapter [-@sec-strong-spectrum] applies the approach to decide the whole strong spectrum through one *game for linear-time--branching-time spectroscopy*.
+- TODO Chapter [-@sec-weak-spectrum] adapt the game for the *weak spectrum of equivalences accounting for silent-steps*.
+- TODO Chapter [-@sec-implementations] showcases implementations to conveniently perform equivalence spectroscopies in web browsers and using GPU parallelization.
 
 ## Artifacts and Papers
 
-This thesis ties together the work of several publications.
-It is written to be understandable on its own, but for details points to the original publications.
+This thesis ties together the work of several publications in a coherent presentation.
+It is written to be understandable on its own.
+For details, we usually refer to the original publications or to other artifacts for implementation and machine-checked proofs.
 
-The following four main publications (with Benjamin Bisping as a main author) fuel the following chapters:
+\medskip\noindent
+**Publications.** The following four publications (with me as main author) fuel the following chapters:
 
 - **“Deciding All Behavioral Equivalences at Once: A Game for Linear-Time–Branching-Time Spectroscopy”** [LMCS -@bjn2022decidingAllBehavioralEqs] introduces the *spectroscopy problem* and the *core idea* to decide the whole strong spectrum using games that search trees of possible distinguishing formulas.
   [Conference version: TACAS -@bisping2021ltbtsTacas]
 - **“Process Equivalence Problems as Energy Games”** [CAV -@bisping2023equivalenceEnergyGames] makes a *big technical leap by using energy games*, removing the necessity for explicit formula construction.
-- **“Characterizing contrasimilarity through games, modal logic, and complexity”** [Information & Computation -@bm2024contrasimilarityInfComp] closes *gaps in the weak spectrum of equivalences* for games and their complexity and link to modal logics.
-[Isabelle/HOL theory: AFP -@bm2023contrasimilarityAFP; Workshop version: EXPRESS/SOS -@bm2021contrasimilarity]
+- **“Characterizing Contrasimilarity through Games, Modal Logic, and Complexity”** [Information & Computation -@bm2024contrasimilarityInfComp] closes *gaps in the weak spectrum of equivalences* for games and their complexity and their link to modal logics.
+[Isabelle/HOL theory: AFP -@bm2023contrasimilarityAFP] [Workshop version: EXPRESS/SOS -@bm2021contrasimilarity]
 - **“One Energy Game for the Spectrum Between Branching Bisimilarity and Weak Trace Semantics”** [EXPRESS/SOS -@bj2023silentStepSpectroscopyExpress] adapts the *spectroscopy approach for the weak spectrum*.
 
-Prototype implementation:
+\noindent
+**Prototype.**
+The algorithms of this thesis have been validated through a *Scala prototype implementation*.
+It can be tried out in the browser on <https://equiv.io>.
+The source is available openly on <https://github.com/benkeks/equivalence-fiddle>.
 
-Isabelle theories:
+\medskip\noindent
+**Isabelle formalization.**
+Instead of swamping the document with technical proofs, these are contained in machine-checkable Isabelle/HOL theories.
 
-Bachelor/master thesis:
+- **Equivalence spectrum formalization** contains proofs for the early chapters: <https://benkeks.github.io/ltbt-spectroscopy-isabelle/>.
+- **Weak Equivalence Spectroscopy** formalizes the core results of Chapter [-@sec-weak-spectrum]: <https://equivio.github.io/silent-step-spectroscopy>.
+  The theory has been developed together with TU Berlin students Lisa Annett Barthel, Leonard Moritz Hübner, Caroline Lemke, Karl Parvis Philipp Mattes, and Lenard Mollenkopf.
 
-- @trzeciakiewicz2021ltbtBrowserGame
-- 
+\noindent
+**Student theses.**
+Some parts of this thesis strongly rely on student work that I have supervised, in particular, on the following theses:
 
-Other publications:
+- @trzeciakiewicz2021ltbtBrowserGame: *Linear-Time--Branching-Time Spectroscopy as an Educational Web Browser Game* provides a computer game version of the spectroscopy procedure to be discussed in [Subsection -@sec-spectro-invaders].
+- @ozegowski2023eqCAAL: *Integration eines generischen Äquivalenzprüfers in CAAL* extends the Concurrency Workbench Aalborg Edition with a spectroscopy feature, reported in [Subsection -@sec-spectroscopy-caal].
+- @mattes2024expressivePowerHML: *Measuring Expressive Power of HML Formulas in Isabelle/HOL* proves the approach to modal characterization of @sec-ltbt-spectrum.
+- @vogel2024energyGamesWebGPU: *Accelerating Process Equivalence Energy Games using WebGPU*, topic of @sec-gpu-equiv, allows massive parallelization on the GPU of key parts of our algorithm.
+- @lemke2024multiweightedEnergyGames: *A Formal Proof of Decidability of Multi-Weighted Declining Energy Games* formalizes the fixedpoint algorithm of @sec-deciding-energy-games.
 
-- coupled sim
-- consensus
+\noindent
+**Other publications.**
+Only indirectly connected to this dissertation project are my prior publications in leading me to topic and approach:
 
-Other bachelor thesis:
+- @bbjrsswpn2016mechanicaProofFLP[ITP]: “Mechanical Verification of a Constructive Proof for FLP.”
+- @bn2019coupledsimTacas[TACAS]: “Computing Coupled Similarity.”
+- @bnp2020coupledsim30[Acta Informatica]: “Coupled similarity: the first 32 years.”
+
+\noindent
+**Other Bachelor theses.**
+During my dissertation project, I also supervised several other Bachelor theses, many of which played important roles in shaping the research.
+Although they do not appear directly on the following pages, I want to acknowledge the students' vital contribution to the research.
+
+- @peacock2020videoGameEquivalences: *Process Equivalences as a Video Game*
+- @wrusch2020gameEquivalences: *Ein Computerspiel zum Erlernen von Verhaltensäquivalenzen*
+- @reichert2020visualizingCounterfactuals: *Visualising and Model Checking Counterfactuals*
+- @wittig2020processJungle: *Charting the Jungle of Process Calculi Encodings*
+- @bulik2021interProcComm: *Statically Analysing Inter-Process Communication in Elixir Programs*
+- @montanari2021kontrasimSpiel: *Kontrasimulation als Spiel*
+- @pohlmann2021reactiveBisimStrong: *Reducing Strong Reactive Bisimilarity to Strong Bisimilarity*
+- @england2021hmlSynthesis: *HML Synthesis of Distinguished Processes*
+- @duong2022toolLTBTS: *Developing an Educational Tool for Linear-Time–Branching-Time Spectroscopy*
+- @alshukariri2022reaktiveBisimReduktion: *Automatisierte Reduktion von reaktiver zu starker Bisimilarität*
+- @adler2022fehlertoleranteAlgorithmen: *Simulation fehlertoleranter Konsensalgorithmen in Hash.ai*
+- @sandt2022gameReactiveBisim: *A Video Game about Reactive Bisimilarity*
+- @loenne2023gameCounterfactuals: *An Educational Computer Game about Counterfactual Truth Conditions*
+- @hauschild2023nonlinearCounterfactuals: *Nonlinear Counterfactuals in Isabelle/HOL*
+- @stoecker2024HOcalculiEqs: *Higher-Order Diadic µ-Calculus---An Efficient Framework for Checking Process Equivalences?*
+- @kurzan2024mcrl2Contrasim: *Implementierung eines Contrasimilarity-Checkers für mCRL2*

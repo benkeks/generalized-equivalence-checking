@@ -562,7 +562,7 @@ Hierarchy of common equivalences/preorders ordered by observability coordinates.
 For the rest of the thesis, we will take the equivalences as defined by the coordinates as canonical.
 @lem-spectrum-characterization has established that the coordinates of traces, simulation, failures, and bisimulation match the definitions one commonly finds in the literature.
 To establish the same for the other notions, would mean a lot of (repetitive) definitions, which mostly reproduce van Glabbeek's survey [-@glabbeek2001ltbtsiReport].
-@mattes2023expressivePowerHML proves in Isabelle/HOL that the coordinate system of the conference version of this spectrum [@bisping2023equivalenceEnergyGames] match distinctiveness of the modal characterizations in [@glabbeek2001ltbtsiReport].
+@mattes2024expressivePowerHML proves in Isabelle/HOL that the coordinate system of the conference version of this spectrum [@bisping2023equivalenceEnergyGames] match distinctiveness of the modal characterizations in [@glabbeek2001ltbtsiReport].
 
 ::: {.callout-warning}
 I might add such a marathon if there's strong popular demand.

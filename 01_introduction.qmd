@@ -113,7 +113,7 @@ Some parts of this thesis strongly rely on student work that I have supervised, 
 
 \noindent
 **Other publications.**
-Only indirectly connected to this dissertation project are my prior publications in leading me to topic and approach:
+Only indirectly connected to this dissertation project are my prior publications in leading me to topic and techniques:
 
 - @bbjrsswpn2016mechanicaProofFLP[ITP]: “Mechanical Verification of a Constructive Proof for FLP.”
 - @bn2019coupledsimTacas[TACAS]: “Computing Coupled Similarity.”

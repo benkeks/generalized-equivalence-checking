@@ -31,7 +31,7 @@
 
 \lc{ Transition systems }
 
-\providecommand{\step}[1]{\xrightarrow{#1}}
+\providecommand{\step}[1]{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}
 \providecommand{\states}{\mathcal{P}}
 \providecommand{\system}{\mathcal{S}}
 \providecommand{\labels}{\mathcal{L}}

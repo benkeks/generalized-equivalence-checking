@@ -21,7 +21,7 @@ crossref:
       reference-prefix: Algorithm
       key: alg
       latex-env: algorithm
-linestretch: 1.15
+linestretch: 1.1
 fig-align: center
 strip-comments: true
 

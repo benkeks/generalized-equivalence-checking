@@ -17,6 +17,7 @@ The first core idea of this chapter is:
 Groups of equivalences can be defined and ranked in lattices of notions of observability.
 :::
 
+\noindent
 In particular, @sec-ltbt-spectrum will introduce such a spectrum, forming a hierarchy of modal logics for the *strong spectrum*.
 
 From there, we will quickly run into the second core idea:
@@ -27,6 +28,7 @@ From there, we will quickly run into the second core idea:
 We can ask what equivalences from a spectrum are the most fitting to relate two states.
 :::
 
+\noindent
 @sec-spectroscopy will define the problem formally and give lower-bounds for its complexity on the strong spectrum.
 
 ## Observability Hierarchies
@@ -85,6 +87,7 @@ Bisimilarity
 : captures that the experimenter can moreover determine if a future course of events is *impossible at some point*.
 This means that the experimenter can not only copy the execution state but also exhaustively test *every* possibility of how the system may continue.
 
+\noindent
 But such levels of observability do not need to be linear, as we will see in the next subsection …
 
 ### Incomparabilities {#sec-incomparabilities}
@@ -102,6 +105,7 @@ The set of failures of a process $\failures{p}$ is recursively defined as
 - $(α \cdot \vec w, X) ∈ \failures{p}$ if there is $p'$ with $p \step α p'$ and $(\vec w, X) ∈ \failures{p'}$.
 :::
 
+\noindent
 For instance, the failure $(\tau, \set{\literal{a}})$ is in $\failures{\literal{P}}$ but not in $\failures{\literal{Q}}$ on @fig-ts-determinism.
 
 But would it not be nice if we could prevent the invention of new mathematical objects as denotations for every new notions of observability we consider?
@@ -110,7 +114,6 @@ Fortunately, we can save the work, by directly employing modal logics:
 ::: {#def-failures-modal}
 
 We define failure observations $\observations{F}$ by the grammar:
-
 $$
   φ^\mathrm{F} \grammardef
     \hmlobs{α}φ^\mathrm{F}
@@ -119,6 +122,7 @@ $$
 $$
 :::
 
+\noindent
 Clearly, this encompasses what we may observe via traces,
 but is something that we cannot observe using simulation.
 We consider $\bpreord{F}$ given by $\bpreordvar{\observations{F}}$.
@@ -291,11 +295,13 @@ An *equivalence spectrum* $(\notions, \leq, \observationsvar{N \in \notions})$ c
 - a lattice of notions of observability, $\notions$, partially ordered by ${\leq} \subseteq \notions \times \notions$, and
 - corresponding logics $\observationsvar{N} \colon \powerset{\hml}$ for $N \in \notions$.
 
+\noindent
 $\observationsvar{N \in notions}$ must be monotonic, that is:
 for any two notions $N,M \in \notions$, it holds that
 $$N \leq M \text{ implies } \observationsvar{N} \subseteq \observationsvar{M}.$$
 :::
 
+\noindent
 Let us use our new definition to construct a subset lattice as in @exm-set-lattice to recreate the hierarchy of @fig-failure-hierarchy.
 
 ::: {#exm-simple-spectrum}
@@ -333,16 +339,21 @@ Hierarchy of simple notions of equivalence.
 ::::
 :::
 
-While the incomparable languages of Subsection @sec-incomparabilities form no lattice, e.g. $\observations{S} \cup \observations{F} \neq \hml$, the incomparable notions of the present @exm-simple-spectrum do form a lattice, as $\set{\literal{(\land)}} \cup \set{\literal{(\neg)}} = \set{\literal{(\land)}, \literal{(\neg)}}$.
+\noindent
+While the incomparable languages of [Subsection -@sec-incomparabilities] form no lattice, e.g. $\observations{S} \cup \observations{F} \neq \hml$, the incomparable notions of the present @exm-simple-spectrum do form a lattice, as $\set{\literal{(\land)}} \cup \set{\literal{(\neg)}} = \set{\literal{(\land)}, \literal{(\neg)}}$.
 This is one of the reasons why it is convenient to add *notions of observability* as an abstraction layer.
 
 We can also ask what the least notion is to include a specific formula:
 
 ::: {#def-expressiveness-price}
-In the context of a $\glb$-complete spectrum $(\notions, \leq, \observationsvar{N \in \notions})$, the *expressiveness price* of a formula $\varphi$ that appears in one of the logics is defined as
+
+#### Syntactic Expressiveness Price
+
+In the context of a $\glb$-complete spectrum $(\notions, \leq, \observationsvar{N \in \notions})$, the *syntactic expressiveness price* of a formula $\varphi$ that appears in one of the logics is defined as
 $$\expr(\varphi) := \inf \set{N \in \notions \mid \varphi \in \observationsvar{N}}.$$
 :::
 
+\noindent
 Thinking of the lattice of notions as a hierarchy of how difficult it is to tell processes apart, we consider this as a kind of “price tag” to put on formulas depending on their syntactic complexity.
 Higher syntactic complexity allows formula sets of higher expressiveness.
 
@@ -405,7 +416,6 @@ $$
                         & \leadsto & \hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}.
 \end{array}
 $$
-
 If we reexamine the grammar of $\observations{F}$ in @def-failures-modal, we notice that the formulas it can produce match those of $\observationsvar{(\infty,1,0,0,1,1)}^\literal{strong}$ of the strong spectrum in @def-strong-spectrum.
 :::
 
@@ -442,6 +452,7 @@ If we reexamine the grammar of $\observations{F}$ in @def-failures-modal, we not
 Pricing formula $\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}$ with syntactic expressiveness $e = (2,1,0,0,1,1)$.
 :::
 
+\noindent
 An example for the pricing of a more complex tree-like formula is given in @fig-formula-pricing-complex.
 
 ::: {#fig-formula-pricing-complex}
@@ -504,6 +515,7 @@ Observe that $\observations{\floor{B}} \subseteq \observationsvar{(\infty, \inft
 As $\observations{\floor{B}}$ already has complete $\hml$-distinctiveness by @lem-game-formula-hml, so must its superlogic $\observationsvar{(\infty, \infty, \infty, \infty,  \infty, \infty)}^\literal{strong}$.
 :::
 
+\noindent
 So far, we have only established that the six-dimensional spectrum also covers the notions that @exm-simple-spectrum has already covered–in a more complicated way.
 The extra dimensions will pay off in the next subsection.
 
@@ -559,6 +571,7 @@ Hierarchy of common equivalences/preorders ordered by observability coordinates.
 :::
 :::
 
+\noindent
 For the rest of the thesis, we will take the equivalences as defined by the coordinates as canonical.
 @lem-spectrum-characterization has established that the coordinates of traces, simulation, failures, and bisimulation match the definitions one commonly finds in the literature.
 To establish the same for the other notions, would mean a lot of (repetitive) definitions, which mostly reproduce van Glabbeek's survey [-@glabbeek2001ltbtsiReport].
@@ -635,6 +648,7 @@ Still, the formula $\hmlobs{\literal{a}}\hmlands\set{\hmlobs{\literal a}\hmlands
 Therefore, the processes are not ready-simulation equivalent.
 :::
 
+\noindent
 What this shows is that one cannot prove two states to be ready-equivalent by showing that they are equated by simulation and failures:
 $${\beq{S}} \cap {\beq{F}} \, \nsubseteq \, {\beq{RS}}.$$
 The relationship between the characterized equivalences is *non-intersectional*.
@@ -679,7 +693,7 @@ A minimal formula to distinguish $\literal{Q}$ from $\literal{T}$ with this coor
 
 Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\infty,\infty,\infty,\infty,1)$ is not less or equal to $(2,2,0,0,2,2)$, we arrive at $\literal{Q} \bpreord{2S} \literal{T}$, which implies *all* preorders of @fig-strong-ltbt-spectrum except for bisimilarity.
 
-::: {#fig-spectroscopy-front}
+:::: {#fig-spectroscopy-front}
 
 ```tikz
 \begin{tikzpicture}[]
@@ -714,7 +728,7 @@ Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\inf
 
 Cross section of the strong spectrum showing the dimensions conjunctions, negative clause depth, and negation depth.
 All preorders below the red mark at $(2,2,2)$ hold in @exm-spectroscopy-front.
-:::
+::::
 
 Note that we have expressed $\notions^{\literal{strong}}_{\literal{Q}, \literal{T}}$ through a negation (“$\dots \nleq (2,2,0,0,2,2)$”).
 The reason is that a positive description is usually unwieldy.
@@ -726,6 +740,7 @@ $\notions^{\literal{strong}}_{\literal{Q}, \literal{T}} =
 (\natsext^5 \times \set{0,1})$.
 :::
 
+\noindent
 Technically, it is convenient to not compute $\notions_{p,q}$ directly.
 Rather we aim to construct the *Pareto front* of minimal notions that do not hold, $\Min(\notions \setminus \notions_{p,q})$.
 The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as complement of the upwards closure $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$
@@ -746,13 +761,12 @@ Another way of viewing the spectroscopy problem is that we aim to compute an abs
 #### Observations and Difference
 
 On a transition system $\system$, the possible observations of a state, $\semanticsobs{\cdot} \colon \states \to \powerset{\hml}$, are defined as:
-
 $$\semanticsobs{p} ≔ \set{φ ∈ \hml \mid p ∈ \semantics{φ}}.$$
-
 The *difference* between $p$ and $q$ is defined as:
 $$\difference{p}{q} ≔ \semanticsobs{p} \setminus \semanticsobs{q}.$$
 :::
 
+\noindent
 $\difference{p}{q}$ expresses the set of observations one could make of $p$ that one cannot make of $q$.
 This set will be empty, when the states are bisimilar, or infinite, otherwise.
 
@@ -763,6 +777,7 @@ Two states $p$ and $q$ are preordered with respect to a sublogic $\observationsv
 $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsvar{} = \varnothing.$$
 :::
 
+\noindent
 A spectroscopy then is about computing some abstraction $\Delta_\alpha$ such that
 $N \in \Delta_\alpha(p,q)$ precisely if $\difference{p}{q} \cap \observationsvar{N} \neq \varnothing$.
 

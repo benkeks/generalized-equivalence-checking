@@ -51,6 +51,7 @@ book:
     - 09_references.qmd
 
 bibliography: similarities.bib
+csl: http://www.zotero.org/styles/apa
 #csl: iso690-author-date-en
 
 format:
@@ -96,11 +97,12 @@ format:
     - marginparwidth=5cm
     reference-location: margin
     include-in-header: style/preamble.tex
-    include-before-body:
-      text: |
-        \renewcommand{\bibsection}{}
-    cite-method: natbib
+    #include-before-body:
+    #  text: |
+    #    \renewcommand{\bibsection}{}
+    #cite-method: natbib
     biblio-config: true
+    link-citations: true
     latex-max-runs: 4
     mermaid:
       theme: neutral

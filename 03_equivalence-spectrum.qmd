@@ -693,7 +693,7 @@ A minimal formula to distinguish $\literal{Q}$ from $\literal{T}$ with this coor
 
 Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\infty,\infty,\infty,\infty,1)$ is not less or equal to $(2,2,0,0,2,2)$, we arrive at $\literal{Q} \bpreord{2S} \literal{T}$, which implies *all* preorders of @fig-strong-ltbt-spectrum except for bisimilarity.
 
-:::: {#fig-spectroscopy-front}
+:::: {#fig-spectroscopy-front fig-pos='th'}
 
 ```tikz
 \begin{tikzpicture}[]

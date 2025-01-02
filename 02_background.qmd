@@ -103,27 +103,44 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
 ::: {#exm-ts}
 #### A Classic Example
 
-  Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}, \set{\literal a, \literal b, τ}, \step{\cdot}_\literal{PQ})$ given by the following graph:
+Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}, \set{\literal a, \literal b, τ}, \step{\cdot}_\literal{PQ})$ given by the following graph:
 
 ::::{#fig-ts-determinism fig-pos=H}
-  ```{mermaid}
-  flowchart TD
-    p0([P]) -- τ --> pA([p<sub>a</sub>])
-    p0 -- τ --> pB([p<sub>b</sub>])
-    pA -- a --> pA0([p<sub>1</sub>])
-    pB -- b --> pB0([p<sub>2</sub>])
+```tikz
+\begin{tikzpicture}[->,auto,node distance=2cm]
+  \node[state] (P){$\literal{P}$};
+  \node[state, below left of=P] (PA){$\literal{p_a}$};
+  \node[state, below right of=P] (PB){$\literal{p_b}$};
+  \node[state, below of=PA] (P1){$\literal{p_1}$};
+  \node[state, below of=PB] (P2){$\literal{p_2}$};
+  \path
+    (P)
+      edge node[swap] {$\tau$} (PA)
+      edge node {$\tau$} (PB)
+    (PA)
+      edge node {$\literal{a}\vphantom{\literal{b}}$} (P1)
+    (PB)
+      edge node {$\literal{b}$} (P2);
 
-    q0([Q]) -- τ --> qAB([q<sub>ab</sub>])
-    qAB -- a --> qA([q<sub>1</sub>])
-    qAB -- b --> qB([q<sub>2</sub>])
-  ```
+  \node[state, right=5cm of P] (Q){$\literal{Q}$};
+  \node[state, below of=Q] (QAB){$\literal{q_{ab}}$};
+  \node[state, below left of=QAB] (Q1){$\literal{q_1}$};
+  \node[state, below right of=QAB] (Q2){$\literal{q_2}$};
+  \path
+    (Q)
+      edge node {$\tau$} (QAB)
+    (QAB)
+      edge node[swap] {$\literal{a}\vphantom{\literal{b}}$} (Q1)
+      edge node {$\literal{b}$} (Q2);
+\end{tikzpicture}
+```
 
-  Example system $\system_\literal{PQ}$.
+Example system $\system_\literal{PQ}$.
 ::::
 
-  {{<noindent>}}
-  The program described by the transitions from $\literal{P}$ choses non-deterministically during a $τ$-step between two options and then offers only either $\literal a$ *or* $\literal b$.
-  The program $\literal{Q}$ on the other hand performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$ to the environment.
+{{<noindent>}}
+The program described by the transitions from $\literal{P}$ choses non-deterministically during a $τ$-step between two options and then offers only either $\literal a$ *or* $\literal b$.
+The program $\literal{Q}$ on the other hand performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$ to the environment.
 :::
 
 {{<noindent>}} There are two things one might wonder about @exm-ts:
@@ -1109,10 +1126,10 @@ attack positions $G^\notionname{B}_\attacker ≔ \states × \states$ and defense
 :::
 
 \noindent
-A schematic depiction of the game rules can be seen in @#fig-game-scheme.
+A schematic depiction of the game rules can be seen in @fig-game-scheme.
 From dashed nodes, the game proceeds analogously to the initial attacker position.
 
-::: {#fig-game-scheme}
+::: {#fig-game-scheme fig-pos='t'}
 
 ```tikz
 \begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm, rel/.style={dashed,font=\it},
@@ -1196,7 +1213,7 @@ Along this sequence of positions, the defender never has a choice and is stuck i
 The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\literal{T} \step{\tau} \literal{q_{3}}$.
 :::
 
-::: {#fig-bisim-sim-game}
+::: {#fig-bisim-sim-game fig-pos='t'}
 ```tikz
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
@@ -1345,7 +1362,7 @@ Swap moves become negations, and simulation moves become observations with a con
 This attacker strategy can thus be expressed by $\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observations{\floor{B}}$.
 :::
 
-::: {#fig-bisim-sim-game-formulas}
+::: {#fig-bisim-sim-game-formulas fig-pos='t'}
 ```tikz
 %%| image-class: lightbox
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,

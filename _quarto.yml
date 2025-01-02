@@ -63,7 +63,7 @@ format:
     reference-location: margin
     crossrefs-hover: false # this lead to poor preview browsing experience and katex exceptions :/
     citation-location: margin
-    linestretch: 1.5
+    linestretch: 1.3
     mainfont: KaTeX_Main
     css: style/style.css
     grid:

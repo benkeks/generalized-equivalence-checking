@@ -1,5 +1,9 @@
 # Spectroscopy of the Strong Equivalence Spectrum {#sec-strong-spectrum}
 
+::: {.callout-todo .callout-warning}
+This section will be filled with contents from [Process Equivalence Problems as Energy Games](https://doi.org/10.1007/978-3-031-37706-8_5).
+:::
+
 ::: {.content-hidden when-format="pdf"}
 {{< include style/macros.md >}}
 :::

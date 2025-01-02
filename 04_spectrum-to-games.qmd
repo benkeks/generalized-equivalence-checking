@@ -15,7 +15,7 @@ We already know that winning attacker strategies in the bisimulation game corres
 All we need on top of this is a way of quantifying the amount of syntactic expressiveness in these formulas *during the game*.
 For this, we employ the first core idea of this chapter:
 
-::: {#nte-idea-energy-games .callout-note}
+::: {#nte-idea-energy-games .callout-idea .callout-note}
 #### Quantitative games for quantitative problems
 
 Spectra of equivalence problems can be encoded as energy games.
@@ -27,7 +27,7 @@ After introducing such games in @sec-energy-games, we will prove in @sec-charact
 
 The second core idea is how to compute these winning budgets:
 
-::: {#nte-idea-deciding-energy-games .callout-note}
+::: {#nte-idea-deciding-energy-games .callout-idea .callout-note}
 #### Computing cheapest wins
 
 Attacker's winning budgets in energy reachability games can be computed by a generalized shortest paths algorithm.

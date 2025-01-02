@@ -11,7 +11,7 @@ However, we will order the equivalences using the approach of parameterized *not
 
 The first core idea of this chapter is:
 
-::: {#nte-idea-hierarchy .callout-note}
+::: {#nte-idea-hierarchy .callout-idea .callout-note}
 #### Notions of observability bring order
 
 Groups of equivalences can be defined and ranked in lattices of notions of observability.
@@ -21,7 +21,7 @@ In particular, @sec-ltbt-spectrum will introduce such a spectrum, forming a hier
 
 From there, we will quickly run into the second core idea:
 
-::: {#nte-idea-spectroscopy .callout-note}
+::: {#nte-idea-spectroscopy .callout-idea .callout-note}
 #### We have a Spectroscopy problem
 
 We can ask what equivalences from a spectrum are the most fitting to relate two states.

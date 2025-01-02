@@ -47,13 +47,13 @@ Core-correlations for bisimilarity between relational definition, modal distingu
 Readers who are familiar with the contents of @fig-equivalence-big-picture can mostly skim through this chapter of preliminaries.
 The two core insights that this chapter intends to seed for coming chapters are:
 
-::: {#nte-idea-games .callout-note}
+::: {#nte-idea-games .callout-idea .callout-note}
 #### It's all a game!
 Equivalence games are a most versatile way to handle behavioral equivalences and obtain decision procedures.
 The Hennessy--Milner theorem appears as a shadow of the determinacy of the bisimulation reachability game.
 :::
 
-::: {#nte-idea-modal-first .callout-note}
+::: {#nte-idea-modal-first .callout-idea .callout-note}
 #### Modal first!
 
 Modal characterizations allow a uniform handling of the hierarchy of equivalences.

@@ -340,7 +340,7 @@ Hierarchy of simple notions of equivalence.
 :::
 
 \noindent
-While the incomparable languages of [Subsection -@sec-incomparabilities] form no lattice, e.g. $\observations{S} \cup \observations{F} \neq \hml$, the incomparable notions of the present @exm-simple-spectrum do form a lattice, as $\set{\literal{(\land)}} \cup \set{\literal{(\neg)}} = \set{\literal{(\land)}, \literal{(\neg)}}$.
+While the incomparable languages of [Subsection -@sec-incomparabilities] form no lattice, e.g. $\observations{S} \cup \observations{F} \neq \hml$, the *notions* of the present @exm-simple-spectrum do form a lattice, as $\set{\literal{(\land)}} \cup \set{\literal{(\neg)}} = \set{\literal{(\land)}, \literal{(\neg)}}$.
 This is one of the reasons why it is convenient to add *notions of observability* as an abstraction layer.
 
 We can also ask what the least notion is to include a specific formula:

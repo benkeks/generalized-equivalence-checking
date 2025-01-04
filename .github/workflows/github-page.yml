@@ -53,6 +53,8 @@ jobs:
             pgf
             pgfplots
             varwidth
+            titlesec
+            fancyhdr
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2

@@ -34,7 +34,7 @@ book:
     affiliation: MTV TU Berlin
     affiliation-url: https://www.mtv.tu-berlin.de
   date-format: long
-  abstract: "..."
+  #abstract: "..."
   repo-url: https://github.com/benkeks/generalized-equivalence-checking
   repo-actions: [edit]
   downloads: [pdf]
@@ -79,9 +79,11 @@ format:
       icon: github
       href: https://github.com/benkeks/generalized-equivalence-checking
   pdf:
-    documentclass: report
-    #classoption: [twoside]
+    documentclass: book
+    classoption: [oneside]
+    mainfont: Linux Libertine O
     indent: true
+    colorlinks: true # must be set in order for quarto to load dvipsnames in xcolor for book class ....
     papersize: a4
     top-level-division: chapter
     toc: true
@@ -91,10 +93,10 @@ format:
     #keep-md: true
     #keep-tex: true
     geometry:
-    - left=2.3cm
-    - textwidth=12cm
+    - left=2.5cm
+    - textwidth=11cm
     - marginparsep=0.5cm
-    - marginparwidth=5cm
+    - marginparwidth=5.5cm
     reference-location: margin
     include-in-header: style/preamble.tex
     #include-before-body:

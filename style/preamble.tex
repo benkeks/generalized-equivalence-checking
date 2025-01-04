@@ -6,7 +6,7 @@
 \usepackage{cancel}
 \usepackage{extarrows}
 \usepackage{graphicx}
-\usepackage[dvipsnames]{xcolor}
+%\usepackage[dvipsnames]{xcolor}
 
 \usepackage{booktabs}
 
@@ -45,4 +45,22 @@
 % for some reason, otherwise quarto breaks adjustbox, cf. https://tex.stackexchange.com/questions/634099/latex-adjustbox-shrinks-table/634101?noredirect=1#comment1581050_634101
 \setkeys{Gin}{width=\linewidth,height=\textheight,keepaspectratio}
 
+\usepackage{titlesec}
+\titleformat{\chapter}
+  {\raggedright\normalfont\Huge\bfseries}{\thechapter}{1em}{}
+\titlespacing*{\chapter}{0pt}{12pt}{24pt}
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{empty}}{}{}
 %\input{style/macros.md}
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+%\addtolength{\headwidth}{\marginparsep}
+\addtolength{\headwidth}{\marginparwidth}
+\fancyhf{}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+\fancyhead[RO]{\thepage}
+\fancyhead[LE]{\thepage}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0pt}
+
+\pagestyle{fancy}

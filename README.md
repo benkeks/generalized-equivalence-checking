@@ -1,6 +1,6 @@
 # Generalized Equivalence Checking of Concurrent Programs
 
-This is a WIP version of Benjamin Bisping's dissertation on how to decide all behavioral equivalences of processes at once, using a quantitative game approach.
+This is a WIP version of [Benjamin Bisping's](https://bbisping.de) dissertation on how to decide all behavioral equivalences of processes at once, using a quantitative game approach.
 
 The Web preview of this work is live on:
 

@@ -421,13 +421,6 @@ If we reexamine the grammar of $\observations{F}$ in @def-failures-modal, we not
 
 ::: {#fig-formula-pricing}
 ```tikz
-\definecolor{obsColor}{RGB}{218, 0, 99}
-\definecolor{conjColor}{RGB}{242, 75, 42}
-\definecolor{mainPosColor}{RGB}{200, 180, 0}
-\definecolor{otherPosColor}{RGB}{143, 209, 79}
-\definecolor{negObsColor}{RGB}{18, 205, 212}
-\definecolor{negsColor}{RGB}{101, 44, 179}
-
 \begin{tikzpicture}
   \node(Obs1) {$\hmlobs\tau$};
   \node(Conj0)[right=2cm of Obs1.center] {$\land$};
@@ -457,12 +450,6 @@ An example for the pricing of a more complex tree-like formula is given in @fig-
 
 ::: {#fig-formula-pricing-complex}
 ```tikz
-\definecolor{obsColor}{RGB}{218, 0, 99}
-\definecolor{conjColor}{RGB}{242, 75, 42}
-\definecolor{mainPosColor}{RGB}{200, 180, 0}
-\definecolor{otherPosColor}{RGB}{143, 209, 79}
-\definecolor{negObsColor}{RGB}{18, 205, 212}
-\definecolor{negsColor}{RGB}{101, 44, 179}
 
 \begin{tikzpicture}
   \node(Obs1) {$\hmlobs\tau$};

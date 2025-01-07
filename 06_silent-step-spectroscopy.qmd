@@ -8,9 +8,15 @@
 This section will be filled, once the journal version of [One Energy Game for the Spectrum between Branching Bisimilarity and Weak Trace Semantics](https://doi.org/10.4204/EPTCS.412.6) is ready.
 :::
 
+## Lifting to the Spectrum of Stable Equivalences
+
+### Stable Behavioral Equivalences
+
+### The Adapted Spectroscopy Game
+
 ## The Weak Spectrum
 
-### Weak Equivalences
+### Special Weak Equivalences
 
 ### HML with Silent Behavior
 
@@ -23,3 +29,5 @@ This section will be filled, once the journal version of [One Energy Game for th
 ### Correctness
 
 ## Discussion
+
+- Mention to add back in strong observations

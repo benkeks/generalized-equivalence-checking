@@ -23,3 +23,5 @@ This section will be filled with contents from [Process Equivalence Problems as 
 ### Instance Games
 
 ## Discussion
+
+- Mention option of non-perfect attacker information as alternative to subset construction

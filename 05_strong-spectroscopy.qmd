@@ -12,6 +12,106 @@ This section will be filled with contents from [Process Equivalence Problems as 
 
 ### The Game
 
+::: {#def-strong-spectroscopy-game}
+
+For a system $\system=(\states,\actions,\step{})$,
+the $6$-dimensional *spectroscopy energy game*
+$\gamespectroscopy^{\system}[g_0,e_0]=(G,G_{\defender},\gamemoveblank,w,g_{0},e_0)$
+consists of
+
+- *attacker positions* $\attackerpos{p,Q} \in G_\attacker$,
+- *attacker clause positions* $\attackerpos[\land]{p,q} \in G_\attacker$,
+- *defender conjunction positions* $\defenderpos{p,Q,Q_*} \in G_\defender$,
+
+where $p, q \in \states$ and $Q, Q_* \in \powerset{\states}$, and six kinds of moves:
+
+$$
+\begin{array}{rrcll}
+  \textit{observation}
+  & \attackerpos{p,Q}
+  & \gamemove{-1,0,0,0,0,0}
+  & \attackerpos{p', Q'}
+  & \text{if $p \step{\alpha} p^\prime$\!, $Q \step{\alpha} Q'$,}
+  \\
+  \textit{conjunction}
+  & \attackerpos{p,Q}
+  & \gamemove{0,-1,0,0,0,0}
+  & \defenderpos{p,Q \setminus Q_*, Q_*}
+  & \text{if $Q_* \subseteq Q$,}
+  \\
+  \textit{conj.~revival}
+  & \defenderpos{p,Q,Q_*}
+  & \gamemove{\updmin{1,3},0,0,0,0,0}
+  & \attackerpos{p,Q_*}
+  & \text{if $Q_* \neq \varnothing$,}
+  \\
+  \textit{conj.~answer}
+  & \defenderpos{p,Q,Q_*}
+  & \gamemove{0,0,0,\updmin{3,4},0,0}
+  & \attackerpos[\land]{p,q}
+  & \text{if $q \in Q$,}
+  \\
+  \textit{positive conjunct}
+  & \attackerpos[\land]{p,q}
+  & \gamemove{\updmin{1,4},0,0,0,0,0}
+  & \attackerpos{p,\{q\}},
+  & \text{and}
+  \\
+  \textit{negative conjunct}
+  & \attackerpos[\land]{p,q}
+  & \gamemove{\updmin{1,5},0,0,0,0,-1}
+  & \attackerpos{q,\{p\}}
+  & \text{if $p \neq q$.}
+    \\
+\end{array}
+$$
+:::
+
+A schematic representation can be seen in @fig-strong-spectroscopy-game.
+
+::: {#fig-strong-spectroscopy-game fig-pos='th'}
+
+```tikz
+\begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm,
+    rel/.style={dashed,font=\it},
+    posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
+  \node[posStyle]
+    (Att){$\attackerpos{p,Q}$};
+  \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
+    (Def) [right = 2.2cm of Att] {$\defenderpos{p,Q \setminus Q_*,Q_*}$};
+  \node[posStyle]
+    (AttConj) [below right = 1.2cm and 3cm of Att] {$\attackerpos[\land]{p,q}$};
+  \node[posStyle, dashed]
+    (AttSwap) [right = 3cm of AttConj] {$\attackerpos{q,\{p\}}$};
+  \node[posStyle, dashed]
+    (AttContinue) [above = 1cm of AttSwap] {$\attackerpos{p,\{q\}}$};
+  \node[posStyle, dashed]
+    (AttObs) [above = 1cm of AttContinue] {$\attackerpos{p^\prime,Q^\prime}$};
+  % \node[posStyle, dashed]
+  %   (AttRevival) [below = 1cm of AttSwap] {$\attackerpos{p,Q_*}$};
+
+  \node (Ghost) [below = 1cm of AttSwap] {};
+
+  \path
+    (Att) edge[bend left=28]
+      node[pos=.3, align=center, label={[label distance=0.0cm]-25:$\textcolor{gray}{\textcolor{obsColor}{-1},0,0,0,0,0}$}] {$p\step{\alpha}p^\prime$\\ $Q\step{\alpha}Q^\prime$} (AttObs)
+    (Att) edge
+      node[label={[label distance=0cm]-90:$\textcolor{gray}{0,\textcolor{conjColor}{-1},0,0,0,0}$}] {$Q_* \subseteq Q$} (Def)
+    (Def) edge[bend left=15]
+      node[align=right, swap, pos=.1] {$q \in Q \setminus Q_*$\\$\textcolor{gray}{0,0,0,\updmin{\textcolor{mainPosColor}{3},\textcolor{otherPosColor}{4}},0,0}$} (AttConj)
+    (AttConj) edge[bend left=10]
+      node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{otherPosColor}{4}},0,0,0,0,0}$}] {} (AttContinue)
+    (AttConj) edge[bend right=15]
+      node[align=center, label={[label distance=0.0cm]-90:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{negObsColor}{5}},0,0,0,0,\textcolor{negsColor}{-1}}$}] {} (AttSwap)
+    (Def) edge[bend left=10]
+      node[align=center, label={[label distance=0.0cm]-30:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{mainPosColor}{3}},0,0,0,0,0}$}] {$p' = p$\\$Q'=Q_* \neq \varnothing$} (AttObs);
+\end{tikzpicture}
+
+```
+
+Schematic spectroscopy game $\gamespectroscopy$ of @def-strong-spectroscopy-game.
+:::
+
 ### Correctness
 
 ### Complexity
@@ -25,3 +125,6 @@ This section will be filled with contents from [Process Equivalence Problems as 
 ## Discussion
 
 - Mention option of non-perfect attacker information as alternative to subset construction
+- Difference to @bjn2022decidingAllBehavioralEqs:
+  - Lower exponentiality in conjunctions
+  - No explicit construction of formulas

@@ -35,19 +35,19 @@ $$
   \\
   \textit{conjunction}
   & \attackerpos{p,Q}
-  & \gamemove{0,-1,0,0,0,0}
+  & \gamemove{0,0,0,0,0,0}
   & \defenderpos{p,Q \setminus Q_*, Q_*}
   & \text{if $Q_* \subseteq Q$,}
   \\
   \textit{conj.~revival}
   & \defenderpos{p,Q,Q_*}
-  & \gamemove{\updmin{1,3},0,0,0,0,0}
+  & \gamemove{\updmin{1,3},-1,0,0,0,0}
   & \attackerpos{p,Q_*}
   & \text{if $Q_* \neq \varnothing$,}
   \\
   \textit{conj.~answer}
   & \defenderpos{p,Q,Q_*}
-  & \gamemove{0,0,0,\updmin{3,4},0,0}
+  & \gamemove{0,-1,0,\updmin{3,4},0,0}
   & \attackerpos[\land]{p,q}
   & \text{if $q \in Q$,}
   \\
@@ -96,15 +96,15 @@ A schematic representation can be seen in @fig-strong-spectroscopy-game.
     (Att) edge[bend left=28]
       node[pos=.3, align=center, label={[label distance=0.0cm]-25:$\textcolor{gray}{\textcolor{obsColor}{-1},0,0,0,0,0}$}] {$p\step{\alpha}p^\prime$\\ $Q\step{\alpha}Q^\prime$} (AttObs)
     (Att) edge
-      node[label={[label distance=0cm]-90:$\textcolor{gray}{0,\textcolor{conjColor}{-1},0,0,0,0}$}] {$Q_* \subseteq Q$} (Def)
+      node[label={[label distance=0cm]-90:$\textcolor{gray}{0,0,0,0,0,0}$}] {$Q_* \subseteq Q$} (Def)
     (Def) edge[bend left=15]
-      node[align=right, swap, pos=.1] {$q \in Q \setminus Q_*$\\$\textcolor{gray}{0,0,0,\updmin{\textcolor{mainPosColor}{3},\textcolor{otherPosColor}{4}},0,0}$} (AttConj)
+      node[align=right, swap, pos=.1] {$q \in Q \setminus Q_*$\\$\textcolor{gray}{0,\textcolor{conjColor}{-1},0,\updmin{\textcolor{mainPosColor}{3},\textcolor{otherPosColor}{4}},0,0}$} (AttConj)
     (AttConj) edge[bend left=10]
       node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{otherPosColor}{4}},0,0,0,0,0}$}] {} (AttContinue)
     (AttConj) edge[bend right=15]
       node[align=center, label={[label distance=0.0cm]-90:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{negObsColor}{5}},0,0,0,0,\textcolor{negsColor}{-1}}$}] {} (AttSwap)
     (Def) edge[bend left=10]
-      node[align=center, label={[label distance=0.0cm]-30:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{mainPosColor}{3}},0,0,0,0,0}$}] {$p' = p$\\$Q'=Q_* \neq \varnothing$} (AttObs);
+      node[align=center, label={[label distance=0.0cm]-30:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{mainPosColor}{3}},\textcolor{conjColor}{-1},0,0,0,0}$}] {$p' = p$\\$Q'=Q_* \neq \varnothing$} (AttObs);
 \end{tikzpicture}
 
 ```

@@ -117,6 +117,7 @@
 \providecommand{\attackerwins}{\mathsf{Win}_\mathrm{a}}
 \providecommand{\attackerwinsmin}{\mathsf{Win}^{\mathrm{min}}_\mathrm{a}}
 \providecommand{\defenderwins}{\mathsf{Win}_\mathrm{d}}
+\providecommand{\defenderwinsmax}{\mathsf{Win}^{\mathrm{max}}_\mathrm{d}}
 
 \lc{ Energy Games }
 

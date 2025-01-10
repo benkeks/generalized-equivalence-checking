@@ -83,6 +83,7 @@ For details, we usually refer to the original publications or to other artifacts
 - **“Deciding All Behavioral Equivalences at Once: A Game for Linear-Time–Branching-Time Spectroscopy”** [LMCS -@bjn2022decidingAllBehavioralEqs] introduces the *spectroscopy problem* and the *core idea* to decide the whole strong spectrum using games that search trees of possible distinguishing formulas.
   [Conference version: TACAS -@bisping2021ltbtsTacas]
 - **“Process Equivalence Problems as Energy Games”** [CAV -@bisping2023equivalenceEnergyGames] makes a *big technical leap by using energy games*, removing the necessity for explicit formula construction.
+  [Tech report: arXiv -@bisping2023equivalenceEnergyGamesReport]
 - **“Characterizing Contrasimilarity through Games, Modal Logic, and Complexity”** [Information & Computation -@bm2024contrasimilarityInfComp] closes *gaps in the weak spectrum of equivalences* for games and their complexity and their link to modal logics.
 [Isabelle/HOL theory: AFP -@bm2023contrasimilarityAFP; Workshop version: EXPRESS/SOS -@bm2021contrasimilarity]
 - **“One Energy Game for the Spectrum Between Branching Bisimilarity and Weak Trace Semantics”** [EXPRESS/SOS -@bj2023silentStepSpectroscopyExpress] adapts the *spectroscopy approach for the weak spectrum*.

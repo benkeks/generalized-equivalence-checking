@@ -112,6 +112,14 @@ A schematic representation can be seen in @fig-strong-spectroscopy-game.
 Schematic spectroscopy game $\gamespectroscopy$ of @def-strong-spectroscopy-game.
 :::
 
+::: {#lem-spectroscopy-bisimulation-game}
+$p_0$ and $q_0$ are bisimilar
+iff the defender wins $\gamespectroscopy$ from $\attackerpos{p_0, \{q_0\}}$ with $e_0$ for every initial energy budget $e_0$,
+that is, if $(\infty, \infty, \infty, \infty, \infty, \infty) \in \defenderwinsmax(\attackerpos{p_0, \{q_0\}})$.^[
+  Proof in Lemma 1 of @bisping2023equivalenceEnergyGamesReport.
+]
+:::
+
 ### Correctness
 
 ### Complexity

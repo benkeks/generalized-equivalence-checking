@@ -138,8 +138,7 @@ Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \litera
 Example system $\system_\literal{PQ}$.
 ::::
 
-{{<noindent>}}
-The program described by the transitions from $\literal{P}$ choses non-deterministically during a $τ$-step between two options and then offers only either $\literal a$ *or* $\literal b$.
+{{<noindent>}} The program described by the transitions from $\literal{P}$ choses non-deterministically during a $τ$-step between two options and then offers only either $\literal a$ *or* $\literal b$.
 The program $\literal{Q}$ on the other hand performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$ to the environment.
 :::
 

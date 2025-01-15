@@ -32,6 +32,18 @@ function shy()
 end
 
 
+
+function headingbreak()
+
+  if quarto.doc.isFormat('pdf')  then
+    return pandoc.RawBlock('tex', "\\\\ ")
+  else
+    return pandoc.LineBreak()
+  end
+
+end
+
+
 function isb(args)
   qualified_name = args[2] .. "." .. args[3]
   type = isb_types[args[1]] or "fact"

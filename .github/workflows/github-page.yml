@@ -62,7 +62,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           # upgrade to version where browser incovations hopefully work again
-          version: 1.6.32
+          version: 1.7.13
           # To install LaTeX to build PDF book 
           tinytex: false
           # version: SPECIFIC-QUARTO-VERSION-HERE

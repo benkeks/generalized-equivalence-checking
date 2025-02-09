@@ -1011,13 +1011,14 @@ Consider the following parameters of an energy game problem on $\game^🗲=(G,G_
 - $o_{\gamemoveblank}$, the out-degree of the game graph $\gamemoveblank$.
 
 Then, @alg-deciding-energy-games computes the minimal attacker winning budgets in
-$$\bigo{ (\relsize{G} + \relheight_{\abstractenergies}(e_{\game})) \cdot \relsize{G} \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.$$
+$$\bigo{ (\relsize{G}^2 + \relheight_{\abstractenergies}(e_{\game})) \cdot \relsize{G} \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.$$
 
-If $\abstractupdateinv$ is strictly declining, then the following suffices:
+If $\abstractupdateinv$ is declining, then the following suffices:
 $$
 \bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.
 $$
-In both cases, the algorithm needs $\bigo{\relsize{G} \cdot \relwidth_{\abstractenergies}(e_{\game}) \cdot N}$ space to store the Pareto fronts.
+In both cases, the algorithm needs $\bigo{\relsize{G} \cdot \relwidth_{\abstractenergies}(e_{\game}) \cdot s_{\abstractenergies}}$ space to store the Pareto fronts, where $s_{\abstractenergies}$ bounds the space needed per energy.
+(For declining games, it is reasonable to assume $s_{\abstractenergies} \in \bigo{N}$.)
 :::
 :::proof
 As in @thm-energy-game-correctness, we refer to @lemke2024multiweightedEnergyGames for a very detailed proof, where the corresponding fact is proved as Theorem&nbsp;7.

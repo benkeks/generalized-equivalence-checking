@@ -12,6 +12,7 @@
 \providecommand{\ints}{\mathbb{Z}}
 \providecommand{\reals}{\mathbb{R}}
 \providecommand{\defiff}{\mathrel{:\!\iff}}
+\providecommand{\defeq}{\mathrel{:=}}
 \providecommand{\set}[1]{\{#1\}}
 \providecommand{\emptyword}{\texttt{()}}
 \providecommand{\identity}[1]{\mathrm{id}_{#1}}
@@ -104,10 +105,10 @@
 
 \lc{ Games }
 
-\providecommand{\gamemove}[1]{\mathrel{\smash{›\!\!\frac{#1}{}\!\!›}}}
-\providecommand{\gamemoveblank}{\gamemove{\quad}}
-\providecommand{\ngamemove}[1]{\mathrel{\smash{{›/\!\!\!\!\frac{#1}{\;}\!\!›}}}}
-\providecommand{\ngamemoveblank}{\ngamemove{\quad}}
+\providecommand{\gamemove}[1]{\mathrel{\smash{›\!\!\frac{\;#1\;}{}\!\!›}}}
+\providecommand{\gamemoveblank}{\gamemove{\enspace}}
+\providecommand{\ngamemove}[1]{\mathrel{\smash{{›/\!\!\!\!\frac{\;#1\;}{\;}\!\!›}}}}
+\providecommand{\ngamemoveblank}{\ngamemove{\enspace}}
 \providecommand{\game}{\mathcal{G}}
 
 \providecommand{\attackerpos}[2][]{{{\color{gray}[}#2{\color{gray}]}}_\mathtt{a}^{\color{gray}\smash{\scriptscriptstyle#1}}}

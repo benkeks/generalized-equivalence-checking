@@ -75,7 +75,7 @@ A schematic representation can be seen in @fig-strong-spectroscopy-game.
 \begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm,
     rel/.style={dashed,font=\it},
     posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
-  \node[posStyle]
+  \node[posStyle, initial, initial text={}]
     (Att){$\attackerpos{p,Q}$};
   \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
     (Def) [right = 2.2cm of Att] {$\defenderpos{p,Q \setminus Q_*,Q_*}$};
@@ -120,7 +120,19 @@ that is, if $(\infty, \infty, \infty, \infty, \infty, \infty) \in \defenderwinsm
 ]
 :::
 
+TODO: Example (just the old one?)
+
+TODO: Example where the polynomial game would not see certain traces.
+
 ### Correctness
+
+::: {#thm-strong-spectroscopy-correctness}
+For any notion of equivalence $e \in \notions^{\literal{strong}}$,
+$p \bpreord{\observations{e}} q$, precisely if
+all $e_{pq} \in \attackerwins(\attackerpos{p, \{q\}})$ are above or incomparable, $e_{pq} \not \leq e$.
+:::
+
+
 
 ### Complexity
 
@@ -129,6 +141,17 @@ that is, if $(\infty, \infty, \infty, \infty, \infty, \infty) \in \defenderwinsm
 ### The Clever Game
 
 ### Instance Games
+
+::: {#def-derived-reachability-game}
+
+Given a declining energy game $\game = (G, G_\defender, \gamemoveblank, w)$,
+the *derived reachability game* $\game^R = (G^R, G^R_\defender, \gamemoveblank_R)$ is played on tuples $G^R \defeq G \times (\energies_\infty \cup \{\bot\})$ with $G^R_\defender \defeq G_\defender \times \energies_\infty$.
+Lifted moves $(g, e) \gamemoveblank_R (g', e')$ are possible iff
+$e \neq \bot$ and if there is $u$ such that $g \gamemove{u} g'$ and $e' = \energyupdate(u, e)$.
+(That is: positions with exhausted energies are stuck attacker positions.)
+:::
+
+
 
 ## Discussion
 

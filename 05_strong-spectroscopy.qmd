@@ -8,23 +8,55 @@ This section will be filled with contents from [Process Equivalence Problems as 
 {{< include style/macros.md >}}
 :::
 
+TODO: Mission
+
+The bisimulation energy game of @sec-approach is not complex enough to capture all strong equivalences of @sec-spectrum.
+It is “too easy” for the attacker in the sense that they can use conjunctions to account for every transition the defender might chose after each observation.
+But the weaker notions of the spectrum heavily limit how many conjunctions may be used to name a distinction.
+
+What we will do, is break the link between observations and conjunctions in the game, analogously to the subset construction on finite automata:
+As long as observations happen, the defender is moved to the set of states $Q$ reachable through non-determinism; only at conjunction moves does the defender have to choose a $q \in Q$.
+Treating conjunctions more explicitly, will also allow us to track the depth of positive conjuncts in sufficient detail.
+
+::: {#fig-spectroscopy-big-picture}
+```tikz
+\begin{tikzpicture}[auto,node distance=1.1cm,
+  algstep/.style={minimum width=4.3cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
+  \node[algstep, draw] (States) {States $p, q$ in \\ transition system $\system$};
+  \node[algstep, draw, right of=States, node distance=8.1cm] (Preorders) {Strong Notions that \\ fit to preorder $p$ to $q$};
+  \node[algstep, draw=TealBlue, below of=States, node distance=2.5cm] (EnergyGame) {Strong spectroscopy \\ energy game $\gamespectroscopy^{\system}$};
+  \node[algstep, draw=Peach, below of=Preorders, node distance=2.5cm] (AttackerWinningBudgets) {Minimal attacker winning \\ budgets $\attackerwinsmin(\attackerpos{p,\set{q}})$};
+  \path
+    (States) edge[->, dashed] node {Spectroscopy problem} (Preorders)
+    (States) edge[->, draw=TealBlue] node {Definition 5.1} (EnergyGame)
+    (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Theorem 5.1} (Preorders)
+    (EnergyGame) edge[->, draw=Peach] node {Algorithm 4.1} (AttackerWinningBudgets);
+\end{tikzpicture}
+```
+
+How we apply the spectroscopy approach to the full strong spectrum.
+:::
+
 ## The Strong Spectroscopy Game
 
+The core idea is to split 
+
 ### The Game
+
 
 ::: {#def-strong-spectroscopy-game}
 
 For a system $\system=(\states,\actions,\step{})$,
-the $6$-dimensional *spectroscopy energy game*
-$\gamespectroscopy^{\system}[g_0,e_0]=(G,G_{\defender},\gamemoveblank,w,g_{0},e_0)$
+the $6$-dimensional *strong spectroscopy energy game*
+$\gamespectroscopy^{\system}=(G,G_{\defender},\gamemoveblank,w)$
 consists of
 
 - *attacker positions* $\attackerpos{p,Q} \in G_\attacker$,
-- *attacker clause positions* $\attackerpos[\land]{p,q} \in G_\attacker$,
+- *attacker conjunct positions* $\attackerpos[\land]{p,q} \in G_\attacker$,
 - *defender conjunction positions* $\defenderpos{p,Q,Q_*} \in G_\defender$,
 
+\noindent
 where $p, q \in \states$ and $Q, Q_* \in \powerset{\states}$, and six kinds of moves:
-
 $$
 \begin{array}{rrcll}
   \textit{observation}
@@ -69,7 +101,7 @@ $$
 
 A schematic representation can be seen in @fig-strong-spectroscopy-game.
 
-::: {#fig-strong-spectroscopy-game fig-pos='th'}
+::: {#fig-strong-spectroscopy-game fig-pos="th"}
 
 ```tikz
 \begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm,
@@ -115,7 +147,7 @@ Schematic spectroscopy game $\gamespectroscopy$ of @def-strong-spectroscopy-game
 ::: {#lem-spectroscopy-bisimulation-game}
 $p_0$ and $q_0$ are bisimilar
 iff the defender wins $\gamespectroscopy$ from $\attackerpos{p_0, \{q_0\}}$ with $e_0$ for every initial energy budget $e_0$,
-that is, if $(\infty, \infty, \infty, \infty, \infty, \infty) \in \defenderwinsmax(\attackerpos{p_0, \{q_0\}})$.^[
+that is, if $(\infty, \infty, \infty, \infty, \infty, \infty) \in \defenderwins(\attackerpos{p_0, \{q_0\}})$.^[
   Proof in Lemma 1 of @bisping2023equivalenceEnergyGamesReport.
 ]
 :::
@@ -126,10 +158,14 @@ TODO: Example where the polynomial game would not see certain traces.
 
 ### Correctness
 
+To prove correctness, we proceed as with the bisimulation energy game in @sec-correctness-poly-spectroscopy:
+On the one hand, we show that game moves correspond to formulas of similar prices and that the attacker winning implies the formulas to be distinguishing.
+
+
 ::: {#thm-strong-spectroscopy-correctness}
 For any notion of equivalence $e \in \notions^{\literal{strong}}$,
 $p \bpreord{\observations{e}} q$, precisely if
-all $e_{pq} \in \attackerwins(\attackerpos{p, \{q\}})$ are above or incomparable, $e_{pq} \not \leq e$.
+$e_{pq} \nleq e$ for all $e_{pq} \in \attackerwins(\attackerpos{p, \{q\}})$.
 :::
 
 

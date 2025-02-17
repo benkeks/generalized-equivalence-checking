@@ -40,9 +40,9 @@ Attacker's winning budgets in energy reachability games can be computed by a gen
 By combining the two contributions, we arrive at a polynomial-time solution of the spectroscopy problem for the polynomial slice of the strong spectrum.
 
 Effectively, we adapt the game framework of @fig-game-algo-overview to not treat one equivalence, but a spectrum of equivalences.
-This approach is summarized in @fig-spectroscopy-big-picture.
+This approach is summarized in @fig-spectroscopy-poly-big-picture.
 
-::: {#fig-spectroscopy-big-picture}
+::: {#fig-spectroscopy-poly-big-picture}
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.1cm,
   algstep/.style={minimum width=4.3cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
@@ -532,11 +532,11 @@ but distinguished by all above, in particular, 3-nested simulation and 2-step bi
 This is in line with the solution we thought of for the original strong spectrum in @exm-spectroscopy-front.
 :::
 
-### Correctness of Characterization
+### Correctness of Characterization {#sec-correctness-poly-spectroscopy}
 
 We now prove that the bisimulation energy game indeed characterizes the equivalences of the polynomial-time strong spectrum.
 In following chapters, we will prove stronger results for more general games in more detail.
-The approach is to generalize the connection between winning attacks and distinguishing formulas that we have already explored in @lem-attacks-imply-formulas and @lem-formulas-imply-attack to energies and spectrum.
+The approach is to generalize the connection between winning attacks and distinguishing formulas in the  bisimulation game that we have already explored in @lem-attacks-imply-formulas and @lem-formulas-imply-attack to energies and spectrum.
 
 ::: {#def-strategy-formulas-poly}
 #### Strategy Formulas for ${\game}_\notionname{B}^{🗲}$
@@ -850,7 +850,7 @@ We illustrate the algorithm by running it on the simple energy game of @exm-simp
 Let us execute @alg-deciding-energy-games on the $\nats^2$-game of @exm-simple-energy-game.
 The game graph, labeled by the minimal attacker winning energies we find, is reproduced in @fig-simple-energy-game-wins.
 
-::: {#fig-simple-energy-game-wins}
+::: {#fig-simple-energy-game-wins fig-pos='t'}
 ```tikz
 \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
   posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
@@ -896,7 +896,7 @@ We define it as:
 $$
 \abstractupdateinv(e') := \sup(e - \vec{u}, \zerovec)
 $$
-We list the steps of the computation in @exm-simple-energy-game-execution, and the mechanics behind them below.
+We list the steps of the computation in @exm-simple-energy-game-execution, and the mechanics behind them in @tbl-simple-energy-game-execution.
 
 | step | $\variable{g}$ | $\variable{new\_attacker\_win}$ | $\variable{todo}$ |
 |-----:|------|---------------------------------|:------------------|
@@ -910,7 +910,7 @@ We list the steps of the computation in @exm-simple-energy-game-execution, and t
 |    7 | $\literal{g_3}$ | $\set{(1,1)}$ | $\literal{g_1}$  |
 |    8 | $\literal{g_1}$ | $\set{(0,2), (2,1)}$ | $\varnothing$  |
 
-: Steps while solving the game in @exm-simple-energy-game-execution. {#tbl-simple-energy-game-execution}
+: Steps while solving the game in @exm-simple-energy-game-execution. {#tbl-simple-energy-game-execution tbl-pos="b" layout-ncol="1"}
 
 ::: {#fig-game-defender-intersection .column-margin}
 ```tikz

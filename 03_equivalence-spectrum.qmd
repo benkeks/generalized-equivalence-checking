@@ -387,19 +387,21 @@ $$
 \begin{array}{rcll}
   φ^N & \grammardef & \hmltrue{} & \\
       & \grammaror  & \hmlobs{α}φ^{N - \unit{1}} & \\
-      & \grammaror  & \hmlands\set{ψ^{N-\unit{2}},
-        ψ^{(N-\unit{2}) \sqcap (\infty, \infty, N_4, \infty, \infty, \infty)},
-        ψ^{(N-\unit{2}) \sqcap (\infty, \infty, N_4, \infty, \infty, \infty)}, \ldots} & \\
+      & \grammaror  & \hmlands\set{\varphi^{(N-\unit{2}) \sqcap (N_3, \infty, \infty, \infty, \infty, \infty)},
+        ψ^{(N-\unit{2}) \sqcap (\infty, \infty, \infty, N_3 \infty, \infty)},
+        ψ^{(N-\unit{2}) \sqcap (\infty, \infty, \infty, N_3, \infty, \infty)}, \ldots} & \\
   ψ^N & \grammardef &
-      \hmlobs{α}φ^{(N \sqcap (N_3, \infty, \infty, \infty, \infty, \infty)) - \unit{1}} & \\
+      φ^{(N \sqcap (N_4, \infty, \infty, \infty, \infty, \infty))} & \\
       & \grammaror  &
-      \hmlneg \hmlobs{α}φ^{(N \sqcap (N_5, \infty, \infty, \infty, \infty, \infty))- \unit{1} - \unit{6}} & \\
+      \hmlneg φ^{(N \sqcap (N_5, \infty, \infty, \infty, \infty, \infty)) - \unit{6}} & \\
 \end{array}
 $$
 
 {{<noindent>}} The productions only exist if the respective recursive invocations are defined on the domain of notions.
 For instance, $φ^N \leadsto \hmlobs{α}φ^{N - \unit{1}}$ is no valid production for $N=(0,1,0,0,0,0)$ because $(-1,1,0,0,0,0) \notin \notions^\literal{strong}$.
 :::
+
+TODO: Adapt upcoming proofs to fixed grammar
 
 ::: {#exm-formula-language}
 The smallest notion to cover the failure formula of Subsection [-@sec-incomparabilities] would be $(2,1,0,0,1,1)$, that is, 

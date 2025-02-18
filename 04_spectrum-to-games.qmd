@@ -1199,7 +1199,7 @@ It can be thought of as a generalization of well-known ways to compute shortest 
 :::{#rem-shortest-paths}
 The energy game problem of this chapter can be seen as a *generalization of the shortest path problem* on directed graphs to account for two players as well as for much more general distances and cost functions.
 
-To see how, consider energy games on $(\ints, \leq)$ where only deadlock positions belong to the defender
+To see how, consider energy games on $(\nats, \leq)$ where only deadlock positions belong to the defender
 and where all updates constitute one-dimensional integer addition.
 Then, $e \in \attackerwinsmin(g)$ iff $e$ is the length of a shortest path from $g$ to some defender position (where negative $(-z)$-updates stand for what is usually written as a positive edge weight $z$ for graphs).
 In this instance, @alg-deciding-energy-games behaves like the well-known Bellman--Ford algorithm for shortest paths.

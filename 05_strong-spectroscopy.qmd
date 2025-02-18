@@ -1,48 +1,78 @@
 # Spectroscopy of the Strong Equivalence Spectrum {#sec-strong-spectrum}
 
-::: {.callout-todo .callout-warning}
-This section will be filled with contents from [Process Equivalence Problems as Energy Games](https://doi.org/10.1007/978-3-031-37706-8_5).
-:::
-
 ::: {.content-hidden when-format="pdf"}
 {{< include style/macros.md >}}
 :::
 
-TODO: Mission
+The energy game approach can in fact be leveraged to solve the spectroscopy problem for the whole of the strong equivalence spectrum.
+This chapter showcases the main result of my paper “Process Equivalence Problems as Energy Games” [@bisping2023equivalenceEnergyGames].
 
+The core ingredient of this chapter is a richer energy game, to be presented in @sec-stong-spectro-game.
 The bisimulation energy game of @sec-approach is not complex enough to capture all strong equivalences of @sec-spectrum.
-It is “too easy” for the attacker in the sense that they can use conjunctions to account for every transition the defender might chose after each observation.
-But the weaker notions of the spectrum heavily limit how many conjunctions may be used to name a distinction.
+It is “too easy” for the attacker in the sense that they can use conjunctions to account for every transition the defender might choose after each observation.
+But the weaker notions of the spectrum heavily limit how many conjunctions may be used to name a distinction!
 
-What we will do, is break the link between observations and conjunctions in the game, analogously to the subset construction on finite automata:
-As long as observations happen, the defender is moved to the set of states $Q$ reachable through non-determinism; only at conjunction moves does the defender have to choose a $q \in Q$.
-Treating conjunctions more explicitly, will also allow us to track the depth of positive conjuncts in sufficient detail.
+Our core trick will be to break the link between observations and conjunctions in the game, analogously to the subset construction on finite automata.
 
-::: {#fig-spectroscopy-big-picture}
+::: {#nte-idea-subset-construction .callout-idea .callout-note}
+#### Breaking up observations and conjunctions
+
+Linear-time notions can be addressed in the spectroscopy game by interjecting a subset-construction on defender states between moves that correspond to observations and to conjunctions.
+:::
+
+This will lead to exponential blow-up.
+In @sec-specific-spectro-games, we will discuss how to get rid of the blowup where possible when instantiating the game to decide equivalences individually.
+
+::: {#nte-idea-instance-games .callout-idea .callout-note}
+#### Generating equvialence checkers
+
+By instantiating the spectroscopy game with known initial energies and exploiting the supply of conjunction moves, we can derive efficient decision procedures for individual equivalences.
+:::
+
+@fig-strong-spectroscopy-big-picture gives an overview of the two routes to decide equivalences collectively and individually we will explore.
+
+::: {#fig-strong-spectroscopy-big-picture}
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.1cm,
   algstep/.style={minimum width=4.3cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
   \node[algstep, draw] (States) {States $p, q$ in \\ transition system $\system$};
-  \node[algstep, draw, right of=States, node distance=8.1cm] (Preorders) {Strong Notions that \\ fit to preorder $p$ to $q$};
+  \node[algstep, draw, right of=States, node distance=8.1cm] (Preorders) {Strong notions that \\ fit to preorder $p$ to $q$};
+  \node[algstep, draw, right of=Preorders, node distance=5cm] (IndividualNotion) {Does notion $N$\\ preorder $p$ to $q$?};
   \node[algstep, draw=TealBlue, below of=States, node distance=2.5cm] (EnergyGame) {Strong spectroscopy \\ energy game $\gamespectroscopy^{\system}$};
-  \node[algstep, draw=Peach, below of=Preorders, node distance=2.5cm] (AttackerWinningBudgets) {Minimal attacker winning \\ budgets $\attackerwinsmin(\attackerpos{p,\set{q}})$};
+  \node[algstep, draw=Peach, below of=EnergyGame, node distance=2.5cm] (ReachabilityGame) {Derived reachability \\ game $\mathsf{Reach}(\gamespectroscopy^{\system}, N)$};
+  \node[algstep, draw=TealBlue, below of=Preorders, node distance=2.5cm] (AttackerWinningBudgets) {Minimal attacker winning \\ budgets $\attackerwinsmin(\attackerpos{p,\set{q}})$};
+  \node[algstep, draw=Peach, below of=AttackerWinningBudgets, node distance=2.5cm] (AttackerWinningReachability) {Defender winning region\\ $(\attackerpos{p,\set{q}}, N) \in \defenderwins$};
   \path
     (States) edge[->, dashed] node {Spectroscopy problem} (Preorders)
     (States) edge[->, draw=TealBlue] node {Definition 5.1} (EnergyGame)
     (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Theorem 5.1} (Preorders)
-    (EnergyGame) edge[->, draw=Peach] node {Algorithm 4.1} (AttackerWinningBudgets);
+    (EnergyGame) edge[->, draw=TealBlue] node {Algorithm 4.1} (AttackerWinningBudgets);
+  
+  \path
+    (States) edge[->, dashed, bend left=20] node {$N$-preorder problem} (IndividualNotion)
+    (Preorders) edge[->, gray] node {} (IndividualNotion)
+    (EnergyGame) edge[->, draw=Peach] node {Definition 5.2} (ReachabilityGame)
+    (ReachabilityGame) edge[->, draw=Peach] node {Algorithm 2.1} (AttackerWinningReachability)
+    (AttackerWinningReachability.east) edge[->, draw=Peach, bend right=25] node {} (IndividualNotion)
+    (AttackerWinningReachability.east) edge[->, draw=TealBlue, dashed, bend right=25] node {} (IndividualNotion);
+  
+  \node[text=TealBlue, right=2mm of AttackerWinningBudgets] (Sec51) {Section 5.1};
+  \node[text=Peach, right=2mm of AttackerWinningReachability] (Sec52) {Section 5.2};
+
+  \node[below=3mm of AttackerWinningReachability] (Phantom) {};
 \end{tikzpicture}
 ```
 
 How we apply the spectroscopy approach to the full strong spectrum.
 :::
 
-## The Strong Spectroscopy Game
+## The Strong Spectroscopy Game {#sec-stong-spectro-game}
 
-The core idea is to split 
 
 ### The Game
 
+As long as observations happen, the defender is moved to the set of states $Q$ reachable through non-determinism; only at conjunction moves does the defender have to choose a $q \in Q$.
+Treating conjunctions more explicitly, will also allow us to track the depth of positive conjuncts in sufficient detail.
 
 ::: {#def-strong-spectroscopy-game}
 
@@ -172,7 +202,7 @@ $e_{pq} \nleq e$ for all $e_{pq} \in \attackerwins(\attackerpos{p, \{q\}})$.
 
 ### Complexity
 
-## More Specific Games
+## More Specific Games {#sec-specific-spectro-games}
 
 ### The Clever Game
 

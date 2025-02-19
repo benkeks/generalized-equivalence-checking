@@ -200,6 +200,19 @@ $$
 $$
 :::
 
+On the processes of @exm-trace-distinction-bisim-game, the attacker would move
+$\attackerpos{\ccsprefix{\literal{a}} \ccsprefix{\literal{b}} \literal{a}, \set{\ccsprefix{\literal{a}} (\literal{a} \ccschoice \literal{b})}}
+\gamemove{-\unit{1}}
+\attackerpos{\ccsprefix{\literal{b}} \literal{a}, \set{\literal{a}, \literal{b}}}
+\gamemove{-\unit{1}}
+\attackerpos{\literal{a}, \set{\ccsnull}}
+\gamemove{-\unit{1}}
+\attackerpos{\ccsnull, \varnothing}
+\gamemove{\zerovec}
+\defenderpos{\ccsnull, \varnothing, \varnothing}
+\ngamemoveblank$,
+thereby getting the defender stuck using a trace budget of $(3,0,0,0,0,0) \leq (\infty,0,0,0,0,0) = \notionname{T}$.
+
 The spectroscopy game still is a bisimulation game in the following sense.
 
 ::: {#lem-spectroscopy-bisimulation-game}
@@ -211,8 +224,6 @@ that is, if $(\infty, \infty, \infty, \infty, \infty, \infty) \in \defenderwins(
 :::
 
 TODO: Example (just the old one?)
-
-TODO: Example where the polynomial game would not see certain traces.
 
 ### Correctness
 

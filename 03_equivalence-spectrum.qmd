@@ -311,7 +311,7 @@ $$\notions^\literal{simple} ≔
 \powerset{\set{\literal{(\land)}, \literal{(\neg)} }},
 $$
 ordered by subset inclusion,
-and the family of observation languages $\observationsvar{N \in \notions^\literal{simple}}$ given by the family of grammars with some conditional productions:
+and the family of observation languages $\observationsvar[\literal{simple}]{N \in \notions}$ given by the family of grammars with some conditional productions:
 
 $$
 \begin{array}{rcll}
@@ -381,7 +381,7 @@ $$\notions^\literal{strong} ≔
 \natsext^6,
 $$
 ordered by pointwise comparison of vector components,
-and the family of strong observation languages $\observationsvar{N \in \notions^\literal{strong}}^\literal{strong}$ given by the parameterized grammar starting from $φ^N$:{{<isb primrec Priced_HML formula_of_price>}}
+and the family of strong observation languages $\observationsvar[\literal{strong}]{N \in \notions^\literal{strong}}$ given by the parameterized grammar starting from $φ^N$:{{<isb primrec Priced_HML formula_of_price>}}
 
 $$
 \begin{array}{rcll}
@@ -405,7 +405,7 @@ TODO: Adapt upcoming proofs to fixed grammar
 
 ::: {#exm-formula-language}
 The smallest notion to cover the failure formula of Subsection [-@sec-incomparabilities] would be $(2,1,0,0,1,1)$, that is, 
-$$\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observationsvar{(2,1,0,0,1,1)^\literal{strong}}.$$
+$$\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observationsvar[\literal{strong}]{(2,1,0,0,1,1)}.$$
 This is because the formula has two levels of modal observations, where the inner one is negated.
 The negation is wrapped in a conjunction with no positive clauses.
 A visualization for how $\expr^\literal{strong}(\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}) = (2,1,0,0,1,1)$ (according to @def-expressiveness-price) comes together is given in the upcoming @fig-formula-pricing.
@@ -418,7 +418,7 @@ $$
                         & \leadsto & \hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}.
 \end{array}
 $$
-If we reexamine the grammar of $\observations{F}$ in @def-failures-modal, we notice that the formulas it can produce match those of $\observationsvar{(\infty,1,0,0,1,1)}^\literal{strong}$ of the strong spectrum in @def-strong-spectrum.
+If we reexamine the grammar of $\observations{F}$ in @def-failures-modal, we notice that the formulas it can produce match those of $\observationsvar[\literal{strong}]{(\infty,1,0,0,1,1)}$ of the strong spectrum in @def-strong-spectrum.
 :::
 
 ::: {#fig-formula-pricing}
@@ -492,16 +492,16 @@ Pricing formula $\hmlobs{\tau}\hmlands\{\hmlobs{ec_A}\hmlobs{lc_A}\hmltrue, \hml
 ::: {#lem-spectrum-characterization}
 The strong spectrum of @def-strong-spectrum contains the notions of behavioral equivalence we have discussed so far.
 
-1. The observation language $\observationsvar{(\infty, 0, 0, 0, 0, 0)}^\literal{strong}$ exactly matches the characterization of traces $\observations{T}$ from @def-sim-trace-logics and thus characterizes trace preorder.{{<isb theorem Priced_Spectrum lts.traces_priced_characterization>}}
-2. The observation language $\observationsvar{(\infty, \infty, \infty, \infty, 0, 0)}^\literal{strong}$ exactly matches the characterization of simulation observations $\observations{S}$ from @def-sim-trace-logics and thus characterizes simulation.{{<isb theorem Priced_Spectrum lts.simulation_priced_characterization>}}
-3. The observation language $\observationsvar{(\infty, \infty, \infty, \infty,  \infty, \infty)}^\literal{strong}$ matches $\hml$ in distinctiveness and thus characterizes bisimilarity.
-4. The observation language $\observationsvar{(\infty, 1, 0, 0, 1, 1)}^\literal{strong}$ exactly matches failure observations $\observations{F}$ of @def-failures-modal.
+1. The observation language $\observationsvar[\literal{strong}]{(\infty, 0, 0, 0, 0, 0)}$ exactly matches the characterization of traces $\observations{T}$ from @def-sim-trace-logics and thus characterizes trace preorder.{{<isb theorem Priced_Spectrum lts.traces_priced_characterization>}}
+2. The observation language $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty, 0, 0)}$ exactly matches the characterization of simulation observations $\observations{S}$ from @def-sim-trace-logics and thus characterizes simulation.{{<isb theorem Priced_Spectrum lts.simulation_priced_characterization>}}
+3. The observation language $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ matches $\hml$ in distinctiveness and thus characterizes bisimilarity.
+4. The observation language $\observationsvar[\literal{strong}]{(\infty, 1, 0, 0, 1, 1)}$ exactly matches failure observations $\observations{F}$ of @def-failures-modal.
 :::
 ::: {.proof}
 The only non-trivial case is (3) for bisimilarity:
 
-Observe that $\observations{\floor{B}} \subseteq \observationsvar{(\infty, \infty, \infty, \infty,  \infty, \infty)}^\literal{strong}$ by examining its grammar in @exm-game-formulas.
-As $\observations{\floor{B}}$ already has complete $\hml$-distinctiveness by @lem-game-formula-hml, so must its superlogic $\observationsvar{(\infty, \infty, \infty, \infty,  \infty, \infty)}^\literal{strong}$.
+Observe that $\observations{\floor{B}} \subseteq \observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ by examining its grammar in @exm-game-formulas.
+As $\observations{\floor{B}}$ already has complete $\hml$-distinctiveness by @lem-game-formula-hml, so must its superlogic $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$.
 :::
 
 \noindent
@@ -591,7 +591,7 @@ For instance, for $\actions = \set{a,b}$, completed trace and completed simulati
 #### Ambiguous Coordinates
 
 For many of the logics in @fig-strong-ltbt-spectrum, there are multiple coordinates that characterize the same logic.
-For instance, due to the second dimension (conjunctions) being set to $0$ for traces $\notionname{T}$, the higher dimensions do not matter and any coordinate $N = (\infty, 0, N_3, N_4, N_5, N_6)$ will lead to the same observation language $\observationsvar{N}^\literal{strong} = \observations{T}^\literal{strong}$.
+For instance, due to the second dimension (conjunctions) being set to $0$ for traces $\notionname{T}$, the higher dimensions do not matter and any coordinate $N = (\infty, 0, N_3, N_4, N_5, N_6)$ will lead to the same observation language $\observationsvar[\literal{strong}]{N} = \observations[\literal{strong}]{T}$.
 
 Indeed, @fig-strong-ltbt-spectrum always selects the least coordinate to characterize a sublogic, which ensures that domination of coordinates in the figure and entailment between behavioral preorders coincide.
 :::
@@ -624,16 +624,16 @@ Notions in @fig-strong-ltbt-spectrum correspond precisely to those without super
 The strong spectrum of @def-strong-ltbt-spectrum is much richer than the diamond spectrum from @exm-simple-spectrum.
 Still, its observation languages form no lattice.
 For instance, the lines of simulation and failures join at ready simulation---and their coordinates as well $(\infty,\infty,\infty,\infty,0,0) \lub (\infty,1,0,0,1,1) = (\infty,\infty,\infty,\infty,1,1)$.
-But $\observations{S}^\literal{strong} \cup \observations{F}^\literal{strong} \neq \observations{RS}^\literal{strong}$ and this makes a difference:
+But $\observations[\literal{strong}]{S} \cup \observations[\literal{strong}]{F} \neq \observations[\literal{strong}]{RS}$ and this makes a difference:
 
 ::: {#exm-non-ready-sim}
 
 Consider the $\ccs$ processes
 $\ccsprefix{\literal{a}} (\ccsprefix{\literal{a}} \literal{b} \ccschoice \literal{a})$ and
 $\ccsprefix{\literal{a}} \ccsprefix{\literal{a}} \literal{b} \ccschoice \ccsprefix{\literal{a}}\literal{a}$.
-They cannot be told apart by $\observations{S}^\literal{strong}$ or $\observations{F}^\literal{strong}$ and thus are simulation and failure equivalent (and moreover even ready-trace equivalent).
+They cannot be told apart by $\observations[\literal{strong}]{S}$ or $\observations[\literal{strong}]{F}$ and thus are simulation and failure equivalent (and moreover even ready-trace equivalent).
 
-Still, the formula $\hmlobs{\literal{a}}\hmlands\set{\hmlobs{\literal a}\hmlands\set{\hmlneg \hmlobs{\literal b}}, \hmlobs{\literal a}\hmlobs{\literal b}} \in \observations{RS}^\literal{strong}$ distinguishes the first process from the second.
+Still, the formula $\hmlobs{\literal{a}}\hmlands\set{\hmlobs{\literal a}\hmlands\set{\hmlneg \hmlobs{\literal b}}, \hmlobs{\literal a}\hmlobs{\literal b}} \in \observations[\literal{strong}]{RS}$ distinguishes the first process from the second.
 Therefore, the processes are not ready-simulation equivalent.
 :::
 

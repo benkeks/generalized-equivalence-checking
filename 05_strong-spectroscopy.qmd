@@ -78,7 +78,7 @@ $\ccsprefix{\literal{a}} (\literal{a} \ccschoice \literal{b})$.
 Clearly, only the first one allows the trace observation $\hmlobs{\literal{a}}\hmlobs{\literal{b}}\hmlobs{\literal{a}}$.
 Thus, the processes are not bisimilar and can be distinguished in the bisimulation game.
 But the bisimulation game formula (cf. @lem-attacks-imply-formulas) derivable from the game would be
-$\hmlobs{\literal{a}}\hmlands \set{ \hmlobs{\literal{b}}, \hmlobs{\literal{b}} \hmlands \set{\hmlobs{\literal{a}} }}$, which is not part of trace observations $\observationsvar{(\infty,0,0,0,0,0)}$.
+$\hmlobs{\literal{a}}\hmlands \set{ \hmlobs{\literal{b}}, \hmlobs{\literal{b}} \hmlands \set{\hmlobs{\literal{a}} }}$, which is not part of trace observations $\observationsvar[\literal{strong}]{(\infty,0,0,0,0,0)}$.
 ::::
 
 It might be possible to reconstruct trace observations from such tree-like observations as the one of @exm-trace-distinction-bisim-game.

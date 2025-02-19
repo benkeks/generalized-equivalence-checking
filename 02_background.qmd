@@ -793,7 +793,7 @@ That is, if a behavioral preorder (or equivalence) is defined through modal logi
 Secondly, modal characterizations can directly *unveil the hierarchy between preorders*, if defined cleverly, because of the following property.
 
 ::: {#prp-difference-contraposition}
-If $\observationsvar{} \subseteq \observationsvar{}'$ then $p \bpreordvar{\observationsvar{}'} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.{{<isb lemma LTS_Semantics lts_semantics.preorder_contraposition>}}
+If $\observationsvar{} \subseteq \observationsvar[\prime]{}$ then $p \bpreordvar{\observationsvar[\prime]{}} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.{{<isb lemma LTS_Semantics lts_semantics.preorder_contraposition>}}
 :::
 
 Pay attention to the opposing directions of $\subseteq$ and implication, here!
@@ -809,22 +809,22 @@ In Chapter [-@sec-spectrum], we will discuss how the hierarchy of behavioral equ
 @prp-difference-contraposition actually is a weak version of another proposition about *distinctiveness* of logics.
 
 ::: {#def-leq-expressive}
-We say that an $\actions$-observation language $\observationsvar{}$ is *less or equal in expressiveness* to another $\observationsvar{}'$ iff, for any $\actions$-transition system, for each $φ ∈ \observationsvar{}$, there is $φ' ∈ \observationsvar{}'$ such that $\semantics{φ} = \semantics{φ'}$.
+We say that an $\actions$-observation language $\observationsvar{}$ is *less or equal in expressiveness* to another $\observationsvar[\prime]{}$ iff, for any $\actions$-transition system, for each $φ ∈ \observationsvar{}$, there is $φ' ∈ \observationsvar[\prime]{}$ such that $\semantics{φ} = \semantics{φ'}$.
 (The definition can also be read with regards to a fixed transition system $\system$.){{<isb definition LTS_Semantics lts_semantics.leq_expressive>}}
-If the inclusion holds in both directions, $\observationsvar{}$ and $\observationsvar{}'$ are *equally expressive*.
+If the inclusion holds in both directions, $\observationsvar{}$ and $\observationsvar[\prime]{}$ are *equally expressive*.
 :::
 
 ::: {#def-leq-distincitve}
-We say that an $\actions$-observation language $\observationsvar{}$ is *less or equal in distinctiveness* to another $\observationsvar{}'$ iff, for any $\actions$-transition system and states $p$ and $q$, for each $φ ∈ \observationsvar{}$ that distinguishes $p$ from $q$, there is $φ' ∈ \observationsvar{}'$ that distinguishes $p$ from $q$.{{<isb definition LTS_Semantics lts_semantics.leq_distinctive>}}
-If the inclusion holds in both directions, $\observationsvar{}$ and $\observationsvar{}'$ are *equally distinctive*.
+We say that an $\actions$-observation language $\observationsvar{}$ is *less or equal in distinctiveness* to another $\observationsvar[\prime]{}$ iff, for any $\actions$-transition system and states $p$ and $q$, for each $φ ∈ \observationsvar{}$ that distinguishes $p$ from $q$, there is $φ' ∈ \observationsvar[\prime]{}$ that distinguishes $p$ from $q$.{{<isb definition LTS_Semantics lts_semantics.leq_distinctive>}}
+If the inclusion holds in both directions, $\observationsvar{}$ and $\observationsvar[\prime]{}$ are *equally distinctive*.
 :::
 
 ::: {#lem-subset-expressiveness-distinctiveness}
 
 Subset relationship entails expressiveness entails distinctiveness.
 
-- If $\observationsvar{} ⊆ \observationsvar{}'$, then $\observationsvar{}$ is less or equal in expressiveness to $\observationsvar{}'$.{{<isb lemma LTS_Semantics lts_semantics.subset_expressiveness>}}
-- If $\observationsvar{}$ is less or equal in expressiveness to $\observationsvar{}'$, then $\observationsvar{}$ is less or equal in distinctiveness to $\observationsvar{}'$.{{<isb lemma LTS_Semantics lts_semantics.expressiveness_entails_distinctiveness>}}
+- If $\observationsvar{} ⊆ \observationsvar[\prime]{}$, then $\observationsvar{}$ is less or equal in expressiveness to $\observationsvar[\prime]{}$.{{<isb lemma LTS_Semantics lts_semantics.subset_expressiveness>}}
+- If $\observationsvar{}$ is less or equal in expressiveness to $\observationsvar[\prime]{}$, then $\observationsvar{}$ is less or equal in distinctiveness to $\observationsvar[\prime]{}$.{{<isb lemma LTS_Semantics lts_semantics.expressiveness_entails_distinctiveness>}}
 :::
 
 \noindent
@@ -835,7 +835,7 @@ At the same time, $\set{\hmltrue}$ is more expressive than $\varnothing$, but eq
 The stronger version of @prp-difference-contraposition is thus:
 
 ::: {#prp-distinctiveness-contraposition}
-If $\observationsvar{}$ is less or equal *in distinctiveness* to $\observationsvar{}'$ then $p \bpreordvar{\observationsvar{}'} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.{{<isb lemma LTS_Semantics lts_semantics.preorder_expressiveness_contraposition>}}
+If $\observationsvar{}$ is less or equal *in distinctiveness* to $\observationsvar[\prime]{}$ then $p \bpreordvar{\observationsvar[\prime]{}} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.{{<isb lemma LTS_Semantics lts_semantics.preorder_expressiveness_contraposition>}}
 :::
 
 \noindent

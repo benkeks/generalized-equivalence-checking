@@ -99,8 +99,8 @@
 \providecommand{\beqvar}[1]{\sim_{#1}}
 \providecommand{\notions}{\mathbf{N}}
 \providecommand{\notionname}[1]{\mathrm{#1}}
-\providecommand{\observations}[1]{\mathcal{O}_\notionname{#1}}
-\providecommand{\observationsvar}[1]{\mathcal{O}_{#1}}
+\providecommand{\observations}[2][]{\mathcal{O}^{#1}_{\notionname{#2}}}
+\providecommand{\observationsvar}[2][]{\mathcal{O}^{#1}_{#2}}
 \providecommand{\expr}{\mathsf{expr}}
 
 \lc{ Games }

@@ -617,7 +617,7 @@ If $\leq$ moreover is symmetric (and thus an equivalence relation), then $\leq$ 
 ::: {#exm-congruence-oddity}
 #### Parity as Congruence
 As a standard example for a congruence, consider the equivalence relation of equally odd numbers
-$${\sim_\literal{odd}} := \set{(m,n) \in \nats \times \nats \mid m \mod 2 = n \mod 2}.$$
+$${\sim_\literal{odd}} := \set{(m,n) \in \nats \times \nats \mid m \bmod 2 = n \bmod 2}.$$
 For instance, $1 \sim_\literal{odd} 3$ and $0 \sim_\literal{odd} 42$, but not $42 \sim_\literal{odd} 23$.
 
 $\sim_\literal{odd}$ is a congruence for addition and multiplication.

@@ -9,7 +9,7 @@ This chapter showcases the main result of my paper “Process Equivalence Proble
 
 The core ingredient of this chapter is a richer energy game, to be presented in @sec-stong-spectro-game.
 The bisimulation energy game of @sec-approach is not complex enough to capture all strong equivalences of @sec-spectrum.
-It is “too easy” for the attacker in the sense that they can use conjunctions to account for every transition the defender might choose after each observation.
+It is “too easy” for the attacker in the sense that they can use unbounded conjunctions to account for every transition the defender might choose after each observation.
 But the weaker notions of the spectrum heavily limit how many conjunctions may be used to name a distinction!
 
 Our core trick will be to break the link between observations and conjunctions in the game, analogously to the subset construction on finite automata.

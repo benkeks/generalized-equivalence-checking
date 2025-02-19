@@ -68,11 +68,82 @@ How we apply the spectroscopy approach to the full strong spectrum.
 
 ## The Strong Spectroscopy Game {#sec-stong-spectro-game}
 
+In this section, we examine a game that does not “overlook” trace observations, as the *bisimulation energy game* (@def-bisim-energy-game) does.
 
-### The Game
+:::: {#exm-trace-distinction-bisim-game}
 
+Consider the $\ccs$-processes
+$\ccsprefix{\literal{a}} \ccsprefix{\literal{b}} \literal{a}$ and
+$\ccsprefix{\literal{a}} (\literal{a} \ccschoice \literal{b})$.
+Clearly, only the first one allows the trace observation $\hmlobs{\literal{a}}\hmlobs{\literal{b}}\hmlobs{\literal{a}}$.
+Thus, the processes are not bisimilar and can be distinguished in the bisimulation game.
+But the bisimulation game formula (cf. @lem-attacks-imply-formulas) derivable from the game would be
+$\hmlobs{\literal{a}}\hmlands \set{ \hmlobs{\literal{b}}, \hmlobs{\literal{b}} \hmlands \set{\hmlobs{\literal{a}} }}$, which is not part of trace observations $\observationsvar{(\infty,0,0,0,0,0)}$.
+::::
+
+It might be possible to reconstruct trace observations from such tree-like observations as the one of @exm-trace-distinction-bisim-game.
+But by the closing arguments of @sec-spectrum-approach-discussion, and also according to @martensGroote2023minimalDistFormulasNP this must inherently be NP-hard.
+What we will do instead is adapt the bisimulation game such that it also expresses trace-like distinctions, and precisely counts conjunctions.
+
+### The Spectroscopy Game
+
+The *strong spectroscopy game* is played not on pairs of states, but on a pair of a state and *a set of states*!
+@fig-strong-spectroscopy-game gives a graphical representation.
+The intuition is that the attacker shows how to construct formulas that distinguish a process $p$ from every $q$ in a set of processes $Q$.
 As long as observations happen, the defender is moved to the set of states $Q$ reachable through non-determinism; only at conjunction moves does the defender have to choose a $q \in Q$.
 Treating conjunctions more explicitly, will also allow us to track the depth of positive conjuncts in sufficient detail.
+
+::: {#fig-strong-spectroscopy-game fig-pos="th"}
+
+```tikz
+\begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm,
+    rel/.style={dashed,font=\it},
+    posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
+  \node[posStyle, initial, initial text={}]
+    (Att){$\attackerpos{p,Q}$};
+  \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
+    (Def) [right = 2.2cm of Att] {$\defenderpos{p,Q \setminus Q_*,Q_*}$};
+  \node[posStyle]
+    (AttConj) [below right = 1.2cm and 3cm of Att] {$\attackerpos[\land]{p,q}$};
+  \node[posStyle, dashed]
+    (AttSwap) [right = 3cm of AttConj] {$\attackerpos{q,\{p\}}$};
+  \node[posStyle, dashed]
+    (AttContinue) [above = 1cm of AttSwap] {$\attackerpos{p,\{q\}}$};
+  \node[posStyle, dashed]
+    (AttObs) [above = 1cm of AttContinue] {$\attackerpos{p^\prime,Q^\prime}$};
+  % \node[posStyle, dashed]
+  %   (AttRevival) [below = 1cm of AttSwap] {$\attackerpos{p,Q_*}$};
+
+  \node (Ghost) [below = 1cm of AttSwap] {};
+
+  \path
+    (Att) edge[bend left=28]
+      node[pos=.3, align=center, label={[label distance=0.0cm]-25:$\textcolor{gray}{\textcolor{obsColor}{-1},0,0,0,0,0}$}] {$p\step{\alpha}p^\prime$\\ $Q\step{\alpha}Q^\prime$} (AttObs)
+    (Att) edge
+      node[label={[label distance=0cm]-90:$\textcolor{gray}{0,0,0,0,0,0}$}] {$Q_* \subseteq Q$} (Def)
+    (Def) edge[bend left=15]
+      node[align=right, swap, pos=.1] {$q \in Q \setminus Q_*$\\$\textcolor{gray}{0,\textcolor{conjColor}{-1},0,\updmin{\textcolor{mainPosColor}{3},\textcolor{otherPosColor}{4}},0,0}$} (AttConj)
+    (AttConj) edge[bend left=10]
+      node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{otherPosColor}{4}},0,0,0,0,0}$}] {} (AttContinue)
+    (AttConj) edge[bend right=15]
+      node[align=center, label={[label distance=0.0cm]-90:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{negObsColor}{5}},0,0,0,0,\textcolor{negsColor}{-1}}$}] {} (AttSwap)
+    (Def) edge[bend left=10]
+      node[align=center, label={[label distance=0.0cm]-30:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{mainPosColor}{3}},\textcolor{conjColor}{-1},0,0,0,0}$}] {$p' = p$\\$Q'=Q_* \neq \varnothing$} (AttObs);
+\end{tikzpicture}
+
+```
+
+Schematic spectroscopy game $\gamespectroscopy$ of @def-strong-spectroscopy-game.
+:::
+
+Again, energies limit the syntactic expressiveness of the formulas.
+
+- The first dimension bounds for how many turns the attacker may challenge observations of actions.
+- The second dimension limits how often they may use conjunctions to resolve nondeterminism.
+- The third, fourth, and fifth dimensions limit how deeply observations may nest underneath a conjunction, where the fifth stands for negated conjuncts, the third for one of the deepest positive conjuncts and the fourth for the other positive conjuncts.
+- The last dimension limits how often the attacker may use negations to enforce symmetry by swapping sides.
+
+The moves of the following definition closely match productions in the grammar of observations for the strong spectrum [@def-strong-spectrum].
 
 ::: {#def-strong-spectroscopy-game}
 
@@ -129,50 +200,7 @@ $$
 $$
 :::
 
-A schematic representation can be seen in @fig-strong-spectroscopy-game.
-
-::: {#fig-strong-spectroscopy-game fig-pos="th"}
-
-```tikz
-\begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm,
-    rel/.style={dashed,font=\it},
-    posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
-  \node[posStyle, initial, initial text={}]
-    (Att){$\attackerpos{p,Q}$};
-  \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
-    (Def) [right = 2.2cm of Att] {$\defenderpos{p,Q \setminus Q_*,Q_*}$};
-  \node[posStyle]
-    (AttConj) [below right = 1.2cm and 3cm of Att] {$\attackerpos[\land]{p,q}$};
-  \node[posStyle, dashed]
-    (AttSwap) [right = 3cm of AttConj] {$\attackerpos{q,\{p\}}$};
-  \node[posStyle, dashed]
-    (AttContinue) [above = 1cm of AttSwap] {$\attackerpos{p,\{q\}}$};
-  \node[posStyle, dashed]
-    (AttObs) [above = 1cm of AttContinue] {$\attackerpos{p^\prime,Q^\prime}$};
-  % \node[posStyle, dashed]
-  %   (AttRevival) [below = 1cm of AttSwap] {$\attackerpos{p,Q_*}$};
-
-  \node (Ghost) [below = 1cm of AttSwap] {};
-
-  \path
-    (Att) edge[bend left=28]
-      node[pos=.3, align=center, label={[label distance=0.0cm]-25:$\textcolor{gray}{\textcolor{obsColor}{-1},0,0,0,0,0}$}] {$p\step{\alpha}p^\prime$\\ $Q\step{\alpha}Q^\prime$} (AttObs)
-    (Att) edge
-      node[label={[label distance=0cm]-90:$\textcolor{gray}{0,0,0,0,0,0}$}] {$Q_* \subseteq Q$} (Def)
-    (Def) edge[bend left=15]
-      node[align=right, swap, pos=.1] {$q \in Q \setminus Q_*$\\$\textcolor{gray}{0,\textcolor{conjColor}{-1},0,\updmin{\textcolor{mainPosColor}{3},\textcolor{otherPosColor}{4}},0,0}$} (AttConj)
-    (AttConj) edge[bend left=10]
-      node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{otherPosColor}{4}},0,0,0,0,0}$}] {} (AttContinue)
-    (AttConj) edge[bend right=15]
-      node[align=center, label={[label distance=0.0cm]-90:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{negObsColor}{5}},0,0,0,0,\textcolor{negsColor}{-1}}$}] {} (AttSwap)
-    (Def) edge[bend left=10]
-      node[align=center, label={[label distance=0.0cm]-30:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{mainPosColor}{3}},\textcolor{conjColor}{-1},0,0,0,0}$}] {$p' = p$\\$Q'=Q_* \neq \varnothing$} (AttObs);
-\end{tikzpicture}
-
-```
-
-Schematic spectroscopy game $\gamespectroscopy$ of @def-strong-spectroscopy-game.
-:::
+The spectroscopy game still is a bisimulation game in the following sense.
 
 ::: {#lem-spectroscopy-bisimulation-game}
 $p_0$ and $q_0$ are bisimilar

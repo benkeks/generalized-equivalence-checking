@@ -296,7 +296,7 @@ An *equivalence spectrum* $(\notions, \leq, \observationsvar{N \in \notions})$ c
 - corresponding logics $\observationsvar{N} \colon \powerset{\hml}$ for $N \in \notions$.
 
 \noindent
-$\observationsvar{N \in notions}$ must be monotonic, that is:
+$\observationsvar{N \in \notions}$ must be monotonic, that is:
 for any two notions $N,M \in \notions$, it holds that
 $$N \leq M \text{ implies } \observationsvar{N} \subseteq \observationsvar{M}.$$
 :::

@@ -1186,7 +1186,7 @@ For space complexity, the approach arrives at $\bigo{ (\relsize{\states} \cdot \
 The bound drops to $\bigo{ (\relsize{\states} \cdot \relsize{\step{}})}$ in the flattened variant of @lem-declining-update-complexity-flattened. \qedhere
 :::
 
-## Discussion
+## Discussion {#sec-spectrum-approach-discussion}
 
 This chapter has shown how to solve the spectroscopy problem for the $\notions^{\literal{poly-strong}}$ spectrum in polynomial time, thereby deciding all its preorders and equivalences *at once*.
 

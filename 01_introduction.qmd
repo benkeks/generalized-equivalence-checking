@@ -64,12 +64,12 @@ As we will see, this amounts to an abstract form of subtraction between programs
 The algorithm at the core of this thesis describes how to *decide all behavioral equivalences at once* for varying spectra of equivalence using *games that can count* to *limit possible distinctions by attacker energy levels*.
 More precisely, we make the following contributions:
 
-- Chapter [-@sec-preliminaries] lays some foundations and makes precise *how bisimilarity games relate to grammars of distinguishing formulas* of Hennessy–Milner modal logic. 
-- Chapter [-@sec-spectrum] shows *how to understand the strong linear-time--branching-time spectrum quantitatively* and formalizes the *spectroscopy problem*.
-- Chapter [-@sec-approach] introduces the approach of *characterizing equivalence spectra through a class of energy games* and *how to decide such games*.
-- TODO Chapter [-@sec-strong-spectrum] applies the approach to decide the whole strong spectrum through one *game for linear-time--branching-time spectroscopy*.
-- TODO Chapter [-@sec-weak-spectrum] adapt the game for the *weak spectrum of equivalences accounting for silent-steps*.
-- TODO Chapter [-@sec-implementations] showcases implementations to conveniently perform equivalence spectroscopies in web browsers and using GPU parallelization.
+- @sec-preliminaries lays some foundations and makes precise *how bisimilarity games relate to grammars of distinguishing formulas* of Hennessy–Milner modal logic. 
+- @sec-spectrum shows *how to understand the strong linear-time--branching-time spectrum quantitatively* and formalizes the *spectroscopy problem*.
+- @sec-approach introduces the approach of *characterizing equivalence spectra through a class of energy games* and *how to decide such games*.
+- TODO @sec-strong-spectrum applies the approach to decide the whole strong spectrum through one *game for linear-time--branching-time spectroscopy*.
+- TODO @sec-weak-spectrum adapt the game for the *weak spectrum of equivalences accounting for silent-steps*.
+- TODO @sec-implementations showcases implementations to conveniently perform equivalence spectroscopies in web browsers and using GPU parallelization.
 
 ## Artifacts and Papers
 
@@ -99,15 +99,15 @@ The source is available openly on <https://github.com/benkeks/equivalence-fiddle
 Instead of swamping the document with technical proofs, these are contained in machine-checkable Isabelle/HOL theories.
 
 - **Equivalence spectrum formalization** contains proofs for the early chapters: <https://benkeks.github.io/ltbt-spectroscopy-isabelle/>.
-- **Weak Equivalence Spectroscopy** formalizes the core results of Chapter [-@sec-weak-spectrum]: <https://equivio.github.io/silent-step-spectroscopy>.
+- **Weak Equivalence Spectroscopy** formalizes the core results of @sec-weak-spectrum: <https://equivio.github.io/silent-step-spectroscopy>.
   The theory has been developed together with TU Berlin students Lisa Annett Barthel, Leonard Moritz Hübner, Caroline Lemke, Karl Parvis Philipp Mattes, and Lenard Mollenkopf.
 
 \noindent
 **Student theses.**
 Some parts of this thesis strongly rely on student work that I have supervised, in particular, on the following theses:
 
-- @trzeciakiewicz2021ltbtBrowserGame: *Linear-Time--Branching-Time Spectroscopy as an Educational Web Browser Game* provides a computer game version of the spectroscopy procedure to be discussed in [Subsection -@sec-spectro-invaders].
-- @ozegowski2023eqCAAL: *Integration eines generischen Äquivalenzprüfers in CAAL* extends the Concurrency Workbench Aalborg Edition with a spectroscopy feature, reported in [Subsection -@sec-spectroscopy-caal].
+- @trzeciakiewicz2021ltbtBrowserGame: *Linear-Time--Branching-Time Spectroscopy as an Educational Web Browser Game* provides a computer game version of the spectroscopy procedure to be discussed in @sec-spectro-invaders.
+- @ozegowski2023eqCAAL: *Integration eines generischen Äquivalenzprüfers in CAAL* extends the Concurrency Workbench Aalborg Edition with a spectroscopy feature, reported in @sec-spectroscopy-caal.
 - @mattes2024expressivePowerHML: *Measuring Expressive Power of HML Formulas in Isabelle/HOL* proves the approach to modal characterization of @sec-ltbt-spectrum.
 - @vogel2024energyGamesWebGPU: *Accelerating Process Equivalence Energy Games using WebGPU*, topic of @sec-gpu-equiv, allows massive parallelization on the GPU of key parts of our algorithm.
 - @lemke2024multiweightedEnergyGames: *A Formal Proof of Decidability of Multi-Weighted Declining Energy Games* formalizes the fixedpoint algorithm of @sec-deciding-energy-games.

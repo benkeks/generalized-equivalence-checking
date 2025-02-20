@@ -213,6 +213,8 @@ $\attackerpos{\ccsprefix{\literal{a}} \ccsprefix{\literal{b}} \literal{a}, \set{
 \ngamemoveblank$,
 thereby getting the defender stuck using a trace budget of $(3,0,0,0,0,0) \leq (\infty,0,0,0,0,0) = \notionname{T}$.
 
+TODO: Mention Revival
+
 The spectroscopy game still is a bisimulation game in the following sense.
 
 ::: {#lem-spectroscopy-bisimulation-game}
@@ -223,12 +225,102 @@ that is, if $(\infty, \infty, \infty, \infty, \infty, \infty) \in \defenderwins(
 ]
 :::
 
-TODO: Example (just the old one?)
+TODO: Example graph (just the old one?)
 
 ### Correctness
 
 To prove correctness, we proceed as with the bisimulation energy game in @sec-correctness-poly-spectroscopy:
 On the one hand, we show that game moves correspond to formulas of similar prices and that the attacker winning implies the formulas to be distinguishing.
+On the other hand, we establish that formulas of certain expressiveness prices certify winning attacks of matching budgets.
+
+
+::: {#def-strategy-formulas-poly}
+#### Strategy Formulas for $\gamespectroscopy$
+
+The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratstrong(g, e)$, in the context of a strong spectroscopy game $\gamespectroscopy^{\system}$ is defined inductively by the following rules:
+$$
+\dfrac{
+  \begin{matrix}
+    \attackerpos{p,Q} \gamemove{-\unit{1}} \attackerpos{p', Q'} \quad
+    e' = \energyupdate(-\unit{1}, e) ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p', Q'})
+    \\
+    p \step{\alpha} p' \quad Q \step{\alpha} Q' \quad
+    φ ∈ \stratstrong(\attackerpos{p', Q'}, e')
+  \end{matrix}
+}{
+  \hmlobs{α} φ ∈ \stratstrong(\attackerpos{p, q}, e)
+}
+$$
+$$
+\dfrac{
+  \attackerpos{p,Q} \gamemove{\zerovec} \defenderpos{p, Q', Q_*} \quad
+  e ∈ \attackerwins^{\gamespectroscopy}(\defenderpos{p, Q', Q_*}) \quad
+  φ ∈ \stratstrong(\defenderpos{p, Q', Q_*}, e)
+ }{
+  φ ∈ \stratstrong(\attackerpos{p, Q}, e)
+}
+$$
+$$
+\dfrac{
+  \begin{matrix}
+    \defenderpos{p, Q, \varnothing} \gamemove{u_q} \attackerpos[\wedge]{p, q} \quad
+    e_q = \energyupdate(u_q, e) ∈ \attackerwins^{\gamespectroscopy}(\attackerpos[\wedge]{p, q})
+    \\
+    \psi_q ∈ \stratstrong(\attackerpos[\wedge]{p, q}, e_q) \quad
+    \text{for each } q ∈ Q
+  \end{matrix}
+}{
+  \hmland{q}{Q} \psi_q ∈ \stratstrong(\defenderpos{p, Q, \varnothing}, e)
+}
+$$
+$$
+\dfrac{
+  \begin{matrix}
+    \defenderpos{p, Q, Q_*} \gamemove{u_q} \attackerpos[\wedge]{p, q} \quad
+    e_q = \energyupdate(u_q, e) ∈ \attackerwins^{\gamespectroscopy}(\attackerpos[\wedge]{p, q})
+    \\
+    \psi_q ∈ \stratstrong(\attackerpos[\wedge]{p, q}, e_q) \quad
+    \text{for each } q ∈ Q \text{ and }
+    \\
+    \defenderpos{p, Q, Q_*} \gamemove{u_*} \attackerpos{p, Q_*} \quad
+    e_* = \energyupdate(u_*, e) ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p, Q_*})
+    \\
+    \psi_* = \hmlobs{α} φ ∈ \stratstrong(\attackerpos{p, Q_*}, e_*)
+  \end{matrix}
+}{
+  \hmland{q}{Q \cup \set{*}} \psi_q ∈ \stratstrong(\defenderpos{p, Q, Q_*}, e)
+}
+$$
+$$
+\dfrac{
+  \begin{matrix}
+    \attackerpos[\wedge]{p, q} \gamemove{u} \attackerpos{p, \set{q}} \quad
+    e' = \energyupdate(u, e) ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p, \set{q}})
+    \\
+    \hmlobs{α} φ ∈ \stratstrong(\attackerpos{p, \set{q}}, e')
+  \end{matrix}
+}{
+  \hmlobs{α} φ ∈ \stratstrong(\attackerpos[\wedge]{p, q}, e)
+}
+$$
+
+$$
+\dfrac{
+  \begin{matrix}
+    \attackerpos[\wedge]{p, q} \gamemove{u} \attackerpos{q, \set{p}} \quad
+    e' = \energyupdate(u, e) ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{q, \set{p}})
+    \\
+    p \neq q \quad
+    \hmlobs{α} φ ∈ \stratstrong(\attackerpos{q, \set{p}}, e')
+  \end{matrix}
+}{
+  \hmlneg \hmlobs{α} φ ∈ \stratstrong(\attackerpos[\wedge]{p, q}, e)
+}
+$$
+
+:::
+
+The base case of the definition is the rule for conjunctions at $\defenderpos{p, \varnothing, \varnothing}$, yielding strategy formula $\hmltrue$
 
 
 ::: {#thm-strong-spectroscopy-correctness}

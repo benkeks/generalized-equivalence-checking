@@ -135,7 +135,8 @@
 
 \lc{ Spectroscopy }
 
-\providecommand{\strat}{\mathsf{Strat}}
 \providecommand{\gamespectroscopy}{\mathcal{G}_{\triangle}}
 \providecommand{\gamespectroscopyclever}{\mathcal{G}_{\blacktriangle}}
+\providecommand{\strat}{\mathsf{Strat}}
+\providecommand{\stratstrong}{\mathsf{Strat}_{\triangle}}
 

@@ -535,7 +535,7 @@ This is in line with the solution we thought of for the original strong spectrum
 ### Correctness of Characterization {#sec-correctness-poly-spectroscopy}
 
 We now prove that the bisimulation energy game indeed characterizes the equivalences of the polynomial-time strong spectrum.
-In following chapters, we will prove stronger results for more general games in more detail.
+In following chapters, we will prove stronger results for more general games.
 The approach is to generalize the connection between winning attacks and distinguishing formulas in the  bisimulation game that we have already explored in @lem-attacks-imply-formulas and @lem-formulas-imply-attack to energies and spectrum.
 
 ::: {#def-strategy-formulas-poly}

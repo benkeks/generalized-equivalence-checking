@@ -1160,6 +1160,13 @@ The space bounds behave similarly, but in the *flattened* variant fixed energy m
 
 We have gathered enough material to have this section prove that the spectroscopy problem for the polynomial-time strong spectrum is indeed solvable in polynomial time, thus justifying the name we chose for the spectrum.
 
+As outlined in @sec-spectro-problem, we consider the spectroscopy problem for $p$ and $q$ solved when we can compute $\Min(\notions \setminus \notions_{p,q})$.
+According to @thm-bisim-energy-game-characterization,
+$\notions^\literal{poly-strong}_{p,q} = \defenderwins^{\game_\notionname{B}^🗲}([p,q])$.
+By the definitions of winning budgets, $\notions^\literal{poly-strong} \setminus \notions^\literal{poly-strong}_{p,q} = \attackerwins^{\game_\notionname{B}^🗲}([p,q])$
+ and thus
+ $\Min(\notions^\literal{poly-strong} \setminus \notions^\literal{poly-strong}_{p,q}) = \attackerwins^{\min\game_\notionname{B}^🗲}([p,q])$.
+
 ::: {#thm-bisim-energy-game-complexity}
 Given a transition system $\system$,
 the spectroscopy problem for the $\notions^\literal{poly-strong}$-spectrum can be solved in polynomial time with respect to the size of $\system$.

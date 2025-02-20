@@ -652,7 +652,7 @@ This motivates the *spectroscopy problem*.
 Now that we have a formal way of describing equivalence spectra, we can make formal the *spectroscopy problem*---the core topic of this thesis.
 We will also collect first thoughts on its complexity.
 
-### The Spectroscopy Problem
+### The Spectroscopy Problem [#sec-spectro-problem]
 
 The problem has originally been introduced in @bjn2022decidingAllBehavioralEqs as the “abstract observation preorder problem” with respect to modal characterizations of the strong spectrum.
 We here reintroduce it in a more generic form.

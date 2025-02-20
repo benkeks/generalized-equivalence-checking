@@ -233,7 +233,6 @@ To prove correctness, we proceed as with the bisimulation energy game in @sec-co
 On the one hand, we show that game moves correspond to formulas of similar prices and that the attacker winning implies the formulas to be distinguishing.
 On the other hand, we establish that formulas of certain expressiveness prices certify winning attacks of matching budgets.
 
-
 ::: {#def-strategy-formulas-poly}
 #### Strategy Formulas for $\gamespectroscopy$
 
@@ -320,16 +319,41 @@ $$
 
 :::
 
-The base case of the definition is the rule for conjunctions at $\defenderpos{p, \varnothing, \varnothing}$, yielding strategy formula $\hmltrue$
+The base case of the definition is the rule for conjunctions at $\defenderpos{p, \varnothing, \varnothing}$, yielding strategy formula $\hmltrue$, which trivially distinguishes any $p$ from the empty set.
 
+The correctness proof proceeds basically as with the bisimulation energy game, establishing soundness as in @lem-bisim-energy-game-soundness and completeness as in @lem-bisim-energy-game-completeness.
+Proofs can be found in @bisping2023equivalenceEnergyGamesReport.
+There are two minor definitional nuances between the presentation here and there, upon which we will comment in @rem-differences-paper.
 
-::: {#thm-strong-spectroscopy-correctness}
-For any notion of equivalence $e \in \notions^{\literal{strong}}$,
-$p \bpreord{\observations{e}} q$, precisely if
-$e_{pq} \nleq e$ for all $e_{pq} \in \attackerwins(\attackerpos{p, \{q\}})$.
+::: {#lem-strong-spectroscopy-game-soundness}
+If $e ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p, Q})$,
+then there is $φ ∈ \stratstrong(\attackerpos{p, Q}, e)$ with $φ ∈ \observationsvar[\literal{strong}]{e}$, $p ∈ \semantics{φ}$ and $Q \cap \semantics{φ} = \varnothing$.^[
+  Proof in Lemma 2, 3, and 4 of @bisping2023equivalenceEnergyGamesReport.
+]
 :::
 
+::: {#lem-strong-spectroscopy-game-completeness}
+If there is $φ ∈ \observationsvar[\literal{strong}]{e}$ with $p ∈ \semantics{φ}$ and $Q \cap \semantics{φ} = \varnothing$,
+then $e ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p, Q})$.^[
+  Proof in Lemma 5 of @bisping2023equivalenceEnergyGamesReport.
+]
+:::
 
+Taken together, @lem-strong-spectroscopy-game-soundness and @lem-strong-spectroscopy-game-completeness prove that the strong spectroscopy game $\gamespectroscopy$ precisely characterizes the strong equivalence spectrum $\notions^\literal{strong}$.
+
+::: {#thm-strong-spectroscopy-game-characterization}
+$p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{strong}$ precisely if the defender wins $\gamespectroscopy$ from $\attackerpos{p,\set{q}}$ if the attacker starts with budget $e$.
+:::
+
+Thus, we can solve the spectroscopy problem of @def-spectroscopy-problem by computing $\notions^\literal{strong}_{p,q} = \notions^\literal{strong} \setminus \attackerwins^{\gamespectroscopy}(\attackerpos{p, \set{q}})$.
+
+:::{#rem-differences-paper}
+
+Conjunction
+
+Expr explicitly defined
+
+:::
 
 ### Complexity
 

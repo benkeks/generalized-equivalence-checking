@@ -44,7 +44,6 @@ We will explore the trinity of relational, modal, and game-theoretic characteriz
 Core-correlations for bisimilarity between relational definition, modal distinguishability, and game.
 :::
 
-\noindent
 Readers who are familiar with the contents of @fig-equivalence-big-picture can mostly skim through this chapter of preliminaries.
 The two core insights that this chapter intends to seed for coming chapters are:
 
@@ -85,12 +84,11 @@ A *labeled transition system* (LTS) $\system=(\states,\actions,\step{})$ consist
 - $\actions$, a set of *actions,* and
 - ${\step{}} ⊆ \states × \actions × \states$, a *transition relation*.{{<isb locale Labeled_Transition_Systems lts>}}
 
-\noindent
 We write $\derivatives{p, α}$ for the set of derivative states $\set{p' \mid p \step α p'}$,
 and $\initials{p}$ for the set of enabled actions $\set{α \mid \exists p' \ldotp p \step α p'}$.
 :::
 
-{{<noindent>}} There is a canonical example used to discuss equivalences within transition systems, which we want to draw from.
+There is a canonical example used to discuss equivalences within transition systems, which we want to draw from.
 We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzinger.
 
 ::: {#fig-henzinger .column-margin}
@@ -142,7 +140,7 @@ Example system $\system_\literal{PQ}$.
 The program $\literal{Q}$ on the other hand performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$ to the environment.
 :::
 
-{{<noindent>}} There are two things one might wonder about @exm-ts:
+There are two things one might wonder about @exm-ts:
 
 1. Should one care about non-determinism in programs? Subsection [-@sec-ccs] shows how non-determinism arises naturally in concurrent programs.
 2. Should one consider $\literal P$ and $\literal Q$ equivalent? This heavily depends. Section [-@sec-behavioral-eq] will introduce a notion of equivalence under which the two are equivalent and one under which they differ.
@@ -235,7 +233,7 @@ flowchart TD
   As the $\coaction{\literal{fork}}$-action can be consumed by just one of the two philosophers, process $\literal P$ expresses exactly the program behavior seen in state $\literal P$ of @exm-ts.
 :::
 
-{{<noindent>}} The formal relationship between process terms and their LTS semantics is given by the following definition.
+The formal relationship between process terms and their LTS semantics is given by the following definition.
 
 ::: {#def-ccs-semantics}
 #### CCS Semantics

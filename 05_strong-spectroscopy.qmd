@@ -156,7 +156,6 @@ consists of
 - *attacker conjunct positions* $\attackerpos[\land]{p,q} \in G_\attacker$,
 - *defender conjunction positions* $\defenderpos{p,Q,Q_*} \in G_\defender$,
 
-\noindent
 where $p, q \in \states$ and $Q, Q_* \in \powerset{\states}$, and six kinds of moves:
 $$
 \begin{array}{rrcll}

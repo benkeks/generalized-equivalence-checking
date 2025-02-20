@@ -729,7 +729,6 @@ $\notions^{\literal{strong}}_{\literal{Q}, \literal{T}} =
 (\natsext^5 \times \set{0,1})$.
 :::
 
-\noindent
 Technically, it is convenient to not compute $\notions_{p,q}$ directly.
 Rather we aim to construct the *Pareto front* of minimal notions that do not hold, $\Min(\notions \setminus \notions_{p,q})$.
 The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as complement of the upwards closure $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$

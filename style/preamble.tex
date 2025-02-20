@@ -10,6 +10,22 @@
 
 \usepackage{booktabs}
 
+\usepackage{etoolbox}
+\makeatletter
+\newcommand*\NoIndentAfterEnv[1]{%
+  \AfterEndEnvironment{#1}{\par\@afterindentfalse\@afterheading}}
+\makeatother
+\NoIndentAfterEnv{itemize}
+\NoIndentAfterEnv{enumerate}
+\NoIndentAfterEnv{proof}
+\NoIndentAfterEnv{definition}
+\NoIndentAfterEnv{example}
+\NoIndentAfterEnv{lemma}
+\NoIndentAfterEnv{theorem}
+\NoIndentAfterEnv{proposition}
+\NoIndentAfterEnv{refremark}
+\NoIndentAfterEnv{quote}
+
 % \usepackage[lined,boxed,commentsnumbered,algo2e]{algorithm2e}
 % \SetAlCapSty{textnormal}
 % \SetArgSty{textnormal}

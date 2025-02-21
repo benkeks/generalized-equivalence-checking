@@ -275,6 +275,11 @@ However, the lattice is not $\lub$-complete: For instance, the set $\nats \times
 If we take the natural numbers extended with an upper bound $\infty$, $\natsext$, as basis, then $(\natsext^2, \leq)$ forms a complete lattice.
 :::
 
+When working with vectors, we assume standard notation, in particular, for $n$-dimensional vector addition $(b + c) := (b_1 + c_1, …, b_n + c_n)$.
+By $\unit{k}$ we denote the *unit vector* where the $k$-th component is 1 and all other components equal 0.
+For example, $\unit{2}$ in a 3-dimensional context equals $(0,1,0)$.
+The *zero vector* $(0,…,0)$ is denoted by $\zerovec$.
+
 ## The Linear-Time–Branching-Time Spectrum {#sec-ltbt-spectrum}
 
 Van Glabbeek's two papers on the “linear-time--branching-time spectrum” [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] show how all common equivalences can be understood to form a lattice of sublanguages of $\hml$ (and a variant of $\hml$ for equivalences with silent steps).
@@ -652,7 +657,7 @@ This motivates the *spectroscopy problem*.
 Now that we have a formal way of describing equivalence spectra, we can make formal the *spectroscopy problem*---the core topic of this thesis.
 We will also collect first thoughts on its complexity.
 
-### The Spectroscopy Problem [#sec-spectro-problem]
+### The Spectroscopy Problem {#sec-spectro-problem}
 
 The problem has originally been introduced in @bjn2022decidingAllBehavioralEqs as the “abstract observation preorder problem” with respect to modal characterizations of the strong spectrum.
 We here reintroduce it in a more generic form.

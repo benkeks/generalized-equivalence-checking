@@ -358,7 +358,6 @@ In the context of a $\glb$-complete spectrum $(\notions, \leq, \observationsvar{
 $$\expr(\varphi) := \inf \set{N \in \notions \mid \varphi \in \observationsvar{N}}.$$
 :::
 
-\noindent
 Thinking of the lattice of notions as a hierarchy of how difficult it is to tell processes apart, we consider this as a kind of “price tag” to put on formulas depending on their syntactic complexity.
 Higher syntactic complexity allows formula sets of higher expressiveness.
 
@@ -569,12 +568,39 @@ Hierarchy of common equivalences/preorders ordered by observability coordinates.
 
 For the rest of the thesis, we will take the equivalences as defined by the coordinates as canonical.
 @lem-spectrum-characterization has established that the coordinates of traces, simulation, failures, and bisimulation match the definitions one commonly finds in the literature.
-To establish the same for the other notions, would mean a lot of (repetitive) definitions, which mostly reproduce van Glabbeek's survey [-@glabbeek2001ltbtsiReport].
-@mattes2024expressivePowerHML proves in Isabelle/HOL that the coordinate system of the conference version of this spectrum [@bisping2023equivalenceEnergyGames] match distinctiveness of the modal characterizations in [@glabbeek2001ltbtsiReport].
+To establish the same for the other notions, entails a lot of (repetitive) definitions, which mostly reproduce van Glabbeek's survey [-@glabbeek2001ltbtsiReport].
 
-::: {.callout-warning}
-I might add such a marathon if there's strong popular demand.
+@mattes2024expressivePowerHML proves in Isabelle/HOL that our coordinate system spectrum matches the distinctiveness of the modal characterizations in [@glabbeek2001ltbtsiReport].^[
+  To be precise, @mattes2024expressivePowerHML works with the version of the spectrum of @bisping2023equivalenceEnergyGames.
+  The only real difference is that, there, $\hmltrue$ is priced at $1$ conjunction, while the present spectrum prices it at $\zerovec$.
+]
+
+We still should illustrate how *equivalences of decorated traces* are handled:
+The idea behind *failure traces* is that one observes a trace of actions and *at every step* a set of actions that are *disabled*.
+*Ready traces* work similarly, but with disabled and enabled actions in between.
+
+::: {#exm-failure-trace-distinguished}
+
+Consider the following processes, which are slighlty deeper variants of the situation we encountered with $\literal{Q}$ and troll process $\literal{T}$ in @exm-bisim-sim.
+$$
+\begin{aligned}
+  \literal{Q'} := & \ccsprefix{\tau} (\ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b}) \\
+  \literal{T'_{\tau a a}} := & \literal{Q'} \ccschoice \ccsprefix{\tau}\ccsprefix{\literal a} \literal a \\
+  \literal{T'_{\tau a}} := & \literal{Q'} \ccschoice \ccsprefix{\tau}\literal a 
+\end{aligned}
+$$
+$\literal{T'_{\tau a a}}$ and $\literal{T'_{\tau a}}$ are simulation equivalent.
+But they are distinguished by the failure trace observation $\hmlobs{\tau} \hmlands\set{\hmlobs{\literal a}\hmlobs{\literal{a}}, \hmlneg \hmlobs{\literal b}}$.
+The intuition is that we can observe the trace $\tau \literal{a} \literal{a}$ together with the fact that $\literal b$ is impossible after the first step of $\literal{T'_{\tau a a}}$, but not of $\literal{T'_{\tau a}}$.
+
+The formula pricing works out, that is, $\hmlobs{\tau} \hmlands\set{\hmlobs{\literal a}\hmlobs{\literal{a}}, \hmlneg \hmlobs{\literal b}} \in \observationsvar[\literal{strong}]{(3,1,2,0,1,1)} \subseteq \observations[\literal{strong}]{\literal{FT}}$.
+The important point here is that we can allow *one* arbitrarly deep positive conjunct but prevent any others,
+which would underminde the *trace-likeness* of the observation.
+This is where it pays off that the spectrum grammar (@def-strong-spectrum) has a more lenient pricing for one of the positive conjuncts.
+We will sometimes refer to the deep positive conjunct of a conjunction as the *revival*, because revival equivalence is the first notion of equivalence with this feature.
 :::
+
+### Any Questions?
 
 There are a few standard questions that come to mind for people who are familiar with the various spectra of equivalences when seeing @fig-strong-ltbt-spectrum.
 The following remarks address these points.

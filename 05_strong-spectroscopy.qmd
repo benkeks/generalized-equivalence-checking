@@ -199,20 +199,80 @@ $$
 $$
 :::
 
-On the processes of @exm-trace-distinction-bisim-game, the attacker would move
-$\attackerpos{\ccsprefix{\literal{a}} \ccsprefix{\literal{b}} \literal{a}, \set{\ccsprefix{\literal{a}} (\literal{a} \ccschoice \literal{b})}}
-\gamemove{-\unit{1}}
-\attackerpos{\ccsprefix{\literal{b}} \literal{a}, \set{\literal{a}, \literal{b}}}
-\gamemove{-\unit{1}}
-\attackerpos{\literal{a}, \set{\ccsnull}}
-\gamemove{-\unit{1}}
-\attackerpos{\ccsnull, \varnothing}
-\gamemove{\zerovec}
-\defenderpos{\ccsnull, \varnothing, \varnothing}
-\ngamemoveblank$,
-thereby getting the defender stuck using a trace budget of $(3,0,0,0,0,0) \leq (\infty,0,0,0,0,0) = \notionname{T}$.
+On the processes of @exm-trace-distinction-bisim-game, the attacker would move:
+$$
+\begin{array}{rcl}
+  \attackerpos{\ccsprefix{\literal{a}} \ccsprefix{\literal{b}} \literal{a}, \set{\ccsprefix{\literal{a}} (\literal{a} \ccschoice \literal{b})}}
+  & \gamemove{-\unit{1}} &
+  \attackerpos{\ccsprefix{\literal{b}} \literal{a}, \set{\literal{a}, \literal{b}}} 
+  \\
+  & \gamemove{-\unit{1}} &
+  \attackerpos{\literal{a}, \set{\ccsnull}}
+  \\
+  & \gamemove{-\unit{1}} &
+  \attackerpos{\ccsnull, \varnothing}
+  \\
+  & \gamemove{\zerovec} &
+  \defenderpos{\ccsnull, \varnothing, \varnothing}
+  \; \ngamemoveblank
+\end{array}
+$$
+Thereby the attacker would get the defender stuck on a trace budget of $(3,0,0,0,0,0) \leq (\infty,0,0,0,0,0) = \notionname{T}$.
 
-TODO: Mention Revival
+The handling of conjunctions can be a little more intricate.
+
+::: {#exm-spectroscopy-failure-trace-distinguished}
+
+Let us think back to @exm-failure-trace-distinguished, that is, to $\literal{Q'} := \ccsprefix{\tau} (\ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b})$,
+$\literal{T'_{\tau a a}} := \literal{Q'} \ccschoice \ccsprefix{\tau}\ccsprefix{\literal a} \literal a$, and
+$\literal{T'_{\tau a}} := \literal{Q'} \ccschoice \ccsprefix{\tau}\literal a$, where $\literal{T'_{\tau a a}}$ is distinguished from $\literal{T'_{\tau a}}$ by the failure-trace observation $\hmlobs{\tau} \hmlands\set{\hmlobs{\literal a}\hmlobs{\literal{a}}, \hmlneg \hmlobs{\literal b}} \in \observationsvar[\literal{strong}]{(3,1,2,0,1,1)} \subseteq \observations[\literal{strong}]{\literal{FT}}$.
+
+To point out a similar distinction in the spetroscopy game, the attacker moves:
+$$
+\begin{array}{rcl}
+  \attackerpos{\literal{T'_{\tau a a}}, \set{\literal{T'_{\tau a}}}}
+  & \gamemove{-\unit{1}} &
+  \attackerpos{\ccsprefix{\literal a} \literal a, \set{\literal a, \ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b}}} \\
+  & \gamemove{\zerovec} &
+  \defenderpos{\ccsprefix{\literal a} \literal a, \set{\ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b}}, \set{\literal a}}
+\end{array}
+$$
+Now, the defender has two options.
+
+- If defender chooses conjunction answer $\dots \gamemove{0,-1,0,\updmin{3,4},0,0} \attackerpos[\wedge]{\ccsprefix{\literal a} \literal a, \ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b}}$, then attacker points out that $\literal b$ is not possible for the left process:
+  $$
+  \begin{array}{rcl}
+    \attackerpos[\wedge]{\ccsprefix{\literal a} \literal a, \ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b}}
+    & \gamemove{\updmin{1,5},0,0,0,0,-1} &
+    \attackerpos{ \ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b}, \set{\ccsprefix{\literal a} \literal a} }\\
+    & \gamemove{-\unit{1}} &
+    \attackerpos{ \literal{b}, \varnothing }
+    \\
+    & \gamemove{\zerovec} &
+    \defenderpos{\literal{b}, \varnothing, \varnothing}
+    \; \ngamemoveblank
+  \end{array}
+  $$
+- If defender opts for a conjunction revival $\dots \gamemove{\updmin{1,3},-1,0,0,0,0} \attackerpos{\ccsprefix{\literal a} \literal a, \set{\literal a}}$, then attacker highlights that the left process can do $\literal a \literal a$:
+  $$
+  \begin{array}{rcl}
+    \attackerpos{\ccsprefix{\literal a} \literal a, \set{\literal a}}
+    & \gamemove{-\unit{1}} &
+    \attackerpos{ \literal{a}, \set{\ccsnull} }
+    \\
+    & \gamemove{-\unit{1}} &
+    \attackerpos{ \ccsnull, \varnothing }
+    \\
+    & \gamemove{\zerovec} &
+    \defenderpos{\ccsnull, \varnothing, \varnothing}
+    \; \ngamemoveblank
+  \end{array}
+  $$
+
+To win in both cases, the attacker must start with a budget of at least $(3,1,2,0,1,1)$.
+
+The game also allows another path through nested negations that the attacker wins at $(3,2,0,0,2,2)$, but this is not interesting for specific equivalences below bisimilarity.
+:::
 
 The spectroscopy game still is a bisimulation game in the following sense.
 

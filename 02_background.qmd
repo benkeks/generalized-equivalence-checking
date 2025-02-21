@@ -676,6 +676,9 @@ $$
 The empty conjunction $\hmlands \varnothing$ is denoted by $\hmltrue$ and serves as the nil-element of HML syntax trees.
 We also usually omit them when writing down formulas, e.g., shortening $\hmlobs{\literal a}\hmlobs{\literal b}\hmltrue$ to $\hmlobs{\literal a}\hmlobs{\literal b}$.
 
+We will assume a form of associativity through the *convention that conjunctions are flat* in the sense that they do not immediately contain other conjunctions.
+In this sense, we consider $\hmlands \set{ φ_1, \hmlands \set{φ_2} }$ and $\hmlands \set{ φ_1, \hmlands \set{φ_2}, \hmltrue}$ just as different representatives of the flattened formula $\hmlands \set{φ_1, φ_2}$.
+
 The intuition behind HML is that it describes *what sequences of behavior* one may or may not *observe* of a system.
 Observations $\hmlobs{α}…$ are used to build up possible action sequences;
 conjunctions $\hmlands\set{…}$ capture branching points in decision trees;
@@ -825,7 +828,6 @@ Subset relationship entails expressiveness entails distinctiveness.
 - If $\observationsvar{}$ is less or equal in expressiveness to $\observationsvar[\prime]{}$, then $\observationsvar{}$ is less or equal in distinctiveness to $\observationsvar[\prime]{}$.{{<isb lemma LTS_Semantics lts_semantics.expressiveness_entails_distinctiveness>}}
 :::
 
-\noindent
 The other direction does not hold.
 For instance, $\hml ⊈ \hml \setminus \set{\hmltrue}$, but they are equally expressive as $\hmlneg\hmlneg\hmltrue$ can cover for the removed element.
 At the same time, $\set{\hmltrue}$ is more expressive than $\varnothing$, but equally distinctive.
@@ -836,11 +838,15 @@ The stronger version of @prp-difference-contraposition is thus:
 If $\observationsvar{}$ is less or equal *in distinctiveness* to $\observationsvar[\prime]{}$ then $p \bpreordvar{\observationsvar[\prime]{}} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.{{<isb lemma LTS_Semantics lts_semantics.preorder_expressiveness_contraposition>}}
 :::
 
-\noindent
+::: {#rem-flattened-conjunctions}
+Through the lense of expressiveness we can also justify why our convention to implicitly flatten conjunctions is sound:
+As this does not change a conjunction's truth value, $\hml$ subsets with and without flattening-convention are equally expressive and thus distinctive.
+:::
+
 Often, an equivalence may be characterized by different sublogics.
 In particular, one may find smaller characterizations as in the following example for bisimilarity.
 
-::: {#exm-game-formulas}
+::: {#def-game-formulas}
 
 Consider $\observations{\floor{B}} \subseteq \hml$ described by the following grammar.
 
@@ -853,7 +859,7 @@ $$
 $$
 :::
 
-{{<noindent>}} $\observations{\floor{B}}$ is a proper subset of $\hml$.
+$\observations{\floor{B}}$ is a proper subset of $\hml$.
 For instance, it lacks the observation $\hmlobs{\literal a} \hmlobs{\literal b} \hmltrue$.
 Due to the subset relation, $\observations{\floor{B}}$ must be less or equal in expressiveness to $\hml$, but this inclusion too is strict as $\hmltrue$ cannot be covered for.
 But both logics are equally distinctive!
@@ -881,7 +887,6 @@ We induct on the structure of $φ$ with arbitrary $p$ and $q$.
   Accordingly, $\hmlneg φ' ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$.\qedhere
 :::
 
-\noindent
 The smaller bisimulation logic $\observations{\floor{B}}$ will become important again later in the next section (in Subsection [-@sec-bisim-game-hml]).
 
 ## Games {#sec-games}
@@ -1340,7 +1345,7 @@ The downside of the game is that the attacker has infinitely many options $φ �
 The proper bisimulation game of @def-bisim-game, on the other hand, is *finite for finite transition systems*.
 Therefore, it induces decision procedures.
 
-We will now argue that the *bisimulation game actually is a variant of the naive game*, where (1) the attacker names their formula *gradually*, and (2) the formulas stem from $\observations{\floor{B}} \subseteq \hml$ of @exm-game-formulas.
+We will now argue that the *bisimulation game actually is a variant of the naive game*, where (1) the attacker names their formula *gradually*, and (2) the formulas stem from $\observations{\floor{B}} \subseteq \hml$ of @def-game-formulas.
 To this end, we will show that attacker's winning strategies imply distinguishing formulas, and that a distinguishing formula from $\observations{\floor{B}}$ certifies the existence of winning attacker strategies.
 
 ::: {#exm-bisim-sim-game-formulas}
@@ -1446,7 +1451,7 @@ If $φ ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$, then the attack
 :::
 ::: proof
 
-By induction on the derivation of $φ ∈ \observations{\floor{B}}$ according to the definition from @exm-game-formulas with arbitrary $p$ and $q$.
+By induction on the derivation of $φ ∈ \observations{\floor{B}}$ according to the definition from @def-game-formulas with arbitrary $p$ and $q$.
 
 - Case $φ = \hmlobs{α} \hmland{i}{I} φ_i$.
   As $φ$ distinguishes $p$ from $q$, there must be a $p'$ such that $p \step{α} p'$ and that $\hmland{i}{I} φ_i$ distinguishes $p'$ from every $q' \in \derivatives{q, α}$.
@@ -1513,7 +1518,7 @@ If the count of a predecessor position hits 0, the defender also loses from ther
 
 Once we run out of $\variable{todo}$ positions, we know that the attacker has winning strategies exactly for each position we have visited.
 
-The following @tbl-game-example-execution lists how @alg-deciding-games computes the winning region $\attackerwins = \set{[\literal{2a}], (\literal{3})}$ of the game of @exm-game-formulas.
+The following @tbl-game-example-execution lists how @alg-deciding-games computes the winning region $\attackerwins = \set{[\literal{2a}], (\literal{3})}$ of the game of @def-game-formulas.
 
 | $\variable{g}$ | $\variable{defender\_options}$ | $\variable{todo}$ |
 |------|---------------|------|
@@ -1521,7 +1526,7 @@ The following @tbl-game-example-execution lists how @alg-deciding-games computes
 | $(\literal{3})$ | $(\literal{1}) \mapsto 2$, $(\literal{3}) \mapsto 0$ | $[\literal{2a}]$  |
 | $[\literal{2a}]$ | $(\literal{1}) \mapsto 1$, $(\literal{3}) \mapsto 0$ | $\varnothing$ |
 
-: Solving the game of @exm-game-formulas {#tbl-game-example-execution fig-pos='b'}
+: Solving the game of @def-game-formulas {#tbl-game-example-execution fig-pos='b'}
 
 \noindent
 The inner loop of @alg-deciding-games clearly can run at most $\relsize{\gamemoveblank}$-many times.

@@ -403,7 +403,7 @@ Let us upgrade the bisimulation game of @def-bisim-game with energies.
 The claim is that the resulting game ${\game}_\notionname{B}^🗲$ will characterize all equivalences of the polynomial-time strong spectrum in the sense that
 $p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{poly-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $e$.
 
-As we have seen in Subsection [-@sec-bisim-game-hml], the game moves match the distinctive power of productions in the $\observations{\floor{B}}$-grammar of @exm-game-formulas.
+As we have seen in Subsection [-@sec-bisim-game-hml], the game moves match the distinctive power of productions in the $\observations{\floor{B}}$-grammar of @def-game-formulas.
 Consequently, we can *count* the use of HML constructs in the game.
 As the game stands, we can meaningfully count the three dimensions used in Subsection [-@sec-poly-slice].^[
   We cannot hope to count the other dimensions of @def-strong-spectrum:

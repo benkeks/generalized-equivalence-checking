@@ -40,7 +40,7 @@ The more we mark as observable, the finer the resulting equivalence relations do
 ### Understanding the Equivalence Hierarchy through Modal Logics
 
 As promised, we revisit the hierarchy between bisimilarity, similarity, and trace equivalence of Subsection [-@sec-hierarchy-equivalences], modally.
-So far, we have only looked into the characterization of bisimilarity through the whole of $\hml$ in @thm-hennessy-milner or through $\observations{\floor{B}}$ in @exm-game-formulas.
+So far, we have only looked into the characterization of bisimilarity through the whole of $\hml$ in @thm-hennessy-milner or through $\observations{\floor{B}}$ in @def-game-formulas.
 
 ::: {#def-sim-trace-logics}
 
@@ -505,7 +505,7 @@ The strong spectrum of @def-strong-spectrum contains the notions of behavioral e
 ::: {.proof}
 The only non-trivial case is (3) for bisimilarity:
 
-Observe that $\observations{\floor{B}} \subseteq \observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ by examining its grammar in @exm-game-formulas.
+Observe that $\observations{\floor{B}} \subseteq \observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ by examining its grammar in @def-game-formulas.
 As $\observations{\floor{B}}$ already has complete $\hml$-distinctiveness by @lem-game-formula-hml, so must its superlogic $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$.
 :::
 

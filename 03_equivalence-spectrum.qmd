@@ -392,9 +392,10 @@ $$
 \begin{array}{rcll}
   φ^N & \grammardef & \hmltrue{} & \\
       & \grammaror  & \hmlobs{α}φ^{N - \unit{1}} & \\
-      & \grammaror  & \hmlands\set{\varphi^{(N-\unit{2}) \sqcap (N_3, \infty, \infty, \infty, \infty, \infty)},
-        ψ^{(N-\unit{2}) \sqcap (\infty, \infty, \infty, N_3 \infty, \infty)},
-        ψ^{(N-\unit{2}) \sqcap (\infty, \infty, \infty, N_3, \infty, \infty)}, \ldots} & \\
+      & \grammaror  & \hmlands\set{\varphi^{(N-\unit{2}) \sqcap (N_3, \infty, \infty, \infty, \infty, \infty)}, \\
+      &             & \quad\;
+                        ψ^{(N-\unit{2}) \sqcap (\infty, \infty, \infty, N_3 \infty, \infty)},
+                        ψ^{(N-\unit{2}) \sqcap (\infty, \infty, \infty, N_3, \infty, \infty)}, \ldots} & \\
   ψ^N & \grammardef &
       φ^{(N \sqcap (N_4, \infty, \infty, \infty, \infty, \infty))} & \\
       & \grammaror  &
@@ -402,11 +403,9 @@ $$
 \end{array}
 $$
 
-{{<noindent>}} The productions only exist if the respective recursive invocations are defined on the domain of notions.
+The productions only exist if the respective recursive invocations are defined on the domain of notions.
 For instance, $φ^N \leadsto \hmlobs{α}φ^{N - \unit{1}}$ is no valid production for $N=(0,1,0,0,0,0)$ because $(-1,1,0,0,0,0) \notin \notions^\literal{strong}$.
 :::
-
-TODO: Adapt upcoming proofs to fixed grammar
 
 ::: {#exm-formula-language}
 The smallest notion to cover the failure formula of Subsection [-@sec-incomparabilities] would be $(2,1,0,0,1,1)$, that is, 
@@ -500,13 +499,16 @@ The strong spectrum of @def-strong-spectrum contains the notions of behavioral e
 1. The observation language $\observationsvar[\literal{strong}]{(\infty, 0, 0, 0, 0, 0)}$ exactly matches the characterization of traces $\observations{T}$ from @def-sim-trace-logics and thus characterizes trace preorder.{{<isb theorem Priced_Spectrum lts.traces_priced_characterization>}}
 2. The observation language $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty, 0, 0)}$ exactly matches the characterization of simulation observations $\observations{S}$ from @def-sim-trace-logics and thus characterizes simulation.{{<isb theorem Priced_Spectrum lts.simulation_priced_characterization>}}
 3. The observation language $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ matches $\hml$ in distinctiveness and thus characterizes bisimilarity.
-4. The observation language $\observationsvar[\literal{strong}]{(\infty, 1, 0, 0, 1, 1)}$ exactly matches failure observations $\observations{F}$ of @def-failures-modal.
+4. The observation language $\observationsvar[\literal{strong}]{(\infty, 1, 0, 0, 1, 1)}$ matches failure observations $\observations{F}$ of @def-failures-modal in distinctiveness.
 :::
 ::: {.proof}
-The only non-trivial case is (3) for bisimilarity:
-
-Observe that $\observations{\floor{B}} \subseteq \observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ by examining its grammar in @def-game-formulas.
-As $\observations{\floor{B}}$ already has complete $\hml$-distinctiveness by @lem-game-formula-hml, so must its superlogic $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$.
+- Case (1) for traces is trivial.
+- Case (2) for simulation is trivial, given flattening of conjunctions.
+- For case (3) of bisimilarity,
+  observe that $\observations{\floor{B}} \subseteq \observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ by examining its grammar in @def-game-formulas.
+  As $\observations{\floor{B}}$ already has complete $\hml$-distinctiveness by @lem-game-formula-hml, so must its superlogic $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$.
+- For case (4) of failures, we must note that $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ also contains failure observations that end in conjunctions with a $\hmlneg \hmltrue$-conjunct.
+  But these are trivially false and thus cannot add to distintiveness.
 :::
 
 \noindent
@@ -565,7 +567,6 @@ Hierarchy of common equivalences/preorders ordered by observability coordinates.
 :::
 :::
 
-\noindent
 For the rest of the thesis, we will take the equivalences as defined by the coordinates as canonical.
 @lem-spectrum-characterization has established that the coordinates of traces, simulation, failures, and bisimulation match the definitions one commonly finds in the literature.
 To establish the same for the other notions, would mean a lot of (repetitive) definitions, which mostly reproduce van Glabbeek's survey [-@glabbeek2001ltbtsiReport].

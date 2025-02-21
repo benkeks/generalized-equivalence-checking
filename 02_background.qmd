@@ -839,7 +839,7 @@ If $\observationsvar{}$ is less or equal *in distinctiveness* to $\observationsv
 :::
 
 ::: {#rem-flattened-conjunctions}
-Through the lense of expressiveness we can also justify why our convention to implicitly flatten conjunctions is sound:
+Through the lense of expressiveness, we can also justify why our convention to implicitly flatten conjunctions is sound:
 As this does not change a conjunction's truth value, $\hml$ subsets with and without flattening-convention are equally expressive and thus distinctive.
 :::
 

@@ -1183,14 +1183,14 @@ In total, this amounts to $o_{\gamemoveblank_\notionname{B}^🗲}$ in $\bigo{\re
 Inserting the parameters in the time bounds of @lem-declining-update-complexity yields:
 $$
 \begin{array}{rlccccccc}
-    & O( & o_{\gamemoveblank} & \cdot & \relsize{G}^{2N} & \cdot & (N^2 + \relsize{G}^{N-1} \cdot N) & ) \\
+    & O( & o_{\gamemoveblank_\notionname{B}^🗲} & \cdot & \relsize{G_\notionname{B}^🗲}^{2N} & \cdot & (N^2 + \relsize{G_\notionname{B}^🗲}^{N-1} \cdot N) & ) \\
   = & O( & (\relsize{\states} \cdot \relsize{\step{}}) & \cdot & (\relsize{\states}^2)^{2 \cdot 3} & \cdot & (3^2 + (\relsize{\states}^2)^{3-1} \cdot 3) & ) \\
   = & O( & (\relsize{\states} \cdot \relsize{\step{}}) & \cdot & \relsize{\states}^{12} & \cdot & \relsize{\states}^4 & )\\
   = & O( & \relsize{\states}^{17} \cdot \relsize{\step{}} & ).
 \end{array}
 $$
 For space complexity, the approach arrives at $\bigo{ (\relsize{\states} \cdot \relsize{\step{}})^3}$.
-The bound drops to $\bigo{ (\relsize{\states} \cdot \relsize{\step{}})}$ in the flattened variant of @lem-declining-update-complexity-flattened. \qedhere
+The bound drops to $\bigo{ \relsize{\states} \cdot \relsize{\step{}}}$ in the flattened variant of @lem-declining-update-complexity-flattened. \qedhere
 :::
 
 ## Discussion {#sec-spectrum-approach-discussion}

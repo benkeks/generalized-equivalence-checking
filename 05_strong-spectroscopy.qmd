@@ -416,6 +416,36 @@ Expr explicitly defined
 
 ### Complexity
 
+::: {#thm-strong-spectroscopy-complexity}
+Given a transition system $\system$,
+the spectroscopy problem for the $\notions^\literal{strong}$-spectrum can be solved by the game approach in exponential time and space with respect to the state space size $\relsize{\states}$.
+:::
+:::proof
+According to @thm-strong-spectroscopy-game-characterization, we can solve the spectroscopy problem for the $\notions^\literal{strong}$-spectrum by deciding the winning budgets of the strong spectroscopy game ${\gamespectroscopy}^{\system}$ on $\system=(\states,\actions,\step{})$.
+We instantiate the winning budget complexity of @lem-declining-update-complexity for the case $N=6$ with the size of $\gamespectroscopy$ according to @def-strong-spectroscopy-game.
+
+The amount of attacker positions is bounded by $\relsize{\states} \cdot 2^{\relsize{\states}}$.
+The number of conjunction moves and defender conjunction positions is bounded by $\relsize{\states} \cdot 3^{\relsize{\states}}$.
+
+The maximal out-degree for attacker positions is in $\bigo{2^{\relsize{\states}}}$, which dominates that of defender conjunction positions of $\bigo{\relsize{\states}}$,
+
+This amounts to $o_{\gamemoveblank}$ in $\bigo{2^{\relsize{\states}}}$ and to $\relsize{G_{\triangle}}$ in $\bigo{\relsize{\states} \cdot 3^{\relsize{\states}}}$.
+
+Inserting the parameters in the time bounds of @lem-declining-update-complexity yields:
+$$
+\begin{array}{rlccccccc}
+    & O( & o_{\gamemoveblank} & \cdot & \relsize{G}^{2N} & \cdot & (N^2 + \relsize{G}^{N-1} \cdot N) & ) \\
+  = & O( & (2^{\relsize{\states}}) & \cdot & (\relsize{\states} \cdot 3^{\relsize{\states}})^{2 \cdot 6} & \cdot & (6^2 + (\relsize{\states} \cdot 3^{\relsize{\states}})^{6-1} \cdot 6) & ) \\
+  = & O( & 2^{\relsize{\states}} & \cdot & \relsize{\states}^{12} \cdot 3^{12\relsize{\states}} & \cdot & \relsize{\states}^5 \cdot 3^{5\relsize{\states}} & ) \\
+  = & O( & \relsize{\states}^{17} & \cdot & 2^{\relsize{\states}} \cdot 3^{17\relsize{\states}} & ).
+\end{array}
+$$
+For space complexity, the approach arrives at $\bigo{ \relsize{\states}^6 \cdot 3^{6\relsize{\states}}}$.
+:::
+
+The bound drops to $\bigo{ \relsize{\states} \cdot 3^{\relsize{\states}}}$ in the flattened variant of @lem-declining-update-complexity-flattened.
+
+
 ## More Specific Games {#sec-specific-spectro-games}
 
 ### The Clever Game

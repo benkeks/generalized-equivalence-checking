@@ -209,7 +209,6 @@ We can notice two things from the example:
 2. *Attacker's winning budgets are upward-closed*, and defender budgets are downward-closed.
 :::
 
-\noindent
 Both are effects of @def-energy-game.
 More formally, the winning budgets are characterized by the following two propositions:
 
@@ -243,7 +242,6 @@ $$
 $$
 :::
 
-\noindent
 The inductive definition is nice as it allows for local proves of how the attacker wins.
 Defender's wins on the other hand would dually be a coinductive concept because the defender wins loops.^[
   By the way, to those wondering:
@@ -251,8 +249,20 @@ Defender's wins on the other hand would dually be a coinductive concept because 
   Therefore, coinduction is only mentioned in side remarks and is not required to understand what is going on.
 ]
 
+The proofs in @lemke2024multiweightedEnergyGames partially rely on the fact that one can derive reachability games from energy games, by inlining the energies and having the attacker stuck at exhausted energies.
+
+::: {#def-derived-reachability-game}
+#### Derived Reachability Game
+
+Given an energy game $\game = (G, G_\defender, \gamemoveblank, \abstractupdate)$ over $(\abstractenergies, \leq)$,
+the *derived reachability game* $\game^R = (G^R, G^R_\defender, \gamemoveblank_R)$ is played on tuples $G^R \defeq G \times (\abstractenergies \cup \set{\bot})$ with $G^R_\defender \defeq G_\defender \times \abstractenergies$.
+Lifted moves $(g, e) \gamemoveblank_R (g', e')$ are possible iff
+$e \neq \bot$, $g \gamemoveblank g'$, and $e' = \abstractupdate(g, g')(e)$.
+:::
+
 ::: {#rem-energy-reachability}
 Ordinary reachability games can be seen as a special case of energy games with trivial energies, e.g.\ $\abstractenergies = \set{1}$ and $\abstractupdate(\cdot) = \identity{\abstractenergies}$.
+On such games, $\game$ and $\game^R$ according to @def-derived-reachability-game have isomorphic game graphs.
 :::
 
 ::: {#rem-energy-games-in-general}

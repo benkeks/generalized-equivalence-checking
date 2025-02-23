@@ -534,18 +534,27 @@ $$
 For space complexity, only game positions are relevant, $\bigo{ \relsize{G_\blacktriangle} \cdot 3^{N-1} \cdot N } = \bigo{ \relsize{\states} \cdot 2^{\relsize{\states}} }$.
 :::
 
+### Pruning with Approximations
+
+Observation: Bisimilarity implies defender win at any energy. Thus, attacker should never move there.
+
+TODO: Exploration under symmetric nodes can be skipped.
+
+TODO: Game on quotient system
+
 ### Instance Games
 
-::: {#def-derived-reachability-game}
+We can use the strong spectroscopy game(s) to decide inividual equivalences.
+The core idea is to derive a reachability game according to @def-derived-reachability-game.
+Then, @alg-deciding-games can be employed to decide the game and thus the equivalence.
 
+<!--
 Given a declining energy game $\game = (G, G_\defender, \gamemoveblank, w)$,
-the *derived reachability game* $\game^R = (G^R, G^R_\defender, \gamemoveblank_R)$ is played on tuples $G^R \defeq G \times (\energies_\infty \cup \{\bot\})$ with $G^R_\defender \defeq G_\defender \times \energies_\infty$.
-Lifted moves $(g, e) \gamemoveblank_R (g', e')$ are possible iff
-$e \neq \bot$ and if there is $u$ such that $g \gamemove{u} g'$ and $e' = \energyupdate(u, e)$.
-(That is: positions with exhausted energies are stuck attacker positions.)
-:::
+the *derived reachability game* $\game^R = (G^R, G^R_\defender, \gamemoveblank_R)$ is played on tuples $G^R \defeq G \times (\energies_\infty \cup \set{\bot})$ with $G^R_\defender \defeq G_\defender \times \energies_\infty$.
+-->
+TODO: Example derived game
 
-
+TODO: Results on optimization
 
 ## Discussion
 

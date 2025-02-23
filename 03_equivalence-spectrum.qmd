@@ -552,7 +552,6 @@ The strong spectrum of @def-strong-spectrum contains the notions of behavioral e
   But these are trivially false and thus cannot add to distintiveness.\qedhere
 :::
 
-\noindent
 So far, we have only established that the six-dimensional spectrum also covers the notions that @exm-simple-spectrum has already covered–in a more complicated way.
 The extra dimensions will pay off in the next subsection.
 

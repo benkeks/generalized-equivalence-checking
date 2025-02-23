@@ -351,7 +351,6 @@ This is one of the reasons why it is convenient to add *notions of observability
 We can also ask what the least notion is to include a specific formula:
 
 ::: {#def-expressiveness-price}
-
 #### Syntactic Expressiveness Price
 
 In the context of a $\glb$-complete spectrum $(\notions, \leq, \observationsvar{N \in \notions})$, the *syntactic expressiveness price* of a formula $\varphi$ that appears in one of the logics is defined as
@@ -489,6 +488,49 @@ An example for the pricing of a more complex tree-like formula is given in @fig-
 ```
 
 Pricing formula $\hmlobs{\tau}\hmlands\{\hmlobs{ec_A}\hmlobs{lc_A}\hmltrue, \hmlobs{\tau}\hmltrue, \hmlneg\hmlobs{ec_B}\hmltrue\}$ with syntactic expressiveness $e = (3,1,2,1,1,1)$.
+:::
+
+::: {#rem-explicit-expr}
+#### Explicit Formula Prices
+
+In my papers, the syntactic expressiveness price of formulas is explicitly defined (instead of using a family of grammars).
+In this thesis, $\expr$ is indirectly defined through @def-expressiveness-price.
+
+The expressiveness price $\expr$ of formulas in the strong spectrum (@def-strong-spectrum) can be recursively characterized as described in @bisping2023equivalenceEnergyGames:
+
+\begin{align*}
+  \expr(\hmltrue) & \defeq \zerovec \\
+  \expr(\hmlobs{\alpha}\varphi) & \defeq \unit{1} + \expr(\varphi) \\
+  \expr(\hmlneg\varphi) & \defeq \unit{6} + \expr(\varphi) \\
+  \textstyle\expr(\bigwedge\limits_{i \in I}\psi_i) & \defeq
+  \sup\Biggl(\big\{\!
+  \begin{pmatrix}
+    0\\
+    \textcolor{conjColor}{1\,+\,} \sup_{i \in I} \expr_2(\psi_i)\\
+    \textcolor{mainPosColor}{\sup_{i \in \mathit{Pos}}}\, \expr_1(\psi_i)\\
+    \textcolor{otherPosColor}{\sup_{i \in \mathit{Pos} \setminus \mathit{R}}}\, \expr_1(\psi_i)\\
+    \textcolor{negObsColor}{\sup_{i \in \mathit{Neg}}}\, \expr_1(\psi_i)\\
+    0
+  \end{pmatrix} \!\big\} \cup \{ \expr(\psi_i) \mid i \in I \}
+  \Biggr)
+  \\
+  &
+  \begin{array}{rl}
+    \mathit{Neg} & \defeq \{i \in I \mid \exists \varphi'_i \ldotp \psi_i = \hmlneg \varphi'_i \}\\
+    \mathit{Pos} & \defeq I \setminus \mathit{Neg}\\
+    \mathit{R} & \defeq
+    \begin{cases}
+      \varnothing & \text{if } \mathit{Pos} = \varnothing\\
+      \{ r \} & \text{for some $r \in \mathit{Pos}$ where $\expr_1(\psi_r)$ maximal for $\mathit{Pos}$.}
+    \end{cases}
+  \end{array}
+\end{align*}
+
+There is a minor divergence from @bisping2023equivalenceEnergyGames in that the present thesis prices $\expr(\hmltrue)$ at $\zerovec$ instead of $\unit{2}$.
+This change is done to align the pricing to the one we will need for the weak spectrum in later chapters.
+
+Clearly, the explicit pricing of formulas is more versatile for the implementation direction we are aiming at.
+The grammar-view, on the other hand, is particularly nice to see how our $\hml$ sublanguages align to games.
 :::
 
 

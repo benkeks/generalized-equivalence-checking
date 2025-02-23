@@ -549,7 +549,7 @@ The strong spectrum of @def-strong-spectrum contains the notions of behavioral e
   observe that $\observations{\floor{B}} \subseteq \observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ by examining its grammar in @def-game-formulas.
   As $\observations{\floor{B}}$ already has complete $\hml$-distinctiveness by @lem-game-formula-hml, so must its superlogic $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$.
 - For case (4) of failures, we must note that $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ also contains failure observations that end in conjunctions with a $\hmlneg \hmltrue$-conjunct.
-  But these are trivially false and thus cannot add to distintiveness.
+  But these are trivially false and thus cannot add to distintiveness.\qedhere
 :::
 
 \noindent
@@ -614,7 +614,7 @@ To establish the same for the other notions, entails a lot of (repetitive) defin
 
 @mattes2024expressivePowerHML proves in Isabelle/HOL that our coordinate system spectrum matches the distinctiveness of the modal characterizations in [@glabbeek2001ltbtsiReport].^[
   To be precise, @mattes2024expressivePowerHML works with the version of the spectrum of @bisping2023equivalenceEnergyGames.
-  The only real difference is that, there, $\hmltrue$ is priced at $1$ conjunction, while the present spectrum prices it at $\zerovec$.
+  The only real difference is that, there, $\hmltrue$ is priced at $1$ conjunction, while the present spectrum prices it at $\zerovec$, cf. @rem-explicit-expr.
 ]
 
 We still should illustrate how *equivalences of decorated traces* are handled:

@@ -406,12 +406,16 @@ $p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{strong}$ pre
 
 Thus, we can solve the spectroscopy problem of @def-spectroscopy-problem by computing $\notions^\literal{strong}_{p,q} = \notions^\literal{strong} \setminus \attackerwins^{\gamespectroscopy}(\attackerpos{p, \set{q}})$.
 
-:::{#rem-differences-paper}
+::: {#rem-differences-paper}
+#### Differences to Conference Version
 
-Conjunction
+As mentioned in @rem-explicit-expr, @bisping2023equivalenceEnergyGames uses a slightly different pricing, where $\expr(\hmltrue) = \unit{2}$.
+This difference is reflected in the game by @def-strong-spectroscopy-game charging for conjunctions $-\unit{2}$ after the defender conjunction positions instead of before.
+With this, the attacker wins $\attackerpos{p, \varnothing} \gamemove{\zerovec} \defenderpos{p, \varnothing, \varnothing}$ with budget $\zerovec$, while the original definition in @bisping2023equivalenceEnergyGames would cost them $\unit{2}$ for $\attackerpos{p, \varnothing} \gamemove{-\unit{2}} \defenderpos{p, \varnothing, \varnothing}$.
 
-Expr explicitly defined
+Also, @bisping2023equivalenceEnergyGames defines the spectrum coordinates by giving the $\expr$ function instead of an $\observationsvar{N \in \notions}$ hierarchy.
 
+Still, we can be confident that the conference paper results apply to the present presentation *mutatis mutandis*.
 :::
 
 ### Complexity

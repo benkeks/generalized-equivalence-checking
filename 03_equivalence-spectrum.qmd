@@ -500,13 +500,13 @@ The expressiveness price $\expr$ of formulas in the strong spectrum (@def-strong
 
 \begin{align*}
   \expr(\hmltrue) & \defeq \zerovec \\
-  \expr(\hmlobs{\alpha}\varphi) & \defeq \unit{1} + \expr(\varphi) \\
-  \expr(\hmlneg\varphi) & \defeq \unit{6} + \expr(\varphi) \\
+  \expr(\hmlobs{\alpha}\varphi) & \defeq \textcolor{obsColor}{\unit{1}} + \expr(\varphi) \\
+  \expr(\hmlneg\varphi) & \defeq \textcolor{negsColor}{\unit{6}} + \expr(\varphi) \\
   \textstyle\expr(\bigwedge\limits_{i \in I}\psi_i) & \defeq
-  \sup\Biggl(\big\{\!
+  \textcolor{conjColor}{\unit{2}} + \sup\Biggl(\big\{\!
   \begin{pmatrix}
     0\\
-    \textcolor{conjColor}{1\,+\,} \sup_{i \in I} \expr_2(\psi_i)\\
+    0\\
     \textcolor{mainPosColor}{\sup_{i \in \mathit{Pos}}}\, \expr_1(\psi_i)\\
     \textcolor{otherPosColor}{\sup_{i \in \mathit{Pos} \setminus \mathit{R}}}\, \expr_1(\psi_i)\\
     \textcolor{negObsColor}{\sup_{i \in \mathit{Neg}}}\, \expr_1(\psi_i)\\

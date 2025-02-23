@@ -416,6 +416,9 @@ Expr explicitly defined
 
 ### Complexity
 
+As expected, the bigger spectroscopy game leads to exponential runtimes.
+This comes as no surprise, for we have already discussed in @sec-equivalence-complexities that the complexity problem on the whole strong spectrum is PSPACE-hard.
+
 ::: {#thm-strong-spectroscopy-complexity}
 Given a transition system $\system$,
 the spectroscopy problem for the $\notions^\literal{strong}$-spectrum can be solved by the game approach in exponential time and space with respect to the state space size $\relsize{\states}$.
@@ -443,12 +446,89 @@ $$
 For space complexity, the approach arrives at $\bigo{ \relsize{\states}^6 \cdot 3^{6\relsize{\states}}}$.
 :::
 
-The bound drops to $\bigo{ \relsize{\states} \cdot 3^{\relsize{\states}}}$ in the flattened variant of @lem-declining-update-complexity-flattened.
-
+Still, there are ways to decrease the complexity of the algorithm and thus increase applicability.
+We will explore these in the next section.
 
 ## More Specific Games {#sec-specific-spectro-games}
 
-### The Clever Game
+We can exploit properties of the equivalences of the strong spectrum in @fig-strong-ltbt-spectrum we actually care about to focus on simpler variants of the spectroscopy game.
+
+1. Since the specific coordinates in @fig-strong-ltbt-spectrum only use 0, 1, and ∞ in components, we can employ @lem-declining-update-complexity-flattened to slighlty improve complexity bounds.
+2. With more specific equivalences in mind, we can also focus on subgraphs of the spectroscopy game $\gamespectroscopy$ in order to obtain better bounds.
+
+We will use both tricks in the “clever” strong spectroscopy game in @sec-clever-strong-spectro.
+Then we will take the second point to the extreme by instantiating the spectroscopy game down to only decide single equivalences.
+
+### The Clever Game {#sec-clever-strong-spectro}
+
+We can *become more clever by looking one step ahead*.
+
+The spectroscopy game $\gamespectroscopy$ of @def-strong-spectroscopy-game may branch exponentially with respect to $\relsize{Q}$ at conjunction challenges after $\attackerpos{p,Q}$.
+For an efficient implementation, it is desirable to not do that.
+
+Given the spectrum we are interested in, we can drastically limit the sensible attacker moves to four options by a little lookahead into the enabled actions $\initials{q}$ of $q \in Q$ and $\initials{p}$.
+
+In the following, we will focus on the sub-spectrum $\widehat{\notions}^\literal{strong} \subseteq \set{0, 1, \infty}^6 \subseteq \notions^\literal{strong}$, where dimensions 3, 4, and 5 of modal depth for positive and negative conjuncts can only appear in certain combinations.
+
+::: {#def-simpler-strong-spectrum}
+
+The simpler strong spectrum, $\widehat{\notions}^\literal{strong}$, is defined as
+$$
+\widehat{\notions}^\literal{strong} ≔
+  \set{e \in \set{0, 1, \infty}^6 \mid e_4 \leq e_3 \land (e_5 = \infty \longrightarrow e_3 = e_4)}.
+$$
+:::
+
+Observe that all the coordinates of the strong linear-time–branching-time spectrum (@def-strong-ltbt-spectrum) are still covered by the simpler spectrum.
+
+::: {#def-strong-spectroscopy-game-clever}
+#### Clever Spectroscopy Game
+
+The *clever spectroscopy game* $\gamespectroscopyclever$, is defined exactly like the previous spectroscopy game of @def-strong-spectroscopy-game with the restriction of the conjunction challenges
+$$
+    \attackerpos{p,Q}
+    \quad \gamemove{\zerovec}_\blacktriangle
+    \quad \defenderpos{p,Q \setminus Q_*, Q_*}
+    \quad \text{with } Q_* \subseteq Q,
+$$
+to situations where
+$\; Q_* \in 
+    \{ \; \varnothing,\quad
+    \{ q \in Q \mid \initials{q} \subseteq \initials{p} \},\quad
+    \{ q \in Q \mid \initials{p} \subseteq \initials{q} \},\quad
+    \{ q \in Q \mid \initials{p} = \initials{q} \} \; \}.$
+:::
+
+::: {#thm-clever-strong-spectroscopy-correctness}
+#### Correctness of Cleverness
+
+For $e \in \widehat{\notions}^\literal{strong}$, the attacker wins $\gamespectroscopyclever$ from $\attackerpos{p_0,Q_0}$ with $e$ precisely if they win $\gamespectroscopy$ from $\attackerpos{p_0,Q_0}$ with $e$.^[
+  Proof in Theorem 2 of @bisping2023equivalenceEnergyGamesReport.
+]
+:::
+
+::: {#thm-clever-strong-spectroscopy-complexity}
+Given a transition system $\system=(\states,\actions,\step{})$,
+the spectroscopy problem for the simpler $\widehat{\notions}^\literal{strong}$-spectrum is solved by the game approach in $O( \relsize{\states}^{13} \cdot 2^{12\relsize{\states}} )$ time and $O( \relsize{\states} \cdot 2^{\relsize{\states}} )$ space,
+:::
+:::proof
+We instantiate the “flattened” winning budget complexity of @lem-declining-update-complexity-flattened for the case $N=6$ with the size of $\gamespectroscopyclever$ according to @def-strong-spectroscopy-game-clever.
+
+Now, the amount of all game positions is bounded by $\relsize{G_{\blacktriangle}} \in \relsize{\states} \cdot 2^{\relsize{\states}}$.
+
+Concerning the maximal out-degree, now, defender conjunction positions are dominant, $o_{\gamemoveblank_\blacktriangle} \in \bigo{\relsize{\states}}$.
+
+Inserting the parameters in the time bounds of @lem-declining-update-complexity-flattened yields:
+$$
+\begin{array}{rlccccccc}
+    & O( & o_{\gamemoveblank_\blacktriangle} & \cdot & \relsize{G_\blacktriangle}^{2N} & \cdot & (N^2 + 3^{N-1} \cdot N)) \\
+  = & O( & (\relsize{\states}) & \cdot & (\relsize{\states} \cdot 2^{\relsize{\states}})^{12} & \cdot & (6^2 + 3^{5} \cdot 6) & ) \\
+  = & O( & \relsize{\states}^{13} \cdot 2^{12\relsize{\states}} & ).
+\end{array}
+$$
+
+For space complexity, only game positions are relevant, $\bigo{ \relsize{G_\blacktriangle} \cdot 3^{N-1} \cdot N } = \bigo{ \relsize{\states} \cdot 2^{\relsize{\states}} }$.
+:::
 
 ### Instance Games
 

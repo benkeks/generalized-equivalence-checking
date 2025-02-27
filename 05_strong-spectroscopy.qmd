@@ -457,11 +457,37 @@ We will explore these in the next section.
 
 We can exploit properties of the equivalences of the strong spectrum in @fig-strong-ltbt-spectrum we actually care about to focus on simpler variants of the spectroscopy game.
 
+1. Properties of bisimilarity allow to reduce the game graph size without losing information.
 1. Since the specific coordinates in @fig-strong-ltbt-spectrum only use 0, 1, and ∞ in components, we can employ @lem-declining-update-complexity-flattened to slighlty improve complexity bounds.
 2. With more specific equivalences in mind, we can also focus on subgraphs of the spectroscopy game $\gamespectroscopy$ in order to obtain better bounds.
 
-We will use both tricks in the “clever” strong spectroscopy game in @sec-clever-strong-spectro.
-Then we will take the second point to the extreme by instantiating the spectroscopy game down to only decide single equivalences.
+In this section, @sec-bisim-approximations will first discuss how parts of the game graph can be pruned thanks to properties of bisimilarity.
+Then, we will use all listed tricks in the “clever” strong spectroscopy game in @sec-clever-strong-spectro.
+Finally, we will take the last point to the extreme by instantiating the spectroscopy game down to only decide single equivalences.
+
+### Pruning with Approximations {#sec-bisim-approximations}
+
+We can exploit that the spectroscopy game is a bisimulation game by @lem-spectroscopy-bisimulation-game to reduce game graph size.
+In particular, we will profit from the properties of bisimilarity being symmetric and transitive.
+
+::: {#lem-symmetric-positions-defender}
+On a strong spectroscopy game, $\attackerwins(\attackerpos{p,Q}) = \varnothing$ for $p \in Q$.
+:::
+:::proof
+This is a contrapositive consequence of @lem-strong-spectroscopy-game-soundness:
+As soon as $Q$ contains a state bisimilar to $p$, there cannot be a distinguishing formula for them by @thm-hennessy-milner.
+This is the case here because $p \in Q$ and $p \beq{B} p$ by @lem-bisim-bisim.
+Thus, there cannot be $e \in \attackerwins(\attackerpos{p,Q})$.
+:::
+
+For the game graph this means that we do not need to consider any outgoing moves of $\attackerpos{p,\set{p} \cup Q}$-positions.
+They will not lead to attacker wins anyway.
+All game graph parts that are strictly below such positions can be disregarded.
+
+
+TODO: Game on quotient system
+
+(Implies TODO: Introduce quotienting somewhere.)
 
 ### The Clever Game {#sec-clever-strong-spectro}
 
@@ -533,14 +559,6 @@ $$
 
 For space complexity, only game positions are relevant, $\bigo{ \relsize{G_\blacktriangle} \cdot 3^{N-1} \cdot N } = \bigo{ \relsize{\states} \cdot 2^{\relsize{\states}} }$.
 :::
-
-### Pruning with Approximations
-
-Observation: Bisimilarity implies defender win at any energy. Thus, attacker should never move there.
-
-TODO: Exploration under symmetric nodes can be skipped.
-
-TODO: Game on quotient system
 
 ### Instance Games
 

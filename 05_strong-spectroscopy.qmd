@@ -487,7 +487,27 @@ All game graph parts that are strictly below such positions can be disregarded.
 
 TODO: Game on quotient system
 
-(Implies TODO: Introduce quotienting somewhere.)
+::: {#lem-quotienting-spectro-game}
+The attacker wins $\attackerpos{p, \set{q}}$ on ${\gamespectroscopy}^{\system}$ with $e$ precisely if they win $\attackerpos{\eqclass{p}, \set{\eqclass{q}}}$ on ${\gamespectroscopy}^{\quotient{\system}{\beq{B}}}$.
+:::
+::: proof
+By definition, $p \beq{B} \eqclass{p}$ and $q \beq{B} \eqclass{q}$ on the merger of $\system$ and $\quotient{\system}{\beq{B}}$.
+Therefore, the pairs each fulfill the same HML formulas by @thm-hennessy-milner, which implies equal distinguishing formula sets.
+We can use @lem-strong-spectroscopy-game-soundness and @lem-strong-spectroscopy-game-completeness to translate these sets to and from the winning budgets.
+:::
+
+
+(Implies TODO: Introduce quotienting somewhere earlier.)
+
+::: {#def-quotient-ts}
+Given an equivalence relation $\sim$ on states, and a transition system $\system=(\states,\actions,\step{})$,
+each *equivalence class* for $p \in \states$ is defined $\eqclass{p}_{\sim} \defeq \set{p' \in \states \mid p \sim p'}$.
+
+The *quotient system* is defined as $\quotient{\system}{\sim} \defeq (\quotient{\states}{\sim}, \actions, \step{}_{\sim})$, where $\quotient{\states}{\sim}$ is the set of equivalence classes $\set{ \eqclass{p} \mid p \in \states}$, and
+
+$$p \step{\alpha}_\sim p' \text{ iff there are $p_0 \in p$ and $p'_0 \in p'$ such that $p_0 \step{\alpha} p'_0$.}$$
+
+:::
 
 ### The Clever Game {#sec-clever-strong-spectro}
 

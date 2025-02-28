@@ -29,6 +29,9 @@
 \providecommand{\zerovec}{\mathbf{0}}
 \providecommand{\bigo}[1]{\mathit{O}(#1)}
 \providecommand{\complexityname}[1]{\textsf{#1}}
+\providecommand{\quotient}[2]{{#1 \! / \!\! #2}}
+\providecommand{\eqclass}[1]{[#1]}
+
 
 \lc{ Transition systems }
 

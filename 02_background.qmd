@@ -626,7 +626,8 @@ For instance, $2 \sim_\literal{odd} 4$, but $2 / 2 = 1 \not\sim_\literal{odd} 2 
 :::
 
 ::: {#lem-ccs-congruences}
-The operators of CCS (@def-ccs) are congruences for trace equivalence and bisimilarity on the CCS transition system (@def-ccs-semantics).
+Trace equivalence and bisimilarity on the CCS transition system (@def-ccs-semantics)
+are congruences for the operators of CCS (@def-ccs).
 :::
 :::proof
 This is a well-established fact.
@@ -640,6 +641,70 @@ By the semantics of CCS, the first step must be either due to $P \step{\alpha}_\
 Without loss of generality, we only consider $P \step{\alpha}_\ccs \mathit{PQ}'$.
 Due to $P \beq{B} R$, this step implies some $R'$ with $R \step{\alpha}_\ccs R'$ and $\mathit{PQ}' \beq{B} R'$.
 As $R \ccschoice T \step{\alpha}_\ccs R'$, we can take this $R'$ to prove our goal.
+:::
+
+The nice thing about congruences is that we can use them to *calculate with terms*, as is common in mathematics.
+
+Graph isomorphism fails to be a congruence for CCS operators.
+For instance, consider $\ccsprefix{\literal{a}} (\ccsnull \ccspar \ccsnull) \beq{ISO} \ccsprefix{\literal{a}} \ccsnull$, but $\ccsprefix{\literal{a}} \ccsnull + \ccsprefix{\literal{a}} (\ccsnull \ccspar \ccsnull) \nbeq{ISO} \ccsprefix{\literal{a}}\ccsnull + \ccsprefix{\literal{a}}\ccsnull \beq{ISO} \ccsprefix{\literal{a}} \ccsnull$.
+
+
+<!-- too complicated!
+
+We could establish equivalences like the following:
+
+$$
+\begin{array}{rrcl}
+(1) & \ccsprefix{\coaction{a}} P \ccspar \ccsprefix{a} Q & \beq{B}
+    & \ccsprefix{\coaction{a}} (P \ccspar \ccsprefix{a} Q) \ccschoice \ccsprefix{a} (\ccsprefix{\coaction{a}} P \ccspar Q) \ccschoice \ccsprefix{\tau} (P \ccspar Q) \\
+(2) & (\ccsprefix{a} P \ccschoice \ccsprefix{b} Q) \ccsrestrict A & \beq{B} & \ccsprefix{a} P \ccsrestrict A \ccschoice \ccsprefix{b}Q \ccsrestrict A \\
+(3) & (\ccsprefix{a} P) \ccsrestrict \set{a} & \beq{B} & 0 \\
+(4) & \ccsnull \ccschoice P & \beq{B} & P \\
+(5) & \ccsnull \ccspar P & \beq{B} & P
+\end{array}
+$$
+
+$$
+\begin{array}{rcl}
+&  & (\coaction{\literal{fork}} \ccspar \ccsprefix{\literal{fork} \ccspar \literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}} \\
+& \beq{B} &
+  ( \ccsprefix{\tau} (\ccsnull \ccspar \ccsnull \ccspar \ccsprefix{\literal{fork}} (\literal{a} \ccschoice \literal{b})) \ccschoice \ccsprefix{\tau} ( \ccsnull \ccspar \literal{fork} \ccspar \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}
+\end{array}
+$$
+
+-->
+
+### Quotient Systems and Minimizations
+
+
+::: {#exm-bisim-minimization}
+#### Trolled philosophers, minimized
+
+
+The @exm-bisim-sim
+See @fig-bisim-min-ts
+
+:::: {#fig-bisim-min-ts .column-margin}
+```{mermaid}
+%%| fig-width: 1.5
+flowchart TD
+  q0([T]) -- τ --> qAB([q<sub>ab</sub>])
+  qAB -- a --> qABT([q<sub>123</sub>])
+  qAB -- b --> qABT
+  q0 -- τ --> qABT
+```
+Minimized version of @fig-bisim-sim-ts.
+::::
+
+:::
+
+::: {#def-quotient-ts}
+Given an equivalence relation $\sim$ on states, and a transition system $\system=(\states,\actions,\step{})$,
+each *equivalence class* for $p \in \states$ is defined $\eqclass{p}_{\sim} \defeq \set{p' \in \states \mid p \sim p'}$.
+
+The *quotient system* is defined as $\quotient{\system}{\sim} \defeq (\quotient{\states}{\sim}, \actions, \step{}_{\sim})$, where $\quotient{\states}{\sim}$ is the set of equivalence classes $\set{ \eqclass{p} \mid p \in \states}$, and
+$$p \step{\alpha}_\sim p' \text{ iff there are $p_0 \in p$ and $p'_0 \in p'$ such that $p_0 \step{\alpha} p'_0$.}$$
+
 :::
 
 ## Modal Logic {#sec-hml}

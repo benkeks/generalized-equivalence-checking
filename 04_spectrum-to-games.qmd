@@ -1006,8 +1006,6 @@ Thanks to @lemke2024multiweightedEnergyGames, we can name quite precise bounds f
 
 ::: {#def-lattice-width-below}
 The *width*, $\relwidth_B(b)$, of a (semi-)lattice $(B, \leq)$ below a point $b$ is defined as the maximal size of anti-chains $B' \subseteq \downset \set{b}$. (Cf. @def-lattice.)
-
-The *height*, $\relheight_B(b)$, below $b$ is defined as the size of the maximal size of chains $B' \subseteq \downset \set{b}$.
 :::
 
 ::: {#thm-energy-game-complexity}
@@ -1021,7 +1019,7 @@ Consider the following parameters of an energy game problem on $\game^🗲=(G,G_
 - $o_{\gamemoveblank}$, the out-degree of the game graph $\gamemoveblank$.
 
 Then, @alg-deciding-energy-games computes the minimal attacker winning budgets in
-$$\bigo{ (\relsize{G}^2 + \relheight_{\abstractenergies}(e_{\game})) \cdot \relsize{G} \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.$$
+$$\bigo{ (\relsize{G}^2 + \relsize{\downset \set{e_{\game}}}) \cdot \relsize{G} \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.$$
 
 If $\abstractupdateinv$ is declining, then the following suffices:
 $$

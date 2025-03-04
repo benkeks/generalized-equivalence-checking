@@ -480,21 +480,26 @@ This is the case here because $p \in Q$ and $p \beq{B} p$ by @lem-bisim-bisim.
 Thus, there cannot be $e \in \attackerwins(\attackerpos{p,Q})$.
 :::
 
-For the game graph this means that we do not need to consider any outgoing moves of $\attackerpos{p,\set{p} \cup Q}$-positions.
+For the game graph, this means that we do not need to consider any outgoing moves of $\attackerpos{p,\set{p} \cup Q}$-positions.
 They will not lead to attacker wins anyway.
 All game graph parts that are strictly below such positions can be disregarded.
 
-
-TODO: Game on quotient system
+Another important trick to reduce game size, is to first apply bisimulation-minimization to the transition system and then only construct the spectroscopy game for the minimized system, $\gamespectroscopy^{\quotient{\system}{\beq{B}}}$.
+This approach is sound by the following lemma.
 
 ::: {#lem-quotienting-spectro-game}
-The attacker wins $\attackerpos{p, \set{q}}$ on ${\gamespectroscopy}^{\system}$ with $e$ precisely if they win $\attackerpos{\eqclass{p}, \set{\eqclass{q}}}$ on ${\gamespectroscopy}^{\quotient{\system}{\beq{B}}}$.
+The attacker wins $\attackerpos{p, \set{q}}$ on $\gamespectroscopy^{\system}$ with $e$ precisely if they win $\attackerpos{\eqclass{p}_{\beq{B}}}, \set{\eqclass{q}_{\beq{B}}}$ on $\gamespectroscopy^{\quotient{\system}{\beq{B}}}$.
 :::
 ::: proof
-By definition, $p \beq{B} \eqclass{p}$ and $q \beq{B} \eqclass{q}$ on the merger of $\system$ and $\quotient{\system}{\beq{B}}$.
+By @prp-bisim-minimization, $p \beq{B} \eqclass{p}_{\beq{B}}$ and $q \beq{B} \eqclass{q}_{\beq{B}}$ on the merger of $\system$ and $\quotient{\system}{\beq{B}}$.
 Therefore, the pairs each fulfill the same HML formulas by @thm-hennessy-milner, which implies equal distinguishing formula sets.
 We can use @lem-strong-spectroscopy-game-soundness and @lem-strong-spectroscopy-game-completeness to translate these sets to and from the winning budgets.
 :::
+
+TODO: Benchmarking
+
+So far, the optimizations have been *lossless* in the sense that we do not lose any information on the distinguishability of processes.
+If we are willing to pay with “resolution,” additional reductions of the game graph are possible.
 
 ### The Clever Game {#sec-clever-strong-spectro}
 

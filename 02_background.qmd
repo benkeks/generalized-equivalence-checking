@@ -676,20 +676,23 @@ $$
 
 ### Quotient Systems and Minimizations
 
+One of the prime applications of behavioral equivalences is to battle the *state space explosion problem*:
+The transition systems of parallel processes quickly grow in size, usually exponentially with regard to the number of communication participants.
+But many of the states tend to be equivalent in behavior, and can be treated *as one* with their equals.
+This *minimization* hugely increases the size of models that can be handled in algorithms.
 
 ::: {#exm-bisim-minimization}
 #### Trolled philosophers, minimized
 
-
-The @exm-bisim-sim
-See @fig-bisim-min-ts
+In @exm-bisim-sim of “trolled philosophers,” all terminal states are bisimilar, $\literal{q_1} \beq{B} \literal{q_2} \beq{B} \literal{q_3}$.
+We can thus merge them into one state $\literal{q_{123}^m}$ as depicted in @fig-bisim-min-ts, without affecting the behavioral properties of the other states with respect to bisimilarity, that is, $\literal{q_{ab}} \beq{B} \literal{q_{ab}^m}$ and $\literal{T} \beq{B} \literal{T^m}$.
 
 :::: {#fig-bisim-min-ts .column-margin}
 ```{mermaid}
 %%| fig-width: 1.5
 flowchart TD
-  q0([T]) -- τ --> qAB([q<sub>ab</sub>])
-  qAB -- a --> qABT([q<sub>123</sub>])
+  q0([T<sup>m</sup>]) -- τ --> qAB([q<sub>ab</sub><sup>m</sup>])
+  qAB -- a --> qABT([q<sub>123</sub><sup>m</sup>])
   qAB -- b --> qABT
   q0 -- τ --> qABT
 ```
@@ -703,9 +706,19 @@ Given an equivalence relation $\sim$ on states, and a transition system $\system
 each *equivalence class* for $p \in \states$ is defined $\eqclass{p}_{\sim} \defeq \set{p' \in \states \mid p \sim p'}$.
 
 The *quotient system* is defined as $\quotient{\system}{\sim} \defeq (\quotient{\states}{\sim}, \actions, \step{}_{\sim})$, where $\quotient{\states}{\sim}$ is the set of equivalence classes $\set{ \eqclass{p} \mid p \in \states}$, and
-$$p \step{\alpha}_\sim p' \text{ iff there are $p_0 \in p$ and $p'_0 \in p'$ such that $p_0 \step{\alpha} p'_0$.}$$
-
+$$P \step{\alpha}_\sim P' \text{ iff there are $p \in P$ and $p' \in P'$ such that $p \step{\alpha} p'$.}$$
 :::
+
+::: {#prp-bisim-minimization}
+On the combined system of $\system$ and $\quotient{\system}{\beq{B}^{\system}}$, states and their derived class are bisimilar, $p \beq{B} \eqclass{p}_{\beq{B}^{\system}}$.
+:::
+
+The same reasoning does not apply to graph isomorphism:
+In @exm-bisim-minimization, the terminal states might be graph-isomorphic, but merging them changes the number of states and thus prevents isomorphism between $\literal{T}$ and $\literal{T^m}$.
+
+Together with the issue of congruence, we have now seen two reasons why graph isomorphism does not allow the kind of handling we hope for in behavioral equivalences.
+Thus, the following will focus on equivalences of bisimilarity and below.
+The next section will revisit a deeper, philosophical reason why bisimilarity is a reasonable limit of the properties one might care about in the comparison of processes.
 
 ## Modal Logic {#sec-hml}
 
@@ -851,12 +864,14 @@ The original proof by @hm1980hml uses binary conjunction ($\varphi_1 \land \varp
 ### The Perks of Modal Characterizations {#sec-perks-modal-characterizations}
 
 There is merit in also characterizing other equivalences through sublogics $\observationsvar{} \subseteq \hml$.
-There are three immediate big advantages to modal characterization:
+There are four immediate big advantages to modal characterization:
 
 Modal characterizations lead to *proper preorders and equivalences by design* due to @prp-hml-eq.
 That is, if a behavioral preorder (or equivalence) is defined through modal logics, there is no need of proving transitivity and reflexivity (and symmetry).
 
-Secondly, modal characterizations can directly *unveil the hierarchy between preorders*, if defined cleverly, because of the following property.
+Secondly, checking state equivalence for notions of $\hml$-sublogics *can soundly be reduced to checks on bisimulation-minimized systems* as the transformation does not affect the sets of observations for minimized states (by combining @thm-hennessy-milner and @prp-bisim-minimization).
+
+Thirdly, modal characterizations can directly *unveil the hierarchy between preorders*, if defined cleverly, because of the following property.
 
 ::: {#prp-difference-contraposition}
 If $\observationsvar{} \subseteq \observationsvar[\prime]{}$ then $p \bpreordvar{\observationsvar[\prime]{}} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.{{<isb lemma LTS_Semantics lts_semantics.preorder_contraposition>}}
@@ -864,7 +879,7 @@ If $\observationsvar{} \subseteq \observationsvar[\prime]{}$ then $p \bpreordvar
 
 Pay attention to the opposing directions of $\subseteq$ and implication, here!
 
-Thirdly, as a corollary of @prp-difference-contraposition, modal characterizations *ensure equivalences to be abstractions of bisimilarity*, which is a sensible base notion of equivalence.^[
+Fourthly, as a corollary of @prp-difference-contraposition, modal characterizations *ensure equivalences to be abstractions of bisimilarity*, which is a sensible base notion of equivalence.^[
   Among other things, bisimilarity checking has a better time complexity than other notions as will be discussed in Subsection [-@sec-equivalence-complexities].
 ]
 

@@ -74,3 +74,15 @@ function isb(args)
   end
   
 end
+
+function code_link(args)
+  sub_project = args[1]
+  qualified_name = args[2]
+  url_name = string.gsub(qualified_name, "%.", "/")
+  return
+    pandoc.Inlines {
+      pandoc.Link(qualified_name,
+        "https://github.com/benkeks/equivalence-fiddle/tree/main/" ..
+        sub_project .. "/" .. url_name .. ".scala")
+    }
+end

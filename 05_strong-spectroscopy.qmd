@@ -496,10 +496,70 @@ Therefore, the pairs each fulfill the same HML formulas by @thm-hennessy-milner,
 We can use @lem-strong-spectroscopy-game-soundness and @lem-strong-spectroscopy-game-completeness to translate these sets to and from the winning budgets.
 :::
 
-TODO: Benchmarking
+::: {#exm-pruning-effects}
+
+Both tricks of pruning “symmetric” parts (@lem-symmetric-positions-defender) and pre-minimization by bisimilarity (@lem-quotienting-spectro-game) make an effective difference for the applicability of the spectroscopy approach:
+
+{{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.tool.benchmark.Sizemark >}}
+uses a small example system from @bisping2023equivalenceEnergyGames modelling Peterson's mutual exclusion algorithm.
+The system has only $\relsize{\states} = 20$ states, but a lot of non-determinism due to saturation with internal behavior.
+
+:::: {#fig-minimization-lattice .column-margin}
+
+```tikz
+\begin{tikzpicture}[auto,node distance=3cm,align=right]
+  \node (B13){
+    $\gamespectroscopy$ \\
+    $\relsize{G} = \num{1199904}$ \\
+    $\relsize{\gamemoveblank} = \num{6489300}$
+   };
+  \node (B1)[below left of=B13]{
+    symmetry-pruned \\
+    $\relsize{G} = \num{241419}$ \\
+    $\relsize{\gamemoveblank} = \num{1291824}$
+   };
+  \node (B3)[below right of=B13]{
+    bisim-minimized\vphantom{p} \\
+    $\relsize{G} = \num{661271}$ \\
+    $\relsize{\gamemoveblank} = \num{3523944}$
+   };
+  \node (Bnil)[below right of=B1]{
+    bisim-minimized,\\
+    symmetry-pruned\\
+    $\relsize{G} = \num{67703}$ \\
+    $\relsize{\gamemoveblank} = \num{348474}$
+   };
+  
+  \path
+  (B13)
+    edge (B1)
+    edge (B3)
+  (B1)
+    edge (Bnil)
+  (B3)
+    edge (Bnil);
+\end{tikzpicture}
+```
+
+Example sizes of a spectroscopy game with and without pruning on Peterson's mutex system.
+::::
+
+@fig-minimization-lattice lists the sizes of game graphs on this system.
+The default spectroscopy game at the top has roughly $1200$ thousand game positions.
+
+Pruning symmetric parts removes four fifth of the graph (leaving $241$ thousand positions).
+
+Only applying the bisimulation minimization roughly halves the graph (leaving $661$ thousand positions).
+The bisimulation reduction is suprisingly effective, given that the bisimulation minimized Peterson system still has 19 states, that is, only one less than the originals system.
+On the other hand, bisimilar states are precisely those that allow the biggest space of distinctions, blowing up the game.
+
+Interestingly, the combination of both tricks reduces the game graph to $67$ thousand positions, roughly 5 % of the original size.
+(If the effects of both minimizations were only multiplicative, the number would be around $133$ thousand states.)
+This over-proporionate effect on the one hand has to do with the general exponentialities of the game graph, but also with the fact that bisimulation minimization increases the instances where pruning is applicable.
+:::
 
 So far, the optimizations have been *lossless* in the sense that we do not lose any information on the distinguishability of processes.
-If we are willing to pay with “resolution,” additional reductions of the game graph are possible.
+If we are willing to lose precision, additional reductions of the game graph are possible.
 
 ### The Clever Game {#sec-clever-strong-spectro}
 
@@ -570,6 +630,69 @@ $$
 $$
 
 For space complexity, only game positions are relevant, $\bigo{ \relsize{G_\blacktriangle} \cdot 3^{N-1} \cdot N } = \bigo{ \relsize{\states} \cdot 2^{\relsize{\states}} }$.
+:::
+
+::: {#exm-pruning-effects-clever}
+
+Let us see how the “clever game” adds up with the pruning effects on the Peterson example of @exm-pruning-effects.
+
+:::: {#fig-minimization-lattice-clever .column-margin}
+
+```tikz
+\begin{tikzpicture}[auto,node distance=3cm,align=right]
+  \node (B13){
+    $\gamespectroscopyclever$ \\
+    $\relsize{G_\blacktriangle} = \num{1020}$ \\
+    $\relsize{\gamemoveblank_\blacktriangle} = \num{4774}$
+   };
+  \node (B1)[below left of=B13]{
+    symmetry-pruned \\
+    $\relsize{G_\blacktriangle} = \num{776}$ \\
+    $\relsize{\gamemoveblank_\blacktriangle} = \num{3035}$
+   };
+  \node (B3)[below right of=B13]{
+    bisim-minimized\vphantom{p} \\
+    $\relsize{G_\blacktriangle} = \num{853}$ \\
+    $\relsize{\gamemoveblank_\blacktriangle} = \num{3623}$
+   };
+  \node (Bnil)[below right of=B1]{
+    bisim-minimized,\\
+    symmetry-pruned\\
+    $\relsize{G_\blacktriangle} = \num{664}$ \\
+    $\relsize{\gamemoveblank_\blacktriangle} = \num{2363}$
+   };
+  
+  \path
+  (B13)
+    edge (B1)
+    edge (B3)
+  (B1)
+    edge (Bnil)
+  (B3)
+    edge (Bnil);
+\end{tikzpicture}
+```
+
+Sizes of *clever* spectroscopy games with and without pruning on Peterson's mutex system.
+::::
+
+@fig-minimization-lattice-clever is the lower part of a cube of possible game graph optimizations, where @fig-minimization-lattice has already provided the upper part.
+
+We can directly observe that $\gamespectroscopyclever$ is smaller than $\gamespectroscopy$ *by a factor of more than 1000*, with $1020$ positions instead of $1\,199\,904$.
+This is due to the high non-determinism of the Peterson system, which leads to big $Q$-sets in $\attackerpos{p,Q}$-positions.
+These entail exponentially many conjunction moves in $\gamespectroscopy$, which are absent in the $\gamespectroscopyclever$ subgraph.
+
+The tricks of bisimulation minimization and pruning still pay off, reducing the game positions to 65 % of the unpruned game.
+This is way less effective than in @exm-pruning-effects (where this factor has been 5 %), because the savings are not boosted by exponentialities.
+
+Still, it makes sense to combine all three optimizations.
+All in all, we have reduced the number of positions by a factor of 1800, and the number of moves by factor 2700.
+
+Especially, the cleverness has paid off.
+Without these tricks, the approach would not be applicable to systems with relevant non-determinism due to communication.^[
+  The blowup on Peterson's mutex is precisely the argument I made in the introduction of @bisping2023equivalenceEnergyGames for why one has to move beyond the original spectroscopy algorithm of @bjn2022decidingAllBehavioralEqs.
+  Therefore, the original/deprecated approach also is not present in this thesis.
+]
 :::
 
 ### Instance Games

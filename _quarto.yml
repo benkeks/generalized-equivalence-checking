@@ -124,6 +124,7 @@ diagram:
     tikz:
       execpath: xelatex
       header-includes:
+        - '\usepackage{unicode-math}'
         - '\input{PROJECT/style/preamble.tex}'
         - '\input{PROJECT/style/macros.md}'
  

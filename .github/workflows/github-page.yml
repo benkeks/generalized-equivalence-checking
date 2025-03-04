@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: sudo apt install pdf2svg fonts-linuxlibertine
+        run: sudo apt install pdf2svg fonts-linuxlibertine fonts-stix
 
       - name: Install TeXlive
         uses: teatimeguest/setup-texlive-action@v3

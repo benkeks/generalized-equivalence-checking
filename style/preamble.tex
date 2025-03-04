@@ -9,6 +9,7 @@
 %\usepackage[dvipsnames]{xcolor}
 
 \usepackage{booktabs}
+\usepackage{siunitx}
 
 \usepackage{etoolbox}
 \makeatletter
@@ -37,9 +38,6 @@
 % \SetKwProg{Fn}{def}{\string:}{}
 % \SetKwProg{While}{while}{\string:}{}
 % \SetKwIF{If}{ElseIf}{Else}{if}{\string:}{elif}{else\string:}{}%
-
-%\usepackage{unicode-math}
-%\setmathfont{STIXTwoMath-Regular.otf}
 
 \usepackage{adjustbox}
 \usepackage{pgf}
@@ -87,3 +85,17 @@
 \definecolor{otherPosColor}{RGB}{143, 209, 79}
 \definecolor{negObsColor}{RGB}{18, 205, 212}
 \definecolor{negsColor}{RGB}{101, 44, 179}
+
+\setmathfont{latinmodern-math.otf}
+% replace some glyphs that seem to be missing from latin modern ?!
+\setmathfont{STIX Math}[
+  range={
+    \mdlgblklozenge,
+    \smblklozenge,
+    \mdblksquare,
+    \smblksquare,
+    \blacktriangle,
+    \blacktriangledown,
+    \bigstar,
+  },
+]

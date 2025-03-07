@@ -709,6 +709,80 @@ TODO: Example derived game
 
 TODO: Results on optimization
 
+::: {#fig-instance-games-strong-ltbt-spectrum}
+
+```tikz
+\begin{tikzpicture}[auto,node distance=2.5cm,align=center]
+  \node[fill=purple!30!yellow!60] (B){
+    $\relsize{\gamespectroscopy^{\notionname{B}}} = 105$\\
+    $\infty,\infty,\infty,\infty,\infty,\infty$};
+  \node[fill=purple!67!yellow!60] (S2)[below of=B, node distance=1.2cm]{
+    $\relsize{\gamespectroscopy^{\notionname{2S}}} = 200$\\
+    $\infty,\infty,\infty,\infty,\infty,1$};
+  \node[fill=purple!82!yellow!60] (RS)[below left of=S2]{
+    $\relsize{\gamespectroscopy^{\notionname{RS}}} = 248$\\
+    $\infty,\infty,\infty,\infty,1,1$};
+  \node[fill=purple!96!yellow!60] (RT)[below right of=RS]{
+    $\relsize{\gamespectroscopy^{\notionname{RT}}} = 288$\\
+    $\infty,\infty,\infty,1,1,1$};
+  \node[fill=purple!72!yellow!60] (FT)[below left of=RT]{
+    $\relsize{\gamespectroscopy^{\notionname{FT}}} = 216$\\
+    $\infty,\infty,\infty,0,1,1$};
+  \node[fill=purple!77!yellow!60] (R)[below right of=RT]{
+    $\relsize{\gamespectroscopy^{\notionname{PF}}} = 234$\\
+    $\infty,1,1,1,1,1$};
+  \node[fill=purple!77!yellow!60] (PF)[above right of=R]{
+    $\relsize{\gamespectroscopy^{\notionname{PF}}} = 232$\\
+    $\infty,1,\infty,\infty,\infty,1$};
+  \node[fill=purple!58!yellow!60] (IF)[below right of=R]{
+    $\relsize{\gamespectroscopy^{\notionname{IF}}} = 173$\\
+    $\infty,1,0,0,\infty,1$};
+  \node[fill=purple!32!yellow!60] (S)[left of=FT, node distance=3.8cm]{
+    $\relsize{\gamespectroscopy^{\notionname{1S}}} = 95$\\
+    $\infty,\infty,\infty,\infty,0,0$};
+  \node[fill=purple!58!yellow!60] (RV)[below left of=R]{
+    $\relsize{\gamespectroscopy^{\notionname{RV }}} = 174$\\
+    $\infty,1,1,0,1,1$};
+  \node[fill=purple!58!yellow!60] (F)[below right of=RV]{
+    $\relsize{\gamespectroscopy^{\notionname{F}}} = 174$\\
+    $\infty,1,0,0,1,1$};
+  \node[fill=purple!14!yellow!60] (T)[below left of=F]{
+    $\relsize{\gamespectroscopy^{\notionname{T}}} = 42$\\
+    $\infty,0,0,0,0,0$};
+  \node[fill=purple!10!yellow!60] (E)[below of=T, node distance=1.2cm]{
+    $\relsize{\gamespectroscopy^{\notionname{E}}} = 30$\\
+    $1,0,0,0,0,0$};
+  \node[fill=purple!3!yellow!60] (U)[below of=E, node distance=1.2cm]{
+    $\relsize{\gamespectroscopy^{\notionname{U}}} = 10$\\
+    $0,0,0,0,0,0$};
+
+  \path
+  (B) edge (S2)
+  (S2) edge (RS)
+  (S2) edge (PF)
+  (RS) edge (S)
+  (RS) edge (RT)
+  (RT) edge (R)
+  (RT) edge (FT)
+  (PF) edge (R)
+  (PF) edge (IF)
+  (S) edge (T)
+  (FT) edge (RV)
+  (R) edge (RV)
+  (IF) edge (F)
+  (RV) edge (F)
+  (F) edge (T)
+  (T) edge (E)
+  (E) edge (U)
+  ;
+\end{tikzpicture}
+```
+
+Instance game sizes.
+:::
+
+
+
 ## Discussion
 
 - Mention option of non-perfect attacker information as alternative to subset construction

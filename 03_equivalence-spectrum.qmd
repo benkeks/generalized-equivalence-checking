@@ -581,6 +581,7 @@ Coordinates with respect to the notions of @def-strong-spectrum for the common n
   \node (F)[below right of=RV]{failures $\notionname{F}$\\$\infty,1,0,0,1,1$};
   \node (T)[below left of=F]{traces $\notionname{T}$\\$\infty,0,0,0,0,0$};
   \node (E)[below of=T, node distance=1.2cm]{enabledness $\notionname{E}$\\$1,0,0,0,0,0$};
+  \node (U)[below of=E, node distance=1.2cm]{universal $\notionname{U}$\\$0,0,0,0,0,0$};
 
   \path
   (B) edge (S2)
@@ -599,6 +600,7 @@ Coordinates with respect to the notions of @def-strong-spectrum for the common n
   (RV) edge (F)
   (F) edge (T)
   (T) edge (E)
+  (E) edge (U)
   ;
 \end{tikzpicture}
 ```
@@ -695,11 +697,11 @@ In principle, one can choose different dimensions to characterize the strong lin
 Naturally, one may ask whether the same spectrum can be characterized with less than six dimensions.
 As some of the preceding examples also show, the dimensions we chose are not entirely orthogonal.
 
-If we restrict our focus to a grid of ternary entries $\set{0,1,\infty}$, we can be sure to need at least 4 dimensions:
-With 3 dimensions, the height of the lattice is 7, that is, the maximal number of nodes on increasing paths between $(0,0,0)$ and $(\infty, \infty, \infty)$.
-But the hierarchy of @fig-strong-ltbt-spectrum has height 9!
+If we restrict our focus to a grid of ternary entries $\set{0,1,\infty}$, we can be sure to need at least five dimensions:
+With four dimensions, the height of the lattice is nine, that is, the maximal number of nodes on increasing paths between $(0,0,0,0)$ and $(\infty, \infty, \infty, \infty)$.
+But the hierarchy of @fig-strong-ltbt-spectrum has height ten!
 
-With a grid of 4 ternary dimensions, we can recreate the hierarchy of @fig-strong-ltbt-spectrum.
+With a grid of five ternary dimensions, we can recreate the hierarchy of @fig-strong-ltbt-spectrum, and “hard-code” the logis for coordinates, a bit as it happens in @exm-simple-spectrum.
 On the other hand, this would align less nicely with syntactic features of Hennessy–Milner logic.
 :::
 

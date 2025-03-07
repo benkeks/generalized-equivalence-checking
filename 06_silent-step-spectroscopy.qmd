@@ -12,6 +12,8 @@ This section will be filled, once the journal version of [One Energy Game for th
 
 ### Stable Behavioral Equivalences
 
+Stable bisimulation example / broken def
+
 ### The Adapted Spectroscopy Game
 
 ## The Weak Spectrum

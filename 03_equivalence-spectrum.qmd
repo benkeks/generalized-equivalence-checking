@@ -667,6 +667,9 @@ For many of the logics in @fig-strong-ltbt-spectrum, there are multiple coordina
 For instance, due to the second dimension (conjunctions) being set to $0$ for traces $\notionname{T}$, the higher dimensions do not matter and any coordinate $N = (\infty, 0, N_3, N_4, N_5, N_6)$ will lead to the same observation language $\observationsvar[\literal{strong}]{N} = \observations[\literal{strong}]{T}$.
 
 Indeed, @fig-strong-ltbt-spectrum always selects the least coordinate to characterize a sublogic, which ensures that domination of coordinates in the figure and entailment between behavioral preorders coincide.
+
+At the same time, some notions could be characteirzed by striclty smaller coordinates due to sublogics of matching expressiveness.
+In particular, all $(\infty, \infty, N_3, N_4, \infty, \infty)$ would characterize bisimilarity due to the unbounded possibility of “hiding” positive conjuncts in double negations.
 :::
 
 ::: {#rem-other-coordinates}
@@ -681,6 +684,23 @@ Two kinds of depth-bounded families, however, are common in the literature, and 
 
 - $k$-step bisimilarity: $(k,\infty,\infty,\infty,\infty,\infty)$ is a $k$-observation approximation of bisimilarity that sometimes appears in proofs.^[TODO: look up example]
 - $k$-nested similarity: $(\infty,\infty,\infty,\infty,\infty,k-1)$ for $k>1$ defines a spectrum of modal quantifier alternation depth between similarity and bisimilarity.
+:::
+
+::: {#rem-dimensions}
+#### Fewer/Other Dimensions 
+
+In principle, one can choose different dimensions to characterize the strong linear-time--branching-time spectrum.
+(Indeed, @bjn2022decidingAllBehavioralEqs, @bisping2023equivalenceEnergyGames and the present thesis all use slightly different dimensions.)
+
+Naturally, one may ask whether the same spectrum can be characterized with less than six dimensions.
+As some of the preceding examples also show, the dimensions we chose are not entirely orthogonal.
+
+If we restrict our focus to a grid of ternary entries $\set{0,1,\infty}$, we can be sure to need at least 4 dimensions:
+With 3 dimensions, the height of the lattice is 7, that is, the maximal number of nodes on increasing paths between $(0,0,0)$ and $(\infty, \infty, \infty)$.
+But the hierarchy of @fig-strong-ltbt-spectrum has height 9!
+
+With a grid of 4 ternary dimensions, we can recreate the hierarchy of @fig-strong-ltbt-spectrum.
+On the other hand, this would align less nicely with syntactic features of Hennessy–Milner logic.
 :::
 
 ::: {#rem-infinities}

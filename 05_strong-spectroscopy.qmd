@@ -695,65 +695,111 @@ Without these tricks, the approach would not be applicable to systems with relev
 ]
 :::
 
-### Instance Games
+### Deriving Equivalence Games
 
-We can use the strong spectroscopy game(s) to decide inividual equivalences.
-The core idea is to derive a reachability game according to @def-derived-reachability-game.
-Then, @alg-deciding-games can be employed to decide the game and thus the equivalence.
+We can use the strong spectroscopy game to decide inividual equivalences.
+The core idea is to *derive a reachability game* according to @def-derived-reachability-game, starting with an energy level from the strong spectrum, @def-strong-ltbt-spectrum.
+Then, @alg-deciding-games can be employed to decide player winning regions of the game and thus the equivalence.
 
-<!--
-Given a declining energy game $\game = (G, G_\defender, \gamemoveblank, w)$,
-the *derived reachability game* $\game^R = (G^R, G^R_\defender, \gamemoveblank_R)$ is played on tuples $G^R \defeq G \times (\energies_\infty \cup \set{\bot})$ with $G^R_\defender \defeq G_\defender \times \energies_\infty$.
--->
+::: {#def-derived-eq-game}
+#### Derived Strong Equivalence Games
+
+Given a system $\system=(\states,\actions,\step{})$, a strong notion of equivalence $N \in \notions^\literal{strong}$, and a pair of states $p,q$,
+the *derived $N$-preorder game*$\gamespectroscopyeq{N}^{\system,p,q}$
+
+is defined as the part of the reachability game derived from the spectroscopy game
+$(\gamespectroscopy^{\system})^R$
+under starting position $(\attackerpos{p,\set{q}}, N)$.
+:::
+
+::: {#thm-derive-eq-games-characterize}
+$p \bpreord{\observations{N}} q$ precisely if
+the defender wins the $N$-preorder game ${\gamespectroscopyeq{N}^{\system,p,q}}$ from $(\attackerpos{p,\set{q}}, N)$.
+:::
+:::proof
+By @thm-strong-spectroscopy-game-characterization, $p \bpreordvar{\observationsvar{N}} q$ implies that the defender wins $\gamespectroscopy^{\system}$ from $\attackerpos{p,\set{q}}$ when the attacker starts at energy $N$.
+In other words, $N \notin \attackerwins(\attackerpos{p, \set{q}})$ for $\gamespectroscopy^{\system}$.
+By @prp-derived-reachability-energies, this implies $(\attackerpos{p, \set{q}}, N) \notin \attackerwins$ for the derived reachability game $(\gamespectroscopy^{\system})^R$.
+By @def-derived-eq-game, the defender thus wins $\gamespectroscopyeq{N}^{\system,p,q}$.
+As the proof steps work in both directions, this completes the proof.
+:::
+
+::: {#thm-strong-spectroscopy-game-characterization}
+$p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{strong}$ precisely if the defender wins if the attacker starts with budget $e$.
+:::
+
+Therefore, our results entail decision procedures for each individual equivalence of the strong spectrum.
+
+As the derived game positions are obtained through products of original positions and energies, one might assume the derived preorder games to be way bigger than the pure spectroscopy game.
+But for the named notions, this is usually not the case:
+
+The first important fine point is that many notions have $\infty$-entries and that $\infty - 1 = \infty$.
+For instance, in the derived bisimulation game, starting at $(\infty, \infty, \infty, \infty, \infty, \infty)$, all positions will remain at this energy level.
+Thus, the derived bisimulation game $\gamespectroscopyeq{B}^{\system,p,q}$ has isomorphic positions to $\gamespectroscopy$ under $\attackerpos{p, \set{q}}$.
+
+The other point to consider is that the game is cut off at exhausted energies.
+Therefore, $0$-entries in components lead to smaller games, only using subgraphs of the spectroscopy game.
+
+Only $1$-components grow the derived game graph.
+In principle, each component that changes from $\infty$ to $1$ might roughly double the graph size.
+
+
+
 TODO: Example derived game
 
-TODO: Results on optimization
+TODO: Explain conjunction optimization Justfiy optimization through prior bisim game...
+
+
+::: {#exm-instance-game-sizes}
+Let us see how the instance game sizes behave
+$\relsize{\game} = \relsize{G} + \relsize{\gamemoveblank}$
+:::
 
 ::: {#fig-instance-games-strong-ltbt-spectrum}
 
 ```tikz
 \begin{tikzpicture}[auto,node distance=2.5cm,align=center]
   \node[fill=purple!30!yellow!60] (B){
-    $\relsize{\gamespectroscopy^{\notionname{B}}} = 105$\\
+    $\relsize{\gamespectroscopyeq{\notionname{B}}} = 105$\\
     $\infty,\infty,\infty,\infty,\infty,\infty$};
   \node[fill=purple!67!yellow!60] (S2)[below of=B, node distance=1.2cm]{
-    $\relsize{\gamespectroscopy^{\notionname{2S}}} = 200$\\
+    $\relsize{\gamespectroscopyeq{\notionname{2S}}} = 200$\\
     $\infty,\infty,\infty,\infty,\infty,1$};
   \node[fill=purple!82!yellow!60] (RS)[below left of=S2]{
-    $\relsize{\gamespectroscopy^{\notionname{RS}}} = 248$\\
+    $\relsize{\gamespectroscopyeq{\notionname{RS}}} = 248$\\
     $\infty,\infty,\infty,\infty,1,1$};
   \node[fill=purple!96!yellow!60] (RT)[below right of=RS]{
-    $\relsize{\gamespectroscopy^{\notionname{RT}}} = 288$\\
+    $\relsize{\gamespectroscopyeq{\notionname{RT}}} = 288$\\
     $\infty,\infty,\infty,1,1,1$};
   \node[fill=purple!72!yellow!60] (FT)[below left of=RT]{
-    $\relsize{\gamespectroscopy^{\notionname{FT}}} = 216$\\
+    $\relsize{\gamespectroscopyeq{\notionname{FT}}} = 216$\\
     $\infty,\infty,\infty,0,1,1$};
-  \node[fill=purple!77!yellow!60] (R)[below right of=RT]{
-    $\relsize{\gamespectroscopy^{\notionname{PF}}} = 234$\\
+  \node[fill=purple!42!yellow!60] (R)[below right of=RT]{
+    $\relsize{\gamespectroscopyeq{\notionname{R}}} = 126$\\
     $\infty,1,1,1,1,1$};
-  \node[fill=purple!77!yellow!60] (PF)[above right of=R]{
-    $\relsize{\gamespectroscopy^{\notionname{PF}}} = 232$\\
+  \node[fill=purple!48!yellow!60] (PF)[above right of=R]{
+    $\relsize{\gamespectroscopyeq{\notionname{PF}}} = 144$\\
     $\infty,1,\infty,\infty,\infty,1$};
-  \node[fill=purple!58!yellow!60] (IF)[below right of=R]{
-    $\relsize{\gamespectroscopy^{\notionname{IF}}} = 173$\\
+  \node[fill=purple!30!yellow!60] (IF)[below right of=R]{
+    $\relsize{\gamespectroscopyeq{\notionname{IF}}} = 105$\\
     $\infty,1,0,0,\infty,1$};
   \node[fill=purple!32!yellow!60] (S)[left of=FT, node distance=3.8cm]{
-    $\relsize{\gamespectroscopy^{\notionname{1S}}} = 95$\\
+    $\relsize{\gamespectroscopyeq{\notionname{1S}}} = 95$\\
     $\infty,\infty,\infty,\infty,0,0$};
-  \node[fill=purple!58!yellow!60] (RV)[below left of=R]{
-    $\relsize{\gamespectroscopy^{\notionname{RV }}} = 174$\\
+  \node[fill=purple!32!yellow!60] (RV)[below left of=R]{
+    $\relsize{\gamespectroscopyeq{\notionname{RV }}} = 96$\\
     $\infty,1,1,0,1,1$};
-  \node[fill=purple!58!yellow!60] (F)[below right of=RV]{
-    $\relsize{\gamespectroscopy^{\notionname{F}}} = 174$\\
+  \node[fill=purple!32!yellow!60] (F)[below right of=RV]{
+    $\relsize{\gamespectroscopyeq{\notionname{F}}} = 96$\\
     $\infty,1,0,0,1,1$};
-  \node[fill=purple!14!yellow!60] (T)[below left of=F]{
-    $\relsize{\gamespectroscopy^{\notionname{T}}} = 42$\\
+  \node[fill=purple!7!yellow!60] (T)[below left of=F]{
+    $\relsize{\gamespectroscopyeq{\notionname{T}}} = 20$\\
     $\infty,0,0,0,0,0$};
-  \node[fill=purple!10!yellow!60] (E)[below of=T, node distance=1.2cm]{
-    $\relsize{\gamespectroscopy^{\notionname{E}}} = 30$\\
+  \node[fill=purple!3!yellow!60] (E)[below of=T, node distance=1.2cm]{
+    $\relsize{\gamespectroscopyeq{\notionname{E}}} = 8$\\
     $1,0,0,0,0,0$};
-  \node[fill=purple!3!yellow!60] (U)[below of=E, node distance=1.2cm]{
-    $\relsize{\gamespectroscopy^{\notionname{U}}} = 10$\\
+  \node[fill=purple!1!yellow!60] (U)[below of=E, node distance=1.2cm]{
+    $\relsize{\gamespectroscopyeq{\notionname{U}}} = 2$\\
     $0,0,0,0,0,0$};
 
   \path

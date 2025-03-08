@@ -243,7 +243,7 @@ $$
 :::
 
 The inductive definition is nice as it allows for local proves of how the attacker wins.
-Defender's wins on the other hand would dually be a coinductive concept because the defender wins loops.^[
+Defender's wins on the other hand would dually be a *coinductive concept* because the defender wins loops.^[
   By the way, to those wondering:
   It is intentional that this thesis aims to achieve all its constructions without recurring to coinduction.
   Therefore, coinduction is only mentioned in side remarks and is not required to understand what is going on.
@@ -258,6 +258,16 @@ Given an energy game $\game = (G, G_\defender, \gamemoveblank, \abstractupdate)$
 the *derived reachability game* $\game^R = (G^R, G^R_\defender, \gamemoveblank_R)$ is played on tuples $G^R \defeq G \times (\abstractenergies \cup \set{\bot})$ with $G^R_\defender \defeq G_\defender \times \abstractenergies$.
 Lifted moves $(g, e) \gamemoveblank_R (g', e')$ are possible iff
 $e \neq \bot$, $g \gamemoveblank g'$, and $e' = \abstractupdate(g, g')(e)$.
+:::
+
+Note the fine point that positions of exhausted energy that derive from defender positions are transformed to stuck attacker positions!
+
+Winning regions of the reachability game and winning budgets of the energy game correspond.
+
+::: {#prp-derived-reachability-energies}
+$(g, e) \in \attackerwins^{\game^R}$ precisely if $e \in \attackerwins^{\game}(g)$.^[
+  Lemma 3.4 in @lemke2024multiweightedEnergyGames.
+]
 :::
 
 ::: {#rem-energy-reachability}

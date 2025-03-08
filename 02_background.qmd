@@ -1196,8 +1196,8 @@ This approach has been popularized by @stirling1996modal.
 ::: {#def-bisim-game}
 #### Bisimulation Game
 
-For a transition system $\system$, the *bisimulation game* ${\game}_\notionname{B}^{\system}${{<isb locale Equivalence_Games bisim_game>}} is played on
-attack positions $G^\notionname{B}_\attacker ≔ \states × \states$ and defense positions $G^\notionname{B}_\defender ≔ \actions × \states × \states$ with the following moves:
+For a transition system $\system$, the *bisimulation game* ${\game}_\notionname{B}^{\system}$ is played on
+attack positions $G^\notionname{B}_\attacker ≔ \states × \states$ and defense positions $G^\notionname{B}_\defender ≔ \actions × \states × \states$ with the following moves:{{<isb locale Equivalence_Games bisim_game>}}
 
 - The attacker may *swap sides*
   $$[p, q] \quad \gamemoveblank_\notionname{B} \quad [q, p],$$
@@ -1207,7 +1207,6 @@ attack positions $G^\notionname{B}_\attacker ≔ \states × \states$ and defense
   $$(α, p', q) \quad \gamemoveblank_\notionname{B} \quad [p', q'] \quad \text{if} \quad q \step{α} q'.$$
 :::
 
-\noindent
 A schematic depiction of the game rules can be seen in @fig-game-scheme.
 From dashed nodes, the game proceeds analogously to the initial attacker position.
 

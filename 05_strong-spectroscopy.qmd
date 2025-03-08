@@ -697,7 +697,7 @@ Without these tricks, the approach would not be applicable to systems with relev
 
 ### Deriving Equivalence Games
 
-We can use the strong spectroscopy game to decide inividual equivalences.
+We can use simpler derivatives of the strong spectroscopy game to decide inividual equivalences.
 The core idea is to *derive a reachability game* according to @def-derived-reachability-game, starting with an energy level from the strong spectrum, @def-strong-ltbt-spectrum.
 Then, @alg-deciding-games can be employed to decide player winning regions of the game and thus the equivalence.
 
@@ -705,8 +705,8 @@ Then, @alg-deciding-games can be employed to decide player winning regions of th
 #### Derived Strong Equivalence Games
 
 Given a system $\system=(\states,\actions,\step{})$, a strong notion of equivalence $N \in \notions^\literal{strong}$, and a pair of states $p,q$,
-the *derived $N$-preorder game*$\gamespectroscopyeq{N}^{\system,p,q}$
-
+the *derived $N$-preorder game*
+$\gamespectroscopyeq{N}^{\system,p,q}$
 is defined as the part of the reachability game derived from the spectroscopy game
 $(\gamespectroscopy^{\system})^R$
 under starting position $(\attackerpos{p,\set{q}}, N)$.
@@ -728,10 +728,43 @@ As the proof steps work in both directions, this completes the proof.
 $p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{strong}$ precisely if the defender wins if the attacker starts with budget $e$.
 :::
 
-Therefore, our results entail decision procedures for each individual equivalence of the strong spectrum.
+Using @alg-deciding-games, our results entail decision procedures for each individual equivalence of the strong spectrum.
+
+::: {#exm-spectroscopy-equivalence-checking}
+
+The following processes are two of the more complex ones of the separating examples in @glabbeek2001ltbtsiReport.
+They are equal with respect to ready traces, but not for simulation-like and possible-future-like equivalences.
+
+```ccs
+ABCACB = a.(b.d.0 + c.e.0) + a.(c.f.0 + b.g.0)
+ABC    = a.(b.d.0 + c.e.0 + c.f.0 + b.g.0)
+
+@check "traces",            ABCACB, ABC
+@check "ready-trace",       ABCACB, ABC
+@check "simulation",        ABCACB, ABC
+@check "impossible-future", ABCACB, ABC
+@check "bisimulation",      ABCACB, ABC
+
+@snip "-------------"
+@compare ABCACB, ABC
+ABCACB(x=183, y=136)
+ABC(x=683, y=136)
+"0"(x=404, y=669)
+"c.f.0 + b.g.0"(x=438, y=307)
+"b.d.0 + c.e.0"(x=220, y=424)
+"g.0"(x=441, y=528)
+"f.0"(x=557, y=599)
+"d.0"(x=299, y=520)
+"e.0"(x=259, y=605)
+"b.d.0 + c.e.0 + c.f.0 + b.g.0"(x=627, y=372)
+```
+
+The `@check` keyword performs individual comparisons on `equiv.io`.
+
+:::
 
 As the derived game positions are obtained through products of original positions and energies, one might assume the derived preorder games to be way bigger than the pure spectroscopy game.
-But for the named notions, this is usually not the case:
+But for the named notions, this is usually not the case because of two aspects:
 
 The first important fine point is that many notions have $\infty$-entries and that $\infty - 1 = \infty$.
 For instance, in the derived bisimulation game, starting at $(\infty, \infty, \infty, \infty, \infty, \infty)$, all positions will remain at this energy level.
@@ -741,7 +774,7 @@ The other point to consider is that the game is cut off at exhausted energies.
 Therefore, $0$-entries in components lead to smaller games, only using subgraphs of the spectroscopy game.
 
 Only $1$-components grow the derived game graph.
-In principle, each component that changes from $\infty$ to $1$ might roughly double the graph size.
+In principle, each component that starts at $1$ instead of $\infty$ or $0$ might roughly double the graph size.
 
 
 

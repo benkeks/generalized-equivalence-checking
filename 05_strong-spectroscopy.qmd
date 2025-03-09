@@ -410,7 +410,7 @@ Thus, we can solve the spectroscopy problem of @def-spectroscopy-problem by comp
 #### Differences to Conference Version
 
 As mentioned in @rem-explicit-expr, @bisping2023equivalenceEnergyGames uses a slightly different pricing, where $\expr(\hmltrue) = \unit{2}$.
-This difference is reflected in the game by @def-strong-spectroscopy-game charging for conjunctions $-\unit{2}$ after the defender conjunction positions instead of before.
+This difference is reflected in the game by @def-strong-spectroscopy-game charging $-\unit{2}$ for conjunctions after the defender conjunction positions instead of before.
 With this, the attacker wins $\attackerpos{p, \varnothing} \gamemove{\zerovec} \defenderpos{p, \varnothing, \varnothing}$ with budget $\zerovec$, while the original definition in @bisping2023equivalenceEnergyGames would cost them $\unit{2}$ for $\attackerpos{p, \varnothing} \gamemove{-\unit{2}} \defenderpos{p, \varnothing, \varnothing}$.
 
 Also, @bisping2023equivalenceEnergyGames defines the spectrum coordinates by giving the $\expr$ function instead of an $\observationsvar{N \in \notions}$ hierarchy.
@@ -724,11 +724,10 @@ By @def-derived-eq-game, the defender thus wins $\gamespectroscopyeq{N}^{\system
 As the proof steps work in both directions, this completes the proof.
 :::
 
-::: {#thm-strong-spectroscopy-game-characterization}
-$p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{strong}$ precisely if the defender wins if the attacker starts with budget $e$.
-:::
+The same reasoning works with the clever game version $\gamespectroscopyclever$, restricted to the $\widehat{\notions}^\literal{strong}$-spectrum used in @thm-clever-strong-spectroscopy-correctness.
 
 Using @alg-deciding-games, our results entail decision procedures for each individual equivalence of the strong spectrum.
+Of course, it makes sense for algorithms to employ the clever game and pruning.
 
 ::: {#exm-spectroscopy-equivalence-checking}
 
@@ -760,7 +759,27 @@ ABC(x=683, y=136)
 ```
 
 The `@check` keyword performs individual comparisons on `equiv.io`.
+Invoking the check for traces, for instance, yields the following output:
 
+```
+@check "traces",            ABCACB, ABC
+  - States are equivalent.
+    View game. 
+```
+
+The $\notionname{T}$-preorder game derived from the (pruned clever) spectroscopy game under $\attackerpos{\literal{ABCACB}, \set{\literal{ABC}}}$ is depicted in @fig-derived-trace-eq-game.
+Each position is won by the defender (hinted at by the positions being colored in blue).
+
+:::: {#fig-derived-trace-eq-game fig-pos='t' fig-env="figure*"}
+```dot
+digraph rel{-1531522041 [shape=circle, width=2, fixedsize=true, color=blue, style=bold, label="ABCACB, {ABC}, {}\n(∞,0,0,0,0,0)"];-1478041764 [shape=square, color=blue, style=bold, label="ABCACB, {ABC}\n(∞,0,0,0,0,0)"];1890643406 [shape=square, color=blue, style=bold, label="c.f + b.g, b.d + c.e + c.f + b.g\n(∞,-1,0,0,0,0)"];-407584024 [shape=square, color=blue, style=bold, label="b.d + c.e, b.d + c.e + c.f + b.g\n(∞,-1,0,0,0,0)"];-1030115238 [shape=circle, width=2, fixedsize=true, color=blue, style=bold, label="c.f + b.g, {b.d + c.e + c.f + b.g}, {}\n(∞,0,0,0,0,0)"];490779022 [shape=circle, width=2, fixedsize=true, color=blue, style=bold, label="b.d + c.e, {b.d + c.e + c.f + b.g}, {}\n(∞,0,0,0,0,0)"];1655621242 [shape=square, color=blue, style=bold, label="ABCACB, ABC\n(∞,-1,0,0,0,0)"];695410661 [shape=square, color=blue, style=bold, label="e, {e,f}\n(∞,0,0,0,0,0)"];945131307 [shape=square, color=blue, style=bold, label="g, {g,d}\n(∞,0,0,0,0,0)"];-58372795 [shape=square, color=blue, style=bold, label="c.f + b.g, {b.d + c.e + c.f + b.g}\n(∞,0,0,0,0,0)"];1777001188 [shape=square, color=blue, style=bold, label="d, {g,d}\n(∞,0,0,0,0,0)"];11287976 [shape=square, color=blue, style=bold, label="b.d + c.e, {b.d + c.e + c.f + b.g}\n(∞,0,0,0,0,0)"];-1092705565 [shape=square, color=blue, style=bold, label="f, {e,f}\n(∞,0,0,0,0,0)"];-1531522041->1655621242[color=black, label="(0,-1,0,min{3,4},0,0)"];-1478041764->11287976[color=black, label="(-1,0,0,0,0,0)"];-1478041764->-58372795[color=black, label="(-1,0,0,0,0,0)"];-1478041764->-1531522041[color=black, label="(0,0,0,0,0,0)"];-1030115238->1890643406[color=black, label="(0,-1,0,min{3,4},0,0)"];490779022->-407584024[color=black, label="(0,-1,0,min{3,4},0,0)"];-58372795->945131307[color=black, label="(-1,0,0,0,0,0)"];-58372795->-1092705565[color=black, label="(-1,0,0,0,0,0)"];-58372795->-1030115238[color=black, label="(0,0,0,0,0,0)"];11287976->1777001188[color=black, label="(-1,0,0,0,0,0)"];11287976->695410661[color=black, label="(-1,0,0,0,0,0)"];11287976->490779022[color=black, label="(0,0,0,,0,0)"]}
+```
+Pruned clever strong spectroscopy game below $\attackerpos{\literal{ABCACB}, \set{\literal{ABC}}}$ instantiated to starting energy $\notionname{T} = (\infty, 0,0,0,0,0)$ to decide trace equivalence.
+::::
+
+Maybe interestingly, the derived reachability game of @fig-derived-trace-eq-game has fewer positions than the pruned clever spectroscopy game below $\attackerpos{\literal{ABCACB}, \set{\literal{ABC}}}$ would have.^[
+  Incidentally, the answer to the question how many positions this spectroscopy game would have is 42.
+]
 :::
 
 As the derived game positions are obtained through products of original positions and energies, one might assume the derived preorder games to be way bigger than the pure spectroscopy game.
@@ -776,11 +795,83 @@ Therefore, $0$-entries in components lead to smaller games, only using subgraphs
 Only $1$-components grow the derived game graph.
 In principle, each component that starts at $1$ instead of $\infty$ or $0$ might roughly double the graph size.
 
+The *equiv.io* implementation, does prune some attacker moves that cannot be winning, in particular non-empty conjunctions if the conjunction budget is at 0.
+Therefore, the subgame used by the tool for @exm-spectroscopy-equivalence-checking, in reality is the one in @fig-derived-trace-eq-game-true.
 
+:::{#fig-derived-trace-eq-game-true fig-pos='t' fig-env="figure*"}
+```dot
+digraph rel{695410661 [shape=square, color=blue, style=bold, label="e, {e,f}\n(∞,0,0,0,0,0)"];945131307 [shape=square, color=blue, style=bold, label="g, {g,d}\n(∞,0,0,0,0,0)"];-58372795 [shape=square, color=blue, style=bold, label="c.f + b.g, {b.d + c.e + c.f + b.g}\n(∞,0,0,0,0,0)"];-1478041764 [shape=square, color=blue, style=bold, label="ABCACB, {ABC}\n(∞,0,0,0,0,0)"];1777001188 [shape=square, color=blue, style=bold, label="d, {g,d}\n(∞,0,0,0,0,0)"];11287976 [shape=square, color=blue, style=bold, label="b.d + c.e, {b.d + c.e + c.f + b.g}\n(∞,0,0,0,0,0)"];-1092705565 [shape=square, color=blue, style=bold, label="f, {e,f}\n(∞,0,0,0,0,0)"];-58372795->945131307[color=black, label="(-1,0,0,0,0,0)"];-58372795->-1092705565[color=black, label="(-1,0,0,0,0,0)"];-1478041764->11287976[color=black, label="(-1,0,0,0,0,0)"];-1478041764->-58372795[color=black, label="(-1,0,0,0,0,0)"];11287976->1777001188[color=black, label="(-1,0,0,0,0,0)"];11287976->695410661[color=black, label="(-1,0,0,0,0,0)"]}
+```
 
-TODO: Example derived game
+The subgame of @fig-derived-trace-eq-game that actually is used in *equiv.io*, disregarding some attacker options.
+:::
 
-TODO: Explain conjunction optimization Justfiy optimization through prior bisim game...
+Still, non-determinism in the transition system might lead to exponentially-sized derived games.
+Especially in the case of bisimilarity and similarity, such a blow up is not necessary as @sec-approach has shown.
+
+### Regaining Polynomiality in Derived Equivalence Games
+
+:::{#prp-defender-options}
+If the attacker wins $(\attackerpos{p, Q}, e)$ in a derived preorder game $\gamespectroscopyeq{N}$ or $\gamespectroscopyceq{N}$, they also win $(\attackerpos{p, Q'}, e)$ for all $Q' \subseteq Q$.
+:::
+:::proof
+If the attacker wins $\attackerpos{p, Q}$ with $e$ in a spectroscopy game, they also win $\attackerpos{p, Q'}$ with $e$ for all $Q' \subseteq Q$.
+This is a side-consequence of the spectroscopy characterization (@lem-strong-spectroscopy-game-soundness and -@lem-strong-spectroscopy-game-completeness) through distinctions, as 
+$Q \cap \semantics{\varphi} = \varnothing$ implies $Q' \cap \semantics{\varphi} = \varnothing$ for any $\varphi$.^[TODO: Try this out in Isabelle project]
+
+We can lift this result immediately to the derived preorder games as in @thm-derive-eq-games-characterize.
+:::
+<!--
+:::proof
+The attacker's win must be due to a move sequence along a path of transitions to an attacker-won defender position $\attackerpos{p, Q} \gamemoveblank \attackerpos{p_1, Q_1} \gamemoveblank \dots \gamemoveblank \attackerpos{p_n, Q_n} \gamemoveblank \defenderpos{p_n, Q_n \setminus Q_*, Q_*}$ with $\varnothing \neq Q_* \subseteq Q_n$.
+
+The same transitions justify a move sequence $\attackerpos{p, Q'} \gamemoveblank \attackerpos{p_1, Q'_1} \gamemoveblank \dots \gamemoveblank \attackerpos{p_n, Q_n} \gamemoveblank \defenderpos{p_n, Q'_n \setminus Q'_*, Q'_*}$ with $Q'_* = Q_* \cap Q'_n$, where each $Q'_n \subseteq Q_n$.
+These moves must also be winning for the attacker:
+
+Every conjunction answer $\attackerpos[\wedge]{p_n, q}$ with $q \in Q'_n \setminus Q'_*$ the defender may choose would also be possible from the end of the original move sequence.
+If the defender decides for the revival to $\attackerpos{p_n,Q'_*}$, we can continue to apply our strategy transfer from $\attackerpos{p_n,Q_*}$, since $Q'_* \subseteq Q_*$ and since the well-foundedness of the original attacker strategy ensures that the defender options must come to an end at some point. 
+:::-->
+
+:::{#lem-conjunction-optimization}
+If the attacker wins $(\attackerpos{p, Q}, e)$ with $\relsize{Q} > 1$ in a derived preorder game with $e \geq (0,\infty,\infty,\infty,0,0)$, then they can also win without using any observation moves of the form $(\attackerpos{p, Q}, e) \gamemoveblank (\attackerpos{p', Q'}, e')$.
+:::
+:::proof
+The move must be due to a transition $p \step{α} p'$ with $Q \step{α} Q'$. 
+Instead of the observation, the attacker can move to a conjunction $(\attackerpos{p, Q}, e) \gamemoveblank (\defenderpos{p, Q, \varnothing}, e)$.
+After the defender choice of $q \in Q$, the game continues $\dots \gamemoveblank (\attackerpos[\wedge]{p, q}, e) \gamemoveblank (\attackerpos{p, \set{q}}, e) \gamemoveblank (\attackerpos{p', \derivatives{q, α}}, e')$, thanks to the sufficient energy budget.
+As $\derivatives{q, α} \subseteq Q'$, we can use @prp-defender-options.
+:::
+
+As a consequence, we can bound 
+
+:::{#lem-optimized-eq-complexity}
+For $N \geq (0,\infty,\infty,\infty,0,0)$ and $N \in \set{0, 1, \infty}^6$, one can decide $p \bpreord{\observations{N}} q$ 
+in $\bigo{...}$ time and space
+by deciding who wins the $N$-preorder game.
+:::
+:::proof
+@lem-conjunction-optimization
+TODO
+
+We observe that the energies in the game might only create a constant increase in the size, compared to the underlying spectroscopy game.
+Therefore, the following arguments focus on the latter.
+
+@lem-conjunction-optimization allows us to prune away all moves deriving from observations from $\attackerpos{p,Q}$ with $\relsize{Q} > 1$.
+The pruning restricts the possibilities of $Q$ that can appear on the right-hand side of $\attackerpos{p,Q}$-positions to the sets $\derivatives{\cdot, \cdot}$, that is, to $\relsize{\states} \cdot \relsize{\actions}$ options.
+Therefore, these attacker positions are bounded by $\bigo{\relsize{\states}^2 \cdot \relsize{\actions}}$.
+
+In the clever spectroscopy game, there is a maximum of only five defender positions per such attacker position.
+Also, the following attacker conjunct positions, bounded by $\relsize{\states}^2$, do not affect the bound.
+
+For the moves, only the amounts of observation moves and conjunct answers can impact complexity.
+The observations are bounded in $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$,
+and the conjunct answers in $\bigo{\relsize{\states}}$, which is dominated by the first. 
+
+the size of the $N$-preorder game derived from the clever spectroscopy game is polynomial, $\relsize{G_{\blacktriangle N}} \in \bigo{\relsize{\states} \cdot \relsize{\step{}}}$.
+
+@prp-reachability-game-complexity
+
+:::
 
 
 ::: {#exm-instance-game-sizes}
@@ -793,46 +884,46 @@ $\relsize{\game} = \relsize{G} + \relsize{\gamemoveblank}$
 ```tikz
 \begin{tikzpicture}[auto,node distance=2.5cm,align=center]
   \node[fill=purple!30!yellow!60] (B){
-    $\relsize{\gamespectroscopyeq{\notionname{B}}} = 105$\\
+    $\relsize{\gamespectroscopyceq{\notionname{B}}} = 105$\\
     $\infty,\infty,\infty,\infty,\infty,\infty$};
   \node[fill=purple!67!yellow!60] (S2)[below of=B, node distance=1.2cm]{
-    $\relsize{\gamespectroscopyeq{\notionname{2S}}} = 200$\\
+    $\relsize{\gamespectroscopyceq{\notionname{2S}}} = 200$\\
     $\infty,\infty,\infty,\infty,\infty,1$};
   \node[fill=purple!82!yellow!60] (RS)[below left of=S2]{
-    $\relsize{\gamespectroscopyeq{\notionname{RS}}} = 248$\\
+    $\relsize{\gamespectroscopyceq{\notionname{RS}}} = 248$\\
     $\infty,\infty,\infty,\infty,1,1$};
   \node[fill=purple!96!yellow!60] (RT)[below right of=RS]{
-    $\relsize{\gamespectroscopyeq{\notionname{RT}}} = 288$\\
+    $\relsize{\gamespectroscopyceq{\notionname{RT}}} = 288$\\
     $\infty,\infty,\infty,1,1,1$};
   \node[fill=purple!72!yellow!60] (FT)[below left of=RT]{
-    $\relsize{\gamespectroscopyeq{\notionname{FT}}} = 216$\\
+    $\relsize{\gamespectroscopyceq{\notionname{FT}}} = 216$\\
     $\infty,\infty,\infty,0,1,1$};
   \node[fill=purple!42!yellow!60] (R)[below right of=RT]{
-    $\relsize{\gamespectroscopyeq{\notionname{R}}} = 126$\\
+    $\relsize{\gamespectroscopyceq{\notionname{R}}} = 126$\\
     $\infty,1,1,1,1,1$};
   \node[fill=purple!48!yellow!60] (PF)[above right of=R]{
-    $\relsize{\gamespectroscopyeq{\notionname{PF}}} = 144$\\
+    $\relsize{\gamespectroscopyceq{\notionname{PF}}} = 144$\\
     $\infty,1,\infty,\infty,\infty,1$};
   \node[fill=purple!30!yellow!60] (IF)[below right of=R]{
-    $\relsize{\gamespectroscopyeq{\notionname{IF}}} = 105$\\
+    $\relsize{\gamespectroscopyceq{\notionname{IF}}} = 105$\\
     $\infty,1,0,0,\infty,1$};
   \node[fill=purple!32!yellow!60] (S)[left of=FT, node distance=3.8cm]{
-    $\relsize{\gamespectroscopyeq{\notionname{1S}}} = 95$\\
+    $\relsize{\gamespectroscopyceq{\notionname{1S}}} = 95$\\
     $\infty,\infty,\infty,\infty,0,0$};
   \node[fill=purple!32!yellow!60] (RV)[below left of=R]{
-    $\relsize{\gamespectroscopyeq{\notionname{RV }}} = 96$\\
+    $\relsize{\gamespectroscopyceq{\notionname{RV }}} = 96$\\
     $\infty,1,1,0,1,1$};
   \node[fill=purple!32!yellow!60] (F)[below right of=RV]{
-    $\relsize{\gamespectroscopyeq{\notionname{F}}} = 96$\\
+    $\relsize{\gamespectroscopyceq{\notionname{F}}} = 96$\\
     $\infty,1,0,0,1,1$};
   \node[fill=purple!7!yellow!60] (T)[below left of=F]{
-    $\relsize{\gamespectroscopyeq{\notionname{T}}} = 20$\\
+    $\relsize{\gamespectroscopyceq{\notionname{T}}} = 20$\\
     $\infty,0,0,0,0,0$};
   \node[fill=purple!3!yellow!60] (E)[below of=T, node distance=1.2cm]{
-    $\relsize{\gamespectroscopyeq{\notionname{E}}} = 8$\\
+    $\relsize{\gamespectroscopyceq{\notionname{E}}} = 8$\\
     $1,0,0,0,0,0$};
   \node[fill=purple!1!yellow!60] (U)[below of=E, node distance=1.2cm]{
-    $\relsize{\gamespectroscopyeq{\notionname{U}}} = 2$\\
+    $\relsize{\gamespectroscopyceq{\notionname{U}}} = 2$\\
     $0,0,0,0,0,0$};
 
   \path

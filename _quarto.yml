@@ -127,4 +127,6 @@ diagram:
         - '\usepackage{unicode-math}'
         - '\input{PROJECT/style/preamble.tex}'
         - '\input{PROJECT/style/macros.md}'
- 
+    dot:
+      execpath: dot
+      format: svg

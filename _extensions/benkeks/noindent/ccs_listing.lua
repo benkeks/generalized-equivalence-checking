@@ -17,8 +17,11 @@ function CodeBlock(block)
   end
   return
     pandoc.Blocks {
+      pandoc.Div(
+        pandoc.Link(link_text,
+        "https://equiv.io/#code=" .. encoded_snippet),
+        {class = "column-margin"}
+      ),
       block,
-      pandoc.Link(link_text,
-        "https://equiv.io/#code=" .. encoded_snippet)
     }
 end

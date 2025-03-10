@@ -880,7 +880,9 @@ For the moves, only the amounts of observation moves and conjunct answers can im
 The observations are bounded in $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$,
 and the conjunct answers in $\bigo{\relsize{\states}}$, which is dominated by the first. 
 
-Inserting our bounds in @prp-reachability-game-complexity, we get a time complexity of $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ and $\bigo{\relsize{\states}^2 \cdot \relsize{\actions}}$ space.
+Inserting our bounds in @prp-reachability-game-complexity, we get a time complexity of $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ and $\bigo{\relsize{\states}^2 \cdot \relsize{\actions}}$ space.^[
+  This is with the understanding that the $\bigo{\relsize{\states}^2 \cdot \relsize{\actions}}$ is dominated by $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ with respect to time---of course, each position must be constrcucted at some point.
+]
 :::
 
 ::: {#exm-instance-game-sizes}
@@ -962,15 +964,13 @@ Red parts symbolize bigger game graphs.
 Instance game sizes of @exm-instance-game-sizes.
 ::::
 
-Observations:
-
-- Many zeros reduce game graph size.
-- Infty might be better than 1s (B vs 2S)
-- RT, where all dimensions play a role, the most costy.
-
+The data match our thoughts on game sizes in @sec-deriving-eq-games.
+For instance, around the trace game $\gamespectroscopyceq{\notionname{T}}$, we can observe that zero-components usually reduce the game graph size.
+Between mutual simulation $\gamespectroscopyceq{\notionname{1S}}$ and bisimulation $\gamespectroscopyceq{\notionname{B}}$, one can see that $\infty$-components and $0$-components are usually better than $1$-components.
+The game for ready traces $\gamespectroscopyceq{\notionname{RT}}$, where all dimensions play a role, is the most costy.
 :::
 
-
+TODO: Maybe also example where non-determinism has more effect?
 
 ## Discussion
 

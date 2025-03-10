@@ -851,44 +851,46 @@ After the defender choice of $q \in Q$, the game continues $\dots \gamemoveblank
 As $\derivatives{q, α} \subseteq Q'$, we can use @prp-defender-options.
 :::
 
-As a consequence, we can bound 
+As a consequence, we can obtain a polynomial complexity bound for equivalences that do not restrict conjunctions and positive conjuncts.
 
 :::{#lem-optimized-eq-complexity}
-For $N \geq (0,\infty,\infty,\infty,0,0)$ and $N \in \set{0, 1, \infty}^6$, one can decide $p \bpreord{\observations{N}} q$ 
-in $\bigo{...}$ time and space
-by deciding who wins the $N$-preorder game.
+For a strong notion $N \in \set{0, 1, \infty}^6$ with $N \geq (0,\infty,\infty,\infty,0,0)$, and a system $(\states,\actions,\step{})$,
+one can decide $p \bpreord{\observations{N}} q$ in polynomial time,
+by computing who wins the $N$-preorder game in $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ time and $\bigo{\relsize{\states}^2 \cdot \relsize{\actions}}$ space.
 :::
 :::proof
-@lem-conjunction-optimization
-TODO
+We can use the clever version of the strong spectroscopy game $\gamespectroscopyclever$ to decide individual equivalences for these coordinates by @thm-derive-eq-games-characterize and @thm-clever-strong-spectroscopy-correctness.
+For $N \geq (0,\infty,\infty,\infty,0,0)$, this also works on the subgraph where non-determinism is resolved immediately thanks to @lem-conjunction-optimization.
 
-We observe that the energies in the game might only create a constant increase in the size, compared to the underlying spectroscopy game.
+We want to use that, according to @prp-reachability-game-complexity, deciding a reachability game $(G,G_\defender,\gamemoveblank)$ takes $\bigo{\relsize{\gamemoveblank}}$ time and $\bigo{\relsize{G}}$ space.
+
+We observe that the ${0,1,\infty}$-valued energy components in the game might only create a constant-factor increase in the size of $\gamespectroscopyceq{N}$, compared to the underlying game $\gamespectroscopyclever$.^[
+  If we were to allow $k$-step equivalences as in @fig-polynomial-strong-spectrum, the $k$ would also become a factor.
+]
 Therefore, the following arguments focus on the latter.
 
 @lem-conjunction-optimization allows us to prune away all moves deriving from observations from $\attackerpos{p,Q}$ with $\relsize{Q} > 1$.
 The pruning restricts the possibilities of $Q$ that can appear on the right-hand side of $\attackerpos{p,Q}$-positions to the sets $\derivatives{\cdot, \cdot}$, that is, to $\relsize{\states} \cdot \relsize{\actions}$ options.
 Therefore, these attacker positions are bounded by $\bigo{\relsize{\states}^2 \cdot \relsize{\actions}}$.
 
-In the clever spectroscopy game, there is a maximum of only five defender positions per such attacker position.
+In the clever spectroscopy game $\gamespectroscopyclever$, there is a maximum of only five defender positions per such attacker position.
 Also, the following attacker conjunct positions, bounded by $\relsize{\states}^2$, do not affect the bound.
 
 For the moves, only the amounts of observation moves and conjunct answers can impact complexity.
 The observations are bounded in $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$,
 and the conjunct answers in $\bigo{\relsize{\states}}$, which is dominated by the first. 
 
-the size of the $N$-preorder game derived from the clever spectroscopy game is polynomial, $\relsize{G_{\blacktriangle N}} \in \bigo{\relsize{\states} \cdot \relsize{\step{}}}$.
-
-@prp-reachability-game-complexity
-
+Inserting our bounds in @prp-reachability-game-complexity, we get a time complexity of $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ and $\bigo{\relsize{\states}^2 \cdot \relsize{\actions}}$ space.
 :::
-
 
 ::: {#exm-instance-game-sizes}
-Let us see how the instance game sizes behave
-$\relsize{\game} = \relsize{G} + \relsize{\gamemoveblank}$
-:::
+Let us see how the instance game sizes behave on @fig-instance-games-strong-ltbt-spectrum the games of @exm-spectroscopy-equivalence-checking!
+@fig-instance-games-strong-ltbt-spectrum maps out the sizes of game instantiations for the preorders of the strong spectrum @fig-strong-ltbt-spectrum.
+Each game is derived from the clever spectroscopy game, with pruning and with capped non-determinsm where possible; to enable equivalence checks, the games combine the parts under $\attackerpos{\literal{ABCACB}, \set{\literal{ABC}}}$ and under $\attackerpos{\literal{ABC}, \set{\literal{ABCACB}}}$.
+The game size is defined as the sum of positions and moves, $\relsize{\game} = \relsize{G} + \relsize{\gamemoveblank}$.
+Red parts symbolize bigger game graphs.
 
-::: {#fig-instance-games-strong-ltbt-spectrum}
+:::: {#fig-instance-games-strong-ltbt-spectrum}
 
 ```tikz
 \begin{tikzpicture}[auto,node distance=2.5cm,align=center]
@@ -957,7 +959,15 @@ $\relsize{\game} = \relsize{G} + \relsize{\gamemoveblank}$
 \end{tikzpicture}
 ```
 
-Instance game sizes.
+Instance game sizes of @exm-instance-game-sizes.
+::::
+
+Observations:
+
+- Many zeros reduce game graph size.
+- Infty might be better than 1s (B vs 2S)
+- RT, where all dimensions play a role, the most costy.
+
 :::
 
 
@@ -968,3 +978,4 @@ Instance game sizes.
 - Difference to @bjn2022decidingAllBehavioralEqs:
   - Lower exponentiality in conjunctions
   - No explicit construction of formulas
+- mention that  $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ matches best algos for simulation, but not for bisimulation.

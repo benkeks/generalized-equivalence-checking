@@ -11,57 +11,118 @@
 ::: {#def-stable-spectroscopy-game}
 
 For a system $\system=(\states,\actions,\step{})$,
-the $6$-dimensional *strong spectroscopy energy game*
-$\gamespectroscopy^{\system}=(G,G_{\defender},\gamemoveblank,w)$
+the $8$-dimensional *weak spectroscopy energy game*
+$\gamespectroscopyw^{\system}=(G,G_{\defender},\gamemoveblank,w)$
 consists of
 
 - *attacker positions* $\attackerpos{p,Q} \in G_\attacker$,
-- **new:** *attacker delayed positions* $\attackerpos[\epsilon]{p,Q} \in G_\attacker$,
+- **new:** *attacker delayed positions* $\attackerpos[\varepsilon]{p,Q} \in G_\attacker$,
 - *attacker conjunct positions* $\attackerpos[\land]{p,q} \in G_\attacker$,
-- *defender conjunction positions* $\defenderpos{p,Q,Q_*} \in G_\defender$,
+- **new:** *attacker branching positions* $\attackerpos[\eta]{p,Q} \in G_\defender$,
+- *defender conjunction positions* $\defenderpos{p,Q} \in G_\defender$,
+- **new:** *defender stable conjunction positions* $\defenderpos{p,Q} \in G_\defender$,
+- **new:** *defender branching positions* $\defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha} \in G_\defender$,
 
-where $p, q \in \states$ and $Q, Q_* \in \powerset{\states}$, and six kinds of moves:
+where $p, q \in \states$ and $Q, Q_\alpha \in \powerset{\states}$, and sixteen kinds of moves:
 $$
 \begin{array}{rrcll}
+  \textit{delay}
+  & \attackerpos{p,Q}
+  & \gamemove{0,0,0,0,0,0,0,0}
+  & \attackerpos[\varepsilon]{p,Q'}
+  & \text{if $Q \stepweak Q'$,}
+  \\
+  \textit{procrastination}
+  & \attackerpos[\varepsilon]{p,Q}
+  & \gamemove{0,0,0,0,0,0,0,0}
+  & \attackerpos[\varepsilon]{p',Q}
+  & \text{if $p \step{\tau} p'$, $p \neq p'$,}
+  \\
   \textit{observation}
+  & \attackerpos[\varepsilon]{p,Q}
+  & \gamemove{-1,0,0,0,0,0,0,0}
+  & \attackerpos{p',Q'}
+  & \text{if $p \step{a} p'$, $Q \step{a} Q'$, $a \neq \tau$,}
+  \\
+  \textit{finishing}
+  & \attackerpos{p,\varnothing}
+  & \gamemove{0,0,0,0,0,0,0,0}
+  & \defenderpos{p,\varnothing},
+  &
+  \\
+  \textit{immediate conj.}
   & \attackerpos{p,Q}
-  & \gamemove{-1,0,0,0,0,0}
-  & \attackerpos{p', Q'}
-  & \text{if $p \step{\alpha} p^\prime$\!, $Q \step{\alpha} Q'$,}
+  & \gamemove{0,0,0,0,-1,0,0,0}
+  & \defenderpos{p,Q}
+  & \text{if $Q \neq \varnothing$,}
   \\
-  \textit{conjunction}
-  & \attackerpos{p,Q}
-  & \gamemove{0,0,0,0,0,0}
-  & \defenderpos{p,Q \setminus Q_*, Q_*}
-  & \text{if $Q_* \subseteq Q$,}
+  \textit{late conj.}
+  & \attackerpos[\varepsilon]{p,Q}
+  & \gamemove{0,0,0,0,0,0,0,0}
+  & \defenderpos{p,Q},
+  &
   \\
-  \textit{conj.~revival}
-  & \defenderpos{p,Q,Q_*}
-  & \gamemove{\updmin{1,3},-1,0,0,0,0}
-  & \attackerpos{p,Q_*}
-  & \text{if $Q_* \neq \varnothing$,}
-  \\
-  \textit{conj.~answer}
-  & \defenderpos{p,Q,Q_*}
-  & \gamemove{0,-1,0,\updmin{3,4},0,0}
+  \textit{conj. answer}
+  & \defenderpos{p,Q}
+  & \gamemove{0,0,-1,0,0,0,0,0}
   & \attackerpos[\land]{p,q}
   & \text{if $q \in Q$,}
   \\
   \textit{positive conjunct}
   & \attackerpos[\land]{p,q}
-  & \gamemove{\updmin{1,4},0,0,0,0,0}
-  & \attackerpos{p,\{q\}},
-  & \text{and}
+  & \gamemove{\updmin{1,6},0,0,0,0,0,0,0}
+  & \attackerpos[\varepsilon]{p,Q}
+  & \text{if $\{q\} \stepweak Q$,}
   \\
   \textit{negative conjunct}
   & \attackerpos[\land]{p,q}
-  & \gamemove{\updmin{1,5},0,0,0,0,-1}
-  & \attackerpos{q,\{p\}}
-  & \text{if $p \neq q$.}
-    \\
+  & \gamemove{\updmin{1,7},0,0,0,0,0,0,-1}
+  & \attackerpos[\varepsilon]{q,Q}
+  & \text{if $\{p\} \stepweak Q$ and $p \neq q$,}
+  \\
+  \textit{branching conj.}
+  & \attackerpos[\varepsilon]{p,Q}
+  & \gamemove{0,0,0,0,0,0,0,0}
+  & \defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}
+  & \text{if $p \step{\hmlopt\alpha} p'$, $Q_\alpha \subseteq Q$,}
+  \\
+  \textit{branch. answer}
+  & \defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha}
+  & \gamemove{0,-1,-1,0,0,0,0,0}
+  & \attackerpos[\land]{p,q}
+  & \text{if $q \in Q$,}
+  \\
+  \textit{branch. observation}
+  & \defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha}
+  & \gamemove{\updmin{1,6},-1,-1,0,0,0,0,0}
+  & \attackerpos[\eta]{p',Q'}
+  & \text{with $Q_\alpha \step{\hmlopt\alpha} Q'$,}
+  \\
+  \textit{branch. accounting}
+  & \attackerpos[\eta]{p,Q}
+  & \gamemove{-1,0,0,0,0,0,0,0}
+  & \attackerpos{p,Q},
+  \\
+  \textit{stable conj.}
+  & \attackerpos[\varepsilon]{p,Q}
+  & \gamemove{0,0,0,0,0,0,0,0}
+  & \defenderpos[s]{p,Q'}
+  & \text{if } Q' = \set{ q \in Q \mid q \nostep{\tau}}, p \nostep{\tau},
+  \\
+  \textit{conj. stable answer}
+  & \defenderpos[s]{p,Q}
+  & \gamemove{0,0,0,-1,0,0,0,0}
+  & \attackerpos[\land]{p,q}
+  & \text{if $q \in Q$,}
+  \\
+  \textit{stable finishing}
+  & \defenderpos[s]{p,\varnothing}
+  & \gamemove{0,0,0,-1,0,0,0,-1}
+  & \defenderpos{p,\varnothing}.
 \end{array}
 $$
 :::
+
 
 ### Correctness
 

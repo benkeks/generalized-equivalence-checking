@@ -36,14 +36,16 @@
 \lc{ Transition systems }
 
 \providecommand{\step}[1]{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}
+\providecommand{\nostep}[1]{\cancel{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}}
+\providecommand{\stepweak}{\mathrel{\twoheadrightarrow}}s
 \providecommand{\states}{\mathcal{P}}
 \providecommand{\system}{\mathcal{S}}
 \providecommand{\labels}{\mathcal{L}}
 \providecommand{\actions}{\mathit{Act}}
 \providecommand{\traces}[1]{\mathsf{Traces}(#1)}
-\providecommand{\failures}[1]{\mathsf{Failures}(#1)}
+\providecommand{\failures}[1]{\mathsf{Failures}(#1)}s
 \providecommand{\derivatives}[1]{\operatorname{Der}(#1)}
-\providecommand{\initials}[1]{\operatorname{Ini}(#1)}
+\providecommand{\initials}[1]{\operatorname{Ini}(#1)}s
 
 \lc{ Grammars }
 
@@ -55,7 +57,7 @@
 \providecommand{\ccs}{\textsf{CCS}}
 \providecommand{\ccschannels}{\mathcal{A}}
 \providecommand{\ccsactions}{\literal{Act}_\ccs}
-\providecommand{\ccslabels}{\labels_\ccs}
+\providecommand{\ccslabels}{\labels_\ccs}s
 \providecommand{\coaction}[1]{\overline{#1}}
 \providecommand{\ccsnames}{\mathcal X}
 \providecommand{\ccsasg}{\mathcal V}
@@ -69,6 +71,7 @@
 
 \providecommand{\hml}{\textsf{HML}}
 \providecommand{\hmlobs}[1]{\langle #1 \rangle}
+\providecommand{\hmlopt}[1]{( #1 )}
 \providecommand{\hmland}[2]{\textstyle\bigwedge_{#1 \in #2}}
 \providecommand{\hmlands}[1]{\textstyle\bigwedge #1}
 \providecommand{\hmltrue}{\top}
@@ -142,6 +145,7 @@
 \providecommand{\gamespectroscopyeq}[1]{\mathcal{G}_{\triangle #1}}
 \providecommand{\gamespectroscopyclever}{\mathcal{G}_{\blacktriangle}}
 \providecommand{\gamespectroscopyceq}[1]{\mathcal{G}_{\blacktriangle #1}}
+\providecommand{\gamespectroscopyw}{\mathcal{G}_{\nabla}}
 \providecommand{\strat}{\mathsf{Strat}}
 \providecommand{\stratstrong}{\mathsf{Strat}_{\triangle}}
 

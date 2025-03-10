@@ -1,0 +1,27 @@
+# Reacharting the Weak Silent-Step Spectrum {#sec-weak-spectrum}
+
+::: {.content-hidden when-format="pdf"}
+{{< include style/macros.md >}}
+:::
+
+For practical problems, one usually has to use *“weak” beahvioral equivalences*, which disregard some kinds of “silent” *internal behavior* when comparing processes.
+The naming alludes to the fact that these are less distinctive than the “strong” equivalences we have discussed so far.
+
+The basic idea is that $\ccsprefix{\tau} \literal{a}$....
+
+## Case Studies
+
+### Peterson's Mutual Exclusion
+
+### Bell's Parellelizing Compiler Optimization
+
+### Congruence-Properties of Abstraction
+
+## Expressing the Weak Spectrum with Quantities
+
+### Special Weak Equivalences
+
+### HML with Silent Behavior
+
+## Discussion
+

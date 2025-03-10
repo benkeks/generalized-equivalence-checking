@@ -45,10 +45,11 @@ book:
     - 03_equivalence-spectrum.qmd
     - 04_spectrum-to-games.qmd
     - 05_strong-spectroscopy.qmd
-    - 06_silent-step-spectroscopy.qmd
-    - 07_implementations.qmd
-    - 08_conclusion.qmd
-    - 09_references.qmd
+    - 06_weak-spectrum.qmd
+    - 07_silent-step-spectroscopy.qmd
+    - 08_implementations.qmd
+    - 09_conclusion.qmd
+    - 10_references.qmd
 
 bibliography: similarities.bib
 csl: http://www.zotero.org/styles/apa

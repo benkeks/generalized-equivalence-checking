@@ -67,8 +67,9 @@ More precisely, we make the following contributions:
 - @sec-preliminaries lays some foundations and makes precise *how bisimilarity games relate to grammars of distinguishing formulas* of Hennessy–Milner modal logic. 
 - @sec-spectrum shows *how to understand the strong linear-time--branching-time spectrum quantitatively* and formalizes the *spectroscopy problem*.
 - @sec-approach introduces the approach of *characterizing equivalence spectra through a class of energy games* and *how to decide such games*.
-- TODO @sec-strong-spectrum applies the approach to decide the whole strong spectrum through one *game for linear-time--branching-time spectroscopy*.
-- TODO @sec-weak-spectrum adapt the game for the *weak spectrum of equivalences accounting for silent-steps*.
+- @sec-strong-spectrum applies the approach to decide the whole strong spectrum through one *game for linear-time--branching-time spectroscopy*.
+- TODO @sec-weak-spectrum dicusses case studies and recharts the *weak spectrum of equivalences accounting for silent-steps* to fit our game approach.
+- TODO @sec-silent-step-spectroscopy adapt the game for the *weak spectrum of equivalences accounting for silent-steps*.
 - TODO @sec-implementations showcases implementations to conveniently perform equivalence spectroscopies in web browsers and using GPU parallelization.
 
 ## Artifacts and Papers

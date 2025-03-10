@@ -453,7 +453,7 @@ For space complexity, the approach arrives at $\bigo{ \relsize{\states}^6 \cdot 
 Still, there are ways to decrease the complexity of the algorithm and thus increase applicability.
 We will explore these in the next section.
 
-## More Specific Games {#sec-specific-spectro-games}
+## Clever Games on Subgraphs {#sec-specific-spectro-games}
 
 We can exploit properties of the equivalences of the strong spectrum in @fig-strong-ltbt-spectrum we actually care about to focus on simpler variants of the spectroscopy game.
 
@@ -463,7 +463,7 @@ We can exploit properties of the equivalences of the strong spectrum in @fig-str
 
 In this section, @sec-bisim-approximations will first discuss how parts of the game graph can be pruned thanks to properties of bisimilarity.
 Then, we will use all listed tricks in the “clever” strong spectroscopy game in @sec-clever-strong-spectro.
-Finally, we will take the last point to the extreme by instantiating the spectroscopy game down to only decide single equivalences.
+In the following @sec-deciding-individual-eqs, we will take the last point to the extreme by instantiating the spectroscopy game down to only decide single equivalences.
 
 ### Pruning with Approximations {#sec-bisim-approximations}
 
@@ -695,11 +695,20 @@ Without these tricks, the approach would not be applicable to systems with relev
 ]
 :::
 
-### Deriving Equivalence Games
+## Deciding Individuals Equivalences {#sec-deciding-individual-eqs}
 
-We can use simpler derivatives of the strong spectroscopy game to decide inividual equivalences.
-The core idea is to *derive a reachability game* according to @def-derived-reachability-game, starting with an energy level from the strong spectrum, @def-strong-ltbt-spectrum.
+As we have seen, the strong spectroscopy characterizes the spectroscopy problem *and* each individual equivalence (and preorder).
+This section is about the feasability to decide individual preorders using the spectroscopy game.
+
+The core idea behind @sec-deriving-eq-games is to *derive a reachability game* according to @def-derived-reachability-game, starting with an energy level from the strong spectrum, @def-strong-ltbt-spectrum.
 Then, @alg-deciding-games can be employed to decide player winning regions of the game and thus the equivalence.
+
+Of course, in this situation, one wants to avoid complexities that are part of the spectroscopy game only to capture other equivalences.
+@sec-regaining-polynomiality will *regain polynomiality* for the polynomial portion of equivalence problems.
+
+### Deriving Equivalence Games {#sec-deriving-eq-games}
+
+Let us first explicate how to derive characterize equivalences thrugh reachability games derived accoridng to @def-derived-reachability-game.
 
 ::: {#def-derived-eq-game}
 #### Derived Strong Equivalence Games
@@ -731,12 +740,12 @@ Of course, it makes sense for algorithms to employ the clever game and pruning.
 
 ::: {#exm-spectroscopy-equivalence-checking}
 
-The following processes are two of the more complex ones of the separating examples in @glabbeek2001ltbtsiReport.
+The following processes are two of the more complex ones of the separating examples in @glabbeek2001ltbtsiReport [p. 59].
 They are equal with respect to ready traces, but not for simulation-like and possible-future-like equivalences.
 
 ```ccs
-ABCACB = a.(b.d.0 + c.e.0) + a.(c.f.0 + b.g.0)
-ABC    = a.(b.d.0 + c.e.0 + c.f.0 + b.g.0)
+ABCACB = a.(b.d + c.e) + a.(c.f + b.g)
+ABC    = a.(b.d + c.e + c.f + b.g)
 
 @check "traces",            ABCACB, ABC
 @check "ready-trace",       ABCACB, ABC
@@ -746,16 +755,16 @@ ABC    = a.(b.d.0 + c.e.0 + c.f.0 + b.g.0)
 
 @snip "-------------"
 @compare ABCACB, ABC
-ABCACB(x=183, y=136)
-ABC(x=683, y=136)
+ABCACB(x=183, y=136, main)
+ABC(x=683, y=136, main)
 "0"(x=404, y=669)
-"c.f.0 + b.g.0"(x=438, y=307)
-"b.d.0 + c.e.0"(x=220, y=424)
-"g.0"(x=441, y=528)
-"f.0"(x=557, y=599)
-"d.0"(x=299, y=520)
-"e.0"(x=259, y=605)
-"b.d.0 + c.e.0 + c.f.0 + b.g.0"(x=627, y=372)
+"c.f + b.g"(x=438, y=307)
+"b.d + c.e"(x=220, y=424)
+"g"(x=441, y=528)
+"f"(x=557, y=599)
+"d"(x=299, y=520)
+"e"(x=259, y=605)
+"b.d + c.e + c.f + b.g"(x=627, y=372)
 ```
 
 The `@check` keyword performs individual comparisons on `equiv.io`.
@@ -809,7 +818,7 @@ The subgame of @fig-derived-trace-eq-game that actually is used in *equiv.io*, d
 Still, non-determinism in the transition system might lead to exponentially-sized derived games.
 Especially in the case of bisimilarity and similarity, such a blow up is not necessary as @sec-approach has shown.
 
-### Regaining Polynomiality in Derived Equivalence Games
+### Regaining Polynomiality in Derived Equivalence Games {#sec-regaining-polynomiality}
 
 :::{#prp-defender-options}
 If the attacker wins $(\attackerpos{p, Q}, e)$ in a derived preorder game $\gamespectroscopyeq{N}$ or $\gamespectroscopyceq{N}$, they also win $(\attackerpos{p, Q'}, e)$ for all $Q' \subseteq Q$.

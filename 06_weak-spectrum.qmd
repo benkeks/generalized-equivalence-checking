@@ -1,13 +1,21 @@
-# Reacharting the Weak Silent-Step Spectrum {#sec-weak-spectrum}
+# Recharting the Weak Silent-Step Spectrum {#sec-weak-spectrum}
 
 ::: {.content-hidden when-format="pdf"}
 {{< include style/macros.md >}}
 :::
 
-For practical problems, one usually has to use *“weak” beahvioral equivalences*, which disregard some kinds of “silent” *internal behavior* when comparing processes.
-The naming alludes to the fact that these are less distinctive than the “strong” equivalences we have discussed so far.
+For practical problems, the equivalences we have discussed so far usually are *too strong*.
+They notice where in a process the *internal action* $\tau$ happens, that is: 
+$$\literal{a} \nbeq{} \ccsprefix{\tau} \literal{a} \nbeq{} \ccsprefix{\tau} \ccsprefix{\tau} \literal{a} \nbeq{} \ccsprefix{\tau}\ccsprefix{\literal{a}} \tau  \nbeq{} \ccsprefix{\literal{a}} \tau$$
 
-The basic idea is that $\ccsprefix{\tau} \literal{a}$....
+For real-world models, we want equivalences to disregard such kinds of internal behavior as “silent”  when comparing processes, such that:
+
+$$\literal{a} \beq{} \ccsprefix{\tau} \literal{a} \beq{} \ccsprefix{\tau} \ccsprefix{\tau} \literal{a} \beq{} \ccsprefix{\tau}\ccsprefix{\literal{a}} \tau  \beq{} \ccsprefix{\literal{a}} \tau$$
+
+Equivalences with this feature are called *weak*, alluding to the fact that they are less distinctive than the “strong” equivalences that treat $\tau$ like any other action.
+
+The basic principle is that weak equivalences should maintain that some internal behavior happening before or after a visible action does not make a difference from the point of view of an observer.
+But this idea leads into a lot of fine points.
 
 ## Case Studies
 
@@ -16,6 +24,8 @@ The basic idea is that $\ccsprefix{\tau} \literal{a}$....
 ### Bell's Parellelizing Compiler Optimization
 
 ### Congruence-Properties of Abstraction
+
+... Closing hint: congruence even messier in the weak spectrum, e.g. weak bisim not congruence for +.
 
 ## Expressing the Weak Spectrum with Quantities
 

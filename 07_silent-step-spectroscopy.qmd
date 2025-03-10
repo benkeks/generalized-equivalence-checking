@@ -65,9 +65,13 @@ $$
 
 ### Correctness
 
-## Optimizations
+## Variants
 
-## Covering Decorated Traces
+### Optimization of Branching Conjunctions
+
+### Covering Decorated Traces
+
+## Tackling Our Case Studies
 
 ## Discussion
 

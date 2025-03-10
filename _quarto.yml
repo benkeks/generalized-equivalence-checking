@@ -62,7 +62,7 @@ format:
     html-math-method: katex
     #fig-cap-location: margin
     reference-location: margin
-    crossrefs-hover: false # this lead to poor preview browsing experience and katex exceptions :/
+    crossrefs-hover: true # this lead to poor preview browsing experience and katex exceptions :/
     citation-location: margin
     linestretch: 1.3
     mainfont: KaTeX_Main

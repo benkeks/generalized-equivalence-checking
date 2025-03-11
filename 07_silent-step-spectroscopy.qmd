@@ -323,7 +323,7 @@ For all $e \in \energies_\infty$, $p \in \states$, $Q \in \powerset{\states}$, t
 
 ### Formalization
 
-```sml
+```isabelle
 lemma distinction_implies_winning_budgets:
   assumes ‹distinguishes_from φ p Q›
   shows ‹attacker_wins (expressiveness_price φ)

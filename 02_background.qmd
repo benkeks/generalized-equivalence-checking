@@ -1077,13 +1077,13 @@ Everyday inductive (and coinductive) definitions can easily be encoded as games 
 ::: {#exm-less-eq-game}
 #### The $\leq$-Game
 
-Consider the following recursive definition of a less-or-equal operator `<=` on natural numbers in some functional programming language.
+Consider the following recursive definition of a less-or-equal operator `≤` on natural numbers in some functional programming language.
 (Consider `nat` to be defined as recursive data type `nat = 0 | Succ nat`.)
 
 ```haskell
-    ( 0 <= m )     = True
-(Succ n <= 0 )     = False
-(Succ n <= Succ m) = (n <= m)
+    ( 0 ≤ m )     = True
+(Succ n ≤ 0 )     = False
+(Succ n ≤ Succ m) = (n ≤ m)
 ```
 
 \noindent

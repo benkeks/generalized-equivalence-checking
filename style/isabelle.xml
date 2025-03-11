@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language>
+<language name="CCS" version="6" kateversion="5.0" section="Sources" extensions="*.ccs" mimetype="" author="Benjamin Bisping" license="MIT">
+  <highlighting>
+    <list name="outer_keywords">
+      <item>lemma</item>
+      <item>assumes</item>
+      <item>shows</item>
+    </list>
+    <list name="types">
+      <item>bool</item>
+      <item>list</item>
+      <item>option</item>
+      <item>nat</item>
+    </list>
+    <contexts>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <StringDetect attribute="Comment" context="Multiline/Inline Comment" char="(" char1="*" beginRegion="Comment" />
+        <DetectChar attribute="String" context="String" char="&quot;" />
+        <DetectChar attribute="String2" context="String2" char="‹" />
+        <keyword attribute="Outer Keyword" context="#stay" String="outer_keywords" />
+        <keyword attribute="Data Type" context="#stay" String="types" />
+        <HlCHex attribute="Decimal" context="#stay"/>
+        <Int attribute="Decimal" context="#stay" />
+      </context>
+      <context attribute="Comment" lineEndContext="#stay" name="Multiline/Inline Comment">
+        <DetectSpaces />
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1=")" endRegion="Comment" />
+        <IncludeRules context="##Comments" />
+      </context>
+      <context attribute="String" lineEndContext="#stay" name="String">
+        <HlCStringChar attribute="String Char" context="#stay"/>
+        <DetectChar attribute="String" context="#pop" char="&quot;" />
+      </context>
+      <context attribute="String2" lineEndContext="#stay" name="String2">
+        <HlCStringChar attribute="String Char" context="#stay"/>
+        <DetectChar attribute="String2" context="#pop" char="›" />
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Inner Keyword"  defStyleNum="dsControlFlow"/>
+      <itemData name="Outer Keyword"  defStyleNum="dsKeyword"/>
+      <itemData name="Data Type"  defStyleNum="dsDataType"/>
+      <itemData name="Decimal"  defStyleNum="dsDecVal"/>
+      <itemData name="String"  defStyleNum="dsString"/>
+      <itemData name="String2"  defStyleNum="dsString"/>
+      <itemData name="Comment" defStyleNum="dsComment" />
+      <itemData name="String Char"  defStyleNum="dsChar" />
+    </itemDatas>
+  </highlighting>
+  <general>
+    <keywords casesensitive="1" />
+    <comments>
+      <comment name="multiLine" start="(*" end="*)" region="Comment" />
+    </comments>
+  </general>
+</language>

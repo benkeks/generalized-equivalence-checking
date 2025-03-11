@@ -286,13 +286,13 @@ that is, if $(\infty, \infty, \infty, \infty, \infty, \infty) \in \defenderwins(
 
 TODO: Example graph (just the old one?)
 
-### Correctness
+### Correctness {#sec-correctness-strong-spectroscopy}
 
 To prove correctness, we proceed as with the bisimulation energy game in @sec-correctness-poly-spectroscopy:
 On the one hand, we show that game moves correspond to formulas of similar prices and that the attacker winning implies the formulas to be distinguishing.
 On the other hand, we establish that formulas of certain expressiveness prices certify winning attacks of matching budgets.
 
-::: {#def-strategy-formulas-poly}
+::: {#def-strategy-formulas-strong}
 #### Strategy Formulas for $\gamespectroscopy$
 
 The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratstrong(g, e)$, in the context of a strong spectroscopy game $\gamespectroscopy^{\system}$ is defined inductively by the following rules:

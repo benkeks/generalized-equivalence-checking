@@ -410,7 +410,7 @@ The smallest notion to cover the failure formula of Subsection [-@sec-incomparab
 $$\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observationsvar[\literal{strong}]{(2,1,0,0,1,1)}.$$
 This is because the formula has two levels of modal observations, where the inner one is negated.
 The negation is wrapped in a conjunction with no positive clauses.
-A visualization for how $\expr^\literal{strong}(\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}) = (2,1,0,0,1,1)$ (according to @def-expressiveness-price) comes together is given in the upcoming @fig-formula-pricing.
+A visualization for how $\expr{\literal{strong}}(\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}) = (2,1,0,0,1,1)$ (according to @def-expressiveness-price) comes together is given in the upcoming @fig-formula-pricing.
 Formally, the reason is that the following derivation is optimal:
 $$
 \begin{array}{rcl}
@@ -496,7 +496,7 @@ Pricing formula $\hmlobs{\tau}\hmlands\{\hmlobs{ec_A}\hmlobs{lc_A}\hmltrue, \hml
 In my papers, the syntactic expressiveness price of formulas is explicitly defined (instead of using a family of grammars).
 In this thesis, $\expr$ is indirectly defined through @def-expressiveness-price.
 
-The expressiveness price $\expr$ of formulas in the strong spectrum (@def-strong-spectrum) can be recursively characterized as described in @bisping2023equivalenceEnergyGames:
+The expressiveness price $\expr[\literal{strong}]$ of formulas in the strong spectrum (@def-strong-spectrum, we will drop the $\literal{strong}$ for readability) can be recursively characterized as described in @bisping2023equivalenceEnergyGames:
 
 \begin{align*}
   \expr(\hmltrue) & \defeq \zerovec \\

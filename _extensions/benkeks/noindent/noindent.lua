@@ -6,6 +6,19 @@ isb_types = {
   primrec = "const"
 }
 
+function isb_session(theory)
+  strong_spectro_theories = {
+    Equivalence_Games = true, HML_Spectrum = true, Hennessy_Milner_Loigc = true,
+    LTS_Semantics = true, Labeled_Transition_Systems = true, Priced_HML = true,
+    Priced_Spectrum = true, Strong_Equivalences = true, Weak_Equivalences = true
+  }
+  if strong_spectro_theories[theory] then
+    return "https://benkeks.github.io/ltbt-spectroscopy-isabelle/AFP/Lineartime_Branchingtime_Spectrum_I/"
+  else
+    return "https://equivio.github.io/silent-step-spectroscopy/AFP/Weak_Spectroscopy/"
+  end
+end
+
 function noindent()
  
   if quarto.doc.isFormat('pdf')  then
@@ -58,7 +71,7 @@ function isb(args)
         pandoc.Str(tostring(args[1])),
         pandoc.RawInline("latex", "~"),
         pandoc.Link(qualified_name_breakable,
-          "https://benkeks.github.io/ltbt-spectroscopy-isabelle/AFP/Lineartime_Branchingtime_Spectrum_I/" ..
+          isb_session(args[2]) ..
           args[2] .. ".html#" .. qualified_name .. "|" .. type)
       }
     }
@@ -67,7 +80,7 @@ function isb(args)
       pandoc.Inlines {
         pandoc.Str(tostring(args[1] .. " ")),
         pandoc.Link(qualified_name,
-          "https://benkeks.github.io/ltbt-spectroscopy-isabelle/AFP/Lineartime_Branchingtime_Spectrum_I/" ..
+          isb_session(args[2]) ..
           args[2] .. ".html#" .. qualified_name .. "|" .. type)
       }
     }

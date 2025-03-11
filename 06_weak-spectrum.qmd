@@ -17,6 +17,12 @@ Equivalences with this feature are called *weak*, alluding to the fact that they
 The basic principle is that weak equivalences should maintain that some internal behavior happening before or after a visible action does not make a difference from the point of view of an observer.
 But this idea leads into a lot of fine points.
 
+## Weak Equivalences in General
+
+### Weak Traces and Weak Bisimulation
+
+### The Need for Other Equivalences
+
 ## Case Studies
 
 ### Peterson's Mutual Exclusion

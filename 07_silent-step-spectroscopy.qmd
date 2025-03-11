@@ -72,15 +72,16 @@ $$
   & \attackerpos[\land]{p,q}
   & \gamemove{\updmin{1,6},0,0,0,0,0,0,0}
   & \attackerpos[\varepsilon]{p,Q}
-  & \text{if $\{q\} \stepweak Q$,}
+  & \text{if $\set{q} \stepweak Q$,}
   \\
   \textit{negative conjunct}
   & \attackerpos[\land]{p,q}
   & \gamemove{\updmin{1,7},0,0,0,0,0,0,-1}
   & \attackerpos[\varepsilon]{q,Q}
-  & \text{if $\{p\} \stepweak Q$ and $p \neq q$,}
+  & \text{if $\set{p} \stepweak Q$ and $p \neq q$,}
   \\
-  \textit{branching conj.}
+  \hline
+  \textit{branching conj.}\vphantom{I^{I^I}}
   & \attackerpos[\varepsilon]{p,Q}
   & \gamemove{0,0,0,0,0,0,0,0}
   & \defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}
@@ -103,7 +104,8 @@ $$
   & \gamemove{-1,0,0,0,0,0,0,0}
   & \attackerpos{p,Q},
   \\
-  \textit{stable conj.}
+  \hline
+  \textit{stable conj.}\vphantom{I^{I^I}}
   & \attackerpos[\varepsilon]{p,Q}
   & \gamemove{0,0,0,0,0,0,0,0}
   & \defenderpos[s]{p,Q'}
@@ -123,8 +125,213 @@ $$
 $$
 :::
 
+### Correctness {#sec-correctness-weak-spectroscopy}
 
-### Correctness
+@sec-correctness-poly-spectroscopy and -@sec-correctness-strong-spectroscopy
+
+::: {#def-strategy-formulas-weak}
+#### Strategy Formulas for $\gamespectroscopyw$
+
+The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas.
+:::
+
+:::{#fig-weak-spectroscopy-strategy-formulas .column-page fig-pos='t' fig-env="figure*"}
+$$
+\inferrule[delay]{
+  \attackerpos{p,Q} \gamemove{u} \attackerpos[\varepsilon]{p,Q'} \quad
+  e' = \energyupdate(e, u) \in \attackerwins(\attackerpos[\varepsilon]{p,Q'}) \quad
+  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q'}, e')
+} {
+  \hmleps\chi \in \stratweak(\attackerpos{p,Q}, e)
+}
+$$
+$$
+\inferrule[procrastination]{
+  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \attackerpos[\varepsilon]{p',Q} \quad
+  e' = \energyupdate(e, u) \in \attackerwins(\attackerpos[\varepsilon]{p',Q}) \quad
+  \chi \in \stratweak(\attackerpos[\varepsilon]{p',Q}, e')
+} {
+  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
+}
+$$
+$$
+\inferrule[observation]{
+  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \attackerpos{p',Q'} \quad
+  e' = \energyupdate(e, u) \in \attackerwins(\attackerpos{p',Q'}) \\
+  p \step{a} p' \quad
+  Q \step{a} Q' \quad
+  \varphi \in \stratweak(\attackerpos{p',Q'}, e')
+} {
+  \hmlobs{a}\varphi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
+}
+$$
+$$
+\inferrule[immediate conj.]{
+  \attackerpos{p,Q} \gamemove{u} \defenderpos{p,Q} \quad
+  e' = \energyupdate(e, u) \in \attackerwins(\defenderpos{p,Q}) \quad
+  \varphi \in \stratweak(\defenderpos{p,Q}, e')
+} {
+  \varphi \in \stratweak(\attackerpos{p,Q}, e)
+}
+$$
+$$
+\inferrule[late conj.]{
+  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos{p,Q} \quad
+  e' = \energyupdate(e, u) \in \attackerwins(\defenderpos{p,Q}) \quad
+  \chi \in \stratweak(\defenderpos{p,Q}, e')
+} {
+  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
+}
+$$
+$$
+\inferrule[conj. answer]{
+  \defenderpos{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \\
+  \forall q \in Q \ldotp \;
+  e_q = \energyupdate(e, u_q) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
+  \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
+} {
+  \hmlands\set{ \psi_q \mid q \in Q} \in \stratweak(\defenderpos{p,Q}, e)
+}
+$$
+$$
+\inferrule[positive conjunct]{
+  \attackerpos[\land]{p,q} \gamemove{u} \attackerpos[\varepsilon]{p,Q'} \quad
+  e' = \energyupdate(e, u) \in \attackerwins(\attackerpos[\varepsilon]{p,Q'}) \quad
+  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q'}, e')
+} {
+  \hmleps\chi \in \stratweak(\attackerpos[\land]{p,q}, e)
+}
+$$
+$$
+\inferrule[negative conjunct]{
+  \attackerpos[\land]{p,q} \gamemove{u} \attackerpos[\varepsilon]{q,P'} \quad
+  e' = \energyupdate(e, u) \in \attackerwins(\attackerpos[\varepsilon]{q,P'}) \quad
+  \chi \in \stratweak(\attackerpos[\varepsilon]{q,P'}, e')
+} {
+  \hmlneg \hmleps\chi \in \stratweak(\attackerpos[\land]{p,q}, e)
+}
+$$
+$$
+\inferrule[stable conj.]{
+  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos[s]{p,Q'} \quad
+  e' = \energyupdate(e, u) \in \attackerwins(\defenderpos[s]{p,Q'}) \quad
+  \chi \in \stratweak(\defenderpos[s]{p,Q'}, e')
+} {
+  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
+}
+$$
+$$
+\inferrule[stable conj. answer]{
+  \defenderpos[s]{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \quad
+  Q \neq \varnothing \\
+  \forall q \in Q \ldotp \;
+  e_q = \energyupdate(e, u_q) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
+  \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
+} {
+  \hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \set{ \psi_q \mid q \in Q }\right) \in \stratweak(\defenderpos[s]{p,Q}, e)
+}
+$$
+$$
+\inferrule[stable finishing]{
+  \defenderpos[s]{p,\varnothing} \gamemove{u} \defenderpos{p,\varnothing} \quad
+  e' = \energyupdate(e, u) \in \attackerwins(\defenderpos{p,\varnothing})
+} {
+  \hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue } \in \stratweak(\defenderpos[s]{p,Q}, e)
+}
+$$
+$$
+\inferrule[branching conj.]{
+  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha} \quad
+  e' = \energyupdate(e, u) \in \attackerwins(\defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha}) \\
+  \chi \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha}, e')
+} {
+  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
+}
+$$
+$$
+\inferrule[branch. answer]{
+  g_\mathrm{d} = \defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha} \gamemove{u_\alpha} \attackerpos[\eta]{p',Q'} \gamemove{u'_\alpha} \attackerpos{p',Q'} \\
+  e_\alpha = \energyupdate(\energyupdate(e, u_\alpha), u'_\alpha) \in \attackerwins(\attackerpos{p',Q'}) \quad
+  \varphi_\alpha \in \stratweak(\attackerpos{p',Q'}, e_\alpha)\\
+  \forall q \in Q \ldotp \;
+  g_\mathrm{d} \gamemove{u_q} \attackerpos[\land]{p,q} \; \land \;
+  e_q = \energyupdate(e, u_q) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
+  \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
+} {
+  \hmlands \left(\set{\hmlopt{\alpha} \varphi_\alpha } \cup \set{ \psi_q \mid q \in Q }\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha}, e)
+}
+$$
+
+Strategy formulas for the weak spectroscopy.
+:::
+
+Proofs can be found in @bj2025silentStepSpectroscopyJournal.
+
+::: {#lem-weak-spectroscopy-game-soundness}
+If $e \in \attackerwins(\attackerpos{p,Q})$, then there is $\varphi \in \stratweak (\attackerpos{p,Q}, e)$ with $\expr[\literal{weak}](\varphi) \leq e$.{{<isb lemma Strategy_Formulsas weak_spectroscopy_game.winning_budget_implies_strategy_formula>}}
+:::
+:::proof
+
+By induction over game positions $g$ and energies $e$ according to the inductive characterization of attacker winning budgets @prp-winning-budget-rules and with respect to the following property:
+
+- If $e \in \attackerwins(\attackerpos{p,Q})$,
+  then there is $\varphi \in \stratweak(\attackerpos{p,Q}, e)$ with $\expr[\literal{weak}](\varphi) \leq e$;
+- If $e \in \attackerwins(\attackerpos[\varepsilon]{p,Q})$,
+  then there is $\chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)$ with $\expr[\varepsilon](\chi) \leq e$;
+- If $e \in \attackerwins(\attackerpos[\land]{p,q})$,
+  then there is $\psi \in \stratweak(\attackerpos[\land]{p,q}, e)$ with $\expr[\land](\psi) \leq e$;
+- If $e \in \attackerwins(\defenderpos{p,Q})$,
+  then there is $\hmlands \Psi \in \stratweak(\defenderpos{p,Q}, e)$ with $\expr[\varepsilon](\hmlands \Psi) \leq e$;
+- If $e \in \attackerwins(\defenderpos[s]{p,Q})$,
+  then there is $\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right) \in \stratweak(\defenderpos[s]{p,Q}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right)) \leq e$;
+- If $e \in \attackerwins(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha})$,
+  then there is $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right)) \leq e$.
+:::
+
+::: {#lem-weak-spectroscopy-game-completeness}
+If $\varphi \in \hmlsrbb$ distinguishes $p$ from $Q$, then $\expr[\literal{weak}](\varphi) \in \attackerwins^{\gamespectroscopyw}(\attackerpos{p,Q})$.{{<isb lemma Distinction_Implies_Winning_Budgets weak_spectroscopy_game.distinction_implies_winning_budgets>}}
+:::
+:::proof
+By mutual structural induction on $\varphi$, $\chi$, and $\psi$ with respect to the following claims:
+
+- If $\varphi \in \hmlsrbb$ distinguishes $p$ from $Q \neq \varnothing$,
+  then $\expr[\literal{weak}](\varphi) \in \attackerwins(\attackerpos{p,Q})$;
+- If $\chi$ distinguishes $p$ from $Q \neq \varnothing$ and $Q$ is closed under $\stepweak$ (that is $Q \stepweak Q$),
+  then $\expr[\varepsilon](\chi) \in \attackerwins(\attackerpos[\varepsilon]{p,Q})$;
+- If $\psi$ distinguishes $p$ from $q$,
+  then $\expr[\land](\psi) \in \attackerwins(\attackerpos[\land]{p,q})$;
+- If $\hmlands \Psi$ distinguishes $p$ from $Q \neq \varnothing$,
+  then $\expr[\varepsilon](\hmlands \Psi) \in \attackerwins(\defenderpos{p,Q})$;
+- If $\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi$ distinguishes $p$ from $Q \neq \varnothing$
+  and the processes in $Q$ are stable,
+  then $\expr[\varepsilon](\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi) \in \attackerwins(\defenderpos[s]{p,Q})$;
+- If $\hmlands \set{ \hmlopt{\alpha}\varphi' } \cup \Psi$ distinguishes $p$ from $Q$,
+  then, for any $p \step{\hmlopt\alpha} p' \in \semantics{\varphi'}$ and $Q_\alpha = Q \setminus \semantics{\hmlobs{\alpha}\varphi'}{}{}$, $\expr[\varepsilon](\hmlands \set{ \hmlopt{\alpha}\varphi'\! } \cup \Psi) \in \attackerwins(\defenderpos[\eta]{p,\alpha,p'\!,Q \setminus Q_\alpha, Q_\alpha})$.
+:::
+
+
+::: {#thm-weak-spectroscopy-game-characterization}
+For all $e \in \energies_\infty$, $p \in \states$, $Q \in \powerset{\states}$, the following are equivalent:{{<isb lemma Silent_Step_Spectroscopy weak_spectroscopy_game.spectroscopy_game_correctness>}}
+
+- There exists a formula $\varphi \in \hmlsrbb$ with price $\expr(\varphi) \leq e$ that distinguishes $p$ from $Q$.
+- Attacker wins $\gamespectroscopyw^{\system}$ from $\attackerpos{p,Q}$ with $e$ (that is, $e \in \attackerwins^{\gamespectroscopyw^{\system}}(\attackerpos{p,Q})$).
+:::
+
+\begin{theorem}[Correctness]
+  \label{thm:correctness}
+\end{theorem}
+
+### Formalization
+
+```sml
+lemma distinction_implies_winning_budgets:
+  assumes ‹distinguishes_from φ p Q›
+  shows ‹attacker_wins (expressiveness_price φ)
+                       (Attacker_Immediate p Q)›
+```
+
+
+### Complexity
 
 ## Variants
 

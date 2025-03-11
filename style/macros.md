@@ -70,8 +70,10 @@
 \lc{ HML }
 
 \providecommand{\hml}{\textsf{HML}}
+\providecommand{\hmlsrbb}{\textsf{HML}_{\textsf{SRBB}}}
 \providecommand{\hmlobs}[1]{\langle #1 \rangle}
 \providecommand{\hmlopt}[1]{( #1 )}
+\providecommand{\hmleps}{\langle \varepsilon \rangle}
 \providecommand{\hmland}[2]{\textstyle\bigwedge_{#1 \in #2}}
 \providecommand{\hmlands}[1]{\textstyle\bigwedge #1}
 \providecommand{\hmltrue}{\top}
@@ -85,6 +87,7 @@
 \providecommand{\literal}[1]{\mathsf{#1}}
 \providecommand{\variable}[1]{\mathtt{#1}}
 \providecommand{\kw}[1]{\operatorname{\mathbf{#1}}\;}
+\providecommand{\inferrule}[3][]{\textrm{#1}\;\dfrac{\begin{matrix}#2\end{matrix}}{#3}\hphantom{\textrm{#1}}}
 
 \lc{ Relations }
 
@@ -107,7 +110,7 @@
 \providecommand{\notionname}[1]{\mathrm{#1}}
 \providecommand{\observations}[2][]{\mathcal{O}^{#1}_{\notionname{#2}}}
 \providecommand{\observationsvar}[2][]{\mathcal{O}^{#1}_{#2}}
-\providecommand{\expr}{\mathsf{expr}}
+\providecommand{\expr}[1][]{\mathsf{expr}^{#1}}
 
 \lc{ Games }
 
@@ -148,4 +151,5 @@
 \providecommand{\gamespectroscopyw}{\mathcal{G}_{\nabla}}
 \providecommand{\strat}{\mathsf{Strat}}
 \providecommand{\stratstrong}{\mathsf{Strat}_{\triangle}}
+\providecommand{\stratweak}{\mathsf{Strat}_{\nabla}}
 

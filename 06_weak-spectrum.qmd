@@ -21,7 +21,14 @@ But this idea leads into a lot of fine points.
 
 ### Weak Traces and Weak Bisimulation
 
+- Weak transition relation
+- Weak traces
+- Weak bisim
+
 ### The Need for Other Equivalences
+
+- Weak failures
+- Stability...
 
 ## Case Studies
 

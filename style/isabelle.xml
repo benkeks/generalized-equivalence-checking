@@ -3,9 +3,45 @@
 <language name="CCS" version="6" kateversion="5.0" section="Sources" extensions="*.ccs" mimetype="" author="Benjamin Bisping" license="MIT">
   <highlighting>
     <list name="outer_keywords">
+      <item>datatype</item>
+      <item>theory</item>
+      <item>locale</item>
       <item>lemma</item>
+      <item>theorem</item>
+    </list>
+    <list name="sub_keywords">
+      <item>fixes</item>
+      <item>defines</item>
       <item>assumes</item>
       <item>shows</item>
+      <item>where</item>
+      <item>imports</item>
+      <item>begin</item>
+      <item>end</item>
+    </list>
+    <list name="isar_keywords">
+      <item>proof</item>
+      <item>next</item>
+      <item>qed</item>
+      <item>apply</item>
+      <item>by</item>
+      <item>from</item>
+      <item>using</item>
+      <item>unfolding</item>
+      <item>then</item>
+      <item>with</item>
+      <item>have</item>
+      <item>hence</item>
+      <item>show</item>
+      <item>thus</item>
+      <item>case</item>
+      <item>assume</item>
+      <item>case</item>
+      <item>obtain</item>
+      <item>moreover</item>
+      <item>also</item>
+      <item>finally</item>
+      <item>ultimately</item>
     </list>
     <list name="types">
       <item>bool</item>
@@ -18,7 +54,10 @@
         <StringDetect attribute="Comment" context="Multiline/Inline Comment" char="(" char1="*" beginRegion="Comment" />
         <DetectChar attribute="String" context="String" char="&quot;" />
         <DetectChar attribute="String2" context="String2" char="‹" />
+        <AnyChar attribute="Operator" String="!%+,-*.=:&gt;()|~^\\" />
         <keyword attribute="Outer Keyword" context="#stay" String="outer_keywords" />
+        <keyword attribute="Sub Keyword" context="#stay" String="sub_keywords" />
+        <keyword attribute="Isar Keyword" context="#stay" String="isar_keywords" />
         <keyword attribute="Data Type" context="#stay" String="types" />
         <HlCHex attribute="Decimal" context="#stay"/>
         <Int attribute="Decimal" context="#stay" />
@@ -39,8 +78,10 @@
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Inner Keyword"  defStyleNum="dsControlFlow"/>
+      <itemData name="Operator"  defStyleNum="dsOperator"/>
       <itemData name="Outer Keyword"  defStyleNum="dsKeyword"/>
+      <itemData name="Sub Keyword"  defStyleNum="dsControlFlow"/>
+      <itemData name="Isar Keyword"  defStyleNum="dsKeyword"/>
       <itemData name="Data Type"  defStyleNum="dsDataType"/>
       <itemData name="Decimal"  defStyleNum="dsDecVal"/>
       <itemData name="String"  defStyleNum="dsString"/>

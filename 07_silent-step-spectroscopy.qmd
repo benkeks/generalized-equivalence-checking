@@ -127,7 +127,10 @@ $$
 
 ### Correctness {#sec-correctness-weak-spectroscopy}
 
-@sec-correctness-poly-spectroscopy and -@sec-correctness-strong-spectroscopy
+Establishing correctness now proceeds mostly as we are used to from @sec-correctness-poly-spectroscopy and -@sec-correctness-strong-spectroscopy.
+This subsection limits itself to citing the lemma heads and the inductive predicates used in the full proofs of @bj2025silentStepSpectroscopyJournal.
+
+The following facts moreover have been fully formalized in Isabelle/HOl, which will be the topic of the following @sec-isabelle-formalization.
 
 ::: {#def-strategy-formulas-weak}
 #### Strategy Formulas for $\gamespectroscopyw$
@@ -135,7 +138,7 @@ $$
 The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas.
 :::
 
-:::{#fig-weak-spectroscopy-strategy-formulas .column-page fig-pos='t' fig-env="figure*"}
+:::{#fig-weak-spectroscopy-strategy-formulas .column-page fig-pos='t!' fig-env="figure*"}
 $$
 \inferrule[delay]{
   \attackerpos{p,Q} \gamemove{u} \attackerpos[\varepsilon]{p,Q'} \quad
@@ -265,7 +268,6 @@ $$
 Strategy formulas for the weak spectroscopy.
 :::
 
-Proofs can be found in @bj2025silentStepSpectroscopyJournal.
 
 ::: {#lem-weak-spectroscopy-game-soundness}
 If $e \in \attackerwins(\attackerpos{p,Q})$, then there is $\varphi \in \stratweak (\attackerpos{p,Q}, e)$ with $\expr[\literal{weak}](\varphi) \leq e$.{{<isb lemma Strategy_Formulsas weak_spectroscopy_game.winning_budget_implies_strategy_formula>}}
@@ -285,7 +287,7 @@ By induction over game positions $g$ and energies $e$ according to the inductive
 - If $e \in \attackerwins(\defenderpos[s]{p,Q})$,
   then there is $\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right) \in \stratweak(\defenderpos[s]{p,Q}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right)) \leq e$;
 - If $e \in \attackerwins(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha})$,
-  then there is $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right)) \leq e$.
+  then there is $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right)) \leq e$. \qedhere
 :::
 
 ::: {#lem-weak-spectroscopy-game-completeness}
@@ -306,28 +308,101 @@ By mutual structural induction on $\varphi$, $\chi$, and $\psi$ with respect to 
   and the processes in $Q$ are stable,
   then $\expr[\varepsilon](\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi) \in \attackerwins(\defenderpos[s]{p,Q})$;
 - If $\hmlands \set{ \hmlopt{\alpha}\varphi' } \cup \Psi$ distinguishes $p$ from $Q$,
-  then, for any $p \step{\hmlopt\alpha} p' \in \semantics{\varphi'}$ and $Q_\alpha = Q \setminus \semantics{\hmlobs{\alpha}\varphi'}{}{}$, $\expr[\varepsilon](\hmlands \set{ \hmlopt{\alpha}\varphi'\! } \cup \Psi) \in \attackerwins(\defenderpos[\eta]{p,\alpha,p'\!,Q \setminus Q_\alpha, Q_\alpha})$.
+  then, for any $p \step{\hmlopt\alpha} p' \in \semantics{\varphi'}$ and $Q_\alpha = Q \setminus \semantics{\hmlobs{\alpha}\varphi'}{}{}$, $\expr[\varepsilon](\hmlands \set{ \hmlopt{\alpha}\varphi'\! } \cup \Psi) \in \attackerwins(\defenderpos[\eta]{p,\alpha,p'\!,Q \setminus Q_\alpha, Q_\alpha})$. \qedhere
 :::
 
 
 ::: {#thm-weak-spectroscopy-game-characterization}
-For all $e \in \energies_\infty$, $p \in \states$, $Q \in \powerset{\states}$, the following are equivalent:{{<isb lemma Silent_Step_Spectroscopy weak_spectroscopy_game.spectroscopy_game_correctness>}}
+For all $e \in \energies_\infty$, $p \in \states$, $Q \in \powerset{\states}$, the following are equivalent:{{<isb theorem Silent_Step_Spectroscopy weak_spectroscopy_game.spectroscopy_game_correctness>}}
 
-- There exists a formula $\varphi \in \hmlsrbb$ with price $\expr(\varphi) \leq e$ that distinguishes $p$ from $Q$.
+- There exists a formula $\varphi \in \hmlsrbb$ with price $\expr[\literal{weak}](\varphi) \leq e$ that distinguishes $p$ from $Q$.
 - Attacker wins $\gamespectroscopyw^{\system}$ from $\attackerpos{p,Q}$ with $e$ (that is, $e \in \attackerwins^{\gamespectroscopyw^{\system}}(\attackerpos{p,Q})$).
 :::
 
-\begin{theorem}[Correctness]
-  \label{thm:correctness}
-\end{theorem}
+### Isabelle/HOL Formalization {#sec-isabelle-formalization}
 
-### Formalization
+```isabelle
+datatype ('s, 'a) spectroscopy_position =
+  Attacker_Immediate
+    (attacker_state: ‹'s›) (defender_states: ‹'s set›)
+| Attacker_Delayed
+    (attacker_state: ‹'s›) (defender_states: ‹'s set›)
+[...]
+| Defender_Branch
+    (attacker_state: ‹'s›) (attack_action: ‹'a›)
+    (attacker_state_succ: ‹'s›)
+    (defender_states: ‹'s set›)
+    (defender_branch_states: ‹'s set›)
+
+
+```
+
+```isabelle
+lemma winning_budget_implies_strategy_formula:
+  fixes g e
+  assumes ‹attacker_wins e g›
+  shows
+    ‹case g of
+        Attacker_Immediate p Q ⇒
+        ∃φ. strategy_formula g e φ ∧ expressiveness_price φ ≤ e
+      | Attacker_Delayed p Q ⇒
+        ∃χ. strategy_formula_inner g e χ ∧ expr_pr_inner χ ≤ e
+      | Attacker_Conjunct p q ⇒
+        ∃ψ. strategy_formula_conjunct g e ψ
+          ∧ expr_pr_conjunct ψ ≤ e
+      | Defender_Conj p Q ⇒
+        ∃χ. strategy_formula_inner g e χ ∧ expr_pr_inner χ ≤ e
+      | Defender_Stable_Conj p Q ⇒
+        ∃χ. strategy_formula_inner g e χ  ∧ expr_pr_inner χ ≤ e
+      | Defender_Branch p α p' Q Qa ⇒
+        ∃χ. strategy_formula_inner g e χ ∧ expr_pr_inner χ ≤ e
+      | Attacker_Branch p Q ⇒
+        ∃φ. strategy_formula
+              (Attacker_Immediate p Q) (e - E 1 0 0 0 0 0 0 0) φ
+          ∧ expressiveness_price φ ≤ e - E 1 0 0 0 0 0 0 0›
+  using assms
+proof(induction rule: attacker_wins.induct)
+  [...]
+```
+
 
 ```isabelle
 lemma distinction_implies_winning_budgets:
   assumes ‹distinguishes_from φ p Q›
   shows ‹attacker_wins (expressiveness_price φ)
                        (Attacker_Immediate p Q)›
+```
+
+```isabelle
+theorem spectroscopy_game_correctness:
+  fixes e p Q
+  shows
+    ‹(∃φ. distinguishes_from φ p Q ∧ expressiveness_price φ ≤ e)
+    = (attacker_wins e (Attacker_Immediate p Q))›
+proof
+  assume
+    ‹∃φ. distinguishes_from φ p Q ∧ expressiveness_price φ ≤ e›
+  then obtain φ where φ_spec:
+    ‹distinguishes_from φ p Q› ‹expressiveness_price φ ≤ e›
+    unfolding 𝒪_def by blast
+  from distinction_implies_winning_budgets φ_spec(1) have
+    ‹attacker_wins
+      (expressiveness_price φ) (Attacker_Immediate p Q)› .
+  thus ‹attacker_wins e (Attacker_Immediate p Q)›
+    using win_a_upwards_closure φ_spec(2) by simp
+next
+  assume ‹attacker_wins e (Attacker_Immediate p Q)›
+  with winning_budget_implies_strategy_formula have
+    ‹∃φ. strategy_formula (Attacker_Immediate p Q) e φ
+       ∧ expressiveness_price φ ≤ e›
+    by force
+  hence
+    ‹∃φ. strategy_formula (Attacker_Immediate p Q) e φ
+       ∧ expressiveness_price φ ≤ e›
+    unfolding 𝒪_def by blast
+  thus ‹∃φ. distinguishes_from φ p Q ∧ expressiveness_price φ ≤ e›
+    using strategy_formulas_distinguish by fastforce
+qed
 ```
 
 
@@ -338,6 +413,8 @@ lemma distinction_implies_winning_budgets:
 ### Optimization of Branching Conjunctions
 
 ### Covering Decorated Traces
+
+### Handling Congruences
 
 ## Tackling Our Case Studies
 

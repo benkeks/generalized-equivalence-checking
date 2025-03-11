@@ -37,15 +37,15 @@
 
 \providecommand{\step}[1]{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}
 \providecommand{\nostep}[1]{\cancel{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}}
-\providecommand{\stepweak}{\mathrel{\twoheadrightarrow}}s
+\providecommand{\stepweak}{\mathrel{\twoheadrightarrow}}
 \providecommand{\states}{\mathcal{P}}
 \providecommand{\system}{\mathcal{S}}
 \providecommand{\labels}{\mathcal{L}}
 \providecommand{\actions}{\mathit{Act}}
 \providecommand{\traces}[1]{\mathsf{Traces}(#1)}
-\providecommand{\failures}[1]{\mathsf{Failures}(#1)}s
+\providecommand{\failures}[1]{\mathsf{Failures}(#1)}
 \providecommand{\derivatives}[1]{\operatorname{Der}(#1)}
-\providecommand{\initials}[1]{\operatorname{Ini}(#1)}s
+\providecommand{\initials}[1]{\operatorname{Ini}(#1)}
 
 \lc{ Grammars }
 
@@ -57,7 +57,7 @@
 \providecommand{\ccs}{\textsf{CCS}}
 \providecommand{\ccschannels}{\mathcal{A}}
 \providecommand{\ccsactions}{\literal{Act}_\ccs}
-\providecommand{\ccslabels}{\labels_\ccs}s
+\providecommand{\ccslabels}{\labels_\ccs}
 \providecommand{\coaction}[1]{\overline{#1}}
 \providecommand{\ccsnames}{\mathcal X}
 \providecommand{\ccsasg}{\mathcal V}

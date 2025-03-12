@@ -19,6 +19,29 @@ But this idea leads into a lot of fine points.
 
 ## Weak Equivalences in General
 
+### Silent Transitions {#sec-silent-transitions}
+
+
+:::{#def-transition-systems-with-silent-steps}
+
+For transition systems $\system=(\states,\actions,\step{})$ with a silent action $\tau \in \actions$, we define special transition relations and HML modalities:
+
+Internal transition relation
+: $p \stepweak p'$ iff $p \step{\tau}^* p'$, where $\step{\tau}^*$ is the reflexive transitive closure of silent steps.
+: The *internal* modality $\hmleps \varphi$ has $p \in \semantics{\hmleps\varphi}$ iff there is $p' \in \semantics{\varphi}$ with $p \stepweak p'$.
+
+Optional transition relation
+: $p \stepopt{\alpha} p'$ iff $p \step{\alpha} p'$, or if $\alpha = \tau$ and $p = p'$.
+: We accompany it by the *optional* step modality $\hmlopt{\alpha} \varphi$ with $p \in \semantics{\hmlopt{\alpha}\varphi}$ iff there is $p' \in \semantics{\varphi}$ with $p \stepopt{\alpha} p'$.
+
+Stable process
+: A process $p$ is called *stable* iff $p \nostep{\tau}$.
+: (In HML, we can use $\hmlneg\hmlobs{\tau}\hmltrue$ to express stabilization.)
+
+Again, we implicitly lift the relations to sets of processes, that is for instance, $P \stepweak P'$ (with $P, P' \subseteq \states$) iff $P' = \set{ p' \in \states \mid \exists p \in P \ldotp p \stepweak p'}$.
+
+:::
+
 ### Weak Traces and Weak Bisimulation
 
 - Weak transition relation
@@ -45,6 +68,8 @@ But this idea leads into a lot of fine points.
 ### Special Weak Equivalences
 
 ### HML with Silent Behavior
+
+
 
 ## Discussion
 

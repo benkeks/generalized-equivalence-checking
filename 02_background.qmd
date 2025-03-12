@@ -148,7 +148,7 @@ There are two things one might wonder about @exm-ts:
 ::: {#rem-tau}
 #### A Note on $τ$
 
-The action $τ$ (the greek letter “tau”) will in later chapters stand for *internal behavior* and receive special treatment.
+The action $τ$ (the greek letter “tau”) will in later chapters stand for *internal behavior* and receive special treatment in @sec-silent-transitions.
 For the scope of this and the following three chapters, $τ$ is an action like every other.
 
 Generally, this thesis aims to be consistent with notation and naming in surrounding literature.

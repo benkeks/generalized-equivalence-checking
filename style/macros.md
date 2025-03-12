@@ -38,6 +38,7 @@
 \providecommand{\step}[1]{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}
 \providecommand{\nostep}[1]{\cancel{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}}
 \providecommand{\stepweak}{\mathrel{\twoheadrightarrow}}
+\providecommand{\stepopt}[1]{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{(#1)}$}}}}
 \providecommand{\states}{\mathcal{P}}
 \providecommand{\system}{\mathcal{S}}
 \providecommand{\labels}{\mathcal{L}}

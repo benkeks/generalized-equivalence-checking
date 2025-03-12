@@ -269,7 +269,7 @@ Strategy formulas for the weak spectroscopy.
 :::
 
 
-::: {#lem-weak-spectroscopy-game-soundness}
+::: {#lem-weak-spectroscopy-game-formulas}
 If $e \in \attackerwins(\attackerpos{p,Q})$, then there is $\varphi \in \stratweak (\attackerpos{p,Q}, e)$ with $\expr[\literal{weak}](\varphi) \leq e$.{{<isb lemma Strategy_Formulsas weak_spectroscopy_game.winning_budget_implies_strategy_formula>}}
 :::
 :::proof
@@ -288,6 +288,29 @@ By induction over game positions $g$ and energies $e$ according to the inductive
   then there is $\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right) \in \stratweak(\defenderpos[s]{p,Q}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right)) \leq e$;
 - If $e \in \attackerwins(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha})$,
   then there is $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right)) \leq e$. \qedhere
+:::
+
+
+::: {#lem-weak-spectroscopy-game-soundness}
+If $\varphi \in \stratweak(\attackerpos{p,Q}, e)$,
+then $\varphi$ distinguishes $p$ from $Q$.{{<isb lemma Strategy_Formulsas weak_spectroscopy_game.strategy_formulas_distinguish>}}
+:::
+:::proof
+By induction over the derivation of $~\cdots \in \stratweak(g, e)$ according to @def-strategy-formulas-weak on the following inductive property:
+- If $\varphi \in \stratweak(\attackerpos{p,Q}, e)$,
+  then $\varphi$ distinguishes $p$ from $Q$;
+- If $\chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)$ and $Q \stepweak Q$,
+  then $\hmleps\chi$ distinguishes $p$ from $Q$;
+- If $\psi \in \stratweak(\attackerpos[\land]{p,q}, e)$,
+  then $\psi$ distinguishes $p$ from $\{ q \}$;
+- If $\hmlands \Psi \in \stratweak(\defenderpos{p,Q}, e)$,
+  then $\hmlands \Psi$ distinguishes $p$ from $Q$;
+- If $\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right) \in \stratweak(\defenderpos[s]{p,Q}, e)$
+  and $p$ is stable,
+  then the stable conjunction $\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right)$ distinguishes $p$ from $Q$;
+- If $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$,
+    $p \step{\hmlopt\alpha} p'$ and $Q_\alpha \subseteq Q$,
+  then the branching conjunction $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right)$ distinguishes $p$ from $Q$.
 :::
 
 ::: {#lem-weak-spectroscopy-game-completeness}
@@ -362,6 +385,34 @@ lemma winning_budget_implies_strategy_formula:
           ∧ expressiveness_price φ ≤ e - E 1 0 0 0 0 0 0 0›
   using assms
 proof(induction rule: attacker_wins.induct)
+  [...]
+```
+
+
+```isabelle
+lemma strategy_formulas_distinguish:
+  ‹(strategy_formula g e φ ⟶
+    (case g of
+      Attacker_Immediate p Q ⇒  distinguishes_from φ p Q
+    | Defender_Conj p Q ⇒ distinguishes_from φ p Q
+    | _ ⇒ True))
+    ∧
+    (strategy_formula_inner g e χ ⟶
+    (case g of
+        Attacker_Delayed p Q ⇒ (Q ↠S Q) ⟶ distinguishes_from (Internal χ) p Q
+    | Defender_Conj p Q ⇒ hml_srbb_inner.distinguishes_from χ p Q
+    | Defender_Stable_Conj p Q ⇒ (∀q. ¬ p ↦ τ q)
+        ⟶ hml_srbb_inner.distinguishes_from χ p Q
+    | Defender_Branch p α p' Q Qa ⇒(p ↦a α p')
+        ⟶ hml_srbb_inner.distinguishes_from χ p (Q∪Qa)
+    | _ ⇒ True))
+    ∧
+    (strategy_formula_conjunct g e ψ ⟶
+      (case g of
+      Attacker_Conjunct p q ⇒ hml_srbb_conj.distinguishes ψ p q
+    | _ ⇒ True))›
+proof(induction rule:
+  strategy_formula_strategy_formula_inner_strategy_formula_conjunct.induct)
   [...]
 ```
 

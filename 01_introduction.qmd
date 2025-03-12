@@ -39,25 +39,36 @@ Above question will be the *research question of this thesis*.
 We^[
     As you might have noticed, this text uses more personal pronouns than is common in much of computer science literature.
     Their meaning is the same as in a lecture:
-    “I” = “The author”; “You” = “The audience”; “We” = “The asynchronous collective of author and readers.”
+    “I” = “The author”; “You” = “The audience”; “We” = “The asynchronous collective of author and readers,” or sometimes “The author together with coauthors.”
 ] want to enable future researchers to tap into the wisdom of the linear-time–branching-time spectrum and to easily determine what equivalences fit their models.
 
 ## Linear-Time–Branching-Time Spectroscopy
 
 Van Glabbeek's papers on comparative concurrency semantics [-@glabbeek1990ltbt1;-@glabbeek1993ltbt] treat a zoo of distinct *qualitative questions* of the form “Are processes $p$ and $q$ equivalent with respect to notion $N$?”, where $N$ would for example be trace or bisimulation equivalence.
-He unveils an underlying structure where the questions can easily be compared with respect to their distinctive power.
+For many of the equivalences, there are various algorithms and implementations to decide whether processes are equal.
+
+TODO: Peterson's mutex
+
+But van Glabbeek unveils an underlying structure where the equivalences can easily be compared with respect to their distinctive power.
 This is analogous to the *spectrum of light* where seemingly qualitative properties (“The light is blue / green / red.”) happen to be *quantitative* (“The distribution of wavelengths peaks at $460 / 550 / 630~\mathrm{nm}$.”).
 
 For light (i.e. electromagnetic radiation), the mix of wavelengths can be determined through a process called *spectroscopy*.
 So, we may ask:
 
-> If there exists a “linear-time–branching time spectrum,” does this mean, there also is some kind of “linear-time–branching-time *spectroscopy*”?
+::: {#nte-idea-spectroscopy .callout-idea .callout-note}
+#### Spectroscopy?
 
-{{<noindent>}} This thesis answers the question positively, which is the key step to tackle our research question.
+If there exists a “linear-time–branching time spectrum,” does this mean, there also is some kind of “linear-time–branching-time *spectroscopy*”?
+:::
+
+This thesis answers the question positively, which is the key step to tackle our research question.
 One can compute what mix of (in-)distinguishabilities exists between a pair of processes,
 and this places the two on the spectrum of equivalences.
 We thus turn a set of qualitative equivalence problems into one quantitative problem of *how equivalent* two systems are.
 As we will see, this amounts to an abstract form of subtraction between programs, determining what kinds of differences an outside examiner might observe.
+Thereby *one* algorithm works for *all* of a spectrum.
+
+TODO: Screenshot spectroscope.
 
 ## This Thesis
 
@@ -68,7 +79,7 @@ More precisely, we make the following contributions:
 - @sec-spectrum shows *how to understand the strong linear-time--branching-time spectrum quantitatively* and formalizes the *spectroscopy problem*.
 - @sec-approach introduces the approach of *characterizing equivalence spectra through a class of energy games* and *how to decide such games*.
 - @sec-strong-spectrum applies the approach to decide the whole strong spectrum through one *game for linear-time--branching-time spectroscopy*.
-- TODO @sec-weak-spectrum dicusses case studies and recharts the *weak spectrum of equivalences accounting for silent steps* to fit our game approach.
+- TODO @sec-weak-spectrum dicusses case studies with internal behavior and recharts the *weak spectrum of equivalences accounting for silent steps* to fit our game approach.
 - TODO @sec-silent-step-spectroscopy adapts the game for the *weak spectrum of equivalences*.
 - TODO @sec-implementations showcases implementations to conveniently perform equivalence spectroscopies in web browsers and using GPU parallelization.
 
@@ -86,8 +97,9 @@ For details, we usually refer to the original publications or to other artifacts
 - **“Process Equivalence Problems as Energy Games”** [CAV -@bisping2023equivalenceEnergyGames] makes a *big technical leap by using energy games*, removing the necessity for explicit formula construction.
   [Tech report: arXiv -@bisping2023equivalenceEnergyGamesReport]
 - **“Characterizing Contrasimilarity through Games, Modal Logic, and Complexity”** [Information & Computation -@bm2024contrasimilarityInfComp] closes *gaps in the weak spectrum of equivalences* for games and their complexity and their link to modal logics.
-[Isabelle/HOL theory: AFP -@bm2023contrasimilarityAFP; Workshop version: EXPRESS/SOS -@bm2021contrasimilarity]
+  [Isabelle/HOL theory: AFP -@bm2023contrasimilarityAFP; Workshop version: EXPRESS/SOS -@bm2021contrasimilarity]
 - **“One Energy Game for the Spectrum Between Branching Bisimilarity and Weak Trace Semantics”** [EXPRESS/SOS -@bj2024silentStepSpectroscopyExpress] adapts the *spectroscopy approach for the weak spectrum*.
+  [Tech report: Preprint -@bj2025silentStepSpectroscopyJournal]
 
 \noindent
 **Prototype.**

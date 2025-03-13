@@ -7,11 +7,8 @@
 For practical problems, the equivalences we have discussed so far usually are *too strong*.
 They notice where in a process the *internal action* $\tau$ happens, that is: 
 $$\literal{a} \nbeq{} \ccsprefix{\tau} \literal{a} \nbeq{} \ccsprefix{\tau} \ccsprefix{\tau} \literal{a} \nbeq{} \ccsprefix{\tau}\ccsprefix{\literal{a}} \tau  \nbeq{} \ccsprefix{\literal{a}} \tau$$
-
 For real-world models, we want equivalences to disregard such kinds of internal behavior as “silent”  when comparing processes, such that:
-
 $$\literal{a} \beq{} \ccsprefix{\tau} \literal{a} \beq{} \ccsprefix{\tau} \ccsprefix{\tau} \literal{a} \beq{} \ccsprefix{\tau}\ccsprefix{\literal{a}} \tau  \beq{} \ccsprefix{\literal{a}} \tau$$
-
 Equivalences with this feature are called *weak*, alluding to the fact that they are less distinctive than the “strong” equivalences that treat $\tau$ like any other action.
 
 The basic principle is that weak equivalences should maintain that some internal behavior happening before or after a visible action does not make a difference from the point of view of an observer.
@@ -21,10 +18,9 @@ But this idea leads into a lot of fine points.
 
 ### Silent Transitions {#sec-silent-transitions}
 
-
 :::{#def-transition-systems-with-silent-steps}
 
-For transition systems $\system=(\states,\actions,\step{})$ with a silent action $\tau \in \actions$, we define special transition relations and HML modalities:
+For transition systems $\system=(\states,\actions,\step{})$ with an *internal action* $\tau \in \actions$, we call $\step{\tau}$-transitions “silent” and define special transition relations plus HML modalities:
 
 Internal transition relation
 : $p \stepweak p'$ iff $p \step{\tau}^* p'$, where $\step{\tau}^*$ is the reflexive transitive closure of silent steps.
@@ -44,7 +40,6 @@ Again, we implicitly lift the relations to sets of processes, that is for instan
 
 ### Weak Traces and Weak Bisimulation
 
-- Weak transition relation
 - Weak traces
 - Weak bisim
 
@@ -65,11 +60,109 @@ Again, we implicitly lift the relations to sets of processes, that is for instan
 
 ## Expressing the Weak Spectrum with Quantities
 
-### Special Weak Equivalences
+### Weak Bisimilarities
 
-### HML with Silent Behavior
+### HML of Stability-Respecting Branching Bisimilarity
+
+:::{#def-hml-srbb}
+
+#### Branching Hennessy--Milner Logic
+We define *stability-respecting branching* Hennessy--Milner modal logic,
+$\hmlsrbb$, over an alphabet of actions $\actions$ by the following context-free grammar starting with $\varphi$:
+$$
+\begin{array}{rllr}
+    \varphi {} ::= {} & \hmleps\chi & & \text{“delayed observation”} \\
+        | \quad & \hmlands \set{\psi, \psi, ...} & & \text{“immediate conjunction”} \\
+    \chi {} ::= {} & \hmlobs{a}\varphi & \quad\text{with } a \in \actions \setminus \set{\tau} & \text{“observation”} \\
+    | \quad & \hmlands \set{\psi, \psi, ... } & & \text{“standard conjunction”} \\
+    | \quad & \hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue, \psi, \psi, ...} & & \text{“stable conjunction”} \\
+    | \quad & \hmlands \set{\hmlopt{\alpha}\varphi, \psi, \psi, ...} &
+    \quad \text{with } \alpha \in \actions & \text{“branching conjunction”} \\
+    \psi {} ::= {} & \hmlneg\hmleps\chi \mid \hmleps\chi & & \text{“negative / positive conjuncts”}
+\end{array}
+$$
+We consider the semantics of $\hmlsrbb$ to be given by @def-hml-semantics and @def-transition-systems-with-silent-steps.
+:::
+
+The name already alludes to $\hmlsrbb$ as a whole characterizing stability-respecting branching bisimilarity.
+The power of @def-hml-srbb to distinguish mirrors exactly the power of @def-branching-bisim to equate:
+
+::: {#lem-srbb-characterization}
+
+$\hmlsrbb$ characterizes stability-respecting branching bisimilarity, that is,
+there is a stability-respecting branching bisimulation $\rel R$ with $(p,q) \in \rel R$
+precisely if there is no formula $\varphi \in \hmlsrbb$ with $p \in \semantics{\varphi}$ and $q \notin \semantics{\varphi}$.{{<isb lemma Branching_Bisimilarity LTS_Tau.sr_branching_bisim_is_hmlsrbb>}}
+:::
+
+The paper proof in @bj2025silentStepSpectroscopyJournal proceeds quite similarly to other Hennessy–Milner theorems, as showcased in @thm-hennessy-milner.
+
+### Syntactic Expressiveness
+
+We adapt the notions of @sec-strong-notions for the weak spectrum to distinguish the new kinds of conjunctions:
+
+- Modal depth of *observations* ($\hmlobs{a}$, $\hmlopt{\alpha}$).
+- **New:** Nesting depth of *branching conjunctions* (with one $\hmlopt{\alpha}$-observation conjunct, not starting with $\hmleps$).
+- **New:** Nesting depth of *unstable conjunctions* (that do not enforce stability by a $\hmlneg \hmlobs{\tau} \hmltrue$-conjunct).
+- **New:** Nesting depth of *stable conjunctions* (that do enforce stability by a $\hmlneg \hmlobs{\tau} \hmltrue$-conjunct).
+- Nesting depth of *immediate conjunctions* (that are not preceded by $\hmleps$).
+- Maximal modal depth of *positive conjuncts* in conjunctions.^[To simplify matters, we drop the two kinds of positive conjunct depths.]
+- Maximal modal depth of *negative conjuncts* in conjunctions.
+- Nesting depth of *negations*.
 
 
+::: {#def-weak-spectrum}
+#### Weak Spectrum
+
+We define the *weak notions of observability* using vectors of extended naturals
+$$\notions^\literal{weak} ≔
+\natsext^8,
+$$
+ordered by pointwise comparison of vector components.
+
+We capture the family of weak observation languages $\observationsvar[\literal{weak}]{N \in \notions^\literal{weak}}$ by providing an expressiveness price function $\expr[\literal{weak}] \colon \hmlsrbb \rightarrow \notions^\literal{weak}$ with $\observationsvar[\literal{weak}]{N} = \set{ \varphi \mid \expr[\literal{weak}](\varphi) \leq N}$.
+It is defined in mutual recursion with $\expr[\varepsilon]$ and $\expr[\wedge]$ as follows---if multiple rules apply, pick the first one:
+$$
+\begin{array}{rl}
+  \expr[\literal{weak}]\left(\hmltrue\right) \defeq
+  \expr[\varepsilon]\left(\hmltrue\right) & \defeq
+  \zerovec
+  \\
+  \textstyle\expr[\literal{weak}]\left(\hmleps\chi\right) & \defeq
+  \textstyle\expr[\varepsilon]\left(\chi\right)
+  \\
+  \textstyle\expr[\literal{weak}]\left(\hmlands\Psi\right) & \defeq
+  \unit{5} + \textstyle\expr[\varepsilon]\left(\hmlands \Psi\right)
+  \\
+  \expr[\varepsilon]\left(\hmlobs{a}\varphi\right) & \defeq
+  \unit{1} + \expr[\literal{weak}]\left(\varphi\right)
+  \\
+  \textstyle\expr[\varepsilon]\left(\hmlands \Psi\right) & \defeq
+  \sup\;\set{ \expr[\wedge]\left(\psi\right) \mid \psi \in \Psi } +
+  \begin{cases}
+      \unit{4} & \text{if } \hmlneg\hmlobs{\tau}\hmltrue \in \Psi\\
+      \unit{2} + \unit{3} & \text{if there is } \hmlopt{\alpha}\varphi \in \Psi \\
+      \unit{3} & \text{otherwise}
+  \end{cases}
+  \\
+  \expr[\wedge]\left(\hmlneg\hmlobs{\tau}\hmltrue\right) & \defeq
+  (0,0,0,0,0,0,0,1)
+  \\
+  \expr[\wedge]\left(\hmlneg\varphi\right) & \defeq
+  \sup\;\set{ \unit{8} + \expr[\literal{weak}]\left(\varphi\right),\quad
+      (0,0,0,0,0,0,\left(\expr[\literal{weak}]\left(\varphi\right)\right)_1,0) }
+  \\
+  \expr[\wedge]\left(\hmlopt{\alpha}\varphi\right) & \defeq
+  \sup\;\set{ \unit{1} + \expr[\literal{weak}]\left(\varphi\right),\quad
+      (0,0,0,0,0,1 + \left(\expr[\literal{weak}]\left(\varphi\right)\right)_1,0,0) }
+  \\
+  \expr[\wedge]\left(\varphi\right) & \defeq
+  \sup\;\set{ \hphantom{\unit{8} + {}} \expr[\literal{weak}]\left(\varphi\right),\quad
+      (0,0,0,0,0,\left(\expr[\literal{weak}]\left(\varphi\right)\right)_1,0,0) }
+\end{array}
+$$
+:::
+
+### Weak Spectrum
 
 ## Discussion
 

@@ -355,7 +355,7 @@ First, let us make explicit which equivalences we include in the polynomial-time
 To define the polynomial slice, we only use three dimensions:
 
 1. modal depth
-2. depth of negative clauses, and
+2. depth of negative conjuncts, and
 3. nesting depth of negations (that is, the first, fifth and sixth dimension of the strong spectrum @def-strong-spectrum).
 
 \noindent
@@ -437,7 +437,7 @@ We add the computations that happen in the grammar of @def-polynomial-strong-spe
 
 For a transition system $\system$, the *bisimulation energy game* ${\game}_\notionname{B}^{🗲\system}$ is played on the same graph as the *bisimulation game* ${\game}_\notionname{B}^{\system}$ (of @def-bisim-game), but the moves are weighted by the following energy updates:
 
-- Attacker swaps are counted as a negation and limit the further observations to the depth of negative clauses:
+- Attacker swaps are counted as a negation and limit the further observations to the depth of negative conjuncts:
   $$[p, q] \quad \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} \quad [q, p].$$
 - Simulation challenges count as an observation (using up the budget for modal depth):
   $$[p, q] \quad \gamemove{-1,0,0}^🗲_\notionname{B} \quad (α, p', q) \quad \text{if} \quad p \step{α} p'.$$

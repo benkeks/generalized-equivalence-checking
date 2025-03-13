@@ -363,7 +363,7 @@ Higher syntactic complexity allows formula sets of higher expressiveness.
 In this view, a trace formula is *cheaper* than a failure formula.
 Using @exm-simple-spectrum: $\expr(\hmlobs{\tau}\hmlobs{\literal a}) = \varnothing \subset \set{(\neg)} = \expr(\hmlobs{\tau} \hmlands\set{\hmlneg\hmlobs{\literal{a}}})$, which captures that we need a strictly smaller part of the grammar to construct the trace formula.
 
-### The Strong Notions of Observability
+### The Strong Notions of Observability {#sec-strong-notions}
 
 Now we can approach the *strong spectrum*.
 We will encode its notions as a $\natsext$-vector lattice as in @exm-nat-lattice.
@@ -371,9 +371,9 @@ To cover all common behavioral preorders, we use six dimensions, counting certai
 
 1. Formula modal depth of observations.
 2. Formula nesting depth of conjunctions.
-3. Maximal modal depth of deepest positive clauses in conjunctions.
-4. Maximal modal depth of the other positive clauses in conjunctions.
-5. Maximal modal depth of negative clauses in conjunctions.
+3. Maximal modal depth of deepest positive conjuncts in conjunctions.
+4. Maximal modal depth of the other positive conjuncts in conjunctions.
+5. Maximal modal depth of negative conjuncts in conjunctions.
 6. Formula nesting depth of negations.
 
 ::: {#def-strong-spectrum}
@@ -409,7 +409,7 @@ For instance, $φ^N \leadsto \hmlobs{α}φ^{N - \unit{1}}$ is no valid productio
 The smallest notion to cover the failure formula of Subsection [-@sec-incomparabilities] would be $(2,1,0,0,1,1)$, that is, 
 $$\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observationsvar[\literal{strong}]{(2,1,0,0,1,1)}.$$
 This is because the formula has two levels of modal observations, where the inner one is negated.
-The negation is wrapped in a conjunction with no positive clauses.
+The negation is wrapped in a conjunction with no positive conjuncts.
 A visualization for how $\expr{\literal{strong}}(\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}) = (2,1,0,0,1,1)$ (according to @def-expressiveness-price) comes together is given in the upcoming @fig-formula-pricing.
 Formally, the reason is that the following derivation is optimal:
 $$
@@ -800,7 +800,7 @@ Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\inf
     %
     \draw[step=1.0, xshift=.7505cm, yshift=1.3cm, opacity=0.4] (0,0) grid (3.5,3.5);
     \draw[thick, opacity=0.5, text opacity=.8, xshift=.7505cm, yshift=1.3cm] (-.25,2) -- (4,2) node[pos=1,right] {conjunctions = 2};
-    \draw[thick, opacity=0.5, text opacity=.8, xshift=.7505cm, yshift=1.3cm] (2,-.25) -- (2,4) node[pos=1,left] {neg.\ clause depth = 2};
+    \draw[thick, opacity=0.5, text opacity=.8, xshift=.7505cm, yshift=1.3cm] (2,-.25) -- (2,4) node[pos=1,left] {neg.\ conjunct depth = 2};
     \draw[draw=none, fill=violet, fill opacity=0.1, text opacity=1, xshift=.7505cm, yshift=1.3cm]
       (-.05,-.05) rectangle (4,4) node[pos=.74, align=center] {bisimulation};
     %
@@ -810,7 +810,7 @@ Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\inf
 \end{tikzpicture}
 ```
 
-Cross section of the strong spectrum showing the dimensions conjunctions, negative clause depth, and negation depth.
+Cross section of the strong spectrum showing the dimensions conjunctions, negative conjunct depth, and negation depth.
 All preorders below the red mark at $(2,2,2)$ hold in @exm-spectroscopy-front.
 ::::
 
@@ -934,7 +934,7 @@ We have already laid the groundwork to shift the semantic question of equivalenc
 The core ideas of this section have already been explored in @bjn2022decidingAllBehavioralEqs and @bisping2023equivalenceEnergyGames for the strong spectrum.
 However, in my prior work the expressiveness prices played a more crucial role.
 Here, we instead opted for a parameterized grammar to define notions and their observations $\observationsvar{N}$.
-In this grammar, we force observations in clauses of conjunctions and count $\hmltrue$ as part of the $\zerovec$-notion.
+In this grammar, we force observations in conjuncts of conjunctions and count $\hmltrue$ as part of the $\zerovec$-notion.
 These are mostly superficial changes to streamline the following presentation.
 We have shown that traces, failures, simulation and bisimulation equivalence as defined by the notion coordinates match their textbook definitions.
 

@@ -44,6 +44,7 @@
 \providecommand{\labels}{\mathcal{L}}
 \providecommand{\actions}{\mathit{Act}}
 \providecommand{\traces}[1]{\mathsf{Traces}(#1)}
+\providecommand{\wtraces}[1]{\mathsf{WeakTraces}(#1)}
 \providecommand{\failures}[1]{\mathsf{Failures}(#1)}
 \providecommand{\derivatives}[1]{\operatorname{Der}(#1)}
 \providecommand{\initials}[1]{\operatorname{Ini}(#1)}

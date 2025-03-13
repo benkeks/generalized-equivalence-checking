@@ -456,7 +456,6 @@ Simulation preorder, simulation equivalence and bisimilarity are defined as foll
 - $p$ is *bisimilar* to $q$, $p \beq{B} q$, iff there is a *symmetric* simulation $\rel R$ (i.e. $\rel R = \inverse{\rel R}$) with $(p, q) ∈ \rel R$.{{<isb definition Strong_Equivalences lts.bisimilar>}}
 :::
 
-\noindent
 We also call a symmetric simulation *bisimulation* for short.^[
   Other authors use a weaker definition, namely, that $\rel R$ is a bisimulation if $\rel{R}$ and $\inverse{\rel{R}}$ are simulations.
   Both definitions lead to the characterization of the same notion of bisimilarity.
@@ -473,7 +472,7 @@ The following relations are simulations on the LTS of @exm-ts:
 - a minimal simulation for $\literal P$ and $\literal Q$: $\rel R_\literal{PQ} ≔ \set{(\literal{P}, \literal{Q}), (\literal{p_a}, \literal{q_{ab}}), (\literal{p_b}, \literal{q_{ab}}), (\literal{p_1}, \literal{q_1}), (\literal{p_2}, \literal{q_2})}$;
 - and the combination of the above $\rel R_\mathrm{max} ≔ \rel R_\mathrm{sim} ∪ \rel R_\mathrm{id} ∪ \rel R_\mathrm{up}$.
 
-{{<noindent>}} The simulation $\rel R_\literal{PQ}$ shows that $\literal P \bpreord{S} \literal Q$.
+The simulation $\rel R_\literal{PQ}$ shows that $\literal P \bpreord{S} \literal Q$.
 
 However, there is no simulation that preorders $\literal Q$ to $\literal P$, as there is no way to simulate the transition $\literal Q \step{τ} \literal{q_{ab}}$ from $\literal P$ for lack of a successor that allows $\literal a$ *and* $\literal b$ as does $\literal{q_{ab}}$.
 (In @sec-hml, we will discuss how to capture such differences more formally.)

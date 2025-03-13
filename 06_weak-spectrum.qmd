@@ -4,6 +4,9 @@
 {{< include style/macros.md >}}
 :::
 
+
+## Weak Equivalences in General
+
 For practical problems, the equivalences we have discussed so far usually are *too strong*.
 They notice where in a process the *internal action* $\tau$ happens, that is: 
 $$\literal{a} \nbeq{} \ccsprefix{\tau} \literal{a} \nbeq{} \ccsprefix{\tau} \ccsprefix{\tau} \literal{a} \nbeq{} \ccsprefix{\tau}\ccsprefix{\literal{a}} \tau  \nbeq{} \ccsprefix{\literal{a}} \tau$$
@@ -13,8 +16,6 @@ Equivalences with this feature are called *weak*, alluding to the fact that they
 
 The basic principle is that weak equivalences should maintain that some internal behavior happening before or after a visible action does not make a difference from the point of view of an observer.
 But this idea leads into a lot of fine points.
-
-## Weak Equivalences in General
 
 ### Silent Transitions {#sec-silent-transitions}
 
@@ -35,13 +36,95 @@ Stable process
 : (In HML, we can use $\hmlneg\hmlobs{\tau}\hmltrue$ to express stabilization.)
 
 Again, we implicitly lift the relations to sets of processes, that is for instance, $P \stepweak P'$ (with $P, P' \subseteq \states$) iff $P' = \set{ p' \in \states \mid \exists p \in P \ldotp p \stepweak p'}$.
-
 :::
+
+We use the convention that $\alpha$ continues to stand for elements of $\actions$, while $a$ comes from $\actions \setminus \set{\tau}$.
+
+
 
 ### Weak Traces and Weak Bisimulation
 
-- Weak traces
-- Weak bisim
+@def-traces and @def-trace-eq
+
+::: {#def-weak-traces}
+#### Weak Traces, Preorder, and Equivalence
+
+The set of *weak traces* of a state $\wtraces{p} \subseteq (\actions \setminus \set{\tau})^*$ is recursively defined as
+
+- $\emptyword ∈ \wtraces{p}$,
+- $a \cdot \vec w ∈ \wtraces{p}$ if there is $p'$ with $p \stepweak \step a p'$ and $\vec w ∈ \wtraces{p'}$.{{<isb abbreviation LTS LTS_Tau.weak_traces>}}^[The Isabelle theory has a slightly different definition that also allows $\tau$s in the trace words, which do not necessary stand for proper $\step{\tau}$-steps.]
+
+Two states are *weakly trace-preordered*, $p \bpreord{WT} q$, if $\wtraces{p} ⊆ \wtraces{q}$.{{<isb definition LTS LTS_Tau.weakly_trace_preordered>}}
+As usual, if both directions are maintained, the states are called *weakly trace-equivalent*, $p \beq{WT} q$.
+:::
+
+::: {#def-weak-bisimilarity}
+#### Weak Simulation, Preorder and Equivalences
+
+A relation, $\rel R ⊆ \states × \states$, is called a *weak simulation* if, for each $(p, q) ∈ \rel R$,
+
+- if $p \step a p'$ with $a ∈ \actions \setminus{\tau}$, there is a $q'$ with $q \stepweak\step{a}\stepweak q'$ and $(p', q') ∈ \rel R$; and
+- if $p \step \tau p'$, there is a $q'$ with $q \stepweak q'$ and $(p', q') ∈ \rel R$.
+
+Weak simulation preorder, weak simulation equivalence and weak bisimilarity analogously to @def-bisimilarity:
+
+- $p$ is *weakly simulated by* $q$, $p \bpreord{WS} q$, iff there is a weak simulation $\rel R$ with $(p, q) ∈ \rel R$.
+- $p$ is *weakly similar* to $q$, $p \beq{WS} q$, iff $p \bpreord{WS} q$ and $q \bpreord{WS} p$.
+- $p$ is *weakly bisimilar* to $q$, $p \beq{WB} q$, iff there is a *symmetric* weak simulation $\rel R$ (i.e. $\rel R = \inverse{\rel R}$) with $(p, q) ∈ \rel R$.
+:::
+
+
+::: {#exm-phil-weak-eqs}
+For the processes of @exm-ts (repeated in @fig-ts-determinism-repeated), the weak traces would be $\wtraces{\literal{P}} = \set{\emptyword, \literal{a}, \literal{b}} = \wtraces{\literal Q}$.
+Consequently, $\literal P$ and $\literal Q$ are weakly trace-equivalent, $\literal P \beq{WT} \literal Q$.
+
+In @exm-phil-sim, we have observed that the two processes are not (strongly) similar because $\literal Q \nbpreord{S} \literal P$ due to $\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}$.
+Due to the weakening, however, there is a weak simulation for this direction, namely:
+$\set{(\literal{Q}, \literal{P}), (\literal{q_{ab}}, \literal{P}), (\literal{q_1}, \literal{p_1}), (\literal{q_2}, \literal{p_2})}$.
+Therefore, $\literal P \beq{WS} \literal Q$!
+A mutual weak simulation $R_{\literal{PQ}}$ to justify this is drawn in dashed blue in @fig-ts-determinism-repeated.
+
+::::{#fig-ts-determinism-repeated}
+```tikz
+\begin{tikzpicture}[->,auto,node distance=2cm,
+    rel/.style={dashed,blue}]
+  \node[state] (P){$\literal{P}$};
+  \node[state, below left of=P] (PA){$\literal{p_a}$};
+  \node[state, below right of=P] (PB){$\literal{p_b}$};
+  \node[state, below of=PA] (P1){$\literal{p_1}$};
+  \node[state, below of=PB] (P2){$\literal{p_2}$};
+  \path
+    (P)
+      edge node[swap] {$\tau$} (PA)
+      edge node {$\tau$} (PB)
+    (PA)
+      edge node {$\literal{a}\vphantom{\literal{b}}$} (P1)
+    (PB)
+      edge node {$\literal{b}$} (P2);
+
+  \node[state, right=5cm of P] (Q){$\literal{Q}$};
+  \node[state, below of=Q] (QAB){$\literal{q_{ab}}$};
+  \node[state, below left of=QAB] (Q1){$\literal{q_1}$};
+  \node[state, below right of=QAB] (Q2){$\literal{q_2}$};
+  \path
+    (Q)
+      edge node {$\tau$} (QAB)
+    (QAB)
+      edge node[swap] {$\literal{a}\vphantom{\literal{b}}$} (Q1)
+      edge node {$\literal{b}$} (Q2);
+   \path[rel]
+    (P) edge[<->, bend left=15] node {$\rel R_{\literal{PQ}}$} (Q)
+    (PA) edge[->, bend left=10] node {} (Q)
+    (PB) edge[->, bend left=10] node {} (Q)
+    (QAB) edge[->, bend right=10] node {} (P)
+    (P1) edge[<->, bend left=15] node {} (Q1)
+    (P2) edge[<->, bend left=15] node {} (Q2);
+\end{tikzpicture}
+```
+
+A mutual weak simulation on the original philosopher example.
+::::
+:::
 
 ### The Need for Other Equivalences
 

@@ -296,7 +296,10 @@ $$
 A process $P ∈ \ccs$ now denotes a position in the transition system $(\ccs, \ccsactions, \step{}_\ccs)$ defined through @def-ccs.
 :::
 
-{{< noindent >}} Feel free to go ahead an check that the transitions of @exm-ts indeed match those that @def-ccs-semantics prescribes for $\literal{P}$ of @exm-ccs!
+So, when we were writing “$\literal{P_A} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$” above, this was actually to claim that we are talking about a CCS system where the *process name* $\literal{P_A} \in \ccsnames$ and $\ccsasg(\literal{P_A}) ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$.
+By the semantics, this also leads to the existence of a *state* $\literal{P_A}$ in the CCS transition system, and usually that is the entity we are interested in when defining a process.
+
+Feel free to go ahead an check that the transitions of @exm-ts indeed match those that @def-ccs-semantics prescribes for $\literal{P}$ of @exm-ccs!
 (For readability, @exm-ts, has shorter state names, however.)
 For instance, the transition $\literal P \step{τ} \literal{p_a}$ of @exm-ts would be justified as follows:
 

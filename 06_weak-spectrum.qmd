@@ -5,7 +5,7 @@
 :::
 
 
-## Weak Equivalences in General
+## Weak Equivalences in General {#sec-weak-equivalences-in-general}
 
 For practical problems, the equivalences we have discussed so far usually are *too strong*.
 They notice where in a process the *internal action* $\tau$ happens, that is: 
@@ -13,6 +13,45 @@ $$\literal{a} \nbeq{} \ccsprefix{\tau} \literal{a} \nbeq{} \ccsprefix{\tau} \ccs
 For real-world models, we want equivalences to disregard such kinds of internal behavior as “silent”  when comparing processes, such that:
 $$\literal{a} \beq{} \ccsprefix{\tau} \literal{a} \beq{} \ccsprefix{\tau} \ccsprefix{\tau} \literal{a} \beq{} \ccsprefix{\tau}\ccsprefix{\literal{a}} \tau  \beq{} \ccsprefix{\literal{a}} \tau$$
 Equivalences with this feature are called *weak*, alluding to the fact that they are less distinctive than the “strong” equivalences that treat $\tau$ like any other action.
+
+@fig-simple-weak-eq shows the (strong-bisimulation-minimal) transition system of the example processes we would like to equate in weak equivalences.
+
+:::{#fig-simple-weak-eq .column-margin}
+```tikz
+\begin{tikzpicture}[auto,node distance=1.5cm,
+    rel/.style={dashed,blue}]
+  \node[state] (tta){$\ccsprefix{\tau}\ccsprefix{\tau}\literal{a}$};
+  \node[state, below of=tta] (ta){$\ccsprefix{\tau}\literal{a}$};
+  \node[state, below of=ta] (a){$\literal{a}$};
+  \node[state, node distance=2.5cm, below of=a] (Null){$\ccsnull$};
+  \node[state, right of=tta] (tat){$\ccsprefix{\tau}\ccsprefix{\literal{a}}\tau$};
+  \node[state, below of=tat] (at){$\ccsprefix{\literal{a}}\tau$};
+  \node[state, node distance=2.5cm, below of=at] (t){$\tau$};
+  \path[->]
+    (tta)
+      edge node[swap] {$\tau$} (ta)
+    (ta)
+      edge node[swap] {$\tau$} (a)
+    (a)
+      edge[thick] node[swap] {$\literal{a}$} (Null)
+    (tat)
+      edge node {$\tau$} (at)
+    (at)
+      edge[thick] node {$\literal{a}$} (t)
+    (t)
+      edge node {$\tau$} (Null);
+  \begin{pgfonlayer}{bg}
+    \draw[blue, double, dotted, double distance=16mm, cap=round]
+      (tta.center)--(tat.center)--(at.center)--(a.center)--(ta.center)--(tta.center);
+    \draw[blue, double, dotted, double distance=16mm, cap=round]
+      (Null.center)--(t.center);
+  \end{pgfonlayer}
+\end{tikzpicture}
+
+```
+
+Processes we would like to equate in weak equivalences.
+:::
 
 The basic principle is that weak equivalences should maintain that some internal behavior happening before or after a visible action does not make a difference from the point of view of an observer.
 But this idea leads into a lot of fine points.
@@ -40,7 +79,12 @@ Again, we implicitly lift the relations to sets of processes, that is for instan
 
 We use the convention that $\alpha$ continues to stand for elements of $\actions$, while $a$ comes from $\actions \setminus \set{\tau}$.
 
-
+:::{#rem-expressiveness-weak-hml}
+Note that the notation for $\hml$-operators $\hmleps \dots$ and $\hmlopt{\alpha}\dots$ introduced in @def-transition-systems-with-silent-steps does not affect the expressiveness of $\hml$.
+To see why, assume notation for disjunction $\bigvee_{i \in I} \psi_i \defeq \hmlneg\hmland{i}{I} \hmlneg\psi_i$, and for $n$-time application of an operator.
+Then, $\semantics{\hmleps\varphi} = \semantics{\bigvee_{n \in \nats} \hmlobs{\tau}^n \varphi}$.
+Also, $\semantics{\hmlopt{\tau}\varphi} = \semantics{\bigvee\set{\varphi, \hmlobs{\tau}\varphi}}$ and $\semantics{\hmlopt{a}\varphi} = \semantics{\hmlobs{a}\varphi}$.
+:::
 
 ### Weak Traces and Weak Bisimulation
 
@@ -58,6 +102,9 @@ Two states are *weakly trace-preordered*, $p \bpreord{WT} q$, if $\wtraces{p} �
 As usual, if both directions are maintained, the states are called *weakly trace-equivalent*, $p \beq{WT} q$.
 :::
 
+The blue groups of states in @fig-simple-weak-eq are weakly trace equivalent.
+Moreover, they also are related by the stronger notions of weak bisimulation and simulation.
+
 ::: {#def-weak-bisimilarity}
 #### Weak Simulation, Preorder and Equivalences
 
@@ -73,6 +120,7 @@ Weak simulation preorder, weak simulation equivalence and weak bisimilarity anal
 - $p$ is *weakly bisimilar* to $q$, $p \beq{WB} q$, iff there is a *symmetric* weak simulation $\rel R$ (i.e. $\rel R = \inverse{\rel R}$) with $(p, q) ∈ \rel R$.
 :::
 
+All three weak equivalences maintain that the small example processes of the introduction to @sec-weak-equivalences-in-general are equal.
 
 ::: {#exm-phil-weak-eqs}
 For the processes of @exm-ts (repeated in @fig-ts-determinism-repeated), the weak traces would be $\wtraces{\literal{P}} = \set{\emptyword, \literal{a}, \literal{b}} = \wtraces{\literal Q}$.
@@ -124,28 +172,17 @@ A mutual weak simulation $R_{\literal{PQ}}$ to justify this is drawn in dashed b
 
 A mutual weak simulation on the original philosopher example.
 ::::
+
+However, $\literal P$ and $\literal Q$ are not weakly bisimilar.
+The reason is that the left process can weakly $\stepweak$-transition to a position where $\literal{b}$ is impossible, even if we would allow for some more internal $\stepweak$-behavior in between.
+In HML, this difference could be expressed by $\hmleps \hmlneg \hmleps \hmlobs{\literal{b}}$.
 :::
 
-### The Need for Other Equivalences
-
-- Weak failures
-- Stability...
-
-## Case Studies
-
-### Peterson's Mutual Exclusion
-
-### Bell's Parellelizing Compiler Optimization
-
-### Congruence-Properties of Abstraction
-
-... Closing hint: congruence even messier in the weak spectrum, e.g. weak bisim not congruence for +.
-
-## Expressing the Weak Spectrum with Quantities
-
-### Weak Bisimilarities
-
 ### HML of Stability-Respecting Branching Bisimilarity
+
+As noted in @rem-expressiveness-weak-hml, our $\hml$ notation for weak observations does not affect expressiveness---thus it still characterizes strong bisimilarity by @thm-hennessy-milner.
+To characterize weak equivalences, we have to select appropriate subsets.
+We will use the following sublogic that, naturally, must be designed to correspond to the strongest weak notion we will be interested in.
 
 :::{#def-hml-srbb}
 
@@ -168,6 +205,22 @@ We consider the semantics of $\hmlsrbb$ to be given by @def-hml-semantics and @d
 :::
 
 The name already alludes to $\hmlsrbb$ as a whole characterizing stability-respecting branching bisimilarity.
+
+::: {#def-stability-respecting}
+  We call a $\rel R$ *stability-respecting* iff,
+  for each $(p,q) \in \rel R$ with $p \nostep{\tau}$,
+  there is some $q'$ with $q \stepweak q' \nostep{\tau}$ and $(p, q') \in \rel R$.
+:::
+
+::: {#def-branching-bisim}
+  A symmetric relation $\rel{R}$ is a *branching bisimulation*
+  if, for all $(p,q) \in \rel R$, a step $p \step{\alpha} p'$ implies
+    (1) $\alpha = \tau$ and $(p', q) \in \rel R$,
+    or (2) $q \stepweak q' \step{\alpha} q''$ for some $q', q''$ with $(p, q') \in \rel R$ and $(p', q'') \in \rel R$.
+
+  If there is a stability-respecting branching bisimulation $\rel R_{BB^{sr}}$ with $(p_0, q_0) \in \rel R_{BB^{sr}}$, then $p_0$ and $q_0$ are *stability-respecting branching bisimilar*.
+:::
+
 The power of @def-hml-srbb to distinguish mirrors exactly the power of @def-branching-bisim to equate:
 
 ::: {#lem-srbb-characterization}
@@ -179,19 +232,40 @@ precisely if there is no formula $\varphi \in \hmlsrbb$ with $p \in \semantics{\
 
 The paper proof in @bj2025silentStepSpectroscopyJournal proceeds quite similarly to other Hennessy–Milner theorems, as showcased in @thm-hennessy-milner.
 
+The example process groups of @fig-simple-weak-eq are stability-respecting branching bisimilar, as desired.
+But branching bisimilarity is more distinctive than weak bisimilarity:
+
+::: {#exm-non-bb-procs}
+
+Compare $\literal{P_{ab}} \defeq \literal{a} \ccschoice \ccsprefix{\tau} \literal{b} \ccschoice \literal{b}$
+and a subgraph-variant $\literal{P_{a\tau b}} \defeq \literal{a} \ccschoice \ccsprefix{\tau} \literal{b}$, where the $\literal{b}$ is *only* possible after committing to its branch.
+The processes are not branching bisimilar as
+$\hmleps\hmlands\set{\hmlopt{\literal{b}}, \hmleps\hmlobs{\literal{a}}}$ distinguishes them.
+Intuitively, the formula expresses that, right at the moment when $\literal{b}$ can happen, $\literal{a}$ is still (weakly) possible.
+
+But the processes are weakly bisimilar, as weak bisimilarity does not care about branching due to $\tau$-steps that can also be achieved by visible actions.
+A formal argument would be that $\identity{\states} \cup \set{(\literal{P_{ab}}, \literal{P_{a\tau b}}), (\literal{P_{a\tau b}}, \literal{P_{ab}})}$ is a symmetric weak simulation.
+:::
+
+### The Need for Other Equivalences
+
+- Weak failures
+- Stability...
+
+## Expressing the Weak Spectrum with Quantities
+
 ### Syntactic Expressiveness
 
 We adapt the notions of @sec-strong-notions for the weak spectrum to distinguish the new kinds of conjunctions:
 
-- Modal depth of *observations* ($\hmlobs{a}$, $\hmlopt{\alpha}$).
-- **New:** Nesting depth of *branching conjunctions* (with one $\hmlopt{\alpha}$-observation conjunct, not starting with $\hmleps$).
-- **New:** Nesting depth of *unstable conjunctions* (that do not enforce stability by a $\hmlneg \hmlobs{\tau} \hmltrue$-conjunct).
-- **New:** Nesting depth of *stable conjunctions* (that do enforce stability by a $\hmlneg \hmlobs{\tau} \hmltrue$-conjunct).
-- Nesting depth of *immediate conjunctions* (that are not preceded by $\hmleps$).
-- Maximal modal depth of *positive conjuncts* in conjunctions.^[To simplify matters, we drop the two kinds of positive conjunct depths.]
-- Maximal modal depth of *negative conjuncts* in conjunctions.
-- Nesting depth of *negations*.
-
+1. Modal depth of *observations* ($\hmlobs{a}$, $\hmlopt{\alpha}$).
+2. **New:** Nesting depth of *branching conjunctions* (with one $\hmlopt{\alpha}$-observation conjunct, not starting with $\hmleps$).
+3. **New:** Nesting depth of *unstable conjunctions* (that do not enforce stability by a $\hmlneg \hmlobs{\tau} \hmltrue$-conjunct).
+4. **New:** Nesting depth of *stable conjunctions* (that do enforce stability by a $\hmlneg \hmlobs{\tau} \hmltrue$-conjunct).
+5. Nesting depth of *immediate conjunctions* (that are not preceded by $\hmleps$).
+6. Maximal modal depth of *positive conjuncts* in conjunctions.^[To simplify matters, we drop the two kinds of positive conjunct depths.]
+7. Maximal modal depth of *negative conjuncts* in conjunctions.
+8. Nesting depth of *negations*.
 
 ::: {#def-weak-spectrum}
 #### Weak Spectrum
@@ -246,6 +320,17 @@ $$
 :::
 
 ### Weak Spectrum
+
+## Case Studies
+
+### Peterson's Mutual Exclusion
+
+### Bell's Parellelizing Compiler Optimization
+
+### Congruence-Properties of Abstraction
+
+... Closing hint: congruence even messier in the weak spectrum, e.g. weak bisim not congruence for +.
+
 
 ## Discussion
 

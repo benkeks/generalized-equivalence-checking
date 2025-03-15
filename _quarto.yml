@@ -134,6 +134,8 @@ diagram:
         - '\usepackage{unicode-math}'
         - '\input{PROJECT/style/preamble.tex}'
         - '\input{PROJECT/style/macros.md}'
+        - '\pgfdeclarelayer{bg}'
+        - '\pgfsetlayers{bg,main}'
     dot:
       execpath: dot
       format: svg

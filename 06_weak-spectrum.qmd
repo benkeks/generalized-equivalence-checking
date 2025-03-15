@@ -321,6 +321,98 @@ $$
 
 ### Weak Spectrum
 
+:::{#fig-weak-spectrum fig-env='figure*' fig-pos='t!'}
+
+```tikz
+\newcommand*{\EqCoords}[1]{\textcolor{gray}{\small $#1$}}
+\begin{tikzpicture}[auto,node distance=2.5cm,align=center]
+  \node (BBs){stability-respecting branching bisim $\notionname{BB^{sr}}$\\
+    \EqCoords{\infty,\infty,\infty,\infty,\infty,\infty,\infty,\infty}};
+  \node (BB)[below left of=BBs]{branching bisim $\notionname{BB}$\\
+    \EqCoords{\infty,\infty,\infty,0,\infty,\infty,\infty,\infty}};
+  \node (eB)[xshift=-5mm, below left of=BB]{$\eta$-bisim $\notionname{\eta}$\\
+    \EqCoords{\infty,\infty,\infty,0,0,\infty,\infty,\infty}};
+  \node (DB)[below right of=BB]{delay bisim $\notionname{DB}$\\
+    \EqCoords{\infty,0,\infty,0,\infty,\infty,\infty,\infty}};
+  \node (B)[below left of=DB]{weak bisim $\notionname{WB}$\\
+    \EqCoords{\infty,0,\infty,0,0,\infty,\infty,\infty}};
+  \node (S2)[below left of=B]{$2$-nested weak sim $\notionname{2WS}$\\
+    \EqCoords{\infty,0,\infty,0,0,\infty,\infty,1}};
+  \node (C)[below right of=B]{contrasim $\notionname{C}$\\
+    \EqCoords{\infty,0,\infty,0,0,0,\infty,\infty}};
+  \node (RS)[below left of=S2]{unstable\\ ready sim $\notionname{WRS}$\\
+    \EqCoords{\infty,0,\infty,0,0,\infty,1,1}};
+  \node (R)[below right of=RS]{unstable\\ readiness $\notionname{WR}$\\
+    \EqCoords{\infty,0,1,0,0,1,1,1}};
+  \node (PF)[above right of=R]{unstable\\ possible futures $\notionname{WPF}$\\
+    \EqCoords{\infty,0,1,0,0,\infty,\infty,1}};
+  \node (IF)[below right of=PF]{unstable\\ impossible futures $\notionname{WIF}$\\
+    \EqCoords{\infty,0,1,0,0,0,\infty,1}};
+  \node (S)[below left of=RS]{weak sim $\notionname{1WS}$\\
+    \EqCoords{\infty,0,\infty,0,0,\infty,0,0}};
+  \node (eS)[above left of=RS]{$\eta$-sim $\notionname{\eta S}$\\
+    \EqCoords{\infty,\infty,\infty,0,0,\infty,0,0}};
+  \node (F)[below right of=R]{unstable failures $\notionname{WF}$\\
+    \EqCoords{\infty,0,1,0,0,0,1,1}};
+  \node (T)[below left of=F]{weak traces $\notionname{WT}$\\
+    \EqCoords{\infty,0,0,0,0,0,0,0}};
+  \node (E)[below of=T, node distance=1.2cm]{weak enabledness $\notionname{WE}$\\
+    \EqCoords{1,0,0,0,0,0,0,0}};
+  
+  \node (DBs)[xshift=12mm, above right of=DB, node distance=1.75cm]{s.-r.\ delay bisim $\notionname{DB^{sr}}$\\
+    \EqCoords{\infty,0,\infty,\infty,\infty,\infty,\infty,\infty}};
+  \node (SB)[below right of=DBs]{stable bisim $\notionname{SB}$\\
+    \EqCoords{\infty,0,0,\infty,0,\infty,\infty,\infty}};
+  \node (RSs)[below left of=SB]{stable ready sim $\notionname{WRS^s}$\\
+    \EqCoords{\infty,0,0,\infty,0,\infty,1,1}};
+  \node (Rs)[below of=RSs, node distance=3cm]{stable readiness $\notionname{WR^s}$\\
+    \EqCoords{\infty,0,0,1,0,1,1,1}};
+  \node (IFs)[below of=SB, node distance=3cm]{stable imposs.\ fut.\ $\notionname{WIF^s}$\\
+    \EqCoords{\infty,0,0,1,0,0,\infty,1}};
+  \node (Fs)[below right of=Rs]{stable failures $\notionname{WF^s}$\\
+    \EqCoords{\infty,0,0,1,0,0,1,1}};
+  %
+  \path
+  (BBs) edge (BB)
+  (BB) edge ([xshift=10mm]eB.north)
+  (BB) edge (DB)
+  ([xshift=10mm]eB.south) edge (B)
+  (eB.south) edge (eS)
+  (DB) edge (B)
+  (B) edge (S2)
+  (B) edge (C)
+  (C) edge (IF)
+  (S2) edge (RS)
+  (S2) edge (PF)
+  (RS) edge (S)
+  (RS) edge (R)
+  (PF) edge (R)
+  (PF) edge (IF)
+  (eS) edge (S)
+  (S) edge (T)
+  (IF) edge (F)
+  (R) edge (F)
+  (F) edge (T)
+  (T) edge (E)
+  ;
+  \path
+  (BBs) edge (DBs)
+  ([xshift=-4mm]DBs.south) edge ([xshift=-9mm,yshift=-5mm]DBs.south)
+  (DBs) edge (SB)
+  (SB) edge (RSs)
+  (SB) edge (IFs)
+  (RSs) edge (Rs)
+  (Rs) edge (Fs)
+  (IFs) edge (Fs)
+  (Fs) edge ([xshift=30mm]T.east)
+  ([xshift=30mm]T.east) edge (T.east)
+  ;
+\end{tikzpicture}
+```
+
+Hierarchy of weak behavioral equivalences/preorders, by equivalence notion coordinates.
+:::
+
 ## Case Studies
 
 ### Peterson's Mutual Exclusion

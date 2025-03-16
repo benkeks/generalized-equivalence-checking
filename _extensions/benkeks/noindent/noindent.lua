@@ -44,7 +44,9 @@ function shy()
 
 end
 
-
+function equivio()
+  return pandoc.Link("equiv.io", "https://equiv.io")
+end
 
 function headingbreak()
 

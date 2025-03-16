@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language>
-<language name="CCS" version="6" kateversion="5.0" section="Sources" extensions="*.ccs" mimetype="" author="Benjamin Bisping" license="MIT">
+<language name="Isabelle" version="6" kateversion="5.0" section="Sources" extensions="*.thy" mimetype="" author="Benjamin Bisping" license="MIT">
   <highlighting>
     <list name="outer_keywords">
       <item>datatype</item>

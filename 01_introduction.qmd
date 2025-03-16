@@ -45,8 +45,17 @@ We^[
 
 ## Linear-Time–Branching-Time Spectroscopy
 
-:::{#fig-peterson-mutex}
+To illustrate the problem, let us look at an example that includes numerous concepts we will discuss throughout this thesis.
 
+:::{#exm-peterson-mutex}
+Many verification tasks can be understood along the lines of “how equivalent” two models are.
+@fig-peterson-mutex replicates a standard example, known for instance from the textbook *Reactive Systems* [@ails2007reactiveSystems]:
+A specification of mutual exclusion $\literal{Mx}$ as two alternating users $\literal A$ and $\literal B$ entering their critical section $\literal{ec_A} / \literal{ec_B}$ and leaving $\literal{lc_A} / \literal{lc_B}$ before the other may enter;
+and the transition system of Peterson's [-@peterson1981mythsMutex] mutual exclusion algorithm $\literal{Pe}$, with internal steps $\color{gray}\step{}$ due to the coordination that needs to happen.
+(To fit on the page, $\literal{Pe}$ is minimized by branching bisimilarity.)
+For $\literal{Pe}$ to faithfully implement mutual exclusion, it should behave somewhat similarly to $\literal{Mx}$.
+
+::::{#fig-peterson-mutex}
 ```tikz
 \begin{tikzpicture}[scale=.9, transform shape,->,auto,node distance=1.7cm, rel/.style={dashed,font=\it, blue},
     ext/.style={line width=1pt},
@@ -121,16 +130,115 @@ We^[
 ```
 
 A specification of mutual exclusion $\literal{Mx}$, and Peterson's protocol $\literal{Pe}$, minimized with respect to branching bisimilarity.
+::::
+
+Semantics in concurrent models must take nondeterminism into account.
+Setting the degree to which nondeterminism counts induces equivalence notions with subtle differences:
+$\literal{Pe}$ and $\literal{Mx}$ *weakly simulate* each other, meaning that a tree of options from one process can be matched by a similar tree of the other.
+This implies that they have the same *weak traces*, that is, matching paths.
+However, they are not weakly *bi-*similar, which would require a higher degree of symmetry than mutual simulation, namely, matching absence of options.
+There are many more such notions, which need not be linearly ordered in how they relate processes.
+In our example, one might wonder:
+Are there notions relating the two *besides* mutual simulation?
 :::
 
-Van Glabbeek's papers on comparative concurrency semantics [-@glabbeek1990ltbt1;-@glabbeek1993ltbt] treat a zoo of distinct *qualitative questions* of the form “Are processes $p$ and $q$ equivalent with respect to notion $N$?”, where $N$ would for example be trace or bisimulation equivalence.
-For many of the equivalences, there are various algorithms and implementations to decide whether processes are equal.
+For many of the existing preorders and equivalences, there are various algorithms and implementations to decide whether processes are equal.
+So, it would be an option to throw an array of algorithms on the transition systems of @exm-peterson-mutex.
+But we can better!
 
-But van Glabbeek unveils an underlying structure where the equivalences can easily be compared with respect to their distinctive power.
+This thesis will outline the ideas one needs to decide all equivalences in one uniform approach.
+In its accompanying tool {{<equivio>}}, the questions of @exm-peterson-mutex can be treated by the following query:
+
+```ccs
+Pe = (A1 | B1 | TurnA | ReadyAf | ReadyBf)
+    \ {readyAf, readyAt, setReadyAf, setReadyAt, readyBf, readyBt,
+       setReadyBf, setReadyBt, turnA, turnB, setTurnA, setTurnB}
+Mx = ecA.lcA.Mx + ecB.lcB.Mx
+
+@compareSilent Pe, Mx
+
+@snip "----------implementation details----------"
+
+Pe(x=886, y=335, main, srbb_minimized)
+Mx(main, x=122, y=225)
+
+ReadyAf = readyAf!ReadyAf + setReadyAf.ReadyAf + setReadyAt.ReadyAt
+ReadyAt = readyAt!ReadyAt + setReadyAf.ReadyAf + setReadyAt.ReadyAt
+
+ReadyBf = readyBf!ReadyBf + setReadyBf.ReadyBf + setReadyBt.ReadyBt
+ReadyBt = readyBt!ReadyBt + setReadyBf.ReadyBf + setReadyBt.ReadyBt
+
+TurnA = turnA!TurnA + setTurnA.TurnA + setTurnB.TurnB
+TurnB = turnB!TurnB + setTurnA.TurnA + setTurnB.TurnB
+
+A1 = setReadyAt!setTurnB!A11
+A11 = readyBf.A12 + turnA.A12
+A12 = ecA.lcA.setReadyAf!A1
+
+B1 = setReadyBt!setTurnA!B11
+B11 = readyAf.B12 + turnB.B12
+B12 = ecB.lcB.setReadyBf!B1
+
+@snip "---------- below here, there's only layout information! ----------"
+
+"(A1 | setTurnA!B11 | TurnA | ReadyAf | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=877, y=228)
+"(setTurnB!A11 | B1 | TurnA | ReadyAt | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=681, y=398)
+"(setTurnB!A11 | setTurnA!B11 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=871, y=415)
+"(A1 | B11 | TurnA | ReadyAf | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1199, y=767)
+"(A1 | B12 | TurnA | ReadyAf | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1452, y=961)
+"(setTurnB!A11 | B12 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1310, y=1053)
+"(A11 | B1 | TurnB | ReadyAt | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=687, y=578)
+"(A12 | B1 | TurnB | ReadyAt | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=564, y=967)
+"(lcA.setReadyAf!A1 | B1 | TurnB | ReadyAt | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=441, y=1231)
+"(lcA.setReadyAf!A1 | setTurnA!B11 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=548, y=1297)
+"(setTurnB!A11 | B1 | TurnB | ReadyAt | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=756, y=546)
+"(A11 | B12 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1186, y=1075)
+"(setTurnB!A11 | lcB.setReadyBf!B1 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1473, y=1257)
+"(A1 | lcB.setReadyBf!B1 | TurnA | ReadyAf | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1664, y=1102)
+"(A11 | lcB.setReadyBf!B1 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1235, y=1348)
+"(A11 | setTurnA!B11 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=790, y=1112)
+"(A11 | B11 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=948, y=644)
+"(setTurnB!A11 | B11 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1033, y=427)
+"(A11 | B11 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=993, y=1110)
+"(setTurnB!A11 | setTurnA!B11 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=910, y=771)
+"(A12 | setTurnA!B11 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=671, y=1078)
+"(A12 | B11 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1005, y=1170)
+"(lcA.setReadyAf!A1 | B11 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=785, y=1350)
+"(setReadyAf!A1 | B1 | TurnB | ReadyAt | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=701, y=1061)
+"(A1 | B1 | TurnB | ReadyAf | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=806, y=794)
+"(setReadyAf!A1 | setTurnA!B11 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=869, y=1064)
+"(A1 | setTurnA!B11 | TurnB | ReadyAf | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1016, y=535)
+"(A1 | B1 | TurnA | ReadyAf | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=666, y=296)
+"(A1 | setReadyBf!B1 | TurnA | ReadyAf | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1542, y=816)
+"(setTurnB!A11 | setReadyBf!B1 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1477, y=477)
+"(A11 | setReadyBf!B1 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=644, y=761)
+"(setReadyAf!A1 | B11 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1025, y=1064)
+
+"lcA.Mx"(x=181, y=529)
+"lcB.Mx"(x=433, y=290)
+```
+
+This query leads to the output in @fig-peterson-spectrum:
+Weak simulation indeed is the finest equivalence to equate $\literal{Pe}$ and $\literal{Mx}$!
+Moreover, $\literal{Pe}$ is *preordered* to $\literal{Mx}$ with respect to two more special finer notions, namely *$\eta$-simulation* and *stable ready-simulation* (and notions below).
+Intuitively, this means that $\literal{Pe}$ *implements* $\literal{Mx}$ more faithfully than pure weak simulation would demand.
+
+::: {#fig-peterson-spectrum .column-margin}
+
+![](img/peterson-spectrum.svg){.lightbox}
+<!-- TODO: Final version: Update with final display. -->
+
+Output of equiv.io about weak equivalences to relate $\literal{Mx}$ to $\literal{Pe}$ of @exm-peterson-mutex.
+:::
+
+How does the tool do this?
+The key are van Glabbeek's “linear-time--branching-time spectrum” papers on comparative concurrency semantics [-@glabbeek1990ltbt1;-@glabbeek1993ltbt].
+They treat a zoo of distinct *qualitative questions* of the form “Are processes $p$ and $q$ equivalent with respect to notion $N$?”, where $N$ would for example be trace or bisimulation equivalence.
+The papers unveil an underlying structure where equivalences can easily be compared with respect to their distinctive power.
 This is analogous to the *spectrum of light* where seemingly qualitative properties (“The light is blue / green / red.”) happen to be *quantitative* (“The distribution of wavelengths peaks at $460 / 550 / 630~\mathrm{nm}$.”).
 
 For light (i.e. electromagnetic radiation), the mix of wavelengths can be determined through a process called *spectroscopy*.
-So, we may ask:
+So, we could reframe the question behind this thesis also:
 
 ::: {#nte-idea-spectroscopy .callout-idea .callout-note}
 #### Spectroscopy?
@@ -145,20 +253,25 @@ We thus turn a set of qualitative equivalence problems into one quantitative pro
 As we will see, this amounts to an abstract form of subtraction between programs, determining what kinds of differences an outside examiner might observe.
 Thereby *one* algorithm works for *all* of a spectrum.
 
-TODO: Screenshot spectroscope.
-
 ## This Thesis
 
-The algorithm at the core of this thesis describes how to *decide all behavioral equivalences at once* for varying spectra of equivalence using *games that can count* to *limit possible distinctions by attacker energy levels*.
-More precisely, we make the following contributions:
+The algorithm at the core of this thesis describes how to *decide all behavioral equivalences at once* for varying spectra of equivalence using *games that can count* to *limit possible distinctions through attacker energy budgets*.
+More precisely, we make the following contributions, each coming with a “side quest”:
 
-- @sec-preliminaries lays some foundations and makes precise *how bisimilarity games relate to grammars of distinguishing formulas* of Hennessy–Milner modal logic. 
+- @sec-preliminaries lays some foundations and makes precise *how bisimilarity games relate to grammars of distinguishing formulas* of Hennessy–Milner modal logic.
+  - Side quest: Certifying algorithms to check equivalences.
 - @sec-spectrum shows *how to understand the strong linear-time--branching-time spectrum quantitatively* and formalizes the *spectroscopy problem*.
+  - Side quest: Equivalence checking as subtraction.
 - @sec-approach introduces the approach of *characterizing equivalence spectra through a class of energy games* and *how to decide such games*.
+  - Side quest: Galois energy games. 
 - @sec-strong-spectrum applies the approach to decide the whole strong spectrum through one *game for linear-time--branching-time spectroscopy*.
-- TODO @sec-weak-spectrum dicusses case studies with internal behavior and recharts the *weak spectrum of equivalences accounting for silent steps* to fit our game approach.
+  - Side quest: Deriving efficient *individual equivalence checkers*.
+- TODO @sec-weak-spectrum recharts the *weak spectrum of equivalences accounting for silent steps* to fit our game approach.
+  - Side quest: Case studies.
 - TODO @sec-silent-step-spectroscopy adapts the game for the *weak spectrum of equivalences*.
-- TODO @sec-implementations showcases implementations to conveniently perform equivalence spectroscopies in web browsers and using GPU parallelization.
+  - Side quest: Isabelle/HOL formalization.
+- TODO @sec-implementations showcases implementations to conveniently perform equivalence spectroscopies in web browsers.
+  - Side quest: GPU parallelization.
 
 ## Artifacts and Papers
 

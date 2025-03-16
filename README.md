@@ -15,5 +15,5 @@ As of 2025-01, several chapters are still to be written. (Mainly those on work t
 To build the website and PDF document:
 
 - quarto 1.7.13+
-- pdf2svg
+- pdf2svg, librsvg2-bin
 - fonts-linuxlibertine

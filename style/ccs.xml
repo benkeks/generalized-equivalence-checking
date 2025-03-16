@@ -3,26 +3,22 @@
 <language name="CCS" version="6" kateversion="5.0" section="Sources" extensions="*.ccs" mimetype="" author="Benjamin Bisping" license="MIT">
   <highlighting>
     <list name="keywords">
-      <item>\csp</item>
+      <item>csp</item>
     </list>
-    <list name="meta_keywords">
-      <item>@compare</item>
-      <item>@compareSilent</item>
-      <item>@check</item>
+    <list name="metakeywords">
+      <item>&#64;compare</item>
+      <item>&#64;compareSilent</item>
+      <item>&#64;check</item>
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <keyword attribute="Keyword" context="#stay" String="keywords" />
+        <keyword attribute="MetaKeyword" context="#stay" String="metakeywords" />
         <StringDetect attribute="Comment" context="Multiline/Inline Comment" String="@comment &quot;" beginRegion="Comment" />
         <DetectChar attribute="String" context="String" char="&quot;" />
-        <keyword attribute="Keyword" context="#stay" String="keywords" />
-        <AnyChar attribute="Operator" String="!%+,-*.=&gt;|~^\\" />
-        <keyword attribute="MetaKeyword" context="#stay" String="meta_keywords" />
-        <Float attribute="Float" context="Float Suffixes"/>
+        <AnyChar attribute="Operator" String="!%+,-*.=&gt;|~^\\(){}" />
         <HlCHex attribute="Decimal" context="#stay"/>
         <Int attribute="Decimal" context="#stay" />
-      </context>
-      <context name="Float Suffixes" attribute="Float" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
-          <AnyChar String="fF" attribute="Float" context="#pop"/>
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Multiline/Inline Comment">
         <DetectSpaces />

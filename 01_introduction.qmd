@@ -3,6 +3,8 @@
 
 \pagenumbering{arabic}
 
+{{< include style/macros.md >}}
+
 Have you ever looked at two program descriptions and wondered *how equivalent they are*
 ---or, conversely: how they can be distinguished?
 
@@ -34,7 +36,6 @@ The problem can be summarized as follows:
 
 > How does one conveniently decide for a pair of systems which notions from a spectrum of behavioral equivalences equate the two?
 
-\noindent
 Above question will be the *research question of this thesis*.
 We^[
     As you might have noticed, this text uses more personal pronouns than is common in much of computer science literature.
@@ -44,10 +45,86 @@ We^[
 
 ## Linear-Time–Branching-Time Spectroscopy
 
+:::{#fig-peterson-mutex}
+
+```tikz
+\begin{tikzpicture}[scale=.9, transform shape,->,auto,node distance=1.7cm, rel/.style={dashed,font=\it, blue},
+    ext/.style={line width=1pt},
+    internal/.style={draw=gray}]
+  \node (P0) {$\literal{Pe}$};
+  \node (P1)[below left of=P0] {$\cdot$};
+  \node (P2)[below right of=P0] {$\cdot$};
+  \node (P1t3)[below left of=P1, node distance=.8cm] {$\cdot$};
+  \node (P3)[below left of=P1] {$\cdot$};
+  \node (P4)[below right of=P1] {$\cdot$};
+  \node (P2t5)[below right of=P2, node distance=.8cm] {$\cdot$};
+  \node (P5)[below right of=P2] {$\cdot$};
+  \node (P6)[below left of=P4] {$\cdot$};
+  \node (P7)[below right of=P4] {$\cdot$};
+  \node (P8)[below left of=P3] {$\color{BrickRed}\circ$};
+  \node (P9)[below of=P3, node distance=1.2cm] {$\cdot$};
+  \node (P10)[below of=P5, node distance=1.2cm] {$\cdot$};
+  \node (P11)[below right of=P5] {$\color{BlueViolet}\circ$};
+  \node (P12)[below left of=P6] {$\color{BrickRed}\circ$};
+  \node (P13)[below right of=P7] {$\color{BlueViolet}\circ$};
+  \node (P14)[below left of=P9] {$\color{BrickRed}\circ$};
+  \node (P15)[below right of=P10] {$\color{BlueViolet}\circ$};
+
+  \path
+  (P0) edge [internal] node {} (P1)
+  (P0) edge [internal] node {} (P2)
+  (P1) edge [internal] node {} (P1t3)
+  (P1t3) edge [internal] node {} (P3)
+  (P1t3) edge [internal] node {} (P6)
+  (P1) edge [internal] node {} (P4)
+  (P2) edge [internal] node {} (P4)
+  (P2) edge [internal] node {} (P2t5)
+  (P2t5) edge [internal] node {} (P5)
+  (P2t5) edge [internal] node {} (P7)
+  (P3) edge node[swap, pos=.3] {$\literal{ec_A}$} (P8)
+  (P3) edge [internal] node {} (P9)
+  %(P3) edge [internal] node {} (P6)
+  (P4) edge [internal] node {} (P6)
+  (P4) edge [internal] node {} (P7)
+  %(P5) edge [internal] node {} (P7)
+  (P5) edge [internal] node {} (P10)
+  (P5) edge [pos=.3] node {$\literal{ec_B}$} (P11)
+  (P6) edge node[swap, pos=.3] {$\literal{ec_A}$} (P12)
+  (P7) edge [pos=.3] node {$\literal{ec_B}$} (P13)
+  (P8) edge [internal] node {} (P14)
+  (P8) edge [bend left=70] node {$\literal{lc_A}$} (P0)
+  (P9) edge [swap,pos=.3] node {$\literal{ec_A}$} (P14)
+  (P9) edge [internal] node {} (P6)
+  (P10) edge [pos=.3] node {$\literal{ec_B}$} (P15)
+  (P10) edge [internal] node {} (P7)
+  (P11) edge [internal] node {} (P15)
+  (P11) edge [bend right=70, swap] node {$\literal{lc_B}$} (P0)
+  (P12) edge [bend right=5, swap, pos=.3] node {$\literal{lc_A}$} (P2t5)
+  (P13) edge [bend left=5, pos=.3] node {$\literal{lc_B}$} (P1t3)
+  (P14) edge [internal] node {} (P12)
+  (P14) edge [bend left=85] node {$\literal{lc_A}$} (P2)
+  (P15) edge [internal] node {} (P13)
+  (P15) edge [bend right=100, swap] node {$\literal{lc_B}$} (P1)
+  ;
+
+  \node (M0)[left of=P0, node distance=6.5cm] {$\literal{Mx}$};
+  \node (M1)[below left of=M0, node distance=2.5cm] {$\color{BrickRed}\circ$};
+  \node (M2)[below right of=M0, node distance=2.5cm] {$\color{BlueViolet}\circ$};
+
+  \path
+  (M0) edge [bend left=15] node {$\literal{ec_A}$} (M1)
+  (M0) edge [bend right=15, swap] node {$\literal{ec_B}$} (M2)
+  (M1) edge [bend left=15] node {$\literal{lc_A}$} (M0)
+  (M2) edge [bend right=15, swap] node {$\literal{lc_B}$} (M0)
+  ;
+\end{tikzpicture}
+```
+
+A specification of mutual exclusion $\literal{Mx}$, and Peterson's protocol $\literal{Pe}$, minimized with respect to branching bisimilarity.
+:::
+
 Van Glabbeek's papers on comparative concurrency semantics [-@glabbeek1990ltbt1;-@glabbeek1993ltbt] treat a zoo of distinct *qualitative questions* of the form “Are processes $p$ and $q$ equivalent with respect to notion $N$?”, where $N$ would for example be trace or bisimulation equivalence.
 For many of the equivalences, there are various algorithms and implementations to decide whether processes are equal.
-
-TODO: Peterson's mutex
 
 But van Glabbeek unveils an underlying structure where the equivalences can easily be compared with respect to their distinctive power.
 This is analogous to the *spectrum of light* where seemingly qualitative properties (“The light is blue / green / red.”) happen to be *quantitative* (“The distribution of wavelengths peaks at $460 / 550 / 630~\mathrm{nm}$.”).

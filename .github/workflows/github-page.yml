@@ -47,6 +47,7 @@ jobs:
             fontawesome5
             fontspec
             unicode-math
+            isodate
             newunicodechar
             setspace
             extarrows

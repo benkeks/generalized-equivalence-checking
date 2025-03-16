@@ -2,6 +2,16 @@ $if(has-frontmatter)$
 \frontmatter
 $endif$
 %
+\setlength{\headheight}{15pt}
+%\addtolength{\headwidth}{\marginparsep}
+\addtolength{\headwidth}{\marginparwidth}
+\fancyhf{}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+\fancyhead[RO]{\thepage}
+\fancyhead[LE]{\thepage}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0pt}
+\pagestyle{fancy}
 \pagenumbering{roman}
 \newgeometry{margin=4cm}
 \begin{titlepage}

@@ -624,8 +624,7 @@ $$
 $$
 :::
 
-Observe that all the coordinates of the strong linear-time–branching-time spectrum (@def-strong-ltbt-spectrum
-The `@check` keyword performs individual comparisons on {{<equivio>}}.) are still covered by the simpler spectrum.
+Observe that all the coordinates of the strong linear-time–branching-time spectrum are still covered by the simpler spectrum.
 
 ::: {#def-strong-spectroscopy-game-clever}
 #### Clever Spectroscopy Game

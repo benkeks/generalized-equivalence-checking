@@ -91,7 +91,7 @@ format:
     mainfont: Linux Libertine O
     monofont: IsabelleDejaVuSansMono
     monofontoptions:
-    - Path = ./style/isabelle-font/ttf/
+    - Path=./style/isabelle-font/ttf/
     - Extension=.ttf
     - UprightFont = *-Regular
     - BoldFont=*-Bold

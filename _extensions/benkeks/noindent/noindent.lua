@@ -2,8 +2,10 @@ isb_types = {
   locale = "locale",
   abbreviation = "const",
   definition = "const",
+  fun = "const",
   datatype = "type",
-  primrec = "const"
+  primrec = "const",
+  inductive = "const"
 }
 
 function isb_session(theory)

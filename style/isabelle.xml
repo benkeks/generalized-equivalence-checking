@@ -3,13 +3,32 @@
 <language name="Isabelle" version="6" kateversion="5.0" section="Sources" extensions="*.thy" mimetype="" author="Benjamin Bisping" license="MIT">
   <highlighting>
     <list name="outer_keywords">
-      <item>datatype</item>
       <item>theory</item>
       <item>locale</item>
+      <item>interpretation</item>
+      <item>context</item>
+      <item>datatype</item>
+      <item>typedecl</item>
+      <item>type_synonym</item>
       <item>lemma</item>
       <item>theorem</item>
+      <item>definition</item>
+      <item>abbreviation</item>
+      <item>fun</item>
+      <item>primrec</item>
+      <item>function</item>
+      <item>inductive</item>
+      <item>inductive_set</item>
     </list>
     <list name="sub_keywords">
+      <item>in</item>
+      <item>for</item>
+      <item>if</item>
+      <item>=</item>
+      <item>:</item>
+      <item>::</item>
+      <item>+</item>
+      <item>and</item>
       <item>fixes</item>
       <item>defines</item>
       <item>assumes</item>
@@ -18,6 +37,7 @@
       <item>imports</item>
       <item>begin</item>
       <item>end</item>
+      <item>text</item>
     </list>
     <list name="isar_keywords">
       <item>proof</item>
@@ -49,16 +69,24 @@
       <item>option</item>
       <item>nat</item>
     </list>
+    <list name="inner_keywords">
+      <item>if</item>
+      <item>then</item>
+      <item>else</item>
+      <item>case</item>
+      <item>of</item>
+      <item>_</item>
+    </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <StringDetect attribute="Comment" context="Multiline/Inline Comment" char="(" char1="*" beginRegion="Comment" />
         <DetectChar attribute="String" context="String" char="&quot;" />
         <DetectChar attribute="String2" context="String2" char="‹" />
-        <AnyChar attribute="Operator" String="!%+,-*.=:&gt;()|~^\\" />
         <keyword attribute="Outer Keyword" context="#stay" String="outer_keywords" />
         <keyword attribute="Sub Keyword" context="#stay" String="sub_keywords" />
         <keyword attribute="Isar Keyword" context="#stay" String="isar_keywords" />
         <keyword attribute="Data Type" context="#stay" String="types" />
+        <AnyChar attribute="Operator" String="!%+,-*.=:&gt;()|~^\\" />
         <HlCHex attribute="Decimal" context="#stay"/>
         <Int attribute="Decimal" context="#stay" />
       </context>
@@ -68,11 +96,15 @@
         <IncludeRules context="##Comments" />
       </context>
       <context attribute="String" lineEndContext="#stay" name="String">
-        <HlCStringChar attribute="String Char" context="#stay"/>
+        <keyword attribute="Inner Keyword" context="#stay" String="inner_keywords" />
+        <!--<HlCStringChar attribute="String Char" context="#stay"/>-->
         <DetectChar attribute="String" context="#pop" char="&quot;" />
       </context>
       <context attribute="String2" lineEndContext="#stay" name="String2">
-        <HlCStringChar attribute="String Char" context="#stay"/>
+        <keyword attribute="Inner Keyword" context="#stay" String="inner_keywords" />
+        <keyword attribute="Data Type" context="#stay" String="types" />
+        <AnyChar attribute="Inner Operator" String="⇒⟶!%+,-*¬∧∃∀.=:≤&gt;()|~^\\" />
+        <!-- <HlCStringChar attribute="String Char" context="#stay"/> -->
         <DetectChar attribute="String2" context="#pop" char="›" />
       </context>
     </contexts>
@@ -83,15 +115,17 @@
       <itemData name="Sub Keyword"  defStyleNum="dsControlFlow"/>
       <itemData name="Isar Keyword"  defStyleNum="dsKeyword"/>
       <itemData name="Data Type"  defStyleNum="dsDataType"/>
+      <itemData name="Inner Keyword"  defStyleNum="dsFunction"/>
+      <itemData name="Inner Operator"  defStyleNum="dsFunction"/>
       <itemData name="Decimal"  defStyleNum="dsDecVal"/>
       <itemData name="String"  defStyleNum="dsString"/>
       <itemData name="String2"  defStyleNum="dsString"/>
       <itemData name="Comment" defStyleNum="dsComment" />
-      <itemData name="String Char"  defStyleNum="dsChar" />
+      <!--<itemData name="String Char"  defStyleNum="dsChar" />-->
     </itemDatas>
   </highlighting>
   <general>
-    <keywords casesensitive="1" />
+    <keywords casesensitive="1" additionalDeliminator="‹›"/>
     <comments>
       <comment name="multiLine" start="(*" end="*)" region="Comment" />
     </comments>

@@ -8,7 +8,7 @@
 
 ### The Game
 
-::: {#def-stable-spectroscopy-game}
+::: {#def-weak-spectroscopy-game}
 
 For a system $\system=(\states,\actions,\step{})$,
 the $8$-dimensional *weak spectroscopy energy game*
@@ -20,7 +20,7 @@ consists of
 - *attacker conjunct positions* $\attackerpos[\land]{p,q} \in G_\attacker$,
 - **new:** *attacker branching positions* $\attackerpos[\eta]{p,Q} \in G_\defender$,
 - *defender conjunction positions* $\defenderpos{p,Q} \in G_\defender$,
-- **new:** *defender stable conjunction positions* $\defenderpos{p,Q} \in G_\defender$,
+- **new:** *defender stable conjunction positions* $\defenderpos[s]{p,Q} \in G_\defender$,
 - **new:** *defender branching positions* $\defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha} \in G_\defender$,
 
 where $p, q \in \states$ and $Q, Q_\alpha \in \powerset{\states}$, and sixteen kinds of moves:
@@ -456,8 +456,39 @@ next
 qed
 ```
 
-
 ### Complexity
+
+The complexity for spectroscopy using the weak game is quite comparable to the strong spectroscopy (@thm-strong-spectroscopy-complexity).
+
+::: {#thm-weak-spectroscopy-complexity}
+Given a transition system $\system$,
+the spectroscopy problem for the $\notions^\literal{weak}$-spectrum can be solved by the game approach in exponential time and space with respect to the state space size $\relsize{\states}$.
+:::
+:::proof
+According to @thm-weak-spectroscopy-game-characterization, we can solve the spectroscopy problem for the $\notions^\literal{weak}$-spectrum by deciding the winning budgets of the weak spectroscopy game ${\gamespectroscopyw}^{\system}$ on $\system=(\states,\actions,\step{})$.
+We instantiate the winning budget complexity of @lem-declining-update-complexity for the case $N=8$ with the size of $\gamespectroscopyw$ according to @def-weak-spectroscopy-game.
+
+The amount of attacker positions $\attackerpos{\dots}$ (and their delayed $\attackerpos[\varepsilon]{\dots}$ and branching $\attackerpos[\eta]{\dots}$ variants) is bounded by $\relsize{\states} \cdot 2^{\relsize{\states}}$.
+The number of conjunction moves and defender conjunction positions $\defenderpos{\dots}$ is bounded by $\relsize{\states} \cdot 2^{\relsize{\states}}$, also for the stable variant $\defenderpos[d]{\dots}$.
+
+However, for the branching conjunction moves, we find a bound of $\bigo{\relsize{\step{}} \cdot 2^{\relsize{\states}}}$ per attacker delayed position (which is a slight over-approximation).
+Collectively, these moves reach $\bigo{\relsize{\step{}} \cdot 3^{\relsize{\states}}}$ defender branching positions $\defenderpos[\eta]{p, \alpha, p', Q \setminus Q_\alpha, Q_\alpha}$, due the three-coloring of states into $Q \setminus Q_\alpha$, $Q_\alpha$ and $\states \setminus Q$.
+
+The maximal out-degree for attacker delayed positions of $\bigo{\relsize{\step{}} \cdot 2^{\relsize{\states}}}$ dominates that of other positions, in particular, of defender conjunction, stable conjunction, and branching positions with $\bigo{\relsize{\states}}$ outgoing options.
+
+This amounts to $o_{\gamemoveblank_\nabla}$ in $\bigo{\relsize{\step{}} \cdot 2^{\relsize{\states}}}$ and to $\relsize{G_{\nabla}}$ in $\bigo{\relsize{\step{}} \cdot 3^{\relsize{\states}}}$.
+
+Inserting the parameters in the time bounds of @lem-declining-update-complexity yields:
+$$
+\begin{array}{rlccccccc}
+    & O( & o_{\gamemoveblank} & \cdot & \relsize{G}^{2N} & \cdot & (N^2 + \relsize{G}^{N-1} \cdot N) & ) \\
+  = & O( & (\relsize{\step{}} \cdot 2^{\relsize{\states}}) & \cdot & (\relsize{\step{}} \cdot 3^{\relsize{\states}})^{2 \cdot 8} & \cdot & (8^2 + (\relsize{\step{}} \cdot 3^{\relsize{\states}})^{8-1} \cdot 8) & ) \\
+  = & O( & \relsize{\step{}} \cdot 2^{\relsize{\states}} & \cdot & \relsize{\step{}}^{16} \cdot 3^{16\relsize{\states}} & \cdot & \relsize{\step{}}^7 \cdot 3^{7\relsize{\states}} & ) \\
+  ⊆ & O( & \relsize{\step{}}^{24} & \cdot & 3^{24\relsize{\states}} & ).
+\end{array}
+$$
+For space complexity, we arrive at $\bigo{ \relsize{\step{}}^8 \cdot 3^{8\relsize{\states}}}$.
+:::
 
 ## Variants
 

@@ -133,8 +133,8 @@
 
 \lc{ Energy Games }
 
-\providecommand{\abstractupdate}{\mathcal{upd}}
-\providecommand{\abstractupdateinv}{\mathcal{upd}^{↺}}
+\providecommand{\abstractupdate}{\mathit{upd}}
+\providecommand{\abstractupdateinv}{\mathit{upd}^{↺}}
 \providecommand{\abstractenergies}{\mathcal{E}}
 \providecommand{\energylevel}{\operatorname{EL}}
 \providecommand{\energies}{\mathbf{En}}

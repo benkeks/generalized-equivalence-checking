@@ -67,7 +67,7 @@ format:
     #fig-cap-location: margin
     reference-location: margin
     crossrefs-hover: true # this lead to poor preview browsing experience and katex exceptions :/
-    citation-location: margin
+    citation-location: document
     linestretch: 1.3
     mainfont: KaTeX_Main
     monofont: DejaVu Sans Mono

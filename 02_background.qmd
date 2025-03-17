@@ -565,13 +565,13 @@ The equivalences we have been discussed so far could also be understood as abstr
 ::: {#def-graph-isomorphism}
 #### Graph Isomorphism
 
-A bijective function $\rel f \colon \states \to \states$ is called a *graph isomorphism* on a transition system if, for all $p,p', α$, the transition $p \step{α} p'$ exists if and only if the transition $\rel f(p) \step{α} \rel f(p')$ exists.{{<isb definition Strong_Equivalences lts.isomorphism>}}
+A bijective function $f \colon \states \to \states$ is called a *graph isomorphism* on a transition system if, for all $p,p', α$, the transition $p \step{α} p'$ exists if and only if the transition $f(p) \step{α} f(p')$ exists.{{<isb definition Strong_Equivalences lts.isomorphism>}}
 
-Two states $p$ and $q$ are considered *graph-isomorphism-equivalent*, $p \beq{ISO} q$, iff there is a graph isomorphism $\rel f$ with $\rel f(p) = q$.{{<isb definition Strong_Equivalences lts.is_isomorphic_to>}}
+Two states $p$ and $q$ are considered *graph-isomorphism-equivalent*, $p \beq{ISO} q$, iff there is a graph isomorphism $f$ with $f(p) = q$.{{<isb definition Strong_Equivalences lts.is_isomorphic_to>}}
 :::
 
 :::: {#exm-graph-isomorphism}
-Consider the transition system in @fig-iso-ts. $\literal{p_{even}} \beq{ISO} \literal{p_{odd}}$ because $\rel f ≔ \set{\literal{p_{even}} \mapsto \literal{p_{odd}}, \literal{p_{odd}} \mapsto \literal{p_{even}}}$ is a graph isomorphism.
+Consider the transition system in @fig-iso-ts. $\literal{p_{even}} \beq{ISO} \literal{p_{odd}}$ because $f ≔ \set{\literal{p_{even}} \mapsto \literal{p_{odd}}, \literal{p_{odd}} \mapsto \literal{p_{even}}}$ is a graph isomorphism.
 
 ::: {#fig-iso-ts .column-margin}
 ```{mermaid}
@@ -1010,16 +1010,16 @@ The player choices are formalized by *strategies*:
 ::: {#def-strategies}
 #### Strategies and Winning Strategies
 
-An *attacker strategy* is a (partial) function mapping play fragments ending at attacker positions to next positions to move to, $\rel s_\attacker \colon G^*G_\attacker \to G$, where $g_\attacker \gamemoveblank \rel f_\attacker(\rho g_\attacker)$ must hold for all $\rho g_\attacker$ where $\rel s_\attacker$ is defined.
+An *attacker strategy* is a (partial) function mapping play fragments ending at attacker positions to next positions to move to, $s_\attacker \colon G^*G_\attacker \to G$, where $g_\attacker \gamemoveblank f_\attacker(\rho g_\attacker)$ must hold for all $\rho g_\attacker$ where $s_\attacker$ is defined.
 
-A play ${g_0}{g_1} … ∈ G^{\infty}$ is consistent with an attacker strategy $\rel s_\attacker$ if, for all its prefixes $g_0 … g_i$ ending in $g_i \in G_\attacker$, $g_{i + 1} = \rel s_\attacker(g_0 … g_i)$.
+A play ${g_0}{g_1} … ∈ G^{\infty}$ is consistent with an attacker strategy $s_\attacker$ if, for all its prefixes $g_0 … g_i$ ending in $g_i \in G_\attacker$, $g_{i + 1} = s_\attacker(g_0 … g_i)$.
 
-*Defender strategies* are defined analogously, $\rel s_\defender \colon G^*G_\defender \to G$.
+*Defender strategies* are defined analogously, $s_\defender \colon G^*G_\defender \to G$.
 
-If $\rel s$ ensures a player to win, $\rel s$ is called a *winning strategy* for this player.
+If $s$ ensures a player to win, $s$ is called a *winning strategy* for this player.
 The player with a winning strategy for $\game(g_{0})$ is said to *win* $\game(g_{0})$.
 
-Usually, we will focus on positional strategies, that is, strategies that only depend on the most recent position, which we will type $\rel s_\attacker \colon G_\attacker \to G$ (or $\rel s_\defender \colon G_\defender \to G$, respectively).
+Usually, we will focus on positional strategies, that is, strategies that only depend on the most recent position, which we will type $s_\attacker \colon G_\attacker \to G$ (or $s_\defender \colon G_\defender \to G$, respectively).
 :::
 
 {{<noindent>}}
@@ -1058,7 +1058,7 @@ A simple game.
 
 \noindent
 The games we consider are positionally determined.
-This means, for each possible initial position, exactly one of the two players has a positional winning strategy $\rel s$.
+This means, for each possible initial position, exactly one of the two players has a positional winning strategy $s$.
 
 ::: {#prp-determinacy}
 #### Determinacy
@@ -1367,10 +1367,10 @@ Sketch for both directions:
 
 - If $\rel R$ is a symmetric simulation with $(p,q) ∈ \rel R$,
   then the following positional defender strategy is well-defined and winning from $[p, q]$:{{<isb lemma Equivalence_Games bisim_game.bisim_implies_defender_winning_strategy>}}
-  $$\rel s (α, p', q) ≔ [p', \operatorname{choose} q'\ldotp (p', q') ∈ \rel R \land q \step{α} q'].$$
-- If there is a positional defender strategy $\rel s$ winning from $[p, q]$,
+  $$s (α, p', q) ≔ [p', \operatorname{choose} q'\ldotp (p', q') ∈ \rel R \land q \step{α} q'].$$
+- If there is a positional defender strategy $s$ winning from $[p, q]$,
   then the following relation $\rel{R_s}$ with $(p_0,q_0) ∈ \rel{R_s}$ is a symmetric simulation:{{<isb lemma Equivalence_Games bisim_game.defender_winning_strategy_implies_bisim>}}
-  $$\rel{R_s} ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),\dots,(p,q)$ following strategy $\rel s$}}.$$
+  $$\rel{R_s} ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),\dots,(p,q)$ following strategy $s$}}.$$
 :::
 
 ::: {#rem-computer-game}
@@ -1509,21 +1509,21 @@ The bisimulation game of @exm-bisim-sim-game-formulas with attacker formulas.
 More generally, the following lemma explains the construction of distinguishing formulas from attacker strategies:
 
 ::: {#lem-attacks-imply-formulas}
-Let $\rel s$ be a positional winning strategy for the attacker on ${\game}_\notionname{B}$ from $[p,q]$.
+Let $s$ be a positional winning strategy for the attacker on ${\game}_\notionname{B}$ from $[p,q]$.
 Construct formulas recursively from game positions, ${φ}_{\rel{s}}(g)$, as follows:
 $$
-φ_{\rel s}([p,q]) ≔ \begin{cases}
-  \hmlneg φ_{\rel s}([q,p])  & \text{if } \rel s([p,q]) = [q,p] \\
-  \hmlobs{\alpha} \hmlands \set{ φ_{\rel s}([p',q']) \mid q \step{\alpha} q' } & \text{if } \rel s([p,q]) = (\alpha,p',q)
+φ_{s}([p,q]) ≔ \begin{cases}
+  \hmlneg φ_{s}([q,p])  & \text{if } s([p,q]) = [q,p] \\
+  \hmlobs{\alpha} \hmlands \set{ φ_{s}([p',q']) \mid q \step{\alpha} q' } & \text{if } s([p,q]) = (\alpha,p',q)
 \end{cases}
 $$
 \noindent
-Then $φ_{\rel s}([p,q])$ is well-defined and distinguishes $p$ from $q$.
-Also, $φ_{\rel s}([p,q]) ∈ \observations{\floor{B}}$.
+Then $φ_{s}([p,q])$ is well-defined and distinguishes $p$ from $q$.
+Also, $φ_{s}([p,q]) ∈ \observations{\floor{B}}$.
 :::
 ::: proof
-1. The given construction is well-defined as $\rel s$ must induce a well-founded order on game positions in order to be attacker-winning.
-2. The distinction can be derived by induction on the construction of $φ_{\rel s}([p,q])$.
+1. The given construction is well-defined as $s$ must induce a well-founded order on game positions in order to be attacker-winning.
+2. The distinction can be derived by induction on the construction of $φ_{s}([p,q])$.
    TODO \qedhere
 :::
 

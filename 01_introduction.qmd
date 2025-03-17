@@ -129,7 +129,7 @@ For $\literal{Pe}$ to faithfully implement mutual exclusion, it should behave so
 \end{tikzpicture}
 ```
 
-A specification of mutual exclusion $\literal{Mx}$, and Peterson's protocol $\literal{Pe}$, minimized with respect to branching bisimilarity.
+A specification of mutual exclusion $\literal{Mx}$, and Peterson's protocol $\literal{Pe}$, minimized with respect to branching bisimilarity, omitting loops of internal behavior.
 ::::
 
 Semantics in concurrent models must take nondeterminism into account.

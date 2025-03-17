@@ -303,7 +303,7 @@ Instead of swamping the document with technical proofs, these are contained in m
 
 - **Equivalence spectrum formalization** contains proofs for the early chapters: <https://benkeks.github.io/ltbt-spectroscopy-isabelle/>.
 - **Weak Equivalence Spectroscopy** formalizes the core results of @sec-weak-spectrum: <https://equivio.github.io/silent-step-spectroscopy>.
-  The theory has been developed together with TU Berlin students Lisa Annett Barthel, Leonard Moritz Hübner, Caroline Lemke, Karl Parvis Philipp Mattes, and Lenard Mollenkopf.
+  The theory [@bbhlmm2025weakSpectroscopyIsabelle] has been developed together with TU Berlin students Lisa Annett Barthel, Leonard Moritz Hübner, Caroline Lemke, Karl Parvis Philipp Mattes, and Lenard Mollenkopf.
 
 \noindent
 **Student theses.**

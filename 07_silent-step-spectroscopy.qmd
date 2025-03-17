@@ -15,7 +15,7 @@ the $8$-dimensional *weak spectroscopy energy game*
 $\gamespectroscopyw^{\system}=(G,G_{\defender},\gamemoveblank,w)$
 consists of
 
-- *attacker positions* $\attackerpos{p,Q} \in G_\attacker$,
+- *attacker (immediate) positions* $\attackerpos{p,Q} \in G_\attacker$,
 - **new:** *attacker delayed positions* $\attackerpos[\varepsilon]{p,Q} \in G_\attacker$,
 - *attacker conjunct positions* $\attackerpos[\land]{p,q} \in G_\attacker$,
 - **new:** *attacker branching positions* $\attackerpos[\eta]{p,Q} \in G_\defender$,
@@ -23,7 +23,7 @@ consists of
 - **new:** *defender stable conjunction positions* $\defenderpos[s]{p,Q} \in G_\defender$,
 - **new:** *defender branching positions* $\defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha} \in G_\defender$,
 
-where $p, q \in \states$ and $Q, Q_\alpha \in \powerset{\states}$, and sixteen kinds of moves:
+where $p, q \in \states$ and $Q, Q_\alpha \in \powerset{\states}$, and sixteen kinds of moves:{{<isb inductive Spectroscopy_Game LTS_Tau.spectroscopy_moves>}}
 $$
 \begin{array}{rrcll}
   \textit{delay}
@@ -135,7 +135,7 @@ The following facts moreover have been fully formalized in Isabelle/HOl, which w
 ::: {#def-strategy-formulas-weak}
 #### Strategy Formulas for $\gamespectroscopyw$
 
-The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas.
+The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas.{{<isb inductive Strategy_Formulas weak_spectroscopy_game.strategy_formula>}}
 :::
 
 :::{#fig-weak-spectroscopy-strategy-formulas .column-page fig-pos='t!' fig-env="figure*"}
@@ -276,20 +276,19 @@ If $e \in \attackerwins(\attackerpos{p,Q})$, then there is $\varphi \in \stratwe
 
 By induction over game positions $g$ and energies $e$ according to the inductive characterization of attacker winning budgets @prp-winning-budget-rules and with respect to the following property:
 
-- If $e \in \attackerwins(\attackerpos{p,Q})$,
+1. If $e \in \attackerwins(\attackerpos{p,Q})$,
   then there is $\varphi \in \stratweak(\attackerpos{p,Q}, e)$ with $\expr[\literal{weak}](\varphi) \leq e$;
-- If $e \in \attackerwins(\attackerpos[\varepsilon]{p,Q})$,
+2. If $e \in \attackerwins(\attackerpos[\varepsilon]{p,Q})$,
   then there is $\chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)$ with $\expr[\varepsilon](\chi) \leq e$;
-- If $e \in \attackerwins(\attackerpos[\land]{p,q})$,
+3. If $e \in \attackerwins(\attackerpos[\land]{p,q})$,
   then there is $\psi \in \stratweak(\attackerpos[\land]{p,q}, e)$ with $\expr[\land](\psi) \leq e$;
-- If $e \in \attackerwins(\defenderpos{p,Q})$,
+4. If $e \in \attackerwins(\defenderpos{p,Q})$,
   then there is $\hmlands \Psi \in \stratweak(\defenderpos{p,Q}, e)$ with $\expr[\varepsilon](\hmlands \Psi) \leq e$;
-- If $e \in \attackerwins(\defenderpos[s]{p,Q})$,
+5. If $e \in \attackerwins(\defenderpos[s]{p,Q})$,
   then there is $\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right) \in \stratweak(\defenderpos[s]{p,Q}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right)) \leq e$;
-- If $e \in \attackerwins(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha})$,
+6. If $e \in \attackerwins(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha})$,
   then there is $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right)) \leq e$. \qedhere
 :::
-
 
 ::: {#lem-weak-spectroscopy-game-soundness}
 If $\varphi \in \stratweak(\attackerpos{p,Q}, e)$,
@@ -297,18 +296,19 @@ then $\varphi$ distinguishes $p$ from $Q$.{{<isb lemma Strategy_Formulsas weak_s
 :::
 :::proof
 By induction over the derivation of $~\cdots \in \stratweak(g, e)$ according to @def-strategy-formulas-weak on the following inductive property:
-- If $\varphi \in \stratweak(\attackerpos{p,Q}, e)$,
+
+1. If $\varphi \in \stratweak(\attackerpos{p,Q}, e)$,
   then $\varphi$ distinguishes $p$ from $Q$;
-- If $\chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)$ and $Q \stepweak Q$,
+2. If $\chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)$ and $Q \stepweak Q$,
   then $\hmleps\chi$ distinguishes $p$ from $Q$;
-- If $\psi \in \stratweak(\attackerpos[\land]{p,q}, e)$,
+3. If $\psi \in \stratweak(\attackerpos[\land]{p,q}, e)$,
   then $\psi$ distinguishes $p$ from $\{ q \}$;
-- If $\hmlands \Psi \in \stratweak(\defenderpos{p,Q}, e)$,
+4. If $\hmlands \Psi \in \stratweak(\defenderpos{p,Q}, e)$,
   then $\hmlands \Psi$ distinguishes $p$ from $Q$;
-- If $\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right) \in \stratweak(\defenderpos[s]{p,Q}, e)$
+5. If $\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right) \in \stratweak(\defenderpos[s]{p,Q}, e)$
   and $p$ is stable,
   then the stable conjunction $\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right)$ distinguishes $p$ from $Q$;
-- If $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$,
+6. If $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$,
     $p \step{\hmlopt\alpha} p'$ and $Q_\alpha \subseteq Q$,
   then the branching conjunction $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right)$ distinguishes $p$ from $Q$.
 :::
@@ -319,21 +319,20 @@ If $\varphi \in \hmlsrbb$ distinguishes $p$ from $Q$, then $\expr[\literal{weak}
 :::proof
 By mutual structural induction on $\varphi$, $\chi$, and $\psi$ with respect to the following claims:
 
-- If $\varphi \in \hmlsrbb$ distinguishes $p$ from $Q \neq \varnothing$,
+1. If $\varphi \in \hmlsrbb$ distinguishes $p$ from $Q \neq \varnothing$,
   then $\expr[\literal{weak}](\varphi) \in \attackerwins(\attackerpos{p,Q})$;
-- If $\chi$ distinguishes $p$ from $Q \neq \varnothing$ and $Q$ is closed under $\stepweak$ (that is $Q \stepweak Q$),
+2. If $\chi$ distinguishes $p$ from $Q \neq \varnothing$ and $Q$ is closed under $\stepweak$ (that is $Q \stepweak Q$),
   then $\expr[\varepsilon](\chi) \in \attackerwins(\attackerpos[\varepsilon]{p,Q})$;
-- If $\psi$ distinguishes $p$ from $q$,
+3. If $\psi$ distinguishes $p$ from $q$,
   then $\expr[\land](\psi) \in \attackerwins(\attackerpos[\land]{p,q})$;
-- If $\hmlands \Psi$ distinguishes $p$ from $Q \neq \varnothing$,
+4. If $\hmlands \Psi$ distinguishes $p$ from $Q \neq \varnothing$,
   then $\expr[\varepsilon](\hmlands \Psi) \in \attackerwins(\defenderpos{p,Q})$;
-- If $\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi$ distinguishes $p$ from $Q \neq \varnothing$
+5. If $\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi$ distinguishes $p$ from $Q \neq \varnothing$
   and the processes in $Q$ are stable,
   then $\expr[\varepsilon](\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi) \in \attackerwins(\defenderpos[s]{p,Q})$;
-- If $\hmlands \set{ \hmlopt{\alpha}\varphi' } \cup \Psi$ distinguishes $p$ from $Q$,
+6. If $\hmlands \set{ \hmlopt{\alpha}\varphi' } \cup \Psi$ distinguishes $p$ from $Q$,
   then, for any $p \step{\hmlopt\alpha} p' \in \semantics{\varphi'}$ and $Q_\alpha = Q \setminus \semantics{\hmlobs{\alpha}\varphi'}{}{}$, $\expr[\varepsilon](\hmlands \set{ \hmlopt{\alpha}\varphi'\! } \cup \Psi) \in \attackerwins(\defenderpos[\eta]{p,\alpha,p'\!,Q \setminus Q_\alpha, Q_\alpha})$. \qedhere
 :::
-
 
 ::: {#thm-weak-spectroscopy-game-characterization}
 For all $e \in \energies_\infty$, $p \in \states$, $Q \in \powerset{\states}$, the following are equivalent:{{<isb theorem Silent_Step_Spectroscopy weak_spectroscopy_game.spectroscopy_game_correctness>}}
@@ -344,25 +343,84 @@ For all $e \in \energies_\infty$, $p \in \states$, $Q \in \powerset{\states}$, t
 
 ### Isabelle/HOL Formalization {#sec-isabelle-formalization}
 
+@bbhlmm2025weakSpectroscopyIsabelle formalize the correctness result for the weak spectroscopy game in the interactive proof assistant Isabelle/HOL. 
+The preceding definitions and facts have already linked to their respective Isabelle/HOL counterparts.
+This subsection is devoted to providing some insights into the formalization.^[
+  For questsions on the Isabelle/Isar language, consult “The Isabelle/Isar Reference Manual” [@wenzel2025isabelleIsar].
+]
+We take a tour through roughly hundred of the most interesting lines of the 6500 line theory development.
+
+TODO: Maybe overview figure.
+
+The weak spectroscopy game (@def-weak-spectroscopy-game) is modelled through a *parametric datatype* `('s, 'a) spectroscopy_position` for its positions and a *partial function* to determine the moves connecting them `spectroscopy_moves`.^[
+  To be precise: “Partial function” here means that it returns `option`-values, which might either be `Some x` with an output or `None` otherwise.
+  All functions in higher order logic are *total*.
+]
+The parameter types `'s` and `'a` capture the states $\states$ and actions $\actions$ of the transition system on which we operate.
+
 ```isabelle
 datatype ('s, 'a) spectroscopy_position =
   Attacker_Immediate
     (attacker_state: ‹'s›) (defender_states: ‹'s set›)
 | Attacker_Delayed
     (attacker_state: ‹'s›) (defender_states: ‹'s set›)
-[...]
+  [...]
 | Defender_Branch
     (attacker_state: ‹'s›) (attack_action: ‹'a›)
     (attacker_state_succ: ‹'s›)
     (defender_states: ‹'s set›)
     (defender_branch_states: ‹'s set›)
 
-
+fun spectroscopy_moves (in LTS_Tau) ::
+  ‹('s, 'a) spectroscopy_position ⇒ ('s, 'a) spectroscopy_position
+    ⇒ energy update option›
+where
+  delay: ‹spectroscopy_moves
+    (Attacker_Immediate p Q) (Attacker_Delayed p' Q')
+  = (if p' = p ∧ Q ↠S Q' then id_up else None)›
+| [...]
 ```
+
+The game itself is then built as a combination of the *locale* for transition systems with internal actions `LTS_Tau` (with a tranistion relation `step`)
+and an `energy_game`, instantiated with the moves, a predicate `spectroscopy_defender` singling out defender positions, and the $\leq$-relation on 8-dimensional energies.
+
+```isabelle
+locale weak_spectroscopy_game =
+  LTS_Tau step τ
+  + energy_game ‹spectroscopy_moves› ‹spectroscopy_defender› ‹(≤)›
+  for step :: ‹'s ⇒ 'a ⇒ 's ⇒ bool› (‹_ ↦_ _› [70, 70, 70] 80)
+    and  τ :: 'a
+```
+
+Within the locale, we can establish our correctness results.
+
+The strategy formulas $\stratweak$ appear as three mutually *inductive predicates*,
+because the grammar of $\hmlsrbb$ (@def-hml-srbb) is implemented as three mutually recursive datatypes (one per nonterminal).
+
+```isabelle
+inductive
+  strategy_formula :: ‹('s, 'a) spectroscopy_position
+    ⇒ energy ⇒ ('a, 's) hml_srbb ⇒ bool›
+and
+  strategy_formula_inner :: ‹('s, 'a) spectroscopy_position
+    ⇒ energy ⇒ ('a, 's) hml_srbb_inner ⇒ bool›
+and
+  strategy_formula_conjunct :: ‹('s, 'a) spectroscopy_position
+    ⇒ energy ⇒ ('a, 's) hml_srbb_conjunct ⇒ bool›
+where
+  delay: ‹strategy_formula (Attacker_Immediate p Q) e (Internal χ)›
+  if ‹∃Q'. spectroscopy_moves
+        (Attacker_Immediate p Q) (Attacker_Delayed p Q') = id_up
+      ∧ attacker_wins e (Attacker_Delayed p Q')
+      ∧ strategy_formula_inner (Attacker_Delayed p Q') e χ›
+| [...]
+```
+
+We then reproduce the induction of @lem-weak-spectroscopy-game-formulas on attacker winning budgets in the following lemma.
+For this, the theory uses the inductive characterization of $\attackerwins$ in @prp-winning-budget-rules as definition for `attacker_wins`.
 
 ```isabelle
 lemma winning_budget_implies_strategy_formula:
-  fixes g e
   assumes ‹attacker_wins e g›
   shows
     ‹case g of
@@ -384,38 +442,47 @@ lemma winning_budget_implies_strategy_formula:
               (Attacker_Immediate p Q) (e - E 1 0 0 0 0 0 0 0) φ
           ∧ expressiveness_price φ ≤ e - E 1 0 0 0 0 0 0 0›
   using assms
-proof(induction rule: attacker_wins.induct)
+proof (induction rule: attacker_wins.induct)
   [...]
 ```
 
+The (mutual) induction on the formula structure to establish the distintiveness of $\stratweak$-formulas of @lem-weak-spectroscopy-game-soundness begins:
 
 ```isabelle
 lemma strategy_formulas_distinguish:
   ‹(strategy_formula g e φ ⟶
-    (case g of
-      Attacker_Immediate p Q ⇒  distinguishes_from φ p Q
-    | Defender_Conj p Q ⇒ distinguishes_from φ p Q
-    | _ ⇒ True))
+      (case g of
+        Attacker_Immediate p Q ⇒
+          distinguishes_from φ p Q
+      | Defender_Conj p Q ⇒
+          distinguishes_from φ p Q
+      | _ ⇒ True))
     ∧
     (strategy_formula_inner g e χ ⟶
-    (case g of
-        Attacker_Delayed p Q ⇒ (Q ↠S Q) ⟶ distinguishes_from (Internal χ) p Q
-    | Defender_Conj p Q ⇒ hml_srbb_inner.distinguishes_from χ p Q
-    | Defender_Stable_Conj p Q ⇒ (∀q. ¬ p ↦ τ q)
-        ⟶ hml_srbb_inner.distinguishes_from χ p Q
-    | Defender_Branch p α p' Q Qa ⇒(p ↦a α p')
-        ⟶ hml_srbb_inner.distinguishes_from χ p (Q∪Qa)
-    | _ ⇒ True))
+      (case g of
+        Attacker_Delayed p Q ⇒
+          (Q ↠S Q) ⟶ distinguishes_from (Internal χ) p Q
+      | Defender_Conj p Q ⇒
+          hml_srbb_inner.distinguishes_from χ p Q
+      | Defender_Stable_Conj p Q ⇒
+          (∀q. ¬ p ↦ τ q)
+          ⟶ hml_srbb_inner.distinguishes_from χ p Q
+      | Defender_Branch p α p' Q Qa ⇒
+          (p ↦a α p')
+          ⟶ hml_srbb_inner.distinguishes_from χ p (Q∪Qa)
+      | _ ⇒ True))
     ∧
     (strategy_formula_conjunct g e ψ ⟶
       (case g of
-      Attacker_Conjunct p q ⇒ hml_srbb_conj.distinguishes ψ p q
-    | _ ⇒ True))›
-proof(induction rule:
-  strategy_formula_strategy_formula_inner_strategy_formula_conjunct.induct)
+        Attacker_Conjunct p q ⇒
+          hml_srbb_conj.distinguishes ψ p q
+      | _ ⇒ True))›
+proof (induction rule:
+  strategy_formula_strategy_formula_inner_[...].induct)
   [...]
 ```
 
+For the other direction, the following expresses @lem-weak-spectroscopy-game-completeness that attacks for formulas.
 
 ```isabelle
 lemma distinction_implies_winning_budgets:
@@ -424,18 +491,21 @@ lemma distinction_implies_winning_budgets:
                        (Attacker_Immediate p Q)›
 ```
 
+The main theorem @thm-weak-spectroscopy-game-characterization is built by combining the previous facts and the upward-closedness of attacker winning budgets `win_a_upwards_closure`.
+This is quite straightforward.
+I reproduce it here in full to provide some idea of what Isar proofs look like.
+
 ```isabelle
 theorem spectroscopy_game_correctness:
-  fixes e p Q
   shows
     ‹(∃φ. distinguishes_from φ p Q ∧ expressiveness_price φ ≤ e)
-    = (attacker_wins e (Attacker_Immediate p Q))›
+    ⟷ attacker_wins e (Attacker_Immediate p Q)›
 proof
   assume
     ‹∃φ. distinguishes_from φ p Q ∧ expressiveness_price φ ≤ e›
   then obtain φ where φ_spec:
     ‹distinguishes_from φ p Q› ‹expressiveness_price φ ≤ e›
-    unfolding 𝒪_def by blast
+    by blast
   from distinction_implies_winning_budgets φ_spec(1) have
     ‹attacker_wins
       (expressiveness_price φ) (Attacker_Immediate p Q)› .
@@ -450,7 +520,7 @@ next
   hence
     ‹∃φ. strategy_formula (Attacker_Immediate p Q) e φ
        ∧ expressiveness_price φ ≤ e›
-    unfolding 𝒪_def by blast
+    by blast
   thus ‹∃φ. distinguishes_from φ p Q ∧ expressiveness_price φ ≤ e›
     using strategy_formulas_distinguish by fastforce
 qed

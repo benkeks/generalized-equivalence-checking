@@ -63,21 +63,21 @@ But this idea leads into a lot of fine points.
 For transition systems $\system=(\states,\actions,\step{})$ with an *internal action* $\tau \in \actions$, we call $\step{\tau}$-transitions “silent” and define special transition relations plus HML modalities:
 
 Internal transition relation
-: $p \stepweak p'$ iff $p \step{\tau}^* p'$, where $\step{\tau}^*$ is the reflexive transitive closure of silent steps.
+: $p \stepweak p'$ iff $p \step{\tau}^* p'$, where $\step{\tau}^*$ is the reflexive transitive closure of silent steps.{{<isb inductive LTS LTS_Tau.silent_reachable>}}
 : The *internal* modality $\hmleps \varphi$ has $p \in \semantics{\hmleps\varphi}$ iff there is $p' \in \semantics{\varphi}$ with $p \stepweak p'$.
 
 Optional transition relation
-: $p \stepopt{\alpha} p'$ iff $p \step{\alpha} p'$, or if $\alpha = \tau$ and $p = p'$.
+: $p \stepopt{\alpha} p'$ iff $p \step{\alpha} p'$, or if $\alpha = \tau$ and $p = p'$.{{<isb abbreviation LTS LTS_Tau.soft_step>}}
 : We accompany it by the *optional* step modality $\hmlopt{\alpha} \varphi$ with $p \in \semantics{\hmlopt{\alpha}\varphi}$ iff there is $p' \in \semantics{\varphi}$ with $p \stepopt{\alpha} p'$.
 
 Stable process
-: A process $p$ is called *stable* iff $p \nostep{\tau}$.
+: A state $p$ is called *stable* iff $p \nostep{\tau}$.{{<isb abbreviation LTS LTS_Tau.stable_state>}}
 : (In HML, we can use $\hmlneg\hmlobs{\tau}\hmltrue$ to express stabilization.)
 
 Again, we implicitly lift the relations to sets of processes, that is for instance, $P \stepweak P'$ (with $P, P' \subseteq \states$) iff $P' = \set{ p' \in \states \mid \exists p \in P \ldotp p \stepweak p'}$.
 :::
 
-We use the convention that $\alpha$ continues to stand for elements of $\actions$, while $a$ comes from $\actions \setminus \set{\tau}$.
+In upcoming definitions and facts, we use the convention that $\alpha$ continues to stand for elements of $\actions$, while $a$ comes from $\actions \setminus \set{\tau}$.
 
 :::{#rem-expressiveness-weak-hml}
 Note that the notation for $\hml$-operators $\hmleps \dots$ and $\hmlopt{\alpha}\dots$ introduced in @def-transition-systems-with-silent-steps does not affect the expressiveness of $\hml$.
@@ -88,7 +88,8 @@ Also, $\semantics{\hmlopt{\tau}\varphi} = \semantics{\bigvee\set{\varphi, \hmlob
 
 ### Weak Traces and Weak Bisimulation
 
-@def-traces and @def-trace-eq
+It is quite straightforward how to lift traces from the strong setting of @def-traces and @def-trace-eq to the weak setting:
+Allow internal $\stepweak$-behavior in between.
 
 ::: {#def-weak-traces}
 #### Weak Traces, Preorder, and Equivalence
@@ -188,7 +189,7 @@ We will use the following sublogic that, naturally, must be designed to correspo
 
 #### Branching Hennessy--Milner Logic
 We define *stability-respecting branching* Hennessy--Milner modal logic,
-$\hmlsrbb$, over an alphabet of actions $\actions$ by the following context-free grammar starting with $\varphi$:
+$\hmlsrbb$, over an alphabet of actions $\actions$ by the following context-free grammar starting with $\varphi$:{{<isb datatype HML_SRBB hml_srbb>}}
 $$
 \begin{array}{rllr}
     \varphi {} ::= {} & \hmleps\chi & & \text{“delayed observation”} \\
@@ -209,14 +210,14 @@ The name already alludes to $\hmlsrbb$ as a whole characterizing stability-respe
 ::: {#def-stability-respecting}
   We call a $\rel R$ *stability-respecting* iff,
   for each $(p,q) \in \rel R$ with $p \nostep{\tau}$,
-  there is some $q'$ with $q \stepweak q' \nostep{\tau}$ and $(p, q') \in \rel R$.
+  there is some $q'$ with $q \stepweak q' \nostep{\tau}$ and $(p, q') \in \rel R$.{{<isb definition LTS LTS_Tau.stability_respecting>}}
 :::
 
 ::: {#def-branching-bisim}
   A symmetric relation $\rel{R}$ is a *branching bisimulation*
   if, for all $(p,q) \in \rel R$, a step $p \step{\alpha} p'$ implies
     (1) $\alpha = \tau$ and $(p', q) \in \rel R$,
-    or (2) $q \stepweak q' \step{\alpha} q''$ for some $q', q''$ with $(p, q') \in \rel R$ and $(p', q'') \in \rel R$.
+    or (2) $q \stepweak q' \step{\alpha} q''$ for some $q', q''$ with $(p, q') \in \rel R$ and $(p', q'') \in \rel R$.{{<isb definition Branching_Bisimilarity LTS_Tau.branching_simulation>}}
 
   If there is a stability-respecting branching bisimulation $\rel R_{BB^{sr}}$ with $(p_0, q_0) \in \rel R_{BB^{sr}}$, then $p_0$ and $q_0$ are *stability-respecting branching bisimilar*.
 :::
@@ -276,7 +277,7 @@ $$\notions^\literal{weak} ≔
 $$
 ordered by pointwise comparison of vector components.
 
-We capture the family of weak observation languages $\observationsvar[\literal{weak}]{N \in \notions^\literal{weak}}$ by providing an expressiveness price function $\expr[\literal{weak}] \colon \hmlsrbb \rightarrow \notions^\literal{weak}$ with $\observationsvar[\literal{weak}]{N} = \set{ \varphi \mid \expr[\literal{weak}](\varphi) \leq N}$.
+We capture the family of weak observation languages $\observationsvar[\literal{weak}]{N \in \notions^\literal{weak}}$ by providing an expressiveness price function $\expr[\literal{weak}] \colon \hmlsrbb \rightarrow \notions^\literal{weak}$ with $\observationsvar[\literal{weak}]{N} = \set{ \varphi \mid \expr[\literal{weak}](\varphi) \leq N}$.{{<isb fun Expressiveness_Price expressiveness_price>}}
 It is defined in mutual recursion with $\expr[\varepsilon]$ and $\expr[\wedge]$ as follows---if multiple rules apply, pick the first one:
 $$
 \begin{array}{rl}

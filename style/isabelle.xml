@@ -67,6 +67,7 @@
       <item>bool</item>
       <item>list</item>
       <item>option</item>
+      <item>set</item>
       <item>nat</item>
     </list>
     <list name="inner_keywords">

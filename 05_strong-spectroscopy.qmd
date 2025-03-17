@@ -274,6 +274,49 @@ To win in both cases, the attacker must start with a budget of at least $(3,1,2,
 The game also allows another path through nested negations that the attacker wins at $(3,2,0,0,2,2)$, but this is not interesting for specific equivalences below bisimilarity.
 :::
 
+::: {#exm-spectroscopy-classic-ts}
+
+Let us see what our prototype implementation on {{<equivio>}} reports about our original example processes of @sec-preliminaries.
+We can input the philosopher processes of @exm-ccs and @exm-deterministic-phil, obtaining a tranistion system matching @exm-ts:
+
+```ccs
+PA = fork.a
+PB = fork.b
+P  = (fork! | PA | PB) \ {fork}
+
+Q  = (fork! | fork.(a + b)) \ {fork}
+
+@compare P, Q
+
+@snip "--- layout info ---"
+
+@compare Q,P
+P(x=150, y=50, main)
+Q(x=400, y=50, main)
+```
+
+Starting `@compare` (on {{<equivio>}}) triggers a spectroscopy along the lines we have discussed, leading to the output:
+
+```
+- Preordered by:
+  simulation
+- Left-right-distinguished by:
+    ⟨τ⟩⋀{¬⟨b⟩⊤} (failure)
+    ⟨τ⟩⋀{¬⟨a⟩⊤} (failure)
+- Equated by:
+  trace
+- Show spectrum. View game.
+```
+
+That `P` is simulated by `Q` matches our finding from @exm-phil-sim.
+Internally this is established by building the spectroscopy game and computing that $\attackerwinsmin(\attackerpos{\literal{P}, \set{\literal{Q}}}) = \set{(2,1,0,0,1,1)}$.
+
+That no equivalence besides or above simulation can hold, is justified to the user by the failure `⟨τ⟩⋀{¬⟨a⟩⊤}`, which we also discussed in @sec-incomparabilities.
+In the updcoming @sec-correctness-strong-spectroscopy we will also give the rules that the tool uses to construct this witness.
+
+Invoking `@compare Q, P` for the other direction, {{<equivio>}} reports `⟨τ⟩⋀{⟨b⟩⊤,⟨a⟩⊤}` as a distinguishing formula disproving simulation (as we have found in @exm-hml).
+:::
+
 The spectroscopy game still is a bisimulation game in the following sense.
 
 ::: {#lem-spectroscopy-bisimulation-game}
@@ -581,7 +624,8 @@ $$
 $$
 :::
 
-Observe that all the coordinates of the strong linear-time–branching-time spectrum (@def-strong-ltbt-spectrum) are still covered by the simpler spectrum.
+Observe that all the coordinates of the strong linear-time–branching-time spectrum (@def-strong-ltbt-spectrum
+The `@check` keyword performs individual comparisons on {{<equivio>}}.) are still covered by the simpler spectrum.
 
 ::: {#def-strong-spectroscopy-game-clever}
 #### Clever Spectroscopy Game
@@ -747,11 +791,11 @@ They are equal with respect to ready traces, but not for simulation-like and pos
 ABCACB = a.(b.d + c.e) + a.(c.f + b.g)
 ABC    = a.(b.d + c.e + c.f + b.g)
 
-@check "traces",            ABCACB, ABC
-@check "ready-trace",       ABCACB, ABC
-@check "simulation",        ABCACB, ABC
-@check "impossible-future", ABCACB, ABC
-@check "bisimulation",      ABCACB, ABC
+@check trace,             ABCACB, ABC
+@check ready-trace,       ABCACB, ABC
+@check simulation,        ABCACB, ABC
+@check impossible-future, ABCACB, ABC
+@check bisimulation,      ABCACB, ABC
 
 @snip "-------------"
 @compare ABCACB, ABC
@@ -767,11 +811,11 @@ ABC(x=683, y=136, main)
 "b.d + c.e + c.f + b.g"(x=627, y=372)
 ```
 
-The `@check` keyword performs individual comparisons on `equiv.io`.
+The `@check` keyword performs individual comparisons on {{<equivio>}}.
 Invoking the check for traces, for instance, yields the following output:
 
 ```
-@check "traces",            ABCACB, ABC
+@check "trace",            ABCACB, ABC
   - States are equivalent.
     View game. 
 ```

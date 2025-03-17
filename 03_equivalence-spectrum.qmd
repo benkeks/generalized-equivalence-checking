@@ -105,7 +105,6 @@ The set of failures of a process $\failures{p}$ is recursively defined as
 - $(α \cdot \vec w, X) ∈ \failures{p}$ if there is $p'$ with $p \step α p'$ and $(\vec w, X) ∈ \failures{p'}$.
 :::
 
-\noindent
 For instance, the failure $(\tau, \set{\literal{a}})$ is in $\failures{\literal{P}}$ but not in $\failures{\literal{Q}}$ on @fig-ts-determinism.
 
 But would it not be nice if we could prevent the invention of new mathematical objects as denotations for every new notions of observability we consider?
@@ -122,7 +121,6 @@ $$
 $$
 :::
 
-\noindent
 Clearly, this encompasses what we may observe via traces,
 but is something that we cannot observe using simulation.
 We consider $\bpreord{F}$ given by $\bpreordvar{\observations{F}}$.

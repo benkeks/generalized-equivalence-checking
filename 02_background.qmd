@@ -136,7 +136,7 @@ Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \litera
 Example system $\system_\literal{PQ}$.
 ::::
 
-{{<noindent>}} The program described by the transitions from $\literal{P}$ choses non-deterministically during a $τ$-step between two options and then offers only either $\literal a$ *or* $\literal b$.
+The program described by the transitions from $\literal{P}$ choses non-deterministically during a $τ$-step between two options and then offers only either $\literal a$ *or* $\literal b$.
 The program $\literal{Q}$ on the other hand performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$ to the environment.
 :::
 
@@ -371,7 +371,6 @@ $$
 $$
 :::
 
-\noindent
 But are $\literal{P}$ and $\literal{Q}$ equivalent?
 
 ## Behavioral Equivalences {#sec-behavioral-eq}
@@ -421,7 +420,6 @@ The trace preorder $\bpreord{T}$ is indeed a preorder (i.e., transitive and refl
 The properties carry over directly from $⊆$ and $=$ on sets of $\traces{\cdot}$.
 :::-->
 
-\noindent
 Trace equivalence and preorder assign programs straightforward *denotational semantics*:
 The sets of traces they might expose.
 For many languages, these mathematical objects can be constructed directly from the expressions of the language.
@@ -559,7 +557,6 @@ There cannot be a symmetric simulation handling this transition as $\literal{Q}$
 Thus $\literal Q \nbeq{B} \literal{T}$.
 :::
 
-\noindent
 The equivalences we have been discussed so far could also be understood as abstractions of an even finer equivalence, namely graph isomorphism:
 
 ::: {#def-graph-isomorphism}
@@ -800,7 +797,7 @@ We say a sublogic $\observationsvar{} ⊆ \hml$ *preorders* state $p$ to $q$, $p
 If the preordering goes in both directions, we say that $p$ and $q$ are equivalent with respect to sublogic $\observationsvar{}$, written $p \beqvar{\observationsvar{}} q$.{{<isb definition LTS_Semantics lts.equivalent>}}
 :::
 
-{{<noindent>}} By this account, $\hmlobs{τ}\hmlneg\hmlobs{\literal a}$ of @exm-hml distinguishes $\literal P$ from $\literal Q$.
+By this account, $\hmlobs{τ}\hmlneg\hmlobs{\literal a}$ of @exm-hml distinguishes $\literal P$ from $\literal Q$.
 On the other hand, $\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}$ distinguishes $\literal Q$ from $\literal P$.
 (The direction matters!)
 For instance, the sublogic $\set{\hmlobs{τ}\hmlobs{\literal a}, \hmlobs{τ}\hmlobs{\literal b}}$ preorders $\literal P$ and $\literal Q$ in both directions; so the two states are equivalent with respect to this logic.

@@ -89,7 +89,14 @@ format:
     classoption: [oneside]
     pdf-engine: xelatex
     mainfont: Linux Libertine O
-    monofont: DejaVu Sans Mono
+    monofont: IsabelleDejaVuSansMono
+    monofontoptions:
+    - Path = ./style/isabelle-font/ttf/
+    - Extension=.ttf
+    - UprightFont = *-Regular
+    - BoldFont=*-Bold
+    - ItalicFont=*-Oblique
+    - BoldItalicFont=*-BoldOblique
     indent: true
     colorlinks: true # must be set in order for quarto to load dvipsnames in xcolor for book class ....
     papersize: a4

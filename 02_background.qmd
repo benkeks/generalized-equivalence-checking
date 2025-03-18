@@ -160,13 +160,15 @@ For the internal action, the whole field has converged to $τ$ in italics, howev
 
 ### Calculus of Communicating Systems {#sec-ccs}
 
-To talk about programs in this thesis, we use Milner's [-@milner1989comcon] *Calculus of Communicating Systems* (CCS), which---together with other great contributions---earned him the Turing award.
-It is a tiny concurrent programming language that fits in your pocket, and can be properly described mathematically!
+To talk about programs in this thesis, we use Milner's [-@milner1980ccs] *Calculus of Communicating Systems* (CCS), which---together with other great contributions---earned him the Turing award.
+It is a tiny concurrent programming language that fits in your pocket, and can be properly described mathematically! 
 
 ::: {#def-ccs}
 #### Calculus of Communicating Systems
 
-Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names. Then, $\ccs$ processes, communicating via actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{α} \mid α ∈ \ccschannels } \cup \set{τ}$, are given by the following grammar:
+Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names. Then, $\ccs$ processes, communicating via actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{α} \mid α ∈ \ccschannels } \cup \set{τ}$, are given by the following grammar:^[
+  For the examples of this thesis, a simple CCS variant without value passing and renaming suffices.
+]
 $$
 \begin{array}{cllr}
   P \grammardef

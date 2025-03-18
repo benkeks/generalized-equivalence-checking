@@ -27,7 +27,6 @@ From there, we will quickly run into the second core idea:
 We can ask what equivalences from a spectrum are the most fitting to relate two states.
 :::
 
-\noindent
 @sec-spectroscopy will define the problem formally and give lower-bounds for its complexity on the strong spectrum.
 
 ## Observability Hierarchies
@@ -701,9 +700,10 @@ Many other coordinates will still correspond to distinct equivalences.
 For instance, we could consider $N^{\notionname{2T}} = (2,0,0,0,0,0)$, preordering states that cannot be distinguished by traces up to a length of $2$.
 But it is difficult to make a case for such a “notion of equivalence,” which washes away differences of future behavior.
 
-Two kinds of depth-bounded families, however, are common in the literature, and can also be placed in our spectrum:
+Some kinds of depth-bounded families, however, are common in the literature to approximate bisimilarity and can also be placed in our spectrum:
 
-- $k$-step bisimilarity: $(k,\infty,\infty,\infty,\infty,\infty)$ is a $k$-observation approximation of bisimilarity that sometimes appears in proofs.^[TODO: look up example]
+- $k$-step bisimilarity: $(k,\infty,\infty,\infty,\infty,\infty)$ is a depth-$k$ approximation of bisimilarity that sometimes appears in its fixed point characterizations, for instance in @ails2007reactiveSystems [§ 4.3].
+- $k$-stratified bisimilarity: $(\infty, k,\infty,\infty,\infty,\infty)$ would be what @milner1989comcon[§ 10.4] calls “stratification of bisimilarity.”
 - $k$-nested similarity: $(\infty,\infty,\infty,\infty,\infty,k-1)$ for $k>1$ defines a spectrum of modal quantifier alternation depth between similarity and bisimilarity.
 :::
 

@@ -166,70 +166,75 @@ It is a tiny concurrent programming language that fits in your pocket, and can b
 ::: {#def-ccs}
 #### Calculus of Communicating Systems
 
-  Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names. Then, $\ccs$ processes, communicating via actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{α} \mid α ∈ \ccschannels } \cup \set{τ}$, are given by the following grammar:
+Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names. Then, $\ccs$ processes, communicating via actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{α} \mid α ∈ \ccschannels } \cup \set{τ}$, are given by the following grammar:
+$$
+\begin{array}{cllr}
+  P \grammardef
+  & \ccsprefix{α} P & \quad\text{with } α ∈ \ccschannels &
+      \text{“input action prefix”} \\
+  & \ccsprefix{\coaction α} P & \quad\text{with } α ∈ \ccschannels &
+      \text{“output action prefix”} \\
+  & \ccsprefix{τ} P & &
+      \text{“internal action”} \\
+  & \ccsnull & &
+      \text{“null process”} \\
+  & X & \quad\text{with } X ∈ \ccsnames &
+      \text{“recursion”} \\
+  & P \ccschoice P & &
+      \text{“choice”} \\
+  & P \, \ccspar \, P & &
+      \text{“parallel composition”} \\
+  & P \, \ccsrestrict A & \quad\text{with } A ⊆ \ccschannels &
+      \text{“restriction”}
+\end{array}
+$$
+We call pairs of actions $α$ and $\coaction α$ *coactions*, and work with the aliasing $\coaction{\coaction{α}} = α$.
+The intuition is that an action $α$ represents receiving and $\coaction α$ expresses sending in communication.
+A pair of action and coaction can “react” in a communication situation and only become internal activity $τ$ in the view of the environment.
 
-  $$
-  \begin{array}{cllr}
-    P \grammardef
-    & \ccsprefix{α} P & \quad\text{with } α ∈ \ccschannels &
-        \text{“input action prefix”} \\
-    & \ccsprefix{\coaction α} P & \quad\text{with } α ∈ \ccschannels &
-        \text{“output action prefix”} \\
-    & \ccsprefix{τ} P & &
-        \text{“internal action”} \\
-    & \ccsnull & &
-        \text{“null process”} \\
-    & X & \quad\text{with } X ∈ \ccsnames &
-        \text{“recursion”} \\
-    & P \ccschoice P & &
-        \text{“choice”} \\
-    & P \, \ccspar \, P & &
-        \text{“parallel composition”} \\
-    & P \, \ccsrestrict A & \quad\text{with } A ⊆ \ccschannels &
-        \text{“restriction”}
-  \end{array}
-  $$
-  We call pairs of actions $α$ and $\coaction α$ *coactions*, and work with the aliasing $\coaction{\coaction{α}} = α$.
-  The intuition is that an action $α$ represents receiving and $\coaction α$ expresses sending in communication.
-  A pair of action and coaction can “react” in a communication situation and only become internal activity $τ$ in the view of the environment.
+Each sub-process tree must end in a $\ccsnull$-process or recursion.
+For brevity, we usually drop a final $\ccsnull$ when writing terms, e.g., just writing $\literal{ac}$ for $\ccsprefix{\literal{ac}} \ccsnull$.
 
-  Each sub-process tree must end in a $\ccsnull$-process or recursion.
-  For brevity, we usually drop a final $\ccsnull$ when writing terms, e.g., just writing $\literal{ac}$ for $\ccsprefix{\literal{ac}} \ccsnull$.
-
-  We place parenthesis, $(…)$, in terms where the syntax trees are otherwise ambiguous, but understand the choice operator $\ccschoice$ and the parallel operator $\ccspar$ to be associative.
+We place parenthesis, $(…)$, in terms where the syntax trees are otherwise ambiguous, but understand the choice operator $\ccschoice$ and the parallel operator $\ccspar$ to be associative.
 :::
+
 
 ::: {#exm-ccs}
 #### Concurrent Philosophers
 
-  Following tradition, we will express our examples in terms of philosophers who need forks to eat spaghetti.^[
-    Of course, you can just as well read the examples to be about computer programs that race for resources.]
-  So, consider two philosophers $\literal{P_A}$ and $\literal{P_B}$ who want to grab a resource $\literal{fork}$ modeled as an action in order to eat where we express $\literal{P_A}$ eating with action $\literal{a}$ and $\literal{P_B}$ eating with $\literal{b}$.
-  The philosopher processes read:
+Following tradition, we will express our examples in terms of philosophers who need forks to eat spaghetti.^[
+  Of course, you can just as well read the examples to be about computer programs that race for resources.]
+So, consider two philosophers $\literal{P_A}$ and $\literal{P_B}$ who want to grab a resource $\literal{fork}$ modeled as an action in order to eat where we express $\literal{P_A}$ eating with action $\literal{a}$ and $\literal{P_B}$ eating with $\literal{b}$.
+The philosopher processes read:
 
-:::::: {.column-margin}
-```{mermaid}
-%%| fig-width: .7
-flowchart TD
-  p0([P<sub>A</sub>]) -- fork --> pA([a.0])
-  pA -- a --> 0([<strong>0</strong>])
+::::: {.column-margin}
+```tikz
+\begin{tikzpicture}[auto,node distance=1.7cm]
+  \node[state] (Pa){$\literal{P_A}$};
+  \node[state, below of=Pa] (a){$\literal{a}$};
+  \node[state, below of=a] (Null){$\ccsnull$};
+  \path[->]
+    (Pa)
+      edge node {$\literal{fork}$} (a)
+    (a)
+      edge node {$\literal{a}$} (Null);
+\end{tikzpicture}
 ```
-::::::
+:::::
+$$
+\begin{gathered}
+  \literal{P_A} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull \\
+  \literal{P_B} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal b} \ccsnull
+\end{gathered}
+$$
+An LTS representation of $\literal{P_A}$'s behavior can be seen in the margin.
+Process $\literal P$ captures the whole scenario where the two philosophers compete for the fork using communication:
+$$
+  \literal P ≔ ( \ccsprefix{\coaction{\literal{fork}}} \ccsnull \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
+$$
+The restriction $… \ccsrestrict \set{\literal{fork}}$ expresses that the $\literal{fork}$-channel can only be used for communication within the system.
 
-  $$
-  \begin{gathered}
-    \literal{P_A} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull \\
-    \literal{P_B} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal b} \ccsnull
-  \end{gathered}
-  $$
-  An LTS representation of $\literal{P_A}$'s behavior can be seen in the margin.
-  Process $\literal P$ captures the whole scenario where the two philosophers compete for the fork using communication:
-  $$
-    \literal P ≔ ( \ccsprefix{\coaction{\literal{fork}}} \ccsnull \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
-  $$
-  The restriction $… \ccsrestrict \set{\literal{fork}}$ expresses that the $\literal{fork}$-channel can only be used for communication within the system.
-
-  As the $\coaction{\literal{fork}}$-action can be consumed by just one of the two philosophers, process $\literal P$ expresses exactly the program behavior seen in state $\literal P$ of @exm-ts.
+As the $\coaction{\literal{fork}}$-action can be consumed by just one of the two philosophers, process $\literal P$ expresses exactly the program behavior seen in state $\literal P$ of @exm-ts.
 :::
 
 The formal relationship between process terms and their LTS semantics is given by the following definition.
@@ -495,20 +500,30 @@ The simulation preorder $\bpreord{S}$ is indeed a preorder{{<isb lemma Strong_Eq
 :::
 -->
 
-### The Hierarchy of Equivalences {#sec-hierarchy-equivalences}
+### Equivalence Hierarchies {#sec-hierarchy-equivalences}
 
 Bisimilarity, similarity and trace equivalence form a small hierarchy of equivalences in the sense that they imply one-another in one direction, but not in the other.
 Let us quickly make this formal:
 
 :::: {#fig-core-hierarchy .column-margin}
-```{mermaid}
-%%| fig-width: 1.5
-flowchart TD
-  GI[Graph Isomorphism] -.-> B[Bisimilarity] --> S[Similarity] --> T[Trace Equivalence]
-  style GI stroke-dasharray: 3 3
+```tikz
+\begin{tikzpicture}[auto,node distance=1.5cm,
+  notion/.style={minimum width=3cm, minimum height=.8cm, draw=gray, rectangle,align=center,rounded corners}]
+  \node[notion, dashed] (GI){Graph isomorphism};
+  \node[notion, below of=GI] (B){Bisimilarity};
+  \node[notion, below of=B] (S){Similarity};
+  \node[notion, below of=S] (T){Trace equivalence};
+  \path[->]
+    (GI)
+      edge[dashed] node {} (B)
+    (B)
+      edge node {} (S)
+    (S)
+      edge node {} (T);
+\end{tikzpicture}
 ```
 
-  Core hierarchy of equivalences.
+Core hierarchy of equivalences.
 ::::
 
 ::: {#lem-bisim-bisim}
@@ -537,13 +552,21 @@ $$
 This adds another deadlock state to the transition system, seen in @fig-bisim-sim-ts.
 
 :::: {#fig-bisim-sim-ts .column-margin}
-```{mermaid}
-%%| fig-width: 1.5
-flowchart TD
-  q0([T]) -- τ --> qAB([q<sub>ab</sub>])
-  qAB -- a --> qA([q<sub>1</sub>])
-  qAB -- b --> qB([q<sub>2</sub>])
-  q0 -- τ --> qT([q<sub>3</sub>])
+```tikz
+\begin{tikzpicture}[auto,node distance=2cm]
+  \node[state] (q0){$\literal{T}$};
+  \node[state, below left of=q0] (qAB){$\literal{q_{ab}}$};
+  \node[state, below left of=qAB] (q1){$\literal{q_{1}}$};
+  \node[state, below right of=qAB] (q2){$\literal{q_{2}}$};
+  \node[state, below right of=q0] (q3){$\literal{q_{3}}$};
+  \path[->]
+    (q0)
+      edge[swap] node {$\tau$} (qAB)
+      edge node {$\tau$} (q3)
+    (qAB)
+      edge[swap] node {$\literal{a}$} (q1)
+      edge node {$\literal{b}$} (q2);
+\end{tikzpicture}
 ```
 Example with new deadlock $\literal{q_3}$.
 ::::
@@ -570,10 +593,16 @@ Two states $p$ and $q$ are considered *graph-isomorphism-equivalent*, $p \beq{IS
 Consider the transition system in @fig-iso-ts. $\literal{p_{even}} \beq{ISO} \literal{p_{odd}}$ because $f ≔ \set{\literal{p_{even}} \mapsto \literal{p_{odd}}, \literal{p_{odd}} \mapsto \literal{p_{even}}}$ is a graph isomorphism.
 
 ::: {#fig-iso-ts .column-margin}
-```{mermaid}
-%%| fig-width: 1
-flowchart TD
-  pEven([p<sub>even</sub>]) -- τ --> pOdd([p<sub>odd</sub>]) -- τ --> pEven
+```tikz
+\begin{tikzpicture}[auto,node distance=2cm]
+  \node[state] (pEven){$\literal{p_{even}}$};
+  \node[state, below of=pEven] (pOdd){$\literal{p_{odd}}$};
+  \path[->]
+    (pEven)
+      edge[swap, bend right=15] node {$\tau$} (pOdd)
+    (pOdd)
+      edge[swap, bend right=15] node {$\tau$} (pEven);
+\end{tikzpicture}
 ```
 
 Transition system with an isomorphic cycle.
@@ -686,13 +715,19 @@ In @exm-bisim-sim of “trolled philosophers,” all terminal states are bisimil
 We can thus merge them into one state $\literal{q_{123}^m}$ as depicted in @fig-bisim-min-ts, without affecting the behavioral properties of the other states with respect to bisimilarity, that is, $\literal{q_{ab}} \beq{B} \literal{q_{ab}^m}$ and $\literal{T} \beq{B} \literal{T^m}$.
 
 :::: {#fig-bisim-min-ts .column-margin}
-```{mermaid}
-%%| fig-width: 1.5
-flowchart TD
-  q0([T<sup>m</sup>]) -- τ --> qAB([q<sub>ab</sub><sup>m</sup>])
-  qAB -- a --> qABT([q<sub>123</sub><sup>m</sup>])
-  qAB -- b --> qABT
-  q0 -- τ --> qABT
+```tikz
+\begin{tikzpicture}[auto,node distance=2cm]
+  \node[state] (q0){$\literal{T^m}$};
+  \node[state, below left of=q0] (qAB){$\literal{q^m_{ab}}$};
+  \node[state, below right of=qAB] (q123){$\literal{q^m_{123}}$};
+  \path[->]
+    (q0)
+      edge[swap, bend right=10] node {$\tau$} (qAB)
+      edge[bend left=10] node {$\tau$} (q123)
+    (qAB)
+      edge[swap, bend right=15] node {$\literal{a}$} (q123)
+      edge[bend left=15] node {$\literal{b}$} (q123);
+\end{tikzpicture}
 ```
 Minimized version of @fig-bisim-sim-ts.
 ::::
@@ -1040,11 +1075,22 @@ Moving to $[\literal{2a}]$ instead would get the defender stuck.
 So, the defender winning region is $\defenderwins = \set{(\literal{1}),[\literal{2b}]}$ and the attacker wins $\attackerwins = \set{[\literal{2a}], (\literal{3})}$.
 
 :::: {#fig-game-ex .column-margin}
-```{mermaid}
-%%| fig-width: 1.5
-flowchart TD
-  1([1]) --> 2a[2a] --> 3([3])
-  1 --> 2b[2b]
+
+```tikz
+\begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm, 
+    posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},
+    defender/.style={ellipse, inner sep=0ex}]
+  \node[posStyle, defender] (p1){$1$};
+  \node[posStyle, below left of=p1] (p2a){$\literal{2a}$};
+  \node[posStyle, below right of=p1] (p2b){$\literal{2b}$};
+  \node[posStyle, defender, below of=p2a] (p3){$\literal{3}$};
+  \path[->]
+    (p1)
+      edge node {} (p2a)
+      edge node {} (p2b)
+    (p2a)
+      edge node {} (p3);
+\end{tikzpicture}
 ```
 A simple game.
 ::::

@@ -129,14 +129,26 @@ The formula distinguishes $\literal P$ from $\literal Q$ on @fig-ts-determinism,
 On the other hand, no failure from $\observations{F}$, distinguishes $\literal Q$ from $\literal P$, but $\literal Q \nbpreord{S} \literal P$.
 
 :::: {#fig-failure-hierarchy .column-margin}
-```{mermaid}
-%%| fig-width: 2
-  flowchart TD
-    B["Bisimilarity"] --> S["Similarity"] --> T["Trace Equivalence"]
-    B --> F["Failure Equivalence"] --> T
-  ```
+```tikz
+\begin{tikzpicture}[auto,node distance=2.1cm,
+  notion/.style={minimum width=2.5cm, minimum height=.8cm, draw=gray, rectangle,align=center,rounded corners}]
+  \node[notion] (B){Bisimilarity};
+  \node[notion, below left of=B] (S){Similarity};
+  \node[notion, below right of=B] (F){Failure equivalence};
+  \node[notion, below right of=S] (T){Trace equivalence};
+  \path[->]
+    (B)
+      edge node {} (S)
+    (B)
+      edge node {} (F)
+    (S)
+      edge node {} (T)
+    (F)
+      edge node {} (T);
+\end{tikzpicture}
+```
 
-  Preorder/equivalence hierarchy.
+Preorder/equivalence hierarchy including failures.
 ::::
 
 As a consequence, simulation preorder and failure preorder are *incomparable*, that is, neither one implies the other.
@@ -310,39 +322,49 @@ Let us use our new definition to construct a subset lattice as in @exm-set-latti
 
 Consider the notions
 $$\notions^\literal{simple} ≔
-\powerset{\set{\literal{(\land)}, \literal{(\neg)} }},
+\powerset{\set{\literal{⊕}, \literal{⊗} }},
 $$
 ordered by subset inclusion,
 and the family of observation languages $\observationsvar[\literal{simple}]{N \in \notions}$ given by the family of grammars with some conditional productions:
-
 $$
 \begin{array}{rcll}
   φ^N & \grammardef & \hmltrue{} & \\
       & \grammaror  & \hmlobs{α}φ^N & \\
-      & \grammaror  & \hmland{i}{I}φ^N_i & \text{ if $\literal{(\land)} \in N$} \\
-      & \grammaror  & \hmland{i}{I} \hmlneg \hmlobs{α_i}\hmltrue & \text{ if $\literal{(\neg)} \in N$} \\
-      & \grammaror  & \hmlneg φ^N & \text{ if $\set{\literal{(\land)}, \literal{(\neg)} } = N$.}
+      & \grammaror  & \hmland{i}{I}φ^N_i & \text{ if $\literal{⊕} \in N$} \\
+      & \grammaror  & \hmland{i}{I} \hmlneg \hmlobs{α_i}\hmltrue & \text{ if $\literal{⊗} \in N$} \\
+      & \grammaror  & \hmlneg φ^N & \text{ if $\set{\literal{⊕}, \literal{⊗} } = N$.}
 \end{array}
 $$
-
-{{<noindent>}} Clearly, $N \subseteq M$ implies $\observationsvar{N} \subseteq \observationsvar{M}$ for $N, M \in \notions^\literal{simple}$.
+Clearly, $N \subseteq M$ implies $\observationsvar{N} \subseteq \observationsvar{M}$ for $N, M \in \notions^\literal{simple}$.
 We obtain the diamond hierarchy of @fig-sample-hierarchy.
 It matches the diamond of @fig-failure-hierarchy, but this time, the hierarchy is an effect of the ordered notions.
 
 :::: {#fig-sample-hierarchy .column-margin}
-```{mermaid}
-%%| fig-width: 2
-flowchart TD
-  B["Bisimilarity <br> {(∧), (¬)}"] --- S["Similarity <br> {(∧)}"] --- T["Trace Equivalence <br> ∅"]
-  B --- F["Failure Equivalence <br> {(¬)}"] --- T
-```
 
+```tikz
+\begin{tikzpicture}[auto,node distance=2.1cm,
+  notion/.style={minimum width=2.5cm, minimum height=.8cm, draw=gray, rectangle,align=center,rounded corners}]
+  \node[notion] (B){Bisimilarity \\ $\set{\literal{⊕}, \literal{⊗}}$};
+  \node[notion, below left of=B] (S){Similarity \\ $\set{\literal{⊕}}$};
+  \node[notion, below right of=B] (F){Failure equivalence \\ $\set{\literal{⊗}}$};
+  \node[notion, below right of=S] (T){Trace equivalence \\ $\varnothing$};
+  \path[->]
+    (B)
+      edge node {} (S)
+    (B)
+      edge node {} (F)
+    (S)
+      edge node {} (T)
+    (F)
+      edge node {} (T);
+\end{tikzpicture}
+```
 Hierarchy of simple notions of equivalence.
 ::::
 :::
 
 \noindent
-While the incomparable languages of [Subsection -@sec-incomparabilities] form no lattice, e.g. $\observations{S} \cup \observations{F} \neq \hml$, the *notions* of the present @exm-simple-spectrum do form a lattice, as $\set{\literal{(\land)}} \cup \set{\literal{(\neg)}} = \set{\literal{(\land)}, \literal{(\neg)}}$.
+While the incomparable languages of [Subsection -@sec-incomparabilities] form no lattice, e.g. $\observations{S} \cup \observations{F} \neq \hml$, the *notions* of the present @exm-simple-spectrum do form a lattice, as $\set{\literal{⊕}} \cup \set{\literal{⊗}} = \set{\literal{⊕}, \literal{⊗}}$.
 This is one of the reasons why it is convenient to add *notions of observability* as an abstraction layer.
 
 We can also ask what the least notion is to include a specific formula:

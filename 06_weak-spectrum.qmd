@@ -47,7 +47,6 @@ Equivalences with this feature are called *weak*, alluding to the fact that they
       (Null.center)--(t.center);
   \end{pgfonlayer}
 \end{tikzpicture}
-
 ```
 
 Processes we would like to equate in weak equivalences.

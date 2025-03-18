@@ -129,8 +129,6 @@ format:
     biblio-config: true
     link-citations: true
     latex-max-runs: 4
-    mermaid:
-      theme: neutral
 
 # jupyter:
 #  kernelspec:

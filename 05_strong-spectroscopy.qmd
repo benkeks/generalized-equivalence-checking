@@ -447,7 +447,7 @@ Taken together, @lem-strong-spectroscopy-game-soundness and @lem-strong-spectros
 $p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{strong}$ precisely if the defender wins $\gamespectroscopy$ from $\attackerpos{p,\set{q}}$ if the attacker starts with budget $e$.
 :::
 
-Thus, we can solve the spectroscopy problem of @def-spectroscopy-problem by computing $\notions^\literal{strong}_{p,q} = \notions^\literal{strong} \setminus \attackerwins^{\gamespectroscopy}(\attackerpos{p, \set{q}})$.
+Thus, we can solve the spectroscopy problem of @prob-spectroscopy-problem by computing $\notions^\literal{strong}_{p,q} = \notions^\literal{strong} \setminus \attackerwins^{\gamespectroscopy}(\attackerpos{p, \set{q}})$.
 
 ::: {#rem-differences-paper}
 #### Differences to Conference Version

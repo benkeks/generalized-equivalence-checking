@@ -749,7 +749,7 @@ We will also collect first thoughts on its complexity.
 The problem has originally been introduced in @bjn2022decidingAllBehavioralEqs as the “abstract observation preorder problem” with respect to modal characterizations of the strong spectrum.
 We here reintroduce it in a more generic form.
 
-::: {#def-spectroscopy-problem .problem}
+::: {#prob-spectroscopy-problem .problem .callout-problem .callout-note}
 #### Spectroscopy Problem
 
 In the context of a transition system $\system$ and a spectrum $(\notions, \leq, \observationsvar{N \in \notions})$, the *spectroscopy problem* asks:

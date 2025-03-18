@@ -25,6 +25,10 @@ crossref:
       reference-prefix: Idea
       key: idea
       latex-env: idea
+    - kind: float
+      reference-prefix: Problem
+      key: prob
+      latex-env: problem
 linestretch: 1.1
 fig-align: center
 strip-comments: true

@@ -21,6 +21,10 @@ crossref:
       reference-prefix: Algorithm
       key: alg
       latex-env: algorithm
+    - kind: float
+      reference-prefix: Idea
+      key: idea
+      latex-env: idea
 linestretch: 1.1
 fig-align: center
 strip-comments: true

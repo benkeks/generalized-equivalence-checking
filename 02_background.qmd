@@ -47,13 +47,13 @@ Core-correlations for bisimilarity between relational definition, modal distingu
 Readers who are familiar with the contents of @fig-equivalence-big-picture can mostly skim through this chapter of preliminaries.
 The two core insights that this chapter intends to seed for coming chapters are:
 
-::: {#nte-idea-games .callout-idea .callout-note}
+::: {#idea-games .callout-idea .callout-note}
 #### It's all a game!
 Equivalence games are a most versatile way to handle behavioral equivalences and obtain decision procedures.
 The Hennessy--Milner theorem appears as a shadow of the determinacy of the bisimulation reachability game.
 :::
 
-::: {#nte-idea-modal-first .callout-idea .callout-note}
+::: {#idea-modal-first .callout-idea .callout-note}
 #### Modal first!
 
 Modal characterizations allow a uniform handling of the hierarchy of equivalences.
@@ -1655,7 +1655,7 @@ Checking bisimilarity and providing certificates.
 
 In this view, the game of possible distinctions and their preventability between attacker and defender serves as the “ground truth” about the bisimilarity of two states.
 Bisimulation relations and modal formulas only appear as witnesses of defender and attacker strategies, mediating between game and transition system.
-The Hennessy--Milner theorem emerges on this level as a shadow of the determinacy of the bisimulation game (@nte-idea-games).
+The Hennessy--Milner theorem emerges on this level as a shadow of the determinacy of the bisimulation game (@idea-games).
 This whole framework draws heavily from @stirling1996modal.
 
 We have disregarded the topic of axiomatic characterizations for behavioral equivalences.
@@ -1665,7 +1665,7 @@ Thus, they tend to be coupled to specific process languages and lack the generic
 We have observed that behavioral equivalences can be arranged in hierarchies and that these hierarchies could be handled nicely using modal characterizations to rank distinguishing powers (Subsection [-@sec-perks-modal-characterizations]).
 We have also seen how to link game rules to productions in a language of potentially distinguishing formulas (Subsection [-@sec-bisim-game-hml]).
 This departs from common textbook presentations that motivate the bisimulation game through the relational (coinductive) characterization [e.g. @sangiorgi2012].
-In later chapters, we will rather derive equivalence games from grammars of modal formulas (@nte-idea-modal-first), to generalize the framework of @fig-game-algo-overview for whole spectra of equivalences.
+In later chapters, we will rather derive equivalence games from grammars of modal formulas (@idea-modal-first), to generalize the framework of @fig-game-algo-overview for whole spectra of equivalences.
 
 But first, we have to make formal what we mean by *equivalence spectra*.
 

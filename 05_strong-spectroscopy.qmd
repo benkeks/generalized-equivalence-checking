@@ -14,7 +14,7 @@ But the weaker notions of the spectrum heavily limit how many conjunctions may b
 
 Our core trick will be to break the link between observations and conjunctions in the game, analogously to the subset construction on finite automata.
 
-::: {#nte-idea-subset-construction .callout-idea .callout-note}
+::: {#idea-subset-construction .callout-idea .callout-note}
 #### Breaking up observations and conjunctions
 
 Linear-time notions can be addressed in the spectroscopy game by interjecting a subset-construction on defender states between moves that correspond to observations and to conjunctions.
@@ -23,7 +23,7 @@ Linear-time notions can be addressed in the spectroscopy game by interjecting a 
 This will lead to exponential blow-up.
 In @sec-specific-spectro-games, we will discuss how to get rid of the blowup where possible when instantiating the game to decide equivalences individually.
 
-::: {#nte-idea-instance-games .callout-idea .callout-note}
+::: {#idea-instance-games .callout-idea .callout-note}
 #### Generating equvialence checkers
 
 By instantiating the spectroscopy game with known initial energies and exploiting the supply of conjunction moves, we can derive efficient decision procedures for individual equivalences.

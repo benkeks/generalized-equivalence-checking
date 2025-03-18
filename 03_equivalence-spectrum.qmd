@@ -11,7 +11,7 @@ However, we will order the equivalences using the approach of parameterized *not
 
 The first core idea of this chapter is:
 
-::: {#nte-idea-hierarchy .callout-idea .callout-note}
+::: {#idea-hierarchy .callout-idea .callout-note}
 #### Notions of observability bring order
 
 Groups of equivalences can be defined and ranked in lattices of notions of observability.
@@ -21,7 +21,7 @@ In particular, @sec-ltbt-spectrum will introduce such a spectrum, forming a hier
 
 From there, we will quickly run into the second core idea:
 
-::: {#nte-idea-spectroscopy .callout-idea .callout-note}
+::: {#idea-spectroscopy .callout-idea .callout-note}
 #### We have a Spectroscopy problem
 
 We can ask what equivalences from a spectrum are the most fitting to relate two states.
@@ -920,8 +920,8 @@ Consequently, the spectroscopy problem for the standard equivalence spectra is $
 
 ## Discussion
 
-In this chapter, we have formalized how to handle *spectra of equivalence* (@nte-idea-hierarchy), and instantiated the approach to the strong spectrum of @glabbeek2001ltbtsiReport.
-From there, we have introduced the *spectroscopy problem*, which asks for notions to preorder compared states (@nte-idea-spectroscopy).
+In this chapter, we have formalized how to handle *spectra of equivalence* (@idea-hierarchy), and instantiated the approach to the strong spectrum of @glabbeek2001ltbtsiReport.
+From there, we have introduced the *spectroscopy problem*, which asks for notions to preorder compared states (@idea-spectroscopy).
 
 By formulating the problem in terms of a lattice over $\natsext$-vectors, the family of qualitative strong preorder/equivalence problems becomes a single quantitative problem:
 The spectroscopy problem for the strong spectrum.

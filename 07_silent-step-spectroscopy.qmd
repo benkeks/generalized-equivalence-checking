@@ -536,7 +536,7 @@ the spectroscopy problem for the $\notions^\literal{weak}$-spectrum can be solve
 :::
 :::proof
 According to @thm-weak-spectroscopy-game-characterization, we can solve the spectroscopy problem for the $\notions^\literal{weak}$-spectrum by deciding the winning budgets of the weak spectroscopy game ${\gamespectroscopyw}^{\system}$ on $\system=(\states,\actions,\step{})$.
-We instantiate the winning budget complexity of @lem-declining-update-complexity for the case $N=8$ with the size of $\gamespectroscopyw$ according to @def-weak-spectroscopy-game.
+We instantiate the winning budget complexity of @lem-declining-update-complexity for the case $d=8$ with the size of $\gamespectroscopyw$ according to @def-weak-spectroscopy-game.
 
 The amount of attacker positions $\attackerpos{\dots}$ (and their delayed $\attackerpos[\varepsilon]{\dots}$ and branching $\attackerpos[\eta]{\dots}$ variants) is bounded by $\relsize{\states} \cdot 2^{\relsize{\states}}$.
 The number of conjunction moves and defender conjunction positions $\defenderpos{\dots}$ is bounded by $\relsize{\states} \cdot 2^{\relsize{\states}}$, also for the stable variant $\defenderpos[d]{\dots}$.
@@ -551,7 +551,7 @@ This amounts to $o_{\gamemoveblank_\nabla}$ in $\bigo{\relsize{\step{}} \cdot 2^
 Inserting the parameters in the time bounds of @lem-declining-update-complexity yields:
 $$
 \begin{array}{rlccccccc}
-    & O( & o_{\gamemoveblank} & \cdot & \relsize{G}^{2N} & \cdot & (N^2 + \relsize{G}^{N-1} \cdot N) & ) \\
+    & O( & o_{\gamemoveblank} & \cdot & \relsize{G}^{2d} & \cdot & (d^2 + \relsize{G}^{d-1} \cdot d) & ) \\
   = & O( & (\relsize{\step{}} \cdot 2^{\relsize{\states}}) & \cdot & (\relsize{\step{}} \cdot 3^{\relsize{\states}})^{2 \cdot 8} & \cdot & (8^2 + (\relsize{\step{}} \cdot 3^{\relsize{\states}})^{8-1} \cdot 8) & ) \\
   = & O( & \relsize{\step{}} \cdot 2^{\relsize{\states}} & \cdot & \relsize{\step{}}^{16} \cdot 3^{16\relsize{\states}} & \cdot & \relsize{\step{}}^7 \cdot 3^{7\relsize{\states}} & ) \\
   ⊆ & O( & \relsize{\step{}}^{24} & \cdot & 3^{24\relsize{\states}} & ).

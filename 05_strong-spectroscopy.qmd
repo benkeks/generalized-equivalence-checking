@@ -472,7 +472,7 @@ the spectroscopy problem for the $\notions^\literal{strong}$-spectrum can be sol
 :::
 :::proof
 According to @thm-strong-spectroscopy-game-characterization, we can solve the spectroscopy problem for the $\notions^\literal{strong}$-spectrum by deciding the winning budgets of the strong spectroscopy game ${\gamespectroscopy}^{\system}$ on $\system=(\states,\actions,\step{})$.
-We instantiate the winning budget complexity of @lem-declining-update-complexity for the case $N=6$ with the size of $\gamespectroscopy$ according to @def-strong-spectroscopy-game.
+We instantiate the winning budget complexity of @lem-declining-update-complexity for the case $d=6$ with the size of $\gamespectroscopy$ according to @def-strong-spectroscopy-game.
 
 The amount of attacker positions is bounded by $\relsize{\states} \cdot 2^{\relsize{\states}}$.
 The number of conjunction moves and defender conjunction positions is bounded by $\relsize{\states} \cdot 3^{\relsize{\states}}$.
@@ -484,7 +484,7 @@ This amounts to $o_{\gamemoveblank}$ in $\bigo{2^{\relsize{\states}}}$ and to $\
 Inserting the parameters in the time bounds of @lem-declining-update-complexity yields:
 $$
 \begin{array}{rlccccccc}
-    & O( & o_{\gamemoveblank} & \cdot & \relsize{G}^{2N} & \cdot & (N^2 + \relsize{G}^{N-1} \cdot N) & ) \\
+    & O( & o_{\gamemoveblank} & \cdot & \relsize{G}^{2d} & \cdot & (d^2 + \relsize{G}^{d-1} \cdot d) & ) \\
   = & O( & (2^{\relsize{\states}}) & \cdot & (\relsize{\states} \cdot 3^{\relsize{\states}})^{2 \cdot 6} & \cdot & (6^2 + (\relsize{\states} \cdot 3^{\relsize{\states}})^{6-1} \cdot 6) & ) \\
   = & O( & 2^{\relsize{\states}} & \cdot & \relsize{\states}^{12} \cdot 3^{12\relsize{\states}} & \cdot & \relsize{\states}^5 \cdot 3^{5\relsize{\states}} & ) \\
   = & O( & \relsize{\states}^{17} & \cdot & 2^{\relsize{\states}} \cdot 3^{17\relsize{\states}} & ).
@@ -657,7 +657,7 @@ Given a transition system $\system=(\states,\actions,\step{})$,
 the spectroscopy problem for the simpler $\widehat{\notions}^\literal{strong}$-spectrum is solved by the game approach in $O( \relsize{\states}^{13} \cdot 2^{12\relsize{\states}} )$ time and $O( \relsize{\states} \cdot 2^{\relsize{\states}} )$ space,
 :::
 :::proof
-We instantiate the “flattened” winning budget complexity of @lem-declining-update-complexity-flattened for the case $N=6$ with the size of $\gamespectroscopyclever$ according to @def-strong-spectroscopy-game-clever.
+We instantiate the “flattened” winning budget complexity of @lem-declining-update-complexity-flattened for the case $d=6$ with the size of $\gamespectroscopyclever$ according to @def-strong-spectroscopy-game-clever.
 
 Now, the amount of all game positions is bounded by $\relsize{G_{\blacktriangle}} \in \relsize{\states} \cdot 2^{\relsize{\states}}$.
 
@@ -666,13 +666,13 @@ Concerning the maximal out-degree, now, defender conjunction positions are domin
 Inserting the parameters in the time bounds of @lem-declining-update-complexity-flattened yields:
 $$
 \begin{array}{rlccccccc}
-    & O( & o_{\gamemoveblank_\blacktriangle} & \cdot & \relsize{G_\blacktriangle}^{2N} & \cdot & (N^2 + 3^{N-1} \cdot N)) \\
+    & O( & o_{\gamemoveblank_\blacktriangle} & \cdot & \relsize{G_\blacktriangle}^{2d} & \cdot & (d^2 + 3^{d-1} \cdot d)) \\
   = & O( & (\relsize{\states}) & \cdot & (\relsize{\states} \cdot 2^{\relsize{\states}})^{12} & \cdot & (6^2 + 3^{5} \cdot 6) & ) \\
   = & O( & \relsize{\states}^{13} \cdot 2^{12\relsize{\states}} & ).
 \end{array}
 $$
 
-For space complexity, only game positions are relevant, $\bigo{ \relsize{G_\blacktriangle} \cdot 3^{N-1} \cdot N } = \bigo{ \relsize{\states} \cdot 2^{\relsize{\states}} }$.
+For space complexity, only game positions are relevant, $\bigo{ \relsize{G_\blacktriangle} \cdot 3^{d-1} \cdot d } = \bigo{ \relsize{\states} \cdot 2^{\relsize{\states}} }$.
 :::
 
 ::: {#exm-pruning-effects-clever}

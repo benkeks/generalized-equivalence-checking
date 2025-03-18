@@ -289,19 +289,19 @@ We deviate in two important points from other work on energy games:
 ### Declining Energy Games
 
 We now turn to special kind of monotonic energy games with vector-valued energy levels where updates will never increase energy levels in any component.
-An $N$-dimensional *declining energy game* is played on energy vectors:
+An $d$-dimensional *declining energy game* is played on energy vectors:
 
 ::: {#def-energy-updates}
 #### Energies and Energy Updates
 
-For dimensionality $N$, the set of *energies*, $\energies$, is given by $(\nats ∪ \set{\infty})^N$.
+For dimensionality $d$, the set of *energies*, $\energies$, is given by $(\nats ∪ \set{\infty})^d$.
 
-The set of *energy update labels*, $\energyupdates$, contains $\vectorcomponents[N]{u} ∈ \energyupdates$ where each component $u_k$ is a symbol of the form
+The set of *energy update labels*, $\energyupdates$, contains $\vectorcomponents[d]{u} ∈ \energyupdates$ where each component $u_k$ is a symbol of the form
 
 - $u_k ∈ \set{-1, 0}$ (relative update), or
-- $u_k = \mathtt{min}_D$ where $D \subseteq \{1, \ldots, N\}$ and $k ∈ D$ (minimum selection update).
+- $u_k = \mathtt{min}_D$ where $D \subseteq \{1, \ldots, d\}$ and $k ∈ D$ (minimum selection update).
 
-{{<noindent>}} Applying an update to an energy, $\energyupdate(u, e)$, where $e = \vectorcomponents[N]{e} ∈ \energies$ and $u = \vectorcomponents[N]{u} ∈ \energyupdates$, yields a new energy vector $e'$ where $k$th components $e'_k ≔ e_k + u_k$ for $u_k ∈ \ints$ and $e'_k ≔ \min_{d∈ D} e_d$ for $u_k = \mathtt{min}_D$.
+{{<noindent>}} Applying an update to an energy, $\energyupdate(u, e)$, where $e = \vectorcomponents[d]{e} ∈ \energies$ and $u = \vectorcomponents[d]{u} ∈ \energyupdates$, yields a new energy vector $e'$ where $k$th components $e'_k ≔ e_k + u_k$ for $u_k ∈ \ints$ and $e'_k ≔ \min_{d∈ D} e_d$ for $u_k = \mathtt{min}_D$.
 Updates that would cause any component to become negative yield $\bot$.
 :::
 
@@ -320,7 +320,7 @@ The same is true for most other $u$ and $\energyupdate(u, \cdot)$ with a $\matht
 ::: {#def-declining-energy-game}
 #### Declining Energy Game
 
-Given a weight labeling $w \colon (\gamemoveblank) \to \energyupdates$, an $N$-dimensional *declining energy game* $\game^🗲$ is an energy reachability game with energies $\abstractenergies ≔ \energies$ and with edges labeled $\abstractupdate(m) ≔ \energyupdate(w(m), \cdot)$.
+Given a weight labeling $w \colon (\gamemoveblank) \to \energyupdates$, an $d$-dimensional *declining energy game* $\game^🗲$ is an energy reachability game with energies $\abstractenergies ≔ \energies$ and with edges labeled $\abstractupdate(m) ≔ \energyupdate(w(m), \cdot)$.
 
 We write $g \gamemove{\;u\;} g'$ for a move $g \gamemoveblank g'$ labeled by weight $w(g, g') = u$.
 :::
@@ -1034,7 +1034,7 @@ $$
 \bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.
 $$
 In both cases, the algorithm needs $\bigo{\relsize{G} \cdot \relwidth_{\abstractenergies}(e_{\game}) \cdot s_{\abstractenergies}}$ space to store the Pareto fronts, where $s_{\abstractenergies}$ bounds the space needed per energy.
-(For declining games, it is reasonable to assume $s_{\abstractenergies} \in \bigo{N}$.)
+(For declining games, it is reasonable to assume $s_{\abstractenergies} \in \bigo{d}$.)
 :::
 :::proof
 As in @thm-energy-game-correctness, we refer to @lemke2024multiweightedEnergyGames for a very detailed proof, where the corresponding fact is proved as Theorem&nbsp;7.
@@ -1048,7 +1048,7 @@ Let us instantiate the previous two subsections to declining energy games.
 All we have to do is instantiate $\abstractupdateinv$ to obtain an algorithm and think about the structure of the energies to tell its complexity.
 
 ::: {#def-declining-upd-inv}
-The undo-update function $\energyupdateinv$ on an $N$-dimensional declining energy game is defined component-wise for $k \in \set{1 … N}$ as:
+The undo-update function $\energyupdateinv$ on an $d$-dimensional declining energy game is defined component-wise for $k \in \set{1 … d}$ as:
 $$
 \begin{array}{rl}
 (\energyupdateinv(u, e'))_k := \max(
@@ -1096,11 +1096,11 @@ As $\energyupdate(u, \cdot)$ is monotonic, all that needs to be shown according 
 :::
 
 ::: {#lem-declining-update-complexity}
-@alg-deciding-energy-games solves the energy game problem on an $N$-dimensional *declining* energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
+@alg-deciding-energy-games solves the energy game problem on an $d$-dimensional *declining* energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
 $$
-\bigo{o_{\gamemoveblank} \cdot \relsize{G}^{2 \cdot N} \cdot (N^2 + \relsize{G}^{N-1} \cdot N)}
+\bigo{o_{\gamemoveblank} \cdot \relsize{G}^{2 \cdot d} \cdot (d^2 + \relsize{G}^{d-1} \cdot d)}
 $$
-and space $\bigo{ \relsize{G}^{N} \cdot N }$.
+and space $\bigo{ \relsize{G}^{d} \cdot d }$.
 :::
 ::: proof
 For declining updates, we instantiate the second case of @thm-energy-game-complexity:
@@ -1109,28 +1109,28 @@ $$
 $$
 For *declining energy games* as defined in @def-declining-energy-game, we can fill in several blanks:
 
-- $t_{\sup}$, the time to calculate the supremum between two elements of $\energies$ is in $\bigo{N}$,
-- $t_\leq$, time to compare two elements of $\energies$ is in $\bigo{N}$,
-- $t_{\abstractupdateinv}$, time to compute $\energyupdateinv$ on an energy is in $\bigo{N^2}$,
-- $e_{\game}$, the highest energy that can be achieved by applying permutations of $\energyupdateinv$ to $\zerovec$ for $\relsize{G}-1$ times, is the $N$-ary vector $(\relsize{G}-1, …, \relsize{G}-1)$,
-- $\relwidth_{\energies}(e_{\game})$, the widest anti-chain under $e_{\game}$, can be bounded $\bigo{\relsize{G}^{N-1}}$.
+- $t_{\sup}$, the time to calculate the supremum between two elements of $\energies$ is in $\bigo{d}$,
+- $t_\leq$, time to compare two elements of $\energies$ is in $\bigo{d}$,
+- $t_{\abstractupdateinv}$, time to compute $\energyupdateinv$ on an energy is in $\bigo{d^2}$,
+- $e_{\game}$, the highest energy that can be achieved by applying permutations of $\energyupdateinv$ to $\zerovec$ for $\relsize{G}-1$ times, is the $d$-ary vector $(\relsize{G}-1, …, \relsize{G}-1)$,
+- $\relwidth_{\energies}(e_{\game})$, the widest anti-chain under $e_{\game}$, can be bounded $\bigo{\relsize{G}^{d-1}}$.
 
 \noindent
 This yields:
 $$
 \begin{array}{rl}
     & \bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relwidth_{\energies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\energies}(e_{\game}) \cdot t_\leq) } \\
-  = & \bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relsize{G}^{N-1})^2 \cdot (N^2 + N + \relsize{G}^{N-1} \cdot N) } \\
-  = & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2N+2-2} \cdot (N^2 + \relsize{G}^{N-1} \cdot N) } \\
-  = & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2N} \cdot (N^2 + \relsize{G}^{N-1} \cdot N) } \\
+  = & \bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relsize{G}^{d-1})^2 \cdot (d^2 + d + \relsize{G}^{d-1} \cdot d) } \\
+  = & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2d+2-2} \cdot (d^2 + \relsize{G}^{d-1} \cdot d) } \\
+  = & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2d} \cdot (d^2 + \relsize{G}^{d-1} \cdot d) } \\
 \end{array}
 $$
 For space complexity, we obtain:
 $$
 \begin{array}{rl}
-    & \bigo{ \relsize{G} \cdot \relwidth_{\energies}(e_{\game}) \cdot N } \\
-    & \bigo{ \relsize{G} \cdot \relsize{G}^{N-1} \cdot N } \\
-    & \bigo{ \relsize{G}^{N} \cdot N }
+    & \bigo{ \relsize{G} \cdot \relwidth_{\energies}(e_{\game}) \cdot d } \\
+    & \bigo{ \relsize{G} \cdot \relsize{G}^{d-1} \cdot d } \\
+    & \bigo{ \relsize{G}^{d} \cdot d }
 \end{array}
 $$\qedhere
 
@@ -1138,7 +1138,7 @@ $$\qedhere
 
 ::: {#def-flattened-energies}
 
-For $N$-dimensional energy games, we define the *flattened energies* as $\energiesflattened := (\set{0,1,\infty})^N$.
+For $d$-dimensional energy games, we define the *flattened energies* as $\energiesflattened := (\set{0,1,\infty})^d$.
 A standard energy $e \in \energies$ is cast to $\energiesflattened$ by $\widehat{e}$ where
 $$
 (\widehat{e})_k :=
@@ -1159,15 +1159,15 @@ Effectively, this decouples the size of Pareto fronts from the game size.
 In this instance, @lem-declining-update-complexity becomes:
 
 ::: {#lem-declining-update-complexity-flattened}
-@alg-deciding-energy-games solves the *flattened* energy game problem on an $N$-dimensional declining energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
+@alg-deciding-energy-games solves the *flattened* energy game problem on an $d$-dimensional declining energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
 $$
-\bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2N} \cdot (N^2 + 3^{N-1} \cdot N) }
+\bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2d} \cdot (d^2 + 3^{d-1} \cdot d) }
 $$
-and in space $\bigo{ \relsize{G} \cdot 3^{N-1} \cdot N }$.
+and in space $\bigo{ \relsize{G} \cdot 3^{d-1} \cdot d }$.
 :::
 
 \noindent
-The bounds we have established are *exponential* with regard to the dimensionality $N$.
+The bounds we have established are *exponential* with regard to the dimensionality $d$.
 But in our use case, we care for energy games of fixed dimensionality.
 The time bounds are *polynomial* with regard to game graph size.
 The space bounds behave similarly, but in the *flattened* variant fixed energy makes the space usage even drop to be *linear* in terms of game graph size.
@@ -1189,7 +1189,7 @@ the spectroscopy problem for the $\notions^\literal{poly-strong}$-spectrum can b
 :::
 :::proof
 @thm-bisim-energy-game-characterization has established that we can solve the spectroscopy problem for the $\notions^\literal{poly-strong}$-spectrum by deciding the winning budgets of the bisimulation energy game ${\game}_\notionname{B}^🗲$ on $\system=(\states,\actions,\step{})$.
-Thus, all that remains to be done is to instantiate the winning budget complexity of @lem-declining-update-complexity for the case $N=3$ with the size of ${\game}_\notionname{B}^🗲$ according to @def-bisim-energy-game.
+Thus, all that remains to be done is to instantiate the winning budget complexity of @lem-declining-update-complexity for the case $d=3$ with the size of ${\game}_\notionname{B}^🗲$ according to @def-bisim-energy-game.
 
 The amount of attacker positions is bounded by $\relsize{\states}^2$.
 These positions can initiate up to $\relsize{\states} \cdot \relsize{\step{}}$ simulation challenges, leading to a similarly-bounded amount of defender positions, which again can be left by $\relsize{\states} \cdot \relsize{\step{}}$ moves.
@@ -1199,7 +1199,7 @@ In total, this amounts to $o_{\gamemoveblank_\notionname{B}^🗲}$ in $\bigo{\re
 Inserting the parameters in the time bounds of @lem-declining-update-complexity yields:
 $$
 \begin{array}{rlccccccc}
-    & O( & o_{\gamemoveblank_\notionname{B}^🗲} & \cdot & \relsize{G_\notionname{B}^🗲}^{2N} & \cdot & (N^2 + \relsize{G_\notionname{B}^🗲}^{N-1} \cdot N) & ) \\
+    & O( & o_{\gamemoveblank_\notionname{B}^🗲} & \cdot & \relsize{G_\notionname{B}^🗲}^{2d} & \cdot & (d^2 + \relsize{G_\notionname{B}^🗲}^{d-1} \cdot d) & ) \\
   = & O( & (\relsize{\states} \cdot \relsize{\step{}}) & \cdot & (\relsize{\states}^2)^{2 \cdot 3} & \cdot & (3^2 + (\relsize{\states}^2)^{3-1} \cdot 3) & ) \\
   = & O( & (\relsize{\states} \cdot \relsize{\step{}}) & \cdot & \relsize{\states}^{12} & \cdot & \relsize{\states}^4 & )\\
   = & O( & \relsize{\states}^{17} \cdot \relsize{\step{}} & ).

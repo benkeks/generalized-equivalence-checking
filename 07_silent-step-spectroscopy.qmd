@@ -570,6 +570,28 @@ For space complexity, we arrive at $\bigo{ \relsize{\step{}}^8 \cdot 3^{8\relsiz
 
 ## Tackling Our Case Studies
 
+### Peterson's Mutual Exclusion
+
+```ruby
+ready = {"A": false, "B": false}
+turn  = "A"
+
+def process(ownId, otherId):
+  while true:
+    ready[ownId] = true
+    turn = otherId
+    
+    do # wait...
+    until (ready[otherId] == false || turn == ownId)
+      
+    print "enter critical #{ownId}"
+    # critical section goes here.
+    print "leave critical #{ownId}"
+    ready[ownId] = false
+
+process("A", otherId = "B") || process("B", otherId = "A")
+```
+
 ## Discussion
 
 - Mention to add back in strong observations

@@ -14,6 +14,7 @@
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="MetaKeyword" context="#stay" String="metakeywords" />
+        <RegExpr attribute="ProcIdentifier" context="#stay" String="[A-Z][0-9a-zA-Z_]*"/>
         <StringDetect attribute="Comment" context="Multiline/Inline Comment" String="@comment &quot;" beginRegion="Comment" />
         <DetectChar attribute="String" context="String" char="&quot;" />
         <AnyChar attribute="Operator" String="!%+,-*.=&gt;|~^\\(){}" />
@@ -32,6 +33,7 @@
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="ProcIdentifier" defStyleNum="dsVariable"/>
       <itemData name="Keyword"  defStyleNum="dsKeyword"/>
       <itemData name="Operator"  defStyleNum="dsKeyword"/>
       <itemData name="MetaKeyword"  defStyleNum="dsAttribute"/>

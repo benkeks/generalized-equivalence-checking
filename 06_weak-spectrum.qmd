@@ -417,11 +417,76 @@ Hierarchy of weak behavioral equivalences/preorders, by equivalence notion coord
 
 ## Case Studies
 
-### Peterson's Mutual Exclusion
-
 ### Bell's Parellelizing Compiler Optimization
 
-### Congruence-Properties of Abstraction
+```ruby
+x = compute_A_or_B()
+print("loading")
+print(x)
+```
+
+```ruby
+print("loading") || x = compute_A_or_B()
+print(x)
+```
+
+```ccs
+Compute = computeA!Compute + computeB!Compute
+
+PSeq = (
+    Compute 
+  | computeA.printLoading!printA!
+    + computeB.printLoading!printB!
+) \ {computeA, computeB}
+
+PPara = (
+    Compute
+  | printLoading!join!
+  | computeA.join.printA!
+    + computeB.join.printB!
+) \ {computeA, computeB, join}
+
+@compareSilent PSeq, PPara
+
+@snip "---- layout ----"
+
+PSeq(main, x=80, y=69)
+PPara(main, x=587, y=55)
+"(Compute | 0 | 0) \ {computeA,computeB,join}"(x=505, y=382)
+"(Compute | 0 | printB!0) \ {computeA,computeB,join}"(x=588, y=323)
+"(Compute | 0) \ {computeA,computeB}"(x=179, y=366)
+"(Compute | printA!0) \ {computeA,computeB}"(x=128, y=297)
+"(Compute | printB!0) \ {computeA,computeB}"(x=259, y=283)
+```
+
+
+### Congruence Properties of Abstraction
+
+```ccs
+Ae = (idle.Ae + a)
+Be = (idle.Be + b)
+Al = (idle.Bl + idle.Al + a)
+Bl = (idle.Al + idle.Bl + b)
+
+Pe = (op.Ae + op.Be)
+Pl = (op.Al + op.Bl)
+@compareSilent Pe, Pl
+
+Pte = Pe \csp {idle}
+Ptl = Pl \csp {idle}
+@compareSilent Pte, Ptl
+
+@comment "Pe/Pl should be (unstable&stable) readiness equivalent"
+@comment "Pte/Ptl are stable, but not unstable (!) failure (and readiness) equivalent"
+
+Pe(x=200, y=10)
+Pl(x=500, y=10)
+Pte(x=200, y=450)
+Ptl(x=500, y=450)
+"0"(x=365, y=304)
+"0 \csp {idle}"(x=411, y=786)
+
+```
 
 ... Closing hint: congruence even messier in the weak spectrum, e.g. weak bisim not congruence for +.
 

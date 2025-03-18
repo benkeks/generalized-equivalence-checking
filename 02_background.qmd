@@ -2,20 +2,19 @@
 
 {{< include style/macros.md >}}
 
-There is a virtually infinite supply of formalisms to model programs and communicating systems.
-They are accompanied by many notions for behavioral equivalence and refinement to relate or distinguish their models.
+The core background of this thesis is the *trinity of characterizations for behavioral equivalences*: relational, modal, and game-theoretic.
 
-This chapter takes a tour into this field.
-The tour is *agnostic* in building on the most basic and versatile formalism of *labeled transition systems* and on standard equivalences such as *trace equivalence* and *bisimilarity*.
-The approach is also *opinionated* in focussing on Robin Milner's tradition of concurrency theory with a strong pull towards *game characterizations*.
-The very core concepts are described in @sec-programs.
+This chapter takes a tour into the field of formalisms used to model programs and communicating systems, which are accompanied by many notions for behavioral equivalence and refinement to relate or distinguish their models.
 
-We will explore the trinity of relational, modal, and game-theoretic characterizations of behavioral equivalences.
-@fig-equivalence-big-picture shows the scaffold of this section, instantiated to the classic notion of bisimilarity:
+The tour is *agnostic*, building on the basic formalism of *labeled transition systems* and standard equivalences such as *trace equivalence* and *bisimilarity*.
+Simultaneously, the approach is *opinionated*, focusing on Robin Milner's tradition of concurrency theory with a strong pull towards *game characterizations*.
+<!-- The very core concepts are described in @sec-programs. -->
+
+@fig-equivalence-big-picture shows the scaffold of this section along the trinity, instantiated to the classic notion of bisimilarity:
 
 - @sec-behavioral-eq introduces (among other notions) bisimilarity through its *relational characterization* in terms of symmetric simulation relations.
 - @sec-hml treats the dual connection of bisimilarity and the distinguishing powers of a *modal logic*, known as the *Hennessy--Milner theorem*.
-- @sec-games shows that both, the relations to validate bisimilarity and the modal formulas to falsify it, appear as certificates of strategies in a *reachability game* where an attacker tries to states apart and a defender tries to prevent this.
+- @sec-games shows that both, the relations to validate bisimilarity and the modal formulas to falsify it, appear as certificates of strategies in a *reachability game* where an attacker tries to tell states apart and a defender tries to prevent this.
 
 ::: {#fig-equivalence-big-picture fig-env="figure*"}
 ```tikz
@@ -41,11 +40,11 @@ We will explore the trinity of relational, modal, and game-theoretic characteriz
 \end{tikzpicture}
 ```
 
-Core-correlations for bisimilarity between relational definition, modal distinguishability, and game.
+Core-correlations for bisimilarity between relational definition, modal distinguishability, and equivalence game.
 :::
 
-Readers who are familiar with the contents of @fig-equivalence-big-picture can mostly skim through this chapter of preliminaries.
-The two core insights that this chapter intends to seed for coming chapters are:
+Readers familiar with the contents of @fig-equivalence-big-picture can mostly skim through this chapter of preliminaries.
+The two core insights this chapter aims to seed for the upcoming chapters are:
 
 ::: {#idea-games .callout-idea .callout-note}
 #### It's all a game!
@@ -60,8 +59,8 @@ Modal characterizations allow a uniform handling of the hierarchy of equivalence
 Productions in grammars of potential distinguishing formulas translate to game rules for equivalence games.
 :::
 
-Both points might seem non-standard to those who are more used to relational or denotational definitions of behavioral equivalences.
-To provide them with a bridge, we will start with relational and denotational definitions---but once we have crossed the bridge, we will not go back.
+Both points might seem non-standard to those more accustomed to relational or denotational definitions of behavioral equivalences.
+To provide them with a bridge, we will start with relational and denotational definitions---but once we have crossed this bridge, we will not go back.
 
 ## Behavior of Programs {#sec-programs}
 
@@ -135,7 +134,7 @@ Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \litera
 Example system $\system_\literal{PQ}$.
 ::::
 
-The program described by the transitions from $\literal{P}$ choses non-deterministically during a $τ$-step between two options and then offers only either $\literal a$ *or* $\literal b$.
+The program described by the transitions from $\literal{P}$ chooses non-deterministically during a $τ$-step between two options and then offers only either $\literal a$ *or* $\literal b$.
 The program $\literal{Q}$ on the other hand performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$ to the environment.
 :::
 
@@ -154,7 +153,7 @@ Generally, this thesis aims to be consistent with notation and naming in surroun
 <!--But people who have been exposed to fewer compiler classes and semantics literature often find all the greek letters daunting.-->
 Where there are different options, we usually prefer the less-greek one.
 <!--After all, everything this thesis is about is simple, in a sense.-->
-Also, we will usually write literals and constant names in $\textsf{sans-serif}$ and variables in $\textit{italics}$.
+Also, we write literals and constant names in $\textsf{sans-serif}$ and variables in $\textit{italics}$.
 For the internal action, the whole field has converged to $τ$ in italics, however---so, we will run with this.
 :::
 
@@ -199,7 +198,6 @@ For brevity, we usually drop a final $\ccsnull$ when writing terms, e.g., just w
 
 We place parenthesis, $(…)$, in terms where the syntax trees are otherwise ambiguous, but understand the choice operator $\ccschoice$ and the parallel operator $\ccspar$ to be associative.
 :::
-
 
 ::: {#exm-ccs}
 #### Concurrent Philosophers
@@ -305,7 +303,7 @@ A process $P ∈ \ccs$ now denotes a position in the transition system $(\ccs, \
 So, when we were writing “$\literal{P_A} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$” above, this was actually to claim that we are talking about a CCS system where the *process name* $\literal{P_A} \in \ccsnames$ and $\ccsasg(\literal{P_A}) ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$.
 By the semantics, this also leads to the existence of a *state* $\literal{P_A}$ in the CCS transition system, and usually that is the entity we are interested in when defining a process.
 
-Feel free to go ahead an check that the transitions of @exm-ts indeed match those that @def-ccs-semantics prescribes for $\literal{P}$ of @exm-ccs!
+Feel free to go ahead and check that the transitions of @exm-ts indeed match those that @def-ccs-semantics prescribes for $\literal{P}$ of @exm-ccs!
 (For readability, @exm-ts, has shorter state names, however.)
 For instance, the transition $\literal P \step{τ} \literal{p_a}$ of @exm-ts would be justified as follows:
 
@@ -428,16 +426,18 @@ The properties carry over directly from $⊆$ and $=$ on sets of $\traces{\cdot}
 
 Trace equivalence and preorder assign programs straightforward *denotational semantics*:
 The sets of traces they might expose.
-For many languages, these mathematical objects can be constructed directly from the expressions of the language.
+For many formal languages, these mathematical objects can be constructed directly from the expressions of the language.
 With the idea that the program text “denotes” its possible executions, the set of traces is called a “denotation” in this context.
-CCS, as we use it, follows another approach to semantics, namely the one of “operational semantics,” where the meaning of a program is in how it might execute.
+CCS, as we use it, follows another approach to semantics, namely the one of “operational semantics,” where the meaning of a program is in how it might interact.
 
-There are several reasons why computer scientist did content semselves with trace equivalence when studying interactive systems.
+There are several reasons why computer scientist did content themselves with trace equivalence when studying interactive systems.
 The core argument is that, in this context, one usually does not want to consider processes like $\literal{P}$ and $\literal{Q}$ to be equivalent:
 The two might interact differently with an environment.
 For instance, assume there is a user that wants to communicate $(\dots \ccspar \ccsprefix{\literal{a}}\ccsprefix{\literal{success}} \ccsnull) \ccsrestrict \set{\literal{a}}$.
 In interactions with $\literal{Q}$, they will always reach $\literal{success}$;
 with $\literal{P}$, there is a possibility of ending up deadlocked in parallel with $\literal{p_b}$, never achieving success.
+
+So let us look into more distinctive equivalences!
 
 ### Simulation and Bisimulation
 
@@ -501,6 +501,9 @@ The simulation preorder $\bpreord{S}$ is indeed a preorder{{<isb lemma Strong_Eq
   \qedhere
 :::
 -->
+
+@exm-phil-sim shows that similarity and bisimilarity do not imply trace equivalence.
+Still, the notions are connected.
 
 ### Equivalence Hierarchies {#sec-hierarchy-equivalences}
 
@@ -619,10 +622,14 @@ Once again, the hierarchy is strict because of bisimilarity being less restricte
 
 ::: {#exm-iso-vs-bisim}
 Consider the processes $\literal{P_1} ≔ (\coaction{\literal{fork}} \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$ and $\literal{P_2} ≔ (\coaction{\literal{fork}} \ccspar \literal{fork} \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$.
-$\literal{P_1}$ can transition to $(\ccsnull \ccspar \ccsnull) \ccsrestrict \set{\literal{fork}}$, while $\literal{P_2}$ has two options, namely $(\ccsnull \ccspar \ccsnull \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$ and $(\ccsnull \ccspar \literal{fork} \ccspar \ccsnull) \ccsrestrict \set{\literal{fork}}$. All three reachable processes are deadlocks and thus isomorphic.
+$\literal{P_1}$ can transition to $(\ccsnull \ccspar \ccsnull) \ccsrestrict \set{\literal{fork}}$, while $\literal{P_2}$ has two options, namely $(\ccsnull \ccspar \ccsnull \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$ and $(\ccsnull \ccspar \literal{fork} \ccspar \ccsnull) \ccsrestrict \set{\literal{fork}}$.
+All three reachable processes are deadlocks and thus isomorphic.
 But $\literal{P_1} \nbeq{ISO} \literal{P_2}$ because no bijection can connect the one successor of $\literal{P_1}$ and the two of $\literal{P_2}$.
 However, $\literal{P_1} \beq{B} \literal{P_2}$, as bisimilarity is more relaxed.
 :::
+
+Graph isomorphism is the strongest equivalence, we have discussed so far.
+But stronger needs not be better.
 
 ### Congruences
 
@@ -677,7 +684,6 @@ The nice thing about congruences is that we can use them to *calculate with term
 Graph isomorphism fails to be a congruence for CCS operators.
 For instance, consider $\ccsprefix{\literal{a}} (\ccsnull \ccspar \ccsnull) \beq{ISO} \ccsprefix{\literal{a}} \ccsnull$, but $\ccsprefix{\literal{a}} \ccsnull + \ccsprefix{\literal{a}} (\ccsnull \ccspar \ccsnull) \nbeq{ISO} \ccsprefix{\literal{a}}\ccsnull + \ccsprefix{\literal{a}}\ccsnull \beq{ISO} \ccsprefix{\literal{a}} \ccsnull$.
 
-
 <!-- too complicated!
 
 We could establish equivalences like the following:
@@ -700,7 +706,6 @@ $$
   ( \ccsprefix{\tau} (\ccsnull \ccspar \ccsnull \ccspar \ccsprefix{\literal{fork}} (\literal{a} \ccschoice \literal{b})) \ccschoice \ccsprefix{\tau} ( \ccsnull \ccspar \literal{fork} \ccspar \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}
 \end{array}
 $$
-
 -->
 
 ### Quotient Systems and Minimizations
@@ -918,7 +923,7 @@ Fourthly, as a corollary of @prp-difference-contraposition, modal characterizati
   Among other things, bisimilarity checking has a better time complexity than other notions as will be discussed in Subsection [-@sec-equivalence-complexities].
 ]
 
-In Chapter [-@sec-spectrum], we will discuss how the hierarchy of behavioral equivalences can be understood nicely and uniformly if viewed through the modal lense.
+In Chapter [-@sec-spectrum], we will discuss how the hierarchy of behavioral equivalences can be understood nicely and uniformly if viewed through the modal lens.
 
 ### Expressiveness and Distinctiveness
 
@@ -1202,8 +1207,8 @@ $(p,\hmlneg\hmland{i}{I}φ_i) ∈ G_\defender$ (for all $φ,p,I$), and the attac
   $$
 :::
 
-The intuition is that disjunctive constructs ($\hmlobs{\cdot}\cdots$, $\hmlneg \hmlands \cdots$) make it easier for a formula to be true and thus are controlled by the defender who may chose which of the ways to show truth is most convenient.
-At conjunctive constructs ($\hmlneg\hmlobs{\cdot}\cdots$, $\hmlands \cdots$) the attacker choses the option that is the easiest to disprove.
+The intuition is that disjunctive constructs ($\hmlobs{\cdot}\cdots$, $\hmlneg \hmlands \cdots$) make it easier for a formula to be true and thus are controlled by the defender who may choose which of the ways to show truth is most convenient.
+At conjunctive constructs ($\hmlneg\hmlobs{\cdot}\cdots$, $\hmlands \cdots$) the attacker chooses the option that is the easiest to disprove.
 
 ::: {#exm-formula-game-cont}
 
@@ -1227,7 +1232,7 @@ The defender wins ${\game}_\hml^{\system}((p, φ))$ precisely if $p ∈ \semanti
 ### The Bisimulation Game
 
 We now can add the bottom layer of @fig-equivalence-big-picture:
-That bisimilarity can be characterized through a game.
+That bisimilarity can be characterized through a game, where the defender wins if the game starts on a pair of bisimilar states.
 This approach has been popularized by @stirling1996modal.
 
 ::: {#def-bisim-game}
@@ -1312,7 +1317,7 @@ The bisimulation game on this system is given by @fig-bisim-game-even-odd:
 
 \noindent
 Clearly, there is no way for the attacker to get the defender stuck.
-Whatever strategy the attacker choses, the game will go on forever, leading to a win for the defender.
+Whatever strategy the attacker chooses, the game will go on forever, leading to a win for the defender.
 That it is always safe for the defender to *answer* with moves to $[\literal{p_{even}}, \literal{p_{odd}}]$ and $[\literal{p_{odd}}, \literal{p_{even}}]$ corresponds to $\rel R ≔ \set{(\literal{p_{even}}, \literal{p_{odd}}), (\literal{p_{odd}}, \literal{p_{even}})}$ being a bisimulation.
 :::
 
@@ -1558,7 +1563,7 @@ Also, $φ_{s}([p,q]) ∈ \observations{\floor{B}}$.
 ::: proof
 1. The given construction is well-defined as $s$ must induce a well-founded order on game positions in order for the attacker to win, and the recursive invocations remain in the attacker winning strategy.
 2. The distinction can be derived by induction on the construction of $φ_{s}([p,q])$:
-  Assume for $p',q'$ appearing in recursive invocations of the definition of $φ_{s}$ that $φ_{s}([p', q'])$ distingishes them and that $φ_{s}([p', q']) ∈ \observations{\floor{B}}$.
+  Assume for $p',q'$ appearing in recursive invocations of the definition of $φ_{s}$ that $φ_{s}([p', q'])$ distinguishes them and that $φ_{s}([p', q']) ∈ \observations{\floor{B}}$.
   We have to show that the constructions in $φ_{s}$ still fulfill this property:
   
    - As $φ_{s}([p',q'])$ distinguishes $p'$ from $q'$, its negation $\hmlneg φ_{s}([p',q'])$ must distinguish $q'$ from $p'$ by the HML semantics.
@@ -1596,7 +1601,7 @@ The attacker wins ${\game}_\notionname{B}$ from $[p,q]$ precisely if there is $�
 :::
 
 Of course, we already knew this!
-@thm-game-formulas is just another way of gluing together the Hennessy–Milner theorem on bisimulation (@thm-hennessy-milner) and the Stirling's bisimulation game characterization (@thm-bisim-game-characterization), modulo the determinacy of games.
+@thm-game-formulas is just another way of gluing together the Hennessy–Milner theorem on bisimulation (@thm-hennessy-milner) and Stirling's bisimulation game characterization (@thm-bisim-game-characterization), modulo the determinacy of games.
 We thus have added the last arrow on the right side of @fig-equivalence-big-picture.
 
 ### Deciding Reachability Games
@@ -1716,4 +1721,3 @@ This departs from common textbook presentations that motivate the bisimulation g
 In later chapters, we will rather derive equivalence games from grammars of modal formulas (@idea-modal-first), to generalize the framework of @fig-game-algo-overview for whole spectra of equivalences.
 
 But first, we have to make formal what we mean by *equivalence spectra*.
-

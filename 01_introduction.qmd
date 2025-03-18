@@ -277,7 +277,7 @@ More precisely, we make the following contributions, each coming with a “side 
 
 This thesis ties together the work of several publications in a coherent presentation.
 It is written to be understandable on its own.
-For details, we usually refer to the original publications or to other artifacts for implementation and machine-checked proofs.
+For details, we typically refer to the original publications or to other artifacts for implementation and machine-checked proofs.
 
 \medskip\noindent
 **Publications.** The following four publications (with me as main author) fuel the following chapters:
@@ -294,8 +294,8 @@ For details, we usually refer to the original publications or to other artifacts
 \noindent
 **Prototype.**
 The algorithms of this thesis have been validated through a *Scala prototype implementation*.
-It can be tried out in the browser on <https://equiv.io>.
-The source is available openly on <https://github.com/benkeks/equivalence-fiddle>.
+It can be tried out in the browser at <https://equiv.io>.
+The source is available openly at <https://github.com/benkeks/equivalence-fiddle>.
 
 \medskip\noindent
 **Isabelle formalization.**
@@ -326,7 +326,7 @@ Only indirectly connected to this dissertation project are my prior publications
 \noindent
 **Other Bachelor theses.**
 During my dissertation project, I also supervised several other Bachelor theses, many of which played important roles in shaping the research.
-Although they do not appear directly on the following pages, I want to acknowledge the students' vital contribution to the research.
+Although they do not appear directly on the following pages, I want to acknowledge the students' vital contributions to the research.
 
 - @peacock2020videoGameEquivalences: *Process Equivalences as a Video Game*
 - @le2020coupledSimMcrl2: *Implementing Coupled Similarity as an Automated Checker for mCRL2*

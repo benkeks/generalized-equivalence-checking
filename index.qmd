@@ -4,7 +4,6 @@ This is a work-in-progress document. Handle with care!
 
 ## Read this Book! (Once It's Finished) {.unnumbered .unlisted}
 
-
 You should read this book (once it's finished) if you're interested in the semantics of concurrent programs and want to understand ...
 
 - How behavioral process equivalences are treated uniformly in equivalence spectra.
@@ -16,3 +15,4 @@ You should read this book (once it's finished) if you're interested in the seman
 
 (This is a space for TODOs that do not yet have a position in the text body.)
 
+- Use $N$ only for notions, and $n$ for dimensionality.

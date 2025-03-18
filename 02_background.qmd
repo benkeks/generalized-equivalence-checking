@@ -60,7 +60,6 @@ Modal characterizations allow a uniform handling of the hierarchy of equivalence
 Productions in grammars of potential distinguishing formulas translate to game rules for equivalence games.
 :::
 
-\noindent
 Both points might seem non-standard to those who are more used to relational or denotational definitions of behavioral equivalences.
 To provide them with a bridge, we will start with relational and denotational definitions---but once we have crossed the bridge, we will not go back.
 
@@ -525,7 +524,7 @@ If $p \bpreord{S} q$, then $p \bpreord{T} q$.{{<isb lemma Strong_Equivalences lt
 (Consequently, $p \beq{S} q$ also implies $p \beq{T} q$.{{<isb lemma Strong_Equivalences lts.sim_eq_implies_trace_eq>}})
 :::
 
-{{<noindent>}} We also have seen with example @exm-phil-sim that this hierarchy is strict between trace and simulation preorder in the sense that there exist $p,q$ with $p \bpreord{T} q$ but not $p \bpreord{S} q$.
+We also have seen with example @exm-phil-sim that this hierarchy is strict between trace and simulation preorder in the sense that there exist $p,q$ with $p \bpreord{T} q$ but not $p \bpreord{S} q$.
 The hierarchy also is strict between similarity and bisimilarity as the following example shows.
 
 ::: {#exm-bisim-sim}
@@ -585,7 +584,6 @@ Transition system with an isomorphic cycle.
 The relation $\beq{ISO}$ is itself a symmetric simulation and thus $p \beq{ISO} q$ implies $p \beq{B} q$.{{<isb lemma Strong_Equivalences lts.iso_implies_bisim>}}
 :::
 
-\noindent
 Once again, the hierarchy is strict because of bisimilarity being less restricted in the matching of equivalent states.
 
 ::: {#exm-iso-vs-bisim}
@@ -624,13 +622,14 @@ But $\sim_\literal{odd}$ is no congruence for integer division.
 For instance, $2 \sim_\literal{odd} 4$, but $2 / 2 = 1 \not\sim_\literal{odd} 2 = 4 / 2$.
 :::
 
-::: {#lem-ccs-congruences}
+::: {#prp-ccs-congruences}
 Trace equivalence and bisimilarity on the CCS transition system (@def-ccs-semantics)
-are congruences for the operators of CCS (@def-ccs).
+are congruences for the operators of CCS (@def-ccs).^[
+  For a generic proof of the congruence properties of trace equivalence, bisimiliarity, and most other notions of the equivalence spectrum, see @gfm2020congruenceOperator.
+]
 :::
-:::proof
+<!--:::proof
 This is a well-established fact.
-TODO: Citation!
 
 As an example, let us prove the congruence property for choice, $\ccschoice$, on bisimilarity, $\beq{B}$.
 For any CCS context, we assume $P \beq{B} R$ and $Q \beq{B} T$.
@@ -640,7 +639,7 @@ By the semantics of CCS, the first step must be either due to $P \step{\alpha}_\
 Without loss of generality, we only consider $P \step{\alpha}_\ccs \mathit{PQ}'$.
 Due to $P \beq{B} R$, this step implies some $R'$ with $R \step{\alpha}_\ccs R'$ and $\mathit{PQ}' \beq{B} R'$.
 As $R \ccschoice T \step{\alpha}_\ccs R'$, we can take this $R'$ to prove our goal.
-:::
+:::-->
 
 The nice thing about congruences is that we can use them to *calculate with terms*, as is common in mathematics.
 
@@ -843,7 +842,7 @@ Induct over the structure of $φ$ with arbitrary $p$ and $q$.
   So, using contraposition, the case implies $q ∈ \semantics{\hmlneg φ}$.\qedhere
 :::
 
-{{<noindent>}}Combining the bisimulation invariance for one direction and that $\beq{\hml}$ is a symmetric simulation (@prp-hml-eq and @lem-hml-eq-sim) for the other, we obtain that $\hml$ precisely characterizes bisimilarity:
+Combining the bisimulation invariance for one direction and that $\beq{\hml}$ is a symmetric simulation (@prp-hml-eq and @lem-hml-eq-sim) for the other, we obtain that $\hml$ precisely characterizes bisimilarity:
 
 ::: {#thm-hennessy-milner}
 #### Hennessy–Milner Theorem
@@ -988,7 +987,7 @@ A *reachability game* $\game = (G, G_\defender, \gamemoveblank)$ is played on a 
   - and *attacker positions* $G_\attacker ≔ G \setminus G_\defender$,
 - and a set of *game moves* ${\gamemoveblank} ⊆ G × G$.{{<isb locale Equivalence_Games game>}}
 
-{{<noindent>}} We denote by $\game(g_0)$ the game played from starting position $g_0 ∈ G$.
+We denote by $\game(g_0)$ the game played from starting position $g_0 ∈ G$.
 :::
 
 ::: {#def-game-plays}
@@ -1000,7 +999,6 @@ The defender *wins* infinite plays.
 If a finite play $g_{0}\dots g_{n}\!\ngamemoveblank$ is stuck, the stuck player loses: The defender wins if $g_{n} ∈ G_\attacker$, and the attacker wins if $g_{n}∈ G_\defender$.
 :::
 
-\noindent
 Usually, games are non-deterministic, that is, players have choices how a play proceeds at their positions.
 The player choices are formalized by *strategies*:
 
@@ -1019,7 +1017,6 @@ The player with a winning strategy for $\game(g_{0})$ is said to *win* $\game(g_
 Usually, we will focus on positional strategies, that is, strategies that only depend on the most recent position, which we will type $s_\attacker \colon G_\attacker \to G$ (or $s_\defender \colon G_\defender \to G$, respectively).
 :::
 
-{{<noindent>}}
 We call the positions where a player has a winning strategy their winning region.
 
 ::: {#def-winning-region}
@@ -1053,7 +1050,6 @@ A simple game.
 ::::
 :::
 
-\noindent
 The games we consider are positionally determined.
 This means, for each possible initial position, exactly one of the two players has a positional winning strategy $s$.
 
@@ -1069,7 +1065,6 @@ and they can win using a positional strategy.^[
 ]
 :::
 
-\noindent
 We care about reachability games because they are versatile in characterizing formal relations.
 Everyday inductive (and coinductive) definitions can easily be encoded as games as in the following example.
 
@@ -1085,7 +1080,6 @@ Consider the following recursive definition of a less-or-equal operator `≤` on
 (Succ n ≤ Succ m) = (n ≤ m)
 ```
 
-\noindent
 We can think of this recursion as a game where the attacker tries to prove that the left number is bigger than the right by always decrementing the left number and challenging the defender to do the same for the right stack too.
 Whoever hits zero first, loses.
 
@@ -1103,8 +1097,6 @@ $$
     & [n, m].
 \end{array}
 $$
-
-\noindent
 $\game_\literal{leq}$ now characterizes $\leq$ on $\nats$ in the sense that:
 The defender wins $\game_\literal{leq}$ from $[n, m]$ precisely if $n \leq m$.
 (Proof: Induct over $n$ with arbitrary $m$.)
@@ -1162,7 +1154,6 @@ $(p,\hmlneg\hmland{i}{I}φ_i) ∈ G_\defender$ (for all $φ,p,I$), and the attac
   $$
 :::
 
-\noindent
 The intuition is that disjunctive constructs ($\hmlobs{\cdot}\cdots$, $\hmlneg \hmlands \cdots$) make it easier for a formula to be true and thus are controlled by the defender who may chose which of the ways to show truth is most convenient.
 At conjunctive constructs ($\hmlneg\hmlobs{\cdot}\cdots$, $\hmlands \cdots$) the attacker choses the option that is the easiest to disprove.
 
@@ -1177,7 +1168,6 @@ $(\literal{3}) ≔ (\literal{p_1}, \hmlneg\hmltrue)$.
 The defender winning region $\defenderwins = \set{(\literal{P}, \hmlobs{τ}\hmlneg\hmlobs{\literal a}\hmltrue), (\literal{p_b}, \hmlneg\hmlobs{\literal a}\hmltrue)}$ corresponds to the facts that $\literal{P} \in \semantics{\hmlobs{τ}\hmlneg\hmlobs{\literal a}\hmltrue}$ and $\literal{p_b} \in \semantics{\hmlneg\hmlobs{\literal a}\hmltrue}$.
 :::
 
-\noindent
 As the technicalities are tangential to this thesis, we state the characterization result without proof:^[
   A detailed presentation of a more general HML game, also extending to recursive HML, can be found in @woe2015caal2hml [Chapter 3].
 ]
@@ -1417,7 +1407,7 @@ We extend the @def-hml-game by the following prefix:
 
 :::
 
-{{<noindent>}} This naive game, too, has the property that the defender wins from $[p,q]$ iff $p \beq{B} q$.
+This naive game, too, has the property that the defender wins from $[p,q]$ iff $p \beq{B} q$.
 The downside of the game is that the attacker has infinitely many options $φ ∈ \hml$ to pick from!
 
 The proper bisimulation game of @def-bisim-game, on the other hand, is *finite for finite transition systems*.
@@ -1514,14 +1504,23 @@ $$
   \hmlobs{\alpha} \hmlands \set{ φ_{s}([p',q']) \mid q \step{\alpha} q' } & \text{if } s([p,q]) = (\alpha,p',q)
 \end{cases}
 $$
-\noindent
 Then $φ_{s}([p,q])$ is well-defined and distinguishes $p$ from $q$.
 Also, $φ_{s}([p,q]) ∈ \observations{\floor{B}}$.
 :::
 ::: proof
-1. The given construction is well-defined as $s$ must induce a well-founded order on game positions in order to be attacker-winning.
-2. The distinction can be derived by induction on the construction of $φ_{s}([p,q])$.
-   TODO \qedhere
+1. The given construction is well-defined as $s$ must induce a well-founded order on game positions in order for the attacker to win, and the recursive invocations remain in the attacker winning strategy.
+2. The distinction can be derived by induction on the construction of $φ_{s}([p,q])$:
+  Assume for $p',q'$ appearing in recursive invocations of the definition of $φ_{s}$ that $φ_{s}([p', q'])$ distingishes them and that $φ_{s}([p', q']) ∈ \observations{\floor{B}}$.
+  We have to show that the constructions in $φ_{s}$ still fulfill this property:
+  
+   - As $φ_{s}([p',q'])$ distinguishes $p'$ from $q'$, its negation $\hmlneg φ_{s}([p',q'])$ must distinguish $q'$ from $p'$ by the HML semantics.
+     Moreover, the grammar of  @def-hml-game is closed under negation.
+   - For $\hmlobs{\alpha} \hmlands \set{ φ_{s}([p',q']) \mid q \step{\alpha} q' }$ to distinguish $p$ from $q$,
+     there must be $p \step{\alpha} p^* \in \semantics{\hmlands \set{ φ_{s}([p',q']) \mid q \step{\alpha} q' }}$, and for all $q^*$ with $q \step{\alpha} q^*$ it must be that $q^* \notin \semantics{\hmlands \set{ φ_{s}([p',q']) \mid q \step{\alpha} q' }}$.
+     We choose $p^* = p'$, because,
+     as $s$ is an attacker winning strategy, $s([p, q]) = (\alpha, p', q)$ is a valid move with $p \step{\alpha} p'$.
+     Also, all $q'$ the defender may select in answers remain in the winning domain of the attacker, and we may use the induction hypothesis that $q' \notin \semantics{φ_{s}([p',q'])}$.
+    Therefore, for each $q^*$ there is a false conjunct with $q' = q^*$ in $\hmlands \set{ φ_{s}([p',q']) \mid q \step{\alpha} q' }$ that proves $q* \notin \semantics{\hmlands \set{ φ_{s}([p',q']) \mid q \step{\alpha} q' }}$. \qedhere
 :::
 
 ::: {#lem-formulas-imply-attack}
@@ -1542,13 +1541,13 @@ By induction on the derivation of $φ ∈ \observations{\floor{B}}$ according to
   So they can also win $[p, q]$ by performing a swap.\qedhere
 :::
 
-{{<noindent>}} @lem-attacks-imply-formulas and @lem-formulas-imply-attack, together with the fact that $\observations{\floor{B}}$ and $\hml$ are equally distinctive (@lem-game-formula-hml), yield:
+@lem-attacks-imply-formulas and @lem-formulas-imply-attack, together with the fact that $\observations{\floor{B}}$ and $\hml$ are equally distinctive (@lem-game-formula-hml), yield:
 
 ::: {#thm-game-formulas}
 The attacker wins ${\game}_\notionname{B}$ from $[p,q]$ precisely if there is $φ ∈ \hml$ distinguishing $p$ from $q$.
 :::
 
-{{<noindent>}} Of course, we already knew this!
+Of course, we already knew this!
 @thm-game-formulas is just another way of gluing together the Hennessy–Milner theorem on bisimulation (@thm-hennessy-milner) and the Stirling's bisimulation game characterization (@thm-bisim-game-characterization), modulo the determinacy of games.
 We thus have added the last arrow on the right side of @fig-equivalence-big-picture.
 
@@ -1606,7 +1605,6 @@ The following @tbl-game-example-execution lists how @alg-deciding-games computes
 
 : Solving the game of @def-game-formulas {#tbl-game-example-execution fig-pos='b'}
 
-\noindent
 The inner loop of @alg-deciding-games clearly can run at most $\relsize{\gamemoveblank}$-many times.
 Using sufficiently clever data structures, the algorithm thus shows:
 

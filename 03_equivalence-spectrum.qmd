@@ -17,7 +17,6 @@ The first core idea of this chapter is:
 Groups of equivalences can be defined and ranked in lattices of notions of observability.
 :::
 
-\noindent
 In particular, @sec-ltbt-spectrum will introduce such a spectrum, forming a hierarchy of modal logics for the *strong spectrum*.
 
 From there, we will quickly run into the second core idea:

@@ -266,9 +266,9 @@ More precisely, we make the following contributions, each coming with a “side 
   - Side quest: Galois energy games. 
 - @sec-strong-spectrum applies the approach to decide the whole strong spectrum through one *game for linear-time--branching-time spectroscopy*.
   - Side quest: Deriving efficient *individual equivalence checkers*.
-- TODO @sec-weak-spectrum recharts the *weak spectrum of equivalences accounting for silent steps* to fit our game approach.
+- WIP @sec-weak-spectrum recharts the *weak spectrum of equivalences accounting for silent steps* to fit our game approach.
   - Side quest: Case studies.
-- TODO @sec-silent-step-spectroscopy adapts the game for the *weak spectrum of equivalences*.
+- WIP @sec-silent-step-spectroscopy adapts the game for the *weak spectrum of equivalences*.
   - Side quest: Isabelle/HOL formalization.
 - TODO @sec-implementations showcases implementations to conveniently perform equivalence spectroscopies in web browsers.
   - Side quest: GPU parallelization.

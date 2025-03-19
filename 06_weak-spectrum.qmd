@@ -417,31 +417,119 @@ Hierarchy of weak behavioral equivalences/preorders, by equivalence notion coord
 
 ## Case Studies
 
-### Bell's Parellelizing Compiler Optimization
+### Parallelizing Compiler Optimization
+
+Most of computer speed up in the last two decades has been due to parallelization of computation.
+Compilers will usually drift and parallelize sequential commands of a program.
+The claim behind such optimizations is that the communication behavior of the program stays the same.^[
+  In other regards, the program obviously differs.
+  It is the intention to change performance!
+]
+So naturally, the program and the optimized program should be equivalent with respect to some notion of equivalence.
+
+@bell2014loopParallelizingTransformations ventures to prove that certain parallelizations of loops during compilation are sound.
+This runs into the problem that weak bisimilarity is too strong for this use case.
+The following example (adapted from @bell2013certifiably) shows why.
+
+:::{#exm-parallelizing-compilation}
+
+Consider the following sequential program $\literal{P_{Seq}}$, which computes `x` (with possible values `A` and `B`), prints a header (`output:`) and then the computed value:
+
+::::{#fig-parallelized-ts .column-margin}
+
+```tikz
+\begin{tikzpicture}[auto,node distance=1.5cm]
+  \node[] (PSeq){$\literal{P_{Seq}}$};
+  \node[below left of=PSeq] (p1){$\circ$};
+  \node[below right of=PSeq] (p2){$\circ$};
+  \node[below of=p1] (p3){$\circ$};
+  \node[below of=p2] (p4){$\circ$};
+  \node[below right of=p3] (p5){$\circ$};
+  \path[->]
+    (PSeq)
+      edge[swap] node {$\tau$} (p1)
+      edge node {$\tau$} (p2)
+    (p1)
+      edge[swap, thick] node {$\literal{ao}$} (p3)
+    (p2)
+      edge[thick] node {$\literal{ao}$} (p4)
+    (p3)
+      edge[thick, swap] node {$\literal{A}$} (p5)
+    (p4)
+      edge[thick] node {$\literal{B}$} (p5);
+\end{tikzpicture}
+```
+```tikz
+\begin{tikzpicture}[auto,node distance=1.5cm]
+  \node[] (PPara){$\literal{P_{Para}}$};
+  \node[below left of=PPara] (p1){$\circ$};
+  \node[below right of=PPara] (p2){$\circ$};
+  \node[below of=PPara] (p23){$\circ$};
+  \node[below of=p1] (p3){$\circ$};
+  \node[below of=p2] (p4){$\circ$};
+  \node[below of=p3, node distance=1cm] (p31){$\circ$};
+  \node[below of=p4, node distance=1cm] (p41){$\circ$};
+  \node[below right of=p31] (p5){$\circ$};
+  \path[->]
+    (PPara)
+      edge[swap] node {$\tau$} (p1)
+      edge node {$\tau$} (p2)
+      edge[thick] node {$\literal{ao}$} (p23)
+    (p1)
+      edge[swap, thick] node {$\literal{ao}$} (p3)
+    (p2)
+      edge[thick] node {$\literal{ao}$} (p4)
+    (p23)
+      edge[swap] node {$\tau$} (p3)
+      edge node {$\tau$} (p4)
+    (p3)
+      edge[swap] node {$\tau$} (p31)
+    (p4)
+      edge node {$\tau$} (p41)
+    (p31)
+      edge[thick, swap] node {$\literal{A}$} (p5)
+    (p41)
+      edge[thick] node {$\literal{B}$} (p5);
+\end{tikzpicture}
+```
+
+Transition systems representing $\literal{P_{Seq}}$ and $\literal{P_{Para}}$
+::::
 
 ```ruby
 x = compute_A_or_B()
-print("loading")
+print("output:")
 print(x)
 ```
 
+A parallelization would find that the rendering of the header `output:` is independent of the computation of `x` and can thus be parallelized to $\literal{P_{Para}}$:
+
 ```ruby
-print("loading") || x = compute_A_or_B()
+print("output:") || x = compute_A_or_B()
 print(x)
 ```
+
+The `||` connector is supposed to mean a parallel execution of commands that synchronizes the branches at the end.
+In real-world programming languages, this would happen through spawning and joining subprocesses, future objects, or `async` blocks.
+
+@fig-parallelized-ts shows the transition systems of the two programs.
+The $\tau$-steps mark internal computation or synchronization.
+The action $\literal{ao}$ stands  for announcing the coming output, and $\literal{A}$ and $\literal{B}$ are the values of `x` that are actually printed.
+
+:::
 
 ```ccs
 Compute = computeA!Compute + computeB!Compute
 
 PSeq = (
     Compute 
-  | computeA.printLoading!printA!
-    + computeB.printLoading!printB!
+  | computeA.printOutput!printA!
+    + computeB.printOutput!printB!
 ) \ {computeA, computeB}
 
 PPara = (
     Compute
-  | printLoading!join!
+  | printOutput!join!
   | computeA.join.printA!
     + computeB.join.printB!
 ) \ {computeA, computeB, join}

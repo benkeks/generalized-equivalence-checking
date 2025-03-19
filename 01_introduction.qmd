@@ -294,7 +294,7 @@ For details, we typically refer to the original publications or to other artifac
 \noindent
 **Prototype.**
 The algorithms of this thesis have been validated through a *Scala prototype implementation*.
-Throughout the thesis, many examples come with listings of {{<equivio>}} input and a link to try it out in th browser.
+Throughout the thesis, many examples come with listings of {{<equivio>}} input and a link to try it out the browser.
 You have already seen one such example for Peterson's mutex in @sec-ltbt-spectroscopy-idea.
 The source is available openly at <https://github.com/benkeks/equivalence-fiddle>.
 

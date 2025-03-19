@@ -32,7 +32,7 @@ Its central figure, reproduced in @fig-ltbts2-paper, mesmerized me.
 But, how to use the spectrum to decide for a given pair of processes which of the many equivalences apply, is far from straightforward.
 Over the years, I have learned that others too have run into this problem:
 For instance, @nestmann1996decoding thinking about process algebra encodings and @bell2013certifiably verifying compiler optimizations.
-The problem can be summarized as follows:
+The *problem* can be summarized as follows:
 
 > How does one conveniently decide for a pair of systems which notions from a spectrum of behavioral equivalences equate the two?
 
@@ -43,7 +43,7 @@ We^[
     “I” = “The author”; “You” = “The audience”; “We” = “The asynchronous collective of author and readers,” or sometimes “The author together with coauthors.”
 ] want to enable future researchers to tap into the wisdom of the linear-time–branching-time spectrum and to easily determine what equivalences fit their models.
 
-## Linear-Time–Branching-Time Spectroscopy
+## Linear-Time–Branching-Time Spectroscopy {#sec-ltbt-spectroscopy-idea}
 
 To illustrate the problem, let us look at an example that includes numerous concepts we will discuss throughout this thesis.
 
@@ -294,7 +294,8 @@ For details, we typically refer to the original publications or to other artifac
 \noindent
 **Prototype.**
 The algorithms of this thesis have been validated through a *Scala prototype implementation*.
-It can be tried out in the browser at <https://equiv.io>.
+Throughout the thesis, many examples come with listings of {{<equivio>}} input and a link to try it out in th browser.
+You have already seen one such example for Peterson's mutex in @sec-ltbt-spectroscopy-idea.
 The source is available openly at <https://github.com/benkeks/equivalence-fiddle>.
 
 \medskip\noindent
@@ -345,3 +346,9 @@ Although they do not appear directly on the following pages, I want to acknowled
 - @hauschild2023nonlinearCounterfactuals: *Nonlinear Counterfactuals in Isabelle/HOL*
 - @stoecker2024HOcalculiEqs: *Higher-Order Diadic µ-Calculus---An Efficient Framework for Checking Process Equivalences?*
 - @kurzan2024mcrl2Contrasim: *Implementierung eines Contrasimilarity-Checkers für mCRL2*
+
+\noindent
+**This thesis itself.**
+This document itself is created using Quarto [-@allaire2025quarto].
+Its HTML version is deployed to <https://benkeks.github.io/generalized-equivalence-checking/>.
+One can find its source at <https://github.com/benkeks/generalized-equivalence-checking/>.

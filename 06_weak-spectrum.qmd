@@ -257,7 +257,7 @@ In our setting, the transitivity is an *immediate corollary* of having a modal c
 This is one of the perks of modal characterizations, indeed (cf. @sec-perks-modal-characterizations).
 :::
 
-## Case Studies and the Need for Other Equivalences
+## Case Studies—and the Need for Other Equivalences
 
 ### Parallelizing Compiler Optimization
 
@@ -306,7 +306,7 @@ Consider the following sequential program $\literal{P_{Seq}}$, which computes `x
   \node[] (PPara){$\literal{P_{Para}}$};
   \node[below left of=PPara] (p1){$\circ$};
   \node[below right of=PPara] (p2){$\circ$};
-  \node[below of=PPara] (p23){$\circ$};
+  \node[below of=PPara] (p23){$\literal{p_{ab}}$};
   \node[below of=p1] (p3){$\circ$};
   \node[below of=p2] (p4){$\circ$};
   \node[below of=p3, node distance=1cm] (p31){$\circ$};
@@ -335,7 +335,7 @@ Consider the following sequential program $\literal{P_{Seq}}$, which computes `x
 \end{tikzpicture}
 ```
 
-Transition systems representing $\literal{P_{Seq}}$ and $\literal{P_{Para}}$
+Transition systems representing $\literal{P_{Seq}}$ and $\literal{P_{Para}}$.
 ::::
 
 ```ruby
@@ -347,16 +347,21 @@ print(x)
 A parallelization would find that the rendering of the header `output:` is independent of the computation of `x` and can thus be parallelized to $\literal{P_{Para}}$:
 
 ```ruby
-print("output:") || x = compute_A_or_B()
+x = compute_A_or_B() || print("output:")
 print(x)
 ```
 
 The `||` connector is supposed to mean a parallel execution of commands that synchronizes the branches at the end.
-In real-world programming languages, this would happen through spawning and joining subprocesses, future objects, or `async` blocks.
+In real-world programming languages, this would happen through spawning and joining subprocesses, future objects, or `async` segments.
 
 @fig-parallelized-ts shows the transition systems of the two programs.
 The $\tau$-steps mark internal computation or synchronization.
-The action $\literal{ao}$ stands  for announcing the coming output, and $\literal{A}$ and $\literal{B}$ are the values of `x` that are actually printed.
+The action $\literal{ao}$ stands for `print("output:")` announcing the coming output, and $\literal{A}$ and $\literal{B}$ are the values of `x` that are actually produced by `print(x)`.
+
+Clearly, $\literal{P_{Seq}}$ and $\literal{P_{Para}}$ have the same weak traces.
+But they do not weakly simulate each other:
+$\literal{P_{Para}}$ can perform a $\step{\literal{ao}}$-transition, immediately after which $\literal{A}$ and $\literal{B}$ are weakly possible at $\literal{p_{ab}}$.
+The sequential $\literal{P_{Seq}}$ has no such states.
 
 :::
 

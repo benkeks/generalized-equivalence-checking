@@ -59,7 +59,7 @@ But this idea leads into a lot of fine points.
 
 :::{#def-transition-systems-with-silent-steps}
 
-For transition systems $\system=(\states,\actions,\step{})$ with an *internal action* $\tau \in \actions$, we call $\step{\tau}$-transitions “silent” and define special transition relations plus HML modalities:
+For transition systems $\system=(\states,\actions,\step{})$ with an *internal action* $\tau \in \actions$, we call $\step{\tau}$-transitions “silent” and define special transition relations plus HML modalities, where $\actionsvis \defeq \actions \setminus \set{\tau}$ denotes “visible” actions:
 
 Internal transition relation
 : $p \stepweak p'$ iff $p \step{\tau}^* p'$, where $\step{\tau}^*$ is the reflexive transitive closure of silent steps.{{<isb inductive LTS LTS_Tau.silent_reachable>}}
@@ -69,6 +69,9 @@ Optional transition relation
 : $p \stepopt{\alpha} p'$ iff $p \step{\alpha} p'$, or if $\alpha = \tau$ and $p = p'$.{{<isb abbreviation LTS LTS_Tau.soft_step>}}
 : We accompany it by the *optional* step modality $\hmlopt{\alpha} \varphi$ with $p \in \semantics{\hmlopt{\alpha}\varphi}$ iff there is $p' \in \semantics{\varphi}$ with $p \stepopt{\alpha} p'$.
 
+Weak word steps
+: $p \stepweakword{\vec w} p'$ for $\vec w = (w_1 w_2 \dots w_n) \in \actionsvis^*$ iff there is a path $p_i \stepweak\step{w_i} p_{n+1}$ for $i < n$ with $p_0 = p$ and $p_n \stepweak p'$.
+
 Stable process
 : A state $p$ is called *stable* iff $p \nostep{\tau}$.{{<isb abbreviation LTS LTS_Tau.stable_state>}}
 : (In HML, we can use $\hmlneg\hmlobs{\tau}\hmltrue$ to express stabilization.)
@@ -76,7 +79,7 @@ Stable process
 Again, we implicitly lift the relations to sets of processes, that is for instance, $P \stepweak P'$ (with $P, P' \subseteq \states$) iff $P' = \set{ p' \in \states \mid \exists p \in P \ldotp p \stepweak p'}$.
 :::
 
-In upcoming definitions and facts, we use the convention that $\alpha$ continues to stand for elements of $\actions$, while $a$ comes from $\actions \setminus \set{\tau}$.
+In upcoming definitions and facts, we use the convention that $\alpha$ continues to stand for elements of $\actions$, while $a$ comes from $\actionsvis = \actions \setminus \set{\tau}$.
 
 :::{#rem-expressiveness-weak-hml}
 Note that the notation for $\hml$-operators $\hmleps \dots$ and $\hmlopt{\alpha}\dots$ introduced in @def-transition-systems-with-silent-steps does not affect the expressiveness of $\hml$.
@@ -93,10 +96,9 @@ Allow internal $\stepweak$-behavior in between.
 ::: {#def-weak-traces}
 #### Weak Traces, Preorder, and Equivalence
 
-The set of *weak traces* of a state $\wtraces{p} \subseteq (\actions \setminus \set{\tau})^*$ is recursively defined as
-
-- $\emptyword ∈ \wtraces{p}$,
-- $a \cdot \vec w ∈ \wtraces{p}$ if there is $p'$ with $p \stepweak \step a p'$ and $\vec w ∈ \wtraces{p'}$.{{<isb abbreviation LTS LTS_Tau.weak_traces>}}^[The Isabelle theory has a slightly different definition that also allows $\tau$s in the trace words, which do not necessary stand for proper $\step{\tau}$-steps.]
+The set of *weak traces* of a state $\wtraces{p} \subseteq \actionsvis^*$ is defined as $\vec w \in \wtraces{p}$ iff there is $p'$ such that $p \stepweakword{\vec w} p'$.{{<isb abbreviation LTS LTS_Tau.weak_traces>}}^[
+  The Isabelle theory has a slightly different definition that also allows $\tau$s in the trace words, which do not necessary stand for proper $\step{\tau}$-steps.
+]
 
 Two states are *weakly trace-preordered*, $p \bpreord{WT} q$, if $\wtraces{p} ⊆ \wtraces{q}$.{{<isb definition LTS LTS_Tau.weakly_trace_preordered>}}
 As usual, if both directions are maintained, the states are called *weakly trace-equivalent*, $p \beq{WT} q$.
@@ -110,7 +112,7 @@ Moreover, they also are related by the stronger notions of weak bisimulation and
 
 A relation, $\rel R ⊆ \states × \states$, is called a *weak simulation* if, for each $(p, q) ∈ \rel R$,
 
-- if $p \step a p'$ with $a ∈ \actions \setminus{\tau}$, there is a $q'$ with $q \stepweak\step{a}\stepweak q'$ and $(p', q') ∈ \rel R$; and
+- if $p \step a p'$ with $a ∈ \actionsvis$, there is a $q'$ with $q \stepweak\step{a}\stepweak q'$ and $(p', q') ∈ \rel R$; and
 - if $p \step \tau p'$, there is a $q'$ with $q \stepweak q'$ and $(p', q') ∈ \rel R$.
 
 Weak simulation preorder, weak simulation equivalence and weak bisimilarity analogously to @def-bisimilarity:
@@ -193,7 +195,7 @@ $$
 \begin{array}{rllr}
     \varphi {} ::= {} & \hmleps\chi & & \text{“delayed observation”} \\
         | \quad & \hmlands \set{\psi, \psi, ...} & & \text{“immediate conjunction”} \\
-    \chi {} ::= {} & \hmlobs{a}\varphi & \quad\text{with } a \in \actions \setminus \set{\tau} & \text{“observation”} \\
+    \chi {} ::= {} & \hmlobs{a}\varphi & \quad\text{with } a \in \actionsvis & \text{“observation”} \\
     | \quad & \hmlands \set{\psi, \psi, ... } & & \text{“standard conjunction”} \\
     | \quad & \hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue, \psi, \psi, ...} & & \text{“stable conjunction”} \\
     | \quad & \hmlands \set{\hmlopt{\alpha}\varphi, \psi, \psi, ...} &
@@ -362,8 +364,27 @@ Clearly, $\literal{P_{Seq}}$ and $\literal{P_{Para}}$ have the same weak traces.
 But they do not weakly simulate each other:
 $\literal{P_{Para}}$ can perform a $\step{\literal{ao}}$-transition, immediately after which $\literal{A}$ and $\literal{B}$ are weakly possible at $\literal{p_{ab}}$.
 The sequential $\literal{P_{Seq}}$ has no such states.
-
 :::
+
+::: {#def-contrasim}
+#### Contrasimulation
+
+A *contrasimulation* is a relation $\rel R$ where, for all $(p,q) \in \rel R$ with $\vec w \in \actionsvis$ and $p \stepweakword{\vec w} p'$, there is a $q'$ with $q \stepweakword{\vec w} q'$ and $(q', p') \in \rel R$.
+The *contrasimulation preorder* $\bpreord{C}$ and *contrasimilarity* $\beq{C}$ are defined @def-weak-bisimilarity.
+:::
+
+::: {#def-stablebisim}
+#### Stable Bisimulation
+
+A *stable bisimulation* is a relation $\rel R$ where,
+for all $(p,q) \in \rel R$ with $\vec w \in \actionsvis$ and $p \stepweakword{\vec w} p'$,
+there is a $q'$ with $q \stepweakword{\vec w} q'$,
+and, in case $p'$ is stable, moreover $(q', p') \in \rel R \cap \inverse{\rel R}$.
+:::
+
+On the programs of @exm-parallelizing-compilation,
+there is a stable bisimulation, connecting $\literal{P_{Seq}}$ and $\literal{P_{Para}}$ as well as the stable states with matching positions.
+
 
 ```ccs
 Compute = computeA!Compute + computeB!Compute

@@ -157,3 +157,8 @@
 ]
 
 \usepackage{amssymb}
+
+% add xtwoheadrightarrow that exists in KaTeX but not in standard LaTeX. (from https://tex.stackexchange.com/a/260563)
+\newcommand{\xtwoheadrightarrow}[2][]{%
+  \xrightarrow[#1]{#2}\mathrel{\mkern-14mu}\rightarrow
+}

@@ -38,11 +38,13 @@
 \providecommand{\step}[1]{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}
 \providecommand{\nostep}[1]{\cancel{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}}
 \providecommand{\stepweak}{\mathrel{\twoheadrightarrow}}
+\providecommand{\stepweakword}[1]{\xtwoheadrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}
 \providecommand{\stepopt}[1]{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{(#1)}$}}}}
 \providecommand{\states}{\mathcal{P}}
 \providecommand{\system}{\mathcal{S}}
 \providecommand{\labels}{\mathcal{L}}
 \providecommand{\actions}{\mathit{Act}}
+\providecommand{\actionsvis}{\mathit{Act}_👁}
 \providecommand{\traces}[1]{\mathsf{Traces}(#1)}
 \providecommand{\wtraces}[1]{\mathsf{WeakTraces}(#1)}
 \providecommand{\failures}[1]{\mathsf{Failures}(#1)}

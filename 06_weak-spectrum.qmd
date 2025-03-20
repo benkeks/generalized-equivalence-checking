@@ -223,7 +223,7 @@ The name already alludes to $\hmlsrbb$ as a whole characterizing stability-respe
 
 The power of @def-hml-srbb to distinguish mirrors exactly the power of @def-branching-bisim to equate:
 
-::: {#lem-srbb-characterization}
+::: {#thm-srbb-characterization}
 
 $\hmlsrbb$ characterizes stability-respecting branching bisimilarity, that is,
 there is a stability-respecting branching bisimulation $\rel R$ with $(p,q) \in \rel R$
@@ -245,6 +245,16 @@ Intuitively, the formula expresses that, right at the moment when $\literal{b}$ 
 
 But the processes are weakly bisimilar, as weak bisimilarity does not care about branching due to $\tau$-steps that can also be achieved by visible actions.
 A formal argument would be that $\identity{\states} \cup \set{(\literal{P_{ab}}, \literal{P_{a\tau b}}), (\literal{P_{a\tau b}}, \literal{P_{ab}})}$ is a symmetric weak simulation.
+:::
+
+::: {#rem-equivalence-indeed}
+#### An Equivalence Indeed
+
+It is a popular anecdote among those who know branching bisimilarity that the original “assumed” proof of its transitivity does not exist.
+Six years after its inception, @bastern1996branchingBisimEqIndeed closes the gap by a proof that is surprisingly complex.
+
+In our setting, the transitivity is an *immediate corollary* of having a modal characterization (@thm-srbb-characterization).{{<isb lemma Branching_Bisimilarity LTS_Tau.sr_branching_bisimulated_transitive>}}
+This is one of the perks of modal characterizations, indeed (cf. @sec-perks-modal-characterizations).
 :::
 
 ### The Need for Other Equivalences

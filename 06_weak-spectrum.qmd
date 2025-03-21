@@ -4,6 +4,12 @@
 {{< include style/macros.md >}}
 :::
 
+In real applications, people are using *weak* behavioral equivalences, which can equate systems in spite of differing internal activity.
+Therefore, it matters that we can lift our approach to also account for such weak equivalences.
+
+This chapter serves as a second round of preliminaries and context needed for the spectrum of weak equivalences.
+We moreover present our modal spectrum characterization, where HML grammar and pricing are designed in such a way that we can apply the spectroscopy approach in @sec-silent-step-spectroscopy.
+TODO: Links
 
 ## Weak Equivalences in General {#sec-weak-equivalences-in-general}
 
@@ -187,7 +193,7 @@ In HML, this difference could be expressed by $\hmleps \hmlneg \hmleps \hmlobs{\
 ::: {#def-abstraction-notion}
 #### Abstractions
 
-We say that a weak notion of equivalence $\notionname{W}N$ *abstracts a strong notion* $N$ iff $\bpreord{W\mathit{N}} = \bpreord{N}$ for all transition systems without $\tau$-transitions.
+We say that a weak notion of equivalence $\notionname{W}N$ *abstracts a strong notion* $N$ iff ${\bpreordvar{\notionname{W}N}} = {\bpreordvar{N}}$ for all transition systems without $\tau$-transitions.
 :::
 
 By this nomenclature, weak trace preorder, weak simulation preorder, and weak bisimilarity are abstractions of their strong counterparts from @sec-preliminaries.
@@ -532,7 +538,7 @@ Using @def-weak-spectrum, we can give coordinates to the common notions of the w
     \EqCoords{\infty,\infty,\infty,\infty,\infty,\infty,\infty,\infty}};
   \node (BB)[below left of=BBs]{branching bisim $\notionname{BB}$\\
     \EqCoords{\infty,\infty,\infty,0,\infty,\infty,\infty,\infty}};
-  \node (eB)[xshift=-5mm, below left of=BB]{$\eta$-bisim $\notionname{\eta}$\\
+  \node (eB)[xshift=-5mm, below left of=BB]{$\eta$-bisim $\eta\notionname{B}$\\
     \EqCoords{\infty,\infty,\infty,0,0,\infty,\infty,\infty}};
   \node (DB)[below right of=BB]{delay bisim $\notionname{DB}$\\
     \EqCoords{\infty,0,\infty,0,\infty,\infty,\infty,\infty}};
@@ -552,7 +558,7 @@ Using @def-weak-spectrum, we can give coordinates to the common notions of the w
     \EqCoords{\infty,0,1,0,0,0,\infty,1}};
   \node (S)[below left of=RS]{weak sim $\notionname{1WS}$\\
     \EqCoords{\infty,0,\infty,0,0,\infty,0,0}};
-  \node (eS)[above left of=RS]{$\eta$-sim $\notionname{\eta S}$\\
+  \node (eS)[above left of=RS]{$\eta$-sim $\eta\notionname{S}$\\
     \EqCoords{\infty,\infty,\infty,0,0,\infty,0,0}};
   \node (F)[below right of=R]{unstable failures $\notionname{WF}$\\
     \EqCoords{\infty,0,1,0,0,0,1,1}};
@@ -614,6 +620,123 @@ Using @def-weak-spectrum, we can give coordinates to the common notions of the w
 
 Hierarchy of weak behavioral equivalences/preorders, by equivalence notion coordinates.
 :::
+
+::: {#lem-weak-trace-eq}
+
+The subset $\observationsvar[\literal{weak}]{\notionname{T}} = \observationsvar[\literal{weak}]{(\infty,0,0,0,0,0,0,0)} \subseteq \hmlsrbb$ can be given by the following grammar:
+\begin{align*}
+  \varphi_\notionname{T} \grammardef & \; \hmleps\hmlobs{a}\varphi_\notionname{T}
+              \grammaror \hmleps\hmltrue 
+              \grammaror \hmltrue
+              \qquad \text{with $a \in \actionsvis$.}
+\end{align*}
+There is a formula $\varphi \in \observationsvar[\literal{weak}]{T}$ distinguishing $p$ from $q$ precisely if $p$ is *not* trace-preordered to $q$.{{<isb lemma Weak_Traces LTS_Tau.trace_equals_trace_to_formula>}}
+:::
+:::proof
+For a word $\vec{w} = a_1 \dots a_n \in \actionsvis^*$, the formula $\hmleps\hmlobs{a_1}\dots\hmleps\hmlobs{a_n}\hmleps\hmltrue \in \observationsvar[\literal{weak}]{T}$ is true for a state $p$ precisely if there is a $p'$ such that $p \stepweakword{\vec{w}} p'$, that is, if $\vec{w} \in \wtraces{p}$.
+As $\wtraces{p} = \wtraces{q}$ for states $p$ and $q$ precisely if $\wtraces{p} \cap \actionsvis^* = \wtraces{q} \cap \actionsvis^*$, this completes the proof.
+:::
+
+The whole list of weak linear-time notions can be found in @fig-weak-grammars.
+The interesting points are highlighted in $\textcolor{RoyalBlue}{blue}$.
+Productions that could be left out without affecting distinctiveness are set in $\textcolor{gray}{gray}$.
+
+:::{#fig-weak-grammars}
+
+```tikz
+\parbox{10cm}{
+  \begin{align*}
+  \intertext{
+    Weak universal, $\notionname{WU}$ at $(0,0,0,0,0,0,0,0)$:
+  }
+    \varphi_\notionname{WU} \grammardef &
+      \grammarsp \hmltrue
+      \grammaror \mathdl{\hmleps\hmltrue} \\
+  \intertext{
+    Weak enabledness, $\notionname{WE}$ at $(\mathhl{1},0,0,0,0,0,0,0)$:
+  }
+    \varphi_\notionname{WE} \grammardef &
+      \grammarsp \mathhl{\hmleps\hmlobs{a}\varphi_\notionname{WU}}
+      \grammaror \varphi_\notionname{WU} \\
+  \intertext{
+    Weak traces, $\notionname{WT}$ at $(\mathhl{\infty},0,0,0,0,0,0,0)$:
+  }
+    \varphi_\notionname{WT} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\mathhl{\varphi_\notionname{WT}}
+      \grammaror \varphi_\notionname{WU} \\
+  \intertext{
+    Unstable failures, $\notionname{WF}$ at $(\infty,0,\mathhl{1},0,0,0,\mathhl{1},\mathhl{1})$:
+  }
+    \varphi_\notionname{WF} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WF}
+      \grammaror \mathhl{\hmleps\hmlands \set{ \psi_\notionname{WF}, \psi_\notionname{WF}, \ldots }}
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \psi_\notionname{WF} \grammardef &
+      \grammarsp \mathhl{\hmlneg\hmleps\hmlobs{a}\varphi_\notionname{WU}}
+      \grammaror \mathdl{\hmleps\hmltrue}\\
+  \intertext{
+    Stable failures, $\notionname{WF^s}$ at $(\infty,0,\mathhl{0},\mathhl{1},0,0,1,1)$:
+  }
+    \varphi_\notionname{WF^s} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WF^s}
+      \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{WF}, \psi_\notionname{WF}, \ldots }
+      \grammaror \varphi_\notionname{WU} \\
+  \intertext{
+    Unstable readiness, $\notionname{WR}$ at $(\infty,0,1,0,0,\mathhl{1},1,1)$:
+  }
+    \varphi_\notionname{WR} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WR}
+      \grammaror \hmleps\hmlands \set{ \psi_\notionname{WR}, \psi_\notionname{WR}, \ldots }
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \psi_\notionname{WR} \grammardef &
+      \grammarsp \mathhl{\hmleps\hmlobs{a}\varphi_\notionname{WU}}
+      \grammaror \psi_\notionname{WF} \\
+  \intertext{
+    Stable readiness, $\notionname{WR^s}$ at $(\infty,0,\mathhl{0},\mathhl{1},0,1,1,1)$:
+  }
+    \varphi_\notionname{WR^s} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WR^s}
+      \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{WR}, \psi_\notionname{WR}, \ldots }
+      \grammaror \varphi_\notionname{WU} \\
+  \intertext{
+    Unstable impossible futures, $\notionname{WIF}$ at $(\infty,0,1,0,0,0,\mathhl{\infty},1)$:
+  }
+    \varphi_\notionname{WIF} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WIF}
+      \grammaror \hmleps\hmlands \set{ \psi_\notionname{WIF}, \psi_\notionname{WIF}, \ldots }
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \psi_\notionname{WIF} \grammardef &
+      \grammarsp \mathhl{\hmlneg\hmleps\hmlobs{a}\varphi_\notionname{WT}}
+      \grammaror \mathdl{\hmlneg\hmleps\hmltrue}
+      \grammaror \mathdl{\hmleps\hmltrue}
+  \intertext{
+    Stable impossible futures, $\notionname{WIF^s}$ at $(\infty,0,\mathhl{0},\mathhl{1},0,0,\infty,1)$:
+  }
+    \varphi_\notionname{WIF^s} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WIF^s}
+      \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{WIF}, \psi_\notionname{WIF}, \ldots }
+      \grammaror \varphi_\notionname{WU} \\
+  \intertext{
+    Unstable possible futures, $\notionname{WPF}$ at $(\infty,0,1,0,0,\mathhl{\infty},\infty,1)$:
+  }
+    \varphi_\notionname{WPF} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WPF}
+      \grammaror \hmleps\hmlands \set{ \psi_\notionname{WPF}, \psi_\notionname{WPF}, \ldots }
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \psi_\notionname{WPF} \grammardef &
+      \grammarsp \mathhl{\hmleps\hmlobs{a}\varphi_\notionname{WT}}
+      \grammaror \psi_\notionname{WIF} \\
+  \end{align*}
+}
+```
+
+Grammars induced by coordinates for weak linear-time notions of equivalence.
+:::
+
+
+
+
+TODO: Remark on Stable Bisimilarity equaling stable contrasimilarity in expressiveness; Coordinate choice to show that stable bisim implies e.g. stable ready sim. 
 
 
 ## Discussion

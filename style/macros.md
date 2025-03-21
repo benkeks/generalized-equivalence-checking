@@ -31,6 +31,8 @@
 \providecommand{\complexityname}[1]{\textsf{#1}}
 \providecommand{\quotient}[2]{{#1 \! / \!\! #2}}
 \providecommand{\eqclass}[1]{[#1]}
+\providecommand{\mathhl}[1]{\mathcolor{RoyalBlue}{#1}}
+\providecommand{\mathdl}[1]{\mathcolor{gray}{#1}}
 
 
 \lc{ Transition systems }
@@ -55,6 +57,7 @@
 
 \providecommand{\grammardef}{\;::=\;}
 \providecommand{\grammaror}{\;\mid\;}
+\providecommand{\grammarsp}{\;}
 
 \lc{ CCS }
 

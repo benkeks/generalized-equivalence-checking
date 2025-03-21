@@ -72,11 +72,15 @@ Optional transition relation
 Weak word steps
 : $p \stepweakword{\vec w} p'$ for $\vec w = (w_1 w_2 \dots w_n) \in \actionsvis^*$ iff there is a path $p_i \stepweak\step{w_i} p_{n+1}$ for $i < n$ with $p_0 = p$ and $p_n \stepweak p'$.
 
-Stable process
+Stable state
 : A state $p$ is called *stable* iff $p \nostep{\tau}$.{{<isb abbreviation LTS LTS_Tau.stable_state>}}
 : (In HML, we can use $\hmlneg\hmlobs{\tau}\hmltrue$ to express stabilization.)
 
-Again, we implicitly lift the relations to sets of processes, that is for instance, $P \stepweak P'$ (with $P, P' \subseteq \states$) iff $P' = \set{ p' \in \states \mid \exists p \in P \ldotp p \stepweak p'}$.
+Divergent state
+: A state $p$ is called *divergent* iff it allows an infinite sequence of $\tau$-transitions, $p \step{\tau}^\omega$.
+: TODO: Add diverges-while ?
+
+Again, we implicitly lift the relations to sets of states, that is for instance, $P \stepweak P'$ (with $P, P' \subseteq \states$) iff $P' = \set{ p' \in \states \mid \exists p \in P \ldotp p \stepweak p'}$.
 :::
 
 In upcoming definitions and facts, we use the convention that $\alpha$ continues to stand for elements of $\actions$, while $a$ comes from $\actionsvis = \actions \setminus \set{\tau}$.
@@ -180,7 +184,16 @@ The reason is that the left process can weakly $\stepweak$-transition to a posit
 In HML, this difference could be expressed by $\hmleps \hmlneg \hmleps \hmlobs{\literal{b}}$.
 :::
 
-### HML of Stability-Respecting Branching Bisimilarity
+::: {#def-abstraction-notion}
+#### Abstractions
+
+We say that a weak notion of equivalence $\notionname{W}N$ *abstracts a strong notion* $N$ iff $\bpreord{W\mathit{N}} = \bpreord{N}$ for all transition systems without $\tau$-transitions.
+:::
+
+By this nomenclature, weak trace preorder, weak simulation preorder, and weak bisimilarity are abstractions of their strong counterparts from @sec-preliminaries.
+But, as we will see in the next sections, there might be *multiple* abstractions of the same strong notion.
+
+### HML of Stability-Respecting Branching Bisimilarity {#sec-hml-srbb}
 
 As noted in @rem-expressiveness-weak-hml, our $\hml$ notation for weak observations does not affect expressiveness---thus it still characterizes strong bisimilarity by @thm-hennessy-milner.
 To characterize weak equivalences, we have to select appropriate subsets.
@@ -206,7 +219,7 @@ $$
 We consider the semantics of $\hmlsrbb$ to be given by @def-hml-semantics and @def-transition-systems-with-silent-steps.
 :::
 
-The name already alludes to $\hmlsrbb$ as a whole characterizing stability-respecting branching bisimilarity.
+The name already alludes to $\hmlsrbb$ as a whole characterizing *stability-respecting branching bisimilarity*, which is a comparably strong abstraction of bisimilarity, a “strong weak bisimilarity,” so to speak.
 
 ::: {#def-stability-respecting}
   We call a $\rel R$ *stability-respecting* iff,
@@ -252,14 +265,14 @@ A formal argument would be that $\identity{\states} \cup \set{(\literal{P_{ab}},
 ::: {#rem-equivalence-indeed}
 #### An Equivalence Indeed
 
-It is a popular anecdote among those who know branching bisimilarity that the original “assumed” proof of its transitivity does not exist.
-Six years after its inception, @bastern1996branchingBisimEqIndeed closes the gap by a proof that is surprisingly complex.
+It is a popular anecdote among those who know branching bisimilarity that the proof of its transitivity “assumed” originally does not exist.
+Six years after branching bisimilarity's inception, @bastern1996branchingBisimEqIndeed closes the gap by a proof that is surprisingly complex.
 
 In our setting, the transitivity is an *immediate corollary* of having a modal characterization (@thm-srbb-characterization).{{<isb lemma Branching_Bisimilarity LTS_Tau.sr_branching_bisimulated_transitive>}}
 This is one of the perks of modal characterizations, indeed (cf. @sec-perks-modal-characterizations).
 :::
 
-## Case Studies—and the Need for Other Equivalences
+## Case Studies—and the Need for Other Equivalences {#sec-case-stduies-other-eqs}
 
 ### Parallelizing Compiler Optimization
 
@@ -286,8 +299,8 @@ Consider the following sequential program $\literal{P_{Seq}}$, which computes `x
   \node[] (PSeq){$\literal{P_{Seq}}$};
   \node[below left of=PSeq] (p1){$\circ$};
   \node[below right of=PSeq] (p2){$\circ$};
-  \node[below of=p1] (p3){$\circ$};
-  \node[below of=p2] (p4){$\circ$};
+  \node[below of=p1] (p3){$\literal{p_a}$};
+  \node[below of=p2] (p4){$\literal{p_b}$};
   \node[below right of=p3] (p5){$\circ$};
   \path[->]
     (PSeq)
@@ -366,12 +379,9 @@ $\literal{P_{Para}}$ can perform a $\step{\literal{ao}}$-transition, immediately
 The sequential $\literal{P_{Seq}}$ has no such states.
 :::
 
-::: {#def-contrasim}
-#### Contrasimulation
-
-A *contrasimulation* is a relation $\rel R$ where, for all $(p,q) \in \rel R$ with $\vec w \in \actionsvis$ and $p \stepweakword{\vec w} p'$, there is a $q'$ with $q \stepweakword{\vec w} q'$ and $(q', p') \in \rel R$.
-The *contrasimulation preorder* $\bpreord{C}$ and *contrasimilarity* $\beq{C}$ are defined @def-weak-bisimilarity.
-:::
+@bell2013certifiably proposes “eventual bisimilarity” as a new bisimulation-like notion to equate $\literal{P_{Seq}}$ and $\literal{P_{Para}}$.
+In @bm2024contrasimilarityInfComp, we discuss how two more standard notions from the original spectrum neatly equate the processes:
+Stable bisimilarity and contrasimilarity.
 
 ::: {#def-stablebisim}
 #### Stable Bisimulation
@@ -380,41 +390,36 @@ A *stable bisimulation* is a relation $\rel R$ where,
 for all $(p,q) \in \rel R$ with $\vec w \in \actionsvis$ and $p \stepweakword{\vec w} p'$,
 there is a $q'$ with $q \stepweakword{\vec w} q'$,
 and, in case $p'$ is stable, moreover $(q', p') \in \rel R \cap \inverse{\rel R}$.
+The *stable bisimilarity* $\beq{SB}$ is defined as in @def-weak-bisimilarity.
 :::
 
 On the programs of @exm-parallelizing-compilation,
 there is a stable bisimulation, connecting $\literal{P_{Seq}}$ and $\literal{P_{Para}}$ as well as the stable states with matching positions.
+Intuitively, stable bisimilarity is allowed to “skip” intermediate that would break the bisimulation---such as $\literal{p_{ab}}$ in our example.
 
+As we argue in @bm2024contrasimilarityInfComp, stable bisimilarity, in many ways, is better understood not as a stable variant of bisimilarity, but of *contrasimilarity*: 
 
-```ccs
-Compute = computeA!Compute + computeB!Compute
+::: {#def-contrasim}
+#### Contrasimulation
 
-PSeq = (
-    Compute 
-  | computeA.printOutput!printA!
-    + computeB.printOutput!printB!
-) \ {computeA, computeB}
+A *contrasimulation* is a relation $\rel R$ where, for all $(p,q) \in \rel R$ with $\vec w \in \actionsvis$ and $p \stepweakword{\vec w} p'$, there is a $q'$ with $q \stepweakword{\vec w} q'$ and $(q', p') \in \rel R$.^[Note that $p'$ and $q'$ swap sides in the consequent!]
+The *contrasimulation preorder* $\bpreord{C}$ and *contrasimilarity* $\beq{C}$ are defined as in @def-weak-bisimilarity.
+:::
 
-PPara = (
-    Compute
-  | printOutput!join!
-  | computeA.join.printA!
-    + computeB.join.printB!
-) \ {computeA, computeB, join}
+Contrasimilarity allows *local asymmetry* in matching internal transitions.
+A witness relation for @exm-parallelizing-compilation would also include $(\literal{p_a}, \literal{p_{ab}})$ and $(\literal{p_b}, \literal{p_{ab}})$.
+The intuition is that contrasimulation preorder allows states to slightly get ahead of their counterparts---$\literal{p_a}$ is mor committed than $\literal{p_{ab}}$---as long as the latter can catch up silently.
 
-@compareSilent PSeq, PPara
+Contrasimilarity and stable bisimilarity, both are at the weak end of abstractions of bisimilarity,
+“weakest” bisimilarities, one could say.
+We discuss them and their characterizations in great detail in @bm2024contrasimilarityInfComp.
 
-@snip "---- layout ----"
+Contrasimilarity and stable bisimilarity are nice for proofs as they have coninductive characterizations
+They also are more well-behaved than Bell's “eventual bisimilarity,” which fails to be an equivalence if the transition system has divergent states [cf. @bell2014loopParallelizingTransformations § 3.3].
 
-PSeq(main, x=80, y=69)
-PPara(main, x=587, y=55)
-"(Compute | 0 | 0) \ {computeA,computeB,join}"(x=505, y=382)
-"(Compute | 0 | printB!0) \ {computeA,computeB,join}"(x=588, y=323)
-"(Compute | 0) \ {computeA,computeB}"(x=179, y=366)
-"(Compute | printA!0) \ {computeA,computeB}"(x=128, y=297)
-"(Compute | printB!0) \ {computeA,computeB}"(x=259, y=283)
-```
+As we will establish in @sec-solution-parallelizing-compilation, contrasimilarity and stable bisimilarity indeed are the finest equivalences from the standard spectrum to equate the sequential and the parallel program.
 
+TODO: Remark on other perk / broken definition in @sangiorgi2012.
 
 ### Congruence Properties of Abstraction
 

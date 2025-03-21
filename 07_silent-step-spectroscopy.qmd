@@ -570,6 +570,37 @@ For space complexity, we arrive at $\bigo{ \relsize{\step{}}^8 \cdot 3^{8\relsiz
 
 ## Tackling Our Case Studies
 
+### Parallelizing Compilers {#sec-solution-parallelizing-compilation}
+
+```ccs
+Compute = computeA!Compute + computeB!Compute
+
+PSeq = (
+    Compute 
+  | computeA.printOutput!printA!
+    + computeB.printOutput!printB!
+) \ {computeA, computeB}
+
+PPara = (
+    Compute
+  | printOutput!join!
+  | computeA.join.printA!
+    + computeB.join.printB!
+) \ {computeA, computeB, join}
+
+@compareSilent PSeq, PPara
+
+@snip "---- layout ----"
+
+PSeq(main, x=80, y=69)
+PPara(main, x=587, y=55)
+"(Compute | 0 | 0) \ {computeA,computeB,join}"(x=505, y=382)
+"(Compute | 0 | printB!0) \ {computeA,computeB,join}"(x=588, y=323)
+"(Compute | 0) \ {computeA,computeB}"(x=179, y=366)
+"(Compute | printA!0) \ {computeA,computeB}"(x=128, y=297)
+"(Compute | printB!0) \ {computeA,computeB}"(x=259, y=283)
+```
+
 ### Peterson's Mutual Exclusion
 
 ```ruby

@@ -532,6 +532,7 @@ Using @def-weak-spectrum, we can give coordinates to the common notions of the w
 :::{#fig-weak-spectrum fig-env='figure*' fig-pos='t!'}
 
 ```tikz
+%%| image-class: lightbox
 \newcommand*{\EqCoords}[1]{\textcolor{gray}{\small $#1$}}
 \begin{tikzpicture}[auto,node distance=2.5cm,align=center]
   \node (BBs){stability-respecting branching bisim $\notionname{BB^{sr}}$\\
@@ -562,23 +563,27 @@ Using @def-weak-spectrum, we can give coordinates to the common notions of the w
     \EqCoords{\infty,\infty,\infty,0,0,\infty,0,0}};
   \node (F)[below right of=R]{unstable failures $\notionname{WF}$\\
     \EqCoords{\infty,0,1,0,0,0,1,1}};
-  \node (T)[below left of=F]{weak traces $\notionname{WT}$\\
+  \node (T)[below right of=F]{weak traces $\notionname{WT}$\\
     \EqCoords{\infty,0,0,0,0,0,0,0}};
   \node (E)[below of=T, node distance=1.2cm]{weak enabledness $\notionname{WE}$\\
     \EqCoords{1,0,0,0,0,0,0,0}};
+  \node (U)[below of=E, node distance=1.2cm]{weak enabledness $\notionname{WU}$\\
+    \EqCoords{0,0,0,0,0,0,0,0}};
   
   \node (DBs)[xshift=12mm, above right of=DB, node distance=1.75cm]{s.-r.\ delay bisim $\notionname{DB^{sr}}$\\
     \EqCoords{\infty,0,\infty,\infty,\infty,\infty,\infty,\infty}};
-  \node (SB)[below right of=DBs]{stable bisim $\notionname{SB}$\\
+  \node (SB)[below right of=DBs, node distance=3cm]{stable bisim $\notionname{SB}$\\
     \EqCoords{\infty,0,0,\infty,0,\infty,\infty,\infty}};
-  \node (RSs)[below left of=SB]{stable ready sim $\notionname{WRS^s}$\\
+  \node (RSs)[below left of=SB]{stable\\ ready sim $\notionname{WRS^s}$\\
     \EqCoords{\infty,0,0,\infty,0,\infty,1,1}};
-  \node (Rs)[below of=RSs, node distance=3cm]{stable readiness $\notionname{WR^s}$\\
+  \node (Rs)[below right of=RSs]{stable readiness $\notionname{WR^s}$\\
     \EqCoords{\infty,0,0,1,0,1,1,1}};
-  \node (IFs)[below of=SB, node distance=3cm]{stable imposs.\ fut.\ $\notionname{WIF^s}$\\
+  \node (IFs)[below right of=SB]{stable\\ imposs.\ fut.\ $\notionname{WIF^s}$\\
     \EqCoords{\infty,0,0,1,0,0,\infty,1}};
   \node (Fs)[below right of=Rs]{stable failures $\notionname{WF^s}$\\
     \EqCoords{\infty,0,0,1,0,0,1,1}};
+  \node (SS)[below left of=Rs]{stable sim $\notionname{SS}$\\
+    \EqCoords{\infty,0,0,\infty,0,\infty,0,1}};
   %
   \path
   (BBs) edge (BB)
@@ -597,11 +602,13 @@ Using @def-weak-spectrum, we can give coordinates to the common notions of the w
   (PF) edge (R)
   (PF) edge (IF)
   (eS) edge (S)
-  (S) edge (T)
+  (S) edge ([xshift=-20mm]T.west)
+  ([xshift=-20mm]T.west) edge (T.west)
   (IF) edge (F)
   (R) edge (F)
   (F) edge (T)
   (T) edge (E)
+  (E) edge (U)
   ;
   \path
   (BBs) edge (DBs)
@@ -610,10 +617,12 @@ Using @def-weak-spectrum, we can give coordinates to the common notions of the w
   (SB) edge (RSs)
   (SB) edge (IFs)
   (RSs) edge (Rs)
+  (RSs) edge (SS)
   (Rs) edge (Fs)
   (IFs) edge (Fs)
-  (Fs) edge ([xshift=30mm]T.east)
-  ([xshift=30mm]T.east) edge (T.east)
+  (Fs) edge ([xshift=15mm]T.east)
+  ([xshift=15mm]T.east) edge (T.east)
+  (SS.south) edge (T.north)
   ;
 \end{tikzpicture}
 ```
@@ -637,11 +646,11 @@ For a word $\vec{w} = a_1 \dots a_n \in \actionsvis^*$, the formula $\hmleps\hml
 As $\wtraces{p} = \wtraces{q}$ for states $p$ and $q$ precisely if $\wtraces{p} \cap \actionsvis^* = \wtraces{q} \cap \actionsvis^*$, this completes the proof.
 :::
 
-The whole list of weak linear-time notions can be found in @fig-weak-grammars.
+The whole list of weak linear-time notions can be found in @fig-weak-grammars-linear.
 The interesting points are highlighted in $\textcolor{RoyalBlue}{blue}$.
 Productions that could be left out without affecting distinctiveness are set in $\textcolor{gray}{gray}$.
 
-:::{#fig-weak-grammars}
+:::{#fig-weak-grammars-linear}
 
 ```tikz
 \parbox{10cm}{
@@ -657,7 +666,7 @@ Productions that could be left out without affecting distinctiveness are set in 
   }
     \varphi_\notionname{WE} \grammardef &
       \grammarsp \mathhl{\hmleps\hmlobs{a}\varphi_\notionname{WU}}
-      \grammaror \varphi_\notionname{WU} \\
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
   \intertext{
     Weak traces, $\notionname{WT}$ at $(\mathhl{\infty},0,0,0,0,0,0,0)$:
   }
@@ -733,6 +742,85 @@ Productions that could be left out without affecting distinctiveness are set in 
 Grammars induced by coordinates for weak linear-time notions of equivalence.
 :::
 
+
+:::{#fig-weak-grammars-sim-like}
+
+```tikz
+\parbox{10cm}{
+  \begin{align*}
+  \intertext{
+    Weak simulation, $\notionname{1WS}$ at $(\infty,0,\mathhl{\infty},0,0,\mathhl{\infty},0,0)$:
+  }
+    \varphi_\notionname{1WS} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{1WS}
+      \grammaror \mathhl{\hmleps\hmlands \set{ \psi_\notionname{1WS}, \psi_\notionname{1WS}, \ldots }}
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \psi_\notionname{1WS} \grammardef &
+      \grammarsp \mathhl{\hmleps\hmlobs{a}\varphi_\notionname{1WS}}
+      \grammaror \mathdl{\hmleps\hmlands \set{ \psi_\notionname{1WS}, \psi_\notionname{1WS}, \ldots }}\\
+  \intertext{
+    Weak ready simulation, $\notionname{WRS}$ at $(\infty,0,\infty,0,0,\infty,\mathhl{1},\mathhl{1})$:
+  }
+    \varphi_\notionname{WRS} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WRS}
+      \grammaror \hmleps\hmlands \set{ \psi_\notionname{WRS}, \psi_\notionname{WRS}, \ldots }
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \psi_\notionname{WRS} \grammardef &
+      \grammarsp \mathhl{\hmlneg\hmleps\hmlobs{a}\varphi_\notionname{WU^*}}
+      \grammaror \hmleps\hmlobs{a}\varphi_\notionname{WRS}
+      \grammaror \mathdl{\hmleps\hmlands \set{ \psi_\notionname{WRS}, \psi_\notionname{WRS}, \ldots }} \\
+    \varphi_\notionname{WU^*} \grammardef &
+      \grammarsp \hmltrue
+      \grammaror \mathdl{\hmleps\hmlands\set{\varphi_\notionname{WU^*}, \varphi_\notionname{WU^*}, \ldots}} \\
+  \intertext{
+    2-nested weak simulation, $\notionname{2WS}$ at $(\infty,0,\infty,0,0,\infty,\mathhl{\infty},1)$:
+  }
+    \varphi_\notionname{2WS} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{2WS}
+      \grammaror \hmleps\hmlands \set{ \psi_\notionname{2WS}, \psi_\notionname{2WS}, \ldots }
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \psi_\notionname{2WS} \grammardef &
+      \grammarsp \mathhl{\hmlneg\psi_\notionname{1WS}}
+      \grammaror \hmleps\hmlobs{a}\varphi_\notionname{2WS}
+      \grammaror \mathdl{\hmleps\hmlands \set{ \psi_\notionname{2WS}, \psi_\notionname{2WS}, \ldots }} \\
+  \intertext{
+    $\eta$-simulation, $\eta\notionname{S}$ at $(\infty,\mathhl{\infty},\infty,0,0,\infty,0,0)$:
+  }
+    \varphi_{\eta\notionname{S}} \grammardef &
+      \grammarsp \psi_{\eta\notionname{S}}
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \psi_{\eta\notionname{S}} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_{\eta\notionname{S}}
+      \grammaror \hmleps\hmlands \set{ \mathhl{\hmlopt{\alpha}\varphi_{\eta\notionname{S}}}, \psi_{\eta\notionname{S}}, \psi_{\eta\notionname{S}}, \ldots }
+      \grammaror \hmleps\hmlands \set{ \psi_{\eta\notionname{S}}, \psi_{\eta\notionname{S}}, \ldots }\\
+  \intertext{
+    Stable simulation, $\notionname{SS}$ at $(\infty,0,0,\mathhl{\infty},0,\infty,0,\mathhl{1})$:
+  }
+    \varphi_\notionname{SS} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{SS}
+      \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{SS}, \psi_\notionname{SS}, \ldots }
+      \grammaror \varphi_\notionname{WU} \\
+    \psi_\notionname{SS} \grammardef &
+      \grammarsp \mathdl{\hmleps}\hmlobs{a}\varphi_\notionname{SS}
+      \grammaror \mathdl{\hmleps\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue, \psi_\notionname{SS}, \psi_\notionname{SS}, \ldots }}
+      \grammaror \mathdl{\hmlneg \varphi_\notionname{WU}}\\
+  \intertext{
+    Stable ready simulation, $\notionname{WRS^s}$ at $(\infty,0,0,\mathhl{\infty},0,\infty,\mathhl{1},1)$:
+  }
+    \varphi_\notionname{WRS^s} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WRS^s}
+      \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{WRS^s}, \psi_\notionname{WRS^s}, \ldots }
+      \grammaror \varphi_\notionname{WU} \\
+    \psi_\notionname{WRS^s} \grammardef &
+      \grammarsp \mathhl{\hmlneg\hmleps\hmlobs{a}\varphi_\notionname{WU}}
+      \grammaror \mathdl{\hmleps}\hmlobs{a}\varphi_\notionname{WRS^s}
+      \grammaror \mathdl{\hmleps\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue, \psi_\notionname{WRS^s}, \psi_\notionname{WRS^s}, \ldots }} \\
+  \end{align*}
+}
+```
+
+Grammars induced by coordinates for weak simulation-like notions of equivalence.
+:::
 
 
 

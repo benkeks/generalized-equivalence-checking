@@ -425,7 +425,44 @@ They also are more well-behaved than Bell's “eventual bisimilarity,” which f
 
 As we will establish in @sec-solution-parallelizing-compilation, contrasimilarity and stable bisimilarity indeed are the finest equivalences from the standard spectrum to equate the sequential and the parallel program.
 
-TODO: Remark on other perk / broken definition in @sangiorgi2012.
+:::{#rem-stable-bisim-sangiorgi}
+@sangiorgi2012 [§ 6.5] gives the following, simpler definition for stable bisimulation:^[Quote adapted to the notation of the present thesis.]
+
+> A process relation $\rel R$ is a *stable bisimulation* if, whenever $(p,q) \in \rel R$, for all $\vec w$ we have:
+>
+> - for all $p'$ with $p \stepweakword{\vec w} p'$ and $p'$ is stable, there is $q'$ such that $q \stepweakword{\vec w} q'$ and $(p', q') \in \rel R$,
+>
+> and the converse on the actions [sic!] from $q$.
+
+Sangiorgi notes that the induced stable bisimilarity relation would not be transitive on transition sysstems with divergences.
+But the situation is even more severe!
+
+::::{.column-margin}
+```tikz
+\begin{tikzpicture}[auto,node distance=1.5cm]
+  \node[] (A){$\literal{A}$};
+  \node[below right of=A] (Div){$\literal{Div}$};
+  \node[above right of=Div] (B){$\literal{B}$};
+  \path[->]
+    (A)
+      edge[thick, swap] node {$\literal{a\vphantom{b}}$} (Div)
+    (B)
+      edge[thick] node {$\literal{b}$} (Div)
+    (Div)
+      edge [loop below] node {$\tau$} ();
+\end{tikzpicture}
+```
+::::
+
+Defined like this, stable bisimilarity would not even imply weak trace equivalence.
+Consider the processes $\literal{A}$ and $\literal{B}$ in the margin.
+As all their non-empty word transitions end in instable states, the variant from @sangiorgi2012 ignores their differences alltogether.
+
+Stable bisimilarity of @def-stablebisim, however, does not suffer from this defect, for it demands matching of all word transitions.
+Our relational @def-stablebisim is informed by the upcoming modal characterizations of @sec-weak-spectrum-quantities (and of @glabbeek1993ltbt and @bm2024contrasimilarityInfComp)
+As discussed in @sec-perks-modal-characterizations it is trivial to ensure that modally characterized relations are transitive and refine trace preorder.
+Such are the perks of modal characterizations!
+:::
 
 ### Congruence Properties of Abstraction
 
@@ -458,7 +495,7 @@ Ptl(x=500, y=450)
 ... Closing hint: congruence even messier in the weak spectrum, e.g. weak bisim not congruence for +.
 
 
-## Expressing the Weak Spectrum with Quantities
+## Expressing the Weak Spectrum with Quantities {#sec-weak-spectrum-quantities}
 
 ### Syntactic Expressiveness
 

@@ -203,13 +203,13 @@ On the processes of @exm-trace-distinction-bisim-game, the attacker would move:
 $$
 \begin{array}{rcl}
   \attackerpos{\ccsprefix{\literal{a}} \ccsprefix{\literal{b}} \literal{a}, \set{\ccsprefix{\literal{a}} (\literal{a} \ccschoice \literal{b})}}
-  & \gamemove{-\unit{1}} &
+  & \gamemove{-\unitvec{1}} &
   \attackerpos{\ccsprefix{\literal{b}} \literal{a}, \set{\literal{a}, \literal{b}}} 
   \\
-  & \gamemove{-\unit{1}} &
+  & \gamemove{-\unitvec{1}} &
   \attackerpos{\literal{a}, \set{\ccsnull}}
   \\
-  & \gamemove{-\unit{1}} &
+  & \gamemove{-\unitvec{1}} &
   \attackerpos{\ccsnull, \varnothing}
   \\
   & \gamemove{\zerovec} &
@@ -231,7 +231,7 @@ To point out a similar distinction in the spetroscopy game, the attacker moves:
 $$
 \begin{array}{rcl}
   \attackerpos{\literal{T'_{\tau a a}}, \set{\literal{T'_{\tau a}}}}
-  & \gamemove{-\unit{1}} &
+  & \gamemove{-\unitvec{1}} &
   \attackerpos{\ccsprefix{\literal a} \literal a, \set{\literal a, \ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b}}} \\
   & \gamemove{\zerovec} &
   \defenderpos{\ccsprefix{\literal a} \literal a, \set{\ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b}}, \set{\literal a}}
@@ -245,7 +245,7 @@ Now, the defender has two options.
     \attackerpos[\wedge]{\ccsprefix{\literal a} \literal a, \ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b}}
     & \gamemove{\updmin{1,5},0,0,0,0,-1} &
     \attackerpos{ \ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b}, \set{\ccsprefix{\literal a} \literal a} }\\
-    & \gamemove{-\unit{1}} &
+    & \gamemove{-\unitvec{1}} &
     \attackerpos{ \literal{b}, \varnothing }
     \\
     & \gamemove{\zerovec} &
@@ -257,10 +257,10 @@ Now, the defender has two options.
   $$
   \begin{array}{rcl}
     \attackerpos{\ccsprefix{\literal a} \literal a, \set{\literal a}}
-    & \gamemove{-\unit{1}} &
+    & \gamemove{-\unitvec{1}} &
     \attackerpos{ \literal{a}, \set{\ccsnull} }
     \\
-    & \gamemove{-\unit{1}} &
+    & \gamemove{-\unitvec{1}} &
     \attackerpos{ \ccsnull, \varnothing }
     \\
     & \gamemove{\zerovec} &
@@ -342,8 +342,8 @@ The set of *strategy formulas* for a game position $g$ and a budget $e$, $\strat
 $$
 \dfrac{
   \begin{matrix}
-    \attackerpos{p,Q} \gamemove{-\unit{1}} \attackerpos{p', Q'} \quad
-    e' = \energyupdate(-\unit{1}, e) ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p', Q'})
+    \attackerpos{p,Q} \gamemove{-\unitvec{1}} \attackerpos{p', Q'} \quad
+    e' = \energyupdate(-\unitvec{1}, e) ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p', Q'})
     \\
     p \step{\alpha} p' \quad Q \step{\alpha} Q' \quad
     φ ∈ \stratstrong(\attackerpos{p', Q'}, e')
@@ -452,9 +452,9 @@ Thus, we can solve the spectroscopy problem of @prob-spectroscopy-problem by com
 ::: {#rem-differences-paper}
 #### Differences to Conference Version
 
-As mentioned in @rem-explicit-expr, @bisping2023equivalenceEnergyGames uses a slightly different pricing, where $\expr(\hmltrue) = \unit{2}$.
-This difference is reflected in the game by @def-strong-spectroscopy-game charging $-\unit{2}$ for conjunctions after the defender conjunction positions instead of before.
-With this, the attacker wins $\attackerpos{p, \varnothing} \gamemove{\zerovec} \defenderpos{p, \varnothing, \varnothing}$ with budget $\zerovec$, while the original definition in @bisping2023equivalenceEnergyGames would cost them $\unit{2}$ for $\attackerpos{p, \varnothing} \gamemove{-\unit{2}} \defenderpos{p, \varnothing, \varnothing}$.
+As mentioned in @rem-explicit-expr, @bisping2023equivalenceEnergyGames uses a slightly different pricing, where $\expr(\hmltrue) = \unitvec{2}$.
+This difference is reflected in the game by @def-strong-spectroscopy-game charging $-\unitvec{2}$ for conjunctions after the defender conjunction positions instead of before.
+With this, the attacker wins $\attackerpos{p, \varnothing} \gamemove{\zerovec} \defenderpos{p, \varnothing, \varnothing}$ with budget $\zerovec$, while the original definition in @bisping2023equivalenceEnergyGames would cost them $\unitvec{2}$ for $\attackerpos{p, \varnothing} \gamemove{-\unitvec{2}} \defenderpos{p, \varnothing, \varnothing}$.
 
 Also, @bisping2023equivalenceEnergyGames defines the spectrum coordinates by giving the $\expr$ function instead of an $\observationsvar{N \in \notions}$ hierarchy.
 

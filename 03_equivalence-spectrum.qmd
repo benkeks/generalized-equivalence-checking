@@ -284,8 +284,8 @@ If we take the natural numbers extended with an upper bound $\infty$, $\natsext$
 :::
 
 When working with vectors, we assume standard notation, in particular, for $n$-dimensional vector addition $(b + c) := (b_1 + c_1, …, b_n + c_n)$.
-By $\unit{k}$ we denote the *unit vector* where the $k$-th component is 1 and all other components equal 0.
-For example, $\unit{2}$ in a 3-dimensional context equals $(0,1,0)$.
+By $\unitvec{k}$ we denote the *unit vector* where the $k$-th component is 1 and all other components equal 0.
+For example, $\unitvec{2}$ in a 3-dimensional context equals $(0,1,0)$.
 The *zero vector* $(0,…,0)$ is denoted by $\zerovec$.
 
 ## The Linear-Time–Branching-Time Spectrum {#sec-ltbt-spectrum}
@@ -407,20 +407,20 @@ and the family of strong observation languages $\observationsvar[\literal{strong
 $$
 \begin{array}{rcll}
   φ^N & \grammardef & \hmltrue{} & \\
-      & \grammaror  & \hmlobs{α}φ^{N - \unit{1}} & \\
-      & \grammaror  & \hmlands\set{\varphi^{(N-\unit{2}) \sqcap (N_3, \infty, \infty, \infty, \infty, \infty)}, \\
+      & \grammaror  & \hmlobs{α}φ^{N - \unitvec{1}} & \\
+      & \grammaror  & \hmlands\set{\varphi^{(N-\unitvec{2}) \sqcap (N_3, \infty, \infty, \infty, \infty, \infty)}, \\
       &             & \quad\;
-                        ψ^{(N-\unit{2}) \sqcap (\infty, \infty, \infty, N_3 \infty, \infty)},
-                        ψ^{(N-\unit{2}) \sqcap (\infty, \infty, \infty, N_3, \infty, \infty)}, \ldots} & \\
+                        ψ^{(N-\unitvec{2}) \sqcap (\infty, \infty, \infty, N_3 \infty, \infty)},
+                        ψ^{(N-\unitvec{2}) \sqcap (\infty, \infty, \infty, N_3, \infty, \infty)}, \ldots} & \\
   ψ^N & \grammardef &
       φ^{(N \sqcap (N_4, \infty, \infty, \infty, \infty, \infty))} & \\
       & \grammaror  &
-      \hmlneg φ^{(N \sqcap (N_5, \infty, \infty, \infty, \infty, \infty)) - \unit{6}} & \\
+      \hmlneg φ^{(N \sqcap (N_5, \infty, \infty, \infty, \infty, \infty)) - \unitvec{6}} & \\
 \end{array}
 $$
 
 The productions only exist if the respective recursive invocations are defined on the domain of notions.
-For instance, $φ^N \leadsto \hmlobs{α}φ^{N - \unit{1}}$ is no valid production for $N=(0,1,0,0,0,0)$ because $(-1,1,0,0,0,0) \notin \notions^\literal{strong}$.
+For instance, $φ^N \leadsto \hmlobs{α}φ^{N - \unitvec{1}}$ is no valid production for $N=(0,1,0,0,0,0)$ because $(-1,1,0,0,0,0) \notin \notions^\literal{strong}$.
 :::
 
 ::: {#exm-formula-language}
@@ -518,10 +518,10 @@ The expressiveness price $\expr[\literal{strong}]$ of formulas in the strong spe
 
 \begin{align*}
   \expr(\hmltrue) & \defeq \zerovec \\
-  \expr(\hmlobs{\alpha}\varphi) & \defeq \textcolor{obsColor}{\unit{1}} + \expr(\varphi) \\
-  \expr(\hmlneg\varphi) & \defeq \textcolor{negsColor}{\unit{6}} + \expr(\varphi) \\
+  \expr(\hmlobs{\alpha}\varphi) & \defeq \textcolor{obsColor}{\unitvec{1}} + \expr(\varphi) \\
+  \expr(\hmlneg\varphi) & \defeq \textcolor{negsColor}{\unitvec{6}} + \expr(\varphi) \\
   \textstyle\expr(\bigwedge\limits_{i \in I}\psi_i) & \defeq
-  \textcolor{conjColor}{\unit{2}} + \sup\Biggl(\big\{\!
+  \textcolor{conjColor}{\unitvec{2}} + \sup\Biggl(\big\{\!
   \begin{pmatrix}
     0\\
     0\\
@@ -544,7 +544,7 @@ The expressiveness price $\expr[\literal{strong}]$ of formulas in the strong spe
   \end{array}
 \end{align*}
 
-There is a minor divergence from @bisping2023equivalenceEnergyGames in that the present thesis prices $\expr(\hmltrue)$ at $\zerovec$ instead of $\unit{2}$.
+There is a minor divergence from @bisping2023equivalenceEnergyGames in that the present thesis prices $\expr(\hmltrue)$ at $\zerovec$ instead of $\unitvec{2}$.
 This change is done to align the pricing to the one we will need for the weak spectrum in later chapters.
 
 Clearly, the explicit pricing of formulas is more versatile for the implementation direction we are aiming at.

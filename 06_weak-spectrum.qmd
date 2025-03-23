@@ -531,32 +531,32 @@ $$
   \textstyle\expr[\varepsilon]\left(\chi\right)
   \\
   \textstyle\expr[\literal{weak}]\left(\hmlands\Psi\right) & \defeq
-  \unit{5} + \textstyle\expr[\varepsilon]\left(\hmlands \Psi\right)
+  \unitvec{5} + \textstyle\expr[\varepsilon]\left(\hmlands \Psi\right)
   \\
   \expr[\varepsilon]\left(\hmlobs{a}\varphi\right) & \defeq
-  \unit{1} + \expr[\literal{weak}]\left(\varphi\right)
+  \unitvec{1} + \expr[\literal{weak}]\left(\varphi\right)
   \\
   \textstyle\expr[\varepsilon]\left(\hmlands \Psi\right) & \defeq
   \sup\;\set{ \expr[\wedge]\left(\psi\right) \mid \psi \in \Psi } +
   \begin{cases}
-      \unit{4} & \text{if } \hmlneg\hmlobs{\tau}\hmltrue \in \Psi\\
-      \unit{2} + \unit{3} & \text{if there is } \hmlopt{\alpha}\varphi \in \Psi \\
-      \unit{3} & \text{otherwise}
+      \unitvec{4} & \text{if } \hmlneg\hmlobs{\tau}\hmltrue \in \Psi\\
+      \unitvec{2} + \unitvec{3} & \text{if there is } \hmlopt{\alpha}\varphi \in \Psi \\
+      \unitvec{3} & \text{otherwise}
   \end{cases}
   \\
   \expr[\wedge]\left(\hmlneg\hmlobs{\tau}\hmltrue\right) & \defeq
   (0,0,0,0,0,0,0,1)
   \\
   \expr[\wedge]\left(\hmlneg\varphi\right) & \defeq
-  \sup\;\set{ \unit{8} + \expr[\literal{weak}]\left(\varphi\right),\quad
+  \sup\;\set{ \unitvec{8} + \expr[\literal{weak}]\left(\varphi\right),\quad
       (0,0,0,0,0,0,\left(\expr[\literal{weak}]\left(\varphi\right)\right)_1,0) }
   \\
   \expr[\wedge]\left(\hmlopt{\alpha}\varphi\right) & \defeq
-  \sup\;\set{ \unit{1} + \expr[\literal{weak}]\left(\varphi\right),\quad
+  \sup\;\set{ \unitvec{1} + \expr[\literal{weak}]\left(\varphi\right),\quad
       (0,0,0,0,0,1 + \left(\expr[\literal{weak}]\left(\varphi\right)\right)_1,0,0) }
   \\
   \expr[\wedge]\left(\varphi\right) & \defeq
-  \sup\;\set{ \hphantom{\unit{8} + {}} \expr[\literal{weak}]\left(\varphi\right),\quad
+  \sup\;\set{ \hphantom{\unitvec{8} + {}} \expr[\literal{weak}]\left(\varphi\right),\quad
       (0,0,0,0,0,\left(\expr[\literal{weak}]\left(\varphi\right)\right)_1,0,0) }
 \end{array}
 $$

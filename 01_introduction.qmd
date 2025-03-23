@@ -52,7 +52,7 @@ Many verification tasks can be understood along the lines of â€œhow equivalentâ€
 @fig-peterson-mutex replicates a standard example, known for instance from the textbook *Reactive Systems* [@ails2007reactiveSystems]:
 A specification of mutual exclusion $\literal{Mx}$ as two alternating users $\literal A$ and $\literal B$ entering their critical section $\literal{ec_A} / \literal{ec_B}$ and leaving $\literal{lc_A} / \literal{lc_B}$ before the other may enter;
 and the transition system of Peterson's [-@peterson1981mythsMutex] mutual exclusion algorithm $\literal{Pe}$, with internal steps $\color{gray}\step{}$ due to the coordination that needs to happen.
-(To fit on the page, $\literal{Pe}$ is minimized by branching bisimilarity.)
+(To fit on the page, $\literal{Pe}$ is minimized by stability-respecting branching bisimilarity.)
 For $\literal{Pe}$ to faithfully implement mutual exclusion, it should behave somewhat similarly to $\literal{Mx}$.
 
 ::::{#fig-peterson-mutex}
@@ -129,7 +129,7 @@ For $\literal{Pe}$ to faithfully implement mutual exclusion, it should behave so
 \end{tikzpicture}
 ```
 
-A specification of mutual exclusion $\literal{Mx}$, and Peterson's protocol $\literal{Pe}$, minimized with respect to branching bisimilarity, omitting loops of internal behavior.
+A specification of mutual exclusion $\literal{Mx}$, and Peterson's protocol $\literal{Pe}$, minimized with respect to stability-respecting branching bisimilarity.
 ::::
 
 Semantics in concurrent models must take nondeterminism into account.

@@ -378,12 +378,12 @@ In effect, $\observationsvar{N ∈ \notions^\literal{poly-strong}}$ can be chara
 $$
 \begin{array}{rcll}
   φ^N & \grammardef & \hmltrue{} & \\
-      & \grammaror  & \hmlobs{α}φ^{N - \unit{1}} & \\
+      & \grammaror  & \hmlobs{α}φ^{N - \unitvec{1}} & \\
       & \grammaror  & \hmlands\set{ψ^N, ψ^N, ψ^N \ldots} & \\
   ψ^N & \grammardef &
-      \hmlobs{α}φ^{N - \unit{1}} & \\
+      \hmlobs{α}φ^{N - \unitvec{1}} & \\
       & \grammaror  &
-      \hmlneg \hmlobs{α}φ^{(N \sqcap (N_2, \infty, \infty))- \unit{1} - \unit{3}} & \\
+      \hmlneg \hmlobs{α}φ^{(N \sqcap (N_2, \infty, \infty))- \unitvec{1} - \unitvec{3}} & \\
 \end{array}
 $$
 @fig-polynomial-strong-spectrum gives names to coordinates that correspond to notions discussed previously.
@@ -623,7 +623,7 @@ Proof by induction on the inductive characterizations of attacker winning budget
       By induction hypothesis on $(α, p', q)$, there is $\hmlands Ψ ∈ \strat_\notionname{B}((α, p', q), e')$ and $\hmlands Ψ ∈ \observationsvar[\literal{poly-strong}]{e'}$ with $p' ∈ \semantics{\hmlands Ψ}$ and $q \notin \semantics{\hmlobs{α}\hmlands Ψ}$.
       By @def-strategy-formulas-poly, we obtain $\hmlobs{α}\hmlands Ψ ∈ \strat_\notionname{B}([p, q], e)$.
       Due to the semantics of $\hml$ and $p \step{α} p'$, $p ∈ \semantics{\hmlobs{α}\hmlands Ψ}$, thus distinguishing $p$ from $q$.
-      Also, $\hmlobs{α}\hmlands Ψ ∈ \observationsvar[\literal{poly-strong}]{e}$ as $\hmlands Ψ ∈ \observationsvar[\literal{poly-strong}]{e - \unit{1}}$.
+      Also, $\hmlobs{α}\hmlands Ψ ∈ \observationsvar[\literal{poly-strong}]{e}$ as $\hmlands Ψ ∈ \observationsvar[\literal{poly-strong}]{e - \unitvec{1}}$.
 2. Assume $e ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
   This means that $e$ suffices for the attacker to win every $q'$-move $(α, p', q) \gamemoveblank^🗲_\notionname{B} [p', q']$ with $q \step{α} q'$ that the defender might take, with $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$.
   For each $q'$, we employ the induction hypothesis to obtain $ψ_{q'} ∈ \strat_\notionname{B}([p', q'], e)$ of form $ψ_{q'} = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{ψ_{q'}} ∈ \observationsvar[\literal{poly-strong}]{e}$, $p' ∈ \semantics{ψ_{q'}}$ and $q' \notin \semantics{ψ_{q'}}$.
@@ -643,19 +643,19 @@ Consider the cases of $φ ∈ \observationsvar[\literal{poly-strong}]{e}$ with $
 
 - $φ = \hmltrue$.
   This cannot be the case as $q \notin \semantics{φ}$ and $\semantics{\hmltrue} = \states$.
-- $φ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{e - \unit{1}}$.
+- $φ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{e - \unitvec{1}}$.
   As $φ$ distinguishes $p$ from $q$, there must be a $p' ∈ \semantics{φ'}$ such that $p \step{α} p'$ and, for all $q' ∈ \derivatives{q, α}$, $q' \notin \semantics{φ'}$.
-  Due to the induction hypothesis, $e - \unit{1} ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$ for all such $q' ∈ \derivatives{q, α}$.
-  Therefore, $e - \unit{1} ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
-  As the attacker can move $[p, q] \gamemove{-\unit{1}} (α, p', q)$, this proves $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$ by @prp-winning-budget-rules.
+  Due to the induction hypothesis, $e - \unitvec{1} ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$ for all such $q' ∈ \derivatives{q, α}$.
+  Therefore, $e - \unitvec{1} ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
+  As the attacker can move $[p, q] \gamemove{-\unitvec{1}} (α, p', q)$, this proves $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$ by @prp-winning-budget-rules.
 - $φ = \hmlands\setΨ$ one of the $ψ ∈ Ψ$ must be false for $q$.
   Consider the possible forms of $ψ$:
-    - Case $ψ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{e - \unit{1}}$.
+    - Case $ψ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{e - \unitvec{1}}$.
       Then we can apply the same argument as in the case of $φ = \hmlobs{α}φ'$.
-    - Case $ψ = \hmlneg\hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{(e \sqcap (e_2, \infty, \infty)) - \unit{1} - \unit{3}}$.
-      Therefore, $\hmlobs{α}φ' ∈ \observationsvar[\literal{poly-strong}]{(e \sqcap (e_2, \infty, \infty)) - \unit{3}}$ distinguishes $q$ from $p$.
-      This time, we can employ the same argument as in the case of $φ = \hmlobs{α}φ'$ to obtain that $(e \sqcap (e_2, \infty, \infty)) - \unit{3} ∈ \attackerwins^{\game_\notionname{B}^🗲}([q, p])$.
-      The move $[p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p]$ and $\energyupdate((\updmin{1,2},0,-1), e) = (e \sqcap (e_2, \infty, \infty)) - \unit{3}$ justify that $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
+    - Case $ψ = \hmlneg\hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{(e \sqcap (e_2, \infty, \infty)) - \unitvec{1} - \unitvec{3}}$.
+      Therefore, $\hmlobs{α}φ' ∈ \observationsvar[\literal{poly-strong}]{(e \sqcap (e_2, \infty, \infty)) - \unitvec{3}}$ distinguishes $q$ from $p$.
+      This time, we can employ the same argument as in the case of $φ = \hmlobs{α}φ'$ to obtain that $(e \sqcap (e_2, \infty, \infty)) - \unitvec{3} ∈ \attackerwins^{\game_\notionname{B}^🗲}([q, p])$.
+      The move $[p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p]$ and $\energyupdate((\updmin{1,2},0,-1), e) = (e \sqcap (e_2, \infty, \infty)) - \unitvec{3}$ justify that $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
       \qedhere
 :::
 

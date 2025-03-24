@@ -33,6 +33,8 @@
 \providecommand{\eqclass}[1]{[#1]}
 \providecommand{\mathhl}[1]{\mathcolor{RoyalBlue}{#1}}
 \providecommand{\mathdl}[1]{\mathcolor{gray}{#1}}
+\lc{ KaTeX does not support mathcolor... }
+\providecommand{\mathhli}[1]{{\color{RoyalBlue}#1}}
 
 
 \lc{ Transition systems }
@@ -118,6 +120,7 @@
 \providecommand{\observations}[2][]{\mathcal{O}^{#1}_{\notionname{#2}}}
 \providecommand{\observationsvar}[2][]{\mathcal{O}^{#1}_{#2}}
 \providecommand{\expr}[1][]{\mathsf{expr}^{#1}}
+\providecommand{\exprabst}[1][]{\widehat{\mathsf{expr}}^{#1}}
 
 \lc{ Games }
 
@@ -156,6 +159,7 @@
 \providecommand{\gamespectroscopyclever}{\mathcal{G}_{\blacktriangle}}
 \providecommand{\gamespectroscopyceq}[1]{\mathcal{G}_{\blacktriangle #1}}
 \providecommand{\gamespectroscopyw}{\mathcal{G}_{\nabla}}
+\providecommand{\gamespectroscopywsimple}{\mathcal{G}_{\widehat{\nabla}}}
 \providecommand{\strat}{\mathsf{Strat}}
 \providecommand{\stratstrong}{\mathsf{Strat}_{\triangle}}
 \providecommand{\stratweak}{\mathsf{Strat}_{\nabla}}

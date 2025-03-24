@@ -20,3 +20,7 @@
 .img-fluid {
   zoom: 150%;
 }
+
+.glightbox-container img{
+  min-width: calc(80vw - 100px);
+}

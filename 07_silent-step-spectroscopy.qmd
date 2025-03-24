@@ -387,7 +387,7 @@ By induction over the derivation of $~\cdots \in \stratweak(g, e)$ according to 
   then the stable conjunction $\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right)$ distinguishes $p$ from $Q$;
 6. If $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$,
     $p \step{\hmlopt\alpha} p'$ and $Q_\alpha \subseteq Q$,
-  then the branching conjunction $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right)$ distinguishes $p$ from $Q$.
+  then the branching conjunction $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right)$ distinguishes $p$ from $Q$. \qedhere
 :::
 
 ::: {#lem-weak-spectroscopy-game-completeness}
@@ -412,10 +412,10 @@ By mutual structural induction on $\varphi$, $\chi$, and $\psi$ with respect to 
 :::
 
 ::: {#thm-weak-spectroscopy-game-characterization}
-For all $e \in \energies_\infty$, $p \in \states$, $Q \in \powerset{\states}$, the following are equivalent:{{<isb theorem Silent_Step_Spectroscopy weak_spectroscopy_game.spectroscopy_game_correctness>}}
+For all $N \in \notions^\literal{weak}$, $p \in \states$, $Q \in \powerset{\states}$, the following are equivalent:{{<isb theorem Silent_Step_Spectroscopy weak_spectroscopy_game.spectroscopy_game_correctness>}}
 
-- There exists a formula $\varphi \in \hmlsrbb$ with price $\expr[\literal{weak}](\varphi) \leq e$ that distinguishes $p$ from $Q$.
-- Attacker wins $\gamespectroscopyw^{\system}$ from $\attackerpos{p,Q}$ with $e$ (that is, $e \in \attackerwins^{\gamespectroscopyw^{\system}}(\attackerpos{p,Q})$).
+- There exists a formula $\varphi \in \hmlsrbb$ with price $\expr[\literal{weak}](\varphi) \leq N$ that distinguishes $p$ from $Q$.
+- Attacker wins $\gamespectroscopyw^{\system}$ from $\attackerpos{p,Q}$ with $N$ (that is, $N \in \attackerwins^{\gamespectroscopyw^{\system}}(\attackerpos{p,Q})$).
 :::
 
 ### Isabelle/HOL Formalization {#sec-isabelle-formalization}
@@ -637,9 +637,131 @@ $$
 For space complexity, we arrive at $\bigo{ \relsize{\step{}}^8 \cdot 3^{8\relsize{\states}}}$.
 :::
 
+The exponential out-degree is due to branching conjunction moves.
+That these would need exponentially many outgoing moves seems off:
+These moves are for $\eta$- and branching bisimilarity,
+which are known to be at the less expensive (sub-cubic @gjkw2017branching) end of equivalence problems in the spectrum.
+De Frutos Escrig et al.'s -@ekw2017gamesBisimAbstraction branching bisimulation game is polynomially-sized.
+Thus, a derived reachability game of the weak spectroscopy game for branching bisimilarity in the spirit of @sec-deriving-eq-games should too be polynomial in size if we apply clever optimizations.
+The upcoming @sec-optimized-branching-conj will show how to simplify the spectroscopy game to achieve this reduction of size around branching conjunctions.
+
 ## Variants
 
-### Optimization of Branching Conjunctions
+### Optimization of Branching Conjunctions {#sec-optimized-branching-conj}
+
+@bj2025silentStepSpectroscopyJournal show how to reduce the out-degree of the weak spectroscopy game to be linear.
+For this, we reformulate the branching conjunction part of the game to be closer to the operational @def-branching-bisim of branching bisimilarity.
+We can still solve the main spectroscopy problem, but lose some resolution about the number of nested conjunctions.
+
+If we read @def-branching-bisim directly as a game, it differs from the branching conjunction moves in
+@def-weak-spectroscopy-game, because the latter require the attacker to name as $Q_\alpha$ ex-ante which $q'$ to challenge directly and which ones only after the $\alpha$ step, and to have one continuation for the whole $Q_\alpha$ group.
+The *simplified* weak spectroscopy game $\gamespectroscopywsimple$ in @fig-weak-spec-game-simplified rephrases this part to match the operational characterization.
+
+:::{#fig-weak-spec-game-simplified fig-env='figure*' fig-pos='t'}
+
+```tikz
+%%| image-class: lightbox
+\begin{adjustbox}{max width=\linewidth, center}
+  \begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm, rel/.style={dashed,font=\it},
+    posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
+      \node[posStyle, initial, initial text={}]
+        (Att){$\attackerpos{p,Q}$};
+      \node[posStyle]
+        (AttDelay) [right = 1.6cm of Att] {$\attackerpos[\varepsilon]{p,Q_\varepsilon}$};
+      \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
+        (Def) [below = 3.2cm of AttDelay] {$\defenderpos{p,Q}$};
+      \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
+        (DefStab) [above right = 1.2cm of Def] {$\defenderpos[s]{p,\{ q\!\in\!Q_\varepsilon \mid q \nostep{\tau} \}}$};
+      \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
+        (DefBranch) [right = 1.5cm of AttDelay,yshift=-.7cm] {$\defenderpos[\eta]{p,\alpha,p',Q_\varepsilon}$};
+      \node[posStyle]
+        (AttBranchClause) [right=1.5cm of DefBranch] {$\attackerpos[\eta]{p,\alpha,p',q}$};
+      \node[posStyle]
+        (AttBranch) [above=1.2cm of AttBranchClause] {$\attackerpos[\eta]{p',Q'_\alpha}$};
+      \node[posStyle]
+        (AttConj) [below right = 1.2cm and .2cm of DefStab] {$\attackerpos[\land]{p,q}$};
+      \node[posStyle, dashed, dash pattern={on 1.055045263157895mm off 0.993586315789474mm}, dash phase=0.405943684210525mm]
+        (AttSwap) [right = 2cm of AttConj] {$\attackerpos[\varepsilon]{q,\{p' \mid p \stepweak p'\}}$};
+      \node[posStyle, dashed, dash pattern={on 1.051033684210526mm off 0.989808421052632mm}, dash phase=0.423411578947368mm]
+        (AttContinue) [above = 1.5cm of AttSwap] {$\attackerpos[\varepsilon]{p,\{q' \mid q \stepweak q'\}}$};
+      \node[posStyle, dashed, dash pattern={on 1.03mm off 0.97mm}, dash phase=0.515mm]
+        (AttObs) [above right = 1.5cm of AttBranch] {$\attackerpos{p^\prime,Q^\prime}$};
+      \node[posStyle, dashed, ellipse, dash pattern={on 1.03mm off 0.97mm}, dash phase=0.515mm]
+          (DefContinue) [below right = -.5cm and 1.5cm of AttBranch] {$\defenderpos{p',Q'_\alpha}$};
+      % draw the bottom left corner nicely:
+      \draw[-] (AttSwap.south west) ++(0.2pt,0.2pt) ++(0.07,0) -- ++(-0.07,0) -- ++(0,0.05);
+      \draw[-] (AttContinue.south west) ++(0.2pt,0.2pt) ++(0.07,0) -- ++(-0.07,0) -- ++(0,0.05);
+      \draw[-] (AttObs.south west) ++(0.2pt,0.2pt) ++(0.07,0) -- ++(-0.07,0) -- ++(0,0.05);
+
+      \path
+        (Att) edge
+          node[label={-90:$\textcolor{gray}{\zerovec}$}] {$Q \stepweak Q_\varepsilon$} (AttDelay)
+        (Att) edge[bend right=15]
+          node[pos = .4, label={-170:$\textcolor{gray}{\zerovec}$}] {$Q = \varnothing$} (Def)
+        (Att) edge[bend right=60]
+          node[pos = .6, label={-155:$\textcolor{gray}{-\unitvec{5}}$}] {$Q \neq \varnothing$} (Def)
+        (AttDelay) edge [out=155,in=115,looseness=4, pos=.6] node {$p \step{\tau} \ldots\; \textcolor{gray}{\zerovec}$} (AttDelay)
+        (AttDelay.north) edge[bend left=28]
+          node[pos=.3, align=center, label={[label distance=0.0cm]-30:$\textcolor{gray}{-\unitvec{1}}$}] {$p\step{a}p'$\\ $Q_\varepsilon \step{a} Q'$} (AttObs)
+        (AttDelay) edge
+          node[label={[label distance=0cm]-180:$\textcolor{gray}{\zerovec}$}] {$Q = Q_\varepsilon$} (Def)
+        (AttDelay) edge
+          node[pos=.87,label={[label distance=0.2cm]-177:$\textcolor{gray}{\zerovec}$}] {$p \nostep{\tau}$} (DefStab)
+        (AttDelay) edge
+          node[align=center,pos=0.3,label={[label distance=0.1cm]-100:$\textcolor{gray}{\zerovec}$}] {$p \step{\hmlopt\alpha} p'$\\$Q_\varepsilon \neq \varnothing$} (DefBranch)
+        (Def) edge[bend right=17]
+          node[pos=.85, label={[label distance=0.1cm]-100:$\textcolor{gray}{-\unitvec{3}}$}] {$q \in Q$} (AttConj)
+        (DefStab) edge[bend right=10]
+          node[align=right, pos=.85, label={[label distance=0.3cm]-170:$\textcolor{gray}{-\unitvec{4}}$}] {\mbox{}\hspace*{-1.5em}$q \in Q_\varepsilon$\\[2pt]\mbox{}\hspace*{-1.5em}$q \nostep{\tau}$} (AttConj)
+        (DefStab) edge[bend left=10]
+          node[align=right, pos=.2, label={[label distance=0.3cm]165:$\textcolor{gray}{-\unitvec{4}-\unitvec{8}}$}] {\mbox{}\hspace*{-3em}$\varnothing = Q = \mbox{}$\\[2pt]\mbox{}\hspace*{-3em}$\set{ q\!\in\!Q_\varepsilon \mid q \nostep{\tau} }\;$} (Def)
+        (AttConj) edge[bend left=10]
+          node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{1,6},0,0,0,0,0,0,0}$}] {} (AttContinue)
+        (AttConj) edge[bend right=15]
+          node[below] {$\textcolor{gray}{\updmin{1,7},0,0,0,0,0,0,-1}$} (AttSwap)
+        (DefBranch) edge
+          node[label={[label distance=0.1cm]270:$\textcolor{gray}{-\unitvec{2}-\unitvec{3}}$}] {$q \in Q_\varepsilon$} (AttBranchClause)
+        (AttBranchClause) edge
+          node[pos=.55, align=right] {$\{q\} \step{\hmlopt{\alpha}} Q'_\alpha$ \\
+                                      $\textcolor{gray}{\updmin{1,6},0,0,0,0,0,0,0}$} (AttBranch)
+        (AttBranchClause) edge[bend left=5]
+          node[pos=.4, swap, align=center] {$\textcolor{gray}{\zerovec}$} (AttConj)
+        (AttBranch) edge[pos=.6]
+          node[align=center, pos=0.4]{$Q'_\alpha \stepweak Q'$ \\
+                            $\textcolor{gray}{-\unitvec{1}-\unitvec{3}}$} (AttObs)
+        (AttBranch) edge[bend left=30, pos=.5]
+          node[label={0:$\textcolor{gray}{-\unitvec{1}-\unitvec{5}}$}]{$Q'_\alpha \neq \varnothing$} (DefContinue)
+        (AttBranch) edge[bend right=30, swap, pos=.6]
+          node[label={0:$\textcolor{gray}{-\unitvec{1}}$}]{$Q'_\alpha = \varnothing$} (DefContinue);
+  \end{tikzpicture}
+\end{adjustbox}
+```
+
+Schematic *simplified* weak spectroscopy game $\gamespectroscopywsimple$.
+:::
+
+Note that the immediate branching accounting/finishing moves lead to defender conjunction positions,
+while the late branching accounting move skips it, but still charges for the conjunction by an additional energy update of $-\unitvec{3}$.
+
+The simplified game part encodes nested conjunctions of the form $\hmlands\set{ \hmlopt{\alpha} \mathhli{\hmlands \Psi'}, \psi_1, \ldots}$ or the cheaper form $\hmlands\set{ \hmlopt{\alpha} \mathhli{\hmleps \hmlands \Psi'}, \psi_1, \ldots}$.
+The $\Psi'$ are the formulas from after branching observation moves, while the $\psi_i$ come from the resets.
+
+In @bj2025silentStepSpectroscopyJournal we discuss this game's strategy formulas in detail and prove its correctness, resulting in the following theorem.^[
+  Credit for the proof details goes to David Jansen.
+]
+
+::: {#thm-weak-spectroscopy-game-simplified-characterization}
+Let the simplified weak notions $\widehat{\notions}^\literal{weak}$ be the union of $\nats \times \set{ 0 } \times \nats^6$
+and $\nats \times \set{ \infty } \times \set{ 0, \infty} \times \nats \times \set{ 0, \infty} \times \nats^3$.
+Let simplified expressiveness prices be defined by rounding up the prices of @def-weak-spectrum:
+$\exprabst[\literal{weak}] = \min \set{ N \in \widehat{\notions}^\literal{weak} \mid N \geq \expr[\literal{weak}](\varphi) }$.
+Then, on the simplified weak game $\gamespectroscopywsimple$ of @fig-weak-spec-game-simplified:
+
+For all $N \in \widehat{\notions}^\literal{weak}$, $p \in \states$, $Q \in \powerset{\states}$, the following are equivalent:
+
+- There exists a formula $\varphi \in \hmlsrbb$ with price $\exprabst[\literal{weak}](\varphi) \leq N$ that distinguishes $p$ from $Q$.
+- Attacker wins $\gamespectroscopywsimple^{\system}$ from $\attackerpos{p,Q}$ with $N$ (that is, $N \in \attackerwins^{\gamespectroscopywsimple^{\system}}(\attackerpos{p,Q})$).
+:::
 
 ### Covering Decorated Traces
 

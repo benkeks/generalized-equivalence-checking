@@ -76,8 +76,8 @@
 
 \lc{ HML }
 
-\providecommand{\hml}{\textsf{HML}}
-\providecommand{\hmlsrbb}{\textsf{HML}_{\textsf{SRBB}}}
+\providecommand{\hml}{\mathsf{HML}}
+\providecommand{\hmlsrbb}{\mathsf{HML}_{\mathsf{SRBB}}}
 \providecommand{\hmlobs}[1]{\langle #1 \rangle}
 \providecommand{\hmlopt}[1]{( #1 )}
 \providecommand{\hmleps}{\langle \varepsilon \rangle}

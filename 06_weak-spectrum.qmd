@@ -690,7 +690,7 @@ Productions that could be left out without affecting distinctiveness are set in 
 :::{#fig-weak-grammars-linear}
 
 ```tikz
-\parbox{10cm}{
+\parbox{12cm}{
   \begin{align*}
   \intertext{
     Weak universal, $\notionname{WU}$ at $(0,0,0,0,0,0,0,0)$:
@@ -783,7 +783,7 @@ Grammars induced by coordinates for weak linear-time notions of equivalence.
 :::{#fig-weak-grammars-sim-like}
 
 ```tikz
-\parbox{10cm}{
+\parbox{12cm}{
   \begin{align*}
   \intertext{
     Weak simulation, $\notionname{1WS}$ at $(\infty,0,\mathhl{\infty},0,0,\mathhl{\infty},0,0)$:
@@ -859,6 +859,119 @@ Grammars induced by coordinates for weak linear-time notions of equivalence.
 Grammars induced by coordinates for weak simulation-like notions of equivalence.
 :::
 
+
+
+:::{#fig-weak-grammars-bisim-like}
+
+```tikz
+\parbox{12cm}{
+  \begin{align*}
+  \intertext{
+    Contrasimulation, $\notionname{C}$ at $(\infty,0,\infty,0,0,0,\mathhl{\infty},\mathhl{\infty})$:
+  }
+    \varphi_\notionname{C} \grammardef &
+      \grammarsp \hmleps\chi_\notionname{C}
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \chi_\notionname{C} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{C}
+      \grammaror \hmlands \set{ \psi_\notionname{C}, \psi_\notionname{C}, \ldots } \\
+    \psi_\notionname{C} \grammardef &
+      \grammarsp \mathhl{\hmlneg\hmleps}\chi_\notionname{C}\\
+  \intertext{
+    Weak bisimulation, $\notionname{WB}$ at $(\infty,0,\infty,0,0,\mathhl{\infty},\infty,\infty)$:
+  }
+    \varphi_\notionname{WB} \grammardef &
+      \grammarsp \hmleps\chi_\notionname{WB}
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \chi_\notionname{WB} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{WB}
+      \grammaror \hmlands \set{ \psi_\notionname{WB}, \psi_\notionname{WB}, \ldots } \\
+    \psi_\notionname{WB} \grammardef &
+      \grammarsp \hmlneg\hmleps\chi_\notionname{WB}
+      \grammaror \mathhl{\hmleps}\chi_\notionname{WB}\\
+  \intertext{
+    Delay bisimulation, $\notionname{DB}$ at $(\infty,0,\infty,0,\mathhl{\infty},\infty,\infty,\infty)$:
+  }
+    \varphi_\notionname{DB} \grammardef &
+      \grammarsp \hmleps\chi_\notionname{DB}
+      \grammaror \mathhl{\hmlands \set{ \psi_\notionname{DB}, \psi_\notionname{DB}, \ldots }} \\
+    \chi_\notionname{DB} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{DB}
+      \grammaror \hmlands \set{ \psi_\notionname{DB}, \psi_\notionname{DB}, \ldots } \\
+    \psi_\notionname{DB} \grammardef &
+      \grammarsp \hmlneg\hmleps\chi_\notionname{DB}
+      \grammaror \hmleps\chi_\notionname{DB}\\
+  \intertext{
+    $\eta$-bisimulation, $\eta\notionname{B}$ at $(\infty,\mathhl{\infty},\infty,0,0,\infty,\infty,\infty)$:
+  }
+    \varphi_{\eta\notionname{B}} \grammardef &
+      \grammarsp \hmleps\chi_{\eta\notionname{B}}
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \chi_{\eta\notionname{B}} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_{\eta\notionname{B}}
+      \grammaror \hmlands \set{ \psi_{\eta\notionname{B}}, \psi_{\eta\notionname{B}}, \ldots }
+      \grammaror \hmlands \set{ \mathhl{\hmlopt{\alpha}\varphi_{\eta\notionname{B}}}, \psi_{\eta\notionname{B}}, \psi_{\eta\notionname{B}}, \ldots } \\
+    \psi_{\eta\notionname{B}} \grammardef &
+      \grammarsp \hmlneg\hmleps\chi_{\eta\notionname{B}}
+      \grammaror \hmleps\chi_{\eta\notionname{B}}\\
+  \intertext{
+    Branching bisimulation, $\notionname{BB}$ at $(\infty,\mathhl{\infty},\infty,0,\mathhl{\infty},\infty,\infty,\infty)$:
+  }
+    \varphi_{\notionname{BB}} \grammardef &
+      \grammarsp \hmleps\chi_{\notionname{BB}}
+      \grammaror \mathhl{\hmlands \set{ \psi_\notionname{BB}, \psi_\notionname{BB}, \ldots }} \\
+    \chi_{\notionname{BB}} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_{\notionname{BB}}
+      \grammaror \hmlands \set{ \psi_{\notionname{BB}}, \psi_{\notionname{BB}}, \ldots }
+      \grammaror \hmlands \set{ \mathhl{\hmlopt{\alpha}\varphi_{\notionname{BB}}}, \psi_{\notionname{BB}}, \psi_{\notionname{BB}}, \ldots } \\
+    \psi_{\notionname{BB}} \grammardef &
+      \grammarsp \hmlneg\hmleps\chi_{\notionname{BB}}
+      \grammaror \hmleps\chi_{\notionname{BB}}\\
+  \intertext{
+    Stable bisimulation, $\notionname{SB}$ at $(\infty,0,0,\mathhl{\infty},0,0,\infty,\infty)$:
+  }
+    \varphi_\notionname{SB} \grammardef &
+      \grammarsp \hmleps\chi_\notionname{SB}
+      \grammaror \varphi_\notionname{WU} \\
+    \chi_\notionname{SB} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{SB}
+      \grammaror \hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{SB}, \psi_\notionname{SB}, \ldots } \\
+    \psi_\notionname{SB} \grammardef &
+      \grammarsp \hmlneg\mathdl{\hmleps}\chi_\notionname{SB}
+      \grammaror \mathdl{\hmleps\chi_\notionname{SB}}\\
+  \intertext{
+    Stability-respecting delay bisimulation, $\notionname{DB^s}$ at $(\infty,0,\infty,\mathhl{\infty},\infty,\infty,\infty,\infty)$:
+  }
+    \varphi_\notionname{DB^s} \grammardef &
+      \grammarsp \hmleps\chi_\notionname{DB^s}
+      \grammaror \mathhl{\hmlands \set{ \psi_\notionname{DB^s}, \psi_\notionname{DB^s}, \ldots }} \\
+    \chi_\notionname{DB^s} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{DB^s}
+      \grammaror \hmlands \set{ \psi_\notionname{DB^s}, \psi_\notionname{DB^s}, \ldots }
+      \grammaror \hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{DB^s}, \psi_\notionname{DB^s}, \ldots } \\
+    \psi_\notionname{DB^s} \grammardef &
+      \grammarsp \hmlneg\hmleps\chi_\notionname{DB^s}
+      \grammaror \hmleps\chi_\notionname{DB^s}\\
+  \intertext{
+    Stability-respecting branching bisim., $\notionname{BB^s}$ at $(\infty,\mathhl{\infty},\infty,\mathhl{\infty},\infty,\infty,\infty,\infty)$:
+  }
+    \varphi_{\notionname{BB^s}} \grammardef &
+      \grammarsp \hmleps\chi_{\notionname{BB^s}}
+      \grammaror \mathhl{\hmlands \set{ \psi_\notionname{BB^s}, \psi_\notionname{BB^s}, \ldots }} \\
+    \chi_{\notionname{BB^s}} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_{\notionname{BB^s}}
+      \grammaror \hmlands \set{ \psi_{\notionname{BB^s}}, \psi_{\notionname{BB^s}}, \ldots }
+      \grammaror \hmlands \set{ \mathhl{\hmlopt{\alpha}\varphi_{\notionname{BB^s}}}, \psi_{\notionname{BB^s}}, \psi_{\notionname{BB^s}}, \ldots } \\
+      & \hphantom{\grammarsp \hmlobs{a}\varphi_{\notionname{BB^s}}} \grammaror \hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{BB^s}, \psi_\notionname{BB^s}, \ldots } \\
+    \psi_{\notionname{BB^s}} \grammardef &
+      \grammarsp \hmlneg\hmleps\chi_{\notionname{BB^s}}
+      \grammaror \hmleps\chi_{\notionname{BB^s}}\\
+  \end{align*}
+}
+```
+
+Grammars induced by coordinates for weak bisimulation-like notions of equivalence.
+:::
 
 
 TODO: Remark on Stable Bisimilarity equaling stable contrasimilarity in expressiveness; Coordinate choice to show that stable bisim implies e.g. stable ready sim. 

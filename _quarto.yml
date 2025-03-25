@@ -145,8 +145,8 @@ diagram:
     tikz:
       execpath: xelatex
       header-includes:
-        - '\usepackage{unicode-math}'
         - '\input{PROJECT/style/preamble.tex}'
+        - '\usepackage{unicode-math}'
         - '\input{PROJECT/style/macros.md}'
         - '\pgfdeclarelayer{bg}'
         - '\pgfsetlayers{bg,main}'

@@ -60,6 +60,9 @@
 \providecommand{\grammardef}{\;::=\;}
 \providecommand{\grammaror}{\;\mid\;}
 \providecommand{\grammarsp}{\;}
+\providecommand{\bnfvar}[1]{\operatorname{\mathit{#1}}}
+\providecommand{\bnflit}[1]{\texttt{#1}}
+
 
 \lc{ CCS }
 

@@ -4,13 +4,34 @@
 {{< include style/macros.md >}}
 :::
 
-## Prototype Implementation: *equiv.io*
+## Prototype: *equiv.io* {#sec-equivio}
+
+### Usage
+
+\begin{align*}
+\bnfvar{Id}  \grammardef & \set{\bnflit{A},\ldots \bnflit{Z},\bnflit{a}\ldots \bnflit{z},\bnflit{\_},\bnflit{0}\ldots\bnflit{9}}^+\\
+\bnfvar{Str} \grammardef & \bnflit{"} \ldots \bnflit{"}\\
+\bnfvar{Act}  \grammardef & \bnfvar{Id} \grammaror \bnfvar{Id}\bnflit{!} \grammaror \tau\\
+\bnfvar{Def}  \grammardef & \bnfvar{Id} \bnflit{=} \bnfvar{Proc}\\
+\bnfvar{Decl} \grammardef & \bnfvar{Id} [\bnflit{(} \ldots \bnflit{)}] \grammaror \bnfvar{Str} [\bnflit{(} \ldots \bnflit{)}]\\
+\bnfvar{Meta} \grammardef & \bnflit{@}\!\bnfvar{Id} \; \bnfvar{Id} \, \set{ \bnflit{,} \bnfvar{Id} }^*\\
+\end{align*}
+
+### Program Structure
+
+### Benchmarking
 
 ## GPU Implementation: *gpuequiv* {#sec-gpu-equiv}
 
 @vogel2024energyGamesWebGPU
 
-## Other Implementations
+### Usage
+
+### Program Structure
+
+### Benchmarking
+
+## Further Implementations
 
 ### Computer Game: *The Spectroscopy Invaders* {#sec-spectro-invaders}
 

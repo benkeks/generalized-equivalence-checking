@@ -105,6 +105,7 @@ format:
     - BoldFont=*-Bold
     - ItalicFont=*-Oblique
     - BoldItalicFont=*-BoldOblique
+    mathfont: NewCMMath-Regular.otf
     indent: true
     colorlinks: true # must be set in order for quarto to load dvipsnames in xcolor for book class ....
     papersize: a4

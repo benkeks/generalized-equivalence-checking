@@ -1,6 +1,9 @@
 # Preliminaries: Communicating Systems and Games {#sec-preliminaries}
 
 {{< include style/macros.md >}}
+::: {.content-visible when-format="html"}
+{{< include style/macros-html.md >}}
+:::
 
 The core background of this thesis is the *trinity of characterizations for behavioral equivalences*: relational, modal, and game-theoretic.
 
@@ -1410,7 +1413,7 @@ Sketch for both directions:
   $$s (α, p', q) ≔ [p', \operatorname{choose} q'\ldotp (p', q') ∈ \rel R \land q \step{α} q'].$$
 - If there is a positional defender strategy $s$ winning from $[p, q]$,
   then the following relation $\rel{R_s}$ with $(p_0,q_0) ∈ \rel{R_s}$ is a symmetric simulation:{{<isb lemma Equivalence_Games bisim_game.defender_winning_strategy_implies_bisim>}}
-  $$\rel{R_s} ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),\dots,(p,q)$ following strategy $s$}}.$$
+  $$\rel{R_s} ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),\dots,(p,q)$ following strategy $s$}}.\qedhere$$
 :::
 
 ::: {#rem-computer-game}

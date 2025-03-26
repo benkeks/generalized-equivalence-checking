@@ -96,6 +96,7 @@ format:
     documentclass: book
     classoption: [oneside]
     pdf-engine: xelatex
+    from: markdown-latex_macros
     mainfont: Linux Libertine O
     monofont: IsabelleDejaVuSansMono
     monofontoptions:

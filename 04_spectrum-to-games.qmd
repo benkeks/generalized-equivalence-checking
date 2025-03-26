@@ -1,7 +1,8 @@
 # Approach: Equivalence Problems as Energy Games {#sec-approach}
 
-::: {.content-hidden when-format="pdf"}
+::: {.content-visible when-format="html"}
 {{< include style/macros.md >}}
+{{< include style/macros-html.md >}}
 :::
 
 Time to get real.
@@ -289,7 +290,7 @@ We deviate in two important points from other work on energy games:
 ### Declining Energy Games
 
 We now turn to special kind of monotonic energy games with vector-valued energy levels where updates will never increase energy levels in any component.
-An $d$-dimensional *declining energy game* is played on energy vectors:
+A $d$-dimensional *declining energy game* is played on energy vectors:
 
 ::: {#def-energy-updates}
 #### Energies and Energy Updates
@@ -320,7 +321,7 @@ The same is true for most other $u$ and $\energyupdate(u, \cdot)$ with a $\matht
 ::: {#def-declining-energy-game}
 #### Declining Energy Game
 
-Given a weight labeling $w \colon (\gamemoveblank) \to \energyupdates$, an $d$-dimensional *declining energy game* $\game^🗲$ is an energy reachability game with energies $\abstractenergies ≔ \energies$ and with edges labeled $\abstractupdate(m) ≔ \energyupdate(w(m), \cdot)$.
+Given a weight labeling $w \colon (\gamemoveblank) \to \energyupdates$, a $d$-dimensional *declining energy game* $\game^🗲$ is an energy reachability game with energies $\abstractenergies ≔ \energies$ and with edges labeled $\abstractupdate(m) ≔ \energyupdate(w(m), \cdot)$.
 
 We write $g \gamemove{\;u\;} g'$ for a move $g \gamemoveblank g'$ labeled by weight $w(g, g') = u$.
 :::
@@ -800,7 +801,7 @@ Because of injectivity and monotonicity, $f$ and $f^{-1}$, must be (strictly) mo
 Together with the definition of function inversion, we can reason
 $$f(c) \leq_A a \implies f^{-1}(f(c)) \leq_A f^{-1}(a) \implies c \leq_C f^{-1}(a)$$
 and
-$$c \leq_C f^{-1}(a) \implies f(c) \leq_A f(f^{-1}(a)) \implies f(c) \leq_A a.$$\qedhere
+$$c \leq_C f^{-1}(a) \implies f(c) \leq_A f(f^{-1}(a)) \implies f(c) \leq_A a.\qedhere$$
 :::
 
 \noindent
@@ -1045,7 +1046,7 @@ Let us instantiate the previous two subsections to declining energy games.
 All we have to do is instantiate $\abstractupdateinv$ to obtain an algorithm and think about the structure of the energies to tell its complexity.
 
 ::: {#def-declining-upd-inv}
-The undo-update function $\energyupdateinv$ on an $d$-dimensional declining energy game is defined component-wise for $k \in \set{1 … d}$ as:
+The undo-update function $\energyupdateinv$ on a $d$-dimensional declining energy game is defined component-wise for $k \in \set{1 … d}$ as:
 $$
 \begin{array}{rl}
 (\energyupdateinv(u, e'))_k := \max(
@@ -1165,7 +1166,7 @@ As $\energyupdate(u, \cdot)$ is monotonic, all that needs to be shown according 
 :::
 
 ::: {#lem-declining-update-complexity}
-@alg-deciding-energy-games solves the energy game problem on an $d$-dimensional *declining* energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
+@alg-deciding-energy-games solves the energy game problem on a $d$-dimensional *declining* energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
 $$
 \bigo{o_{\gamemoveblank} \cdot \relsize{G}^{2 \cdot d} \cdot (d^2 + \relsize{G}^{d-1} \cdot d)}
 $$
@@ -1186,22 +1187,19 @@ For *declining energy games* as defined in @def-declining-energy-game, we can fi
 
 \noindent
 This yields:
-$$
-\begin{array}{rl}
+
+\begin{align*}
     & \bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relwidth_{\energies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\energies}(e_{\game}) \cdot t_\leq) } \\
-  = & \bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relsize{G}^{d-1})^2 \cdot (d^2 + d + \relsize{G}^{d-1} \cdot d) } \\
-  = & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2d+2-2} \cdot (d^2 + \relsize{G}^{d-1} \cdot d) } \\
-  = & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2d} \cdot (d^2 + \relsize{G}^{d-1} \cdot d) } \\
-\end{array}
-$$
+  =\; & \bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relsize{G}^{d-1})^2 \cdot (d^2 + d + \relsize{G}^{d-1} \cdot d) } \\
+  =\; & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2d+2-2} \cdot (d^2 + \relsize{G}^{d-1} \cdot d) } \\
+  =\; & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2d} \cdot (d^2 + \relsize{G}^{d-1} \cdot d) } \\
+\end{align*}
 For space complexity, we obtain:
-$$
-\begin{array}{rl}
-    & \bigo{ \relsize{G} \cdot \relwidth_{\energies}(e_{\game}) \cdot d } \\
-    & \bigo{ \relsize{G} \cdot \relsize{G}^{d-1} \cdot d } \\
-    & \bigo{ \relsize{G}^{d} \cdot d }
-\end{array}
-$$\qedhere
+\begin{align*}
+      & \bigo{ \relsize{G} \cdot \relwidth_{\energies}(e_{\game}) \cdot d } \\
+  =\; & \bigo{ \relsize{G} \cdot \relsize{G}^{d-1} \cdot d } \\
+  =\; & \bigo{ \relsize{G}^{d} \cdot d } \qedhere
+\end{align*}
 
 :::
 
@@ -1228,7 +1226,7 @@ Effectively, this decouples the size of Pareto fronts from the game size.
 In this instance, @lem-declining-update-complexity becomes:
 
 ::: {#lem-declining-update-complexity-flattened}
-@alg-deciding-energy-games solves the *flattened* energy game problem on an $d$-dimensional declining energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
+@alg-deciding-energy-games solves the *flattened* energy game problem on a $d$-dimensional declining energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
 $$
 \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2d} \cdot (d^2 + 3^{d-1} \cdot d) }
 $$

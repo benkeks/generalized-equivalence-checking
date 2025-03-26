@@ -28,3 +28,15 @@
 .sidebar-title>a, .sidebar-item-text.text-start {
   font-family: "Bangers", system-ui;
 }
+
+.sidebar-title {
+  transform: rotate(-4deg);
+  transition: all 0.25s ease-out;
+}
+.sidebar-title:hover {
+  transform: rotate(-6deg) scale(1.1);
+}
+
+#TOC {
+  transition: all 0.15s ease-out;
+}

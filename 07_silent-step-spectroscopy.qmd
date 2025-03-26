@@ -216,7 +216,7 @@ The following facts moreover have been fully formalized in Isabelle/HOl, which w
 The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas.{{<isb inductive Strategy_Formulas weak_spectroscopy_game.strategy_formula>}}
 :::
 
-:::{#fig-weak-spectroscopy-strategy-formulas .column-page fig-pos='t!' fig-env="figure*"}
+:::{#fig-weak-spectroscopy-strategy-formulas .column-body-outset fig-pos='t!' fig-env="figure*"}
 $$
 \inferrule[delay]{
   \attackerpos{p,Q} \gamemove{u} \attackerpos[\varepsilon]{p,Q'} \quad

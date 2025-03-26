@@ -5,5 +5,30 @@ $secondary: #0CA789;
 /*-- scss:rules --*/
 
 #quarto-sidebar {
-  background-color: #dee;
+  background-color: #ceebe5;
+}
+
+#title-block-header h1.title {
+  font-family: "Bangers", system-ui;
+  font-size: 3rem;
+  font-weight: 400;
+  color: $secondary;
+}
+#title-block-header h1 .chapter-number {
+  color: #888;
+  font-size: 4rem;
+}
+
+footer.footer{
+  display: none;
+}
+
+.sidebar-section {
+  padding-left: 0px;
+}
+
+.sidebar-item .chapter-number {
+  color: #888;
+  font-size: 100%;
+  font-family: 'Bangers';
 }

@@ -2,7 +2,7 @@
 This is a work-in-progress document. Handle with care!
 :::
 
-## Read this Book! (Once It's Finished) {.unnumbered .unlisted}
+## Preface {.unnumbered .unlisted}
 
 You should read this book (once it's finished) if you're interested in the semantics of concurrent programs and want to understand ...
 
@@ -14,3 +14,10 @@ You should read this book (once it's finished) if you're interested in the seman
 ### TODO {.unnumbered .unlisted}
 
 (This is a space for TODOs that do not yet have a position in the text body.)
+
+### Acknowledgments {.unnumbered .unlisted}
+
+(This is a space for TODOs that do not yet have a position in the text body.)
+
+
+\pagenumbering{arabic}

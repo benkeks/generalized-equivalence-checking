@@ -8,9 +8,6 @@
 
 ## The Weak Spectroscopy Game
 
-$\centernot{\xrightarrow{a}}$
-$\centernot{a \to b}$
-
 ### The Game
 
 The weak spectroscopy game, in many respects, is just like the spectroscopy games we have already discussed:

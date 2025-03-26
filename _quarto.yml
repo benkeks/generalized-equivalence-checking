@@ -36,7 +36,6 @@ syntax-definitions:
   - style/ccs.xml
   - style/isabelle.xml
 
-
 book:
   title: "Generalized Equivalence Checking of Concurrent Programs"
   author:
@@ -50,18 +49,28 @@ book:
   repo-url: https://github.com/benkeks/generalized-equivalence-checking
   repo-actions: [edit]
   downloads: [pdf]
+  sidebar:
+    collapse-level: 3
   chapters:
     - index.qmd
-    - 01_introduction.qmd
-    - 02_background.qmd
-    - 03_equivalence-spectrum.qmd
-    - 04_spectrum-to-games.qmd
-    - 05_strong-spectroscopy.qmd
-    - 06_weak-spectrum.qmd
-    - 07_silent-step-spectroscopy.qmd
-    - 08_implementations.qmd
-    - 09_conclusion.qmd
-    - 10_references.qmd
+    - part: "Our Problem"
+      chapters:
+        - 01_introduction.qmd
+        - 02_background.qmd
+        - 03_equivalence-spectrum.qmd
+    - part: "Generalized Equivalence Checking"
+      chapters:
+        - 04_spectrum-to-games.qmd
+        - 05_strong-spectroscopy.qmd
+    - part: "… Of Concurrent Programs"
+      chapters:
+        - 06_weak-spectrum.qmd
+        - 07_silent-step-spectroscopy.qmd
+        - 08_implementations.qmd
+    - part: "… And Beyond"
+      chapters:
+        - 09_conclusion.qmd
+        - 10_references.qmd
 
 bibliography: similarities.bib
 csl: http://www.zotero.org/styles/apa
@@ -70,15 +79,19 @@ csl: http://www.zotero.org/styles/apa
 format:
   html:
     from: markdown
-    theme: cosmo
+    theme: [cosmo, style/colors.scss]
     html-math-method: katex
     #fig-cap-location: margin
     reference-location: margin
     crossrefs-hover: true # this lead to poor preview browsing experience and katex exceptions :/
     citation-location: document
     linestretch: 1.3
-    mainfont: KaTeX_Main
+    mainfont: Linux Libertine O
     monofont: DejaVu Sans Mono
+    header-includes: |
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+      </style>
     css: style/style.css
     grid:
       sidebar-width: 300px

@@ -24,3 +24,7 @@
 .glightbox-container img{
   min-width: calc(80vw - 100px);
 }
+
+.sidebar-title>a, .sidebar-item-text.text-start {
+  font-family: "Bangers", system-ui;
+}

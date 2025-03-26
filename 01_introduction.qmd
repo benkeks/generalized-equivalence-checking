@@ -1,8 +1,6 @@
 
 # Introduction: What's the Difference?
 
-\pagenumbering{arabic}
-
 ::: {.content-visible when-format="html"}
 {{< include style/macros-html.md >}}
 :::

@@ -33,9 +33,6 @@
 \providecommand{\eqclass}[1]{[#1]}
 \providecommand{\mathhl}[1]{\mathcolor{RoyalBlue}{#1}}
 \providecommand{\mathdl}[1]{\mathcolor{gray}{#1}}
-\lc{ KaTeX does not support mathcolor... }
-\providecommand{\mathhli}[1]{{\color{RoyalBlue}#1}}
-
 
 \lc{ Transition systems }
 
@@ -127,9 +124,9 @@
 
 \lc{ Games }
 
-\providecommand{\gamemove}[1]{\mathrel{\smash{›\!\!\frac{\;#1\;}{}\!\!›}}}
+\providecommand{\gamemove}[1]{\mathrel{\smash{\xrightarrowtail{\scriptscriptstyle#1}}}}
 \providecommand{\gamemoveblank}{\gamemove{\enspace}}
-\providecommand{\ngamemove}[1]{\mathrel{\smash{{›/\!\!\!\!\frac{\;#1\;}{\;}\!\!›}}}}
+\providecommand{\ngamemove}[1]{\mathrel{\cancel{\smash{\xrightarrowtail{\scriptscriptstyle#1}}}}}
 \providecommand{\ngamemoveblank}{\ngamemove{\enspace}}
 \providecommand{\game}{\mathcal{G}}
 

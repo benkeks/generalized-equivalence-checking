@@ -1,8 +1,8 @@
 # Preliminaries: Communicating Systems and Games {#sec-preliminaries}
 
-{{< include style/macros.md >}}
 ::: {.content-visible when-format="html"}
 {{< include style/macros-html.md >}}
+{{< include style/macros.md >}}
 :::
 
 The core background of this thesis is the *trinity of characterizations for behavioral equivalences*: relational, modal, and game-theoretic.

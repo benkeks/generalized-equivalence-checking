@@ -1,6 +1,7 @@
 # Implementations {#sec-implementations}
 
-::: {.content-hidden when-format="pdf"}
+::: {.content-visible when-format="html"}
+{{< include style/macros-html.md >}}
 {{< include style/macros.md >}}
 :::
 

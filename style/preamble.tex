@@ -1,7 +1,7 @@
 \usepackage{mathtools}
 \usepackage{amsthm}
 \usepackage{stmaryrd}
-\usepackage{mathpartir}
+%\usepackage{mathpartir}
 \usepackage{cancel}
 \usepackage{extarrows}
 \usepackage{graphicx}
@@ -82,7 +82,6 @@
   {\raggedright\normalfont\Huge\bfseries}{\thechapter}{1em}{}
 \titlespacing*{\chapter}{0pt}{12pt}{24pt}
 \patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{empty}}{}{}
-%\input{style/macros.md}
 
 \usepackage{fancyhdr}
 
@@ -156,6 +155,13 @@
     \varnothing
   },
 ]
+\setmathfont{STIX Math}[
+  range={
+    \blacktriangle,
+    \blacktriangledown
+  },
+]
+
 \DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
 
 \usepackage{amssymb}
@@ -164,3 +170,16 @@
 \newcommand{\xtwoheadrightarrow}[2][]{%
   \xrightarrow[#1]{#2}\mathrel{\mkern-14mu}\rightarrow
 }
+
+\makeatletter
+\newbox\xrat@below
+\newbox\xrat@above
+\newcommand{\xrightarrowtail}[2][]{%
+  \setbox\xrat@below=\hbox{\ensuremath{\scriptstyle #1}}%
+  \setbox\xrat@above=\hbox{\ensuremath{\scriptstyle #2}}%
+  \pgfmathsetlengthmacro{\xrat@len}{max(\wd\xrat@below,\wd\xrat@above)+.6em}%
+  \mathrel{\tikz [>->,baseline=-.58ex,line width=0.43pt]
+                 \draw (0,0) -- node[below=-2pt] {\box\xrat@below}
+                                node[above=-2pt] {\box\xrat@above}
+                       (\xrat@len,0) ;}}
+\makeatother

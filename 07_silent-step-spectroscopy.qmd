@@ -1,11 +1,15 @@
 # Spectroscopy for the Weak Spectrum {#sec-silent-step-spectroscopy}
 
-::: {.content-hidden when-format="pdf"}
+::: {.content-visible when-format="html"}
+{{< include style/macros-html.md >}}
 {{< include style/macros.md >}}
 :::
 
+
 ## The Weak Spectroscopy Game
 
+$\centernot{\xrightarrow{a}}$
+$\centernot{a \to b}$
 
 ### The Game
 
@@ -743,7 +747,7 @@ Schematic *simplified* weak spectroscopy game $\gamespectroscopywsimple$.
 Note that the immediate branching accounting/finishing moves lead to defender conjunction positions,
 while the late branching accounting move skips it, but still charges for the conjunction by an additional energy update of $-\unitvec{3}$.
 
-The simplified game part encodes nested conjunctions of the form $\hmlands\set{ \hmlopt{\alpha} \mathhli{\hmlands \Psi'}, \psi_1, \ldots}$ or the cheaper form $\hmlands\set{ \hmlopt{\alpha} \mathhli{\hmleps \hmlands \Psi'}, \psi_1, \ldots}$.
+The simplified game part encodes nested conjunctions of the form $\hmlands\set{ \hmlopt{\alpha} \mathhl{\hmlands \Psi'}, \psi_1, \ldots}$ or the cheaper form $\hmlands\set{ \hmlopt{\alpha} \mathhl{\hmleps \hmlands \Psi'}, \psi_1, \ldots}$.
 The $\Psi'$ are the formulas from after branching observation moves, while the $\psi_i$ come from the resets.
 
 In @bj2025silentStepSpectroscopyJournal we discuss this game's strategy formulas in detail and prove its correctness, resulting in the following theorem.^[

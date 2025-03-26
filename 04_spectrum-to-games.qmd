@@ -1,8 +1,8 @@
 # Approach: Equivalence Problems as Energy Games {#sec-approach}
 
 ::: {.content-visible when-format="html"}
-{{< include style/macros.md >}}
 {{< include style/macros-html.md >}}
+{{< include style/macros.md >}}
 :::
 
 Time to get real.

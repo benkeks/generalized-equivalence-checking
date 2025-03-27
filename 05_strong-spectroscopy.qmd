@@ -13,7 +13,7 @@ The bisimulation energy game of @sec-approach is not complex enough to capture a
 It is “too easy” for the attacker in the sense that they can use unbounded conjunctions to account for every transition the defender might choose after each observation.
 But the weaker notions of the spectrum heavily limit how many conjunctions may be used to name a distinction!
 
-Our core trick will be to break the link between observations and conjunctions in the game, analogously to the subset construction on finite automata.
+Our core trick will be to break the link between conjunctions and observation sequences in the game, analogously to the *subset construction* on finite automata.
 
 ::: {#idea-subset-construction .callout-idea .callout-note}
 #### Breaking up observations and conjunctions
@@ -22,7 +22,8 @@ Linear-time notions can be addressed in the spectroscopy game by interjecting a 
 :::
 
 This will lead to exponential blow-up.
-In @sec-specific-spectro-games, we will discuss how to get rid of the blowup where possible when instantiating the game to decide equivalences individually.
+Some of it can be alleviated, as we will see in @sec-specific-spectro-games.
+In @sec-deciding-individual-eqs, we will discuss how to get rid of the blowup where possible when instantiating the game to *decide equivalences individually*.
 
 ::: {#idea-instance-games .callout-idea .callout-note}
 #### Generating equvialence checkers
@@ -57,8 +58,8 @@ By instantiating the spectroscopy game with known initial energies and exploitin
     (AttackerWinningReachability.east) edge[->, draw=Peach, bend right=25] node {} (IndividualNotion)
     (AttackerWinningReachability.east) edge[->, draw=TealBlue, dashed, bend right=25] node {} (IndividualNotion);
   
-  \node[text=TealBlue, right=2mm of AttackerWinningBudgets] (Sec51) {Section 5.1};
-  \node[text=Peach, right=2mm of AttackerWinningReachability] (Sec52) {Section 5.2};
+  \node[text=TealBlue, right=2mm of AttackerWinningBudgets, align=right] (Sec51) {Section 5.1 \\ and 5.2};
+  \node[text=Peach, right=2mm of AttackerWinningReachability] (Sec52) {Section 5.3};
 
   \node[below=3mm of AttackerWinningReachability] (Phantom) {};
 \end{tikzpicture}
@@ -1022,4 +1023,5 @@ TODO: Maybe also example where non-determinism has more effect?
 - Difference to @bjn2022decidingAllBehavioralEqs:
   - Lower exponentiality in conjunctions
   - No explicit construction of formulas
+- highlight analogy to apartness (@geuversJacobs2021apartness)
 - mention that  $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ matches best algos for simulation, but not for bisimulation.

@@ -33,9 +33,13 @@ Its central figure, reproduced in @fig-ltbts2-paper, mesmerized me.
 But, how to use the spectrum to decide for a given pair of processes which of the many equivalences apply, is far from straightforward.
 Over the years, I have learned that others too have run into this problem:
 For instance, @nestmann1996decoding thinking about process algebra encodings and @bell2013certifiably verifying compiler optimizations.
-The *problem* can be summarized as follows:
 
+\medskip\noindent
+**The problem** can be summarized as follows:
+
+\vspace*{-\medskipamount}
 > How does one conveniently decide for a pair of systems which notions from a spectrum of behavioral equivalences equate the two?
+\vspace*{-\medskipamount}
 
 Above question will be the *research question of this thesis*.
 We^[

@@ -53,6 +53,7 @@ jobs:
             newunicodechar
             setspace
             extarrows
+            orcidlink
             pgf
             pgfplots
             varwidth

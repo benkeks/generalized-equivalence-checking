@@ -5,12 +5,24 @@
 {{< include style/macros.md >}}
 :::
 
-In real applications, people are using *weak* behavioral equivalences, which can equate systems in spite of differing internal activity.
-Therefore, it matters that we can lift our approach to also account for such weak equivalences.
+Virtually all *applications* of concurrency theory use *weak* behavioral equivalences, which can equate systems in spite of differing internal activity.
+Therefore, it matters that we can lift our approach to also account for such equivalences.
 
 This chapter serves as a second round of preliminaries and context needed for the spectrum of weak equivalences.
-We moreover present our modal spectrum characterization, where HML grammar and pricing are designed in such a way that we can apply the spectroscopy approach in @sec-silent-step-spectroscopy.
-TODO: Links
+At the heart, we aim to find a modal spectrum characterization, where HML grammar and pricing are designed in such a way that we can apply the spectroscopy approach in the following @sec-silent-step-spectroscopy.
+
+We will reframe a big chunk of “The Linear Time–Branching Time Spectrum II: The Semantics of Sequential Systems with Silent Movea” [@glabbeek1993ltbt] to fit our modal framework.
+In particular, we try to be much more restricted in the use of special modalities than the presentation in @glabbeek1993ltbt.
+
+::: {#idea-weak-hml .callout-idea .callout-note}
+#### A Weak Subset
+
+We can use a subset of $\hml$ to characterize most interesting weak equivalences.
+:::
+
+@sec-weak-equivalences-in-general will provide some preliminaries and define the $\hml$ subset, which will correspond to the notion of stability-respecting branching bisimilarity.
+We illustrate the use of some oft the weak notions through small examples in @sec-case-stduies-other-eqs.
+In @sec-weak-spectrum-quantities, we unfold the modal characterization for the weak spectrum.
 
 ## Weak Equivalences in General {#sec-weak-equivalences-in-general}
 
@@ -81,11 +93,10 @@ Weak word steps
 
 Stable state
 : A state $p$ is called *stable* iff $p \nostep{\tau}$.{{<isb abbreviation LTS LTS_Tau.stable_state>}}
-: (In HML, we can use $\hmlneg\hmlobs{\tau}\hmltrue$ to express stabilization.)
+: In HML, we can use $\hmlneg\hmlobs{\tau}\hmltrue$ to express stabilization.
 
 Divergent state
 : A state $p$ is called *divergent* iff it allows an infinite sequence of $\tau$-transitions, $p \step{\tau}^\omega$.
-: TODO: Add diverges-while ?
 
 Again, we implicitly lift the relations to sets of states, that is for instance, $P \stepweak P'$ (with $P, P' \subseteq \states$) iff $P' = \set{ p' \in \states \mid \exists p \in P \ldotp p \stepweak p'}$.
 :::
@@ -97,6 +108,13 @@ Note that the notation for $\hml$-operators $\hmleps \dots$ and $\hmlopt{\alpha}
 To see why, assume notation for disjunction $\bigvee_{i \in I} \psi_i \defeq \hmlneg\hmland{i}{I} \hmlneg\psi_i$, and for $n$-time application of an operator.
 Then, $\semantics{\hmleps\varphi} = \semantics{\bigvee_{n \in \nats} \hmlobs{\tau}^n \varphi}$.
 Also, $\semantics{\hmlopt{\tau}\varphi} = \semantics{\bigvee\set{\varphi, \hmlobs{\tau}\varphi}}$ and $\semantics{\hmlopt{a}\varphi} = \semantics{\hmlobs{a}\varphi}$.
+
+On the other hand, note that our infinitary HML cannot express proper divergence $p \step{\tau}^\omega$ on infinitary systems.
+This would demand an “observation of infinite depth.”
+This clashes with the well-foundedness, which is implied by the recursive grammar of @def-hml.
+On finite systems, however, the possibility of unbounded $\tau$-trees and infinite $\tau$-chains coincides, and divergence can be captured modally by $\hmland{n}{\nats} \hmlobs{\tau}^n$.
+
+<!--TODO: Would $\hmland{m}{\nats} \hmlobs{\tau}^n \hmland{n}{\nats} \hmlobs{\tau}^n$ catch infinitary divergence? -> No, as the evaluation would still eventually run into a point from where one knows the bound. -->
 :::
 
 ### Weak Traces and Weak Bisimulation

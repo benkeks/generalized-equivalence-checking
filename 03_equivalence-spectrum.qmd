@@ -57,7 +57,7 @@ $$
 $$
 :::
 
-{{<noindent>}} The logics characterize trace and simulation preorder (and equivalence):
+The logics characterize trace and simulation preorder (and equivalence):
 
 ::: {#lem-trace-logics}
 $p \bpreord{T} q$ precisely if $p \bpreordvar{\observations{T}} q$.{{<isb theorem HML_Spectrum lts.observations_traces_characterizes_trace_preorder>}}

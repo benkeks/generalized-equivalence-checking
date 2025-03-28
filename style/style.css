@@ -40,3 +40,40 @@
 #TOC {
   transition: all 0.15s ease-out;
 }
+
+/* fonts */
+
+@font-face {
+  font-family: 'Bangers';
+  src: url('../lib/bangers-font/Bangers-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Linux Libertine O Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Linux Libertine O Regular'), url('../lib/linux-libertine-font/LinLibertine_R.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'Linux Libertine O Italic';
+  font-style: italic;
+  font-weight: normal;
+  src: local('Linux Libertine O Italic'), url('../lib/linux-libertine-font/LinLibertine_RI.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Linux Libertine O Bold';
+  font-style: normal;
+  font-weight: bold;
+  src: local('Linux Libertine O Bold'), url('../lib/linux-libertine-font/LinLibertine_RB.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'Linux Libertine O Bold Italic';
+  font-style: italic;
+  font-weight: bold;
+  src: local('Linux Libertine O Bold Italic'), url('../lib/linux-libertine-font/LinLibertine_RBI.woff') format('woff');
+}

@@ -21,8 +21,21 @@
   zoom: 150%;
 }
 
+#quarto-content .quarto-sidebar-toggle {
+  background: hsl(278, 65%, 97%);
+}
+
+.column-body-outset {
+  background-color: rgba(255, 255, 255, .9);
+  border-radius: 10px;
+}
+
 .glightbox-container img{
   min-width: calc(80vw - 100px);
+}
+
+.desc-bottom .gslide-media {
+  background-color: var(--quarto-body-bg);
 }
 
 .sidebar-title>a, .sidebar-item-text.text-start {
@@ -51,28 +64,28 @@
 }
 
 @font-face {
-  font-family: 'Linux Libertine O Regular';
+  font-family: 'Linux Libertine O';
   font-style: normal;
   font-weight: normal;
   src: local('Linux Libertine O Regular'), url('../lib/linux-libertine-font/LinLibertine_R.woff') format('woff');
 }
   
 @font-face {
-  font-family: 'Linux Libertine O Italic';
+  font-family: 'Linux Libertine O';
   font-style: italic;
   font-weight: normal;
-  src: local('Linux Libertine O Italic'), url('../lib/linux-libertine-font/LinLibertine_RI.woff') format('woff');
+  src: local('Linux Libertine O'), url('../lib/linux-libertine-font/LinLibertine_RI.woff') format('woff');
 }
 
 @font-face {
-  font-family: 'Linux Libertine O Bold';
+  font-family: 'Linux Libertine O';
   font-style: normal;
   font-weight: bold;
   src: local('Linux Libertine O Bold'), url('../lib/linux-libertine-font/LinLibertine_RB.woff') format('woff');
 }
   
 @font-face {
-  font-family: 'Linux Libertine O Bold Italic';
+  font-family: 'Linux Libertine O';
   font-style: italic;
   font-weight: bold;
   src: local('Linux Libertine O Bold Italic'), url('../lib/linux-libertine-font/LinLibertine_RBI.woff') format('woff');

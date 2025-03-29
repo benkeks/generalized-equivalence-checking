@@ -767,9 +767,141 @@ For all $N \in \widehat{\notions}^\literal{weak}$, $p \in \states$, $Q \in \powe
 - Attacker wins $\gamespectroscopywsimple^{\system}$ from $\attackerpos{p,Q}$ with $N$ (that is, $N \in \attackerwins^{\gamespectroscopywsimple^{\system}}(\attackerpos{p,Q})$).
 :::
 
-### Covering Decorated Traces
+Complexitywise, for the simplified game, $\gamespectroscopywsimple$,
+we have just
+$\relsize{G_{\swclever}} \in \bigo{ \relsize{\step{}} \cdot 2^{\relsize{\states}}}$
+and also $o_{\swclever} \in \bigo{ \relsize{\step{}}}$.
+Following the same argument as in @thm-weak-spectroscopy-complexity,
+deciding the whole game still has exponential time complexity of
+$\bigo{\relsize{\step{}} \cdot
+(\relsize{\step{}} \cdot 2^{\relsize{\states}})^{16} \cdot
+(\relsize{\step{}} \cdot 2^{\relsize{\states}})^{7}}
+= \bigo{ \relsize{\step{}}^{24} \cdot 2^{23 \relsize{\states}} }
+$,
+and space complexity
+$\bigo{ \relsize{\step{}}^8 \cdot 2^{8 \relsize{\states}} }$.
+But these are much lower bounds than in the original game $\gamespectroscopyw$.
+TODO: Forward-pointer to benchmarks.
 
-### Handling Congruences
+Moreover, we can again use the trick to work with *flattened energies*, according to @lem-declining-update-complexity-flattened.
+After all, $\gamespectroscopywsimple$ itself is only correct with respect to a simplified spectrum according to @thm-weak-spectroscopy-game-simplified-characterization.
+If we bound the energy lattice to $\{0, 1, \infty\}^8$ the size of Pareto fronts is decoupled from the game size.
+This further improves space complexity to
+$\bigo{ \relsize{\step{}} \cdot 2^{\relsize{\states}} }$ and overall time complexity to
+$\bigo{ \relsize{\step{}} \cdot
+(\relsize{\step{}} \cdot 2^{\relsize{\states}})^{16} } =
+\bigo{ \relsize{\step{}}^{17} \cdot 2^{16 \relsize{\states}} }$.
+
+### Covering Revivals and Decorated Traces
+
+In the weak spectrum of @sec-weak-spectrum-quantities, we left out the notions of revivals, failure traces, and ready traces, we had included in the strong spectrum of @sec-strong-notions.
+Their stable variants are relevant to the CSP community [see @roscoe2009revivalsHierarchy].
+
+These notions need to differentiate heights between a deepest “revival” conjunct and other positive conjuncts.
+Thus, these equivalences need an additional dimension for $\expr$-measurements, and an even more sophisticated handling of conjunctions in the game.
+
+@fig-weak-spec-game-revivals illustrates how one could incorporate revivals into stable conjunctions, analogously to @sec-strong-spectrum.
+Note, that we now have two kinds of conjunct positions: for the stable non-revival context and for the other contexts.
+The maximal depth conjuncts is still managed by dimension 6.
+But stable non-revival conjuncts receive a new dedicated dimension 7 to bound their depth.
+The previous dimensions 7 and 8 now come 8th and 9th.
+
+:::{#fig-weak-spec-game-revivals fig-env='figure*' fig-pos='t'}
+
+```tikz
+%%| image-class: lightbox
+```tikz
+\definecolor{etaColor}{RGB}{100,100,100}%{cmyk}{0.8, 0, 0, 0.3}
+\definecolor{stabilityColor}{cmyk}{0, 0.7, 0.7, 0.4}
+\begin{adjustbox}{max width=\textwidth, center}
+  \begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm, rel/.style={dashed,font=\it},
+    posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
+      \node[posStyle, initial, initial text={}]
+        (Att){$\attackerpos{p,Q}$};
+      \node[posStyle]
+        (AttDelay) [right = 1.6cm of Att] {$\attackerpos[\varepsilon]{p,Q_\varepsilon}$};
+      \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
+        (Def) [below = 2.2cm of AttDelay] {$\defenderpos{p,Q}$};
+      \node[ellipse, draw=stabilityColor, fill=stabilityColor!3, inner sep=1ex, minimum size=1cm,minimum width=2cm]
+        (DefStab) [above right = 2cm and .1 of AttDelay] {$\defenderpos[s]{p,Q_s \setminus Q_*, Q_*}$};
+      \node[ellipse, draw=etaColor, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=etaColor!3]
+        (DefBranch) [below right = 1.1cm and 1.5cm of AttDelay] {$\dots$};
+      \node[posStyle]
+        (AttConj) [below right = 1.2cm and 0.1cm of DefBranch] {$\attackerpos[\land]{p,q}$};
+      \node[posStyle, dashed, dash pattern={on 1.055045263157895mm off 0.993586315789474mm}, dash phase=0.405943684210525mm]
+        (AttSwap) [right = 2cm of AttConj] {$\attackerpos[\varepsilon]{q,\set{p' \mid p \stepweak p'}}$};
+      \node[posStyle, dashed, dash pattern={on 1.051033684210526mm off 0.989808421052632mm}, dash phase=0.423411578947368mm]
+        (AttContinue) [above = 1cm of AttSwap] {$\attackerpos[\varepsilon]{p,\set{q' \mid q \stepweak q'}}$};
+      \node[posStyle, dashed, dash pattern={on 1.03mm off 0.97mm}, dash phase=0.515mm]
+        (AttObs) [right = 7cm of AttDelay] {$\attackerpos{p^\prime,Q^\prime}$};
+      \node[posStyle, draw=stabilityColor, fill=stabilityColor!3]
+        (AttConjStab) [right = 2cm of DefStab] {$\attackerpos[s]{p,q}$};
+      \node[posStyle, dashed, dash pattern={on 1.055045263157895mm off 0.993586315789474mm}, dash phase=0.405943684210525mm]
+        (AttSwapStab) [right = 2cm of AttConjStab] {$\attackerpos[\varepsilon]{q,\set{p}}$};
+      \node[posStyle, dashed, dash pattern={on 1.051033684210526mm off 0.989808421052632mm}, dash phase=0.423411578947368mm]
+        (AttContinueStab) [above = 1cm of AttSwapStab] {$\attackerpos[\varepsilon]{p,\set{q}}$};
+      
+      % draw the bottom left corner nicely:
+      \draw[-] (AttSwap.south west) ++(0.2pt,0.2pt) ++(0.07,0) -- ++(-0.07,0) -- ++(0,0.05);
+      \draw[-] (AttContinue.south west) ++(0.2pt,0.2pt) ++(0.07,0) -- ++(-0.07,0) -- ++(0,0.05);
+      \draw[-] (AttObs.south west) ++(0.2pt,0.2pt) ++(0.07,0) -- ++(-0.07,0) -- ++(0,0.05);
+
+      \path
+        (Att) edge
+          node[label={-90:$\textcolor{gray}{\zerovec}$}] {$Q \stepweak Q_\varepsilon$} (AttDelay)
+        (Att) edge[bend right=15]
+          node[pos = .4, label={-150:$\textcolor{gray}{\zerovec}$}] {$Q = \varnothing$} (Def)
+        (Att) edge[bend right=60]
+          node[pos = .6, label={-130:$\textcolor{gray}{-\unitvec{5}}$}] {$Q \neq \varnothing$} (Def)
+        (AttDelay) edge [out=155,in=115,looseness=4, pos=.6] node {$p \step{\tau} \ldots\; \textcolor{gray}{\zerovec}$} (AttDelay)
+        (AttDelay) edge[bend right=12]
+          node[pos=.42, align=center, label={[label distance=0.0cm]-60:$\textcolor{gray}{-\unitvec{1}}$}] {$p\step{a}p'$\\ $Q_\varepsilon \step{a} Q'$} (AttObs)
+        (AttDelay) edge
+          node[pos =.3, label={[label distance=0cm]-180:$\textcolor{gray}{\zerovec}$}] {$Q = Q_\varepsilon$} (Def)
+        (AttDelay.north) edge[draw=stabilityColor]
+          node[pos=.7, align=center, label={[label distance=0.1cm]-10:$\textcolor{stabilityColor!50}{\zerovec}$}] {
+            $\textcolor{stabilityColor}{p \nostep{\tau}}$ \\
+            $\textcolor{stabilityColor}{Q_* \subseteq Q_s = \set{q \in Q_\varepsilon \mid q \nostep{\tau}}}$
+          } (DefStab)
+        (AttDelay) edge[draw=etaColor]
+          node[pos=.65,align=center] {$\dots$} (DefBranch)
+        (Def) edge[bend right=17]
+          node[pos=.85, label={[label distance=0.1cm]-100:$\textcolor{gray}{-\unitvec{3}}$}] {$q \in Q$} (AttConj)
+        (DefStab) edge[draw=stabilityColor]
+          node[align=center, pos=.6, label={[label distance=-0.1cm]92:$\textcolor{stabilityColor!50}{0,0,0,-1,0,0,\updmin{6,7},0,0}$}] {\mbox{}\hspace*{-1.5em}$\textcolor{stabilityColor}{q \in Q_s \setminus Q_*}$} (AttConjStab)
+        (DefStab) edge[draw=stabilityColor, bend left=15]
+          node[align=right, pos=.2, label={[label distance=0.1cm]180:$\textcolor{stabilityColor!50}{-\unitvec{4}-\unitvec{9}}$}] {$\textcolor{stabilityColor}{Q = \varnothing}$} (Def)
+        (DefStab) edge[draw=stabilityColor, bend right=5]
+          node[pos=.7, align=left] {$\textcolor{stabilityColor}{Q' = Q_*, p' = p}$\\$\textcolor{stabilityColor!50}{\updmin{1,6},0,0,-1,0,0,0,0,0}$} (AttObs)
+        (AttConj) edge[bend left=10]
+          node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{1,6},0,0,0,0,0,0,0,0}$}] {} (AttContinue)
+        (AttConj) edge[bend right=15]
+          node[below] {$\textcolor{gray}{\updmin{1,8},0,0,0,0,0,0,0,-1}$} (AttSwap)
+        (DefBranch) edge[draw=etaColor, dashed]
+          node[pos=.5] {$\dots$} (AttObs)
+        (DefBranch) edge[draw=etaColor]
+          node[pos=.5] {$\dots$} (AttConj)
+        (AttConjStab) edge[bend left=10, draw=stabilityColor]
+          node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{1,\textcolor{stabilityColor}{7}},0,0,0,0,0,0,0,0}$}] {} (AttContinueStab)
+        (AttConjStab) edge[bend right=15, draw=stabilityColor]
+          node[below] {$\textcolor{gray}{\updmin{1,8},0,0,0,0,0,0,0,-1}$} (AttSwapStab);
+  \end{tikzpicture}
+\end{adjustbox}
+```
+
+Modifying stable conjunction moves to include revivals (brick red part).
+The branching bisimulation part is left out.
+:::
+
+Of course, one could again use the “look-ahead trick” of @sec-clever-strong-spectro to reduce the number of partitions to consider.
+
+In fact, the implementation on {{<equivio>}} does employ this trick, thereby actually using a 9-dimensional game with richer stable conjunctions.
+
+### Extending to Other Equivalences
+
+- Handling Congruences
+- Divergence
+- Coupled simulation
 
 ## Tackling Our Case Studies
 

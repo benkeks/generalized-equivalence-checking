@@ -106,7 +106,6 @@
 \providecommand{\relwidth}{\operatorname{wdh}}
 \providecommand{\relheight}{\operatorname{hgt}}
 
-
 \lc{ Behavioral Equivalences }
 
 \providecommand{\bpreord}[1]{\preceq_\notionname{#1}}
@@ -159,7 +158,8 @@
 \providecommand{\gamespectroscopyclever}{\mathcal{G}_{\blacktriangle}}
 \providecommand{\gamespectroscopyceq}[1]{\mathcal{G}_{\blacktriangle #1}}
 \providecommand{\gamespectroscopyw}{\mathcal{G}_{\nabla}}
-\providecommand{\gamespectroscopywsimple}{\mathcal{G}_{\widehat{\nabla}}}
+\providecommand{\swclever}{\widehat{\nabla}}
+\providecommand{\gamespectroscopywsimple}{\mathcal{G}_{\swclever}}
 \providecommand{\strat}{\mathsf{Strat}}
 \providecommand{\stratstrong}{\mathsf{Strat}_{\triangle}}
 \providecommand{\stratweak}{\mathsf{Strat}_{\nabla}}

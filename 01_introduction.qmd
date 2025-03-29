@@ -1,3 +1,6 @@
+---
+toc-title: "Chapter 1"
+---
 
 # Introduction: What's the Difference?
 

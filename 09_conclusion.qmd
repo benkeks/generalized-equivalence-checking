@@ -1,6 +1,8 @@
 ---
-title: "Conclusion"
+toc-title: "Chapter 9"
 ---
+
+# Conclusion
 
 ::: {.content-visible when-format="html"}
 {{< include style/macros-html.md >}}

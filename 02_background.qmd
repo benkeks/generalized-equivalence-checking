@@ -1,3 +1,7 @@
+---
+toc-title: "Chapter 2"
+---
+
 # Preliminaries: Communicating Systems and Games {#sec-preliminaries}
 
 ::: {.content-visible when-format="html"}

@@ -1,3 +1,7 @@
+---
+toc-title: "Chapter 3"
+---
+
 ::: {.content-visible when-format="html"}
 {{< include style/macros-html.md >}}
 {{< include style/macros.md >}}

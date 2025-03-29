@@ -1,3 +1,7 @@
+---
+toc-title: "Chapter 5"
+---
+
 # Spectroscopy of the Strong Equivalence Spectrum {#sec-strong-spectrum}
 
 ::: {.content-visible when-format="html"}

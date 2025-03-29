@@ -1,3 +1,7 @@
+---
+toc-title: "Chapter 6"
+---
+
 # Recharting the Weak Silent-Step Spectrum {#sec-weak-spectrum}
 
 ::: {.content-visible when-format="html"}

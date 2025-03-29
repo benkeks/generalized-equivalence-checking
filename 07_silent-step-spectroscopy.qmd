@@ -1,10 +1,13 @@
-# Spectroscopy for the Weak Spectrum {#sec-silent-step-spectroscopy}
+---
+toc-title: "Chapter 7"
+---
 
 ::: {.content-visible when-format="html"}
 {{< include style/macros-html.md >}}
 {{< include style/macros.md >}}
 :::
 
+# Spectroscopy for the Weak Spectrum {#sec-silent-step-spectroscopy}
 
 ## The Weak Spectroscopy Game
 

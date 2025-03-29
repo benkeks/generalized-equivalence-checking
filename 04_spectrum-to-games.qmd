@@ -1,3 +1,7 @@
+---
+toc-title: "Chapter 4"
+---
+
 # Approach: Equivalence Problems as Energy Games {#sec-approach}
 
 ::: {.content-visible when-format="html"}

@@ -260,8 +260,34 @@ Thereby *one* algorithm works for *all* of a spectrum.
 
 ## This Thesis
 
+:::{#fig-thesis-overview}
+
+```tikz
+\begin{adjustbox}{max width=\textwidth, center}
+  \begin{tikzpicture}[rounded corners = 5, outer sep=1mm]
+  \tikzstyle{every node}=[font=\normalsize]
+    \draw  (3.5,8.75) rectangle  node {Behavior and equivalences} (8.5,7.5);
+    \draw  (8.5,8.75) rectangle  node {Modal logics} (13.5,7.5);
+    \draw  (13.5,8.75) rectangle  node {Games} (18.5,7.5);
+    \draw  (4.75,10) rectangle  node {Spectrum and spectroscopy} (13.5,8.75);
+    \draw  (13.5,10) rectangle  node {Energy games} (18.5,8.75);
+    \draw  (11.0,11.25) rectangle  node {Equivalence energy game approach} (18.5,10);
+    \draw  (11.0,12.5) rectangle  node {Individual equivalence checking} (18.5,11.25);
+    \draw  (6.0,12.5) rectangle  node[align=center] {Spectroscopy of\\ strong spectrum} (11.0,10);
+    \draw  (3.5,8.75) -- (3.5,12.5) -- (6.0,12.5) -- (6.0,10) -- (4.75,10) -- (4.75,8.75) -- cycle;
+    \draw  (4.75,11.25) node[align=center] {Weak\\spectrum};
+    \draw  (3.5,12.5) rectangle  node {Weak spectroscopy} (18.5,13.75);
+    %\draw  (18.5,12.5) rectangle  node {Implementation} (21.0,7.5);
+  \end{tikzpicture}
+\end{adjustbox}
+```
+
+The *theory stack* of this thesis.
+(TODO: Chapters, styling, links)
+:::
+
 The algorithm at the core of this thesis describes how to *decide all behavioral equivalences at once* for varying spectra of equivalence using *games that can count* to *limit possible distinctions through attacker energy budgets*.
-More precisely, we make the following contributions, each coming with a “side quest”:
+More precisely, we make the following contributions, each coming with a “side quest:”
 
 - @sec-preliminaries lays some foundations and makes precise *how bisimilarity games relate to grammars of distinguishing formulas* of Hennessy–Milner modal logic.
   - Side quest: Certifying algorithms to check equivalences.

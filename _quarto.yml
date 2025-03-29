@@ -74,7 +74,7 @@ book:
         - 10_references.qmd
 
 bibliography: similarities.bib
-csl: http://www.zotero.org/styles/apa
+csl: lib/apa.csl
 #csl: iso690-author-date-en
 
 format:

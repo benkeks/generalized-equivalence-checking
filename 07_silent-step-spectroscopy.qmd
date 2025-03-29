@@ -810,7 +810,6 @@ The previous dimensions 7 and 8 now come 8th and 9th.
 
 ```tikz
 %%| image-class: lightbox
-```tikz
 \definecolor{etaColor}{RGB}{100,100,100}%{cmyk}{0.8, 0, 0, 0.3}
 \definecolor{stabilityColor}{cmyk}{0, 0.7, 0.7, 0.4}
 \begin{adjustbox}{max width=\textwidth, center}
@@ -899,8 +898,33 @@ In fact, the implementation on {{<equivio>}} does employ this trick, thereby act
 
 ### Extending to Other Equivalences
 
+#### Divergence and Completed Obervations
+
+Logic and game, as we have presented them, are blind to divergence and to completed observations.
+@glabbeek1993ltbt uses additional modalities:
+$\Delta$ for divergence with $\semantics{\Delta} \defeq \{p \mid p \step{\tau}^\omega\}$;
+$0$~for completed observations with $\semantics{} \defeq \set{p \mid \forall a. \nostep{a} }$
+(and $\lambda \defeq 0 \lor \Delta$).
+
+@bj2024silentStepSpectroscopyExpress have decided against including these in the game.
+At least on finite-state systems, they may be understood to be special action observations, as follows.
+In this view, divergence and completion are something to be modelled (or added through pre-processing) into a system $\system$ before turning to our game of equivalence questions on $\system'$.
+
+For $0$, the transformation from $\system$ to $\system'$ is obvious:
+Add a $p \step{\checkmark} \bot$ to the transition system for each $p \in \states$ where $p \nostep{a}$ for every $a \in \actions \setminus \set{\tau}$ (with $\checkmark$ and $\bot$ fresh).
+Then $\semantics{\hmlobs{\checkmark}\hmltrue}^{\smash{\system'}} = \semantics{0}^{\smash0{\system}}$.
+
+For finite-state systems, divergence can be addressed by an argument from @gjkw2017branching.
+Add a state $\bot$, an action $\delta \notin \actions$ and transitions $p \step{\delta} \bot$ to the transition system for each $p \in \states$ that lives on a $\tau$-cycle $p \step{\tau}^+ p$.
+Then $\semantics{\hmleps\hmlobs{\delta}\hmltrue}^{\smash{\system'}} = \semantics{\Delta}^{\smash{\system}}$.
+@fokkinkGL19DivCong3 define a unary *diverges-while* operator $\Delta \varphi$ to characterize divergence-preserving branching bisimilarity; this operator is then naturally expressed as branching conjunction $\hmleps\hmlands\{\hmlobs{\delta}\hmltrue, \varphi\}$.
+
+For infinite systems, divergence is more tricky.
+Just like infinite traces, it depends on the possibility of characterizing infinite-duration attacks.^[And not just unbounded attacks as we support them now.]
+On the game level, for infinite plays to be winnable by the attacker, the game must have a Büchi winning condition.
+Such a richer game model is the route taken by @ekw2017gamesBisimAbstraction to characterize various divergence-aware bisimilarities.
+
 - Handling Congruences
-- Divergence
 - Coupled simulation
 
 ## Tackling Our Case Studies

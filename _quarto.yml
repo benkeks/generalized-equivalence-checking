@@ -67,9 +67,9 @@ book:
       chapters:
         - 06_weak-spectrum.qmd
         - 07_silent-step-spectroscopy.qmd
-        - 08_implementations.qmd
     - part: "… And Beyond"
       chapters:
+        - 08_implementations.qmd
         - 09_conclusion.qmd
         - 10_references.qmd
 

@@ -303,7 +303,7 @@ This is one of the perks of modal characterizations, indeed (cf. @sec-perks-moda
 
 ## Case Studies—and the Need for Other Equivalences {#sec-case-stduies-other-eqs}
 
-### Parallelizing Compiler Optimization
+### Parallelizing Compiler---and Contrasimulation
 
 Most of computer speed up in the last two decades has been due to parallelization of computation.
 Compilers will usually drift and parallelize sequential commands of a program.
@@ -482,38 +482,113 @@ Consider the processes $\literal{A}$ and $\literal{B}$ in the margin.
 As all their non-empty word transitions end in instable states, the variant from @sangiorgi2012 ignores their differences alltogether.
 
 Stable bisimilarity of @def-stablebisim, however, does not suffer from this defect, for it demands matching of all word transitions.
-Our relational @def-stablebisim is informed by the upcoming modal characterizations of @sec-weak-spectrum-quantities (and of @glabbeek1993ltbt and @bm2024contrasimilarityInfComp)
+Our relational @def-stablebisim is informed by the upcoming modal characterizations of @sec-weak-spectrum-quantities (and of @glabbeek1993ltbt and @bm2024contrasimilarityInfComp).
 As discussed in @sec-perks-modal-characterizations it is trivial to ensure that modally characterized relations are transitive and refine trace preorder.
 Such are the perks of modal characterizations!
 :::
 
-### Congruence Properties of Abstraction
+### Abstraction as Congruence---and Stable Failures  
 
-```ccs
-Ae = (idle.Ae + a)
-Be = (idle.Be + b)
-Al = (idle.Bl + idle.Al + a)
-Bl = (idle.Al + idle.Bl + b)
+Let us consider the following two abstractions of failure equivalence (@def-failures):
 
-Pe = (op.Ae + op.Be)
-Pl = (op.Al + op.Bl)
-@compareSilent Pe, Pl
 
-Pte = Pe \csp {idle}
-Ptl = Pl \csp {idle}
-@compareSilent Pte, Ptl
+:::{#def-weak-failures}
 
-@comment "Pe/Pl should be (unstable&stable) readiness equivalent"
-@comment "Pte/Ptl are stable, but not unstable (!) failure (and readiness) equivalent"
+Let *weak failure equivalence and preorder* be defined by the weak failure observations $\observations{WF}$ produced by $φ^\mathrm{WF}$ in the following grammar.
+The same for *stable failure equivalence and preorder*, using $φ^\mathrm{SF}$.
+$$
+  φ^\mathrm{WF} \grammardef
+    \hmleps\hmlobs{a}φ^\mathrm{WF}
+    \quad\grammaror\quad
+    \hmleps\hmland{i}{I} \hmlneg \hmleps\hmlobs{a_i}\hmltrue 
+$$
+$$
+  φ^\mathrm{SF} \grammardef
+    \hmleps\hmlobs{a}φ^\mathrm{SF}
+    \quad\grammaror\quad
+    \hmleps\hmland{i}{I} \hmlneg \hmlobs{α_i}\hmltrue
+      \text{ where }I=\varnothing \text{ or } 0 \in I \land α_0=\tau
+$$
+:::
 
-Pe(x=200, y=10)
-Pl(x=500, y=10)
-Pte(x=200, y=450)
-Ptl(x=500, y=450)
-"0"(x=365, y=304)
-"0 \csp {idle}"(x=411, y=786)
+:::{#exm-idle-process-abstraction}
 
+@fig-idle-process-abstraction presents transition systems of four processes:
+$\literal{P}_e$ makes a nondeterministic choice $\literal{op}$ between $\literal{a}$ and $\literal{b}$, performing arbitrarily many $\literal{idle}$-actions in between.
+$\literal{P}_\ell$ does the same but can change the choice while idling.
+$\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ are variants of the two obtained by renaming $\literal{idle}$ into $\tau$-actions.
+Many process algebras have an operator to perform such an *abstraction*, for instance, mCRL2's `hide` or CSP's hiding $\setminus$.
+
+::::{#fig-idle-process-abstraction}
+
+```tikz
+\begin{adjustbox}{scale=1.0, center}
+  \begin{tikzpicture}[->,auto,node distance=2cm, rel/.style={dashed,font=\it, blue}, ext/.style={line width=1pt}]
+    \node (Pe){$\literal{P_e}$};
+    \node (Ae) [below left of=Pe, node distance=1.5cm] {$\literal{A}_e$};
+    \node (Be) [below right of=Pe, node distance = 1.5cm] {$\literal{B}_e$};
+    \node (Se) [below right of=Ae, node distance = 1.5cm] {$\circ$};
+    \path
+    (Pe) edge [bend right=10, swap, ext] node {$\literal{op}$} (Ae)
+    (Pe) edge [bend left=10, ext] node {$\literal{op}$} (Be)
+    (Ae) edge [bend right=10, swap, ext] node {$\literal{a}\vphantom{\literal b}$} (Se)
+          edge [loop left, ext] node {$\literal{idle}$} ()
+    (Be) edge [bend left=10, ext] node {$\literal{b}$} (Se)
+          edge [loop right, ext] node {$\literal{idle}$} ()
+    ;
+
+    \node (Pl) [right of=Pe, node distance=7cm] {$\literal{P}_\ell$};
+    \node (Al) [below left of=Pl, node distance=1.5cm] {$\literal{A}_\ell$};
+    \node (Bl) [below right of=Pl, node distance = 1.5cm] {$\literal{B}_\ell$};
+    \node (Sl) [below right of=Al, node distance = 1.5cm] {$\circ$};
+    \path
+    (Pl) edge [bend right=10, swap, ext] node {$\literal{op}$} (Al)
+    (Pl) edge [bend left=10, ext] node {$\literal{op}$} (Bl)
+    (Al) edge [bend right=10, swap, ext] node {$\literal{a}\vphantom{\literal b}$} (Sl)
+          edge [bend right=12, swap, ext] node {$\literal{idle}$} (Bl)
+          edge [loop left, ext] node {$\literal{idle}$} ()
+    (Bl) edge [bend left=10, ext] node {$\literal{b}$} (Sl)
+          edge [bend right=12, swap, ext] node {$\literal{idle}$} (Al)
+          edge [loop right, ext] node {$\literal{idle}$} ()
+    ;
+
+    \node (Pte) [below right = .5cm and 1.4cm of Be]{$\literal{P}^\tau_e$};
+    \node (Ate) [below left of=Pte, node distance=1.5cm] {$\literal{A}^\tau_e$};
+    \node (Bte) [below right of=Pte, node distance = 1.5cm] {$\literal{B}^\tau_e$};
+    \node (Ste) [below right of=Ate, node distance = 1.5cm] {$\circ$};
+    \path
+    (Pte) edge [bend right=10, swap, ext] node {$\literal{op}$} (Ate)
+    (Pte) edge [bend left=10, ext] node {$\literal{op}$} (Bte)
+    (Ate) edge [bend right=10, swap, ext] node {$\literal{a} \vphantom{\literal b}$} (Ste)
+          edge [loop left] node {$\tau$} ()
+    (Bte) edge [bend left=10, ext] node {$\literal{b}$} (Ste)
+          edge [loop right] node {$\tau$} ()
+    ;
+
+    \node (Ptl) [right of=Pte, node distance=7cm] {$\literal{P}^\tau_\ell$};
+    \node (Atl) [below left of=Ptl, node distance=1.5cm] {$\literal{A}^\tau_\ell$};
+    \node (Btl) [below right of=Ptl, node distance = 1.5cm] {$\literal{B}^\tau_\ell$};
+    \node (Stl) [below right of=Atl, node distance = 1.5cm] {$\circ$};
+    \path
+    (Ptl) edge [bend right=10, swap, ext] node {$\literal{op}$} (Atl)
+    (Ptl) edge [bend left=10, ext] node {$\literal{op}$} (Btl)
+    (Atl) edge [bend right=10, ext, swap] node {$\literal{a} \vphantom{\literal b}$} (Stl)
+          edge [bend right=10, swap] node {$\tau$} (Btl)
+          edge [loop left] node {$\tau$} ()
+    (Btl) edge [bend left=10, ext] node {$\literal{b}$} (Stl)
+          edge [bend right=10, swap] node {$\tau$} (Atl)
+          edge [loop right] node {$\tau$} ()
+    ;
+
+  \end{tikzpicture}
+\end{adjustbox}
 ```
+
+A pair of processes $\literal{P}_e$ and $\literal{P}_\ell$ together with versions $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ of the two where $\literal{idle}$ has been abstracted into internal $\tau$-behavior.
+::::
+
+:::
+
 
 ... Closing hint: congruence even messier in the weak spectrum, e.g. weak bisim not congruence for +.
 

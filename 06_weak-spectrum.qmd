@@ -489,8 +489,9 @@ Such are the perks of modal characterizations!
 
 ### Abstraction as Congruence---and Stable Failures  
 
-Let us consider the following two abstractions of failure equivalence (@def-failures):
-
+For trace-like equivalences, there commonly appear two kinds of abstractions in the literature:
+Ones where negation and conjunctive observations are only possible when processes have *stabilized*, that is, exhausted their possibilities of internal behavior, and ones where stability plays no role.   
+We will illustrate these options using modal characterizations of stable and weak failure equivalence, abstracting @def-failures:
 
 :::{#def-weak-failures}
 
@@ -511,13 +512,24 @@ $$
 $$
 :::
 
+*Weak failures* are obtained by intermitting $\hmleps$-observations in between the steps.
+In comparison to the strong modal characterization of @def-failures-modal, this just means prepending productions (and negated actions) by $\hmleps$.
+
+*Stable failures* demand a negative $\hmlneg\hmlobs{\tau}$-conjunct in the conjunctions of failures.
+In one respect, this increases expressivity, as the possibility to stabilize into a state where $p \nostep{\tau}$ becomes observable.
+In another respect, one loses the option to see failures in instable parts of the transition system.
+In particular, if all states of a transition system are divergent, stable failure preorder degenerates to weak trace preorder.
+
+In summary, weak and stable failure equivalence are *incomparable.*
+TODO: Intro
+
 :::{#exm-idle-process-abstraction}
 
 @fig-idle-process-abstraction presents transition systems of four processes:
 $\literal{P}_e$ makes a nondeterministic choice $\literal{op}$ between $\literal{a}$ and $\literal{b}$, performing arbitrarily many $\literal{idle}$-actions in between.
 $\literal{P}_\ell$ does the same but can change the choice while idling.
 $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ are variants of the two obtained by renaming $\literal{idle}$ into $\tau$-actions.
-Many process algebras have an operator to perform such an *abstraction*, for instance, mCRL2's `hide` or CSP's hiding $\setminus$.
+Many process algebras have an operator to perform such an *abstraction* of a process, for instance, `hide` in mCRL2 [@groote2014mcrl2] or hiding “$\setminus$” in CSP [@hoare1985csp].
 
 ::::{#fig-idle-process-abstraction}
 
@@ -587,10 +599,18 @@ Many process algebras have an operator to perform such an *abstraction*, for ins
 A pair of processes $\literal{P}_e$ and $\literal{P}_\ell$ together with versions $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ of the two where $\literal{idle}$ has been abstracted into internal $\tau$-behavior.
 ::::
 
+$\literal{P}_e$ and $\literal{P}_\ell$ allow the same weak failure and stable failure observations and are thus equivalent.
+For the abstracted variants, $\literal{P}^\tau_e$ is distinguished from $\literal{P}^\tau_\ell$ by the weak failure $\hmleps\hmlobs{\literal{op}}\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{b}}}$, as $\literal{b}$ becomes weakly impossible at $\literal{A}^\tau_e$ but not at $\literal{A}^\tau_\ell$.
+Due to the $\step{\tau}$-loops, this difference is not expressible as a stable failure.
+Consequently, the  $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ are stable-failure-equivalent.
 :::
 
+The example highlights one way in which weak failures might be stronger than stable failures.
+For most process algebras, weak failures are *too strong* in this regard:
+The example also shows that weak failures cannot be a congruence for any hiding operator!
 
-... Closing hint: congruence even messier in the weak spectrum, e.g. weak bisim not congruence for +.
+TODO: RvG und CSP decisions
+TODO: Closing hint: congruence even messier in the weak spectrum, e.g. weak bisim not congruence for +.
 
 
 ## Expressing the Weak Spectrum with Quantities {#sec-weak-spectrum-quantities}
@@ -662,7 +682,7 @@ $$
 
 ### Weak Spectrum
 
-Using @def-weak-spectrum, we can give coordinates to the common notions of the weak behavioral equivalence in @fig-weak-spectrum.
+Using @def-weak-spectrum, we can give coordinates to the common notions of weak behavioral equivalences in @fig-weak-spectrum.
 
 :::{#fig-weak-spectrum fig-env='figure*' fig-pos='t!'}
 
@@ -686,7 +706,7 @@ Using @def-weak-spectrum, we can give coordinates to the common notions of the w
     \EqCoords{\infty,0,\infty,0,0,0,\infty,\infty}};
   \node (RS)[below left of=S2]{weak\\ ready sim $\notionname{WRS}$\\
     \EqCoords{\infty,0,\infty,0,0,\infty,1,1}};
-  \node (R)[below right of=RS]{unstable\\ readiness $\notionname{WR}$\\
+  \node (R)[below right of=RS]{weak\\ readiness $\notionname{WR}$\\
     \EqCoords{\infty,0,1,0,0,1,1,1}};
   \node (PF)[above right of=R]{weak\\ possible futures $\notionname{WPF}$\\
     \EqCoords{\infty,0,1,0,0,\infty,\infty,1}};
@@ -696,7 +716,7 @@ Using @def-weak-spectrum, we can give coordinates to the common notions of the w
     \EqCoords{\infty,0,\infty,0,0,\infty,0,0}};
   \node (eS)[above left of=RS]{$\eta$-sim $\eta\notionname{S}$\\
     \EqCoords{\infty,\infty,\infty,0,0,\infty,0,0}};
-  \node (F)[below right of=R]{unstable failures $\notionname{WF}$\\
+  \node (F)[below right of=R]{weak failures $\notionname{WF}$\\
     \EqCoords{\infty,0,1,0,0,0,1,1}};
   \node (T)[below right of=F]{weak traces $\notionname{WT}$\\
     \EqCoords{\infty,0,0,0,0,0,0,0}};
@@ -809,7 +829,7 @@ Productions that could be left out without affecting distinctiveness are set in 
       \grammarsp \hmleps\hmlobs{a}\mathhl{\varphi_\notionname{WT}}
       \grammaror \varphi_\notionname{WU} \\
   \intertext{
-    Unstable failures, $\notionname{WF}$ at $(\infty,0,\mathhl{1},0,0,0,\mathhl{1},\mathhl{1})$:
+    weak failures, $\notionname{WF}$ at $(\infty,0,\mathhl{1},0,0,0,\mathhl{1},\mathhl{1})$:
   }
     \varphi_\notionname{WF} \grammardef &
       \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WF}
@@ -826,7 +846,7 @@ Productions that could be left out without affecting distinctiveness are set in 
       \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{WF}, \psi_\notionname{WF}, \ldots }
       \grammaror \varphi_\notionname{WU} \\
   \intertext{
-    Unstable readiness, $\notionname{WR}$ at $(\infty,0,1,0,0,\mathhl{1},1,1)$:
+    weak readiness, $\notionname{WR}$ at $(\infty,0,1,0,0,\mathhl{1},1,1)$:
   }
     \varphi_\notionname{WR} \grammardef &
       \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WR}
@@ -843,7 +863,7 @@ Productions that could be left out without affecting distinctiveness are set in 
       \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{WR}, \psi_\notionname{WR}, \ldots }
       \grammaror \varphi_\notionname{WU} \\
   \intertext{
-    Unstable impossible futures, $\notionname{WIF}$ at $(\infty,0,1,0,0,0,\mathhl{\infty},1)$:
+    Weak impossible futures, $\notionname{WIF}$ at $(\infty,0,1,0,0,0,\mathhl{\infty},1)$:
   }
     \varphi_\notionname{WIF} \grammardef &
       \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WIF}
@@ -861,7 +881,7 @@ Productions that could be left out without affecting distinctiveness are set in 
       \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{WIF}, \psi_\notionname{WIF}, \ldots }
       \grammaror \varphi_\notionname{WU} \\
   \intertext{
-    Unstable possible futures, $\notionname{WPF}$ at $(\infty,0,1,0,0,\mathhl{\infty},\infty,1)$:
+    Weak possible futures, $\notionname{WPF}$ at $(\infty,0,1,0,0,\mathhl{\infty},\infty,1)$:
   }
     \varphi_\notionname{WPF} \grammardef &
       \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WPF}

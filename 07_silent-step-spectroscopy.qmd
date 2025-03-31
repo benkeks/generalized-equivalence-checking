@@ -767,7 +767,7 @@ For all $N \in \widehat{\notions}^\literal{weak}$, $p \in \states$, $Q \in \powe
 - Attacker wins $\gamespectroscopywsimple^{\system}$ from $\attackerpos{p,Q}$ with $N$ (that is, $N \in \attackerwins^{\gamespectroscopywsimple^{\system}}(\attackerpos{p,Q})$).
 :::
 
-Complexitywise, for the simplified game, $\gamespectroscopywsimple$,
+Complexity-wise, for the simplified game, $\gamespectroscopywsimple$,
 we have just
 $\relsize{G_{\swclever}} \in \bigo{ \relsize{\step{}} \cdot 2^{\relsize{\states}}}$
 and also $o_{\swclever} \in \bigo{ \relsize{\step{}}}$.

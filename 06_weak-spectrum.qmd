@@ -1085,7 +1085,7 @@ $$\semantics{\hmleps\hmlands \set{\hmlneg\hmlobs{\tau}, \varphi_1, \hmlneg\varph
 In this sense, contrasimulation and stable bisimilarity are sibling notions in the same manner as weak failures and stable failures of @sec-abstraction-failures.^[
   This is also the topic of @bm2024contrasimilarityInfComp [§ 7.3]
 ]
-We use the higher coordinate $(\infty, 0, 0, \infty, 0, \infty, \infty, \infty)$ with positive conjuncts for stable bisimulation in @fig-weak-spectrum to highlight that stable bisimulation preorder is finer than stable simulation preorder and its variants.
+We use the higher coordinate $(\infty, 0, 0, \infty, 0, \infty, \infty, \infty)$ with positive conjuncts for stable bisimulation in @fig-weak-spectrum to underscore that stable bisimulation preorder is finer than stable simulation preorder and its variants.
 
 {{<paragraph_heading "Simulation-like notions.">}}
 @fig-weak-grammars-sim-like adds the simulation-like notions for completeness.
@@ -1174,3 +1174,16 @@ Grammars induced by coordinates for weak simulation-like notions of equivalence.
 
 ## Discussion
 
+With this chapter, we have explored the space of weak behavioral equivalences in concurrency theory, focusing on their modal characterizations and relationships within the weak spectrum, following @glabbeek1993ltbt.
+This adds the preliminaries to consider their decision procedures in @sec-silent-step-spectroscopy.
+
+In examples, we have seen how weak equivalences handle internal non-determinism due to communcation in different ways.
+Practical scenarios, such as parallelizing compilers and process abstraction, reveal the possibilities and limitations of the different design decisions behind process equivalences.
+
+Following @idea-weak-hml, Our modal logic characterization through $\hmlsrbb$ captures a rich weak spectrum between stability-respecting branching bisimilarity and weak trace equivalence.
+We however have skipped some classical notions such as stable failure traces and coupled simulation, which would have called for even more dimensions in the already 8-dimensional pricing metric.^[
+  Especially for coupled similarity, this gap is ironic, as my research into game chracterizations of equivalences has been kicked off by an interest in decision procedures for coupled similarity in @bn2019coupledsimTacas and @bnp2020coupledsim30.
+]
+
+Logic and pricing metric are designed in such a way that readers of preceding chapters might already be able to guess how they will translate to game moves for stable and branching conjunctions in the next chapter.
+Call this avenue for gamification yet another perk of modal characterizations---besides the benefits of built-in transitivity and consistency, we have noticed along the way!

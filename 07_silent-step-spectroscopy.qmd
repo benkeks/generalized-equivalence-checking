@@ -927,7 +927,9 @@ Such a richer game model is the route taken by @ekw2017gamesBisimAbstraction to 
 - Handling Congruences
 - Coupled simulation
 
-## Tackling Our Case Studies
+## Tackling Our Case Studies {#sec-tackling-case-studies}
+
+We now return to our examples from @sec-case-stduies-other-eqs, and see how the spectroscopy approach can handle the two.
 
 ### Parallelizing Compilers {#sec-solution-parallelizing-compilation}
 

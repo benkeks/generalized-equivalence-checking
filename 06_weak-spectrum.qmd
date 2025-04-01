@@ -303,6 +303,13 @@ This is one of the perks of modal characterizations, indeed (cf. @sec-perks-moda
 
 ## Case Studies—and the Need for Other Equivalences {#sec-case-stduies-other-eqs}
 
+In the world of weak equivalences, many things are a little more complicated than in the strong spectrum.
+We have already observed, that bisimulation equivalence can be abstracted to branching bisimulation *and* weak bisimulation.
+
+In this section, we use two minimal case study examples to see how one can arrive at even more abstractions of bisimulation and of failure equivalence.
+
+In @sec-tackling-case-studies, we will pick up on the examples to see how the spectroscopy algorithm can indeed simplify a researcher's life.
+
 ### Parallelizing Compiler---and Contrasimulation
 
 Most of computer speed up in the last two decades has been due to parallelization of computation.
@@ -490,7 +497,7 @@ Such are the perks of modal characterizations!
 ### Abstraction as Congruence---and Stable Failures  
 
 For trace-like equivalences, there commonly appear two kinds of abstractions in the literature:
-Ones where negation and conjunctive observations are only possible when processes have *stabilized*, that is, exhausted their possibilities of internal behavior, and ones where stability plays no role.   
+Ones where negation and conjunctive observations are only possible when processes have *stabilized*, that is, exhausted their possibilities of internal behavior, and ones where stability plays no role.
 We will illustrate these options using modal characterizations of stable and weak failure equivalence, abstracting @def-failures:
 
 :::{#def-weak-failures}
@@ -521,7 +528,7 @@ In another respect, one loses the option to see failures in instable parts of th
 In particular, if all states of a transition system are divergent, stable failure preorder degenerates to weak trace preorder.
 
 In summary, weak and stable failure equivalence are *incomparable.*
-TODO: Intro
+The following example to highlight their differences is due to van Glabbeek:
 
 :::{#exm-idle-process-abstraction}
 
@@ -606,12 +613,21 @@ Consequently, the  $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ are stable-f
 :::
 
 The example highlights one way in which weak failures might be stronger than stable failures.
-For most process algebras, weak failures are *too strong* in this regard:
-The example also shows that weak failures cannot be a congruence for any hiding operator!
+For most process algebras, weak failures are *too strong* in the following sense:
+Weak failures cannot be a congruence for hiding operators, as witnessed by @exm-idle-process-abstraction!
 
-TODO: RvG und CSP decisions
-TODO: Closing hint: congruence even messier in the weak spectrum, e.g. weak bisim not congruence for +.
+Therefore, the standard models of CSP following @bhr1984theoryCSP have used stable failures for their semantics.
+@glabbeek1993ltbt only includes variants of stable failures in his weak spectrum, disregarding weak failures.
+Other authors such as @gfm2020congruenceOperator work with weak failures.
+Therefore, our spectrum in @sec-weak-spectrum-quantities will treat both.
+Weak failures will be located in the part below weak bisimilarity; stable failures in that below stable bisimilarity.
 
+:::{#rem-congruences-weak}
+In general, congruence properties are harder to obtain in the weak spectrum.
+A classic example would be weak bisimilarity, not forming a congruence with respect to the choice operator $\ccschoice$,
+because $\literal{a} \beq{WB} \ccsprefix{\tau}\literal{a}$ but not $\literal{a} \ccschoice \literal{b} \beq{WB} \ccsprefix{\tau}\literal{a} \ccschoice \literal{b}$.
+We will not go into the particularities around this and point to @sangiorgi2012 [§ 4.4] for how to obtain a congruence through “rooted” weak bisimilarity. 
+:::
 
 ## Expressing the Weak Spectrum with Quantities {#sec-weak-spectrum-quantities}
 

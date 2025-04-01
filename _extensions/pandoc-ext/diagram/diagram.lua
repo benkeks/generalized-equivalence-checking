@@ -218,6 +218,7 @@ local tikz = {
 
         -- Benjamin Bisping: I added this small line in order to reference macro dependencies from the main project.
         os.execute('ln -s $QUARTO_PROJECT_DIR '.. tmpdir .. '/PROJECT')
+        os.execute('df -h')
 
         -- Execute the LaTeX compiler:
         local success, result = pcall(

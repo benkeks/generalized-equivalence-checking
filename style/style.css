@@ -81,7 +81,7 @@ a:hover {
   font-family: 'Linux Libertine O';
   font-style: italic;
   font-weight: normal;
-  src: local('Linux Libertine O'), url('../lib/linux-libertine-font/LinLibertine_RI.woff') format('woff');
+  src: local('Linux Libertine O Italic'), url('../lib/linux-libertine-font/LinLibertine_RI.woff') format('woff');
 }
 
 @font-face {

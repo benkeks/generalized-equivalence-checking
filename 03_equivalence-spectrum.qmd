@@ -689,12 +689,17 @@ For instance, for $\actions = \set{a,b}$, completed trace and completed simulati
 #### Ambiguous Coordinates
 
 For many of the logics in @fig-strong-ltbt-spectrum, there are multiple coordinates that characterize the same logic.
-For instance, due to the second dimension (conjunctions) being set to $0$ for traces $\notionname{T}$, the higher dimensions do not matter and any coordinate $N = (\infty, 0, N_3, N_4, N_5, N_6)$ will lead to the same observation language $\observationsvar[\literal{strong}]{N} = \observations[\literal{strong}]{T}$.
+For instance, due to the second dimension (conjunctions) being set to $0$ for traces $\notionname{T}$, the higher dimensions do not matter and any coordinate $N = (\infty, 0, N_3, N_4, N_5, N_6)$ will lead to the same observation language $\observationsvar[\literal{strong}]{N} = \observations[\literal{strong}]{T}$.^[
+  Ruling out such equalities in the design of the lattice, would be quite tedious.
+  Luckily, @def-spectrum only demands $N \leq M$ to imply $\observationsvar{N} \subseteq \observationsvar{M}$, and not the converse.
+]
 
-Indeed, @fig-strong-ltbt-spectrum always selects the least coordinate to characterize a sublogic, which ensures that domination of coordinates in the figure and entailment between behavioral preorders coincide.
+Indeed, @fig-strong-ltbt-spectrum always selects the least coordinate to characterize a sublogic, in order for domination of coordinates in the figure and entailment between behavioral preorders to coincide.
 
 At the same time, some notions could be characteirzed by striclty smaller coordinates due to sublogics of matching expressiveness.
 In particular, all $(\infty, \infty, N_3, N_4, \infty, \infty)$ would characterize bisimilarity due to the unbounded possibility of “hiding” positive conjuncts in double negations.
+
+TODO: Link to later stable bisim example.
 :::
 
 ::: {#rem-other-coordinates}

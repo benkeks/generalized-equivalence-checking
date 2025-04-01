@@ -792,7 +792,7 @@ $\bigo{ \relsize{\step{}} \cdot
 (\relsize{\step{}} \cdot 2^{\relsize{\states}})^{16} } =
 \bigo{ \relsize{\step{}}^{17} \cdot 2^{16 \relsize{\states}} }$.
 
-### Covering Revivals and Decorated Traces
+### Covering Revivals and Decorated Traces {#sec-covering-revivals}
 
 In the weak spectrum of @sec-weak-spectrum-quantities, we left out the notions of revivals, failure traces, and ready traces, we had included in the strong spectrum of @sec-strong-notions.
 Their stable variants are relevant to the CSP community [see @roscoe2009revivalsHierarchy].

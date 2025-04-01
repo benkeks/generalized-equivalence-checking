@@ -15,7 +15,8 @@ Therefore, it matters that we can lift our approach to also account for such equ
 This chapter serves as a second round of preliminaries and context needed for the spectrum of weak equivalences.
 At the heart, we aim to find a modal spectrum characterization, where HML grammar and pricing are designed in such a way that we can apply the spectroscopy approach in the following @sec-silent-step-spectroscopy.
 
-We will reframe a big chunk of “The Linear Time–Branching Time Spectrum II: The Semantics of Sequential Systems with Silent Movea” [@glabbeek1993ltbt] to fit our modal framework.
+This is where we arrive at “The Linear Time–Branching Time Spectrum II: The Semantics of Sequential Systems with Silent Moves” [@glabbeek1993ltbt], already featured in @fig-ltbts2-paper of the introduction.
+We will reframe a big chunk of it to fit our modal framework.
 In particular, we try to be much more restricted in the use of special modalities than the presentation in @glabbeek1993ltbt.
 
 ::: {#idea-weak-hml .callout-idea .callout-note}
@@ -24,9 +25,13 @@ In particular, we try to be much more restricted in the use of special modalitie
 We can use a subset of $\hml$ to characterize most interesting weak equivalences.
 :::
 
-@sec-weak-equivalences-in-general will provide some preliminaries and define the $\hml$ subset, which will correspond to the notion of stability-respecting branching bisimilarity.
+@sec-weak-equivalences-in-general provides some preliminaries and define the $\hml$ subset, which will correspond to the notion of stability-respecting branching bisimilarity.
 We illustrate the use of some oft the weak notions through small examples in @sec-case-stduies-other-eqs.
 In @sec-weak-spectrum-quantities, we unfold the modal characterization for the weak spectrum.
+
+{{<paragraph_heading "Related publications.">}}
+This chapter is based on parts of @bj2025silentStepSpectroscopyJournal and @bm2024contrasimilarityInfComp.
+For a fuller presentation of the spectrum of weak equivalences itself, @glabbeek1993ltbt is the authorative work.
 
 ## Weak Equivalences in General {#sec-weak-equivalences-in-general}
 
@@ -631,18 +636,26 @@ We will not go into the particularities around this and point to @sangiorgi2012 
 
 ## Expressing the Weak Spectrum with Quantities {#sec-weak-spectrum-quantities}
 
+We can capture the weak spectrum in a lattice of vectors like the strong one in @sec-spectrum.
+But we need a few more dimensions.
+
 ### Syntactic Expressiveness
 
-We adapt the notions of @sec-strong-notions for the weak spectrum to distinguish the new kinds of conjunctions:
+We adapt the notions of @sec-strong-notions for the weak spectrum to distinguish the new kinds of conjunctions that appear in $\hmlsrbb$ of @def-hml-srbb:
 
 1. Modal depth of *observations* ($\hmlobs{a}$, $\hmlopt{\alpha}$).
 2. **New:** Nesting depth of *branching conjunctions* (with one $\hmlopt{\alpha}$-observation conjunct, not starting with $\hmleps$).
 3. **New:** Nesting depth of *unstable conjunctions* (that do not enforce stability by a $\hmlneg \hmlobs{\tau} \hmltrue$-conjunct).
 4. **New:** Nesting depth of *stable conjunctions* (that do enforce stability by a $\hmlneg \hmlobs{\tau} \hmltrue$-conjunct).
 5. Nesting depth of *immediate conjunctions* (that are not preceded by $\hmleps$).
-6. Maximal modal depth of *positive conjuncts* in conjunctions.^[To simplify matters, we drop the two kinds of positive conjunct depths.]
+6. Maximal modal depth of *positive conjuncts* in conjunctions.^[
+  To simplify matters, we drop the two kinds of positive conjunct depths of @sec-strong-notions.
+  @sec-covering-revivals will hint how to add stable revivals back in.]
 7. Maximal modal depth of *negative conjuncts* in conjunctions.
 8. Nesting depth of *negations*.
+
+To formalize our weak spectrum, we need to fix the observation languages $\observationsvar[\literal{weak}]{N}$.
+This time, we will do this by directly providing an expressiveness pricing metric.
 
 ::: {#def-weak-spectrum}
 #### Weak Spectrum
@@ -738,7 +751,7 @@ Using @def-weak-spectrum, we can give coordinates to the common notions of weak 
     \EqCoords{\infty,0,0,0,0,0,0,0}};
   \node (E)[below of=T, node distance=1.2cm]{weak enabledness $\notionname{WE}$\\
     \EqCoords{1,0,0,0,0,0,0,0}};
-  \node (U)[below of=E, node distance=1.2cm]{weak enabledness $\notionname{WU}$\\
+  \node (U)[below of=E, node distance=1.2cm]{weak universal $\notionname{WU}$\\
     \EqCoords{0,0,0,0,0,0,0,0}};
   
   \node (DBs)[xshift=12mm, above right of=DB, node distance=1.75cm]{s.-r.\ delay bisim $\notionname{DB^{sr}}$\\
@@ -845,7 +858,7 @@ Productions that could be left out without affecting distinctiveness are set in 
       \grammarsp \hmleps\hmlobs{a}\mathhl{\varphi_\notionname{WT}}
       \grammaror \varphi_\notionname{WU} \\
   \intertext{
-    weak failures, $\notionname{WF}$ at $(\infty,0,\mathhl{1},0,0,0,\mathhl{1},\mathhl{1})$:
+    Weak failures, $\notionname{WF}$ at $(\infty,0,\mathhl{1},0,0,0,\mathhl{1},\mathhl{1})$:
   }
     \varphi_\notionname{WF} \grammardef &
       \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WF}
@@ -862,7 +875,7 @@ Productions that could be left out without affecting distinctiveness are set in 
       \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{WF}, \psi_\notionname{WF}, \ldots }
       \grammaror \varphi_\notionname{WU} \\
   \intertext{
-    weak readiness, $\notionname{WR}$ at $(\infty,0,1,0,0,\mathhl{1},1,1)$:
+    Weak readiness, $\notionname{WR}$ at $(\infty,0,1,0,0,\mathhl{1},1,1)$:
   }
     \varphi_\notionname{WR} \grammardef &
       \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WR}
@@ -913,87 +926,9 @@ Productions that could be left out without affecting distinctiveness are set in 
 Grammars induced by coordinates for weak linear-time notions of equivalence.
 :::
 
+The modal characterizations correspond to the ones one would expect, with some trivial ones appearing due to the language hierarchy approach.
 
-:::{#fig-weak-grammars-sim-like}
-
-```tikz
-\parbox{12cm}{
-  \begin{align*}
-  \intertext{
-    Weak simulation, $\notionname{1WS}$ at $(\infty,0,\mathhl{\infty},0,0,\mathhl{\infty},0,0)$:
-  }
-    \varphi_\notionname{1WS} \grammardef &
-      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{1WS}
-      \grammaror \mathhl{\hmleps\hmlands \set{ \psi_\notionname{1WS}, \psi_\notionname{1WS}, \ldots }}
-      \grammaror \mathdl{\varphi_\notionname{WU}} \\
-    \psi_\notionname{1WS} \grammardef &
-      \grammarsp \mathhl{\hmleps\hmlobs{a}\varphi_\notionname{1WS}}
-      \grammaror \mathdl{\hmleps\hmlands \set{ \psi_\notionname{1WS}, \psi_\notionname{1WS}, \ldots }}\\
-  \intertext{
-    Weak ready simulation, $\notionname{WRS}$ at $(\infty,0,\infty,0,0,\infty,\mathhl{1},\mathhl{1})$:
-  }
-    \varphi_\notionname{WRS} \grammardef &
-      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WRS}
-      \grammaror \hmleps\hmlands \set{ \psi_\notionname{WRS}, \psi_\notionname{WRS}, \ldots }
-      \grammaror \mathdl{\varphi_\notionname{WU}} \\
-    \psi_\notionname{WRS} \grammardef &
-      \grammarsp \mathhl{\hmlneg\hmleps\hmlobs{a}\varphi_\notionname{WU^*}}
-      \grammaror \hmleps\hmlobs{a}\varphi_\notionname{WRS}
-      \grammaror \mathdl{\hmleps\hmlands \set{ \psi_\notionname{WRS}, \psi_\notionname{WRS}, \ldots }} \\
-    \varphi_\notionname{WU^*} \grammardef &
-      \grammarsp \hmltrue
-      \grammaror \mathdl{\hmleps\hmlands\set{\varphi_\notionname{WU^*}, \varphi_\notionname{WU^*}, \ldots}} \\
-  \intertext{
-    2-nested weak simulation, $\notionname{2WS}$ at $(\infty,0,\infty,0,0,\infty,\mathhl{\infty},1)$:
-  }
-    \varphi_\notionname{2WS} \grammardef &
-      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{2WS}
-      \grammaror \hmleps\hmlands \set{ \psi_\notionname{2WS}, \psi_\notionname{2WS}, \ldots }
-      \grammaror \mathdl{\varphi_\notionname{WU}} \\
-    \psi_\notionname{2WS} \grammardef &
-      \grammarsp \mathhl{\hmlneg\psi_\notionname{1WS}}
-      \grammaror \hmleps\hmlobs{a}\varphi_\notionname{2WS}
-      \grammaror \mathdl{\hmleps\hmlands \set{ \psi_\notionname{2WS}, \psi_\notionname{2WS}, \ldots }} \\
-  \intertext{
-    $\eta$-simulation, $\eta\notionname{S}$ at $(\infty,\mathhl{\infty},\infty,0,0,\infty,0,0)$:
-  }
-    \varphi_{\eta\notionname{S}} \grammardef &
-      \grammarsp \psi_{\eta\notionname{S}}
-      \grammaror \mathdl{\varphi_\notionname{WU}} \\
-    \psi_{\eta\notionname{S}} \grammardef &
-      \grammarsp \hmleps\hmlobs{a}\varphi_{\eta\notionname{S}}
-      \grammaror \hmleps\hmlands \set{ \mathhl{\hmlopt{\alpha}\varphi_{\eta\notionname{S}}}, \psi_{\eta\notionname{S}}, \psi_{\eta\notionname{S}}, \ldots }
-      \grammaror \hmleps\hmlands \set{ \psi_{\eta\notionname{S}}, \psi_{\eta\notionname{S}}, \ldots }\\
-  \intertext{
-    Stable simulation, $\notionname{SS}$ at $(\infty,0,0,\mathhl{\infty},0,\infty,0,\mathhl{1})$:
-  }
-    \varphi_\notionname{SS} \grammardef &
-      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{SS}
-      \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{SS}, \psi_\notionname{SS}, \ldots }
-      \grammaror \varphi_\notionname{WU} \\
-    \psi_\notionname{SS} \grammardef &
-      \grammarsp \mathdl{\hmleps}\hmlobs{a}\varphi_\notionname{SS}
-      \grammaror \mathdl{\hmleps\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue, \psi_\notionname{SS}, \psi_\notionname{SS}, \ldots }}
-      \grammaror \mathdl{\hmlneg \varphi_\notionname{WU}}\\
-  \intertext{
-    Stable ready simulation, $\notionname{WRS^s}$ at $(\infty,0,0,\mathhl{\infty},0,\infty,\mathhl{1},1)$:
-  }
-    \varphi_\notionname{WRS^s} \grammardef &
-      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WRS^s}
-      \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{WRS^s}, \psi_\notionname{WRS^s}, \ldots }
-      \grammaror \varphi_\notionname{WU} \\
-    \psi_\notionname{WRS^s} \grammardef &
-      \grammarsp \mathhl{\hmlneg\hmleps\hmlobs{a}\varphi_\notionname{WU}}
-      \grammaror \mathdl{\hmleps}\hmlobs{a}\varphi_\notionname{WRS^s}
-      \grammaror \mathdl{\hmleps\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue, \psi_\notionname{WRS^s}, \psi_\notionname{WRS^s}, \ldots }} \\
-  \end{align*}
-}
-```
-
-Grammars induced by coordinates for weak simulation-like notions of equivalence.
-:::
-
-
+The abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more interesting things happen.
 
 :::{#fig-weak-grammars-bisim-like}
 
@@ -1107,9 +1042,122 @@ Grammars induced by coordinates for weak simulation-like notions of equivalence.
 Grammars induced by coordinates for weak bisimulation-like notions of equivalence.
 :::
 
+The first interesting feature is an effect of some languages not enforcing top-level negation as observed in @bj2024silentStepSpectroscopyExpress [Ex. 2.5].
+
+:::{#exm-weak-bisim-modal-features}
+
+Let us contrast the logic of weak bisimulation observations $\observations{WB}$ defined through $(\infty,0,\infty,0,0,\infty,\infty,\infty)$ to the weak bisimulation observations $\observations{WB'}$ from @gfm2020congruenceOperator:
+$$\varphi_\literal{WB'} \grammardef \hmleps\varphi_\literal{WB'}
+        \grammaror \hmleps\hmlobs{a}\hmleps\varphi_\literal{WB'}
+        \grammaror \hmlands \set{\varphi_\literal{WB'}, \varphi_\literal{WB'}, \ldots} 
+        \grammaror \hmlneg\varphi_\literal{WB'}
+$$
+Our $\observations{WB}$ allows a few formulas that $\observations{WB'}$ lacks, e.g. $\hmleps\hmlobs{\literal{a}}\hmleps\hmlobs{\literal{a}}\hmleps\hmltrue$.
+This does not add expressiveness as $\observations{WB'}$ has $\hmleps\hmlobs{\literal{a}}\hmleps\hmleps\hmlobs{\literal{a}}\hmleps\hmltrue$ and $\semantics{\hmleps\hmleps\varphi} = \semantics{\hmleps\varphi}$.
+
+For the other direction, there is a bigger difference due to $\observations{WB'}$ allowing more freedom in the placement of conjunction and negation.
+In particular, it permits top-level conjunctions and negated conjunctions without $\hmleps$ in between. But these features do not add distinctive power.
+$\observations{WB'}$ also allows top-level negation, and this adds distinctive power to the preorders, effectively turning them into equivalence relations.
+We do not enforce this and thus our $\mathord{\bpreord{WB}} \neq \mathord{\beq{WB}}$;
+for instance, $\ccsprefix{\tau} \literal{a} \bpreord{WB} \tau \ccschoice \ccsprefix{\tau} \literal{a}$, but $\tau \ccschoice \ccsprefix{\tau} \literal{a} \not\bpreord{WB} \ccsprefix{\tau} \literal{a}$ due to $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}\hmltrue}$.
+However, as a distinction by $\hmlneg \varphi$ in one direction implies one by $\varphi$ in the other, we know that this difference is ironed out once we consider the equivalence $\beq{WB}$.
+:::
+
+@bj2025silentStepSpectroscopyJournal [§ 3.3] proves in detail, for each of our abstractions of bisimilarity, that it corresponds to its respective relational characterization.
+The Isabelle theory [@bbhlmm2025weakSpectroscopyIsabelle] features theorems for
+$\eta$-bisimilarity{{<isb theorem Eta_Bisimilarity LTS_Tau.eta_bisim_coordinate>}} and for
+stability-respecting branching bisimilarity{{<isb theorem Branching_Bisimilarity LTS_Tau.sr_branching_bisim_coordinate>}}.
+
+TODO: Stable bisim etc.
+
+@rem-ambiguous-coordinates on ambiguous coordinates not always the least
 
 TODO: Remark on Stable Bisimilarity equaling stable contrasimilarity in expressiveness; Coordinate choice to show that stable bisim implies e.g. stable ready sim. 
 
+@fig-weak-grammars-sim-like adds the simulation-like notions for completeness.
+At this point, they are not particularly interesting, but the trivial conjuncts can be even less well-behaved.
+
+
+:::{#fig-weak-grammars-sim-like}
+
+```tikz
+\parbox{12cm}{
+  \begin{align*}
+  \intertext{
+    Weak simulation, $\notionname{1WS}$ at $(\infty,0,\mathhl{\infty},0,0,\mathhl{\infty},0,0)$:
+  }
+    \varphi_\notionname{1WS} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{1WS}
+      \grammaror \mathhl{\hmleps\hmlands \set{ \psi_\notionname{1WS}, \psi_\notionname{1WS}, \ldots }}
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \psi_\notionname{1WS} \grammardef &
+      \grammarsp \mathhl{\hmleps\hmlobs{a}\varphi_\notionname{1WS}}
+      \grammaror \mathdl{\hmleps\hmlands \set{ \psi_\notionname{1WS}, \psi_\notionname{1WS}, \ldots }}\\
+  \intertext{
+    Weak ready simulation, $\notionname{WRS}$ at $(\infty,0,\infty,0,0,\infty,\mathhl{1},\mathhl{1})$:
+  }
+    \varphi_\notionname{WRS} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WRS}
+      \grammaror \hmleps\hmlands \set{ \psi_\notionname{WRS}, \psi_\notionname{WRS}, \ldots }
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \psi_\notionname{WRS} \grammardef &
+      \grammarsp \mathhl{\hmlneg\hmleps\hmlobs{a}\varphi_\notionname{WU^*}}
+      \grammaror \hmleps\hmlobs{a}\varphi_\notionname{WRS}
+      \grammaror \mathdl{\hmleps\hmlands \set{ \psi_\notionname{WRS}, \psi_\notionname{WRS}, \ldots }} \\
+    \varphi_\notionname{WU^*} \grammardef &
+      \grammarsp \hmltrue
+      \grammaror \mathdl{\hmleps\hmlands\set{\varphi_\notionname{WU^*}, \varphi_\notionname{WU^*}, \ldots}} \\
+  \intertext{
+    2-nested weak simulation, $\notionname{2WS}$ at $(\infty,0,\infty,0,0,\infty,\mathhl{\infty},1)$:
+  }
+    \varphi_\notionname{2WS} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{2WS}
+      \grammaror \hmleps\hmlands \set{ \psi_\notionname{2WS}, \psi_\notionname{2WS}, \ldots }
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \psi_\notionname{2WS} \grammardef &
+      \grammarsp \mathhl{\hmlneg\psi_\notionname{1WS}}
+      \grammaror \hmleps\hmlobs{a}\varphi_\notionname{2WS}
+      \grammaror \mathdl{\hmleps\hmlands \set{ \psi_\notionname{2WS}, \psi_\notionname{2WS}, \ldots }} \\
+  \intertext{
+    $\eta$-simulation, $\eta\notionname{S}$ at $(\infty,\mathhl{\infty},\infty,0,0,\infty,0,0)$:
+  }
+    \varphi_{\eta\notionname{S}} \grammardef &
+      \grammarsp \psi_{\eta\notionname{S}}
+      \grammaror \mathdl{\varphi_\notionname{WU}} \\
+    \psi_{\eta\notionname{S}} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_{\eta\notionname{S}}
+      \grammaror \hmleps\hmlands \set{ \mathhl{\hmlopt{\alpha}\varphi_{\eta\notionname{S}}}, \psi_{\eta\notionname{S}}, \psi_{\eta\notionname{S}}, \ldots }
+      \grammaror \hmleps\hmlands \set{ \psi_{\eta\notionname{S}}, \psi_{\eta\notionname{S}}, \ldots }\\
+  \intertext{
+    Stable simulation, $\notionname{SS}$ at $(\infty,0,0,\mathhl{\infty},0,\infty,0,\mathhl{1})$:
+  }
+    \varphi_\notionname{SS} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{SS}
+      \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{SS}, \psi_\notionname{SS}, \ldots }
+      \grammaror \varphi_\notionname{WU} \\
+    \psi_\notionname{SS} \grammardef &
+      \grammarsp \mathdl{\hmleps}\hmlobs{a}\varphi_\notionname{SS}
+      \grammaror \mathdl{\hmleps\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue, \psi_\notionname{SS}, \psi_\notionname{SS}, \ldots }}
+      \grammaror \mathdl{\hmlneg \varphi_\notionname{WU}}\\
+  \intertext{
+    Stable ready simulation, $\notionname{WRS^s}$ at $(\infty,0,0,\mathhl{\infty},0,\infty,\mathhl{1},1)$:
+  }
+    \varphi_\notionname{WRS^s} \grammardef &
+      \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WRS^s}
+      \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{WRS^s}, \psi_\notionname{WRS^s}, \ldots }
+      \grammaror \varphi_\notionname{WU} \\
+    \psi_\notionname{WRS^s} \grammardef &
+      \grammarsp \mathhl{\hmlneg\hmleps\hmlobs{a}\varphi_\notionname{WU}}
+      \grammaror \mathdl{\hmleps}\hmlobs{a}\varphi_\notionname{WRS^s}
+      \grammaror \mathdl{\hmleps\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue, \psi_\notionname{WRS^s}, \psi_\notionname{WRS^s}, \ldots }} \\
+  \end{align*}
+}
+```
+
+Grammars induced by coordinates for weak simulation-like notions of equivalence.
+:::
+
+@bj2025silentStepSpectroscopyJournal contains proofs that the observation languages for weak simulation and $\eta$-simulation correspond to their relational definitions (@def-weak-bisimilarity).{{<isb theorem Eta_Bisimilarity LTS_Tau.eta_sim_coordinate>}}
 
 ## Discussion
 

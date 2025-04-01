@@ -26,7 +26,6 @@ For this, we employ the first core idea of this chapter:
 Spectra of equivalence problems can be encoded as energy games.
 :::
 
-\noindent
 Energy games are games in which players have limited resources that can be used up or recharged during moves.
 Players running out of a resource lose the game.
 After introducing such games in @sec-energy-games, we will prove in @sec-characterzing-ptime-part that several core equivalences can be characterized as defender's winning energy budgets by adding three-dimensional energies to the bisimulation game.
@@ -39,7 +38,6 @@ The second core idea is how to compute these winning budgets:
 Attacker's winning budgets in energy reachability games can be computed by a generalized shortest paths algorithm.
 :::
 
-\noindent
 @sec-deciding-energy-games will provide an algorithm to solve a range of energy-game-like quantitative problems as long as the energy updates can be *undone* through a *Galois connection*, which is a generalization of invertibility on monotonic functions.
 
 By combining the two contributions, we arrive at a polynomial-time solution of the spectroscopy problem for the polynomial slice of the strong spectrum.

@@ -698,8 +698,7 @@ Indeed, @fig-strong-ltbt-spectrum always selects the least coordinate to charact
 
 At the same time, some notions could be characteirzed by striclty smaller coordinates due to sublogics of matching expressiveness.
 In particular, all $(\infty, \infty, N_3, N_4, \infty, \infty)$ would characterize bisimilarity due to the unbounded possibility of “hiding” positive conjuncts in double negations.
-
-TODO: Link to later stable bisim example.
+This observation will become relevant again later for varying abstractions of bisimilarity in the spectrum of weak equivalences in @sec-weak-spectrum-exposition.
 :::
 
 ::: {#rem-other-coordinates}

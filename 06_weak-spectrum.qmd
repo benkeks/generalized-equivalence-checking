@@ -709,7 +709,7 @@ $$
 $$
 :::
 
-### Weak Spectrum
+### Weak Spectrum {#sec-weak-spectrum-exposition}
 
 Using @def-weak-spectrum, we can give coordinates to the common notions of weak behavioral equivalences in @fig-weak-spectrum.
 In this subsection, we take a deeper look into the observation languages characterized by the coordinates and argue for the correctness of exemplary cases.

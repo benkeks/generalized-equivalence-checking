@@ -499,7 +499,7 @@ As discussed in @sec-perks-modal-characterizations it is trivial to ensure that 
 Such are the perks of modal characterizations!
 :::
 
-### Abstraction as Congruence---and Stable Failures  
+### Abstraction as Congruence---and Stable Failures {#sec-abstraction-failures}
 
 For trace-like equivalences, there commonly appear two kinds of abstractions in the literature:
 Ones where negation and conjunctive observations are only possible when processes have *stabilized*, that is, exhausted their possibilities of internal behavior, and ones where stability plays no role.
@@ -712,6 +712,7 @@ $$
 ### Weak Spectrum
 
 Using @def-weak-spectrum, we can give coordinates to the common notions of weak behavioral equivalences in @fig-weak-spectrum.
+In this subsection, we take a deeper look into the observation languages characterized by the coordinates and argue for the correctness of exemplary cases.
 
 :::{#fig-weak-spectrum fig-env='figure*' fig-pos='t!'}
 
@@ -813,6 +814,9 @@ Using @def-weak-spectrum, we can give coordinates to the common notions of weak 
 
 Hierarchy of weak behavioral equivalences/preorders, by equivalence notion coordinates.
 :::
+
+{{<paragraph_heading "Linear-time notions.">}}
+Let us first see how trace-like notions are handled in our spectrum.
 
 ::: {#lem-weak-trace-eq}
 
@@ -928,6 +932,7 @@ Grammars induced by coordinates for weak linear-time notions of equivalence.
 
 The modal characterizations correspond to the ones one would expect, with some trivial ones appearing due to the language hierarchy approach.
 
+{{<paragraph_heading "Bisimulation-like notions.">}}
 The abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more interesting things happen.
 
 :::{#fig-weak-grammars-bisim-like}
@@ -1042,7 +1047,12 @@ The abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more int
 Grammars induced by coordinates for weak bisimulation-like notions of equivalence.
 :::
 
-The first interesting feature is an effect of some languages not enforcing top-level negation as observed in @bj2024silentStepSpectroscopyExpress [Ex. 2.5].
+@bj2025silentStepSpectroscopyJournal [§ 3.3] prove in detail, for each of our abstractions of bisimilarity, that it corresponds to its respective relational characterization.
+The Isabelle theory [@bbhlmm2025weakSpectroscopyIsabelle] features theorems for
+$\eta$-bisimilarity{{<isb theorem Eta_Bisimilarity LTS_Tau.eta_bisim_coordinate>}} and for
+stability-respecting branching bisimilarity{{<isb theorem Branching_Bisimilarity LTS_Tau.sr_branching_bisim_coordinate>}}.
+
+The first interesting feature of the weak hierachy is an effect of some languages not enforcing top-level negation as observed in @bj2024silentStepSpectroscopyExpress [Ex. 2.5].
 
 :::{#exm-weak-bisim-modal-features}
 
@@ -1063,20 +1073,23 @@ for instance, $\ccsprefix{\tau} \literal{a} \bpreord{WB} \tau \ccschoice \ccspre
 However, as a distinction by $\hmlneg \varphi$ in one direction implies one by $\varphi$ in the other, we know that this difference is ironed out once we consider the equivalence $\beq{WB}$.
 :::
 
-@bj2025silentStepSpectroscopyJournal [§ 3.3] proves in detail, for each of our abstractions of bisimilarity, that it corresponds to its respective relational characterization.
-The Isabelle theory [@bbhlmm2025weakSpectroscopyIsabelle] features theorems for
-$\eta$-bisimilarity{{<isb theorem Eta_Bisimilarity LTS_Tau.eta_bisim_coordinate>}} and for
-stability-respecting branching bisimilarity{{<isb theorem Branching_Bisimilarity LTS_Tau.sr_branching_bisim_coordinate>}}.
+Another point of interest is the relationship of weak bisimilarity, contrasimilarity and stable bisimilarity.
+@rem-ambiguous-coordinates on ambiguous coordinates has mentioned that $(\infty, \infty, 0, 0, \infty, \infty) \in \notions^\literal{strong}$, which disallows positive conjuncts, already characterizes strong bisimilarity.
+Translating this coordinate to the weak spectrum, we hit $(\infty, 0, \infty, 0, 0, 0, \infty, \infty)$ or $(\infty, 0, 0, \infty, 0, 0, \infty, \infty) \in \notions^\literal{weak}$.
+In the weak spectrum, these coordinates correspond to differing notions!
+The first of the two is exactly the coordinate of contrasimilarity.
+The other one describes observations that are equally expressive to stable bisimulation observations,
+because stabilized positive conjuncts can be normalized away by {{<isb theorem HML_SRBB LTS_Tau.srbb_stable_Neg_normalizable_set>}}
+$$\semantics{\hmleps\hmlands \set{\hmlneg\hmlobs{\tau}, \varphi_1, \hmlneg\varphi_2,\ldots }} =
+\semantics{\hmleps\hmlands \set{\hmlneg\hmlobs{\tau}, \hmlneg\hmleps\hmlands \set{\hmlneg\hmlobs{\tau}, \hmlneg\varphi_1}, \hmlneg\varphi_2,\ldots }}.$$
+In this sense, contrasimulation and stable bisimilarity are sibling notions in the same manner as weak failures and stable failures of @sec-abstraction-failures.^[
+  This is also the topic of @bm2024contrasimilarityInfComp [§ 7.3]
+]
+We use the higher coordinate $(\infty, 0, 0, \infty, 0, \infty, \infty, \infty)$ with positive conjuncts for stable bisimulation in @fig-weak-spectrum to highlight that stable bisimulation preorder is finer than stable simulation preorder and its variants.
 
-TODO: Stable bisim etc.
-
-@rem-ambiguous-coordinates on ambiguous coordinates not always the least
-
-TODO: Remark on Stable Bisimilarity equaling stable contrasimilarity in expressiveness; Coordinate choice to show that stable bisim implies e.g. stable ready sim. 
-
+{{<paragraph_heading "Simulation-like notions.">}}
 @fig-weak-grammars-sim-like adds the simulation-like notions for completeness.
-At this point, they are not particularly interesting, but the trivial conjuncts can be even less well-behaved.
-
+At this point, they are not particularly interesting, but the trivial conjuncts can be even bigger.
 
 :::{#fig-weak-grammars-sim-like}
 

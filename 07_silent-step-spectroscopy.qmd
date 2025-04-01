@@ -9,13 +9,22 @@ toc-title: "Chapter 7"
 
 # Spectroscopy for the Weak Spectrum {#sec-silent-step-spectroscopy}
 
-## The Weak Spectroscopy Game
+By applying the ideas, we have explored so far, we can derive a game for the weak spectrum of @sec-weak-spectrum.
+The basic schematics are exactly the same as for the strong spectroscopy in @fig-strong-spectroscopy-big-picture.
+
+What is different this time around is that have a full Isabelle/HOL formalization of game correctness in @sec-weak-spectro-game, and that we can apply the algorithm to real case studies that involve internal behavior in @sec-tackling-case-studies.
+In @sec-weak-spectro-variants, we discuss how to use our method to check even more weak equivalences.  
+
+{{<paragraph_heading "Related publications.">}}
+This section is based on @bj2024silentStepSpectroscopyExpress, and on its accompanying tech report drafts @bj2025silentStepSpectroscopyJournal and @bbhlmm2025weakSpectroscopyIsabelle.
+
+## The Weak Spectroscopy Game {#sec-weak-spectro-game}
 
 ### The Game
 
 The weak spectroscopy game, in many respects, is just like the spectroscopy games we have already discussed:
-The attacker has different paths that move closely along the productions of the $\hmlsrbb$-grammar (@def-hml-srbb).
-But this time, there are four different kidns of non-empty conjunctions!
+The attacker, trying to distinguish states, has different paths that move closely along the productions of the $\hmlsrbb$-grammar (@def-hml-srbb).
+But this time, there are *four* different kidns of non-empty conjunctions!
 This makes the following schematic depiction in @fig-weak-spectroscopy-game-schematic already look quite entangled.
 
 :::{#fig-weak-spectroscopy-game-schematic fig-env='figure*' fig-pos='t'}
@@ -649,7 +658,7 @@ De Frutos Escrig et al.'s -@ekw2017gamesBisimAbstraction branching bisimulation 
 Thus, a derived reachability game of the weak spectroscopy game for branching bisimilarity in the spirit of @sec-deriving-eq-games should too be polynomial in size if we apply clever optimizations.
 The upcoming @sec-optimized-branching-conj will show how to simplify the spectroscopy game to achieve this reduction of size around branching conjunctions.
 
-## Variants
+## Variants {#sec-weak-spectro-variants}
 
 ### Optimization of Branching Conjunctions {#sec-optimized-branching-conj}
 

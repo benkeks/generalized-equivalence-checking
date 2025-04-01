@@ -20,8 +20,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
-    
+    timeout-minutes: 10
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -68,8 +67,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          # upgrade to version where browser incovations hopefully work again
-          version: 1.7.13
+          version: 1.7.20
           # To install LaTeX to build PDF book 
           tinytex: false
           # version: SPECIFIC-QUARTO-VERSION-HERE
@@ -77,6 +75,9 @@ jobs:
          # From https://github.com/actions/setup-python
          # - name: Setup Python
          #   uses: actions/setup-python@v3
+
+      - name: Prepare font cache
+        run: sudo fc-cache -f
 
       - name: Render with Quarto 
         uses: quarto-dev/quarto-actions/render@v2

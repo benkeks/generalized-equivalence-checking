@@ -1,0 +1,49 @@
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+%\usepackage{mathpartir}
+\usepackage{cancel}
+\usepackage{extarrows}
+\usepackage{graphicx}
+\usepackage[iso, english]{isodate}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage[dvipsnames,svgnames]{xcolor}
+
+\usepackage{etoolbox}
+
+\usepackage{adjustbox}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\pgfdeclarelayer{bg}
+\pgfsetlayers{bg,main}
+\pgfplotsset{compat=1.18}
+\usepackage{tikz}
+\usetikzlibrary{arrows, automata, positioning, decorations, shapes, shapes.geometric, shapes.multipart, fadings}
+
+\definecolor{obsColor}{RGB}{218, 0, 99}
+\definecolor{conjColor}{RGB}{242, 75, 42}
+\definecolor{mainPosColor}{RGB}{200, 180, 0}
+\definecolor{otherPosColor}{RGB}{143, 209, 79}
+\definecolor{negObsColor}{RGB}{18, 205, 212}
+\definecolor{negsColor}{RGB}{101, 44, 179}
+
+\usepackage{amssymb}
+
+% add xtwoheadrightarrow that exists in KaTeX but not in standard LaTeX. (from https://tex.stackexchange.com/a/260563)
+\newcommand{\xtwoheadrightarrow}[2][]{%
+  \xrightarrow[#1]{#2}\mathrel{\mkern-14mu}\rightarrow
+}
+
+\makeatletter
+\newbox\xrat@below
+\newbox\xrat@above
+\newcommand{\xrightarrowtail}[2][]{%
+  \setbox\xrat@below=\hbox{\ensuremath{\scriptstyle #1}}%
+  \setbox\xrat@above=\hbox{\ensuremath{\scriptstyle #2}}%
+  \pgfmathsetlengthmacro{\xrat@len}{max(\wd\xrat@below,\wd\xrat@above)+.6em}%
+  \mathrel{\tikz [>->,baseline=-.58ex,line width=0.43pt]
+                 \draw (0,0) -- node[below=-2pt] {\box\xrat@below}
+                                node[above=-2pt] {\box\xrat@above}
+                       (\xrat@len,0) ;}}
+\makeatother

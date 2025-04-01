@@ -162,8 +162,10 @@ diagram:
     tikz:
       execpath: xelatex
       header-includes:
+        - '\input{PROJECT/style/preamble-general.tex}'
         - '\usepackage{unicode-math}'
-        - '\input{PROJECT/style/preamble.tex}'
+        - '\setmathfont[Path=PROJECT/lib/newcomputermodern-font/]{NewCMMath-Regular.otf}'
+        - '\input{PROJECT/style/preamble-font.tex}'
         - '\usepackage[varnothing]{fontsetup}'
         - '\input{PROJECT/style/macros.md}'
         - '\pgfdeclarelayer{bg}'

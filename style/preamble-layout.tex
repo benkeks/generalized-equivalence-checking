@@ -1,0 +1,57 @@
+
+\makeatletter
+\newcommand*\NoIndentAfterEnv[1]{%
+  \AfterEndEnvironment{#1}{\par\@afterindentfalse\@afterheading}}
+\makeatother
+\NoIndentAfterEnv{itemize}
+\NoIndentAfterEnv{enumerate}
+\NoIndentAfterEnv{description}
+\NoIndentAfterEnv{quote}
+\NoIndentAfterEnv{proof}
+\NoIndentAfterEnv{definition}
+\NoIndentAfterEnv{example}
+\NoIndentAfterEnv{lemma}
+\NoIndentAfterEnv{theorem}
+\NoIndentAfterEnv{proposition}
+\NoIndentAfterEnv{refremark}
+\NoIndentAfterEnv{verbatim}
+\NoIndentAfterEnv{Shaded}
+\NoIndentAfterEnv{tcolorbox}
+\NoIndentAfterEnv{align*}
+
+% dummy environment for idea boxes
+\newenvironment{idea}{}{}
+
+% load packages for side- and marginnotes earlier than quarto would so that we can adapt their caption style.
+\usepackage[font=normalsize]{caption}
+\usepackage{subcaption}
+\usepackage{sidenotes}
+\usepackage{marginnote}
+\captionsetup{font=normalsize}
+\DeclareCaptionStyle{widefigure}{font=normalsize, margin=.5cm}
+%\captionsetup[figure*]{font=normalsize, margin=1cm}
+
+% \usepackage[lined,boxed,commentsnumbered,algo2e]{algorithm2e}
+% \SetAlCapSty{textnormal}
+% \SetArgSty{textnormal}
+% \SetProgSty{textnormal}
+% \SetFuncArgSty{textnormal}
+% \LinesNumbered
+% \DontPrintSemicolon
+% \SetKwProg{For}{for}{\string:}{}
+% \SetKwProg{Fn}{def}{\string:}{}
+% \SetKwProg{While}{while}{\string:}{}
+% \SetKwIF{If}{ElseIf}{Else}{if}{\string:}{elif}{else\string:}{}%
+
+% for some reason, otherwise quarto breaks adjustbox, cf. https://tex.stackexchange.com/questions/634099/latex-adjustbox-shrinks-table/634101?noredirect=1#comment1581050_634101
+\setkeys{Gin}{width=\linewidth,height=\textheight,keepaspectratio}
+
+\usepackage{titlesec}
+\titleformat{\chapter}
+  {\raggedright\normalfont\Huge\bfseries}{\thechapter}{1em}{}
+\titlespacing*{\chapter}{0pt}{12pt}{24pt}
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{empty}}{}{}
+
+\usepackage{fancyhdr}
+
+\usepackage{orcidlink}

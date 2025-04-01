@@ -103,3 +103,18 @@ function code_link(args)
         sub_project .. "/" .. url_name .. ".scala")
     }
 end
+
+function paragraph_heading(args)
+  heading = args[1]
+  spacing = "\u{202f}\u{202f}"
+  if quarto.doc.isFormat('pdf')  then
+    return pandoc.Inlines {
+      pandoc.RawInline("latex", "\\medskip\\noindent"),
+      pandoc.Strong(pandoc.Str(heading .. spacing))
+    }
+  else
+    return pandoc.Inlines {
+      pandoc.Strong(pandoc.Str(heading .. spacing))
+    }
+  end
+end

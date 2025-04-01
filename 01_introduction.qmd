@@ -37,8 +37,7 @@ But, how to use the spectrum to decide for a given pair of processes which of th
 Over the years, I have learned that others too have run into this problem:
 For instance, @nestmann1996decoding thinking about process algebra encodings and @bell2013certifiably verifying compiler optimizations.
 
-\medskip\noindent
-**The problem** can be summarized as follows:
+{{<paragraph_heading "The problem">}} can be summarized as follows:
 
 \vspace*{-\medskipamount}
 > How does one conveniently decide for a pair of systems which notions from a spectrum of behavioral equivalences equate the two?
@@ -313,8 +312,8 @@ This thesis ties together the work of several publications in a coherent present
 It is written to be understandable on its own.
 For details, we typically refer to the original publications or to other artifacts for implementation and machine-checked proofs.
 
-\medskip\noindent
-**Publications.** The following four publications (with me as main author) fuel the following chapters:
+{{<paragraph_heading "Publications.">}}
+The following four publications (with me as main author) fuel the following chapters:
 
 - **“Deciding All Behavioral Equivalences at Once: A Game for Linear-Time–Branching-Time Spectroscopy”** [LMCS -@bjn2022decidingAllBehavioralEqs] introduces the *spectroscopy problem* and the *core idea* to decide the whole strong spectrum using games that search trees of possible distinguishing formulas.
   [Conference version: TACAS -@bisping2021ltbtsTacas]
@@ -325,23 +324,20 @@ For details, we typically refer to the original publications or to other artifac
 - **“One Energy Game for the Spectrum Between Branching Bisimilarity and Weak Trace Semantics”** [EXPRESS/SOS -@bj2024silentStepSpectroscopyExpress] adapts the *spectroscopy approach for the weak spectrum*.
   [Tech report: Preprint -@bj2025silentStepSpectroscopyJournal]
 
-\noindent
-**Prototype.**
+{{<paragraph_heading "Prototype.">}}
 The algorithms of this thesis have been validated through a *Scala prototype implementation*.
 Throughout the thesis, many examples come with listings of {{<equivio>}} input and a link to try it out the browser.
 You have already seen one such example for Peterson's mutex in @sec-ltbt-spectroscopy-idea.
 The source is available openly at <https://github.com/benkeks/equivalence-fiddle>.
 
-\medskip\noindent
-**Isabelle formalization.**
+{{<paragraph_heading "Isabelle formalization.">}}
 Instead of swamping the document with technical proofs, these are contained in machine-checkable Isabelle/HOL theories.
 
 - **Equivalence spectrum formalization** contains proofs for the early chapters: <https://benkeks.github.io/ltbt-spectroscopy-isabelle/>.
 - **Weak Equivalence Spectroscopy** formalizes the core results of @sec-weak-spectrum: <https://equivio.github.io/silent-step-spectroscopy>.
   The theory [@bbhlmm2025weakSpectroscopyIsabelle] has been developed together with TU Berlin students Lisa Annett Barthel, Leonard Moritz Hübner, Caroline Lemke, Karl Parvis Philipp Mattes, and Lenard Mollenkopf.
 
-\noindent
-**Student theses.**
+{{<paragraph_heading "Student theses.">}}
 Some parts of this thesis strongly rely on student work that I have supervised, in particular, on the following theses:
 
 - @trzeciakiewicz2021ltbtBrowserGame: *Linear-Time--Branching-Time Spectroscopy as an Educational Web Browser Game* provides a computer game version of the spectroscopy procedure to be discussed in @sec-spectro-invaders.
@@ -350,16 +346,14 @@ Some parts of this thesis strongly rely on student work that I have supervised, 
 - @vogel2024energyGamesWebGPU: *Accelerating Process Equivalence Energy Games using WebGPU*, topic of @sec-gpu-equiv, allows massive parallelization on the GPU of key parts of our algorithm.
 - @lemke2024multiweightedEnergyGames: *A Formal Proof of Decidability of Multi-Weighted Declining Energy Games* formalizes the fixedpoint algorithm of @sec-deciding-energy-games.
 
-\noindent
-**Other publications.**
+{{<paragraph_heading "Other publications.">}}
 Only indirectly connected to this dissertation project are my prior publications in leading me to topic and techniques:
 
 - @bbjrsswpn2016mechanicaProofFLP[ITP]: “Mechanical Verification of a Constructive Proof for FLP.”
 - @bn2019coupledsimTacas[TACAS]: “Computing Coupled Similarity.”
 - @bnp2020coupledsim30[Acta Informatica]: “Coupled similarity: the first 32 years.”
 
-\noindent
-**Other Bachelor theses.**
+{{<paragraph_heading "Other Bacherlor theses.">}}
 During my dissertation project, I also supervised several other Bachelor theses, many of which played important roles in shaping the research.
 Although they do not appear directly on the following pages, I want to acknowledge the students' vital contributions to the research.
 
@@ -381,8 +375,7 @@ Although they do not appear directly on the following pages, I want to acknowled
 - @stoecker2024HOcalculiEqs: *Higher-Order Diadic µ-Calculus---An Efficient Framework for Checking Process Equivalences?*
 - @kurzan2024mcrl2Contrasim: *Implementierung eines Contrasimilarity-Checkers für mCRL2*
 
-\noindent
-**This thesis itself.**
+{{<paragraph_heading "This thesis itself.">}}
 This document itself is created using Quarto [-@allaire2025quarto].
 Its HTML version is deployed to <https://benkeks.github.io/generalized-equivalence-checking/>.
 One can find its source at <https://github.com/benkeks/generalized-equivalence-checking/>.

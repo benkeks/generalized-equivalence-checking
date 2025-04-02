@@ -128,8 +128,8 @@ Clearly, this encompasses what we may observe via traces,
 but is something that we cannot observe using simulation.
 We consider $\bpreord{F}$ given by $\bpreordvar{\observations{F}}$.
 
-The distinguishing failure $(\tau, \set{\literal{a}})$ can be as $\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observations{F}$ in HML.
-The formula distinguishes $\literal P$ from $\literal Q$ on @fig-ts-determinism, but $\literal P \bpreord{S} \literal Q$ (cf. @exm-phil-sim).
+The distinguishing failure $(\tau, \set{\literal{a}})$ can be expressed as $\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observations{F}$ in HML.
+The formula distinguishes $\literal P$ from $\literal Q$ on @fig-ts-determinism, setting failures apart from simulation, as  $\literal P \bpreord{S} \literal Q$ (cf. @exm-phil-sim).
 On the other hand, no failure from $\observations{F}$, distinguishes $\literal Q$ from $\literal P$, but $\literal Q \nbpreord{S} \literal P$.
 
 :::: {#fig-failure-hierarchy .column-margin}

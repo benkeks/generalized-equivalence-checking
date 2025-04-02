@@ -218,7 +218,37 @@ $$
 
 For our standard philosopher system, @exm-phil-weak-eqs has determined that $\literal P$ and $\literal Q$ are not weakly bisimilar, but weakly similar (and thus weakly trace-equivalent).
 
-TODO: Ex game moves
+The stable failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ discussed in @sec-abstraction-failures corresponds to the following game moves, needing budget $(1,0,0,1,0,0,1,1)$ for delay--procrastination--stable conj.--stable conj. answer--negative conjunct--observation--finishing:
+$$
+\begin{array}{rcl}
+  \attackerpos{\literal{P}, \set{\literal{Q}}}
+  & \gamemove{\zerovec} &
+  \attackerpos[\epsilon]{\literal{P}, \set{\literal{Q}, \literal{q_{ab}}}} \\
+  & \gamemove{\zerovec} &
+  \attackerpos[\epsilon]{\literal{p_b}, \set{\literal{Q}, \literal{q_{ab}}}} \\
+  & \gamemove{\zerovec} &
+  \defenderpos{\literal{p_b}, \set{\literal{q_{ab}}}} \\
+  & \gamemove{-\unitvec{4}} & 
+  \attackerpos[\land]{\literal{p_b}, \literal{q_{ab}}} \\
+  & \gamemove{\updmin{1,7},0,0,0,0,0,0,-1} &
+  \attackerpos[\epsilon]{\literal{q_{ab}}, \set{\literal{p_b}}} \\
+  & \gamemove{-\unitvec{1}} &
+  \attackerpos{\literal{q_1}, \varnothing}\\
+  & \gamemove{-\zerovec} &
+  \defenderpos{\literal{q_1}, \varnothing} \quad \ngamemoveblank
+\end{array}
+$$
+
+<!--
+The weak failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ discussed in @sec-abstraction-failures corresponds to the following game moves, needing budget $(1,0,1,0,0,0,1,1)$ for delay--procrastination--late conj.--conj.answer--negative conjunct:
+
+$$\attackerpos{\literal{P}, \set{\literal{Q}}} \gamemove{\zerovec}
+  \attackerpos[\epsilon]{\literal{P}, \set{\literal{Q}, \literal{q_{ab}}}} \gamemove{\zerovec}
+  \attackerpos[\epsilon]{\literal{p_1}, \set{\literal{Q}, \literal{q_{ab}}}} \gamemove{\zerovec}
+  \defenderpos{\literal{p_1}, \set{\literal{Q}, \literal{q_{ab}}}} \gamemove{-\unitvec{1}}$$
+
+  and by stable failure $\hmleps\hmlands\set{\hmlneg\hmlobs{\tau}, \hmlneg\hmlobs{\literal{a}}}
+-->
 
 :::
 
@@ -389,7 +419,7 @@ By induction over game positions $g$ and energies $e$ according to the inductive
 
 ::: {#lem-weak-spectroscopy-game-soundness}
 If $\varphi \in \stratweak(\attackerpos{p,Q}, e)$,
-then $\varphi$ distinguishes $p$ from $Q$.{{<isb lemma Strategy_Formulsas weak_spectroscopy_game.strategy_formulas_distinguish>}}
+then $\varphi$ distinguishes $p$ from $Q$.{{<isb lemma Strategy_Formulas weak_spectroscopy_game.strategy_formulas_distinguish>}}
 :::
 :::proof
 By induction over the derivation of $~\cdots \in \stratweak(g, e)$ according to @def-strategy-formulas-weak on the following inductive property:
@@ -478,7 +508,7 @@ where
 | [...]
 ```
 
-The game itself is then built as a combination of the *locale* for transition systems with internal actions `LTS_Tau` (with a tranistion relation `step`)
+The game itself is then built as a combination of the *locale* for transition systems with internal actions `LTS_Tau` (with a transition relation `step`)
 and an `energy_game`, instantiated with the moves, a predicate `spectroscopy_defender` singling out defender positions, and the $\leq$-relation on 8-dimensional energies.
 
 ```isabelle
@@ -492,7 +522,7 @@ locale weak_spectroscopy_game =
 Within the locale, we can establish our correctness results.
 
 The strategy formulas $\stratweak$ appear as three mutually *inductive predicates*,
-because the grammar of $\hmlsrbb$ (@def-hml-srbb) is implemented as three mutually recursive datatypes (one per nonterminal).
+because the grammar of $\hmlsrbb$ (@def-hml-srbb) is implemented as three mutually recursive data types (one per non-terminal).
 
 ```isabelle
 inductive
@@ -663,7 +693,7 @@ These moves are for $\eta$- and branching bisimilarity,
 which are known to be at the less expensive (sub-cubic @gjkw2017branching) end of equivalence problems in the spectrum.
 De Frutos Escrig et al.'s -@ekw2017gamesBisimAbstraction branching bisimulation game is polynomially-sized.
 Thus, a derived reachability game of the weak spectroscopy game for branching bisimilarity in the spirit of @sec-deriving-eq-games should too be polynomial in size if we apply clever optimizations.
-The upcoming @sec-optimized-branching-conj will show how to simplify the spectroscopy game to achieve this reduction of size around branching conjunctions.
+@sec-optimized-branching-conj will later show how to simplify the spectroscopy game to achieve this reduction of size around branching conjunctions.
 
 ## Tackling Our Case Studies {#sec-tackling-case-studies}
 

@@ -527,12 +527,16 @@ $$
 *Weak failures* are obtained by intermitting $\hmleps$-observations in between the steps.
 In comparison to the strong modal characterization of @def-failures-modal, this just means prepending productions (and negated actions) by $\hmleps$.
 
-*Stable failures* demand a negative $\hmlneg\hmlobs{\tau}$-conjunct in the conjunctions of failures.
+*Stable failures* demand a negative $\hmlneg\hmlobs{\tau}$-conjunct in the conjunctions of refused actions.
 In one respect, this increases expressivity, as the possibility to stabilize into a state where $p \nostep{\tau}$ becomes observable.
 In another respect, one loses the option to see failures in instable parts of the transition system.
 In particular, if all states of a transition system are divergent, stable failure preorder degenerates to weak trace preorder.
 
-In summary, weak and stable failure equivalence are *incomparable.*
+Often, weak and stable failures will coincide.
+For instance, in $\literal{P}$ is distinguished from $\literal{Q}$ by weak failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ and by stable failure $\hmleps\hmlands\set{\hmlneg\hmlobs{\tau}, \hmlneg\hmlobs{\literal{a}}}$ alike.
+For the other direction, $\literal{Q}$ is preordered to $\literal{P}$ with respect to both, weak and stable failures.
+
+But in general, weak and stable failure equivalence are *incomparable.*
 The following example to highlight their differences is due to van Glabbeek:
 
 :::{#exm-idle-process-abstraction}

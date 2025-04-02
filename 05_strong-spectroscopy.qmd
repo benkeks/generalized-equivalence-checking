@@ -30,7 +30,7 @@ Some of it can be alleviated, as we will see in @sec-specific-spectro-games.
 In @sec-deciding-individual-eqs, we will discuss how to get rid of the blowup where possible when instantiating the game to *decide equivalences individually*.
 
 ::: {#idea-instance-games .callout-idea .callout-note}
-#### Generating equvialence checkers
+#### Generating equivalence checkers
 
 By instantiating the spectroscopy game with known initial energies and exploiting the supply of conjunction moves, we can derive efficient decision procedures for individual equivalences.
 :::

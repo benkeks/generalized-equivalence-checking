@@ -20,6 +20,8 @@ This section is based on @bj2024silentStepSpectroscopyExpress, and on its accomp
 
 ## The Weak Spectroscopy Game {#sec-weak-spectro-game}
 
+On the next pages, we “upgrade” the spectroscopy game of @sec-stong-spectro-game to account for the weak spectrum.
+
 ### The Game
 
 The weak spectroscopy game, in many respects, is just like the spectroscopy games we have already discussed:
@@ -200,7 +202,7 @@ $$
   & \defenderpos[s]{p,Q'}
   & \text{if } Q' = \set{ q \in Q \mid q \nostep{\tau}}, p \nostep{\tau},
   \\
-  \textit{conj. stable answer}
+  \textit{stable conj. answer}
   & \defenderpos[s]{p,Q}
   & \gamemove{0,0,0,-1,0,0,0,0}
   & \attackerpos[\land]{p,q}
@@ -214,42 +216,78 @@ $$
 $$
 :::
 
+Intuitively, the attacker is heavily weakened in the weak spectroscopy game due to the requirement to pass delay-moves in order to formulate observation attacks.
+These moves grow the right-hand-sets, which increases defender options.
+At the same time, there are several new tactical possibilities for the attacker that correspond to the special weak conjunctions, as can be seen in the following example.
+
 ::: {#exm-phil-weak-spectroscopy}
 
-For our standard philosopher system, @exm-phil-weak-eqs has determined that $\literal P$ and $\literal Q$ are not weakly bisimilar, but weakly similar (and thus weakly trace-equivalent).
+For our standard philosopher system of @fig-ts-determinism, @exm-phil-weak-eqs has determined that $\literal P$ and $\literal Q$ are not weakly bisimilar, but weakly similar (and thus weakly trace-equivalent).
 
-The stable failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ discussed in @sec-abstraction-failures corresponds to the following game moves, needing budget $(1,0,0,1,0,0,1,1)$ for delay--procrastination--stable conj.--stable conj. answer--negative conjunct--observation--finishing:
+The stable failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ discussed in @sec-abstraction-failures corresponds to the following game moves, needing budget $(1,0,0,1,0,0,1,1)$:
 $$
-\begin{array}{rcl}
-  \attackerpos{\literal{P}, \set{\literal{Q}}}
-  & \gamemove{\zerovec} &
-  \attackerpos[\epsilon]{\literal{P}, \set{\literal{Q}, \literal{q_{ab}}}} \\
-  & \gamemove{\zerovec} &
-  \attackerpos[\epsilon]{\literal{p_b}, \set{\literal{Q}, \literal{q_{ab}}}} \\
-  & \gamemove{\zerovec} &
-  \defenderpos{\literal{p_b}, \set{\literal{q_{ab}}}} \\
-  & \gamemove{-\unitvec{4}} & 
-  \attackerpos[\land]{\literal{p_b}, \literal{q_{ab}}} \\
-  & \gamemove{\updmin{1,7},0,0,0,0,0,0,-1} &
-  \attackerpos[\epsilon]{\literal{q_{ab}}, \set{\literal{p_b}}} \\
-  & \gamemove{-\unitvec{1}} &
-  \attackerpos{\literal{q_1}, \varnothing}\\
-  & \gamemove{-\zerovec} &
+\begin{array}{rlc}
+  \attackerpos{\literal{P}, \set{\literal{Q}}} \;
+  \gamemove{\;\zerovec\;} &
+  \attackerpos[\epsilon]{\literal{P}, \set{\literal{Q}, \literal{q_{ab}}}}
+  & \text{(delay)} \\
+  \gamemove{\;\zerovec\;} &
+  \attackerpos[\epsilon]{\literal{p_b}, \set{\literal{Q}, \literal{q_{ab}}}}
+  & \text{(procrastination)} \\
+  \gamemove{\;\zerovec\;} &
+  \defenderpos{\literal{p_b}, \set{\literal{q_{ab}}}}
+  & \text{(stable conj.)} \\
+  \gamemove{-\unitvec{4}} & 
+  \attackerpos[\land]{\literal{p_b}, \literal{q_{ab}}}
+  & \text{(stable conj. answer)} \\
+  \gamemove{\updmin{1,7},0,0,0,0,0,0,-1} &
+  \attackerpos[\epsilon]{\literal{q_{ab}}, \set{\literal{p_b}}}
+  & \text{(negative conjunct)} \\
+  \gamemove{-\unitvec{1}} &
+  \attackerpos{\literal{q_1}, \varnothing}
+  & \text{($\literal{a}$-observation)} \\
+  \gamemove{\;\zerovec\;} &
   \defenderpos{\literal{q_1}, \varnothing} \quad \ngamemoveblank
+  & \text{(finishing)}
 \end{array}
 $$
+A similar sequence of moves works for weak failures.
+For weak simulation, we know that $\literal{P}$ is strongly simulated by $\literal{Q}$, which transfers to the weak game in the sense that we also can not find a weak simulation distinction in this direction. The attacker must pass through a negative-conjunct move to exploit that $\literal{P}$ resolves the choice quicker than $\literal{Q}$.
 
 <!--
 The weak failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ discussed in @sec-abstraction-failures corresponds to the following game moves, needing budget $(1,0,1,0,0,0,1,1)$ for delay--procrastination--late conj.--conj.answer--negative conjunct:
 
-$$\attackerpos{\literal{P}, \set{\literal{Q}}} \gamemove{\zerovec}
-  \attackerpos[\epsilon]{\literal{P}, \set{\literal{Q}, \literal{q_{ab}}}} \gamemove{\zerovec}
-  \attackerpos[\epsilon]{\literal{p_1}, \set{\literal{Q}, \literal{q_{ab}}}} \gamemove{\zerovec}
+$$\attackerpos{\literal{P}, \set{\literal{Q}}} \gamemove{\;\zerovec\;}
+  \attackerpos[\epsilon]{\literal{P}, \set{\literal{Q}, \literal{q_{ab}}}} \gamemove{\;\zerovec\;}
+  \attackerpos[\epsilon]{\literal{p_1}, \set{\literal{Q}, \literal{q_{ab}}}} \gamemove{\;\zerovec\;}
   \defenderpos{\literal{p_1}, \set{\literal{Q}, \literal{q_{ab}}}} \gamemove{-\unitvec{1}}$$
 
   and by stable failure $\hmleps\hmlands\set{\hmlneg\hmlobs{\tau}, \hmlneg\hmlobs{\literal{a}}}
 -->
 
+For the other direction, @exm-phil-weak-eqs has established that weak simulation, $\literal{Q} \bpreord{WS} \literal{P}$, holds as well.
+But how does this go together with @exm-spectroscopy-classic-ts mentioning that strong simulation is disproved by the $\hmlobs{\tau}\hmlands\set{\hmlobs{\literal{a}}, \hmlobs{\literal{b}}}$?
+In the weak game, there are no strong $\tau$-observation moves.
+The closest weak equivalent is to just use delay/procrastination, corresponding to the $\hmlsrbb$-formula $\mathhl{\hmleps}\hmlands\set{\hmleps\hmlobs{\literal{a}}, \hmleps\hmlobs{\literal{b}}}$.
+But this fails to be a distinction in the weak game as the defender can just stay at $\literal P \in \set{\literal{P}, \literal{p_a}, \literal{p_b}}$.
+
+However, other forms of abstracted simulation can be used to force the defender out of $\literal{P}$ without negations:
+
+- *$\eta$-simulation* allows branching conjunction moves:
+  $\attackerpos[\epsilon]{\literal{q_{ab}}, \set{\literal{P}, \literal{p_a}, \literal{p_b}}}
+  \gamemove{\zerovec} \defenderpos[\eta]{\literal{q_{ab}}, \literal{a}, \literal{q_1}, \set{\literal{p_a}}, \set{\literal{P}, \literal{p_b}}}$.
+  After this, $\literal{p_a}$ is discharged through a positive conjunct $\literal b$-observation, possible from $\literal{q_{ab}}$;
+  and the $\set{\literal{P}, \literal{p_b}}$-option directly ends in $\gamemoveblank \attackerpos[\eta]{\literal{q_1}, \varnothing}\gamemoveblank\gamemoveblank\defenderpos{\literal{q_1}, \varnothing}\ngamemoveblank$, as neither $\literal{P}$ nor $\literal{p_b}$ allow immediate $\step{\literal{a}}$-steps.
+  These moves cost $(1,1,1,0,0,1,0,0)$ and correspond to the distinguishing formula $\hmleps\hmlands\set{\hmlobs{\literal a}, \hmleps\hmlobs{\literal b}}$.
+- *Stable simulation* allows stable conjunction moves:
+  $\attackerpos[\epsilon]{\literal{q_{ab}}, \set{\literal{P}, \literal{p_a}, \literal{p_b}}}
+  \gamemove{\zerovec} \defenderpos[s]{\literal{q_{ab}}, \set{\cancel{\literal{P}}, \literal{p_a}, \literal{p_b}}}$.
+  After this, $\literal{q_{ab}}$ can out-maneuver $\literal{p_a}$ through positive conjunct $\literal b$-observation,
+  and  $\literal{p_b}$ through positive conjunct $\literal a$-observation.
+  The moves need $(1,0,1,1,0,1,0,1)$ energy and match the distinguishing formula $\hmleps\hmlands\set{\hmlneg\hmlobs{\tau}, \hmleps\hmlobs{\literal a}, \hmleps\hmlobs{\literal{b}}}$.
+
+In summary, the game moves show that $\literal{P}$ and $\literal{Q}$ are weakly similar, but all notions besides or above in the weak spectrum (@fig-weak-spectrum) cannot hold as weak failures, stable failures, $\eta$-simulation, and stable simulation can be disproven by attacker moves for at least one direction.
+This reasoning, of course, depends on the weak spectroscopy game being correct …
 :::
 
 ### Correctness {#sec-correctness-weak-spectroscopy}
@@ -395,6 +433,7 @@ $$
 Strategy formulas for the weak spectroscopy.
 :::
 
+Attacker winning budgets can be translated into strategy formulas of matching price.
 
 ::: {#lem-weak-spectroscopy-game-formulas}
 If $e \in \attackerwins(\attackerpos{p,Q})$, then there is $\varphi \in \stratweak (\attackerpos{p,Q}, e)$ with $\expr[\literal{weak}](\varphi) \leq e$.{{<isb lemma Strategy_Formulsas weak_spectroscopy_game.winning_budget_implies_strategy_formula>}}
@@ -416,6 +455,8 @@ By induction over game positions $g$ and energies $e$ according to the inductive
 6. If $e \in \attackerwins(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha})$,
   then there is $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right)) \leq e$. \qedhere
 :::
+
+Strategy formulas are distinguishing.
 
 ::: {#lem-weak-spectroscopy-game-soundness}
 If $\varphi \in \stratweak(\attackerpos{p,Q}, e)$,
@@ -439,6 +480,8 @@ By induction over the derivation of $~\cdots \in \stratweak(g, e)$ according to 
     $p \step{\hmlopt\alpha} p'$ and $Q_\alpha \subseteq Q$,
   then the branching conjunction $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right)$ distinguishes $p$ from $Q$. \qedhere
 :::
+
+Distinguishing formulas certify the existence of equally cheap ways for the attacker to win.
 
 ::: {#lem-weak-spectroscopy-game-completeness}
 If $\varphi \in \hmlsrbb$ distinguishes $p$ from $Q$, then $\expr[\literal{weak}](\varphi) \in \attackerwins^{\gamespectroscopyw}(\attackerpos{p,Q})$.{{<isb lemma Distinction_Implies_Winning_Budgets weak_spectroscopy_game.distinction_implies_winning_budgets>}}
@@ -473,7 +516,7 @@ For all $N \in \notions^\literal{weak}$, $p \in \states$, $Q \in \powerset{\stat
 @bbhlmm2025weakSpectroscopyIsabelle formalize the correctness result for the weak spectroscopy game in the interactive proof assistant Isabelle/HOL. 
 The preceding definitions and facts have already linked to their respective Isabelle/HOL counterparts.
 This subsection is devoted to providing some insights into the formalization.^[
-  For questsions on the Isabelle/Isar language, consult “The Isabelle/Isar Reference Manual” [@wenzel2025isabelleIsar].
+  For questions on the Isabelle/Isar language, consult “The Isabelle/Isar Reference Manual” [@wenzel2025isabelleIsar].
 ]
 We take a tour through roughly hundred of the most interesting lines of the 6500 line theory development.
 
@@ -573,7 +616,7 @@ proof (induction rule: attacker_wins.induct)
   [...]
 ```
 
-The (mutual) induction on the formula structure to establish the distintiveness of $\stratweak$-formulas of @lem-weak-spectroscopy-game-soundness begins:
+The (mutual) induction on the formula structure to establish the distinctiveness of $\stratweak$-formulas of @lem-weak-spectroscopy-game-soundness begins:
 
 ```isabelle
 lemma strategy_formulas_distinguish:

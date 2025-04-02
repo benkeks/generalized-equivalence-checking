@@ -491,7 +491,7 @@ But the situation is even more severe!
 
 Defined like this, stable bisimilarity would not even imply weak trace equivalence.
 Consider the processes $\literal{A}$ and $\literal{B}$ in the margin.
-As all their non-empty word transitions end in instable states, the variant from @sangiorgi2012 ignores their differences alltogether.
+As all their non-empty word transitions end in instable states, the variant from @sangiorgi2012 ignores their differences altogether.
 
 Stable bisimilarity of @def-stablebisim, however, does not suffer from this defect, for it demands matching of all word transitions.
 Our relational @def-stablebisim is informed by the upcoming modal characterizations of @sec-weak-spectrum-quantities (and of @glabbeek1993ltbt and @bm2024contrasimilarityInfComp).

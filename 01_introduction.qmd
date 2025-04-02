@@ -227,7 +227,7 @@ B12 = ecB.lcB.setReadyBf!B1
 
 This query leads to the output in @fig-peterson-spectrum:
 Weak simulation indeed is the finest equivalence to equate $\literal{Pe}$ and $\literal{Mx}$!
-Moreover, $\literal{Pe}$ is *preordered* to $\literal{Mx}$ with respect to two more special finer notions, namely *$\eta$-simulation* and *stable ready-simulation* (and notions below).
+Moreover, $\literal{Pe}$ is *preordered* to $\literal{Mx}$ with respect to two more special finer notions, namely *$\eta$-simulation* and *stable simulation* (and notions below).
 Intuitively, this means that $\literal{Pe}$ *implements* $\literal{Mx}$ more faithfully than pure weak simulation would demand.
 
 ::: {#fig-peterson-spectrum .column-margin}
@@ -236,6 +236,7 @@ Intuitively, this means that $\literal{Pe}$ *implements* $\literal{Mx}$ more fai
 <!-- TODO: Final version: Update with final display. -->
 
 Output of equiv.io about weak equivalences to relate $\literal{Mx}$ to $\literal{Pe}$ of @exm-peterson-mutex.
+TODO: Update svg for new version!
 :::
 
 How does the tool do this?

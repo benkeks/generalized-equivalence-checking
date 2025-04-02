@@ -22,6 +22,29 @@ toc-title: "Chapter 8"
 \bnfvar{Meta} \grammardef & \bnflit{@}\!\bnfvar{Id} \; \bnfvar{Id} \, \set{ \bnflit{,} \bnfvar{Id} }^*\\
 \end{align*}
 
+
+### Application to Peterson's Mutual Exclusion
+
+```ruby
+ready = {"A": false, "B": false}
+turn  = "A"
+
+def process(ownId, otherId):
+  while true:
+    ready[ownId] = true
+    turn = otherId
+    
+    do # wait...
+    until (ready[otherId] == false || turn == ownId)
+      
+    print "enter critical #{ownId}"
+    # critical section goes here.
+    print "leave critical #{ownId}"
+    ready[ownId] = false
+
+process("A", otherId = "B") || process("B", otherId = "A")
+```
+
 ### Program Structure
 
 ### Benchmarking

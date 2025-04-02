@@ -776,51 +776,58 @@ PPara(main, x=587, y=55)
 ### Abstraction
 
 ```ccs
-Ae = (idle.Ae + a)
-Be = (idle.Be + b)
-Al = (idle.Bl + idle.Al + a)
-Bl = (idle.Al + idle.Bl + b)
+Ae = idle.Ae + a
+Be = idle.Be + b
+Al = idle.Bl + idle.Al + a
+Bl = idle.Al + idle.Bl + b
 
-Pe = (op.Ae + op.Be)
-Pl = (op.Al + op.Bl)
+Pe = op.Ae + op.Be
+Pl = op.Al + op.Bl
+
+Pte = Pe \hide {idle}
+Ptl = Pl \hide {idle}
+
+@check weak-failure, Pe, Pl
+@check weak-failure, Pte, Ptl
+
+@snip "---- layout ----"
+
+@compareSilent Pte, Ptl
 @compareSilent Pe, Pl
 
-Pte = Pe \csp {idle}
-Ptl = Pl \csp {idle}
-@compareSilent Pte, Ptl
-
-@comment "Pe/Pl should be (unstable&stable) readiness equivalent"
-@comment "Pte/Ptl are stable, but not unstable (!) failure (and readiness) equivalent"
-
-Pe(x=200, y=10)
-Pl(x=500, y=10)
-Pte(x=200, y=450)
-Ptl(x=500, y=450)
+Pe(x=200, y=10, main)
+Pl(x=500, y=10, main)
+Pte(x=200, y=450, main)
+Ptl(x=500, y=450, main)
 "0"(x=365, y=304)
-"0 \csp {idle}"(x=411, y=786)
-
+"0 \hide {idle}"(x=336, y=712)
 ```
 
-### Peterson's Mutual Exclusion
+```ccs
+@compareSilent Pe, Pl
+@compareSilent Pte, Ptl
 
-```ruby
-ready = {"A": false, "B": false}
-turn  = "A"
+@snip "---- remainder of example ----"
+Ae = idle.Ae + a
+Be = idle.Be + b
+Al = idle.Bl + idle.Al + a
+Bl = idle.Al + idle.Bl + b
 
-def process(ownId, otherId):
-  while true:
-    ready[ownId] = true
-    turn = otherId
-    
-    do # wait...
-    until (ready[otherId] == false || turn == ownId)
-      
-    print "enter critical #{ownId}"
-    # critical section goes here.
-    print "leave critical #{ownId}"
-    ready[ownId] = false
+Pe = op.Ae + op.Be
+Pl = op.Al + op.Bl
 
-process("A", otherId = "B") || process("B", otherId = "A")
+Pte = Pe \hide {idle}
+Ptl = Pl \hide {idle}
+
+@check weak-failure, Pe, Pl
+@check weak-failure, Pte, Ptl
+
+Pe(x=200, y=10, main)
+Pl(x=500, y=10, main)
+Pte(x=200, y=450, main)
+Ptl(x=500, y=450, main)
+"0"(x=365, y=304)
+"0 \hide {idle}"(x=336, y=712)
 ```
 
 ## Variants {#sec-weak-spectro-variants}

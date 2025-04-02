@@ -838,7 +838,7 @@ The whole list of weak linear-time notions can be found in @fig-weak-grammars-li
 The interesting points are highlighted in $\textcolor{RoyalBlue}{blue}$.
 Productions that could be left out without affecting distinctiveness are set in $\textcolor{gray}{gray}$.
 
-:::{#fig-weak-grammars-linear}
+:::{#fig-weak-grammars-linear fig-pos='t!'}
 
 ```tikz
 \parbox{12cm}{
@@ -935,7 +935,7 @@ The modal characterizations correspond to the ones one would expect, with some t
 {{<paragraph_heading "Bisimulation-like notions.">}}
 The abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more interesting things happen.
 
-:::{#fig-weak-grammars-bisim-like}
+:::{#fig-weak-grammars-bisim-like fig-pos='t!'}
 
 ```tikz
 \parbox{12cm}{
@@ -950,7 +950,10 @@ The abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more int
       \grammarsp \hmlobs{a}\varphi_\notionname{C}
       \grammaror \hmlands \set{ \psi_\notionname{C}, \psi_\notionname{C}, \ldots } \\
     \psi_\notionname{C} \grammardef &
-      \grammarsp \mathhl{\hmlneg\hmleps}\chi_\notionname{C}\\
+      \grammarsp \mathhl{\hmlneg\hmleps}\chi_\notionname{C}
+      \grammaror \mathdl{\hmleps\chi_\notionname{WU^x}} \\
+    \chi_\notionname{WU^x} \grammardef &
+      \grammarsp \mathdl{\hmlands\set{\hmleps\chi_\notionname{WU^x}, \hmlneg\hmleps\chi_\notionname{WU^x}, \ldots}} \\
   \intertext{
     Weak bisimulation, $\notionname{WB}$ at $(\infty,0,\infty,0,0,\mathhl{\infty},\infty,\infty)$:
   }
@@ -1089,9 +1092,9 @@ We use the higher coordinate $(\infty, 0, 0, \infty, 0, \infty, \infty, \infty)$
 
 {{<paragraph_heading "Simulation-like notions.">}}
 @fig-weak-grammars-sim-like adds the simulation-like notions for completeness.
-At this point, they are not particularly interesting, but the trivial conjuncts can be even bigger.
+At this point, they are not particularly interesting.
 
-:::{#fig-weak-grammars-sim-like}
+:::{#fig-weak-grammars-sim-like fig-pos='t!'}
 
 ```tikz
 \parbox{12cm}{
@@ -1116,7 +1119,8 @@ At this point, they are not particularly interesting, but the trivial conjuncts 
     \psi_\notionname{WRS} \grammardef &
       \grammarsp \mathhl{\hmlneg\hmleps\hmlobs{a}\varphi_\notionname{WU^*}}
       \grammaror \hmleps\hmlobs{a}\varphi_\notionname{WRS}
-      \grammaror \mathdl{\hmleps\hmlands \set{ \psi_\notionname{WRS}, \psi_\notionname{WRS}, \ldots }} \\
+      \grammaror \mathdl{\hmleps\hmlands \set{ \psi_\notionname{WRS}, \psi_\notionname{WRS}, \ldots }}
+      \grammaror \mathdl{\hmlneg\hmleps\varphi_\notionname{WU^*}} \\
     \varphi_\notionname{WU^*} \grammardef &
       \grammarsp \hmltrue
       \grammaror \mathdl{\hmleps\hmlands\set{\varphi_\notionname{WU^*}, \varphi_\notionname{WU^*}, \ldots}} \\
@@ -1172,6 +1176,22 @@ Grammars induced by coordinates for weak simulation-like notions of equivalence.
 
 @bj2025silentStepSpectroscopyJournal contains proofs that the observation languages for weak simulation and $\eta$-simulation correspond to their relational definitions (@def-weak-bisimilarity).{{<isb theorem Eta_Bisimilarity LTS_Tau.eta_sim_coordinate>}}
 
+:::{#rem-spurious-conjuncts}
+#### Spurious conjuncts and minimality
+
+Several of our weak grammars allow bogous trivial conjuncts.
+The most severe case might be the trees of ultimately empty conjunctions of $\chi_\notionname{WU^x}$ for contrasimulation.
+A natural impulse might be to somehow change the grammar to optimize these parts away, ensuring a nicer output of distinguishing formulas in the spectroscopy.
+
+But this optimization would be premature in our context!
+Spectroscopy strategy formulas will never contain trivial conjuncts, by design, because those can not be distinguishing.
+Even more, the minimal winning budgets in the spectroscopy energy game will only ever lead to witness formulas that are minimal with respect to syntactic expressiveness prices.
+Therefore, optimizing away superfluous conjuncts in the grammars would itself be superfluous.
+
+On the other hand, shrinking the languages would call for additional contexts, that is, non-terminals in the grammar.
+But more non-terminals mean additional kinds of spectroscopy game positions and moves, thus making the spectroscopy game more complex for nothing.
+:::
+
 ## Discussion
 
 With this chapter, we have explored the space of weak behavioral equivalences in concurrency theory, focusing on their modal characterizations and relationships within the weak spectrum, following @glabbeek1993ltbt.
@@ -1180,10 +1200,10 @@ This adds the preliminaries to consider their decision procedures in @sec-silent
 In examples, we have seen how weak equivalences handle internal non-determinism due to communcation in different ways.
 Practical scenarios, such as parallelizing compilers and process abstraction, reveal the possibilities and limitations of the different design decisions behind process equivalences.
 
-Following @idea-weak-hml, Our modal logic characterization through $\hmlsrbb$ captures a rich weak spectrum between stability-respecting branching bisimilarity and weak trace equivalence.
+Following @idea-weak-hml, our modal logic characterization through $\hmlsrbb$ captures a rich weak spectrum between stability-respecting branching bisimilarity and weak trace equivalence.
 We however have skipped some classical notions such as stable failure traces and coupled simulation, which would have called for even more dimensions in the already 8-dimensional pricing metric.^[
   Especially for coupled similarity, this gap is ironic, as my research into game chracterizations of equivalences has been kicked off by an interest in decision procedures for coupled similarity in @bn2019coupledsimTacas and @bnp2020coupledsim30.
 ]
 
 Logic and pricing metric are designed in such a way that readers of preceding chapters might already be able to guess how they will translate to game moves for stable and branching conjunctions in the next chapter.
-Call this avenue for gamification yet another perk of modal characterizations---besides the benefits of built-in transitivity and consistency, we have noticed along the way!
+Call this avenue for gamification yet another perk of modal characterizations---besides the benefits of built-in transitivity and consistency, we have noticed along the way of this chapter!

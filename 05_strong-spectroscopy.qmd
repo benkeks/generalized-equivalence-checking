@@ -311,7 +311,6 @@ Starting `@compare` (on {{<equivio>}}) triggers a spectroscopy along the lines w
     ⟨τ⟩⋀{¬⟨a⟩⊤} (failure)
 - Equated by:
   trace
-- Show spectrum. View game.
 ```
 
 That `P` is simulated by `Q` matches our finding from @exm-phil-sim.

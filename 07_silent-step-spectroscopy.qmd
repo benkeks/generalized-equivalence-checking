@@ -214,6 +214,13 @@ $$
 $$
 :::
 
+::: {#exm-phil-weak-spectroscopy}
+
+For our standard philosopher system, @exm-phil-weak-eqs has determined that $\literal P$ and $\literal Q$ are not weakly bisimilar, but weakly similar (and thus weakly trace-equivalent).
+
+TODO: Ex game moves
+
+:::
 
 ### Correctness {#sec-correctness-weak-spectroscopy}
 

@@ -1296,6 +1296,8 @@ This chapter has shown how to solve the spectroscopy problem for the $\notions^{
 The core ingredient has been to characterize the spectrum's observation languages through an energy game (@idea-energy-games, @thm-bisim-energy-game-characterization) derived from the bisimulation game.
 The Pareto front view is slightly more general than other characteristic games, which @hs1996complexityEquivalences for instance use to establish polynomial upper bounds individually for simulation-like notions.
 
+The focus on the attacker in the bisimulation game is highlighly analogous to @geuversJacobs2021apartness championing *apartness* as the dual of bisimilarity to work with equivalences.
+
 To compute the Pareto fronts, we use a fixed point algorithm (@idea-deciding-energy-games, @alg-deciding-energy-games).
 It can be thought of as a generalization of well-known ways to compute shortest distances in graphs:
 
@@ -1312,8 +1314,8 @@ In this instance, @alg-deciding-energy-games behaves like the well-known Bellman
 Most importantly, the declining energy version loses a dimension of exponentiality.
 For the polynomial equivalences we arrive at a reasonably polynomial complexity for the spectroscopy instantiation, including reasonable space complexity for a flattened energy lattice.
 
-At this point, we have, in principle, answered our main research question
-hwo to conveniently decide for a pair of states which notions from a spectrum of behavioral equivalences equate the two.
+At this point, we have, in principle, *answered our main research question*
+how to conveniently decide for a pair of states which notions from a spectrum of behavioral equivalences equate the two.
 In the second half of the thesis, we will leverage this approach to treat the “strong spectrum” of concrete equivalences and the “weak spectrum” of equivalences that abstract silent steps.
 
 Knowing from @sec-equivalence-complexities that parts of the strong spectrum are $\complexityname{PSPACE}$-hard, the algorithmic complexity indirectly proves that the bisimulation game cannot be used to characterize the whole spectrum.

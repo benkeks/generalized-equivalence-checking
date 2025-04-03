@@ -25,14 +25,14 @@ But the weaker notions of the spectrum heavily limit how many conjunctions may b
 Our core trick will be to break the link between conjunctions and observation sequences in the game, analogously to the *subset construction* on finite automata.
 
 ::: {#idea-subset-construction .callout-idea .callout-note}
-#### Breaking up observations and conjunctions
+#### Subsets to break up observations and conjunctions
 
-Linear-time notions can be addressed in the spectroscopy game by interjecting a subset-construction on defender states between moves that correspond to observations and to conjunctions.
+Trace-like notions can be addressed in the spectroscopy game by interjecting a *subset construction* on defender-controlled states between moves that correspond to observations and to conjunctions.
 :::
 
 This will lead to exponential blow-up.
 Some of it can be alleviated, as we will see in @sec-specific-spectro-games.
-In @sec-deciding-individual-eqs, we will discuss how to get rid of the blowup where possible when instantiating the game to *decide equivalences individually*.
+In @sec-deciding-individual-eqs, we discuss how to get rid of the blowup where possible when instantiating the game to *decide equivalences individually*.
 
 ::: {#idea-instance-games .callout-idea .callout-note}
 #### Generating equivalence checkers
@@ -1029,11 +1029,21 @@ The game for ready traces $\gamespectroscopyceq{\notionname{RT}}$, where all dim
 
 TODO: Maybe also example where non-determinism has more effect?
 
-## Discussion
+## Discussion {#sec-discussion-strong-spectroscopy}
 
-- Mention option of non-perfect attacker information as alternative to subset construction
+With this chapter, we have broadened the spectroscopy game approach of @sec-approach to account for the full weak spectrum.
+
+The critical ingredient has been to cover trace-like observations through a subset construction on states (@idea-subset-construction).
+This construction can also be viewed game-theoretically as a way to model an attacker with *imperfect information* about the exact choices the defender makes in simulating steps.
+The conjunction/negation points then describe moves where the attacker can obtain this information.
+@fahrenberg2014quantitativeLTBTS employ this alternative view in their game description of quantitative equivalences.
+
+Other games: @hs1996complexityEquivalences @cd2008gameCharacetrizations
+
 - Difference to @bjn2022decidingAllBehavioralEqs:
   - Lower exponentiality in conjunctions
   - No explicit construction of formulas
-- highlight analogy to apartness (@geuversJacobs2021apartness)
+
+@idea-instance-games ...
+
 - mention that  $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ matches best algos for simulation, but not for bisimulation.

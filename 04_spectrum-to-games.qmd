@@ -9,10 +9,12 @@ toc-title: "Chapter 4"
 {{< include style/macros.md >}}
 :::
 
-\hspace{0pt}
 ::::{#related-4 .column-margin}
-\vspace{-2.2em}
-{{<paragraph_heading "Related publications.">}}
+`\vspace{-2.2em}`{=latex}
+{{< paragraph_heading "Related publications." >}}
+This chapter revolves around the ideas I aimed to convey by my talk “Deciding All Behavioral Equivalences at Once through Energy Games” at D-CON'25 (Augusburg, 2025-03),
+and by its predecssors given at LFCS University of Edinburgh (2023-03), Highlights'23 (Kassel, 2023-07), and ISCAS Beijing (2024-09).
+It can be thought of as the core of @bisping2023equivalenceEnergyGames, and also of this thesis itself.
 ::::
 
 Time to get real.

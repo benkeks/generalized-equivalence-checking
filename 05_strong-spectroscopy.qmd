@@ -9,14 +9,13 @@ toc-title: "Chapter 5"
 {{< include style/macros.md >}}
 :::
 
-\hspace{0pt}
 ::::{#related-5 .column-margin}
-\vspace{-2.2em}
-{{<paragraph_heading "Related publications.">}}
+`\vspace{-2.2em}`{=latex}
+{{< paragraph_heading "Related publications." >}}
+This chapter showcases the main result of my paper “Process Equivalence Problems as Energy Games” [@bisping2023equivalenceEnergyGames].
 ::::
 
 The energy game approach can in fact be leveraged to solve the spectroscopy problem for the whole of the strong equivalence spectrum.
-This chapter showcases the main result of my paper “Process Equivalence Problems as Energy Games” [@bisping2023equivalenceEnergyGames].
 
 The core ingredient of this chapter is a richer energy game, to be presented in @sec-stong-spectro-game.
 The bisimulation energy game of @sec-approach is not complex enough to capture all strong equivalences of @sec-spectrum.

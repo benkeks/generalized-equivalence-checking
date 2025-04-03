@@ -9,10 +9,9 @@ toc-title: "Chapter 6"
 {{< include style/macros.md >}}
 :::
 
-\hspace{0pt}
 ::::{#related-6 .column-margin}
-\vspace{-2.2em}
-{{<paragraph_heading "Related publications.">}}
+`\vspace{-2.2em}`{=latex}
+{{< paragraph_heading "Related publications." >}}
 This chapter is based on parts of @bj2025silentStepSpectroscopyJournal and @bm2024contrasimilarityInfComp.
 For a fuller presentation of the spectrum of weak equivalences itself, @glabbeek1993ltbt is the authorative work.
 A gentler introduction to key concepts is provided by @sangiorgi2012.

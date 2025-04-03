@@ -2,17 +2,18 @@
 toc-title: "Chapter 3"
 ---
 
+# Context: The Spectrum of Equivalences {#sec-spectrum}
+
 ::: {.content-visible when-format="html"}
 {{< include style/macros-html.md >}}
 {{< include style/macros.md >}}
 :::
 
-# Context: The Spectrum of Equivalences {#sec-spectrum}
-
-\hspace{0pt}
 ::::{#related-3 .column-margin}
-\vspace{-2.2em}
-{{<paragraph_heading "Related publications.">}}
+`\vspace{-2.2em}`{=latex}
+{{< paragraph_heading "Related publications." >}}
+This chapter presents the spectrum of modal languages from @bisping2023equivalenceEnergyGames in a slightly clarified manner, which itself derives from @bjn2022decidingAllBehavioralEqs.
+The alignment to the authorative @glabbeek1990ltbt1 has been studied by @mattes2024expressivePowerHML.
 ::::
 
 We will now take a deeper dive into how groups of behavioral equivalences and preorders can be ranked in equivalence spectra.
@@ -41,7 +42,7 @@ We can ask what equivalences from a spectrum are the most fitting to relate two 
 @sec-spectroscopy will define the problem formally and give lower-bounds for its complexity on the strong spectrum.
 
 ::::{.content-visible when-format="html" .column-margin}
-{{< contents related-3 >}}
+{{< contents "related-3" >}}
 ::::
 
 ## Observability Hierarchies

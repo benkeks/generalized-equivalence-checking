@@ -185,7 +185,6 @@ Can the attacker win from $\literal{g_1}$ with energy $(0,0)$?
 Simple energy game of @exm-simple-energy-game.
 ::::
 
-:::: spoiler
 No, as all outgoing paths would lead to $⊥$-energy and thus to the defender winning.
 
 But if the attacker starts with budget $(0,2)$, they can take the upper path to $\literal{g_4}$ with energy $(2,1)$, from where both defender options lead to the defender being stuck in $\literal{g_6}$.
@@ -210,7 +209,6 @@ Summing up our observations, $(0,2)$ and $(2,1)$ define a Pareto front of minima
 
 Attacker's Pareto front for $\literal{g_1}$ of example energy game.
 :::::
-::::
 
 We can notice two things from the example:
 

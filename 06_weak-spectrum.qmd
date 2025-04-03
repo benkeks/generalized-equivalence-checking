@@ -1196,7 +1196,7 @@ On the other hand, shrinking the languages would call for additional contexts, t
 But more non-terminals mean additional kinds of spectroscopy game positions and moves, thus making the spectroscopy game more complex for nothing.
 :::
 
-## Discussion
+## Discussion {#sec-weak-spectrum-discussion}
 
 With this chapter, we have explored the space of weak behavioral equivalences in concurrency theory, focusing on their modal characterizations and relationships within the weak spectrum, following @glabbeek1993ltbt.
 This adds the preliminaries to consider their decision procedures in @sec-silent-step-spectroscopy.

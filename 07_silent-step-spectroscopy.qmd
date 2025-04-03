@@ -872,7 +872,7 @@ We can now use the derived equivalence checkers (along the lines of @sec-decidin
 How does this influence research in concurrency theory?
 @gfm2020congruenceOperator[Corollary 9] claims that weak failure equivalence would be a congruence for the hiding operator.
 In light of our finding, this cannot be right.^[
-  The bug in @gfm2020congruenceOperator is that the modal logic of weak failures is not closed under adding of weak observation sequences at $\hmleps$-operators:
+  The bug in the otherwise intriguing paper @gfm2020congruenceOperator is that the modal logic of weak failures is not closed under adding of weak observation sequences at $\hmleps$-operators:
   $\hmleps\hmlobs{\literal{a}}\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}} \in \observations{WF}$, but
   $\hmleps\hmlobs{\literal{a}}\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}\hmleps\hmlobs{\literal{a}}}$ is too strong for weak failure equivalence.
   Requirement (ABS) together with the definition of $\mathcal{T}^{-1}_H$ would prescribe that the greatest logic to characterize weak failures contains both, for hiding to be a congruence.
@@ -894,6 +894,13 @@ We can even go further, and decide all weak equivalences of our spectrum:
 This provides us with the general answer that notions can only be congruences for hiding if they are not below weak/stable readiness, or if they moreover fall into the hierarchy below stable bisimulation.
 
 ## Variants {#sec-weak-spectro-variants}
+
+At this point in the thesis, it hopefully has become quite apparent how our approach can be varied with respect to game moves and HML hierarchies in order to add more equivalences or to cut resolution.
+
+This section mainly presents two tricks that are used in the implementation of {{<equivio>}}:
+@sec-optimized-branching-conj shows how to get rid of the subset construction in branching conjunctions.
+@sec-covering-revivals presents a modification to add stable revivals, stable failure traces and stable ready traces as notions.
+In @sec-extending-to-other-eqs, we close with some hints how even more nuances in weak equivalences could be covered.
 
 ### Optimization of Branching Conjunctions {#sec-optimized-branching-conj}
 
@@ -1136,13 +1143,19 @@ Modifying stable conjunction moves to include revivals (brick red part).
 The branching bisimulation part is left out.
 :::
 
+In this game, stable revivals end up at $(\infty, 0, 0, 1, 0, 1, 0, 1, 1)$,
+stable failure traces at $(\infty, 0, 0, 1, 0, \infty, 0, 1, 1)$,
+and stable ready traces at $(\infty, 0, 0, 1, 0, \infty, 1, 1, 1)$,
+analogously to their strong counterparts in @fig-strong-ltbt-spectrum.
+
 Of course, one could again use the “look-ahead trick” of @sec-clever-strong-spectro to reduce the number of partitions to consider.
 
-In fact, the implementation on {{<equivio>}} does employ this trick, thereby actually using a 9-dimensional game with richer stable conjunctions.
+In fact, the implementation on {{<equivio>}} does employ this formulation, thereby actually using a 9-dimensional game with richer stable conjunctions.
+Although this thesis remains short on providing a theorem for the game that contains the stable revival move, tests in the tool (and the theorems for the strong spectrum) justify some confidence for the correctness of variant in @fig-weak-spec-game-revivals.
 
-### Extending to Other Equivalences
+### Extending to Other Equivalences {#sec-extending-to-other-eqs}
 
-{{<paragraph_heading "Divergence and Completed Observations.">}}
+{{<paragraph_heading "Divergence and completed observations.">}}
 Logic and game, as we have presented them, are blind to divergence and to completed observations.
 @glabbeek1993ltbt uses additional modalities:
 $\Delta$ for divergence with $\semantics{\Delta} \defeq \{p \mid p \step{\tau}^\omega\}$;
@@ -1167,8 +1180,20 @@ Just like infinite traces, it depends on the possibility of characterizing infin
 On the game level, for infinite plays to be winnable by the attacker, the game must have a Büchi winning condition.
 Such a richer game model is the route taken by @ekw2017gamesBisimAbstraction to characterize various divergence-aware bisimilarities.
 
-- Handling Congruences
-- Coupled simulation
+{{<paragraph_heading "Behavioral congruences.">}}
+Famously, many of the unstable weak equivalences need to be refined in order to be congruences for CCS with choice “$\ccschoice$” [cf. @gfm2020congruenceOperator; @sangiorgi2012].
+For instance, *rooted* weak bisimulation congruence is achieved by allowing an $\hmleps\hmlobs{\tau}...$-oberservation at the outermost level of the HML characterization.
+Otherwise, weak bisimulation formulas have no $\hmlobs{\tau}$-parts (see @fig-weak-grammars-bisim-like).
+
+This thesis is not going deeper into congruences.
+But let us note that, clearly, the weak spectroscopy game could be extended by some prefix to enable such special observations for the attacker at the beginning if rootedness is deired.
+
+{{<paragraph_heading "Coupled simulation">}}
+As mentioned in @sec-weak-spectrum-discussion, we have glimpsed over coupled similarity.
+It can be thought of as the syntactic combination of weak similarity and contrasimilarity in the sense that each weak conjunction must either contain purely positive *or* purely negative conjuncts, as outlined in @bm2024contrasimilarityInfComp.
+This poissibility does not align nicely with our game formulation because it means that the attacker has to dedicate a conjunction no positivity or negativity before entering, and not make up their mind on the fly whether $q \in Q$ are addressed positively or negatively.
+If desired, this could be treated by a new dimension in modal conjunctions and game positions.
+Who urgently needs to compute coupled similarity relations, may otherwise fall back to the coupled simulation game by @bn2019coupledsimTacas.
 
 ## Discussion
 

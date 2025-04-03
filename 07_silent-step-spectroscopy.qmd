@@ -755,8 +755,17 @@ Thus, a derived reachability game of the weak spectroscopy game for branching bi
 ## Tackling Our Case Studies {#sec-tackling-case-studies}
 
 We now return to our examples from @sec-case-stduies-other-eqs, and see how the spectroscopy approach can handle the two.
+For this, we will use the {{<equivio>}} CCS dialect.
 
 ### Parallelizing Compilers {#sec-solution-parallelizing-compilation}
+
+In @exm-parallelizing-compilation, we have discussed the eample of parallelizing compilation.
+@bell2013certifiably reports on the search for a fitting notion of equivalence to prove the equivalence of sequential and parallelized program, $\literal{P_{Seq}}$ and $\literal{P_{Para}}$.
+
+We model the computation of $\literal{A} / \literal{B}$ as a parallel process `Compute` that outputs one of the two options (`computeA`/`computeB`).
+In `PSeq`, th computation has to happen, before the visible output action `printOutput!` starts, followed by the printing of the computed value, `printA!` or `printB!`.
+In `PPara`, the `printOutput!` happens in parallel, and the two processes synchronize on `join` before continuing to print the computed value.
+For both processes, the synchronizing actions, that is, `computeA`, `computeB`, and `join`, are restricted to internal use.
 
 ```ccs
 Compute = computeA!Compute + computeB!Compute
@@ -774,7 +783,7 @@ PPara = (
     + computeB.join.printB!
 ) \ {computeA, computeB, join}
 
-@compareSilent PSeq, PPara
+@compareSilent PPara, PSeq
 
 @snip "---- layout ----"
 
@@ -786,6 +795,18 @@ PPara(main, x=587, y=55)
 "(Compute | printA!0) \ {computeA,computeB}"(x=128, y=297)
 "(Compute | printB!0) \ {computeA,computeB}"(x=259, y=283)
 ```
+
+The statement `@compareSilent PPara, PSeq` invokes the weak spectroscopy on the pair of processes.
+
+The spectroscopy reports `⟨ϵ⟩⟨printOutput!⟩⟨ϵ⟩⋀{⟨ϵ⟩⟨printA!⟩⊤,⟨ϵ⟩⟨printB!⟩⊤}` as a cheapest distinguishing formula of `PPara` from `PSeq`.
+This formula disproves weak simulation plus weak readiness and everything above in the weak spectrum.
+The minimality means that all other notions must hold.
+These are the equivalences of contrasimilarity and stable bisimilarity, and below.
+
+TODO: Add Screenshot
+
+This nicely shows that our spectroscopy algorithm allows to survey the whole spectrum of possible equivalences beteween such small processes in milliseconds.
+Such a mechanized survey would certainly have facilitated the research behind @bell2013certifiably. 
 
 ### Abstraction
 
@@ -1093,8 +1114,7 @@ In fact, the implementation on {{<equivio>}} does employ this trick, thereby act
 
 ### Extending to Other Equivalences
 
-#### Divergence and Completed Observations
-
+{{<paragraph_heading "Divergence and Completed Observations.">}}
 Logic and game, as we have presented them, are blind to divergence and to completed observations.
 @glabbeek1993ltbt uses additional modalities:
 $\Delta$ for divergence with $\semantics{\Delta} \defeq \{p \mid p \step{\tau}^\omega\}$;
@@ -1125,3 +1145,10 @@ Such a richer game model is the route taken by @ekw2017gamesBisimAbstraction to 
 ## Discussion
 
 - Mention to add back in strong observations
+
+The mini case studies of @sec-tackling-case-studies show how the spectroscopy automates away the tedious kind of work of finding out the precise relationship between processes that went, for instance, into @bell2013certifiably.
+Similar searches for weak bisimilarities have happened around @parrow1992 and @nestmann1996decoding, where coupled similarity turned out to be the most fitting for encodings between models of differing synchronicity.^[
+  Nice accounts of Nestmann's search can be found in @concur2022tot2021interview.
+]
+
+@hm2021ePassportBisim

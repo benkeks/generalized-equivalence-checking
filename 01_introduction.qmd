@@ -149,10 +149,13 @@ In our example, one might wonder:
 Are there notions relating the two *besides* mutual simulation?
 :::
 
+{{<paragraph_heading "State of the art.">}}
 For many of the existing preorders and equivalences, there are various algorithms and implementations to decide whether processes are equal.
 So, it would be an option to throw an array of algorithms on the transition systems of @exm-peterson-mutex.
+TODO: Citations & problems.
 But we can better!
 
+{{<paragraph_heading "Our solution.">}}
 This thesis will outline the ideas one needs to decide all equivalences in one uniform approach.
 In its accompanying tool {{<equivio>}}, the questions of @exm-peterson-mutex can be treated by the following query:
 
@@ -239,7 +242,8 @@ Output of equiv.io about weak equivalences to relate $\literal{Mx}$ to $\literal
 TODO: Update svg for new version!
 :::
 
-How does the tool do this?
+{{<paragraph_heading "Spectroscopy analogy.">}}
+How does the tool decide so many equivalences in one shot?
 The key are van Glabbeek's “linear-time--branching-time spectrum” papers on comparative concurrency semantics [-@glabbeek1990ltbt1;-@glabbeek1993ltbt].
 They treat a zoo of distinct *qualitative questions* of the form “Are processes $p$ and $q$ equivalent with respect to notion $N$?”, where $N$ would for example be trace or bisimulation equivalence.
 The papers unveil an underlying structure where equivalences can easily be compared with respect to their distinctive power.
@@ -254,8 +258,9 @@ So, we could reframe the question behind this thesis also:
 If there exists a “linear-time–branching time spectrum,” does this mean, there also is some kind of “linear-time–branching-time *spectroscopy*”?
 :::
 
-This thesis answers the question positively, which is the key step to tackle our research question.
-One can compute what mix of (in-)distinguishabilities exists between a pair of processes,
+{{<paragraph_heading "State of the art, primed.">}}
+This thesis answers the spectroscopy question positively, which is the key step to tackle our research question.
+One can compute what mix of (in-)distinguishabilities exists between a pair of finite-state processes,
 and this places the two on the spectrum of equivalences.
 We thus turn a set of qualitative equivalence problems into one quantitative problem of *how equivalent* two systems are.
 As we will see, this amounts to an abstract form of subtraction between programs, determining what kinds of differences an outside examiner might observe.
@@ -300,9 +305,9 @@ More precisely, we make the following contributions, each coming with a “side 
   - Side quest: Galois energy games. 
 - @sec-strong-spectrum applies the approach to decide the whole strong spectrum through one *game for linear-time--branching-time spectroscopy*.
   - Side quest: Deriving efficient *individual equivalence checkers*.
-- WIP @sec-weak-spectrum recharts the *weak spectrum of equivalences accounting for silent steps* to fit our game approach.
+- @sec-weak-spectrum recharts the *weak spectrum of equivalences accounting for silent steps* to fit our game approach.
   - Side quest: Case studies.
-- WIP @sec-silent-step-spectroscopy adapts the game for the *weak spectrum of equivalences*.
+- @sec-silent-step-spectroscopy adapts the game for the *weak spectrum of equivalences*.
   - Side quest: Isabelle/HOL formalization.
 - TODO @sec-implementations showcases implementations to conveniently perform equivalence spectroscopies in web browsers.
   - Side quest: GPU parallelization.

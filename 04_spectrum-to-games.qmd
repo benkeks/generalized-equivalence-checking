@@ -1235,7 +1235,6 @@ $$
 and in space $\bigo{ \relsize{G} \cdot 3^{d-1} \cdot d }$.
 :::
 
-\noindent
 The bounds we have established are *exponential* with regard to the dimensionality $d$.
 But in our use case, we care for energy games of fixed dimensionality.
 The time bounds are *polynomial* with regard to game graph size.
@@ -1280,6 +1279,7 @@ The bound drops to $\bigo{ \relsize{\states} \cdot \relsize{\step{}}}$ in the fl
 
 ## Discussion {#sec-spectrum-approach-discussion}
 
+
 This chapter has shown how to solve the spectroscopy problem for the $\notions^{\literal{poly-strong}}$ spectrum in polynomial time, thereby deciding all its preorders and equivalences *at once*.
 
 The core ingredient has been to characterize the spectrum's observation languages through an energy game (@idea-energy-games, @thm-bisim-energy-game-characterization) derived from the bisimulation game.
@@ -1297,12 +1297,15 @@ Then, $e \in \attackerwinsmin(g)$ iff $e$ is the length of a shortest path from 
 In this instance, @alg-deciding-energy-games behaves like the well-known Bellman--Ford algorithm for shortest paths.
 :::
 
-\noindent
 @alg-deciding-energy-games contains relevant generalizations and practical improvements compared to the one originally used in @bisping2023equivalenceEnergyGames.
 Most importantly, the declining energy version loses a dimension of exponentiality.
 For the polynomial equivalences we arrive at a reasonably polynomial complexity for the spectroscopy instantiation, including reasonable space complexity for a flattened energy lattice.
 
-Knowing that parts of the strong spectrum are $\complexityname{PSPACE}$-hard, the algorithmic complexity indirectly proves that the bisimulation game cannot be used to characterize the whole spectrum.
+At this point, we have, in principle, answered our main research question
+hwo to conveniently decide for a pair of states which notions from a spectrum of behavioral equivalences equate the two.
+In the second half of the thesis, we will leverage this approach to treat the “strong spectrum” of concrete equivalences and the “weak spectrum” of equivalences that abstract silent steps.
+
+Knowing from @sec-equivalence-complexities that parts of the strong spectrum are $\complexityname{PSPACE}$-hard, the algorithmic complexity indirectly proves that the bisimulation game cannot be used to characterize the whole spectrum.
 (Unless the polynomial hierarchy miraculously collapses to $\complexityname{PSPACE} = \complexityname{P}$.)
 
-Thus, “we're gonna need a bigger ~~boat~~” *game*, at least exponentially-sized, to also cover $\complexityname{PSPACE}$-hard notions.
+Thus, [“we're gonna need a bigger ~~boat~~”](https://www.youtube.com/watch?v=wB3g967rFLs) *game*, at least exponentially-sized, to also cover $\complexityname{PSPACE}$-hard notions.

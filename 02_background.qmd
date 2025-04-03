@@ -9,6 +9,12 @@ toc-title: "Chapter 2"
 {{< include style/macros.md >}}
 :::
 
+\hspace{0pt}
+::::{#related-2 .column-margin}
+\vspace{-2.2em}
+{{<paragraph_heading "Related publications.">}}
+::::
+
 The core background of this thesis is the *trinity of characterizations for behavioral equivalences*: relational, modal, and game-theoretic.
 
 This chapter takes a tour into the field of formalisms used to model programs and communicating systems, which are accompanied by many notions for behavioral equivalence and refinement to relate or distinguish their models.
@@ -68,6 +74,10 @@ Productions in grammars of potential distinguishing formulas translate to game r
 
 Both points might seem non-standard to those more accustomed to relational or denotational definitions of behavioral equivalences.
 To provide them with a bridge, we will start with relational and denotational definitions---but once we have crossed this bridge, we will not go back.
+
+::::{.content-visible when-format="html" .column-margin}
+{{< contents related-2 >}}
+::::
 
 ## Behavior of Programs {#sec-programs}
 

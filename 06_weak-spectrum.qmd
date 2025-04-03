@@ -9,6 +9,15 @@ toc-title: "Chapter 6"
 {{< include style/macros.md >}}
 :::
 
+\hspace{0pt}
+::::{#related-6 .column-margin}
+\vspace{-2.2em}
+{{<paragraph_heading "Related publications.">}}
+This chapter is based on parts of @bj2025silentStepSpectroscopyJournal and @bm2024contrasimilarityInfComp.
+For a fuller presentation of the spectrum of weak equivalences itself, @glabbeek1993ltbt is the authorative work.
+A gentler introduction to key concepts is provided by @sangiorgi2012.
+::::
+
 Virtually all *applications* of concurrency theory use *weak* behavioral equivalences, which can equate systems in spite of differing internal activity.
 Therefore, it matters that we can lift our approach to also account for such equivalences.
 
@@ -29,9 +38,9 @@ We can use a subset of $\hml$ to characterize most interesting weak equivalences
 We illustrate the use of some oft the weak notions through small examples in @sec-case-stduies-other-eqs.
 In @sec-weak-spectrum-quantities, we unfold the modal characterization for the weak spectrum.
 
-{{<paragraph_heading "Related publications.">}}
-This chapter is based on parts of @bj2025silentStepSpectroscopyJournal and @bm2024contrasimilarityInfComp.
-For a fuller presentation of the spectrum of weak equivalences itself, @glabbeek1993ltbt is the authorative work.
+::::{.content-visible when-format="html" .column-margin}
+{{< contents related-6 >}}
+::::
 
 ## Weak Equivalences in General {#sec-weak-equivalences-in-general}
 

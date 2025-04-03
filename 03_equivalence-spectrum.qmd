@@ -9,6 +9,12 @@ toc-title: "Chapter 3"
 
 # Context: The Spectrum of Equivalences {#sec-spectrum}
 
+\hspace{0pt}
+::::{#related-3 .column-margin}
+\vspace{-2.2em}
+{{<paragraph_heading "Related publications.">}}
+::::
+
 We will now take a deeper dive into how groups of behavioral equivalences and preorders can be ranked in equivalence spectra.
 
 For the following chapters, we will focus on the main “linear-time--branching-time spectrum“ for the semantics of concrete processes treated by @glabbeek1990ltbt1, the so-called “strong spectrum.”
@@ -33,6 +39,10 @@ We can ask what equivalences from a spectrum are the most fitting to relate two 
 :::
 
 @sec-spectroscopy will define the problem formally and give lower-bounds for its complexity on the strong spectrum.
+
+::::{.content-visible when-format="html" .column-margin}
+{{< contents related-3 >}}
+::::
 
 ## Observability Hierarchies
 

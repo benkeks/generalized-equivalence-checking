@@ -9,6 +9,12 @@ toc-title: "Chapter 4"
 {{< include style/macros.md >}}
 :::
 
+\hspace{0pt}
+::::{#related-4 .column-margin}
+\vspace{-2.2em}
+{{<paragraph_heading "Related publications.">}}
+::::
+
 Time to get real.
 This chapter will demonstrate my core approach by solving the spectroscopy problem in an *easy* instance.
 
@@ -66,6 +72,10 @@ This approach is summarized in @fig-spectroscopy-poly-big-picture.
 
 How we will employ energy games to solve the spectroscopy problem on an easy spectrum.
 :::
+
+::::{.content-visible when-format="html" .column-margin}
+{{< contents related-4 >}}
+::::
 
 ## Energy Games {#sec-energy-games}
 
@@ -1278,7 +1288,6 @@ The bound drops to $\bigo{ \relsize{\states} \cdot \relsize{\step{}}}$ in the fl
 :::
 
 ## Discussion {#sec-spectrum-approach-discussion}
-
 
 This chapter has shown how to solve the spectroscopy problem for the $\notions^{\literal{poly-strong}}$ spectrum in polynomial time, thereby deciding all its preorders and equivalences *at once*.
 

@@ -541,7 +541,7 @@ The following example to highlight their differences is due to van Glabbeek:
 
 :::{#exm-idle-process-abstraction}
 
-@fig-idle-process-abstraction presents transition systems of four processes:
+@fig-idle-process-abstraction presents transition systems of four processes, given through their initial states:
 $\literal{P}_e$ makes a nondeterministic choice $\literal{op}$ between $\literal{a}$ and $\literal{b}$, performing arbitrarily many $\literal{idle}$-actions in between.
 $\literal{P}_\ell$ does the same but can change the choice while idling.
 $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ are variants of the two obtained by renaming $\literal{idle}$ into $\tau$-actions.

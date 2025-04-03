@@ -754,8 +754,8 @@ Thus, a derived reachability game of the weak spectroscopy game for branching bi
 
 ## Tackling Our Case Studies {#sec-tackling-case-studies}
 
-We now return to our examples from @sec-case-stduies-other-eqs, and see how the spectroscopy approach can handle the two.
-For this, we will use the {{<equivio>}} CCS dialect.
+We now return to our examples from @sec-case-stduies-other-eqs, and see how the spectroscopy approach can handle the two, and thus support research in concurrency theory.
+For this project, we will use the {{<equivio>}} CCS dialect.
 
 ### Parallelizing Compilers {#sec-solution-parallelizing-compilation}
 
@@ -808,7 +808,13 @@ TODO: Add Screenshot
 This nicely shows that our spectroscopy algorithm allows to survey the whole spectrum of possible equivalences beteween such small processes in milliseconds.
 Such a mechanized survey would certainly have facilitated the research behind @bell2013certifiably. 
 
-### Abstraction
+### $\tau$-Abstraction and Failures
+
+@sec-abstraction-failures has introduced a transition system with two states $\literal{P}_e$ and $\literal{P}_\ell$ that perform nondeterministic $\literal{op}$-step that only $\literal{P}_\ell$ can corect while $\literal{idle}$-ing.
+Though both processes are weak-failure-equivalent, their variants $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ where $\literal{idle}$-steps are relabelled to $\tau$-steps are not.
+
+To reconstruct this result on {{<equivio>}}, we first have to translate the processes of @fig-idle-process-abstraction to CCS.
+We express $\literal{P}_e$ and $\literal{P}_\ell$ as `Pe` and `Pt` through mutual recursion in the following model:
 
 ```ccs
 Ae = idle.Ae + a
@@ -819,51 +825,73 @@ Bl = idle.Al + idle.Bl + b
 Pe = op.Ae + op.Be
 Pl = op.Al + op.Bl
 
-Pte = Pe \hide {idle}
-Ptl = Pl \hide {idle}
+@snip "---- abstracted processes ----"
+
+Idle = idle!Idle
+Pte = Pe | Idle \ {idle}
+Ptl = Pl | Idle \ {idle}
+
+@snip "---- checks and comparison ----"
 
 @check weak-failure, Pe, Pl
 @check weak-failure, Pte, Ptl
+
+@compareSilent Pe, Pl
+@compareSilent Pte, Ptl
 
 @snip "---- layout ----"
 
-@compareSilent Pte, Ptl
-@compareSilent Pe, Pl
-
 Pe(x=200, y=10, main)
 Pl(x=500, y=10, main)
 Pte(x=200, y=450, main)
 Ptl(x=500, y=450, main)
 "0"(x=365, y=304)
-"0 \hide {idle}"(x=336, y=712)
+"(0 | Idle) \ {idle}"(x=350, y=780)
 ```
+
+To implement the *hiding* of `idle` in CCS, we use a parallel process that provides unlimited `idle!`-actions to synchronize instead of the environment.
+Hence, $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ are expressed as `Pte` and `Ptl`:
 
 ```ccs
-@compareSilent Pe, Pl
-@compareSilent Pte, Ptl
-
-@snip "---- remainder of example ----"
-Ae = idle.Ae + a
-Be = idle.Be + b
-Al = idle.Bl + idle.Al + a
-Bl = idle.Al + idle.Bl + b
-
-Pe = op.Ae + op.Be
-Pl = op.Al + op.Bl
-
-Pte = Pe \hide {idle}
-Ptl = Pl \hide {idle}
-
-@check weak-failure, Pe, Pl
-@check weak-failure, Pte, Ptl
-
-Pe(x=200, y=10, main)
-Pl(x=500, y=10, main)
-Pte(x=200, y=450, main)
-Ptl(x=500, y=450, main)
-"0"(x=365, y=304)
-"0 \hide {idle}"(x=336, y=712)
+@nolink
+Idle = idle!Idle
+Pte = (Pe | Idle) \ {idle}
+Ptl = (Pl | Idle) \ {idle}
 ```
+
+We can now use the derived equivalence checkers (along the lines of @sec-deciding-individual-eqs) to establish that `Pe` and `Pl` are weak-failure-equivalent, but `Pte` and `Ptl` are not:
+
+```ccs
+@nolink
+@check weak-failure, Pe, Pl
+  > "States are equivalent."
+@check weak-failure, Pte, Ptl
+  > "States are inversely preordered (only from right to left)."
+```
+
+How does this influence research in concurrency theory?
+@gfm2020congruenceOperator[Corollary 9] claims that weak failure equivalence would be a congruence for the hiding operator.
+In light of our finding, this cannot be right.^[
+  The bug in @gfm2020congruenceOperator is that the modal logic of weak failures is not closed under adding of weak observation sequences at $\hmleps$-operators:
+  $\hmleps\hmlobs{\literal{a}}\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}} \in \observations{WF}$, but
+  $\hmleps\hmlobs{\literal{a}}\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}\hmleps\hmlobs{\literal{a}}}$ is too strong for weak failure equivalence.
+  Requirement (ABS) together with the definition of $\mathcal{T}^{-1}_H$ would prescribe that the greatest logic to characterize weak failures contains both, for hiding to be a congruence.
+]
+
+We can even go further, and decide all weak equivalences of our spectrum:
+
+```ccs
+@nolink
+@compareSilent Pe, Pl
+  > "Equated by:
+     weak-readiness
+     stable-readiness"
+@compareSilent Pte, Ptl
+  > "Equated by:
+     stable-bisimulation"
+```
+
+This provides us with the general answer that notions can only be congruences for hiding if they are not below weak/stable readiness, or if they moreover fall into the hierarchy below stable bisimulation.
 
 ## Variants {#sec-weak-spectro-variants}
 

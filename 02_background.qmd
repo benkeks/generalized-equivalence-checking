@@ -117,7 +117,7 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
 ::: {#exm-ts}
 #### A Classic Example
 
-Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}, \set{\literal a, \literal b, τ}, \step{\cdot}_\literal{PQ})$ given by the following graph:
+Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}, \set{\literal a, \literal b, τ}, \step{}_\literal{PQ})$ given by the following graph:
 
 ::::{#fig-ts-determinism fig-pos=H}
 ```tikz
@@ -215,6 +215,7 @@ Each sub-process tree must end in a $\ccsnull$-process or recursion.
 For brevity, we usually drop a final $\ccsnull$ when writing terms, e.g., just writing $\literal{ac}$ for $\ccsprefix{\literal{ac}} \ccsnull$.
 
 We place parenthesis, $(…)$, in terms where the syntax trees are otherwise ambiguous, but understand the choice operator $\ccschoice$ and the parallel operator $\ccspar$ to be associative.
+This convention means that $(P_1 \ccschoice P_2) \ccschoice P_3$ and $P_1 \ccschoice (P_2 \ccschoice P_3)$ are representations of the same term in our view.
 :::
 
 ::: {#exm-ccs}
@@ -253,6 +254,7 @@ $$
 The restriction $… \ccsrestrict \set{\literal{fork}}$ expresses that the $\literal{fork}$-channel can only be used for communication within the system.
 
 As the $\coaction{\literal{fork}}$-action can be consumed by just one of the two philosophers, process $\literal P$ expresses exactly the program behavior seen in state $\literal P$ of @exm-ts.
+A process matching $\literal Q$ will follow in @exm-deterministic-phil.
 :::
 
 The formal relationship between process terms and their LTS semantics is given by the following definition.
@@ -260,15 +262,16 @@ The formal relationship between process terms and their LTS semantics is given b
 ::: {#def-ccs-semantics}
 #### CCS Semantics
 
-Given an assignment of names to processes, $\ccsasg \colon \ccsnames → \ccs$, the operational semantics ${\step{\cdot}_\ccs} ⊆ \ccs × \ccsactions × \ccs$ is defined inductively by the rules:
+Given an assignment of names to processes, $\ccsasg \colon \ccsnames → \ccs$, the operational semantics ${\step{}_\ccs} ⊆ \ccs × \ccsactions × \ccs$ is defined inductively by the rules:
 
+:::: {.column-body-outset}
 $$
-\dfrac{
+\inferrule[Pre]{
 }{
   \ccsprefix{α} P \step{α}_\ccs P
 }
 \qquad
-\dfrac{
+\inferrule[Rec]{
   P \step{α}_\ccs P' \qquad \ccsasg(X) = P
 }{
   X \step{α}_\ccs P'
@@ -276,12 +279,12 @@ $$
 $$
 
 $$
-\dfrac{
+\inferrule[Choice_1]{
   P_1 \step{α}_\ccs P_1'
 }{
   P_1 \ccschoice P_2 \step{α}_\ccs P_1'
 }\qquad
-\dfrac{
+\inferrule[Choice_2]{
   P_2 \step{α}_\ccs P_2'
 }{
   P_1 \ccschoice P_2 \step{α}_\ccs P_2'
@@ -289,12 +292,12 @@ $$
 $$
 
 $$
-\dfrac{
+\inferrule[Par_1]{
   P_1 \step{α}_\ccs P_1'
 }{
   P_1 \ccspar P_2 \step{α}_\ccs P_1' \ccspar P_2
 }\qquad
-\dfrac{
+\inferrule[Par_2]{
   P_2 \step{α}_\ccs P_2'
 }{
   P_1 \ccspar P_2 \step{α}_\ccs P_1 \ccspar P_2'
@@ -302,19 +305,21 @@ $$
 $$
 
 $$
-\dfrac{
+\inferrule[Com]{
   P_1 \step{α}_\ccs P_1' \qquad
   P_2 \step{\coaction α}_\ccs P_2'
 }{
   P_1 \ccspar P_2 \step{τ}_\ccs P_1' \ccspar P_2'
 }\qquad
-\dfrac{
+\inferrule[Res]{
   P \step{α}_\ccs P' \qquad
   α, \coaction α \notin A
 }{
   P \ccsrestrict A \step{α}_\ccs P' \ccsrestrict A
 }
 $$
+::::
+
 A process $P ∈ \ccs$ now denotes a position in the transition system $(\ccs, \ccsactions, \step{}_\ccs)$ defined through @def-ccs.
 :::
 
@@ -323,56 +328,64 @@ By the semantics, this also leads to the existence of a *state* $\literal{P_A}$ 
 
 Feel free to go ahead and check that the transitions of @exm-ts indeed match those that @def-ccs-semantics prescribes for $\literal{P}$ of @exm-ccs!
 (For readability, @exm-ts, has shorter state names, however.)
-For instance, the transition $\literal P \step{τ} \literal{p_a}$ of @exm-ts would be justified as follows:
+For instance, the transition $\literal P \step{τ} \literal{p_a}$ in the CCS system of @exm-ts would be justified as follows:
 
 ::: {.column-body-outset}
 $$
-\dfrac{
-  \dfrac{
-    \dfrac{
-      \dfrac{
-        \vphantom{\step{\coaction{\literal{fork}}}_\ccs}
+\inferruleapp[Rec]{
+  \hspace{-2em}
+  \inferruleapp[Res]{
+    \hspace{-2em}
+    \inferruleapp[Com]{
+    \hspace{-2em}
+      \inferruleapp[Pre]{
+        \vphantom{\stepnosmash{\coaction{\literal{fork}}}_\ccs}
       }{
-        \coaction{\literal{fork}} \step{\coaction{\literal{fork}}}_\ccs \ccsnull
+        \coaction{\literal{fork}} \stepnosmash{\coaction{\literal{fork}}}_\ccs \ccsnull
       }
       \quad
-      \dfrac{
-        \dfrac{
-          \overline{
+      \inferruleapp[Par_1]{
+        \hspace{-2em}
+        \inferruleapp[Rec]{
+          \hspace{-2em}
+          \inferruleapp[Pre]{
+          }{
             \ccsprefix{\literal{fork}} \literal a
-            \step{\literal{fork}}_\ccs
+            \stepnosmash{\literal{fork}}_\ccs
             \literal a
           }
-          \qquad
-          \ccsasg(\literal{P_A}) = \ccsprefix{\literal{fork}} \literal a
+          \;
+          \begin{matrix} \hphantom{\ccsasg} \\
+            \ccsasg(\literal{P_A}) = \ccsprefix{\literal{fork}} \literal a
+          \end{matrix}
         }{
-          \literal{P_A} \step{\literal{fork}}_\ccs \literal a
+          \literal{P_A} \stepnosmash{\literal{fork}}_\ccs \literal a
         }
       }{
-        \literal{P_A} \ccspar \literal{P_B} \step{\literal{fork}}_\ccs \literal a \ccspar \literal{P_B}
+        \literal{P_A} \ccspar \literal{P_B} \stepnosmash{\literal{fork}}_\ccs \literal a \ccspar \literal{P_B}
       }
     }{
       \coaction{\literal{fork}} \ccspar \literal{P_A} \ccspar \literal{P_B}
-      \step{τ}_\ccs
+      \stepnosmash{τ}_\ccs
       \ccsnull \ccspar \literal a \ccspar \literal{P_B}
     }
-    \quad
+    \,
     \begin{matrix}
-      \vphantom{\step{\coaction{\literal{fork}}}_\ccs}\\
+      \vphantom{\stepnosmash{\coaction{\literal{fork}}}_\ccs}\\
       τ \notin \set{\literal{fork}}
     \end{matrix}
   }{
     ( \coaction{\literal{fork}} \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
-    \step{τ}_\ccs
+    \stepnosmash{τ}_\ccs
     ( \ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
   }
-  \quad
+  \,
   \begin{matrix}
-    \vphantom{\step{\coaction{\literal{fork}}}_\ccs}\\
+    \vphantom{\stepnosmash{\coaction{\literal{fork}}}_\ccs}\\
     \ccsasg(\literal P) = ( \coaction{\literal{fork}} \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
   \end{matrix}
 }{
-  \literal P \step{τ}_\ccs ( \ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
+  \literal P \stepnosmash{τ}_\ccs ( \ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
 }
 $$
 :::
@@ -413,7 +426,7 @@ Accordingly, comparing two programs in terms of the sequences of input/ouput eve
 ::: {#def-traces}
 #### Traces
 
-The set of traces of a state $\traces{p}$ is recursively defined as
+The set of traces of a state $\traces{p} \subseteq \actions^*$ is inductively defined as
 
 - $\emptyword ∈ \traces{p}$,^[We denote the empty word by $\emptyword$.]
 - $α \cdot \vec w ∈ \traces{p}$ if there is $p'$ with $p \step α p'$ and $\vec w ∈ \traces{p'}$.{{<isb abbreviation Labeled_Transition_Systems lts.traces>}}
@@ -448,12 +461,12 @@ For many formal languages, these mathematical objects can be constructed directl
 With the idea that the program text “denotes” its possible executions, the set of traces is called a “denotation” in this context.
 CCS, as we use it, follows another approach to semantics, namely the one of “operational semantics,” where the meaning of a program is in how it might interact.
 
-There are several reasons why computer scientist did content themselves with trace equivalence when studying interactive systems.
+There are several reasons why computer scientist did not content themselves with trace equivalence when studying interactive systems.
 The core argument is that, in this context, one usually does not want to consider processes like $\literal{P}$ and $\literal{Q}$ to be equivalent:
 The two might interact differently with an environment.
-For instance, assume there is a user that wants to communicate $(\dots \ccspar \ccsprefix{\literal{a}}\ccsprefix{\literal{success}} \ccsnull) \ccsrestrict \set{\literal{a}}$.
-In interactions with $\literal{Q}$, they will always reach $\literal{success}$;
-with $\literal{P}$, there is a possibility of ending up deadlocked in parallel with $\literal{p_b}$, never achieving success.
+For instance, assume there is a user that wants to communicate $(\dots \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\literal{success}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}$.
+In interactions with $\literal{Q}$, they will always reach $\literal{success}$.
+With $\literal{P}$, there is a possibility of ending up deadlocked in $((\ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\literal{success}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}$, never achieving success.
 
 So let us look into more distinctive equivalences!
 

@@ -37,6 +37,7 @@
 \lc{ Transition systems }
 
 \providecommand{\step}[1]{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}
+\providecommand{\stepnosmash}[1]{\xrightarrow{{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}
 \providecommand{\nostep}[1]{\cancel{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}}
 \providecommand{\stepweak}{\mathrel{\twoheadrightarrow}}
 \providecommand{\stepweakword}[1]{\xtwoheadrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}
@@ -96,7 +97,8 @@
 \providecommand{\literal}[1]{\mathsf{#1}}
 \providecommand{\variable}[1]{\mathtt{#1}}
 \providecommand{\kw}[1]{\operatorname{\mathbf{#1}}\;}
-\providecommand{\inferrule}[3][]{\textrm{#1}\;\dfrac{\begin{matrix}#2\end{matrix}}{#3}\hphantom{\textrm{#1}}}
+\providecommand{\inferrule}[3][]{\mathrm{#1}\;\dfrac{\begin{matrix}#2\end{matrix}}{#3}\hphantom{\mathrm{#1}}}
+\providecommand{\inferruleapp}[3][]{\mathrm{#1}\;\dfrac{\begin{matrix}#2\end{matrix}}{#3}}
 
 \lc{ Relations }
 

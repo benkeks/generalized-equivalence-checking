@@ -1035,19 +1035,48 @@ TODO: Maybe also example where non-determinism has more effect?
 
 ## Discussion {#sec-discussion-strong-spectroscopy}
 
-With this chapter, we have broadened the spectroscopy game approach of @sec-approach to account for the full weak spectrum.
+With this chapter, we have broadened the spectroscopy game approach of @sec-approach to account for the full strong spectrum of @sec-spectrum, thereby solving its spectroscopy problem (@prob-spectroscopy-problem).
 
-The critical ingredient has been to cover trace-like observations through a subset construction on states (@idea-subset-construction).
+The critical ingredient has been to *cover trace-like observations* through a *subset construction* on states (@idea-subset-construction).
 This construction can also be viewed game-theoretically as a way to model an attacker with *imperfect information* about the exact choices the defender makes in simulating steps.
-The conjunction/negation points then describe moves where the attacker can obtain this information.
-@fahrenberg2014quantitativeLTBTS employ this alternative view in their game description of quantitative equivalences.
+The conjunction and negation points then describe moves where the attacker can obtain this information.
+@fahrenberg2014quantitativeLTBTS employ this alternative view in their game description for quantitative variants of strong equivalences.
 
-Other games: @hs1996complexityEquivalences @cd2008gameCharacetrizations
+All prior publications with generalized game characterization of the spectum describe a hierarchy of reachability games---as opposed to our view of *one* energy game per system.
 
-- Difference to @bjn2022decidingAllBehavioralEqs:
-  - Lower exponentiality in conjunctions
-  - No explicit construction of formulas
+The *general idea of giving generalized games* for the strong spectrum first appears in @shr1995hornsatGames.
+It receives a fuller treatment by @cd2008gameCharacetrizations.
+Both publications, however, use word-transition moves for trace-like equivalences.
+In algorithms, this is unfortunate, since most interesting systems allow infinitely long transition sequences:
+For finite-state systems, this infinity appears as soon as there is a transition cycle.
+Therefore, the subset construction (or imperfect-information view) is technologically supperior.
+Also, theoretically, the link to conjunctions in modal logics is an advantage of our construction.
 
-@idea-instance-games ...
+The idea to alternate *state subsets for nondeterministic words and conjunction moves to eliminate the blowup* is introduced by @bisping2021ltbtsTacas.
+Our initial 2021 game is unable to correctly handle failure-traces and similar observations, which has been corrected in @bjn2022decidingAllBehavioralEqs, thanks to David N. Jansen's input.
+With respect to @bjn2022decidingAllBehavioralEqs, the presentation in this chapter has three advantages:
 
-- mention that  $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ matches best algos for simulation, but not for bisimulation.
+1. @bjn2022decidingAllBehavioralEqs uses a reachability game, on which we construct distinguishing formulas.
+  The formulas are then pruned on-the-fly to select those with minimal syntactic prices.
+  Introduced by @bisping2023equivalenceEnergyGames, we now can perform the whole *spectroscopy on energy vectors*, thereby making costy explicit formula construction optional.
+2. @bjn2022decidingAllBehavioralEqs's game has super-exponential out-degree for conjunction moves.
+  With the present formulation (from @bisping2023equivalenceEnergyGames), we can achieve constant degree, using the cleverness of @sec-clever-strong-spectro.
+3. On a pure rechability game, one cannot easily instantiate to select the subgraphs for individual equivalences as in @sec-deciding-individual-eqs.
+
+This last point of *deriving equivalence games from the energy game* (@idea-instance-games) connects the one-energy-game approach back to the hierachy-of-games approach of prior publications.
+With @sec-deciding-individual-eqs, the present chapter has moved beyond the scope of @bisping2023equivalenceEnergyGames.
+Interestingly, @sec-regaining-polynomiality shows that, by the prioritizing conjunctions in derived simulation-like games, one obtains $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ complexity, restoring the bound of last chapter's @sec-polynomial-spectroscopy-complexity.
+For strong similarity, this matches the best known time bound, as discussed in @sec-equivalence-complexities.
+For bisimilarity, however, partition-refinement outperforms the game approach.
+
+We could go a step further in the polynomially-sized derivatives of the spectroscopy game, and “bake together” the attacker positions after observations with the following defender positions.
+This would (almost) arrive at the game structure of last chapter's bisimulation energy game!
+Conceptionally, the following relation emerges:
+The bisimulation game ${\game}_\notionname{B}$ of @sec-preliminaries *is a shadow of* the bisimulation energy game ${\game}_\notionname{B}^🗲$ of @sec-approach *is a shadow of* the strong spectroscopy game $\gamespectroscopy$ of the present chapter.
+
+Continuing this trajectory, *the next part of the thesis* will abstract further what we have been doing.
+The strong spectrum of equvialences is usually too strong for the analysis of concurrent systems.
+Therefore, we will extend our approach to the “weak spectrum” of equivalences, accounting for the nuances of silent $\tau$-steps.
+This is of double relevance:
+Practical applications of concurency theory tend to need the weak semantics,
+and, other than with the strong spectrum, nobody has previously proposed generalized game characterizations for the weak spectrum, at all.

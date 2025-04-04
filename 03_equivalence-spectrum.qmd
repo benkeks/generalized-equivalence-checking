@@ -914,7 +914,7 @@ The rule of thumb is that trace-like equivalences are $\complexityname{PSPACE}$-
 
 Bisimilarity finds itself in a *valley* of tractability,
 if we look at a cross section through the equivalence spectrum as in @fig-complexity-slope.
-The best known bisimilarity algorithms for finite-state transition systems take $\bigo{\relsize{\step{}} \log \relsize{S}}$ time [usually deriving from @paigetarjan1987partitionrefinement].
+The best known bisimilarity algorithms for finite-state transition systems take $\bigo{\relsize{\step{}} \log \relsize{\states}}$ time [usually deriving from @paigetarjan1987partitionrefinement].
 
 ::: {#fig-complexity-slope}
 ```tikz
@@ -929,8 +929,8 @@ The best known bisimilarity algorithms for finite-state transition systems take 
         yticklabels = {
           $\bigo{1}$,
           $\bigo{\relsize{\step{}}}$,
-          $\bigo{\relsize{\step{}} \log \relsize{S}}$,
-          $\bigo{\relsize{\step{}} \relsize{S}}$,
+          $\bigo{\relsize{\step{}} \log \relsize{\states}}$,
+          $\bigo{\relsize{\step{}} \relsize{\states}}$,
           $\complexityname{NP}$,
           $\complexityname{PSPACE}$,
         }
@@ -944,13 +944,13 @@ The best known bisimilarity algorithms for finite-state transition systems take 
 Bisimilarity's complexity valley.
 :::
 
-For coarser simulation-like equivalences, the best known algorithms need $\bigo{\relsize{\step{}} \relsize{S}}$ time [@rt2010efficientSimulation].^[Or $\bigo{\relsize{\step{}} \relsize{\relqotient{S}{\beq{S}}}}$ to name the bound as @rt2010efficientSimulation present it.]
+For coarser simulation-like equivalences, the best known algorithms need $\bigo{\relsize{\step{}} \relsize{\states}}$ time [@rt2010efficientSimulation].^[Or $\bigo{\relsize{\step{}} \relsize{\relqotient{S}{\beq{S}}}}$ to name the bound as @rt2010efficientSimulation present it.]
 
 The finer graph-isomorphism equivalence (@def-graph-isomorphism) again is harder with the best known solution [@babai2016graphIsomorphismQuasiPoly] in quasi-polynomial time $2^{\bigo{(\log n)^3}}$.
 
 There however are little strict hardness results at this level of granularity.
 So, better time complexities for graph isomorphism, bisimilarity, and similarity are conceivable (albeit improbable).
-@gmv2023lowerboundsBisimPartitionRefinement show that at least partition-refinement algorithms for bisimilarity cannot do better than $\bigo{\relsize{\step{}} \log \relsize{S}}$.
+@gmv2023lowerboundsBisimPartitionRefinement show that at least partition-refinement algorithms for bisimilarity cannot do better than $\bigo{\relsize{\step{}} \log \relsize{\states}}$.
 In a recent preprint, @groote2024quadraticlowerboundsimulation establish that similarity is strictly more complex than bisimilarity.
 
 The trivial equivalences at the end of the cross section, identity $\notionname{ID}$ and universal equivalence $\notionname{U}$, can be solved directly.

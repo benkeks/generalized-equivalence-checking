@@ -49,19 +49,7 @@ process("A", otherId = "B") || process("B", otherId = "A")
 
 ### Program Structure
 
-### Benchmarking
-
-## GPU Implementation: *gpuequiv* {#sec-gpu-equiv}
-
-@vogel2024energyGamesWebGPU
-
-### Usage
-
-### Program Structure
-
-### Benchmarking
-
-## Further Implementations
+## Student Implementations
 
 ### Computer Game: *The Spectroscopy Invaders* {#sec-spectro-invaders}
 
@@ -71,3 +59,7 @@ process("A", otherId = "B") || process("B", otherId = "A")
 
 @ozegowski2023eqCAAL
 mention Timo
+
+## GPU Implementation: *gpuequiv* {#sec-gpu-equiv}
+
+@vogel2024energyGamesWebGPU

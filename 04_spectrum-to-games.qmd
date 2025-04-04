@@ -1250,7 +1250,7 @@ But in our use case, we care for energy games of fixed dimensionality.
 The time bounds are *polynomial* with regard to game graph size.
 The space bounds behave similarly, but in the *flattened* variant fixed energy makes the space usage even drop to be *linear* in terms of game graph size.
 
-### Polynomial Spectroscopy Complexity
+### Polynomial Spectroscopy Complexity {#sec-polynomial-spectroscopy-complexity}
 
 We have gathered enough material to have this section prove that the spectroscopy problem for the polynomial-time strong spectrum is indeed solvable in polynomial time, thus justifying the name we chose for the spectrum.
 

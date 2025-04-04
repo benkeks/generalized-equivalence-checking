@@ -902,7 +902,7 @@ This section mainly presents two tricks that are used in the implementation of {
 @sec-covering-revivals presents a modification to add stable revivals, stable failure traces and stable ready traces as notions.
 In @sec-extending-to-other-eqs, we close with some hints how even more nuances in weak equivalences could be covered.
 
-### Optimization of Branching Conjunctions {#sec-optimized-branching-conj}
+### Optimizing Branching Conjunctions {#sec-optimized-branching-conj}
 
 @bj2025silentStepSpectroscopyJournal show how to reduce the out-degree of the weak spectroscopy game to be linear.
 For this, we reformulate the branching conjunction part of the game to be closer to the operational @def-branching-bisim of branching bisimilarity.

@@ -1213,7 +1213,9 @@ In examples, we have seen how weak equivalences handle internal non-determinism 
 Practical scenarios, such as parallelizing compilers and process abstraction, reveal the possibilities and limitations of the different design decisions behind process equivalences.
 
 Following @idea-weak-hml, our modal logic characterization through $\hmlsrbb$ captures a rich weak spectrum between stability-respecting branching bisimilarity and weak trace equivalence.
-We however have skipped some classical notions such as stable failure traces and coupled simulation, which would have called for even more dimensions in the already 8-dimensional pricing metric.^[
+This adds to the rich body of work on *modal characterizations of branching bisimilarity* by @nicolaVaandrager1995threeLogicsBB, @fokkinkGL19DivCong3, @geuvers2022, and @geuversGolov2023positiveBB.
+
+Our spectrum, however, leaves out some classical notions such as stable failure traces and coupled simulation, which would have called for even more dimensions in the already 8-dimensional pricing metric.^[
   Especially for coupled similarity, this gap is ironic, as my research into game chracterizations of equivalences has been kicked off by an interest in decision procedures for coupled similarity in @bn2019coupledsimTacas and @bnp2020coupledsim30.
 ]
 

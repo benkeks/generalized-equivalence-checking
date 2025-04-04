@@ -880,6 +880,31 @@ doi="10.1007/BFb0023750"
     doi = {10.1007/3-540-61474-5_61}
 }
 
+@inproceedings{tan2002abstractEquivalenceGames,
+  author       = {Li Tan},
+  editor       = {Agostino Cortesi},
+  title        = {An Abstract Schema for Equivalence-Checking Games},
+  booktitle    = {Verification, Model Checking, and Abstract Interpretation, Third International
+                  Workshop, {VMCAI} 2002, Venice, Italy, January 21-22, 2002, Revised
+                  Papers},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {2294},
+  pages        = {65--78},
+  publisher    = {Springer},
+  year         = {2002},
+  doi          = {10.1007/3-540-47813-2_5},
+  timestamp    = {Tue, 14 May 2019 10:00:43 +0200},
+  biburl       = {https://dblp.org/rec/conf/vmcai/Tan02.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@book{tan2002evidence,
+  title={Evidence-Based Verification},
+  author={Tan, Li},
+  year={2002},
+  publisher={State University of New York at Stony Brook}
+}
+
 @article{ekw2017gamesBisimAbstraction,
   title = {Games for Bisimulations and Abstraction},
   author = {de {Frutos Escrig}, David and
@@ -951,6 +976,74 @@ number = "3--5",
   year=2019,
   pages={104435},
   doi={10.1016/j.ic.2019.104435},
+}
+
+@article{nicolaVaandrager1995threeLogicsBB,
+author = {De Nicola, Rocco and Vaandrager, Frits},
+title = {Three logics for branching bisimulation},
+year = {1995},
+issue_date = {March 1995},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {42},
+number = {2},
+issn = {0004-5411},
+url = {https://doi.org/10.1145/201019.201032},
+doi = {10.1145/201019.201032},
+abstract = {Three temporal logics are introduced that induce on labeled transition systems the same identifications as branching bisimulation, a behavioral equivalence that aims at ignoring invisible transitions while preserving the branching structure of systems. The first logic is an extension of Hennessy-Milner Logic with an “until” operator. The second one is another extension of Hennessy-Milner Logic, which exploits the power of backward modalities. The third logic is CTL* without the next-time operator. A relevant side-effect of the last characterization is that it sets a bridge between the state- and action-based approaches to the semantics of concurrent systems.},
+journal = {J. ACM},
+month = {mar},
+pages = {458–487},
+numpages = {30},
+keywords = {until operations, stuttering equivalence, semantics, reactive systems, labeled transition systems, doubly labeled transition systems, concurrency, branching bisimulation equivalence, backward modalities, Kripke structures, Hennessy-Milner logic, CTL*}
+}
+
+
+@misc{geuversGolov2023positiveBB,
+      title={Positive Hennessy-Milner Logic for Branching Bisimulation}, 
+      author={Herman Geuvers and Anton Golov},
+      year={2023},
+      eprint={2210.07380},
+      archivePrefix={arXiv},
+      primaryClass={cs.LO}
+}
+
+
+@InProceedings{bgkm2023hmThmsViaGalois,
+  author =	{Beohar, Harsh and Gurke, Sebastian and K\"{o}nig, Barbara and Messing, Karla},
+  title =	{{Hennessy-Milner Theorems via Galois Connections}},
+  booktitle =	{31st EACSL Annual Conference on Computer Science Logic (CSL 2023)},
+  pages =	{12:1--12:18},
+  series =	{Leibniz International Proceedings in Informatics (LIPIcs)},
+  ISBN =	{978-3-95977-264-8},
+  ISSN =	{1868-8969},
+  year =	{2023},
+  volume =	{252},
+  editor =	{Klin, Bartek and Pimentel, Elaine},
+  publisher =	{Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik},
+  address =	{Dagstuhl, Germany},
+  URL_ =		{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CSL.2023.12},
+  URN =		{urn:nbn:de:0030-drops-174735},
+  doi =		{10.4230/LIPIcs.CSL.2023.12},
+  annote =	{Keywords: behavioural equivalences and metrics, modal logics, Galois connections}
+}
+
+@InProceedings{wms2021explainingBehavioralInequivGenerically,
+  author =	{Wi{\ss}mann, Thorsten and Milius, Stefan and Schr\"{o}der, Lutz},
+  title =	{{Explaining Behavioural Inequivalence Generically in Quasilinear Time}},
+  booktitle =	{32nd International Conference on Concurrency Theory (CONCUR 2021)},
+  pages =	{32:1--32:18},
+  series =	{Leibniz International Proceedings in Informatics (LIPIcs)},
+  ISBN =	{978-3-95977-203-7},
+  ISSN =	{1868-8969},
+  year =	{2021},
+  volume =	{203},
+  editor =	{Haddad, Serge and Varacca, Daniele},
+  publisher =	{Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik},
+  address =	{Dagstuhl, Germany},
+  URN =		{urn:nbn:de:0030-drops-144094},
+  doi =		{10.4230/LIPIcs.CONCUR.2021.32},
+  annote =	{Keywords: bisimulation, partition refinement, modal logic, distinguishing formulae, coalgebra}
 }
 
 @incollection{ke1999logicalProcessQuotients,
@@ -1169,7 +1262,22 @@ keywords = {Formal semantics, Concurrency theory, Branching bisimilarity},
 	journal = {Logical Methods in Computer Science}
 }
 
-@incollection{SmetsersMJ16,
+@incollection{geuvers2022,
+   doi = {10.1007/978-3-031-15629-8_14},
+   year = 2022,
+   publisher = {Springer},
+   address = {Cham},
+   title = {Apartness and distinguishing formulas in {H}ennessy--{M}ilner Logic},
+   author = {Herman Geuvers},
+   booktitle = {A journey from process algebra via timed automata
+to model learning: essays dedicated to {F}rits {V}aandrager on the occasion of his 60th birthday},
+   editor = {Nils Jansen and Mari\"{e}lle Stoelinga and van den Bos, Petra},
+   series = {LNCS},
+   volume = {13560},
+   pages = {266--282}
+}
+
+@incollection{smetsersMJ16,
 	author = {Smetsers, Rick and Moerman, Joshua and Jansen, David N.},
 	title = {Minimal separating sequences for all pairs of states},
 	editor = {Dediu, Adrian-Horia and Janou{\v{s}}ek, Jan and Mart{\'{\i}}n-Vide, Carlos and Truthe, Bianca},
@@ -1182,6 +1290,37 @@ keywords = {Formal semantics, Concurrency theory, Branching bisimilarity},
 	volume = 9618,
 	pages = {181--193},
 	doi = {10.1007/978-3-319-30000-9_14}
+}
+
+
+@incollection{mg2024minDepthDistBranchBisim,
+  author="Martens, Jan
+  and Groote, Jan Friso",
+  editor="Capretta, Venanzio
+  and Krebbers, Robbert
+  and Wiedijk, Freek",
+  title="Minimal Depth Distinguishing Formulas Without Until for Branching Bisimulation",
+  bookTitle="Logics and Type Systems in Theory and Practice: Essays Dedicated to Herman Geuvers on The Occasion of His 60th Birthday",
+  year="2024",
+  publisher="Springer Nature",
+  address="Cham",
+  pages="188--202",
+  isbn="978-3-031-61716-4",
+  doi="10.1007/978-3-031-61716-4_12",
+}
+
+@article{hmy2023whenPrivacyFails,
+title = {When privacy fails, a formula describes an attack: A complete and compositional verification method for the applied π-calculus},
+journal = {Theoretical Computer Science},
+volume = {959},
+pages = {113842},
+year = {2023},
+issn = {0304-3975},
+doi = {https://doi.org/10.1016/j.tcs.2023.113842},
+url = {https://www.sciencedirect.com/science/article/pii/S030439752300155X},
+author = {Ross Horne and Sjouke Mauw and Semen Yurkov},
+keywords = {Cryptographic calculi, Bisimilarity, Security, Privacy, Intuitionistic modal logic, Compositionality},
+abstract = {We prove that three semantics for the applied π-calculus coincide – a testing semantics, a labelled equivalence, and a modal logic – and explain how design decisions in each of these semantics are objectively supported by this convergence. Each of these semantics has a distinct role when verifying security protocols. Testing semantics are suited to security and privacy problems expressed in terms of a process equivalence problem, where tests define the space of attack strategies. A labelled equivalence is suited to proving the given equivalence problem when such security and privacy properties hold; while, dually, the modal logic describes attacks when such security or privacy properties are violated. For this particular investigation into this good-practice design pattern, we select what is perhaps the most powerful (interleaving) testing semantics: open barbed bisimilarity. Selecting open barbed bisimilarity comes with the bonus that it is a congruence hence is suited to compositional reasoning. This reference testing semantics leads to a notion of quasi-open bisimilarity and an intuitionistic modal logic for the applied π-calculus. We argue that, since we characterise the finest (interleaving) testing semantics and tests are attack strategies, our intuitionistic modal logic can describe all attacks whenever a privacy property expressed as an equivalence problem fails.}
 }
 
 @article{erph2013unfyingLTBTS,

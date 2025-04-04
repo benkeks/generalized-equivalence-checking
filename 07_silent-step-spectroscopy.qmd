@@ -20,12 +20,10 @@ These publications make the contribution of characterizing the weak spectrum thr
 The present thesis is more detailed with respect to complexity and to handling of stable failure traces and related notions.
 ::::
 
-
-\noindent
 By applying the ideas, we have explored so far, we can derive a game for the weak spectrum of @sec-weak-spectrum.
-The basic schematics are exactly the same as for the strong spectroscopy in @fig-strong-spectroscopy-big-picture.
+The basic schematics of how this game solves the spectroscopy problem are exactly the same as for the strong spectroscopy in @fig-strong-spectroscopy-big-picture.
 
-What is different this time around is that have a full Isabelle/HOL formalization of game correctness in @sec-weak-spectro-game, and that we can apply the algorithm to real case studies that involve internal behavior in @sec-tackling-case-studies.
+What is different this time around is that we have a full Isabelle/HOL formalization of game correctness in @sec-weak-spectro-game, and that we can apply the algorithm to real case studies that involve internal behavior in @sec-tackling-case-studies.
 In @sec-weak-spectro-variants, we discuss how to use our method to check even more weak equivalences.  
 
 ::::{.content-visible when-format="html" .column-margin}
@@ -1197,11 +1195,31 @@ Who urgently needs to compute coupled similarity relations, may otherwise fall b
 
 ## Discussion
 
-- Mention to add back in strong observations
+This chapter has shown that the spectroscopy approach can readily be extended to handle weak behavioral equivalences as well.
+With this game, @bj2024silentStepSpectroscopyExpress provide the *first generalized game characterization of the silent-step spectrum*.
 
-The mini case studies of @sec-tackling-case-studies show how the spectroscopy automates away the tedious kind of work of finding out the precise relationship between processes that went, for instance, into @bell2013certifiably.
+Previously, there have only been partial characterizations of individual equivalences:
+@ekw2017gamesBisimAbstraction treat the diamond of weak, delay, $\eta$ and branching bisimilarity.
+@bnp2020coupledsim30 and @bm2021contrasimilarity cover the area of coupled notions and contrasimilarity.
+@tan2002evidence describes subset-construction variants of the bisimulation game for weak trace equivalence and stable failure equivalence.
+With the weak spectroscopy game, we have departed from the individual equivalence games in order to achieve genericity,
+covering both linear-time and branching-time as well as stable and unstable notions.
+
+In principle, this chapter only executes @idea-modal-first to translate modal constructions to game moves appearing in $\hmlsrbb$, which follows @idea-weak-hml.
+But this involves many technicalities.
+Therefore, it is relieving to have the Isabelle-forrmalization of @sec-isabelle-formalization by @bbhlmm2025weakSpectroscopyIsabelle to verify the construction.
+
+The mini case studies of @sec-tackling-case-studies show how the spectroscopy automates away the tedious kind of work of finding out the precise relationship between transformed processes that went, for instance, into @bell2013certifiably.
 Similar searches for weak bisimilarities have happened around @parrow1992 and @nestmann1996decoding, where coupled similarity turned out to be the most fitting for encodings between models of differing synchronicity.^[
-  Nice accounts of Nestmann's search can be found in @concur2022tot2021interview.
+  Nice accounts of Nestmann's search can be found in @concur2022tot2021interview and in the historical remarks of @bnp2020coupledsim30.
 ]
 
-@hm2021ePassportBisim
+Concise distinguishing formulas can be interesting diagnostic information to compare models.
+Like @mg2024minDepthDistBranchBisim, we find minimal-depth distinguishing formulas for branching bisimilarity, but we solve the problem for all weak notions at once.
+@hmy2023whenPrivacyFails report how a stronger modal logic can reveal privacy vulnerabilities in ePassports, which have been overlooked in a purely trace-based view.
+
+For a full understanding of a system's relationship to its specification, it is often helpful to pinpoint exactly how difficult it would be for an attacker to tell the two apart.
+In the next chapter, we will return to the initial @exm-peterson-mutex of Peterson's mutex and explain how the prototype implementation of the weak spectroscopy algorithm handles it.
+
+Some applications would demand more specialized modal logics.
+As outlined in @sec-extending-to-other-eqs, matching adaptions in game or model are usually straight-forward thanks to the clear connection of productions in the modal grammar and mechanics in the spectroscopy game.

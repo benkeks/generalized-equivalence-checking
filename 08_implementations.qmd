@@ -13,6 +13,7 @@ toc-title: "Chapter 8"
 
 ### Usage
 
+<!--
 \begin{align*}
 \bnfvar{Id}  \grammardef & \set{\bnflit{A},\ldots \bnflit{Z},\bnflit{a}\ldots \bnflit{z},\bnflit{\_},\bnflit{0}\ldots\bnflit{9}}^+\\
 \bnfvar{Str} \grammardef & \bnflit{"} \ldots \bnflit{"}\\
@@ -21,9 +22,33 @@ toc-title: "Chapter 8"
 \bnfvar{Decl} \grammardef & \bnfvar{Id} [\bnflit{(} \ldots \bnflit{)}] \grammaror \bnfvar{Str} [\bnflit{(} \ldots \bnflit{)}]\\
 \bnfvar{Meta} \grammardef & \bnflit{@}\!\bnfvar{Id} \; \bnfvar{Id} \, \set{ \bnflit{,} \bnfvar{Id} }^*\\
 \end{align*}
+-->
 
-No precedence beteween + and |
+Literals for action and process names written as combination of latin letters, $\tau$ and underscore.
+`X = P` expresses the meta information that $\ccsasg(\literal{X}) \defeq P$.
+Processes written according to @def-ccs with
 
+- `a.P` for $\ccsprefix{\literal a} P$
+- `a!P` for $\ccsprefix{\coaction{\literal a}} P$
+- `tau.P` for $\ccsprefix{\tau} P$
+- `P1 + P2` for $P_1 \ccschoice P_2$
+- `P1 | P2` for $P_1 \ccspar P_2$
+- `P \ {a1, a2}` for $P_1 \ccsrestrict \set{\literal{a_1}, \literal{a_2}}$
+
+No precedence beteween + and |, implicitly adds parentheses from the right.
+
+Semantics as in @def-ccs-semantics ; modification wrt `P = a.P \ {b}`
+
+- `@compare P1, P2`
+- `@compareSilent P1, P2`
+- `@check equivalence-name, P1, P2`
+
+Layout information and preprocessing for processes
+
+- `P(x=100, y=100)`
+  - `P(main)` highlight and prune others
+  - `P(bisim_minimized)` strong bisim minimization (preserves main procs)
+  - `P(srbb_minimized)` strong bisim minimization (preserves main procs)
 
 ### Application to Peterson's Mutual Exclusion
 
@@ -32,14 +57,14 @@ ready = {"A": false, "B": false}
 turn  = "A"
 
 def process(ownId, otherId):
-  while true:
+  while true:                         # PC = 1
     ready[ownId] = true
     turn = otherId
     
-    do # wait...
+    do # wait...                      # PC = 2
     until (ready[otherId] == false || turn == ownId)
       
-    print "enter critical #{ownId}"
+    print "enter critical #{ownId}"   # PC = 3
     # critical section goes here.
     print "leave critical #{ownId}"
     ready[ownId] = false
@@ -47,7 +72,137 @@ def process(ownId, otherId):
 process("A", otherId = "B") || process("B", otherId = "A")
 ```
 
+```tikz
+\usetikzlibrary{shapes.geometric, arrows}
+
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\begin{tikzpicture}[node distance=2cm]
+
+% Nodes
+\node (start) [startstop] {Start};
+\node (setReady) [process, below of=start] {ready[ownId] = true};
+\node (setTurn) [process, below of=setReady] {turn = otherId};
+\node (wait) [decision, below of=setTurn, align=center] {ready[otherId] == false \\ or \\ turn == ownId?};
+\node (criticalEnter) [process, right of=wait, xshift=4cm] {Enter critical section};
+\node (criticalLeave) [process, below of=criticalEnter] {Leave critical section};
+\node (unsetReady) [process, below of=criticalLeave] {ready[ownId] = false};
+
+% Arrows
+\draw [arrow] (start) -- (setReady);
+\draw [arrow] (setReady) -- (setTurn);
+\draw [arrow] (setTurn) -- (wait);
+\draw [arrow] (wait.east) |- (criticalEnter.west) node[midway, above] {Yes};
+\draw [arrow] (criticalEnter) -- (criticalLeave);
+\draw [arrow] (criticalLeave) -- (unsetReady);
+\draw [arrow] (unsetReady.east) --++(1,0) |- (setReady.east);
+\draw [arrow] (wait.south) -- ++(0,-1) -| (wait.west) node[midway, left] {No};
+
+\end{tikzpicture}
+```
+
+```ccs
+ReadyAf = readyAf!ReadyAf + setReadyAf.ReadyAf + setReadyAt.ReadyAt
+ReadyAt = readyAt!ReadyAt + setReadyAf.ReadyAf + setReadyAt.ReadyAt
+
+@snip "----------other storage----------"
+
+ReadyBf = readyBf!ReadyBf + setReadyBf.ReadyBf + setReadyBt.ReadyBt
+ReadyBt = readyBt!ReadyBt + setReadyBf.ReadyBf + setReadyBt.ReadyBt
+
+TurnA = turnA!TurnA + setTurnA.TurnA + setTurnB.TurnB
+TurnB = turnB!TurnB + setTurnA.TurnA + setTurnB.TurnB
+
+@snip "----------individual processes----------"
+
+A1 = setReadyAt!setTurnB!A2
+A2 = readyBf.A3 + turnA.A3
+A3 = ecA.lcA.setReadyAf!A1
+
+B1 = setReadyBt!setTurnA!B2
+B2 = readyAf.B3 + turnB.B3
+B3 = ecB.lcB.setReadyBf!B1
+
+@snip "----------system and spec----------"
+
+Pe = (A1 | B1 | TurnA | ReadyAf | ReadyBf)
+    \ {readyAf, readyAt, setReadyAf, setReadyAt, readyBf, readyBt,
+       setReadyBf, setReadyBt, turnA, turnB, setTurnA, setTurnB}
+Mx = ecA.lcA.Mx + ecB.lcB.Mx
+
+@snip "----------spectroscopy queries----------"
+
+Pe(x=886, y=335, main, srbb_minimized)
+Mx(main, x=122, y=225)
+
+@compareSilent Pe, Mx
+@compareSilent Mx, Pe
+
+@snip "---------- below here, there's only layout information! ----------"
+
+"(A1 | setTurnA!B2 | TurnA | ReadyAf | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1102, y=548)
+"(setTurnB!A2 | B1 | TurnA | ReadyAt | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=681, y=398)
+"(setTurnB!A2 | setTurnA!B2 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=949, y=636)
+"(A1 | B2 | TurnA | ReadyAf | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1199, y=767)
+"(A1 | B3 | TurnA | ReadyAf | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1452, y=961)
+"(setTurnB!A2 | B3 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1310, y=1053)
+"(A2 | B1 | TurnB | ReadyAt | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=681, y=802)
+"(A3 | B1 | TurnB | ReadyAt | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=564, y=967)
+"(lcA.setReadyAf!A1 | B1 | TurnB | ReadyAt | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=441, y=1231)
+"(lcA.setReadyAf!A1 | setTurnA!B2 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=548, y=1297)
+"(setTurnB!A2 | B1 | TurnB | ReadyAt | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=756, y=546)
+"(A2 | B3 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1161, y=1116)
+"(setTurnB!A2 | lcB.setReadyBf!B1 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1473, y=1257)
+"(A1 | lcB.setReadyBf!B1 | TurnA | ReadyAf | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1664, y=1102)
+"(A2 | lcB.setReadyBf!B1 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1235, y=1348)
+"(A2 | setTurnA!B2 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=790, y=1112)
+"(A2 | B2 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1067, y=874)
+"(setTurnB!A2 | B2 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1033, y=427)
+"(A2 | B2 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=902, y=926)
+"(setTurnB!A2 | setTurnA!B2 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=910, y=771)
+"(A3 | setTurnA!B2 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=671, y=1078)
+"(A3 | B2 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=829, y=1146)
+"(lcA.setReadyAf!A1 | B2 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=785, y=1350)
+"(setReadyAf!A1 | B1 | TurnB | ReadyAt | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=701, y=1061)
+"(A1 | B1 | TurnB | ReadyAf | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=806, y=794)
+"(setReadyAf!A1 | setTurnA!B2 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=869, y=1064)
+"(A1 | setTurnA!B2 | TurnB | ReadyAf | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1016, y=535)
+"(A1 | B1 | TurnA | ReadyAf | ReadyBf) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=666, y=296)
+"(A1 | setReadyBf!B1 | TurnA | ReadyAf | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1542, y=816)
+"(setTurnB!A2 | setReadyBf!B1 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1477, y=477)
+"(A2 | setReadyBf!B1 | TurnB | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=644, y=761)
+"(setReadyAf!A1 | B2 | TurnA | ReadyAt | ReadyBt) \ {readyAf,readyAt,setReadyAf,setReadyAt,readyBf,readyBt,setReadyBf,setReadyBt,turnA,turnB,setTurnA,setTurnB}"(x=1025, y=1064)
+
+"lcA.Mx"(x=181, y=529)
+"lcB.Mx"(x=433, y=290)
+```
+
 ### Program Structure
+
+- Parsing
+  {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.ccs.Parser >}}
+  `ccs.Syntax.Definition`
+- Interpretation along @def-ccs-semantics 
+  {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.ccs.Interpeter >}}
+  `ts.WeakTransitionSystem`
+    - Includes minimization if desired
+- Spectroscopy
+  - Either 
+    {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.spectroscopy.StrongSpectroscopy >}}
+  - Or 
+    {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.spectroscopy.WeakSpectroscopy >}}
+- Distinguishing formulas.
+    - Pricing
+        {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.hml.ObservationNotionWeak >}}
+    - Interpretation for validity
+        {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.hml.HMLInterpreter >}}
+- `SpectroscopyResult` from
+    {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.spectroscopy.SpectroscopyInterface >}}
+
+### Benchmarks
 
 ## Student Implementations
 

@@ -264,6 +264,7 @@ The formal relationship between process terms and their LTS semantics is given b
 
 Given an assignment of names to processes, $\ccsasg \colon \ccsnames → \ccs$, the operational semantics ${\step{}_\ccs} ⊆ \ccs × \ccsactions × \ccs$ is defined inductively by the rules:
 
+\vspace{-2em}
 :::: {.column-body-outset}
 $$
 \inferrule[Pre]{
@@ -277,7 +278,6 @@ $$
   X \step{α}_\ccs P'
 }
 $$
-
 $$
 \inferrule[Choice_1]{
   P_1 \step{α}_\ccs P_1'
@@ -290,7 +290,6 @@ $$
   P_1 \ccschoice P_2 \step{α}_\ccs P_2'
 }
 $$
-
 $$
 \inferrule[Par_1]{
   P_1 \step{α}_\ccs P_1'
@@ -303,7 +302,6 @@ $$
   P_1 \ccspar P_2 \step{α}_\ccs P_1 \ccspar P_2'
 }
 $$
-
 $$
 \inferrule[Com]{
   P_1 \step{α}_\ccs P_1' \qquad
@@ -320,6 +318,7 @@ $$
 $$
 ::::
 
+\noindent
 A process $P ∈ \ccs$ now denotes a position in the transition system $(\ccs, \ccsactions, \step{}_\ccs)$ defined through @def-ccs.
 :::
 
@@ -330,6 +329,7 @@ Feel free to go ahead and check that the transitions of @exm-ts indeed match tho
 (For readability, @exm-ts, has shorter state names, however.)
 For instance, the transition $\literal P \step{τ} \literal{p_a}$ in the CCS system of @exm-ts would be justified as follows:
 
+\vspace{-2em}
 ::: {.column-body-outset}
 $$
 \inferruleapp[Rec]{

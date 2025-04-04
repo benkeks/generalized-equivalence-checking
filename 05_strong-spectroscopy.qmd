@@ -488,7 +488,7 @@ the spectroscopy problem for the $\notions^\literal{strong}$-spectrum can be sol
 According to @thm-strong-spectroscopy-game-characterization, we can solve the spectroscopy problem for the $\notions^\literal{strong}$-spectrum by deciding the winning budgets of the strong spectroscopy game ${\gamespectroscopy}^{\system}$ on $\system=(\states,\actions,\step{})$.
 We instantiate the winning budget complexity of @lem-declining-update-complexity for the case $d=6$ with the size of $\gamespectroscopy$ according to @def-strong-spectroscopy-game.
 
-The amount of attacker positions is bounded by $\relsize{\states} \cdot 2^{\relsize{\states}}$.
+The number of attacker positions is bounded by $\relsize{\states} \cdot 2^{\relsize{\states}}$.
 The number of conjunction moves and defender conjunction positions is bounded by $\relsize{\states} \cdot 3^{\relsize{\states}}$.
 
 The maximal out-degree for attacker positions is in $\bigo{2^{\relsize{\states}}}$, which dominates that of defender conjunction positions of $\bigo{\relsize{\states}}$,
@@ -673,7 +673,7 @@ the spectroscopy problem for the simpler $\widehat{\notions}^\literal{strong}$-s
 :::proof
 We instantiate the “flattened” winning budget complexity of @lem-declining-update-complexity-flattened for the case $d=6$ with the size of $\gamespectroscopyclever$ according to @def-strong-spectroscopy-game-clever.
 
-Now, the amount of all game positions is bounded by $\relsize{G_{\blacktriangle}} \in \relsize{\states} \cdot 2^{\relsize{\states}}$.
+Now, the number of all game positions is bounded by $\relsize{G_{\blacktriangle}} \in \relsize{\states} \cdot 2^{\relsize{\states}}$.
 
 Concerning the maximal out-degree, now, defender conjunction positions are dominant, $o_{\gamemoveblank_\blacktriangle} \in \bigo{\relsize{\states}}$.
 
@@ -913,7 +913,7 @@ As a consequence, we can obtain a polynomial complexity bound for equivalences t
 :::{#lem-optimized-eq-complexity}
 For a strong notion $N \in \set{0, 1, \infty}^6$ with $N \geq (0,\infty,\infty,\infty,0,0)$, and a system $(\states,\actions,\step{})$,
 one can decide $p \bpreord{\observations{N}} q$ in polynomial time,
-by computing who wins the $N$-preorder game in $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ time and $\bigo{\relsize{\states}^2 \cdot \relsize{\actions}}$ space.
+by computing who wins the $N$-preorder game in $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ time and space.
 :::
 :::proof
 We can use the clever version of the strong spectroscopy game $\gamespectroscopyclever$ to decide individual equivalences for these coordinates by @thm-derive-eq-games-characterize and @thm-clever-strong-spectroscopy-correctness.
@@ -926,19 +926,23 @@ We observe that the ${0,1,\infty}$-valued energy components in the game might on
 ]
 Therefore, the following arguments focus on the latter.
 
-@lem-conjunction-optimization allows us to prune away all moves deriving from observations from $\attackerpos{p,Q}$ with $\relsize{Q} > 1$.
-The pruning restricts the possibilities of $Q$ that can appear on the right-hand side of $\attackerpos{p,Q}$-positions to the sets $\derivatives{\cdot, \cdot}$, that is, to $\relsize{\states} \cdot \relsize{\actions}$ options.
-Therefore, these attacker positions are bounded by $\bigo{\relsize{\states}^2 \cdot \relsize{\actions}}$.
+There are at most $\relsize{\states}^2$ positions of the form $\attackerpos{p,\set{q}}$.
+Whenever they reach $\attackerpos{p',Q'}$ with $\relsize{Q'} > 1$,
+@lem-conjunction-optimization allows us to prune away all observation moves deriving from there, and return to an attacker position with $\relsize{Q''} \leq 1$.
+The intermediate $\attackerpos{p',Q'}$-positions are a function of initial $q$ and the transitions from $p$, and thus collectively bounded by $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$, which bounds attacker positions as a whole.
 
 In the clever spectroscopy game $\gamespectroscopyclever$, there is a maximum of only five defender positions per such attacker position.
 Also, the following attacker conjunct positions, bounded by $\relsize{\states}^2$, do not affect the bound.
 
-For the moves, only the amounts of observation moves and conjunct answers can impact complexity.
+For the moves, only observation moves and conjunct answers can impact complexity.
 The observations are bounded in $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$,
 and the conjunct answers in $\bigo{\relsize{\states}}$, which is dominated by the first. 
 
-Inserting our bounds in @prp-reachability-game-complexity, we get a time complexity of $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ and $\bigo{\relsize{\states}^2 \cdot \relsize{\actions}}$ space.^[
-  This is with the understanding that the $\bigo{\relsize{\states}^2 \cdot \relsize{\actions}}$ is dominated by $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ with respect to time---of course, each position must be constrcucted at some point.
+Inserting our bounds in @prp-reachability-game-complexity, we obtain time and space complexity of $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$.^[
+  This is with the understanding that one can ignore storage space for the positions:
+  One can use pointers to $Q'$-sets in the attacker and defender positions, and not store them verbatim.
+  This saves the bound as there can only be $\relsize{\step{}}$ such sets of size $\relsize{Q'} > 1$.
+  So, overall, these sets also will take up $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ space.
 ]
 :::
 

@@ -14,6 +14,7 @@ You should read this book (once it's finished) if you're interested in the seman
 - How modal-logical and relational characterizations of behavioral equivalences are actually just “shadows” of game characterizations.
 - How energy games can be used to turn a family of qualitative equivalence problems into one quantitative problems.
 - How all behavioral equivalences can be decided at once.
+- How to extend the approach to the weak spectrum of equivalences that account for silent steps.
 
 ### TODO {.unnumbered .unlisted}
 
@@ -21,6 +22,7 @@ You should read this book (once it's finished) if you're interested in the seman
 
 ### Acknowledgments {.unnumbered .unlisted}
 
+TODO
 
 
 \pagenumbering{arabic}

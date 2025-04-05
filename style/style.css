@@ -21,13 +21,6 @@
   zoom: 150%;
 }
 
-a {
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
-
 #quarto-content .quarto-sidebar-toggle {
   background: hsl(278, 65%, 97%);
 }

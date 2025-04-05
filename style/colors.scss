@@ -2,10 +2,21 @@
 $primary: #6631D7;
 $secondary: #0CA789;
 
+$code-color: $secondary;
+$toc-active-border	: $secondary;
+
 /*-- scss:rules --*/
 
 #quarto-sidebar {
   background-color: #ceebe5;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  text-decoration-color: $secondary;
 }
 
 #title-block-header h1.title {

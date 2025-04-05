@@ -99,13 +99,13 @@ format:
       body-width: 800px
       margin-width: 300px
       gutter-width: 1.5rem
-    other-links:
-    - text: PDF version
-      icon: file-pdf
-      href: ./Generalized-Equivalence-Checking-of-Concurrent-Programs.pdf
-    - text: GitHub
-      icon: github
-      href: https://github.com/benkeks/generalized-equivalence-checking
+    # other-links:
+    # - text: PDF version
+    #   icon: file-pdf
+    #   href: ./Generalized-Equivalence-Checking-of-Concurrent-Programs.pdf
+    # - text: GitHub
+    #   icon: github
+    #   href: https://github.com/benkeks/generalized-equivalence-checking
   pdf:
     documentclass: book
     classoption: [oneside]

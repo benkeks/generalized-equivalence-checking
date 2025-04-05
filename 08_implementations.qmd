@@ -11,44 +11,54 @@ toc-title: "Chapter 8"
 
 ## Prototype: *equiv.io* {#sec-equivio}
 
+The “Linear-Time–Branching-Time Spectroscope” on {{<equivio>}} is a small webtool to check equivalence relations on CCS processes.
+
 ### Usage
 
-<!--
-\begin{align*}
-\bnfvar{Id}  \grammardef & \set{\bnflit{A},\ldots \bnflit{Z},\bnflit{a}\ldots \bnflit{z},\bnflit{\_},\bnflit{0}\ldots\bnflit{9}}^+\\
-\bnfvar{Str} \grammardef & \bnflit{"} \ldots \bnflit{"}\\
-\bnfvar{Act}  \grammardef & \bnfvar{Id} \grammaror \bnfvar{Id}\bnflit{!} \grammaror \tau\\
-\bnfvar{Def}  \grammardef & \bnfvar{Id} \bnflit{=} \bnfvar{Proc}\\
-\bnfvar{Decl} \grammardef & \bnfvar{Id} [\bnflit{(} \ldots \bnflit{)}] \grammaror \bnfvar{Str} [\bnflit{(} \ldots \bnflit{)}]\\
-\bnfvar{Meta} \grammardef & \bnflit{@}\!\bnfvar{Id} \; \bnfvar{Id} \, \set{ \bnflit{,} \bnfvar{Id} }^*\\
-\end{align*}
--->
+The standard workflow of {{<equivio>}} is 
 
-Literals for action and process names written as combination of latin letters, $\tau$ and underscore.
-`X = P` expresses the meta information that $\ccsasg(\literal{X}) \defeq P$.
-Processes written according to @def-ccs with
+{{< paragraph_heading "Process syntax." >}}
+CCS processes are written according to the grammar in @def-ccs, with the concrete syntax for subterms following @tbl-ccs-syntax.
 
-- `a.P` for $\ccsprefix{\literal a} P$
-- `a!P` for $\ccsprefix{\coaction{\literal a}} P$
-- `tau.P` for $\ccsprefix{\tau} P$
-- `P1 + P2` for $P_1 \ccschoice P_2$
-- `P1 | P2` for $P_1 \ccspar P_2$
-- `P \ {a1, a2}` for $P_1 \ccsrestrict \set{\literal{a_1}, \literal{a_2}}$
+| Construct       | Syntax           | CCS                                   |
+|-----------------|------------------|-----------------------|
+| Input prefix    | `a.P`            | $\ccsprefix{\literal a} P$            |
+| Output prefix   | `a!P`            | $\ccsprefix{\coaction{\literal a}} P$ |
+| Internal action | `tau.P`          | $\ccsprefix{\tau} P$                  |
+| Null process    | `0`              | $\ccsnull$                            |
+| Recursion       | `P_Name`         | $\literal{P_{Name}}$                  |
+| Choice          | `P1 + P2`        | $P_1 \ccschoice P_2$                  |
+| Parallel        | `P1 | P2`        | $P_1 \ccspar P_2$                     |
+| Restriction     | `P \ {a1, a2}`   | $P_1 \ccsrestrict \set{\literal{a_1}, \literal{a_2}}$ |
 
-No precedence beteween + and |, implicitly adds parentheses from the right.
+: Concrete ASCII syntax for CCS terms {#tbl-ccs-syntax fig-pos='b'}
 
-Semantics as in @def-ccs-semantics ; modification wrt `P = a.P \ {b}`
+Literals for actions and process names can combine latin letters, numbers, and underscores.
+
+Top-level process definitions are written `X = P`, expressing that $\ccsasg(\literal{X}) \defeq P$ in the semantics (@def-ccs-semantics).
+
+The syntax tree can be clarified by parentheses `(...)`.
+Otherwise, the parser reads prefix `a._` with highest operator precedence, then restriction `_ \ {_}`, then choice `+` and parallel `|` at equal level.
+In case of ambiguity, it assumes parenthesization from the right.
+
+{{< paragraph_heading "Equivalence queries." >}}
 
 - `@compare P1, P2`
 - `@compareSilent P1, P2`
 - `@check equivalence-name, P1, P2`
+
+{{< paragraph_heading "Layout and preprocessing." >}}
 
 Layout information and preprocessing for processes
 
 - `P(x=100, y=100)`
   - `P(main)` highlight and prune others
   - `P(bisim_minimized)` strong bisim minimization (preserves main procs)
-  - `P(srbb_minimized)` strong bisim minimization (preserves main procs)
+  - `P(srbb_minimized)` stability respecting branching-bisimilarity minimization (preserves main procs; and divergences)
+- `"0"(x=100, y=200)`
+  - Sub processes, quoted CCS expression in `"..."` (This must be verbatim the string representation the tool uses for the normalized process)
+  Layout by dragging the nodes in the graph that represent the processes.
+
 
 ### Application to Peterson's Mutual Exclusion
 
@@ -185,7 +195,12 @@ Mx(main, x=122, y=225)
 - Parsing
   {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.ccs.Parser >}}
   `ccs.Syntax.Definition`
-- Interpretation along @def-ccs-semantics 
+- Interpretation along @def-ccs-semantics ^[
+    There is a minor semantical difference:
+    The interpreter flattens process restriction in recursion.
+    This leads to processes like `P = a.P \ {b}` having a finite process graph instead of an infinite one
+    [cf. @ails2007reactiveSystems, Exercise 2.9].
+  ]
   {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.ccs.Interpeter >}}
   `ts.WeakTransitionSystem`
     - Includes minimization if desired
@@ -215,6 +230,6 @@ Mx(main, x=122, y=225)
 @ozegowski2023eqCAAL
 mention Timo
 
-## GPU Implementation: *gpuequiv* {#sec-gpu-equiv}
+### GPU Implementation: *gpuequiv* {#sec-gpu-equiv}
 
 @vogel2024energyGamesWebGPU

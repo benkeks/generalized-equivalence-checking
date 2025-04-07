@@ -46,8 +46,7 @@ In case of ambiguity, it assumes parenthesization from the right.
 
 {{< paragraph_heading "Equivalence queries." >}}
 Queries for the behavioral equivalences between states are formulated in the code as well and started by clicking on the arrows that pop up in the gutter.
-The output will appear right below the query in the editor.
-
+Output will appear right below the query in the editor.
 The standard queries are:
 
 - `@compare P1, P2` –
@@ -120,8 +119,12 @@ The source can also contain layout information and prescribe some preprocessing 
   - `weakness_saturated` – Exchange transition relation to weak transitions, that is, there will be a transition whenever the original system allows $\stepweak\stepopt{\alpha}\stepweak$.
   - `bisim_minimized` – Merge states that are strongly bisimilar (preserves `main` processses).
   - `srbb_minimized`  – Merge states that are stability-respecting branching-bisimilar (preserves `main` processes; enforces `tau`-loops precisely on divergent states).
+- `@comment "My comment"` –
+  Any `@...` tag without features can serve to add comments in the model.
 
 ### Application to Peterson's Mutual Exclusion
+
+Let us go through the whole process of using the tool once to tackle the example of Peterson's mutual exclusion protocol, which has already been previewed in @exm-peterson-mutex.
 
 ```ruby
 ready = {"A": false, "B": false}
@@ -207,15 +210,21 @@ Mx = ecA.lcA.Mx + ecB.lcB.Mx
 
 @snip "----------preprocessing----------"
 
-@preprocessing srbb_minimized
+Pe(main, x=900, y=340)
+Mx(main, x=120, y=220)
 
-Pe(main, x=886, y=335)
-Mx(main, x=122, y=225)
+@preprocessing srbb_minimized
 
 @snip "----------spectroscopy queries----------"
 
 @compareSilent Mx, Pe
 @compareSilent Pe, Mx
+
+@snip "--------alternative---------"
+
+Mx2(main, x=120, y=0)
+Mx2 = tau.ecA.lcA.Mx2 + tau.ecB.lcB.Mx2
+@compareSilent Pe, Mx2
 
 @snip "---------- below here, there's only layout information! ----------"
 
@@ -254,6 +263,66 @@ Mx(main, x=122, y=225)
 
 "lcA.Mx"(x=181, y=529)
 "lcB.Mx"(x=433, y=290)
+```
+
+```ccs
+@nolink
+ReadyBf = readyBf!ReadyBf + setReadyBf.ReadyBf + setReadyBt.ReadyBt
+ReadyBt = readyBt!ReadyBt + setReadyBf.ReadyBf + setReadyBt.ReadyBt
+
+TurnA = turnA!TurnA + setTurnA.TurnA + setTurnB.TurnB
+TurnB = turnB!TurnB + setTurnA.TurnA + setTurnB.TurnB
+```
+
+```ccs
+@nolink
+A1 = setReadyAt!setTurnB!A2
+A2 = readyBf.A3 + turnA.A3
+A3 = ecA.lcA.setReadyAf!A1
+
+B1 = setReadyBt!setTurnA!B2
+B2 = readyAf.B3 + turnB.B3
+B3 = ecB.lcB.setReadyBf!B1
+```
+
+```ccs
+@nolink
+Pe = (A1 | B1 | TurnA | ReadyAf | ReadyBf)
+    \ {readyAf, readyAt, setReadyAf, setReadyAt, readyBf, readyBt,
+       setReadyBf, setReadyBt, turnA, turnB, setTurnA, setTurnB}
+Mx = ecA.lcA.Mx + ecB.lcB.Mx
+```
+
+```ccs
+@nolink
+Pe(main, x=900, y=340)
+Mx(main, x=120, y=220)
+```
+
+```ccs
+@nolink
+@preprocessing srbb_minimized
+```
+
+```ccs
+@nolink
+@compareSilent Mx, Pe
+@compareSilent Pe, Mx
+```
+
+```ccs
+@nolink
+@check weak-bisimulation, Pe, Mx
+@check weak-simulation, Pe, Mx
+```
+
+```ccs
+@nolink
+Mx2(main, x=120, y=0)
+Mx2 = tau.ecA.lcA.Mx2 + tau.ecB.lcB.Mx2
+@compareSilent Pe, Mx2
+
+@comment "Interestingly: Weak ready "
 ```
 
 ### Program Structure

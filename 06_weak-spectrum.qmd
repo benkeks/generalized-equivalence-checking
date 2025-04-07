@@ -750,17 +750,17 @@ In this subsection, we take a deeper look into the observation languages charact
     \EqCoords{\infty,0,\infty,0,0,\infty,1,1}};
   \node (R)[below right of=RS]{weak\\ readiness $\notionname{WR}$\\
     \EqCoords{\infty,0,1,0,0,1,1,1}};
-  \node (PF)[above right of=R]{weak\\ possible futures $\notionname{WPF}$\\
+  \node (PF)[above right of=R]{weak\\ possible future $\notionname{WPF}$\\
     \EqCoords{\infty,0,1,0,0,\infty,\infty,1}};
-  \node (IF)[below right of=PF]{weak\\ impossible futures $\notionname{WIF}$\\
+  \node (IF)[below right of=PF]{weak\\ impossible future $\notionname{WIF}$\\
     \EqCoords{\infty,0,1,0,0,0,\infty,1}};
   \node (S)[below left of=RS]{weak sim $\notionname{1WS}$\\
     \EqCoords{\infty,0,\infty,0,0,\infty,0,0}};
   \node (eS)[above left of=RS]{$\eta$-sim $\eta\notionname{S}$\\
     \EqCoords{\infty,\infty,\infty,0,0,\infty,0,0}};
-  \node (F)[below right of=R]{weak failures $\notionname{WF}$\\
+  \node (F)[below right of=R]{weak failure $\notionname{WF}$\\
     \EqCoords{\infty,0,1,0,0,0,1,1}};
-  \node (T)[below right of=F]{weak traces $\notionname{WT}$\\
+  \node (T)[below right of=F]{weak trace $\notionname{WT}$\\
     \EqCoords{\infty,0,0,0,0,0,0,0}};
   \node (E)[below of=T, node distance=1.2cm]{weak enabledness $\notionname{WE}$\\
     \EqCoords{1,0,0,0,0,0,0,0}};

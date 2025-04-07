@@ -15,7 +15,7 @@ The “Linear-Time–Branching-Time Spectroscope” on {{<equivio>}} is a small 
 
 ### Usage
 
-The standard workflow of {{<equivio>}} is 
+The standard workflow of {{<equivio>}} is to specify processes in CCS and then compare them with respect to equivalence spectra.
 
 {{< paragraph_heading "Process syntax." >}}
 CCS processes are written according to the grammar in @def-ccs, with the concrete syntax for subterms following @tbl-ccs-syntax.
@@ -33,7 +33,7 @@ CCS processes are written according to the grammar in @def-ccs, with the concret
 
 : Concrete ASCII syntax for CCS terms {#tbl-ccs-syntax fig-pos='b'}
 
-Literals for actions and process names can combine latin letters, numbers, and underscores.
+Literals for actions and process names combine Latin letters, numbers, and underscores in the usual way.
 
 Top-level process definitions are written `X = P`, expressing that $\ccsasg(\literal{X}) \defeq P$ in the semantics (@def-ccs-semantics).
 
@@ -43,9 +43,40 @@ In case of ambiguity, it assumes parenthesization from the right.
 
 {{< paragraph_heading "Equivalence queries." >}}
 
-- `@compare P1, P2`
-- `@compareSilent P1, P2`
-- `@check equivalence-name, P1, P2`
+- `@compare P1, P2` –
+  Perform a spectroscopy on `P1` and `P2` with respect to the strong spectrum using the game of @sec-strong-spectroscopy.
+- `@compareSilent P1, P2` – 
+  Perform a spectroscopy on `P1` and `P2` with respect to the weak spectrum treating silent steps along the lines of @sec-silent-step-spectroscopy.
+- `@check equivalence-name, P1, P2` –
+  The name of the preorder / equivalence to be checked must be one of the ones in @tbl-notion-names.
+
+:::{#tbl-notion-names tbl-pos='b' .column-body-outset}
+
+`\parbox{15cm}{`{=latex}
+
+| Strong variant       | Weak variants                      | Stable / stability-respecting variants   |
+|:---------------------|:-----------------------------------|:-----------------------------------------|
+| `enabledness`          | `weak-enabledness`                   |                                          |
+| `trace`                | `weak-trace`                         |                                          |
+| `failure`              | `weak-failure`                       | `stable-failure`                         |
+| `revivals`             |                                    | `stable-revivals`                          |
+| `readiness`            | `weak-readiness`                     | `stable-readiness`                         |
+| `failure-trace`        |                                    | `stable-failure-trace`                     |
+| `ready-trace`          |                                    | `stable-ready-trace`                       |
+| `impossible-future`    | `weak-impossible-future`             |                                          |
+| `possible-future`      | `weak-possible-future`               |                                          |
+| `simulation`           | `weak-simulation`                    | `stable-simulation`                        |
+| `ready-simulation`     | `weak-ready-simulation`              | `s-ready-simulation`                       |
+| `2-nested-simulation`  | `2-nested-weak-simulation`           |                                          |
+| `bisimulation`         | `contrasimulation`<br> `weak-bisimulation`<br> `delay-bisimulation`<br> `eta-bisimulation`<br> `branching-bisimulation` | `stable-bisimulation`<br> `sr-delay-bisimulation`<br> `sr-branching-bisimulation` |
+
+`}`{=latex}
+
+Names of supported notions in {{<equivio>}}.
+:::
+
+
+Output...
 
 {{< paragraph_heading "Layout and preprocessing." >}}
 
@@ -53,11 +84,13 @@ Layout information and preprocessing for processes
 
 - `P(x=100, y=100)`
   - `P(main)` highlight and prune others
-  - `P(bisim_minimized)` strong bisim minimization (preserves main procs)
-  - `P(srbb_minimized)` stability respecting branching-bisimilarity minimization (preserves main procs; and divergences)
 - `"0"(x=100, y=200)`
   - Sub processes, quoted CCS expression in `"..."` (This must be verbatim the string representation the tool uses for the normalized process)
   Layout by dragging the nodes in the graph that represent the processes.
+- `@preprocessing method1, method2...`
+  - `weakness_saturated` saturation with weak transition relation.  
+  - `bisim_minimized` strong bisim minimization (preserves main procs)
+  - `srbb_minimized` stability respecting branching-bisimilarity minimization (preserves main procs; and divergences)
 
 
 ### Application to Peterson's Mutual Exclusion
@@ -145,7 +178,9 @@ Mx = ecA.lcA.Mx + ecB.lcB.Mx
 
 @snip "----------spectroscopy queries----------"
 
-Pe(x=886, y=335, main, srbb_minimized)
+@preprocessing srbb_minimized
+
+Pe(x=886, y=335, main)
 Mx(main, x=122, y=225)
 
 @compareSilent Pe, Mx
@@ -212,6 +247,7 @@ Mx(main, x=122, y=225)
 - Distinguishing formulas.
     - Pricing
         {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.hml.ObservationNotionWeak >}}
+        Check that formula price matches the one predicted by the game
     - Interpretation for validity
         {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.hml.HMLInterpreter >}}
 - `SpectroscopyResult` from

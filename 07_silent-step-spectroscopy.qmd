@@ -1049,7 +1049,7 @@ Their stable variants are relevant to the CSP community [see @roscoe2009revivals
 These notions need to differentiate heights between a deepest “revival” conjunct and other positive conjuncts.
 Thus, these equivalences need an additional dimension for $\expr$-measurements, and an even more sophisticated handling of conjunctions in the game.
 
-@fig-weak-spec-game-revivals illustrates how one could incorporate revivals into stable conjunctions, analogously to @sec-strong-spectrum.
+@fig-weak-spec-game-revivals illustrates how one could incorporate revivals into stable conjunctions, analogously to @sec-strong-spectroscopy.
 Note, that we now have two kinds of conjunct positions: for the stable non-revival context and for the other contexts.
 The maximal depth conjuncts is still managed by dimension 6.
 But stable non-revival conjuncts receive a new dedicated dimension 7 to bound their depth.

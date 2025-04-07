@@ -605,15 +605,15 @@ Coordinates with respect to the notions of @def-strong-spectrum for the common n
   \node (B){bisimulation $\notionname{B}$\\$\infty,\infty,\infty,\infty,\infty,\infty$};
   \node (S2)[below of=B, node distance=1.2cm]{$2$-nested simulation $\notionname{2S}$\\$\infty,\infty,\infty,\infty,\infty,1$};
   \node (RS)[below left of=S2]{ready simulation $\notionname{RS}$~\\$\infty,\infty,\infty,\infty,1,1$};
-  \node (RT)[below right of=RS]{readiness traces $\notionname{RT}$\\$\infty,\infty,\infty,1,1,1$};
-  \node (FT)[below left of=RT]{failure traces $\notionname{FT}$\\$\infty,\infty,\infty,0,1,1$};
+  \node (RT)[below right of=RS]{readiness trace $\notionname{RT}$\\$\infty,\infty,\infty,1,1,1$};
+  \node (FT)[below left of=RT]{failure trace $\notionname{FT}$\\$\infty,\infty,\infty,0,1,1$};
   \node (R)[below right of=RT]{readiness $\notionname{R}$\\$\infty,1,1,1,1,1$};
-  \node (PF)[above right of=R]{~possible futures $\notionname{PF}$\\$\infty,1,\infty,\infty,\infty,1$};
-  \node (IF)[below right of=R]{impossible futures $\notionname{IF}$\\$\infty,1,0,0,\infty,1$};
+  \node (PF)[above right of=R]{~possible future $\notionname{PF}$\\$\infty,1,\infty,\infty,\infty,1$};
+  \node (IF)[below right of=R]{impossible future $\notionname{IF}$\\$\infty,1,0,0,\infty,1$};
   \node (S)[left of=FT, node distance=3.8cm]{simulation $\notionname{1S}$\\$\infty,\infty,\infty,\infty,0,0$};
   \node (RV)[below left of=R]{revivals $\notionname{RV}$\\$\infty,1,1,0,1,1$};
-  \node (F)[below right of=RV]{failures $\notionname{F}$\\$\infty,1,0,0,1,1$};
-  \node (T)[below left of=F]{traces $\notionname{T}$\\$\infty,0,0,0,0,0$};
+  \node (F)[below right of=RV]{failure $\notionname{F}$\\$\infty,1,0,0,1,1$};
+  \node (T)[below left of=F]{trace $\notionname{T}$\\$\infty,0,0,0,0,0$};
   \node (E)[below of=T, node distance=1.2cm]{enabledness $\notionname{E}$\\$1,0,0,0,0,0$};
   \node (U)[below of=E, node distance=1.2cm]{universal $\notionname{U}$\\$0,0,0,0,0,0$};
 

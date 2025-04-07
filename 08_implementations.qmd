@@ -13,14 +13,16 @@ toc-title: "Chapter 8"
 
 The “Linear-Time–Branching-Time Spectroscope” on {{<equivio>}} is a small webtool to check equivalence relations on CCS processes.
 
-### Usage
+### Usage {#sec-equivio-usage}
 
 The standard workflow of {{<equivio>}} is to specify processes in CCS and then compare them with respect to equivalence spectra.
+This is mainly achieved by writing everything into the source editor on the left. 
+The specific order of definitions, queries, and declarations in the source generally makes no difference.
 
 {{< paragraph_heading "Process syntax." >}}
 CCS processes are written according to the grammar in @def-ccs, with the concrete syntax for subterms following @tbl-ccs-syntax.
 
-| Construct       | Syntax           | CCS                                   |
+| Construct       | Tool syntax      | CCS                                   |
 |-----------------|------------------|-----------------------|
 | Input prefix    | `a.P`            | $\ccsprefix{\literal a} P$            |
 | Output prefix   | `a!P`            | $\ccsprefix{\coaction{\literal a}} P$ |
@@ -36,23 +38,40 @@ CCS processes are written according to the grammar in @def-ccs, with the concret
 Literals for actions and process names combine Latin letters, numbers, and underscores in the usual way.
 
 Top-level process definitions are written `X = P`, expressing that $\ccsasg(\literal{X}) \defeq P$ in the semantics (@def-ccs-semantics).
+The right-hand pane shows the resulting transition system.
 
 The syntax tree can be clarified by parentheses `(...)`.
 Otherwise, the parser reads prefix `a._` with highest operator precedence, then restriction `_ \ {_}`, then choice `+` and parallel `|` at equal level.
 In case of ambiguity, it assumes parenthesization from the right.
 
 {{< paragraph_heading "Equivalence queries." >}}
+Queries for the behavioral equivalences between states are formulated in the code as well and started by clicking on the arrows that pop up in the gutter.
+The output will appear right below the query in the editor.
+
+The standard queries are:
 
 - `@compare P1, P2` –
   Perform a spectroscopy on `P1` and `P2` with respect to the strong spectrum using the game of @sec-strong-spectroscopy.
+  The output will have four items, relative to the strong spectrum.
+  1. The strongest preorders to relate `P1` to `P2`;
+  2. Cheapest formulas to distinguish `P1` from `P2` (and the smallest observation language they are part of);
+  3. The list of finest equivalences to equate `P1` and `P2`.
+  4. A visualization of the result on the whole spectrum.
+     Moreover, there will be a link to a <https://edotor.net/>-visualization of the game graph used to obtain the result.
+  The naming of notions in the output follows @tbl-notion-names.
+
 - `@compareSilent P1, P2` – 
-  Perform a spectroscopy on `P1` and `P2` with respect to the weak spectrum treating silent steps along the lines of @sec-silent-step-spectroscopy.
+  Perform a spectroscopy on `P1` and `P2` with respect to the weak spectrum, treating silent steps along the lines of @sec-silent-step-spectroscopy.
+  The output is analogous to `@compare`.
 - `@check equivalence-name, P1, P2` –
-  The name of the preorder / equivalence to be checked must be one of the ones in @tbl-notion-names.
+  Checks for (mutual) preordering between `P1` and `P2` with respect to individual notion `equivalence-name`. 
+  The name of the notion to be checked must be one of the ones in @tbl-notion-names.
 
-:::{#tbl-notion-names tbl-pos='b' .column-body-outset}
-
-`\parbox{15cm}{`{=latex}
+```{=latex}
+% fix to make the table float in spite of Pandoc's hardcoded longtable usage...
+\begin{table*}[b!]
+\parbox{15cm}{
+```
 
 | Strong variant       | Weak variants                      | Stable / stability-respecting variants   |
 |:---------------------|:-----------------------------------|:-----------------------------------------|
@@ -70,28 +89,37 @@ In case of ambiguity, it assumes parenthesization from the right.
 | `2-nested-simulation`  | `2-nested-weak-simulation`           |                                          |
 | `bisimulation`         | `contrasimulation`<br> `weak-bisimulation`<br> `delay-bisimulation`<br> `eta-bisimulation`<br> `branching-bisimulation` | `stable-bisimulation`<br> `sr-delay-bisimulation`<br> `sr-branching-bisimulation` |
 
-`}`{=latex}
+: Names of supported notions in {{<equivio>}}. {#tbl-notion-names .column-body-outset}
 
-Names of supported notions in {{<equivio>}}.
-:::
+``` {=latex}
+}
+\end{table*}
+```
 
+{{< paragraph_heading "Interacting with the output." >}}
+Each output item can be clicked, which displays the preorders, equivalences, and distinctions that have been found between states in the transition system view.
 
-Output...
+States in the transition system may be dragged to change their position.
+The layout information is persisted in the source, as described in the next list.
 
 {{< paragraph_heading "Layout and preprocessing." >}}
+The source can also contain layout information and prescribe some preprocessing for processes.
 
-Layout information and preprocessing for processes
-
-- `P(x=100, y=100)`
-  - `P(main)` highlight and prune others
-- `"0"(x=100, y=200)`
-  - Sub processes, quoted CCS expression in `"..."` (This must be verbatim the string representation the tool uses for the normalized process)
-  Layout by dragging the nodes in the graph that represent the processes.
-- `@preprocessing method1, method2...`
-  - `weakness_saturated` saturation with weak transition relation.  
-  - `bisim_minimized` strong bisim minimization (preserves main procs)
-  - `srbb_minimized` stability respecting branching-bisimilarity minimization (preserves main procs; and divergences)
-
+- `P(main)` –
+  Highlight process `P` in transition system and prune other sub-processes (unless they are reached from `P`).
+  Multiple processes may be declared to be `main`.
+- `P(x=100, y=100)` –
+  Annotate process `P` to be displayed at certain coordinates.
+- `"0"(x=100, y=200)` –
+  The annotations may also refer to sub processes
+  The CCS expressions are wrapped in `"..."`.
+  They must be verbatim the string representation the tool uses for the normalized process.
+- `@preprocessing method1, method2...` –
+  Apply preprocessing to the transition system after translation of the CCS term (that is, before presentation and queries happen).
+  This will affect the whole transition system.
+  - `weakness_saturated` – Exchange transition relation to weak transitions, that is, there will be a transition whenever the original system allows $\stepweak\stepopt{\alpha}\stepweak$.
+  - `bisim_minimized` – Merge states that are strongly bisimilar (preserves `main` processses).
+  - `srbb_minimized`  – Merge states that are stability-respecting branching-bisimilar (preserves `main` processes; enforces `tau`-loops precisely on divergent states).
 
 ### Application to Peterson's Mutual Exclusion
 
@@ -115,6 +143,7 @@ def process(ownId, otherId):
 process("A", otherId = "B") || process("B", otherId = "A")
 ```
 
+<!--
 ```tikz
 \usetikzlibrary{shapes.geometric, arrows}
 
@@ -145,7 +174,7 @@ process("A", otherId = "B") || process("B", otherId = "A")
 \draw [arrow] (wait.south) -- ++(0,-1) -| (wait.west) node[midway, left] {No};
 
 \end{tikzpicture}
-```
+```--->
 
 ```ccs
 ReadyAf = readyAf!ReadyAf + setReadyAf.ReadyAf + setReadyAt.ReadyAt
@@ -176,15 +205,17 @@ Pe = (A1 | B1 | TurnA | ReadyAf | ReadyBf)
        setReadyBf, setReadyBt, turnA, turnB, setTurnA, setTurnB}
 Mx = ecA.lcA.Mx + ecB.lcB.Mx
 
-@snip "----------spectroscopy queries----------"
+@snip "----------preprocessing----------"
 
 @preprocessing srbb_minimized
 
-Pe(x=886, y=335, main)
+Pe(main, x=886, y=335)
 Mx(main, x=122, y=225)
 
-@compareSilent Pe, Mx
+@snip "----------spectroscopy queries----------"
+
 @compareSilent Mx, Pe
+@compareSilent Pe, Mx
 
 @snip "---------- below here, there's only layout information! ----------"
 
@@ -254,6 +285,8 @@ Mx(main, x=122, y=225)
     {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.spectroscopy.SpectroscopyInterface >}}
 
 ### Benchmarks
+
+(TODO: Maybe)
 
 ## Student Implementations
 

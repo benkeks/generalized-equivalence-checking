@@ -291,7 +291,9 @@ The game also allows another path through nested negations that the attacker win
 
 ::: {#exm-spectroscopy-classic-ts}
 
-Let us see what our prototype implementation on {{<equivio>}} reports about our original example processes of @sec-preliminaries.
+Let us see what our prototype implementation on {{<equivio>}} reports about our original example processes of @sec-preliminaries.^[
+  A usage guide on the syntax can be found in @sec-equivio-usage.
+]
 We can input the philosopher processes of @exm-ccs and @exm-deterministic-phil, obtaining a tranistion system matching @exm-ts:
 
 ```ccs

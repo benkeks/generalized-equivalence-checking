@@ -1681,13 +1681,26 @@ Once we run out of $\variable{todo}$ positions, we know that the attacker has wi
 
 The following @tbl-game-example-execution lists how @alg-deciding-games computes the winning region $\attackerwins = \set{[\literal{2a}], (\literal{3})}$ of the game of @def-game-formulas.
 
+
+```{=latex}
+% fix to make the table float in spite of Pandoc's hardcoded longtable usage...
+% push to next page to fix the problem of longtable breaking pages with other floats -_-
+%\afterpage{\clearpage
+%\begin{table}%[b!]
+```
+
 | $\variable{g}$ | $\variable{defender\_options}$ | $\variable{todo}$ |
 |------|---------------|------|
 |   -    |  $(\literal{1}) \mapsto 2$, $(\literal{3}) \mapsto 0$ | $(\literal{3})$  |
 | $(\literal{3})$ | $(\literal{1}) \mapsto 2$, $(\literal{3}) \mapsto 0$ | $[\literal{2a}]$  |
 | $[\literal{2a}]$ | $(\literal{1}) \mapsto 1$, $(\literal{3}) \mapsto 0$ | $\varnothing$ |
 
-: Solving the game of @def-game-formulas {#tbl-game-example-execution fig-pos='b'}
+: Solving the game of @def-game-formulas {#tbl-game-example-execution}
+
+``` {=latex}
+%\end{table}
+%}
+```
 
 The inner loop of @alg-deciding-games clearly can run at most $\relsize{\gamemoveblank}$-many times.
 Using sufficiently clever data structures, the algorithm thus shows:

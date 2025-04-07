@@ -929,6 +929,12 @@ $$
 $$
 We list the steps of the computation in @exm-simple-energy-game-execution, and the mechanics behind them in @tbl-simple-energy-game-execution.
 
+```{=latex}
+\afterpage{\clearpage
+% fix to make the table float in spite of Pandoc's hardcoded longtable usage...
+% push to next page to fix the problem of longtable breaking pages with other floats -_-
+\begin{table}[b!]
+```
 | step | $\variable{g}$ | $\variable{new\_attacker\_win}$ | $\variable{todo}$ |
 |-----:|------|---------------------------------|:------------------|
 |    0 |   --            |  $\literal{g}_i \mapsto \varnothing$ | $\literal{g_6}$  |
@@ -941,7 +947,12 @@ We list the steps of the computation in @exm-simple-energy-game-execution, and t
 |    7 | $\literal{g_3}$ | $\set{(1,1)}$ | $\literal{g_1}$  |
 |    8 | $\literal{g_1}$ | $\set{(0,2), (2,1)}$ | $\varnothing$  |
 
-: Steps while solving the game in @exm-simple-energy-game-execution. {#tbl-simple-energy-game-execution tbl-pos="b" layout-ncol="1"}
+: Steps while solving the game in @exm-simple-energy-game-execution. {#tbl-simple-energy-game-execution}
+
+``` {=latex}
+\end{table}
+}
+```
 
 ::: {#fig-game-defender-intersection .column-margin}
 ```tikz

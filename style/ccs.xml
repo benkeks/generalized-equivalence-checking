@@ -9,6 +9,8 @@
       <item>&#64;compare</item>
       <item>&#64;compareSilent</item>
       <item>&#64;check</item>
+      <item>&#64;minimize</item>
+      <item>&#64;preprocessing</item>
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">

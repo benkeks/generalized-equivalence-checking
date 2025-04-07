@@ -315,13 +315,13 @@ Q(x=400, y=50, main)
 Starting `@compare` (on {{<equivio>}}) triggers a spectroscopy along the lines we have discussed, leading to the output:
 
 ```
-- Preordered by:
-  simulation
-- Left-right-distinguished by:
+• Preordered by:
+    simulation
+• Left-right-distinguished by:
     ⟨τ⟩⋀{¬⟨b⟩⊤} (failure)
     ⟨τ⟩⋀{¬⟨a⟩⊤} (failure)
-- Equated by:
-  trace
+• Equated by:
+    trace
 ```
 
 That `P` is simulated by `Q` matches our finding from @exm-phil-sim.

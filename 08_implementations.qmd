@@ -120,70 +120,24 @@ The source can also contain layout information and prescribe some preprocessing 
   - `bisim_minimized` – Merge states that are strongly bisimilar (preserves `main` processses).
   - `srbb_minimized`  – Merge states that are stability-respecting branching-bisimilar (preserves `main` processes; enforces `tau`-loops precisely on divergent states).
 - `@comment "My comment"` –
-  Any `@...` tag without features can serve to add comments in the model.
+  Any `@something`-tag without features can serve to add comments in the model.
 
-### Application to Peterson's Mutual Exclusion
+### Application to Peterson's Mutual Exclusion {#sec-equivio-peterson}
 
 Let us go through the whole process of using the tool once to tackle the example of Peterson's mutual exclusion protocol, which has already been previewed in @exm-peterson-mutex.
+Thereby, we settle the question with respect to which equivalences the protocoll correctly implements the specification of mutual exclusion.
+We follow the presentation of how to model this protocol in CCS from @ails2007reactiveSystems [Chapter 7], with action names chosen to align with @glabbeek2023mutexTimeouts.
 
-```ruby
-ready = {"A": false, "B": false}
-turn  = "A"
-
-def process(ownId, otherId):
-  while true:                         # PC = 1
-    ready[ownId] = true
-    turn = otherId
-    
-    do # wait...                      # PC = 2
-    until (ready[otherId] == false || turn == ownId)
-      
-    print "enter critical #{ownId}"   # PC = 3
-    # critical section goes here.
-    print "leave critical #{ownId}"
-    ready[ownId] = false
-
-process("A", otherId = "B") || process("B", otherId = "A")
-```
-
-<!--
-```tikz
-\usetikzlibrary{shapes.geometric, arrows}
-
-\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
-\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
-\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
-\tikzstyle{arrow} = [thick,->,>=stealth]
-
-\begin{tikzpicture}[node distance=2cm]
-
-% Nodes
-\node (start) [startstop] {Start};
-\node (setReady) [process, below of=start] {ready[ownId] = true};
-\node (setTurn) [process, below of=setReady] {turn = otherId};
-\node (wait) [decision, below of=setTurn, align=center] {ready[otherId] == false \\ or \\ turn == ownId?};
-\node (criticalEnter) [process, right of=wait, xshift=4cm] {Enter critical section};
-\node (criticalLeave) [process, below of=criticalEnter] {Leave critical section};
-\node (unsetReady) [process, below of=criticalLeave] {ready[ownId] = false};
-
-% Arrows
-\draw [arrow] (start) -- (setReady);
-\draw [arrow] (setReady) -- (setTurn);
-\draw [arrow] (setTurn) -- (wait);
-\draw [arrow] (wait.east) |- (criticalEnter.west) node[midway, above] {Yes};
-\draw [arrow] (criticalEnter) -- (criticalLeave);
-\draw [arrow] (criticalLeave) -- (unsetReady);
-\draw [arrow] (unsetReady.east) --++(1,0) |- (setReady.east);
-\draw [arrow] (wait.south) -- ++(0,-1) -| (wait.west) node[midway, left] {No};
-
-\end{tikzpicture}
-```--->
+We *specify* mutual exclusion as a system `Mx` of two alternating users `A` and `B` entering their critical section `ecA` / `ecB` and leaving `lcA` / `lcB` before the other may enter.
+@ails2007reactiveSystems [Equation 7.1] suggest the following specifation in CCS:
 
 ```ccs
+Mx = ecA.lcA.Mx + ecB.lcB.Mx
+
+@snip "----------storage--------"
+
 ReadyAf = readyAf!ReadyAf + setReadyAf.ReadyAf + setReadyAt.ReadyAt
 ReadyAt = readyAt!ReadyAt + setReadyAf.ReadyAf + setReadyAt.ReadyAt
-
-@snip "----------other storage----------"
 
 ReadyBf = readyBf!ReadyBf + setReadyBf.ReadyBf + setReadyBt.ReadyBt
 ReadyBt = readyBt!ReadyBt + setReadyBf.ReadyBf + setReadyBt.ReadyBt
@@ -201,12 +155,11 @@ B1 = setReadyBt!setTurnA!B2
 B2 = readyAf.B3 + turnB.B3
 B3 = ecB.lcB.setReadyBf!B1
 
-@snip "----------system and spec----------"
+@snip "----------system---------"
 
 Pe = (A1 | B1 | TurnA | ReadyAf | ReadyBf)
     \ {readyAf, readyAt, setReadyAf, setReadyAt, readyBf, readyBt,
        setReadyBf, setReadyBt, turnA, turnB, setTurnA, setTurnB}
-Mx = ecA.lcA.Mx + ecB.lcB.Mx
 
 @snip "----------preprocessing----------"
 
@@ -215,16 +168,21 @@ Mx(main, x=120, y=220)
 
 @preprocessing srbb_minimized
 
+@snip "----------equivalence-checks----------"
+
+@check weak-trace, Pe, Mx
+@check weak-bisimulation, Pe, Mx
+
 @snip "----------spectroscopy queries----------"
 
-@compareSilent Mx, Pe
 @compareSilent Pe, Mx
+@compareSilent Mx, Pe
 
-@snip "--------alternative---------"
+@snip "----alternative spec with internal choice-----"
 
-Mx2(main, x=120, y=0)
-Mx2 = tau.ecA.lcA.Mx2 + tau.ecB.lcB.Mx2
-@compareSilent Pe, Mx2
+MxIC(main, x=120, y=0)
+MxIC = tau.ecA.lcA.MxIC + tau.ecB.lcB.MxIC
+@compareSilent Pe, MxIC
 
 @snip "---------- below here, there's only layout information! ----------"
 
@@ -265,14 +223,56 @@ Mx2 = tau.ecA.lcA.Mx2 + tau.ecB.lcB.Mx2
 "lcB.Mx"(x=433, y=290)
 ```
 
+Can we come up with a process where two subprocesses run a protocol such that the overall system is somewhat equivalent to this specification?
+@peterson1981mythsMutex proposes a protocoll that can be summarized by the following pesudocode:
+
+```ruby
+ready = {"A": false, "B": false}
+turn  = "A"
+
+def process(ownId, otherId):
+  while true:                         # PC = 1
+    ready[ownId] = true
+    turn = otherId
+    
+    do # wait...                      # PC = 2
+    until (ready[otherId] == false || turn == ownId)
+      
+    print "enter critical #{ownId}"   # PC = 3
+    # critical section goes here.
+    print "leave critical #{ownId}"
+    ready[ownId] = false
+
+process("A", otherId = "B") || process("B", otherId = "A")
+```
+
+The two processes share three variables:
+`ready["A"]` expresses whether process `A` is ready to enter its criticl section; `ready["B"]` the same for `B`.
+In `turn`, *both* processes try to write whose turn it is to enter, `A` or `B`.
+Assuming sufficiently consistent memory, the protocol works because each process will only enter the critical section if no other process is waiting or if it has been yielded the turn (by the other process).
+The critical scenario of both processes entering *symmetrically* is resolved because the race condition on the `turn`-write will flip a coin in such situations.
+
+To express the shared-memory protocoll in the message-passign paradigm of CCS, we must model the storage as processes that run in parallel with the main model.
+We do this as in @ails2007reactiveSystems:
+In the following the process `ReadyAf` corresponds to `ready["A"] = false`, and `ReadyAt` to `ready["A"] = true`.
+The current state can be either read (`readyAf` / `readyAt`) or written (`setReadyAf` / `setReadyAt`).
+
 ```ccs
 @nolink
+ReadyAf = readyAf!ReadyAf + setReadyAf.ReadyAf + setReadyAt.ReadyAt
+ReadyAt = readyAt!ReadyAt + setReadyAf.ReadyAf + setReadyAt.ReadyAt
+
 ReadyBf = readyBf!ReadyBf + setReadyBf.ReadyBf + setReadyBt.ReadyBt
 ReadyBt = readyBt!ReadyBt + setReadyBf.ReadyBf + setReadyBt.ReadyBt
 
 TurnA = turnA!TurnA + setTurnA.TurnA + setTurnB.TurnB
 TurnB = turnB!TurnB + setTurnA.TurnA + setTurnB.TurnB
 ```
+
+Each main process iterates through the phases 1, 2, and 3, corresponding to `PC = 1,2,3` in above pseudocode.
+In 1, they set their `ready` and yield the `turn`;
+in 2, they wait until they hear that the other's `ready` is false or that it is their `turn`;
+in 3, they enter and leave their critical section, unset their `ready`, and return to step 1.
 
 ```ccs
 @nolink
@@ -285,13 +285,17 @@ B2 = readyAf.B3 + turnB.B3
 B3 = ecB.lcB.setReadyBf!B1
 ```
 
+Peterson's protocol is the parallel composition of `A1`, `B1` and the storage, restricting communication with the memory:
+
 ```ccs
 @nolink
 Pe = (A1 | B1 | TurnA | ReadyAf | ReadyBf)
     \ {readyAf, readyAt, setReadyAf, setReadyAt, readyBf, readyBt,
        setReadyBf, setReadyBt, turnA, turnB, setTurnA, setTurnB}
-Mx = ecA.lcA.Mx + ecB.lcB.Mx
 ```
+
+If you enter above listings, you will notice that the transition system view is cluttered by cycles for the subprocesses.
+These can be removed from the system output by declaring `Pe` and `Mx` as the `main` processes:
 
 ```ccs
 @nolink
@@ -299,31 +303,98 @@ Pe(main, x=900, y=340)
 Mx(main, x=120, y=220)
 ```
 
+We can further clarify the transition graph, we can minimize it with respect to stability-respecting branching bisimilarity, resulting in the transition system of @fig-peterson-mutex:
+
 ```ccs
 @nolink
 @preprocessing srbb_minimized
 ```
 
+We can now verify that `Pe` and `Mx` allow for the same weak traces, which, for instance, rules out bugs where both enter, `ecA` and `ecB`, after each other without the other leaving.
+
 ```ccs
 @nolink
-@compareSilent Mx, Pe
-@compareSilent Pe, Mx
+@check weak-trace, Pe, Mx
+  > "States are equivalent."
 ```
+
+But the processes are *not* weakly bisimilar, as tested by:
 
 ```ccs
 @nolink
 @check weak-bisimulation, Pe, Mx
-@check weak-simulation, Pe, Mx
+  > "States are not preordered (nor equivalent)"
 ```
+
+To get the full picture, we run a silent-step spectroscopy:
 
 ```ccs
 @nolink
-Mx2(main, x=120, y=0)
-Mx2 = tau.ecA.lcA.Mx2 + tau.ecB.lcB.Mx2
-@compareSilent Pe, Mx2
-
-@comment "Interestingly: Weak ready "
+@compareSilent Pe, Mx
 ```
+
+This yields to output:
+
+```
+• Preordered by:
+    eta-simulation
+    stable-simulation
+• Left-right-distinguished by:
+    ⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecA⟩⊤,¬⟨τ⟩⊤} (stable-failure)
+    ⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤} (weak-failure)
+• Equated by:
+    weak-simulation
+```
+
+The weak failure `⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤}` can be understood to point out that `Pe` exceeds `Mx` in that
+we can reach a state where `ecB` is impossible with no visible action.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; … thinking about it, this behavior might be okay, for a mutual exclusion protocol, might it not?
+Why should the outside observer need to be notified about the participating processes making up their minds?
+So, let us try another specification of mutual exclusion where we leave it as an *iterated internal choice* of the system which participant may enter the critical section:
+
+```ccs
+@nolink
+@comment "Internal-choice mutex"
+
+MxIC(main, x=120, y=0)
+MxIC = tau.ecA.lcA.MxIC + tau.ecB.lcB.MxIC
+```
+
+`Pe` aligns much better to the `MxIC`-specification!
+`@compareSilent Pe, MxIC` returns:
+
+```
+• Preordered by:
+    eta-simulation
+    weak-ready-simulation
+    s-ready-simulation
+• Left-right-distinguished by:
+    ⟨ϵ⟩⟨ecA⟩⟨ϵ⟩⋀{¬⟨ϵ⟩⟨lcA⟩⟨ϵ⟩⟨ecA⟩⊤,¬⟨τ⟩⊤} (s-impossible-future)
+    ⟨ϵ⟩⟨ecB⟩⟨ϵ⟩⟨lcB⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤} (delay-bisimulation)
+    ⟨ϵ⟩⟨ecA⟩⟨ϵ⟩⋀{¬⟨ϵ⟩⟨lcA⟩⟨ϵ⟩⟨ecA⟩⊤} (weak-impossible-future)
+• Equated by:
+    stable-readiness
+    eta-simulation
+    weak-ready-simulation
+```
+
+That means implementation `Pe` and internal choice specification `MxIC` cannot be distinguished from each other by a readiness observation (subsuming failures), neither in stable nor weak semantics.
+Interestingly, in weak (that is, unstable) semantics the indistinguishability goes even further, up to weak ready simulation.
+
+The main aspect that creates the differences between `Pe` and `MxIC` is that the implementation can decide that `B` will be the next entering the critical section next, even before `A` has left. 
+In above output, this is mirrored by the impossible-future formula `⟨ϵ⟩⟨ecA⟩⟨ϵ⟩⋀{¬⟨ϵ⟩⟨lcA⟩⟨ϵ⟩⟨ecA⟩⊤}`.
+
+We can find this scenario already in the pseudo code.
+It happens when both proceses are in `PC = 2` and `B` has set `turn = A`.
+Then, `A` may enter its critical section but has to yield to `B` before it can re-enter.
+So, this constitutes a proper difference between Peterson's protocol and a pure itereated internal choice.
+But then again, one might say that it is fair of the process going first to leave the next round to the other waiting participant.
+In the pure CCS view, however, we cannot adequately treat more general fairness considerations for Peterson's protocol, as @glabbeek2023mutexTimeouts explicates.
+
+This is what the spectroscopy has taught us:
+Peterson's mutual exclusion protocol is *more similar* to repeated internal choice (`MxIC`) than to the specifation `Mx` from @ails2007reactiveSystems.
+However, the two are not bisimilar in any sense, since local progress from one iteration may influence the next.
 
 ### Program Structure
 
@@ -371,3 +442,7 @@ mention Timo
 ### GPU Implementation: *gpuequiv* {#sec-gpu-equiv}
 
 @vogel2024energyGamesWebGPU
+
+## Discussion
+
+Preoder and equivalence checkers for more than 37 notions of strong and weak spectrum.

@@ -432,6 +432,8 @@ However, the two are not bisimilar in any sense, since local progress from one i
 
 ### Computer Game: *The Spectroscopy Invaders* {#sec-spectro-invaders}
 
+Would it not be nice if one could *play* the spectroscopy game *as a game*?
+
 @trzeciakiewicz2021ltbtBrowserGame implements the computer game “The Spectroscopy Invaders” where one plays the attacker in the spectroscopy game.
 You can enjoy the game in the browser at <https://concurrency-theory.org/ltbt-game/>.
 
@@ -501,10 +503,39 @@ This allows to nicely showcase the core mechanics of @sec-strong-spectroscopy wi
 
 ### CAAL Extension {#sec-spectroscopy-caal}
 
-@ozegowski2023eqCAAL
-mention Timo
+Would it not be nice if one could use the equvialence spectroscopy in existing tools?
+
+@ozegowski2023eqCAAL integrates the spectroscopy algorithm into *CAAL*, the “Concurrency Workbench Aalborg Edition” by @aaehlow2015caal.
+@strassnickOzegowski2024weakCAAL also add the weak spectroscopy game and possibilities to play the spectroscopy game in the tool.
+Their extended version of CAAL is live on <https://equivio.github.io/CAAL/>.
+
+The original CAAL (on <https://caal.cs.aau.dk/>) covers the curriculum of @ails2007reactiveSystems, including CCS processes, HML formulas and equivalence games.
+
+But CAAL originally only supports preorder/equivalence checking for six standard notions, namely for simulation, bisimulation, and traces, in their standard strong and weak variants.
+Only simulation and bisimulation can be examined as games.
+
+Straßnick and Ozegowski's extended CAAL version supports 13 strong and 21 weak notions.
+Each of the notions can be decided individually, or in the context of a spectroscopy.
+For the strong notions, the game graph can be explored interactively.
+@fig-caal-screenshot shows the output of strong and weak spectroscopy on the classic @exm-ts, together with a generated distinguishing failure formula in the HML dialect of CAAL.
+
+:::{#fig-caal-screenshot}
+
+![](img/caal-extension.png){.lightbox}
+
+Extended version of CAAL, performing a spectorscopy.
+:::
+
+For a usage guide, we refer to @strassnickOzegowski2024weakCAAL.
+
+At some points, the fork unfortunately has to remain partial with respect to features.
+For instance, the extension does not support distinguishing formulas for the weak spectroscopy because CAAL's HML dialect cannot easily be molded to support $\hmlsrbb$.
+
+Still, the project shows that the spectroscopy approach is sufficiently simple and versatile to allow dozens of equivalence checkers to be integrated into existing tools within the limited scope of a student project.
 
 ### GPU Implementation: *gpuequiv* {#sec-gpu-equiv}
+
+Would it not be nice if one could use modern hardware to perform spectroscopies as fast as possible?
 
 @vogel2024energyGamesWebGPU
 

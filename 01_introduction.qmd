@@ -406,5 +406,5 @@ Although they do not appear directly on the following pages, I want to acknowled
 
 {{<paragraph_heading "This thesis itself.">}}
 This document itself is created using Quarto [-@allaire2025quarto].
-Its HTML version is deployed to <https://benkeks.github.io/generalized-equivalence-checking/>.
+Its HTML version is deployed to <https://generalized-equivalence-checking.equiv.io/>.
 One can find its source at <https://github.com/benkeks/generalized-equivalence-checking/>.

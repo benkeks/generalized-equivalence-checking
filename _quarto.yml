@@ -92,6 +92,8 @@ format:
     resources:
       - ./lib/bangers-font/Bangers-Regular.ttf
       - ./lib/linux-libertine-font/*.woff
+      - ./img/trollface.png
+    template: style/template.html
     css: style/style.css
     self-contained-math: true
     grid:

@@ -594,7 +594,7 @@ This adds another deadlock state to the transition system, seen in @fig-bisim-si
   \node[state, below left of=q0] (qAB){$\literal{q_{ab}}$};
   \node[state, below left of=qAB] (q1){$\literal{q_{1}}$};
   \node[state, below right of=qAB] (q2){$\literal{q_{2}}$};
-  \node[state, below right of=q0] (q3){$\literal{q_{3}}$};
+  \node[state, below right of=q0] (q3){$\troll$};
   \path[->]
     (q0)
       edge[swap] node {$\tau$} (qAB)
@@ -604,13 +604,13 @@ This adds another deadlock state to the transition system, seen in @fig-bisim-si
       edge node {$\literal{b}$} (q2);
 \end{tikzpicture}
 ```
-Example with new deadlock $\literal{q_3}$.
+Example with new deadlock.
 ::::
 
 To similarity, this change is invisible, that is $\literal Q \beq{S} \literal{T}$.
-(Reason: The relation $\set{(\literal Q, \literal{T}), (\literal{T}, \literal{Q})} \cup \identity{\set{ \literal{q_{ab}}, \literal{q_1}, \literal{q_2}, \literal{q_3}}}$ is a simulation.)
+(Reason: The relation $\set{(\literal Q, \literal{T}), (\literal{T}, \literal{Q})} \cup \identity{\set{ \literal{q_{ab}}, \literal{q_1}, \literal{q_2}, \troll}}$ is a simulation.)
 
-However, to bisimilarity, $\literal{T} \step{τ} \literal{q_3}$ constitutes a difference.
+However, to bisimilarity, $\literal{T} \step{τ} \troll$ constitutes a difference.
 There cannot be a symmetric simulation handling this transition as $\literal{Q}$ has no deadlocked successors.
 Thus $\literal Q \nbeq{B} \literal{T}$.
 :::
@@ -749,7 +749,7 @@ This *minimization* hugely increases the size of models that can be handled in a
 ::: {#exm-bisim-minimization}
 #### Trolled philosophers, minimized
 
-In @exm-bisim-sim of “trolled philosophers,” all terminal states are bisimilar, $\literal{q_1} \beq{B} \literal{q_2} \beq{B} \literal{q_3}$.
+In @exm-bisim-sim of “trolled philosophers,” all terminal states are bisimilar, $\literal{q_1} \beq{B} \literal{q_2} \beq{B} \troll$.
 We can thus merge them into one state $\literal{q_{123}^m}$ as depicted in @fig-bisim-min-ts, without affecting the behavioral properties of the other states with respect to bisimilarity, that is, $\literal{q_{ab}} \beq{B} \literal{q_{ab}^m}$ and $\literal{T} \beq{B} \literal{T^m}$.
 
 :::: {#fig-bisim-min-ts .column-margin}
@@ -1358,13 +1358,13 @@ The bisimulation game graph for the system is depicted in @fig-bisim-sim-game.
 
 The attacker can win by moving $[\literal{Q}, \literal{T}]
 \gamemoveblank_\notionname{B} [\literal{T}, \literal{Q}]
-\gamemoveblank_\notionname{B} (\tau, \literal{q_3}, \literal{Q})
-\gamemoveblank_\notionname{B} [\literal{q_3}, \literal{q_{AB}}]
-\gamemoveblank_\notionname{B} [\literal{q_{AB}}, \literal{q_3}]
-\gamemoveblank_\notionname{B} (\literal{a}, \literal{q_1}, \literal{q_3})
+\gamemoveblank_\notionname{B} (\tau, \troll, \literal{Q})
+\gamemoveblank_\notionname{B} [\troll, \literal{q_{AB}}]
+\gamemoveblank_\notionname{B} [\literal{q_{AB}}, \troll]
+\gamemoveblank_\notionname{B} (\literal{a}, \literal{q_1}, \troll)
 \ngamemoveblank_\notionname{B}$.
 Along this sequence of positions, the defender never has a choice and is stuck in the end.
-The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\literal{T} \step{\tau} \literal{q_{3}}$.
+The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\literal{T} \step{\tau} \troll$.
 :::
 
 ::: {#fig-bisim-sim-game fig-pos='t' fig-env="figure*"}
@@ -1383,17 +1383,17 @@ The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\lite
     \node[posStyle, defWins]
       (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_{AB}}]$};
     \node[posStyle]
-      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_3}]$};
+      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \troll]$};
     \node[posStyle, defender]
-      (Dfn_a_q1_q3) [above right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{a}, \literal{q_1}, \literal{q_3})$};
+      (Dfn_a_q1_q3) [above right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{a}, \literal{q_1}, \troll)$};
     \node[posStyle, defender]
-      (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \literal{q_3})$};
+      (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q})$};
     \node[posStyle, defender]
-      (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \literal{q_{3}}, \literal{Q})$};
+      (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
     \node[posStyle]
-      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\literal{q_3}, \literal{q_{AB}}]$};
+      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{AB}}]$};
 
     \path
       (Att_Q_Qp)
@@ -1404,14 +1404,14 @@ The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\lite
       (Att_q3_qab)
         edge[bend right = 60] node {} (Att_qab_q3)
       (Dfn_t_qab_Qp)
-        edge node {$\literal{T} \step{\tau} \literal{q_{3}}$} (Att_qab_q3)
+        edge node {$\literal{T} \step{\tau} \troll$} (Att_qab_q3)
         edge node {$\literal{T} \step{\tau} \literal{q_{AB}}$} (Att_qab_qab)
       (Att_qab_qab)
         edge [loop left] node {swap} ()
       (Att_Qp_Q)
         edge[bend left = 10] node {swap} (Att_Q_Qp)
         edge[swap] node {$\literal{T} \step{\tau} \literal{q_{AB}}$} (Dfn_t_qab_Q)
-        edge[swap] node {$\literal{T} \step{\tau} \literal{q_{3}}$} (Dfn_t_q3_Q)
+        edge[swap] node {$\literal{T} \step{\tau} \troll$} (Dfn_t_q3_Q)
       (Dfn_t_qab_Q)
         edge node[swap] {$\literal{Q} \step{\tau} \literal{q_{AB}}$} (Att_qab_qab)
       (Dfn_t_q3_Q)
@@ -1506,10 +1506,10 @@ Let us illustrate how to derive distinguishing formulas using the game of @exm-b
 
 Recall that the attacker wins by moving $[\literal{Q}, \literal{T}]
 \gamemoveblank_\notionname{B} [\literal{T}, \literal{Q}]
-\gamemoveblank_\notionname{B} (\tau, \literal{q_3}, \literal{Q})
-\gamemoveblank_\notionname{B} [\literal{q_3}, \literal{q_{AB}}]
-\gamemoveblank_\notionname{B} [\literal{q_{AB}}, \literal{q_3}]
-\gamemoveblank_\notionname{B} (\literal{a}, \literal{q_1}, \literal{q_3})
+\gamemoveblank_\notionname{B} (\tau, \troll, \literal{Q})
+\gamemoveblank_\notionname{B} [\troll, \literal{q_{AB}}]
+\gamemoveblank_\notionname{B} [\literal{q_{AB}}, \troll]
+\gamemoveblank_\notionname{B} (\literal{a}, \literal{q_1}, \troll)
 \ngamemoveblank_\notionname{B}$.
 In @fig-bisim-sim-game-formulas, we label the game nodes with the (sub-)formulas this strategy corresponds to.
 Swap moves become negations, and simulation moves become observations with a conjunction of formulas for each defender option.
@@ -1533,17 +1533,17 @@ This attacker strategy can thus be expressed by $\hmlneg\hmlobs{\tau}\hmlands\se
     \node[posStyle, defWins]
       (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_{AB}}]$};
     \node[posStyle, label={100:$\hmlobs{\literal{a}}\hmltrue$}]
-      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_3}]$};
+      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \troll]$};
     \node[posStyle, defender, above right = .1cm and 1.5cm of Att_qab_q3]
-      (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \literal{q_3})$};
+      (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \troll)$};
     \node[posStyle, defender]
-      (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \literal{q_3})$};
+      (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q})$};
     \node[posStyle, defender]
-      (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \literal{q_{3}}, \literal{Q})$};
+      (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
     \node[posStyle, label={100:$\hmlneg\hmlobs{\literal{a}}\hmltrue$}]
-      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\literal{q_3}, \literal{q_{AB}}]$};
+      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{AB}}]$};
 
     \path
       (Att_Q_Qp)

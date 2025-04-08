@@ -485,17 +485,17 @@ also exhibiting the cheapest formulas with regards to the polynomial spectrum th
     \node[posStyle, defWins]
       (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_{AB}}]$};
     \node[posStyle, label={[text=gray]95:$\hmlobs{\literal{a}}\hmltrue \in \observationsvar[\literal{poly-strong}]{(1,0,0)}$}]
-      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_3}]$};
+      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \troll]$};
     \node[posStyle, defender, above right = .1cm and 1.5cm of Att_qab_q3]
-      (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \literal{q_3})$};
+      (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \troll)$};
     \node[posStyle, defender]
-      (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \literal{q_3})$};
+      (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q})$};
     \node[posStyle, defender]
-      (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \literal{q_{3}}, \literal{Q})$};
+      (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
     \node[posStyle, label={[text=gray]270:$\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{poly-strong}]{(1,1,1)}$}]
-      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\literal{q_3}, \literal{q_{AB}}]$};
+      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{AB}}]$};
 
     \path
       (Att_Q_Qp)

@@ -10,3 +10,5 @@
 \providecommand{\ngamemove}[1]{\mathrel{\smash{{›/\!\!\!\!\frac{\;#1\;}{\;}\!\!›}}}}
 
 \providecommand{\nostep}[1]{\cancel{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}}
+
+\providecommand{\troll}{\includegraphics[height=1em, alt=q3]{img/trollface.png}}

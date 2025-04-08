@@ -11,5 +11,8 @@
   ],
   "cSpell.enableFiletypes": [
     "quarto"
-  ]
+  ],
+  "files.watcherExclude": {
+    "**/target": true
+  }
 }

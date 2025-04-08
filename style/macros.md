@@ -52,6 +52,7 @@
 \providecommand{\failures}[1]{\mathsf{Failures}(#1)}
 \providecommand{\derivatives}[1]{\operatorname{Der}(#1)}
 \providecommand{\initials}[1]{\operatorname{Ini}(#1)}
+\providecommand{\troll}{$\vcenter{\hbox{\includegraphics[height=\fontcharht\font`\/]{img/trollface.png}}}$}
 
 \lc{ Grammars }
 

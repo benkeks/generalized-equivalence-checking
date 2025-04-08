@@ -71,8 +71,9 @@ function isb(args)
           string.gsub(qualified_name, "%.", "\\allowbreak."), "_", "\\allowbreak\\_"))
     return pandoc.Note {
       pandoc.Inlines {
-        pandoc.RawInline("latex", "\\raggedright "),
-        pandoc.Str(tostring(args[1])),
+        pandoc.RawInline("latex", "\\raggedright \\!"),
+        pandoc.Image("isb", "img/isabelle.png", "Formalized in Isabelle", {height = "0.9em"}),
+        pandoc.Str(" " .. tostring(args[1])),
         pandoc.RawInline("latex", "~"),
         pandoc.Link(qualified_name_breakable,
           isb_session(args[2]) ..
@@ -82,7 +83,8 @@ function isb(args)
   else
     return pandoc.Note {
       pandoc.Inlines {
-        pandoc.Str(tostring(args[1] .. " ")),
+        pandoc.Image("isb", "img/isabelle.png", "Formalized in Isabelle", {height = "0.9em"}),
+        pandoc.Str(" " ..  tostring(args[1] .. " ")),
         pandoc.Link(qualified_name,
           isb_session(args[2]) ..
           args[2] .. ".html#" .. qualified_name .. "|" .. type)
@@ -98,6 +100,7 @@ function code_link(args)
   url_name = string.gsub(qualified_name, "%.", "/")
   return
     pandoc.Inlines {
+      pandoc.Image("scala", "img/scalajs.png", "Implemented in Scala", {height = "0.8em"}),
       pandoc.Link(qualified_name,
         "https://github.com/benkeks/equivalence-fiddle/tree/main/" ..
         sub_project .. "/" .. url_name .. ".scala")

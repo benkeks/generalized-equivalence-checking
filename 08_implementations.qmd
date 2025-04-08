@@ -117,6 +117,7 @@ The source can also contain layout information and prescribe some preprocessing 
   Apply preprocessing to the transition system after translation of the CCS term (that is, before presentation and queries happen).
   This will affect the whole transition system.
   - `weakness_saturated` – Exchange transition relation to weak transitions, that is, there will be a transition whenever the original system allows $\stepweak\stepopt{\alpha}\stepweak$.
+  - `tauloop_compressed_marked` – Collapse states on $\tau$-loops and mark them with a $\delta$.
   - `bisim_minimized` – Merge states that are strongly bisimilar (preserves `main` processes).
   - `srbb_minimized`  – Merge states that are stability-respecting branching-bisimilar (preserves `main` processes; enforces `tau`-loops precisely on divergent states).
 - `@comment "My comment"` –
@@ -567,3 +568,54 @@ At the time of writing, another Bachelor project is underway to add a frontend a
 ## Discussion
 
 Preoder and equivalence checkers for more than 37 notions of strong and weak spectrum.
+
+The survey by @gl2022eqChecking includes hundreds of tools to check bisimilarity and related equivalences and preorders.
+Some also allow the construction of distinguishing formulas (or traces) to justify their output. 
+
+Many tools support special variants, e.g. timed or probabilistic.
+
+- FDR:
+
+  https://cocotec.io/fdr/manual/cspm/prelude.html
+
+  - strong bisim (as compression)
+  - delay bisim (as compression)
+  - weak bisim (as compression)
+
+  - weak trace model (as refinement model)
+  - stable failures (as refinement model)
+  - failures-divergences (as refinement model)
+
+- mCRL2
+  - strong bisim
+  - branching bisim
+  - divergence-preserving branching bisim
+  - weak bisim
+  - divergence-preserving weak bisim
+  - strong sim
+  - strong ready sim
+  - strong trace
+  - weak trace
+  - coupled sim
+  - failures
+  - stable failures
+  - impossible futures
+  - failures-divergence
+
+- CADP
+  - strong bisim
+  - branching bisim
+  - weak bisim (as observational equivalence)
+  - tau*.a-equivalence / safety equivalence
+  - strong trace
+  - weak trace
+
+- CAAL
+  - strong bisim
+  - weak bisim
+  - strong sim
+  - weak sim
+  - strong traces
+  - weak traces
+
+other generalizing characterizations -> strong spectro @lange2014modelCheckingProcEqs; experience @stoecker2024HOcalculiEqs suggests that 20 states already demand several seconds in this approach.

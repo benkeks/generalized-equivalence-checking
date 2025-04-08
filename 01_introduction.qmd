@@ -274,7 +274,7 @@ This is analogous to the *spectrum of light* where seemingly qualitative propert
 For light (i.e. electromagnetic radiation), the mix of wavelengths can be determined through a process called *spectroscopy*.
 So, we could reframe the question behind this thesis also:
 
-::: {#idea-spectroscopy .callout-idea .callout-note}
+::: {#idea-spectroscopy .callout-idea .callout-tip}
 #### Spectroscopy?
 
 If there exists a “linear-time–branching time spectrum,” does this mean, there also is some kind of “linear-time–branching-time *spectroscopy*”?

@@ -27,7 +27,7 @@ This is where we arrive at “The Linear Time–Branching Time Spectrum II: The 
 We will reframe a big chunk of it to fit our modal framework.
 In particular, we try to be much more restricted in the use of special modalities than the presentation in @glabbeek1993ltbt.
 
-::: {#idea-weak-hml .callout-idea .callout-note}
+::: {#idea-weak-hml .callout-idea .callout-tip}
 #### A Weak Subset
 
 We can use a subset of $\hml$ to characterize most interesting weak equivalences.

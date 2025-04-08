@@ -24,7 +24,7 @@ But the weaker notions of the spectrum heavily limit how many conjunctions may b
 
 Our core trick will be to break the link between conjunctions and observation sequences in the game, analogously to the *subset construction* on finite automata.
 
-::: {#idea-subset-construction .callout-idea .callout-note}
+::: {#idea-subset-construction .callout-idea .callout-tip}
 #### Subsets to break up observations and conjunctions
 
 Trace-like notions can be addressed in the spectroscopy game by interjecting a *subset construction* on defender-controlled states between moves that correspond to observations and to conjunctions.
@@ -34,7 +34,7 @@ This will lead to exponential blow-up.
 Some of it can be alleviated, as we will see in @sec-specific-spectro-games.
 In @sec-deciding-individual-eqs, we discuss how to get rid of the blowup where possible when instantiating the game to *decide equivalences individually*.
 
-::: {#idea-instance-games .callout-idea .callout-note}
+::: {#idea-instance-games .callout-idea .callout-tip}
 #### Generating equivalence checkers
 
 By instantiating the spectroscopy game with known initial energies and exploiting the supply of conjunction moves, we can derive efficient decision procedures for individual equivalences.

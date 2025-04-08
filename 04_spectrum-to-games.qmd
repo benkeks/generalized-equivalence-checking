@@ -28,7 +28,7 @@ We already know that winning attacker strategies in the bisimulation game corres
 All we need on top of this is a way of quantifying the amount of syntactic expressiveness in these formulas *during the game*.
 For this, we employ the first core idea of this chapter:
 
-::: {#idea-energy-games .callout-idea .callout-note}
+::: {#idea-energy-games .callout-idea .callout-tip}
 #### Quantitative games for quantitative problems
 
 Spectra of equivalence problems can be encoded as energy games.
@@ -40,7 +40,7 @@ After introducing such games in @sec-energy-games, we will prove in @sec-charact
 
 The second core idea is how to compute these winning budgets:
 
-::: {#idea-deciding-energy-games .callout-idea .callout-note}
+::: {#idea-deciding-energy-games .callout-idea .callout-tip}
 #### Computing cheapest wins
 
 Attacker's winning budgets in energy reachability games can be computed by a generalized shortest paths algorithm.
@@ -685,7 +685,7 @@ A decision procedure for winning budgets in declining energy games.
 
 This section is about how to compute which energy budgets are winning for the attacker (or the defender) at positions of an energy game:
 
-::: {#prob-energy-game-problem .problem .callout-problem .callout-note}
+::: {#prob-energy-game-problem .problem .callout-problem .callout-tip}
 #### Monotonic Energy Game Winner Problem
 
 In the context of an energy system $(\abstractenergies, \leq)$ and a finite energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$, the *energy game winner problem* goes:

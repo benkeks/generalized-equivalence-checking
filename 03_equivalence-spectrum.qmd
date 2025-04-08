@@ -23,7 +23,7 @@ However, we will order the equivalences using the approach of parameterized *not
 
 The first core idea of this chapter is:
 
-::: {#idea-hierarchy .callout-idea .callout-note}
+::: {#idea-hierarchy .callout-idea .callout-tip}
 #### Notions of observability bring order
 
 Groups of equivalences can be defined and ranked in lattices of notions of observability.
@@ -33,7 +33,7 @@ In particular, @sec-ltbt-spectrum will introduce such a spectrum, forming a hier
 
 From there, we will quickly run into the second core idea:
 
-::: {#idea-spectroscopy .callout-idea .callout-note}
+::: {#idea-spectroscopy-prob .callout-idea .callout-tip}
 #### We have a Spectroscopy problem
 
 We can ask what equivalences from a spectrum are the most fitting to relate two states.
@@ -791,7 +791,7 @@ We will also collect first thoughts on its complexity.
 The problem has originally been introduced in @bjn2022decidingAllBehavioralEqs as the “abstract observation preorder problem” with respect to modal characterizations of the strong spectrum.
 We here reintroduce it in a more generic form.
 
-::: {#prob-spectroscopy-problem .problem .callout-problem .callout-note}
+::: {#prob-spectroscopy-problem .problem .callout-problem .callout-tip}
 #### Spectroscopy Problem
 
 In the context of a transition system $\system$ and a spectrum $(\notions, \leq, \observationsvar{N \in \notions})$, the *spectroscopy problem* asks:

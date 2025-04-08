@@ -312,7 +312,9 @@ P(x=150, y=50, main)
 Q(x=400, y=50, main)
 ```
 
-Starting `@compare` (on {{<equivio>}}) triggers a spectroscopy along the lines we have discussed, leading to the output:
+Starting `@compare` (on {{<equivio>}}) triggers a spectroscopy along the lines we have discussed, leading to the output:^[
+  The spectroscopy game on this example, can also be explored in a computer game, see @sec-spectro-invaders.
+]
 
 ```
 • Preordered by:

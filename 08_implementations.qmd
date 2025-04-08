@@ -432,7 +432,72 @@ However, the two are not bisimilar in any sense, since local progress from one i
 
 ### Computer Game: *The Spectroscopy Invaders* {#sec-spectro-invaders}
 
-@trzeciakiewicz2021ltbtBrowserGame
+@trzeciakiewicz2021ltbtBrowserGame implements the computer game “The Spectroscopy Invaders” where one plays the attacker in the spectroscopy game.
+You can enjoy the game in the browser at <https://concurrency-theory.org/ltbt-game/>.
+
+A play of the game corresponds to naming a universal attack strategy in the strong spectroscopy game of @def-strong-spectroscopy-game, or, equivalently, to constructing a distinguishing formula.
+To reach maximal level scores, one has to play out a minimal formulas in the sense of our pricing.
+Under the hood, the TypeScript implementation uses Bisping et al.'s [-@bjn2022decidingAllBehavioralEqs] algorithm to compute the minimal budgets,
+although the game does not present the costs of moves to the player.
+
+:::{#fig-spectro-invaders-screenshot-simple}
+
+:::: {.content-visible when-format="html"}
+{{< video https://github.com/Marii19/the-spectroscopy-invaders/raw/refs/heads/main/public/assets/videos/negation_move.mp4 >}}
+::::
+:::: {.content-visible unless-format="html"}
+![](img/spectro-invaders-2.png){.lightbox}
+::::
+
+Screenshot of browser game “The Spectroscopy Invaders.”
+:::
+
+\noindent
+@fig-spectro-invaders-screenshot-simple gives a screenshot of the first level of the “Failure” world.^[
+  In the online version of this thesis, it is actually a screen capture by Trzeciakiewicz, illustrating negation moves in the game tutorial.
+]
+This level corresponds exactly to the classic @exm-ts if we match the orange transitions to $\tau$-steps, blue to $\literal{a}$, and yellow to $\literal{b}$.
+The metaphor on top of the game mechanics is that the human-controlled hero (left) has to outmaneuver a group of elves (right) that might split up on non-deterministic transitions.
+
+From @exm-spectroscopy-classic-ts, we know that the failure $\hmlobs{\tau}\hmlneg\hmlobs{\literal{a}}$ is a cheapest distinction of the left state from the right in this system.
+In the game, we would use this distinction as follows:
+First click on the state behind the left-most orange transition to *observe* it.
+Then, click on the “negation” button ![](img/spectro-invaders-swap.png){width=1em} to swap sides of hero and elve.
+Defeat the elve by moving along the right-most yellow edge.
+
+The handling of conjunctions is a little more involved.
+
+:::{#fig-spectro-invaders-screenshot}
+
+![](img/spectro-invaders-1.png){.lightbox}
+
+Second level of *Simulation* world.
+:::
+
+\noindent
+@fig-spectro-invaders-screenshot shows the second level of the “Simulation” world.
+In the level, the player's task is to distinguish
+$\ccsprefix{\literal{white}}(\literal{red} \ccschoice \ccsprefix{\literal{orange}}\literal{orange})$ (left) from
+$\ccsprefix{\literal{white}}(\literal{red}\ccschoice\literal{orange}) \ccschoice \ccsprefix{\literal{white}}\ccsprefix{\literal{orange}}\literal{orange}$ (right).
+The current game position occurs after the first white observation and corresponds to $\attackerpos{\literal{red} \ccschoice \ccsprefix{\literal{orange}}\literal{orange}, \set{\literal{red}\ccschoice\literal{orange}, \ccsprefix{\literal{orange}}\literal{orange}}}$ in the strong spectroscopy game $\gamespectroscopy$,
+as indicated by the hero figure on the left and the two elves on the right.
+
+The player can click the “conjunct” button ![](img/spectro-invaders-conjunction.png){width=1em},
+after which they have to explain how to win $\attackerpos[\land]{\literal{red} \ccschoice \ccsprefix{\literal{orange}}\literal{orange}, \literal{red}\ccschoice\literal{orange}}$
+and then $\attackerpos[\land]{\literal{red} \ccschoice \ccsprefix{\literal{orange}}\literal{orange}, \ccsprefix{\literal{orange}}\literal{orange}}$.
+In the split state, the player can first click through the yellow-arrow succesor states on the left to point out that the left elve cannot observe two yellow steps.
+Then, they also have to name how to defeat the right elve, by taking the red transition.
+Together, this strategy corresponds to the simulation formula $\hmlands\set{\hmlobs{\literal{yellow}}\hmlobs{\literal{yellow}}, \hmlobs{\literal{red}}}$.
+
+The game is single-player, also in a theoretical sense:
+There is no picking of conjunction answers by the defender.
+Instead, the attacker has to name attacks for every right-hand state.
+Due to nested conjunctions, the game positions thus actually are sets of $\attackerpos{p, Q}$ tuples.
+
+@trzeciakiewicz2021ltbtBrowserGame limits the scope to (strong) trace, failure, possible-future, simulation, and bisimulation equivalences,
+excluding notions like readiness, ready traces, and failure traces.
+This allows for slightly simpler game rules, in particular, without revival moves.
+This allows to nicely showcase the core mechanics of @sec-strong-spectroscopy with a stricter correspondence to procductions in the original HML of @def-hml.
 
 ### CAAL Extension {#sec-spectroscopy-caal}
 

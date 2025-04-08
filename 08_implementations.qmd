@@ -117,7 +117,7 @@ The source can also contain layout information and prescribe some preprocessing 
   Apply preprocessing to the transition system after translation of the CCS term (that is, before presentation and queries happen).
   This will affect the whole transition system.
   - `weakness_saturated` – Exchange transition relation to weak transitions, that is, there will be a transition whenever the original system allows $\stepweak\stepopt{\alpha}\stepweak$.
-  - `bisim_minimized` – Merge states that are strongly bisimilar (preserves `main` processses).
+  - `bisim_minimized` – Merge states that are strongly bisimilar (preserves `main` processes).
   - `srbb_minimized`  – Merge states that are stability-respecting branching-bisimilar (preserves `main` processes; enforces `tau`-loops precisely on divergent states).
 - `@comment "My comment"` –
   Any `@something`-tag without features can serve to add comments in the model.
@@ -129,7 +129,7 @@ Thereby, we settle the question with respect to which equivalences the protocoll
 We follow the presentation of how to model this protocol in CCS from @ails2007reactiveSystems [Chapter 7], with action names chosen to align with @glabbeek2023mutexTimeouts.
 
 We *specify* mutual exclusion as a system `Mx` of two alternating users `A` and `B` entering their critical section `ecA` / `ecB` and leaving `lcA` / `lcB` before the other may enter.
-@ails2007reactiveSystems [Equation 7.1] suggest the following specifation in CCS:
+@ails2007reactiveSystems [Equation 7.1] suggest the following specification in CCS:
 
 ```ccs
 Mx = ecA.lcA.Mx + ecB.lcB.Mx
@@ -430,11 +430,17 @@ However, the two are not bisimilar in any sense, since local progress from one i
 
 ## Student Implementations
 
+There exist three other implementations of the equivalence spectroscopy algorithm by students of mine.
+Each covers a different directions:
+In @sec-spectro-invaders, we discuss *The Spectroscopy Invaders*, a computer-game version, which has an educational purpose.
+@sec-spectroscopy-caal presents an extension to an existing educational tool, the Concurrency Workbench Aalborgh Edition.
+@sec-gpu-equiv closes by reporting on *gpuequiv*, a performance-centric shader-based implementation using the modern WebGPU standard.
+
 ### Computer Game: *The Spectroscopy Invaders* {#sec-spectro-invaders}
 
 Would it not be nice if one could *play* the spectroscopy game *as a game*?
 
-@trzeciakiewicz2021ltbtBrowserGame implements the computer game “The Spectroscopy Invaders” where one plays the attacker in the spectroscopy game.
+@trzeciakiewicz2021ltbtBrowserGame develops the computer game “The Spectroscopy Invaders” where one plays the attacker in the spectroscopy game.
 You can enjoy the game in the browser at <https://concurrency-theory.org/ltbt-game/>.
 
 A play of the game corresponds to naming a universal attack strategy in the strong spectroscopy game of @def-strong-spectroscopy-game, or, equivalently, to constructing a distinguishing formula.
@@ -509,7 +515,7 @@ Would it not be nice if one could use the equvialence spectroscopy in existing t
 @strassnickOzegowski2024weakCAAL also add the weak spectroscopy game and possibilities to play the spectroscopy game in the tool.
 Their extended version of CAAL is live on <https://equivio.github.io/CAAL/>.
 
-The original CAAL (on <https://caal.cs.aau.dk/>) covers the curriculum of @ails2007reactiveSystems, including CCS processes, HML formulas and equivalence games.
+The original CAAL (on <https://caal.cs.aau.dk/>) covers the curriculum of Rective Sytems [@ails2007reactiveSystems], including CCS processes, HML formulas and equivalence games.
 
 But CAAL originally only supports preorder/equivalence checking for six standard notions, namely for simulation, bisimulation, and traces, in their standard strong and weak variants.
 Only simulation and bisimulation can be examined as games.
@@ -519,7 +525,7 @@ Each of the notions can be decided individually, or in the context of a spectros
 For the strong notions, the game graph can be explored interactively.
 @fig-caal-screenshot shows the output of strong and weak spectroscopy on the classic @exm-ts, together with a generated distinguishing failure formula in the HML dialect of CAAL.
 
-:::{#fig-caal-screenshot}
+:::{#fig-caal-screenshot fig-pos="th"}
 
 ![](img/caal-extension.png){.lightbox}
 
@@ -537,7 +543,26 @@ Still, the project shows that the spectroscopy approach is sufficiently simple a
 
 Would it not be nice if one could use modern hardware to perform spectroscopies as fast as possible?
 
-@vogel2024energyGamesWebGPU
+@vogel2024energyGamesWebGPU implements the strong equivalence spectroscopy in *gpuequiv* using shaders in the WebGPU Shading Language @w3c2025wgsl.
+
+Technically, this is superior to the other three implementations of this chapter, which can only exploit the single-threaded CPU model of JavaScript when running in the browser.
+
+Histroically, the WebGL standard for browser graphics processing has lacked compute shaders.
+This has made it difficult to access the computational power of graphics processing units from within web applications.
+With WebGPU/WGSL [@w3c2025wgsl], times are changing.
+@vogel2024energyGamesWebGPU makes this progress available to the spectroscopy approach.
+
+Big parts of the game graph construction and the game solving are quite parallizable.
+Therefore, for instance, a whole batch of game positions on a `todo`-list in @alg-deciding-energy-games can be processed simultaneously.
+The details are explained in @vogel2024energyGamesWebGPU.
+
+gpuequiv's control code surrounding the shader invocations is written in Rust that can be compiled to native code and to JavaScript.
+Therefore, gpuequiv can be compiled for both kinds of targets:
+Quick equivalence checking in the browser, and even quicker checking in a native application.
+@vogel2024energyGamesWebGPU reports 10⨯ speed-ups.
+However, the fast growth of game graphs remains a limiting factor as larger examples run into the size boundary of buffers to upload game moves.
+
+At the time of writing, another Bachelor project is underway to add a frontend and support for the weak spectroscopy game to gpuequiv.
 
 ## Discussion
 

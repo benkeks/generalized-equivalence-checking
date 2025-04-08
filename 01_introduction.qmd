@@ -332,7 +332,7 @@ More precisely, we make the following contributions, each coming with a “side 
 - @sec-silent-step-spectroscopy adapts the game for the *weak spectrum of equivalences*.
   - Side quest: Isabelle/HOL formalization.
 - WIP @sec-implementations showcases implementations to conveniently perform equivalence spectroscopies in web browsers.
-  - Side quest: GPU parallelization.
+  - Side quest: Peterson's mutual exclusion.
 
 ## Artifacts and Papers
 

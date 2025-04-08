@@ -401,6 +401,55 @@ However, the two are not bisimilar in any sense, since local progress from one i
 
 ### Program Structure
 
+::: {#fig-equivio-flow fig-pos='t' fig-env="figure*"}
+```tikz
+\begin{tikzpicture}[auto,node distance=2cm,
+  algstep/.style={minimum width=2.5cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
+  \node[algstep] (Source) {Source};
+  \node[algstep, below of=Source] (Syntax) {CCS system \\ \texttt{ccs.Syntax}};
+  \node[algstep, right of=Syntax, node distance=6.1cm] (TS) {Transition system \\ \texttt{WeakTransitionSystem}};
+  \node[algstep, below left of=TS, node distance=4cm] (SpectroGame) {Game + winning budgets \\ \texttt{StrongSpectroscopyGame}\\ or \texttt{WeakSpectroscopyGame}};
+  \node[algstep, right of=TS, node distance=7cm] (Result) {Result \\ \texttt{SpectroscopyResult}};
+  \node[algstep, below of=Result, node distance=1.5cm] (Notions) {Finest notions \\ \texttt{ObservationNotion[]}};
+  \node[algstep, below of=Notions, node distance=1.5cm] (Formulas) {Distinguishing formulas \\ \texttt{HML.Formula[]}};
+  \node[right of=Notions, node distance=5.5cm, align=center] (PriceYesNo) {Price okay? \\ $✔$ / $✗$};
+  \node[right of=Formulas, node distance=5.5cm, align=center] (DistinctionYesNo) {Distinguishing? \\ $✔$ / $✗$};
+  \node[algstep, above of=Result] (Output) {Visualization};
+
+  \draw
+    (Source) edge[->, swap] node {\texttt{ccs.Parser}} (Syntax)
+    (Syntax) edge[->] node {\texttt{ccs.Interpreter}} (TS)
+    (TS) |- ([yshift=1cm]SpectroGame.north) edge[->] node {\texttt{EnergyGame.populateGame}} (SpectroGame)
+    (SpectroGame) edge node[->, swap] {\texttt{buildHMLWitness}} (Formulas)
+    (Formulas) edge node[->, swap] {\texttt{hml.Interpreter}} (DistinctionYesNo);
+\end{tikzpicture}
+```
+
+  <!-- \node[algstep, below of=TS, node distance=7.8cm] (BisimGame) {Bisimulation \\ game ${{\game}^{\system}_{\notionname{B}}}$};
+  \node[algstep, right of=BisimGame, node distance=7cm] (WinningRegion) {Winning regions\\$\attackerwins^{{\game}^{\system}_{\notionname{B}}}$ and $\defenderwins^{{\game}^{\system}_{\notionname{B}}}$};
+  \node[draw, diamond, above of=WinningRegion, node distance=2cm, minimum width=.8cm, minimum height=.8cm] (Decision) {};
+  \node[algstep, above left of=Decision] (Relation) {Bisimulation \\ relation $\rel{R}_s$};
+  \node[algstep, above right of=Decision] (Formula) {Distinguishing \\ formula $\varphi_s$};
+  \node[algstep, above of=WinningRegion, node distance=7.8cm] (Output) {Yes / No};
+  \node[above of=Relation, node distance=2.5cm] (Yes) {Certifiably yes $✔$};
+  \node[above of=Formula, node distance=2.5cm] (No) {$✗$ Certifiably no};
+  \path
+    (TS) edge[->, swap] node {Def.~2.20} (BisimGame)
+    (TS) edge[->, dashed] node {Bisimilar?} (Output)
+    (BisimGame) edge[->] node {Alg.~2.1} (WinningRegion)
+    (WinningRegion) edge[->, swap] node {$[p,q] \in \defenderwins^{{\game}^{\system}_{\notionname{B}}}$} (Decision)
+    (Decision) edge[->] node {Yes: Thm.~2.2\vphantom{p}} (Relation)
+    (Decision) edge[->, swap] node {No: Lem.~2.10\vphantom{p}} (Formula)
+    (Relation) edge[->] node[align=right] {Check relation fulfills \\ bisimulation Def.~2.6\vphantom{p}} (Yes)
+    (Formula) edge[->, swap] node[align=left] {Check distinction using \\ HML game Def~2.19 + Alg.~2.1\vphantom{p}} (No);
+  \draw
+    (Output.south) |- (Yes.east)
+    (Output.south) |- (No.west); -->
+
+Process flow in equiv.io
+:::
+
+
 - Parsing
   {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.ccs.Parser >}}
   `ccs.Syntax.Definition`
@@ -420,12 +469,12 @@ However, the two are not bisimilar in any sense, since local progress from one i
     {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.spectroscopy.WeakSpectroscopy >}}
 - Distinguishing formulas.
     - Pricing
-        {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.hml.ObservationNotionWeak >}}
+        {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.hml.WeakObservationNotion >}}
         Check that formula price matches the one predicted by the game
     - Interpretation for validity
-        {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.hml.HMLInterpreter >}}
-- `SpectroscopyResult` from
-    {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.spectroscopy.SpectroscopyInterface >}}
+        {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.hml.Interpreter >}}
+- `Spectroscopy.Result` from
+    {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.spectroscopy.Spectroscopy >}}
 
 ### Benchmarks
 

@@ -1143,7 +1143,7 @@ Its undo-update according to @def-declining-upd-inv computes $\energyupdateinv((
 Effects of $\textcolor{DarkGreen}{\energyupdate((\updmin{1,2},-1), \cdot)}$ and their undoing $\textcolor{DarkViolet}{\energyupdateinv((\updmin{1,2},-1), \cdot)}$.
 ::::
 
-For insance, we can observe the handling of non-invertibility:
+For instance, we can observe the handling of non-invertibility:
 
 - $\energyupdateinv((\updmin{1,2},-1), (2,1)) = (2,2)$
 - $\energyupdateinv((\updmin{1,2},-1), (2,0)) = (2,2)$

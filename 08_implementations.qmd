@@ -115,11 +115,13 @@ The source can also contain layout information and prescribe some preprocessing 
   They must be verbatim the string representation the tool uses for the normalized process.
 - `@preprocessing method1, method2...` –
   Apply preprocessing to the transition system after translation of the CCS term (that is, before presentation and queries happen).
-  This will affect the whole transition system.
+  This will affect the whole transition system, but tries to preserve processes that have been marked as `main`.
+  The order of processing steps can make a differnce.
   - `weakness_saturated` – Exchange transition relation to weak transitions, that is, there will be a transition whenever the original system allows $\stepweak\stepopt{\alpha}\stepweak$.
   - `tauloop_compressed_marked` – Collapse states on $\tau$-loops and mark them with a $\delta$.
-  - `bisim_minimized` – Merge states that are strongly bisimilar (preserves `main` processes).
-  - `srbb_minimized`  – Merge states that are stability-respecting branching-bisimilar (preserves `main` processes; enforces `tau`-loops precisely on divergent states).
+    (This follows the thought of how to make equivalence queries divergence-respecting from @sec-extending-to-other-eqs.)
+  - `bisim_minimized` – Merge states that are strongly bisimilar.
+  - `srbb_minimized`  – Merge states that are stability-respecting branching-bisimilar (enforces `tau`-loops precisely on divergent states).
 - `@comment "My comment"` –
   Any `@something`-tag without features can serve to add comments in the model.
 

@@ -1192,7 +1192,7 @@ $\game_\literal{leq}$ is quite archetypical for the preorder and equivalence gam
 But do not worry, the following games will demand the players to make choices.
 :::
 
-### The Semantic Game of HML
+### The Semantic Game of HML {#sec-hml-semantic-game}
 
 As first bigger example of how recursive definitions can be turned into games, let us quickly look at a standard way of characterizing the semantics of HML (@def-hml-semantics) through a game.
 The defender wins precisely if the game starts from a state and formula such that the state satisfies the formula.

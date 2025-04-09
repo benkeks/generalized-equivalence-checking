@@ -98,6 +98,9 @@ function code_link(args)
   sub_project = args[1]
   qualified_name = args[2]
   url_name = string.gsub(qualified_name, "%.", "/")
+  if quarto.doc.isFormat('pdf') then 
+    qualified_name = pandoc.RawInline("latex", string.gsub(qualified_name, "%.", ".\\allowbreak{}"))
+  end
   return
     pandoc.Inlines {
       pandoc.Image("scala", "img/scalajs.png", "Implemented in Scala", {height = "0.8em"}),

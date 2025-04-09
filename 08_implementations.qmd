@@ -81,7 +81,7 @@ The standard queries are:
 | `readiness`            | `weak-readiness`                     | `stable-readiness`                         |
 | `failure-trace`        |                                    | `stable-failure-trace`                     |
 | `ready-trace`          |                                    | `stable-ready-trace`                       |
-| `impossible-future`    | `weak-impossible-future`             |                                          |
+| `impossible-future`    | `weak-impossible-future`             | `s-impossible-future`                    |
 | `possible-future`      | `weak-possible-future`               |                                          |
 | `simulation`           | `weak-simulation`                    | `stable-simulation`                        |
 | `ready-simulation`     | `weak-ready-simulation`              | `s-ready-simulation`                       |
@@ -503,8 +503,6 @@ Besides the core-flow, there are some small additional diagnostic features.
 For instance, {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.SpectroscopyFramework >}} can save the spectroscopy game graph and formulas in Graphviz-format using {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.GameGraphVisualizer >}}, comparable to @fig-bisim-sim-game-energies.
 The output of the same mechanism for {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.EquivalenceChecking >}} appears, for example, in the derived trace game of @fig-derived-trace-eq-game.
 
-
-
 ### Benchmarks
 
 (TODO: Maybe)
@@ -647,55 +645,86 @@ At the time of writing, another Bachelor project is underway to add a frontend a
 
 ## Discussion
 
-Preorder and equivalence checkers for more than 37 notions of strong and weak spectrum.
+In this chapter, we have surveyed the four existing implementations of the spectroscopy algorithm.
 
-The survey by @gl2022eqChecking includes hundreds of tools to check bisimilarity and related equivalences and preorders.
-Some also allow the construction of distinguishing formulas (or traces) to justify their output. 
+We focussed on {{<equivio>}}, which closely aligns with this thesis.
+It can check behavioral preorders and equivalences for more than 38 notions of strong and weak spectrum.
+Due to the possibility to mark divergences, even more notions are available.
 
-Many tools support special variants, e.g. timed or probabilistic.
+{{< paragraph_heading "Other tools." >}}
+A recent survey by @gl2022eqChecking lists hundreds of tools to check bisimilarity and related equivalences and preorders.
+Some of them can justify their output with distinguishing formulas (or traces), similar to our approach.
+Many specific tools address special equivalences, for instance for open, timed, or probabilistic systems, which we do not support.
+On the other hand, {{<equivio>}} might be the first tool to cover some of the more arcane notions of the weak spectrum [@glabbeek1993ltbt], such as $\eta$-similarity and stable bisimilarity.
 
-- FDR:
+In @tbl-tool-comparison, we compare the supported notions of {{<equivio>}} to four current state-of-the-art tools.
+A ✔ stands for direct support, (✔) for support through or as preprocessing.
 
-  https://cocotec.io/fdr/manual/cspm/prelude.html
+```{=latex}
+\afterpage{\clearpage
+% fix to make the table float in spite of Pandoc's hardcoded longtable usage...
+% push to next page to fix the problem of longtable breaking pages with other floats -_-
+\begin{table}[b!]
+```
+::: {#tbl-tool-comparison}
 
-  - strong bisim (as compression)
-  - delay bisim (as compression)
-  - weak bisim (as compression)
+| Equivalence / preorder                  | equiv.io | CAAL  | mCRL2 | CADP | FDR4 |
+|:-----------------------------------|:-----:|:-----:|:-----:|:-----:|:-----:|
+| Strong / weak enabledness               | ✔       |       |       |      |      |
+| Strong trace                            | ✔       | ✔     | ✔     |  ✔   |      |
+| Weak trace                              | ✔       | ✔     | ✔     |  ✔   |  ✔   |
+| Strong failure                          | ✔       |       | ✔     |      |      |
+| Weak failure                            | ✔       |       |       |      |      |
+| Stable failure                          | ✔       |      | ✔     |      |  ✔   |
+| Failure-divergence                      | (✔)     |      | ✔     |      |  ✔   |
+| Strong / stable revivals                | ✔       |       |       |      |      |
+| Strong / weak / stable readiness        | ✔       |       |       |      |      |
+| Strong / stable failure-trace           | ✔       |       |       |      |      |
+| Strong / stable ready-trace             | ✔       |       |       |      |      |
+| Strong / stable impossible fut.         | ✔       |       |       |      |      |
+| Weak impossible future                  | ✔       |       | ✔     |      |      |
+| Strong / weak possible future           | ✔       |       |       |      |      |
+| Strong simulation                       | ✔       | ✔     | ✔     |      |      |
+| Weak simulation                         | ✔       | ✔     |       |      |      |
+| Stable simulation                       | ✔       |       |       |      |      |
+| $\eta$-simulation                       | ✔       |       |       |      |      |
+| Safety / $\tau^*.a$                     |         |       |       |  ✔   |      |
+| Strong ready-simulation                 | ✔       | ✔     | ✔     |      |      |
+| Weak / stable ready-simulation          | ✔       |       |       |      |      |
+| 2-nested strong / weak sim.             | ✔       |       |       |      |      |
+| Strong bisimulation                     | ✔       | ✔     | ✔    |  ✔   | (✔)  |
+| Contrasim. / stable bisim.              | ✔       |       |       |      |      |
+| Coupled simulation                      |         | ✔     | ✔     |      |      |
+| Weak bisimulation                       | ✔       | ✔     | ✔     |  ✔   | (✔)  |
+| Div.-pr. weak bisim.                    | (✔)     |       | ✔     |      | (✔)  |
+| Delay bisimulation                      | ✔       |       |       |      | (✔)  |
+| Stability-resp. delay bisim.            | ✔       |       |       |      |      |
+| $\eta$-bisimulation                     | ✔       |       |       |      |      |
+| Branching bisimulation                  | ✔       |       | ✔     |  ✔   |      |
+| Stability-resp. branch. bisim.          | ✔       |       |       |      |      |
+| Div.-pr. branching bisim.               | (✔)     |       | ✔     |      | (✔)   |
 
-  - weak trace model (as refinement model)
-  - stable failures (as refinement model)
-  - failures-divergences (as refinement model)
+Comparison of supported notions.
+:::
 
-- mCRL2
-  - strong bisim
-  - branching bisim
-  - divergence-preserving branching bisim
-  - weak bisim
-  - divergence-preserving weak bisim
-  - strong sim
-  - strong ready sim
-  - strong trace
-  - weak trace
-  - coupled sim
-  - failures
-  - stable failures
-  - impossible futures
-  - failures-divergence
+``` {=latex}
+\end{table}
+}
+```
 
-- CADP
-  - strong bisim
-  - branching bisim
-  - weak bisim (as observational equivalence)
-  - tau*.a-equivalence / safety equivalence
-  - strong trace
-  - weak trace
+- **CAAL** [@aaehlow2015caal], or the “Concurrency Workbench Aalborg Edition,” also works with CCS and has already been discussed in @sec-spectroscopy-caal.
+- **mCRL2** [@groote2014mcrl2], built around a ACP/CCS-like modelling language of the same name, supports a wide-range of notions with highly efficient implementations and a strong focus on branching bisimilarity.
+  On the notions it supports, it will generally be much faster than the spectroscopy-game algorithm.
+  The only notion that is exclusively supported by mCRL2 is coupled similarity, implemented by @le2020coupledSimMcrl2.
+- **CADP** [@garavel2013cadp] can check several notions on-the-fly, also in a highly optimized fashion.
+  Its models are usually expressed in LOTOS or LNT, deriving from CSP.
+  It includes the special notions of safety- and $\tau^*.a$-equivalence, not present in @glabbeek1993ltbt.
+- **FDR4** [@grabr2014fdr] has “Failures Divergences Refinement” in its name, but also supports different linear-time refinement models for CSP.
+  Branching-time notions are partially supported as minimizers.
 
-- CAAL
-  - strong bisim
-  - weak bisim
-  - strong sim
-  - weak sim
-  - strong traces
-  - weak traces
+{{< paragraph_heading "Other avenues." >}}
+
+- SMT / symbolic
+- handling of pareto frontiers
 
 other generalizing characterizations -> strong spectro @lange2014modelCheckingProcEqs; experience @stoecker2024HOcalculiEqs suggests that 20 states already demand several seconds in this approach.

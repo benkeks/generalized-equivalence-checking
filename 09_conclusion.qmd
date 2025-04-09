@@ -13,3 +13,5 @@ There is a rich body of work on *process equivalence checking* and *refinement c
 This thesis argues that most of it can be viewed through one unified lense of *finding differences* in behavior.
 
 - Weak spectro -> strong spectro -> polynomial spectro -> Stirling bisim -> HM Thm
+
+@garavel2023calculiWrong “Time has come for encyclopedic synthesis: reexamine / select / simplify / sort”

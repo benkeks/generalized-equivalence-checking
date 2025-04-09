@@ -38,7 +38,7 @@ On the next pages, we *upgrade the spectroscopy game* of @sec-stong-spectro-game
 
 The weak spectroscopy game, in many respects, is just like the spectroscopy games we have already discussed:
 The attacker, trying to distinguish states, has different paths that move closely along the productions of the $\hmlsrbb$-grammar (@def-hml-srbb).
-But this time, there are *four* different kidns of non-empty conjunctions!
+But this time, there are *four* different kinds of non-empty conjunctions!
 This makes the following schematic depiction in @fig-weak-spectroscopy-game-schematic already look quite entangled.
 
 :::{#fig-weak-spectroscopy-game-schematic fig-env='figure*' fig-pos='t'}
@@ -267,9 +267,7 @@ A similar sequence of moves works for weak failures.
 For weak simulation, we know that $\literal{P}$ is strongly simulated by $\literal{Q}$, which transfers to the weak game in the sense that we also can not find a weak simulation distinction in this direction. The attacker must pass through a negative-conjunct move to exploit that $\literal{P}$ resolves the choice quicker than $\literal{Q}$.
 
 <!--
-The weak failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ discussed in @sec-abstraction-failures corresponds to the following game moves, needing budget $(1,0,1,0,0,0,1,1)$ for delay--procrastination--late conj.--conj.answer--negative conjunct:
-
-$$\attackerpos{\literal{P}, \set{\literal{Q}}} \gamemove{\;\zerovec\;}
+The weak failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ discussed in @sec-abstraction-failures corresponds to the following game moves, needing budget $(1,0,1,0,0,0,1,1)$ for delay--procrastination--late conj.--conj.answer--negative conjunct:$$\attackerpos{\literal{P}, \set{\literal{Q}}} \gamemove{\;\zerovec\;}
   \attackerpos[\epsilon]{\literal{P}, \set{\literal{Q}, \literal{q_{ab}}}} \gamemove{\;\zerovec\;}
   \attackerpos[\epsilon]{\literal{p_1}, \set{\literal{Q}, \literal{q_{ab}}}} \gamemove{\;\zerovec\;}
   \defenderpos{\literal{p_1}, \set{\literal{Q}, \literal{q_{ab}}}} \gamemove{-\unitvec{1}}$$
@@ -448,7 +446,7 @@ Strategy formulas for the weak spectroscopy.
 Attacker winning budgets can be translated into strategy formulas of matching price.
 
 ::: {#lem-weak-spectroscopy-game-formulas}
-If $e \in \attackerwins(\attackerpos{p,Q})$, then there is $\varphi \in \stratweak (\attackerpos{p,Q}, e)$ with $\expr[\literal{weak}](\varphi) \leq e$.{{<isb lemma Strategy_Formulsas weak_spectroscopy_game.winning_budget_implies_strategy_formula>}}
+If $e \in \attackerwins(\attackerpos{p,Q})$, then there is $\varphi \in \stratweak (\attackerpos{p,Q}, e)$ with $\expr[\literal{weak}](\varphi) \leq e$.{{<isb lemma Strategy_Formulas weak_spectroscopy_game.winning_budget_implies_strategy_formula>}}
 :::
 :::proof
 
@@ -757,7 +755,7 @@ For this project, we will use the {{<equivio>}} CCS dialect.
 
 ### Parallelizing Compilers {#sec-solution-parallelizing-compilation}
 
-In @exm-parallelizing-compilation, we have discussed the eample of parallelizing compilation.
+In @exm-parallelizing-compilation, we have discussed the example of parallelizing compilation.
 @bell2013certifiably reports on the search for a fitting notion of equivalence to prove the equivalence of sequential and parallelized program, $\literal{P_{Seq}}$ and $\literal{P_{Para}}$.
 
 We model the computation of $\literal{A} / \literal{B}$ as a parallel process `Compute` that outputs one of the two options (`computeA`/`computeB`).
@@ -803,12 +801,12 @@ These are the equivalences of contrasimilarity and stable bisimilarity, and belo
 
 TODO: Add Screenshot
 
-This nicely shows that our spectroscopy algorithm allows to survey the whole spectrum of possible equivalences beteween such small processes in milliseconds.
+This nicely shows that our spectroscopy algorithm allows to survey the whole spectrum of possible equivalences between such small processes in milliseconds.
 Such a mechanized survey would certainly have facilitated the research behind @bell2013certifiably. 
 
 ### $\tau$-Abstraction and Failures
 
-@sec-abstraction-failures has introduced a transition system with two states $\literal{P}_e$ and $\literal{P}_\ell$ that perform nondeterministic $\literal{op}$-step that only $\literal{P}_\ell$ can corect while $\literal{idle}$-ing.
+@sec-abstraction-failures has introduced a transition system with two states $\literal{P}_e$ and $\literal{P}_\ell$ that perform nondeterministic $\literal{op}$-step that only $\literal{P}_\ell$ can correct while $\literal{idle}$-ing.
 Though both processes are weak-failure-equivalent, their variants $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ where $\literal{idle}$-steps are relabelled to $\tau$-steps are not.
 
 To reconstruct this result on {{<equivio>}}, we first have to translate the processes of @fig-idle-process-abstraction to CCS.
@@ -1180,16 +1178,16 @@ Such a richer game model is the route taken by @ekw2017gamesBisimAbstraction to 
 
 {{<paragraph_heading "Behavioral congruences.">}}
 Famously, many of the unstable weak equivalences need to be refined in order to be congruences for CCS with choice “$\ccschoice$” [cf. @gfm2020congruenceOperator; @sangiorgi2012].
-For instance, *rooted* weak bisimulation congruence is achieved by allowing an $\hmleps\hmlobs{\tau}...$-oberservation at the outermost level of the HML characterization.
+For instance, *rooted* weak bisimulation congruence is achieved by allowing an $\hmleps\hmlobs{\tau}...$-observation at the outermost level of the HML characterization.
 Otherwise, weak bisimulation formulas have no $\hmlobs{\tau}$-parts (see @fig-weak-grammars-bisim-like).
 
 This thesis is not going deeper into congruences.
-But let us note that, clearly, the weak spectroscopy game could be extended by some prefix to enable such special observations for the attacker at the beginning if rootedness is deired.
+But let us note that, clearly, the weak spectroscopy game could be extended by some prefix to enable such special observations for the attacker at the beginning if rootedness is desired.
 
 {{<paragraph_heading "Coupled simulation">}}
 As mentioned in @sec-weak-spectrum-discussion, we have glimpsed over coupled similarity.
 It can be thought of as the syntactic combination of weak similarity and contrasimilarity in the sense that each weak conjunction must either contain purely positive *or* purely negative conjuncts, as outlined in @bm2024contrasimilarityInfComp.
-This poissibility does not align nicely with our game formulation because it means that the attacker has to dedicate a conjunction no positivity or negativity before entering, and not make up their mind on the fly whether $q \in Q$ are addressed positively or negatively.
+This possibility does not align nicely with our game formulation because it means that the attacker has to dedicate a conjunction no positivity or negativity before entering, and not make up their mind on the fly whether $q \in Q$ are addressed positively or negatively.
 If desired, this could be treated by a new dimension in modal conjunctions and game positions.
 Who urgently needs to compute coupled similarity relations, may otherwise fall back to the coupled simulation game by @bn2019coupledsimTacas.
 
@@ -1207,7 +1205,7 @@ covering both linear-time and branching-time as well as stable and unstable noti
 
 In principle, this chapter only executes @idea-modal-first to translate modal constructions to game moves appearing in $\hmlsrbb$, which follows @idea-weak-hml.
 But this involves many technicalities.
-Therefore, it is relieving to have the Isabelle-forrmalization of @sec-isabelle-formalization by @bbhlmm2025weakSpectroscopyIsabelle to verify the construction.
+Therefore, it is relieving to have the Isabelle-formalization of @sec-isabelle-formalization by @bbhlmm2025weakSpectroscopyIsabelle to verify the construction.
 
 The mini case studies of @sec-tackling-case-studies show how the spectroscopy automates away the tedious kind of work of finding out the precise relationship between transformed processes that went, for instance, into @bell2013certifiably.
 Similar searches for weak bisimilarities have happened around @parrow1992 and @nestmann1996decoding, where coupled similarity turned out to be the most fitting for encodings between models of differing synchronicity.^[

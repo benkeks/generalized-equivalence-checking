@@ -13,7 +13,7 @@ toc-title: "Chapter 6"
 `\vspace{-2.2em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
 This chapter is based on parts of @bj2025silentStepSpectroscopyJournal and @bm2024contrasimilarityInfComp.
-For a fuller presentation of the spectrum of weak equivalences itself, @glabbeek1993ltbt is the authorative work.
+For a fuller presentation of the spectrum of weak equivalences itself, @glabbeek1993ltbt is the authoritative work.
 A gentler introduction to key concepts is provided by @sangiorgi2012.
 ::::
 
@@ -477,7 +477,7 @@ As we will establish in @sec-solution-parallelizing-compilation, contrasimilarit
 >
 > and the converse on the actions [sic!] from $q$.
 
-Sangiorgi notes that the induced stable bisimilarity relation would not be transitive on transition sysstems with divergences.
+Sangiorgi notes that the induced stable bisimilarity relation would not be transitive on transition systems with divergences.
 But the situation is even more severe!
 
 ::::{.column-margin}
@@ -1067,7 +1067,7 @@ The Isabelle theory [@bbhlmm2025weakSpectroscopyIsabelle] features theorems for
 $\eta$-bisimilarity{{<isb theorem Eta_Bisimilarity LTS_Tau.eta_bisim_coordinate>}} and for
 stability-respecting branching bisimilarity{{<isb theorem Branching_Bisimilarity LTS_Tau.sr_branching_bisim_coordinate>}}.
 
-The first interesting feature of the weak hierachy is an effect of some languages not enforcing top-level negation as observed in @bj2024silentStepSpectroscopyExpress [Ex. 2.5].
+The first interesting feature of the weak hierarchy is an effect of some languages not enforcing top-level negation as observed in @bj2024silentStepSpectroscopyExpress [Ex. 2.5].
 
 :::{#exm-weak-bisim-modal-features}
 
@@ -1191,7 +1191,7 @@ Grammars induced by coordinates for weak simulation-like notions of equivalence.
 :::{#rem-spurious-conjuncts}
 #### Spurious conjuncts and minimality
 
-Several of our weak grammars allow bogous trivial conjuncts.
+Several of our weak grammars allow bogus trivial conjuncts.
 The most severe case might be the trees of ultimately empty conjunctions of $\chi_\notionname{WU^x}$ for contrasimulation.
 A natural impulse might be to somehow change the grammar to optimize these parts away, ensuring a nicer output of distinguishing formulas in the spectroscopy.
 
@@ -1209,14 +1209,14 @@ But more non-terminals mean additional kinds of spectroscopy game positions and 
 With this chapter, we have explored the space of weak behavioral equivalences in concurrency theory, focusing on their modal characterizations and relationships within the weak spectrum, following @glabbeek1993ltbt.
 This adds the preliminaries to consider their decision procedures in @sec-silent-step-spectroscopy.
 
-In examples, we have seen how weak equivalences handle internal non-determinism due to communcation in different ways.
+In examples, we have seen how weak equivalences handle internal non-determinism due to communication in different ways.
 Practical scenarios, such as parallelizing compilers and process abstraction, reveal the possibilities and limitations of the different design decisions behind process equivalences.
 
 Following @idea-weak-hml, our modal logic characterization through $\hmlsrbb$ captures a rich weak spectrum between stability-respecting branching bisimilarity and weak trace equivalence.
 This adds to the rich body of work on *modal characterizations of branching bisimilarity* by @nicolaVaandrager1995threeLogicsBB, @fokkinkGL19DivCong3, @geuvers2022, and @geuversGolov2023positiveBB.
 
 Our spectrum, however, leaves out some classical notions such as stable failure traces and coupled simulation, which would have called for even more dimensions in the already 8-dimensional pricing metric.^[
-  Especially for coupled similarity, this gap is ironic, as my research into game chracterizations of equivalences has been kicked off by an interest in decision procedures for coupled similarity in @bn2019coupledsimTacas and @bnp2020coupledsim30.
+  Especially for coupled similarity, this gap is ironic, as my research into game characterizations of equivalences has been kicked off by an interest in decision procedures for coupled similarity in @bn2019coupledsimTacas and @bnp2020coupledsim30.
 ]
 
 Logic and pricing metric are designed in such a way that readers of preceding chapters might already be able to guess how they will translate to game moves for stable and branching conjunctions in the next chapter.

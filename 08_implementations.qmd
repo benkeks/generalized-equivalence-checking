@@ -11,7 +11,7 @@ toc-title: "Chapter 8"
 
 ## Prototype: *equiv.io* {#sec-equivio}
 
-The “Linear-Time–Branching-Time Spectroscope” on {{<equivio>}} is a small webtool to check equivalence relations on CCS processes.
+The “Linear-Time–Branching-Time Spectroscope” on {{<equivio>}} is a small web tool to check equivalence relations on CCS processes.
 
 ### Usage {#sec-equivio-usage}
 
@@ -116,7 +116,7 @@ The source can also contain layout information and prescribe some preprocessing 
 - `@preprocessing method1, method2...` –
   Apply preprocessing to the transition system after translation of the CCS term (that is, before presentation and queries happen).
   This will affect the whole transition system, but tries to preserve processes that have been marked as `main`.
-  The order of processing steps can make a differnce.
+  The order of processing steps can make a difference.
   - `weakness_saturated` – Exchange transition relation to weak transitions, that is, there will be a transition whenever the original system allows $\stepweak\stepopt{\alpha}\stepweak$.
   - `tauloop_compressed_marked` – Collapse states on $\tau$-loops and mark them with a $\delta$.
     (This follows the thought of how to make equivalence queries divergence-respecting from @sec-extending-to-other-eqs.)
@@ -128,7 +128,7 @@ The source can also contain layout information and prescribe some preprocessing 
 ### Application to Peterson's Mutual Exclusion {#sec-equivio-peterson}
 
 Let us go through the whole process of using the tool once to tackle the example of Peterson's mutual exclusion protocol, which has already been previewed in @exm-peterson-mutex.
-Thereby, we settle the question with respect to which equivalences the protocoll correctly implements the specification of mutual exclusion.
+Thereby, we settle the question with respect to which equivalences the protocol correctly implements the specification of mutual exclusion.
 We follow the presentation of how to model this protocol in CCS from @ails2007reactiveSystems [Chapter 7], with action names chosen to align with @glabbeek2023mutexTimeouts.
 
 We *specify* mutual exclusion as a system `Mx` of two alternating users `A` and `B` entering their critical section `ecA` / `ecB` and leaving `lcA` / `lcB` before the other may enter.
@@ -227,7 +227,7 @@ MxIC = tau.ecA.lcA.MxIC + tau.ecB.lcB.MxIC
 ```
 
 Can we come up with a process where two subprocesses run a protocol such that the overall system is somewhat equivalent to this specification?
-@peterson1981mythsMutex proposes a protocoll that can be summarized by the following pesudocode:
+@peterson1981mythsMutex proposes a protocol that can be summarized by the following pseudocode:
 
 ```ruby
 ready = {"A": false, "B": false}
@@ -250,12 +250,12 @@ process("A", otherId = "B") || process("B", otherId = "A")
 ```
 
 The two processes share three variables:
-`ready["A"]` expresses whether process `A` is ready to enter its criticl section; `ready["B"]` the same for `B`.
+`ready["A"]` expresses whether process `A` is ready to enter its critical section; `ready["B"]` the same for `B`.
 In `turn`, *both* processes try to write whose turn it is to enter, `A` or `B`.
 Assuming sufficiently consistent memory, the protocol works because each process will only enter the critical section if no other process is waiting or if it has been yielded the turn (by the other process).
 The critical scenario of both processes entering *symmetrically* is resolved because the race condition on the `turn`-write will flip a coin in such situations.
 
-To express the shared-memory protocoll in the message-passign paradigm of CCS, we must model the storage as processes that run in parallel with the main model.
+To express the shared-memory protocol in the message-passing paradigm of CCS, we must model the storage as processes that run in parallel with the main model.
 We do this as in @ails2007reactiveSystems:
 In the following the process `ReadyAf` corresponds to `ready["A"] = false`, and `ReadyAt` to `ready["A"] = true`.
 The current state can be either read (`readyAf` / `readyAt`) or written (`setReadyAf` / `setReadyAt`).
@@ -389,14 +389,14 @@ The main aspect that creates the differences between `Pe` and `MxIC` is that the
 In above output, this is mirrored by the impossible-future formula `⟨ϵ⟩⟨ecA⟩⟨ϵ⟩⋀{¬⟨ϵ⟩⟨lcA⟩⟨ϵ⟩⟨ecA⟩⊤}`.
 
 We can find this scenario already in the pseudo code.
-It happens when both proceses are in `PC = 2` and `B` has set `turn = A`.
+It happens when both processes are in `PC = 2` and `B` has set `turn = A`.
 Then, `A` may enter its critical section but has to yield to `B` before it can re-enter.
-So, this constitutes a proper difference between Peterson's protocol and a pure itereated internal choice.
+So, this constitutes a proper difference between Peterson's protocol and a pure iterated internal choice.
 But then again, one might say that it is fair of the process going first to leave the next round to the other waiting participant.
 In the pure CCS view, however, we cannot adequately treat more general fairness considerations for Peterson's protocol, as @glabbeek2023mutexTimeouts explicates.
 
 This is what the spectroscopy has taught us:
-Peterson's mutual exclusion protocol is *more similar* to repeated internal choice (`MxIC`) than to the specifation `Mx` from @ails2007reactiveSystems.
+Peterson's mutual exclusion protocol is *more similar* to repeated internal choice (`MxIC`) than to the specification `Mx` from @ails2007reactiveSystems.
 However, the two are not bisimilar in any sense, since local progress from one iteration may influence the next.
 
 ### Program Structure
@@ -459,7 +459,7 @@ Process flow in equiv.io
     This leads to processes like `P = a.P \ {b}` having a finite process graph instead of an infinite one
     [cf. @ails2007reactiveSystems, Exercise 2.9].
   ]
-  {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.ccs.Interpeter >}}
+  {{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.ccs.Interpreter >}}
   `ts.WeakTransitionSystem`
     - Includes minimization if desired
 - Spectroscopy
@@ -485,7 +485,7 @@ Process flow in equiv.io
 There exist three other implementations of the equivalence spectroscopy algorithm by students of mine.
 Each covers a different directions:
 In @sec-spectro-invaders, we discuss *The Spectroscopy Invaders*, a computer-game version, which has an educational purpose.
-@sec-spectroscopy-caal presents an extension to an existing educational tool, the Concurrency Workbench Aalborgh Edition.
+@sec-spectroscopy-caal presents an extension to an existing educational tool, the Concurrency Workbench Aalborg Edition.
 @sec-gpu-equiv closes by reporting on *gpuequiv*, a performance-centric shader-based implementation using the modern WebGPU standard.
 
 ### Computer Game: *The Spectroscopy Invaders* {#sec-spectro-invaders}
@@ -545,7 +545,7 @@ as indicated by the hero figure on the left and the two elves on the right.
 The player can click the “conjunct” button ![](img/spectro-invaders-conjunction.png){width=1em},
 after which they have to explain how to win $\attackerpos[\land]{\literal{red} \ccschoice \ccsprefix{\literal{orange}}\literal{orange}, \literal{red}\ccschoice\literal{orange}}$
 and then $\attackerpos[\land]{\literal{red} \ccschoice \ccsprefix{\literal{orange}}\literal{orange}, \ccsprefix{\literal{orange}}\literal{orange}}$.
-In the split state, the player can first click through the yellow-arrow succesor states on the left to point out that the left elve cannot observe two yellow steps.
+In the split state, the player can first click through the yellow-arrow successor states on the left to point out that the left elve cannot observe two yellow steps.
 Then, they also have to name how to defeat the right elve, by taking the red transition.
 Together, this strategy corresponds to the simulation formula $\hmlands\set{\hmlobs{\literal{yellow}}\hmlobs{\literal{yellow}}, \hmlobs{\literal{red}}}$.
 
@@ -557,17 +557,17 @@ Due to nested conjunctions, the game positions thus actually are sets of $\attac
 @trzeciakiewicz2021ltbtBrowserGame limits the scope to (strong) trace, failure, possible-future, simulation, and bisimulation equivalences,
 excluding notions like readiness, ready traces, and failure traces.
 This allows for slightly simpler game rules, in particular, without revival moves.
-This allows to nicely showcase the core mechanics of @sec-strong-spectroscopy with a stricter correspondence to procductions in the original HML of @def-hml.
+This allows to nicely showcase the core mechanics of @sec-strong-spectroscopy with a stricter correspondence to productions in the original HML of @def-hml.
 
 ### CAAL Extension {#sec-spectroscopy-caal}
 
-Would it not be nice if one could use the equvialence spectroscopy in existing tools?
+Would it not be nice if one could use the equivalence spectroscopy in existing tools?
 
 @ozegowski2023eqCAAL integrates the spectroscopy algorithm into *CAAL*, the “Concurrency Workbench Aalborg Edition” by @aaehlow2015caal.
 @strassnickOzegowski2024weakCAAL also add the weak spectroscopy game and possibilities to play the spectroscopy game in the tool.
 Their extended version of CAAL is live on <https://equivio.github.io/CAAL/>.
 
-The original CAAL (on <https://caal.cs.aau.dk/>) covers the curriculum of Rective Sytems [@ails2007reactiveSystems], including CCS processes, HML formulas and equivalence games.
+The original CAAL (on <https://caal.cs.aau.dk/>) covers the curriculum of Reactive Systems [@ails2007reactiveSystems], including CCS processes, HML formulas and equivalence games.
 
 But CAAL originally only supports preorder/equivalence checking for six standard notions, namely for simulation, bisimulation, and traces, in their standard strong and weak variants.
 Only simulation and bisimulation can be examined as games.
@@ -581,7 +581,7 @@ For the strong notions, the game graph can be explored interactively.
 
 ![](img/caal-extension.png){.lightbox}
 
-Extended version of CAAL, performing a spectorscopy.
+Extended version of CAAL, performing a spectroscopy.
 :::
 
 For a usage guide, we refer to @strassnickOzegowski2024weakCAAL.
@@ -599,12 +599,12 @@ Would it not be nice if one could use modern hardware to perform spectroscopies 
 
 Technically, this is superior to the other three implementations of this chapter, which can only exploit the single-threaded CPU model of JavaScript when running in the browser.
 
-Histroically, the WebGL standard for browser graphics processing has lacked compute shaders.
+Historically, the WebGL standard for browser graphics processing has lacked compute shaders.
 This has made it difficult to access the computational power of graphics processing units from within web applications.
 With WebGPU/WGSL [@w3c2025wgsl], times are changing.
 @vogel2024energyGamesWebGPU makes this progress available to the spectroscopy approach.
 
-Big parts of the game graph construction and the game solving are quite parallizable.
+Big parts of the game graph construction and the game solving are quite parallelizable.
 Therefore, for instance, a whole batch of game positions on a `todo`-list in @alg-deciding-energy-games can be processed simultaneously.
 The details are explained in @vogel2024energyGamesWebGPU.
 
@@ -618,7 +618,7 @@ At the time of writing, another Bachelor project is underway to add a frontend a
 
 ## Discussion
 
-Preoder and equivalence checkers for more than 37 notions of strong and weak spectrum.
+Preorder and equivalence checkers for more than 37 notions of strong and weak spectrum.
 
 The survey by @gl2022eqChecking includes hundreds of tools to check bisimilarity and related equivalences and preorders.
 Some also allow the construction of distinguishing formulas (or traces) to justify their output. 

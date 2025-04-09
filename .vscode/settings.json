@@ -1,13 +1,36 @@
 {
   "cSpell.words": [
+    "Acta",
     "bisim",
+    "bisimulated",
+    "Bisping",
+    "CAAL",
+    "closedness",
+    "Counterfactuals",
+    "eqfiddle",
+    "Escrig",
+    "Frutos",
+    "gpuequiv",
     "Henzinger",
+    "hmlsrbb",
+    "indistinguishability",
     "infima",
     "infimum",
+    "Informatica",
     "lightbox",
+    "LMCS",
+    "nbsp",
+    "parallelizable",
+    "parallelizations",
+    "polynomially",
     "removability",
+    "rootedness",
+    "srbb",
     "sublogic",
-    "suprema"
+    "suprema",
+    "TACAS",
+    "UPPAAL",
+    "WGSL"
   ],
   "cSpell.enableFiletypes": [
     "quarto"

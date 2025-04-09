@@ -382,7 +382,7 @@ Only indirectly connected to this dissertation project are my prior publications
 - @bn2019coupledsimTacas[TACAS]: “Computing Coupled Similarity.”
 - @bnp2020coupledsim30[Acta Informatica]: “Coupled similarity: the first 32 years.”
 
-{{<paragraph_heading "Other Bacherlor theses.">}}
+{{<paragraph_heading "Other Bachelor theses.">}}
 During my dissertation project, I also supervised several other Bachelor theses, many of which played important roles in shaping the research.
 Although they do not appear directly on the following pages, I want to acknowledge the students' vital contributions to the research.
 

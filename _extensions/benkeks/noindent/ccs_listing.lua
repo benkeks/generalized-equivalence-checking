@@ -9,7 +9,12 @@ function CodeBlock(block)
   end
 
   code_snippet = block.text
-  link_text = conf.link_text or "Example on equiv.io"
+  link_text = conf.link_text or
+    pandoc.Inlines {
+      pandoc.Str("Interactive model on "),
+      pandoc.Code("equiv.io"),
+      pandoc.Str(".")
+    }
   encoded_snippet = quarto.base64.encode(code_snippet)
   local snippet_end = code_snippet:find("@snip")
   if snippet_end then
@@ -28,6 +33,8 @@ function CodeBlock(block)
           "https://equiv.io/#code=" .. encoded_snippet),
           {class = "column-margin"}
         ),
+        -- Empty \vspace makes \marginnote and following code block align vertically. (Otherwise they don't.)
+        pandoc.RawBlock("latex", "\\vspace{0em}"),
         block,
       }
   end

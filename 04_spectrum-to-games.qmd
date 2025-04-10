@@ -686,7 +686,7 @@ A decision procedure for winning budgets in declining energy games.
 This section is about how to compute which energy budgets are winning for the attacker (or the defender) at positions of an energy game:
 
 ::: {#prob-energy-game-problem .problem .callout-problem .callout-tip}
-#### Monotonic Energy Game Winner Problem
+#### Energy Game Winner Problem
 
 In the context of an energy system $(\abstractenergies, \leq)$ and a finite energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$, the *energy game winner problem* goes:
 
@@ -1020,7 +1020,7 @@ Given a finite-state energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abs
 with monotonic $\abstractupdateinv$-functions for all moves
 and with computable undo function $\abstractupdateinv(g, g')(e') = \min \set{e \mid e' \leq \abstractupdate(g, g')(e)}$,
 @alg-deciding-energy-games computes the Pareto front of minimal attacker winning budgets, solving 
-the *monotonic energy game winner problem* (@prob-energy-game-problem).
+the *energy game winner problem* (@prob-energy-game-problem).
 :::
 :::proof
 @alg-deciding-energy-games is a work-list variant of a fixed-point iteration computing the least fixed point of attacker winning budgets $\attackerwins$ according to the inductive characterization of @prp-winning-budget-rules.
@@ -1237,7 +1237,7 @@ $$
   \infty  & \text{otherwise}
 \end{cases}.
 $$
-We denote as *flattened* monotonic energy game winner problem the variant of @prob-energy-game-problem that outputs
+We denote as *flattened* energy game winner problem the variant of @prob-energy-game-problem that outputs
 $$
 \widehat{\attackerwinsmin}(g) := \Min (\attackerwins(g) \cap \energiesflattened).
 $$

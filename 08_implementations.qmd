@@ -694,12 +694,12 @@ A tick ✔ stands for direct support, (✔) for support via preprocessing.
 | Stable simulation                       | ✔       |       |       |      |      |
 | $\eta$-simulation                       | ✔       |       |       |      |      |
 | Safety / $\tau^*.a$                     |         |       |       |  ✔   |      |
-| Strong ready-simulation                 | ✔       | ✔     | ✔     |      |      |
+| Strong ready-simulation                 | ✔       |       | ✔     |      |      |
 | Weak / stable ready-simulation          | ✔       |       |       |      |      |
 | 2-nested strong / weak sim.             | ✔       |       |       |      |      |
 | Strong bisimulation                     | ✔       | ✔     | ✔    |  ✔   | (✔)  |
 | Contrasim. / stable bisim.              | ✔       |       |       |      |      |
-| Coupled simulation                      |         | ✔     | ✔     |      |      |
+| Coupled simulation                      |         |       | ✔     |      |      |
 | Weak bisimulation                       | ✔       | ✔     | ✔     |  ✔   | (✔)  |
 | Div.-pr. weak bisim.                    | (✔)     |       | ✔     |      | (✔)  |
 | Delay bisimulation                      | ✔       |       |       |      | (✔)  |

@@ -52,7 +52,8 @@ We^[
 
 ## Linear-Time–Branching-Time Spectroscopy {#sec-ltbt-spectroscopy-idea}
 
-To illustrate the problem, let us look at an example that includes numerous concepts we will discuss throughout this thesis.
+To illustrate the problem, let us look at an example that we will be able to solve via tool support at the very end of the thesis, in @sec-equivio-peterson.
+It includes numerous concepts we will discuss on our way there.
 
 :::{#exm-peterson-mutex}
 Many verification tasks can be understood along the lines of “how equivalent” two models are.
@@ -139,25 +140,29 @@ For $\literal{Pe}$ to faithfully implement mutual exclusion, it should behave so
 A specification of mutual exclusion $\literal{Mx}$, and Peterson's protocol $\literal{Pe}$, minimized with respect to stability-respecting branching bisimilarity.
 ::::
 
-Semantics in concurrent models must take nondeterminism into account.
+Semantics in concurrent models must take nondeterminism and internal steps into account.
 Setting the degree to which nondeterminism counts induces equivalence notions with subtle differences:
-$\literal{Pe}$ and $\literal{Mx}$ *weakly simulate* each other, meaning that a tree of options from one process can be matched by a similar tree of the other.
+$\literal{Pe}$ and $\literal{Mx}$ *weakly simulate* each other, intuitively meaning that a tree of options passing over internal activity from one process can be matched by a similar tree of the other.
 This implies that they have the same *weak traces*, that is, matching paths.
-However, they are not weakly *bi-*similar, which would require a higher degree of symmetry than mutual simulation, namely, matching absence of options.
-There are many more such notions, which need not be linearly ordered in how they relate processes.
+However, they are not weakly *bi-*similar, which would require a higher degree of symmetry than mutual similarity, namely, matching absence of options.
+There are many more such notions, which can be incomparable in how they relate processes.
 In our example, one might wonder:
-Are there notions relating the two *besides* mutual simulation?
+Are there notions relating the two *besides* mutual weak similarity?
 :::
 
 {{<paragraph_heading "State of the art.">}}
-For many of the existing preorders and equivalences, there are various algorithms and implementations to decide whether processes are equal.
+For many of the existing behavioral preorders and equivalences, there are various algorithms and implementations to decide whether processes are equivalent.
 So, it would be an option to throw an array of algorithms on the transition systems of @exm-peterson-mutex.
-TODO: Citations & problems.
+For instance, weak similarity, stable failures and contrasimilarity are neighbors in @fig-ltbts2-paper. CAAL [@aaehlow2015caal] could establish mutual weak similarity, mCRL2 [@groote2014mcrl2] would rule out stable-failure equivalence, and, for contrasimilarity, we would need to implement our own solution because there is no tool supporting it.
+Combining different tools and algorithms like this is tiresome and prone to subtle errors.
 But we can better!
 
 {{<paragraph_heading "Our solution.">}}
 This thesis will outline the ideas one needs to decide all equivalences in one uniform approach.
-As we will discuss in more detail in @sec-equivio-peterson, our accompanying tool {{<equivio>}} can answer the questions of @exm-peterson-mutex in the following query:
+As we will discuss in more detail in @sec-equivio-peterson, our accompanying tool {{<equivio>}} can answer the questions of @exm-peterson-mutex in the following query:^[
+  This thesis often provides snippets for models on {{< equivio >}}.
+  You can examine and modify the example models by clicking on the links reading `Interactive model on equiv.io`.
+]
 
 ```ccs
 Pe = (A1 | B1 | TurnA | ReadyAf | ReadyBf)
@@ -253,7 +258,7 @@ MxIC = tau.ecA.lcA.MxIC + tau.ecB.lcB.MxIC
 This query leads to the output in @fig-peterson-spectrum:
 Weak simulation indeed is the finest equivalence to equate $\literal{Pe}$ and $\literal{Mx}$!
 Moreover, $\literal{Pe}$ is *preordered* to $\literal{Mx}$ with respect to two more special finer notions, namely *$\eta$-simulation* and *stable simulation* (and notions below).
-Intuitively, this means that $\literal{Pe}$ *implements* $\literal{Mx}$ more faithfully than pure weak simulation would demand.
+Intuitively, this means that $\literal{Pe}$ *implements* $\literal{Mx}$ more faithfully than pure weak similarity would demand.
 
 ::: {#fig-peterson-spectrum .column-margin}
 

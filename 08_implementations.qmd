@@ -488,7 +488,9 @@ Data transformation flow in equiv.io
       If the formula price exceeds the budget predicted by the game or is unexpectedly cheap, this constitutes an error.
     
     Error reports would point to incorrectness of the specific spectroscopy, not to user mistakes.
-    Thus, the validation does not affect the core decision procedure, but increases confidence that a specific output is sound.   
+    Thus, the validation does not affect the core decision procedure, but increases confidence that a specific output is sound.
+
+    If no formula construction is requested, `SpectroscopyFramework.decideAll` works on *flattened energies* (@def-flattened-energies), generally leading to better performance.
 5. **Presentation:**
   `SpectroscopyFramework.decideAll` collects the finest preorders and coarsest distinctions, optionally together with their witness formulas in a `Spectroscopy.Result` object from
   {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.Spectroscopy >}}.
@@ -506,6 +508,7 @@ The output of the same mechanism for {{<code_link "shared/src/main/scala-2.12/io
 ### Benchmarks
 
 (TODO: Maybe)
+(Mention tests)
 
 ## Student Implementations
 
@@ -611,9 +614,10 @@ For the strong notions, the game graph can be explored interactively.
 Extended version of CAAL, performing a spectroscopy.
 :::
 
+\noindent
 For a usage guide, we refer to @strassnickOzegowski2024weakCAAL.
 
-At some points, the fork unfortunately has to remain partial with respect to features.
+At some points, Straßnick and Ozegowski's fork unfortunately has to remain partial with respect to features.
 For instance, the extension does not support distinguishing formulas for the weak spectroscopy because CAAL's HML dialect cannot easily be molded to support $\hmlsrbb$.
 
 Still, the project shows that the spectroscopy approach is sufficiently simple and versatile to allow dozens of equivalence checkers to be integrated into existing tools within the limited scope of a student project.
@@ -648,7 +652,8 @@ At the time of writing, another Bachelor project is underway to add a frontend a
 In this chapter, we have surveyed the four existing implementations of the spectroscopy algorithm.
 
 We focussed on {{<equivio>}}, which closely aligns with this thesis.
-It can check behavioral preorders and equivalences for more than 38 notions of strong and weak spectrum.
+We have seen how the tool easily answers questions such as “How equivalent is Peterson's algorithm to the specification of mutual exclusion.”
+{{<equivio>}} can check behavioral preorders and equivalences for more than 38 notions of strong and weak spectrum.
 Due to the possibility to mark divergences, even more notions are available.
 
 {{< paragraph_heading "Other tools." >}}
@@ -658,7 +663,7 @@ Many specific tools address special equivalences, for instance for open, timed, 
 On the other hand, {{<equivio>}} might be the first tool to cover some of the more arcane notions of the weak spectrum [@glabbeek1993ltbt], such as $\eta$-similarity and stable bisimilarity.
 
 In @tbl-tool-comparison, we compare the supported notions of {{<equivio>}} to four current state-of-the-art tools.
-A ✔ stands for direct support, (✔) for support through or as preprocessing.
+A tick ✔ stands for direct support, (✔) for support via preprocessing.
 
 ```{=latex}
 \afterpage{\clearpage
@@ -712,7 +717,10 @@ Comparison of supported notions.
 }
 ```
 
-- **CAAL** [@aaehlow2015caal], or the “Concurrency Workbench Aalborg Edition,” also works with CCS and has already been discussed in @sec-spectroscopy-caal.
+- **CAAL** [@aaehlow2015caal], or the “Concurrency Workbench Aalborg Edition,” also works with CCS and has already been discussed in @sec-spectroscopy-caal.^[
+    @aha2015caal2games [§ 3.3] also mention how to use their game backend to handle 2-nested simulation and ready-traces.
+    But this is neither elaborated upon nor supported in the frontend.
+  ]
 - **mCRL2** [@groote2014mcrl2], built around a ACP/CCS-like modelling language of the same name, supports a wide-range of notions with highly efficient implementations and a strong focus on branching bisimilarity.
   On the notions it supports, it will generally be much faster than the spectroscopy-game algorithm.
   The only notion that is exclusively supported by mCRL2 is coupled similarity, implemented by @le2020coupledSimMcrl2.
@@ -722,9 +730,51 @@ Comparison of supported notions.
 - **FDR4** [@grabr2014fdr] has “Failures Divergences Refinement” in its name, but also supports different linear-time refinement models for CSP.
   Branching-time notions are partially supported as minimizers.
 
-{{< paragraph_heading "Other avenues." >}}
+Like the listed tools, {{<equivio>}} can be seen as following the tradition of the discontinued “Concurrency Workbench[es]” [@cps1990concurrencyWorkbench; @cs1996ncsuConcurrencyWorkbench].
 
-- SMT / symbolic
-- handling of pareto frontiers
+{{< paragraph_heading "Other avenues for implementation." >}}
+The implementations of this chapter realize @alg-deciding-energy-games quite directly to decide energy games.
+Among them, the shader version of @sec-gpu-equiv adds the highest level of implementation cleverness with respect to packing of data and parellelization of computation.
+But so far, we are not using the full toolbox of the computer-aided-verification community.
 
-other generalizing characterizations -> strong spectro @lange2014modelCheckingProcEqs; experience @stoecker2024HOcalculiEqs suggests that 20 states already demand several seconds in this approach.
+For instance, the upward-closed sets of winning budgets could be handled more symbolically with the representation of @dr2000symbolicUpwardClosedSets.
+This might slightly increase how many Pareto frontiers can be kept in memory.
+But one can expect that its payoff would be meager, especially on the small $\set{0,1,\infty}^d$-lattices.
+Experiments by @vogel2024energyGamesWebGPU suggest that the Pareto frontiers usuallly stay sufficiently small that adding the implementation complexity of @dr2000symbolicUpwardClosedSets seems uncalled for.
+
+A big limiting factor of our implementations is the storage of the game graph.
+To some extent, this can be battled by more symbolic representations as *binary-decision-diagrams* in the quite general checkers by @bulychev2011gameSimulation or @wimmer2011dissertation.
+
+A more general solution for the memory limitations would be to forget parts that have been visited, and recompute them *by-need*.
+There are easy ways to profit from the communitiy's advances in handling big spaces of possibilities.
+The most prominent would be to instantiate the game rules for a transition system, and feed them into an SMT solver.
+Alredy @shr1995hornsatGames suggest a comparable approach.
+The energy aspect should be perfectly expressible in linear integer arithmetic [cf. @chistikov2024linearIntegerArithmetic].
+
+{{< paragraph_heading "Alternative paths to generalized checkers." >}}
+The *equivalences-as-game-instances* approach seems to be the most fruitful when one wants to easily support a wide range of preorders and equivalences in a tool.
+By easy, we mean: without the need to implement individual algorithms for each of the notions.
+@tan2002abstractEquivalenceGames takes a similar game approach for the Concurrency Workbench, as do @aha2015caal2games for CAAL.
+
+Another route to this goal of genericity might be the *equivalences-as-formulas* approach from @lange2014modelCheckingProcEqs.
+The idea there is to use a *diadic higher-order $\mu$-calculus* where one can talk about relations between states.
+Thereby, the rules of how to preorder states can be expressed as formulas.
+One only needs to implement the model-checking for formulas once, and new notions could be added by only adding new formulas.
+@stoecker2024HOcalculiEqs implements this idea successfully.
+But the data suggests that 20 states already demand several seconds in this approach for some equivalences.
+
+The third path to genericity is through *equivalences-as-functors*, to enable *coalgebraic partition-refinement algorithms* from category theory.
+@dmsw2019genericPartitionRefinement follow this route in their tool *CoPaR* (short for “Coalgebraic Partition Refiner”).
+This way, the support of new equivalences boils down to a few lines of defining new functors.
+The big advantage is that extensions---for instance, to quantitative behavioral distances---can also be achieved this way.
+The coalgebraic approach is related to the game approach and too can derive distinguishing formulas, as seen for instance in the tool T-BEG [@km2020nonBisimCoalgebraic].
+However, encoding simulation-like preorders in category theory seems to be non-trivial if one compares the machinery of @rt2010efficientSimulation to the ease of just leaving out swap-moves in the bisimulation game.
+It is difficult to say whether it is conceptional boundaries or the coating in category-theory parlance that has hindered a wider adoption in tools.
+
+A light-weight variant of the functor-approach is offered by *equivalences-as-signatures*.
+Tools like *Sigref* [@whhsb2006sigref] support a broad range of bisimulation-like equivalences.
+The specifics of individual equivalences are expressed as *signature* that prescribe how to refine equivalence classes in an iterative partition-refinement.
+Signature Refinement can easily be boosted by parallelization or symbolic BDD-encodings.
+
+Of course, all these theoretical approaches are linked at some level.
+Time for a conclusion.

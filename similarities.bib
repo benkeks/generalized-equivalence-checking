@@ -821,6 +821,26 @@ url = {https://coupledsim.bbisping.de/bisping_computingCoupledSimilarity_thesis.
   url={https://isabelle.in.tum.de/dist/Isabelle2025/doc/isar-ref.pdf}
 }
 
+@InProceedings{dmsw2019genericPartitionRefinement,
+author="Deifel, Hans-Peter
+and Milius, Stefan
+and Schr{\"o}der, Lutz
+and Wi{\ss}mann, Thorsten",
+editor="ter Beek, Maurice H.
+and McIver, Annabelle
+and Oliveira, Jos{\'e} N.",
+title="Generic Partition Refinement and Weighted Tree Automata",
+booktitle="Formal Methods -- The Next 30 Years",
+year="2019",
+publisher="Springer International Publishing",
+address="Cham",
+pages="280--297",
+abstract="Partition refinement is a method for minimizing automata and transition systems of various types. Recently, we have developed a partition refinement algorithm that is generic in the transition type of the given system and matches the run time of the best known algorithms for many concrete types of systems, e.g. deterministic automata as well as ordinary, weighted, and probabilistic (labelled) transition systems. Genericity is achieved by modelling transition types as functors on sets, and systems as coalgebras. In the present work, we refine the run time analysis of our algorithm to cover additional instances, notably weighted automata and, more generally, weighted tree automata. For weights in a cancellative monoid we match, and for non-cancellative monoids such as (the additive monoid of) the tropical semiring even substantially improve, the asymptotic run time of the best known algorithms. We have implemented our algorithm in a generic tool that is easily instantiated to concrete system types by implementing a simple refinement interface. Moreover, the algorithm and the tool are modular, and partition refiners for new types of systems are obtained easily by composing pre-implemented basic functors. Experiments show that even for complex system types, the tool is able to handle systems with millions of transitions.",
+isbn="978-3-030-30942-8",
+doi={10.1007/978-3-030-30942-8_18}
+}
+
+
 @incollection{km2020nonBisimCoalgebraic,
   author="K{\"o}nig, Barbara
   and {Mika-Michalski}, Christina
@@ -1620,6 +1640,40 @@ isbn="978-3-642-40184-8",
 doi="10.1007/978-3-642-40184-8_9"
 }
 
+@InProceedings{dr2000symbolicUpwardClosedSets,
+author="Delzanno, Giorgio
+and Raskin, Jean-Fran{\c{c}}cois",
+editor="Graf, Susanne
+and Schwartzbach, Michael",
+title="Symbolic Representation of Upward-Closed Sets",
+booktitle="Tools and Algorithms for the Construction and Analysis of Systems",
+year="2000",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="426--441",
+doi={10.1007/3-540-46419-0_29},
+abstract="The control state reachability problem is decidable for well-structured infinite-state systems like unbounded Petri Nets, Vector Addition Systems, Lossy Petri Nets, and Broadcast Protocols. An abstract algorithm that solves the problem is given in [A{\v{C}}JT96,FS99]. The algorithm computes the closure of the predecessor operator w.r.t. a given upward-closed set of target states. When applied to this class of verification problems, traditional (infinite-state) symbolic model checkers suffer from the state explosion problem even for very small examples. We provide BDD-like data structures to represent in a compact way collections of upwards closed sets over numerical domains. This way, we turn the abstract algorithm of [A{\v{C}}JT96,FS99] into a practical method. Preliminary experimental results indicate the potential usefulness of our method.",
+isbn="978-3-540-46419-8"
+}
+
+@InProceedings{chistikov2024linearIntegerArithmetic,
+  author =	{Chistikov, Dmitry},
+  title =	{{An Introduction to the Theory of Linear Integer Arithmetic}},
+  booktitle =	{44th IARCS Annual Conference on Foundations of Software Technology and Theoretical Computer Science (FSTTCS 2024)},
+  pages =	{1:1--1:36},
+  series =	{Leibniz International Proceedings in Informatics (LIPIcs)},
+  ISBN =	{978-3-95977-355-3},
+  ISSN =	{1868-8969},
+  year =	{2024},
+  volume =	{323},
+  editor =	{Barman, Siddharth and Lasota, S{\l}awomir},
+  publisher =	{Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik},
+  address =	{Dagstuhl, Germany},
+  URL_ =		{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.FSTTCS.2024.1},
+  doi =		{10.4230/LIPIcs.FSTTCS.2024.1},
+}
+
+
 @InProceedings{fh2022twoBoundedCounterGames,
   author ={Filiot, Emmanuel and Hamel-de le Court, Edwin},
   title ={{Two-Player Boundedness Counter Games}},
@@ -1695,12 +1749,31 @@ author = {Rob J. {van Glabbeek}},
   title="The concurrency workbench",
   booktitle="Automatic Verification Methods for Finite State Systems",
   year="1990",
-  publisher="Springer",
+  publisher="Springer Berlin Heidelberg",
   address="Berlin, Heidelberg",
   pages="24--37",
   abstract="The Concurrency Workbench is an automated tool that caters for the analysis of networks of finite-state processes expressed in Milner's Calculus of Communicating Systems. Its key feature is its scope: a variety of different verification methods, including equivalence checking, preorder checking, and model checking, are supported for several different process semantics. One experience from our work is that a large number of interesting verification methods can be formulated as combinations of a small number of primitive algorithms. The Workbench has been applied to examples involving the verification of communications protocols and mutual exclusion algorithms and has proven a valuable aid in teaching and research.",
-  isbn="978-3-540-46905-6"
+  isbn="978-3-540-46905-6",
+  doi={10.1007/3-540-52148-8_3}
 }
+
+@InProceedings{cs1996ncsuConcurrencyWorkbench,
+  author="Cleaveland, Rance
+  and Sims, Steve",
+  editor="Alur, Rajeev
+  and Henzinger, Thomas A.",
+  title="The NCSU Concurrency Workbench",
+  booktitle="Computer Aided Verification",
+  year="1996",
+  publisher="Springer Berlin Heidelberg",
+  address="Berlin, Heidelberg",
+  pages="394--397",
+  abstract="The NCSU Concurrency Workbench is a tool for verifying finite-state systems. A key feature is its flexibility; its modular design eases the task of adding new analyses and changing the language users employ for describing systems. This note gives an overview of the system's features, including its capacity for generating diagnostic information for incorrect systems, and discusses some of its applications.",
+  isbn="978-3-540-68599-9",
+  doi={10.1007/3-540-61474-5_87}
+}
+
+
 
 @phdthesis{goethel12mechanicalVerificationRTS,
   author       = {Thomas G{\"{o}}thel},
@@ -1821,8 +1894,20 @@ volume = {DES103F15},
 institution = {Aalborg University},
 year = {2015},
 url = {https://caal.cs.aau.dk/docs/CAAL2_RDEP.pdf},
-author = {Jacob K. Wortmann and Simon Reedtz Olesen and Søren Enevoldsen}
+author = {Jacob K. Wortmann and Simon Reedtz Olesen and Søren Enevoldsen},
+type = {Student project supervised by Jiří Srba and Kim Guldstrand Larsen}
 }
+
+@misc{aha2015caal2games,
+title = {{CAAL} 2.0 -- Equivalences, Preorders and Games for CCS and TCCS},
+volume = {DES104F15},
+institution = {Aalborg University},
+year = {2015},
+url = {https://caal.cs.aau.dk/docs/CAAL2_EPG.pdf},
+author = {Jesper Riemer Andersen and Mathias Munk Hansen and Nicklas Andersen},
+type = {Student project supervised by Jiří Srba and Kim Guldstrand Larsen}
+}
+https://caal.cs.aau.dk/docs/CAAL2_EPG.pdf
 
 @InProceedings{aaehlow2015caal,
 author="Andersen, Jesper R.

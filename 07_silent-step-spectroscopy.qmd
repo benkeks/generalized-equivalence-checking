@@ -1151,7 +1151,7 @@ Although this thesis remains short on providing a theorem for the game that cont
 
 ### Extending to Other Equivalences {#sec-extending-to-other-eqs}
 
-{{<paragraph_heading "Divergence and completed observations.">}}
+{{< paragraph_heading "Divergence and completed observations." >}}
 Logic and game, as we have presented them, are blind to divergence and to completed observations.
 @glabbeek1993ltbt uses additional modalities:
 $\Delta$ for divergence with $\semantics{\Delta} \defeq \{p \mid p \step{\tau}^\omega\}$;
@@ -1176,7 +1176,7 @@ Just like infinite traces, it depends on the possibility of characterizing infin
 On the game level, for infinite plays to be winnable by the attacker, the game must have a Büchi winning condition.
 Such a richer game model is the route taken by @ekw2017gamesBisimAbstraction to characterize various divergence-aware bisimilarities.
 
-{{<paragraph_heading "Behavioral congruences.">}}
+{{< paragraph_heading "Behavioral congruences." >}}
 Famously, many of the unstable weak equivalences need to be refined in order to be congruences for CCS with choice “$\ccschoice$” [cf. @gfm2020congruenceOperator; @sangiorgi2012].
 For instance, *rooted* weak bisimulation congruence is achieved by allowing an $\hmleps\hmlobs{\tau}...$-observation at the outermost level of the HML characterization.
 Otherwise, weak bisimulation formulas have no $\hmlobs{\tau}$-parts (see @fig-weak-grammars-bisim-like).
@@ -1184,7 +1184,7 @@ Otherwise, weak bisimulation formulas have no $\hmlobs{\tau}$-parts (see @fig-we
 This thesis is not going deeper into congruences.
 But let us note that, clearly, the weak spectroscopy game could be extended by some prefix to enable such special observations for the attacker at the beginning if rootedness is desired.
 
-{{<paragraph_heading "Coupled simulation">}}
+{{< paragraph_heading "Coupled simulation" >}}
 As mentioned in @sec-weak-spectrum-discussion, we have glimpsed over coupled similarity.
 It can be thought of as the syntactic combination of weak similarity and contrasimilarity in the sense that each weak conjunction must either contain purely positive *or* purely negative conjuncts, as outlined in @bm2024contrasimilarityInfComp.
 This possibility does not align nicely with our game formulation because it means that the attacker has to dedicate a conjunction no positivity or negativity before entering, and not make up their mind on the fly whether $q \in Q$ are addressed positively or negatively.
@@ -1214,10 +1214,12 @@ Similar searches for weak bisimilarities have happened around @parrow1992 and @n
 
 Concise distinguishing formulas can be interesting diagnostic information to compare models.
 Like @mg2024minDepthDistBranchBisim, we find minimal-depth distinguishing formulas for branching bisimilarity, but we solve the problem for all weak notions at once.
-@hmy2023whenPrivacyFails report how a stronger modal logic can reveal privacy vulnerabilities in ePassports, which have been overlooked in a purely trace-based view.
+@hmy2023whenPrivacyFails report how inequivalence with respect to stronger modal logics can reveal privacy vulnerabilities in ePassports, which have been overlooked in a purely trace-based view.
 
 For a full understanding of a system's relationship to its specification, it is often helpful to pinpoint exactly how difficult it would be for an attacker to tell the two apart.
 In the next chapter, we will return to the initial @exm-peterson-mutex of Peterson's mutex and explain how the prototype implementation of the weak spectroscopy algorithm handles it.
 
 Some applications would demand more specialized modal logics.
-As outlined in @sec-extending-to-other-eqs, matching adaptions in game or model are usually straight-forward thanks to the clear connection of productions in the modal grammar and mechanics in the spectroscopy game.
+As outlined in @sec-extending-to-other-eqs, matching adaptions in game or semantic model are usually straight-forward thanks to the clear connection of productions in the modal grammar and mechanics in the spectroscopy game.
+
+So much for the theory.

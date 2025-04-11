@@ -9,6 +9,15 @@ toc-title: "Chapter 8"
 {{< include style/macros.md >}}
 :::
 
+All the nice theory of preceding chapters also works *in practice*.
+This chapter revisits the core parts of this thesis by discussing how they tie together in a tool implementation.
+
+The tool, {{< equivio >}} will be presented in @sec-equivio.
+We demonstrate its use through the Peterson-mutex example.
+@sec-student-implementations shows that the game approach lends itself to many things:
+To explain equivalence notions in a computer game, to extend existing tools, and to parallelize equivalence checking through GPUs.
+In @sec-implementations-discussion, we compare our implementations to similar tools in the lineage of the “Concurrency Workbench.“
+
 ## Prototype: *equiv.io* {#sec-equivio}
 
 The “Linear-Time–Branching-Time Spectroscope” on {{<equivio>}} is a small web tool to check equivalence relations on CCS processes.
@@ -505,12 +514,28 @@ Besides the core-flow, there are some small additional diagnostic features.
 For instance, {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.SpectroscopyFramework >}} can save the spectroscopy game graph and formulas in Graphviz-format using {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.GameGraphVisualizer >}}, comparable to @fig-bisim-sim-game-energies.
 The output of the same mechanism for {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.EquivalenceChecking >}} appears, for example, in the derived trace game of @fig-derived-trace-eq-game.
 
+:::{#rem-code-size}
+
+#### Line counting
+
+When following the links to source listings above, you might notice that most aspects only take a few hundred lines of code.
+Depending on how one counts, a total of 2000–3000 lines fit the two spectroscopies, preorder checking for all the notions, game algorithms, generation and validation of HML formulas, and presentation mechanisms.
+
+As far as code bases go that number is extremely compact.^[
+  For reference, @cs1996ncsuConcurrencyWorkbench report 18,000 LOC for the *NSCU Concurrency Workbench* in Standard&nbsp;ML.
+  Performance-centric C++ code bases like mCRL2 [@groote2014mcrl2] are another order of magnitude bigger.
+]
+In part, this is enabled by Scala's conciseness.
+But the heavy lifting in making the implementation so light-weight is achieved by the energy-game abstraction.
+
+:::
+
 ### Benchmarks
 
 (TODO: Maybe)
 (Mention tests)
 
-## Student Implementations
+## Student Implementations {#sec-student-implementations}
 
 There exist three other implementations of the equivalence spectroscopy algorithm by students of mine.
 Each covers a different directions:
@@ -647,7 +672,7 @@ However, the fast growth of game graphs remains a limiting factor as larger exam
 
 At the time of writing, another Bachelor project is underway to add a frontend and support for the weak spectroscopy game to gpuequiv.
 
-## Discussion
+## Discussion {#sec-implementations-discussion}
 
 In this chapter, we have surveyed the four existing implementations of the spectroscopy algorithm.
 
@@ -734,7 +759,7 @@ Like the listed tools, {{<equivio>}} can be seen as following the tradition of t
 
 {{< paragraph_heading "Other avenues for implementation." >}}
 The implementations of this chapter realize @alg-deciding-energy-games quite directly to decide energy games.
-Among them, the shader version of @sec-gpu-equiv adds the highest level of implementation cleverness with respect to packing of data and parellelization of computation.
+Among them, the shader version of @sec-gpu-equiv adds the highest level of implementation cleverness with respect to packing of data and parallelization of computation.
 But so far, we are not using the full toolbox of the computer-aided-verification community.
 
 For instance, the upward-closed sets of winning budgets could be handled more symbolically with the representation of @dr2000symbolicUpwardClosedSets.
@@ -746,10 +771,10 @@ A big limiting factor of our implementations is the storage of the game graph.
 To some extent, this can be battled by more symbolic representations as *binary-decision-diagrams* in the quite general checkers by @bulychev2011gameSimulation or @wimmer2011dissertation.
 
 A more general solution for the memory limitations would be to forget parts that have been visited, and recompute them *by-need*.
-There are easy ways to profit from the communitiy's advances in handling big spaces of possibilities.
+There are easy ways to profit from the community's advances in handling big spaces of possibilities.
 The most prominent would be to instantiate the game rules for a transition system, and feed them into an SMT solver.
-Alredy @shr1995hornsatGames suggest a comparable approach.
-The energy aspect should be perfectly expressible in linear integer arithmetic [cf. @chistikov2024linearIntegerArithmetic].
+Already @shr1995hornsatGames suggest a comparable approach, viewing games as SAT problems.
+The energy aspect should be perfectly expressible for SMT/SAT solvers in linear integer arithmetic [cf. @chistikov2024linearIntegerArithmetic].
 
 {{< paragraph_heading "Alternative paths to generalized checkers." >}}
 The *equivalences-as-game-instances* approach seems to be the most fruitful when one wants to easily support a wide range of preorders and equivalences in a tool.

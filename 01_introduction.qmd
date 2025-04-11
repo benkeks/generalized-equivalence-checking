@@ -323,7 +323,7 @@ The *theory stack* of this thesis.
 (TODO: Chapters, styling, links)
 :::
 
-The algorithm at the core of this thesis presents the ideas necessary to *decide all behavioral equivalences at once* for varying spectra of equivalence using *games that can count* to *limit possible distinctions through attacker energy budgets*.
+At the core, this thesis presents an algorithm to *decide all behavioral equivalences at once* for varying spectra of equivalence using *energy games to limit possible distinctions* through attacker budgets.
 More precisely, we make the following contributions, each coming with a “side quest:”
 
 - @sec-preliminaries lays some foundations and makes precise *how bisimilarity games relate to grammars of distinguishing formulas* from Hennessy–Milner modal logic.

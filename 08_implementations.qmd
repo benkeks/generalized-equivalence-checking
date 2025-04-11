@@ -773,7 +773,7 @@ It is difficult to say whether it is conceptional boundaries or the coating in c
 
 A light-weight variant of the functor-approach is offered by *equivalences-as-signatures*.
 Tools like *Sigref* [@whhsb2006sigref] support a broad range of bisimulation-like equivalences.
-The specifics of individual equivalences are expressed as *signature* that prescribe how to refine equivalence classes in an iterative partition-refinement.
+The specifics of individual equivalences are expressed as *signatures* that prescribe how to refine equivalence classes in an iterative partition-refinement.
 Signature Refinement can easily be boosted by parallelization or symbolic BDD-encodings.
 
 Of course, all these theoretical approaches are linked at some level.

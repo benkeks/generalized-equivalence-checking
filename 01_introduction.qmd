@@ -19,9 +19,10 @@ But obviously, the question already occurs every time one rewrites a program par
 ![](img/ltbts2.png){.lightbox}
 
 The linear-time–branching-time spectrum with silent moves as depicted in @glabbeek1993ltbt.
+(This thesis will use a simpler version in @fig-weak-spectrum.)
 :::
 
-The first time I had to formally face the question was when working as a student research assistant:
+The first time I formally faced the question has been when working as a student research assistant:
 I was tasked with implementing a translation from the process algebra Timed CSP to Timed Automata.^[
     The aim was to bridge between the tools FDR2 and UPPAAL for Göthel's dissertation [-@goethel12mechanicalVerificationRTS].
     The previous work I was to base the translations on had serious flaws:
@@ -31,13 +32,13 @@ I was tasked with implementing a translation from the process algebra Timed CSP 
 Did it translate CSP terms to automata *with the same meaning*?
 Even the definition of the question is tricky, as there are different notions of what counts as “same meaning” in the semantics of programs.
 
-I then took my very first look into the seminal paper on the landscape of process equivalences with internal behavior, the “Linear-time–branching-time spectrum II” by van Glabbeek [-@glabbeek1993ltbt].
+I then took my very first look into a seminal paper on the landscape of process equivalences with internal behavior, the “Linear-time–branching-time spectrum II” by @glabbeek1993ltbt.
 Its central figure, reproduced in @fig-ltbts2-paper, mesmerized me.
-But, how to use the spectrum to decide for a given pair of processes which of the many equivalences apply, is far from straightforward.
-Over the years, I have learned that others too have run into this problem:
+But, how to use the spectrum to decide for a given pair of processes which of the many equivalences apply?
+Over the years, I have learned that others too have run into this not-quite-straight-forward problem:
 For instance, @nestmann1996decoding thinking about process algebra encodings and @bell2013certifiably verifying compiler optimizations.
 
-{{<paragraph_heading "The problem">}} can be summarized as follows:
+{{< paragraph_heading "The problem" >}} can be abstractly summarized as follows:
 
 \vspace*{-\medskipamount}
 > How does one conveniently decide for a pair of systems which notions from a spectrum of behavioral equivalences equate the two?
@@ -53,12 +54,12 @@ We^[
 ## Linear-Time–Branching-Time Spectroscopy {#sec-ltbt-spectroscopy-idea}
 
 To illustrate the problem, let us look at an example that we will be able to solve via tool support at the very end of the thesis, in @sec-equivio-peterson.
-It includes numerous concepts we will discuss on our way there.
+It includes numerous concepts we will define and discuss more deeply on our way there.
 
 :::{#exm-peterson-mutex}
 Many verification tasks can be understood along the lines of “how equivalent” two models are.
 @fig-peterson-mutex replicates a standard example, known for instance from the textbook *Reactive Systems* [@ails2007reactiveSystems]:
-A specification of mutual exclusion $\literal{Mx}$ as two alternating users $\literal A$ and $\literal B$ entering their critical section $\literal{ec_A} / \literal{ec_B}$ and leaving $\literal{lc_A} / \literal{lc_B}$ before the other may enter;
+A specification of mutual exclusion $\literal{Mx}$ as two users $\literal A$ and $\literal B$ entering their critical section $\literal{ec_A} / \literal{ec_B}$ and leaving $\literal{lc_A} / \literal{lc_B}$ before the other may enter;
 and the transition system of Peterson's [-@peterson1981mythsMutex] mutual exclusion algorithm $\literal{Pe}$, with internal steps $\color{gray}\step{}$ due to the coordination that needs to happen.
 (To fit on the page, $\literal{Pe}$ is minimized by stability-respecting branching bisimilarity.)
 For $\literal{Pe}$ to faithfully implement mutual exclusion, it should behave somewhat similarly to $\literal{Mx}$.
@@ -147,22 +148,20 @@ This implies that they have the same *weak traces*, that is, matching paths.
 However, they are not weakly *bi-*similar, which would require a higher degree of symmetry than mutual similarity, namely, matching absence of options.
 There are many more such notions, which can be incomparable in how they relate processes.
 In our example, one might wonder:
-Are there notions relating the two *besides* mutual weak similarity?
+Are there notions relating $\literal{Pe}$ and $\literal{Mx}$ *besides* mutual weak similarity?
 :::
 
-{{<paragraph_heading "State of the art.">}}
-For many of the existing behavioral preorders and equivalences, there are various algorithms and implementations to decide whether processes are equivalent.
+{{< paragraph_heading "State of the art." >}}
+For many of the existing behavioral preorders and equivalences, there are various algorithms and implementations to decide whether processes are equivalent [see @gl2022eqChecking for a survey].
 So, it would be an option to throw an array of algorithms on the transition systems of @exm-peterson-mutex.
 For instance, weak similarity, stable failures and contrasimilarity are neighbors in @fig-ltbts2-paper. CAAL [@aaehlow2015caal] could establish mutual weak similarity, mCRL2 [@groote2014mcrl2] would rule out stable-failure equivalence, and, for contrasimilarity, we would need to implement our own solution because there is no tool supporting it.
 Combining different tools and algorithms like this is tiresome and prone to subtle errors.
-But we can better!
+Can we not treat the question in *one* algorithm?
 
-{{<paragraph_heading "Our solution.">}}
-This thesis will outline the ideas one needs to decide all equivalences in one uniform approach.
-As we will discuss in more detail in @sec-equivio-peterson, our accompanying tool {{<equivio>}} can answer the questions of @exm-peterson-mutex in the following query:^[
-  This thesis often provides snippets for models on {{< equivio >}}.
-  You can examine and modify the example models by clicking on the links reading `Interactive model on equiv.io`.
-]
+{{< paragraph_heading "Our offer." >}}
+This thesis describes how to *decide all equivalences* in one *uniform approach* based on *energy games*, which is *easily implemented in tools*.
+
+As we will discuss in more detail in @sec-equivio-peterson, our accompanying tool {{< equivio >}} answers the questions of @exm-peterson-mutex in the following query:
 
 ```ccs
 Pe = (A1 | B1 | TurnA | ReadyAf | ReadyBf)
@@ -255,9 +254,12 @@ MxIC = tau.ecA.lcA.MxIC + tau.ecB.lcB.MxIC
 "lcB.Mx"(x=433, y=290)
 ```
 
-This query leads to the output in @fig-peterson-spectrum:
+This query leads to the output in @fig-peterson-spectrum:^[
+  This thesis often provides snippets for models on {{< equivio >}}.
+  You can examine and modify the example models by clicking on the links reading `Interactive model on equiv.io`.
+]
 Weak simulation indeed is the finest equivalence to equate $\literal{Pe}$ and $\literal{Mx}$!
-Moreover, $\literal{Pe}$ is *preordered* to $\literal{Mx}$ with respect to two more special finer notions, namely *$\eta$-simulation* and *stable simulation* (and notions below).
+Moreover, $\literal{Pe}$ is *preordered* to $\literal{Mx}$ with respect to two more specific notions, namely *$\eta$-simulation* and *stable simulation* (and notions below).
 Intuitively, this means that $\literal{Pe}$ *implements* $\literal{Mx}$ more faithfully than pure weak similarity would demand.
 
 ::: {#fig-peterson-spectrum .column-margin}
@@ -269,7 +271,7 @@ Output of equiv.io about weak equivalences to relate $\literal{Mx}$ to $\literal
 TODO: Update svg for new version!
 :::
 
-{{<paragraph_heading "Spectroscopy analogy.">}}
+{{< paragraph_heading "Spectroscopy analogy." >}}
 How does the tool decide so many equivalences in one shot?
 The key are van Glabbeek's “linear-time--branching-time spectrum” papers on comparative concurrency semantics [-@glabbeek1990ltbt1;-@glabbeek1993ltbt].
 They treat a zoo of distinct *qualitative questions* of the form “Are processes $p$ and $q$ equivalent with respect to notion $N$?”, where $N$ would for example be trace or bisimulation equivalence.
@@ -280,12 +282,12 @@ For light (i.e. electromagnetic radiation), the mix of wavelengths can be determ
 So, we could reframe the question behind this thesis also:
 
 ::: {#idea-spectroscopy .callout-idea .callout-tip}
-#### Spectroscopy?
+#### A Spectroscopy for the Spectrum
 
 If there exists a “linear-time–branching time spectrum,” does this mean, there also is some kind of “linear-time–branching-time *spectroscopy*”?
 :::
 
-{{<paragraph_heading "State of the art, primed.">}}
+{{< paragraph_heading "State of the art, primed." >}}
 This thesis answers the spectroscopy question positively, which is the key step to tackle our research question.
 One can compute what mix of (in-)distinguishabilities exists between a pair of finite-state processes,
 and this places the two on the spectrum of equivalences.
@@ -321,10 +323,10 @@ The *theory stack* of this thesis.
 (TODO: Chapters, styling, links)
 :::
 
-The algorithm at the core of this thesis describes how to *decide all behavioral equivalences at once* for varying spectra of equivalence using *games that can count* to *limit possible distinctions through attacker energy budgets*.
+The algorithm at the core of this thesis presents the ideas necessary to *decide all behavioral equivalences at once* for varying spectra of equivalence using *games that can count* to *limit possible distinctions through attacker energy budgets*.
 More precisely, we make the following contributions, each coming with a “side quest:”
 
-- @sec-preliminaries lays some foundations and makes precise *how bisimilarity games relate to grammars of distinguishing formulas* of Hennessy–Milner modal logic.
+- @sec-preliminaries lays some foundations and makes precise *how bisimilarity games relate to grammars of distinguishing formulas* from Hennessy–Milner modal logic.
   - Side quest: Certifying algorithms to check equivalences.
 - @sec-spectrum shows *how to understand the strong linear-time--branching-time spectrum quantitatively* and formalizes the *spectroscopy problem*.
   - Side quest: Equivalence checking as subtraction.
@@ -333,11 +335,17 @@ More precisely, we make the following contributions, each coming with a “side 
 - @sec-strong-spectroscopy applies the approach to decide the whole strong spectrum through one *game for linear-time--branching-time spectroscopy*.
   - Side quest: Deriving efficient *individual equivalence checkers*.
 - @sec-weak-spectrum recharts the *weak spectrum of equivalences accounting for silent steps* to fit our game approach.
-  - Side quest: Case studies.
+  - Side quest: Case studies in concurrency theory research.
 - @sec-silent-step-spectroscopy adapts the game for the *weak spectrum of equivalences*.
   - Side quest: Isabelle/HOL formalization.
-- WIP @sec-implementations showcases implementations to conveniently perform equivalence spectroscopies in web browsers.
-  - Side quest: Peterson's mutual exclusion.
+- @sec-implementations showcases four implementations to conveniently perform equivalence spectroscopies in web browsers.
+  - Side quest: Analyzing Peterson's mutual exclusion protocol.
+
+{{< paragraph_heading "Not this thesis." >}}
+We limit ourselves to the spectra of @glabbeek1990ltbt1 and @glabbeek1993ltbt.
+For instance, this excludes questions around value-passing and open/late/early bisimilarities and congruences on the $\pi$-calculus [cf. @sangiorgi1996bisimPi].
+Also, we do not consider timed or probabilistic equivalences [cf. @bdh2020probabilisticSpectrum], nor behavioral distances [@fahrenberg2014quantitativeLTBTS].
+Neither do we aim to re-survey behavioral equivalences in encyclopedic detail, which means that several notions will be covered without a detailed discussion of their features and merits.
 
 ## Artifacts and Papers
 
@@ -345,7 +353,7 @@ This thesis ties together the work of several publications in a coherent present
 It is written to be understandable on its own.
 For details, we typically refer to the original publications or to other artifacts for implementation and machine-checked proofs.
 
-{{<paragraph_heading "Publications.">}}
+{{< paragraph_heading "Publications." >}}
 The following four publications (with me as main author) fuel the following chapters:
 
 - **“Deciding All Behavioral Equivalences at Once: A Game for Linear-Time–Branching-Time Spectroscopy”** [LMCS -@bjn2022decidingAllBehavioralEqs] introduces the *spectroscopy problem* and the *core idea* to decide the whole strong spectrum using games that search trees of possible distinguishing formulas.
@@ -359,15 +367,15 @@ The following four publications (with me as main author) fuel the following chap
 
 {{<paragraph_heading "Prototype.">}}
 The algorithms of this thesis have been validated through a *Scala prototype implementation*.
-Throughout the thesis, many examples come with listings of {{<equivio>}} input and a link to try it out the browser.
+Throughout the thesis, many examples come with listings of {{<equivio>}} input and a link to try it out in the browser.
 You have already seen one such example for Peterson's mutex in @sec-ltbt-spectroscopy-idea.
-The usage of {{<equivio>}} is explained in @sec-equivio-usage.
+@sec-equivio-usage explains the usage of {{<equivio>}}.
 The source is available openly at <https://github.com/benkeks/equivalence-fiddle>.
 
 {{<paragraph_heading "Isabelle formalization.">}}
-Instead of swamping the document with technical proofs, these are contained in machine-checkable Isabelle/HOL theories.
+In order to relieve the document of technical proofs, these are contained in machine-checkable Isabelle/HOL theories.
 
-- **Equivalence spectrum formalization** contains proofs for the early chapters: <https://benkeks.github.io/ltbt-spectroscopy-isabelle/>.
+- **Equivalence spectrum formalization** supplies proofs for the early chapters: <https://benkeks.github.io/ltbt-spectroscopy-isabelle/>.
 - **Weak Equivalence Spectroscopy** formalizes the core results of @sec-weak-spectrum: <https://equivio.github.io/silent-step-spectroscopy>.
   The theory [@bbhlmm2025weakSpectroscopyIsabelle] has been developed together with TU Berlin students Lisa Annett Barthel, Leonard Moritz Hübner, Caroline Lemke, Karl Parvis Philipp Mattes, and Lenard Mollenkopf.
 

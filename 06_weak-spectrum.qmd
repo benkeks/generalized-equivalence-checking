@@ -21,7 +21,7 @@ Virtually all *applications* of concurrency theory use *weak* behavioral equival
 Therefore, it matters that we can lift our approach to also account for such equivalences.
 
 This chapter serves as a second round of preliminaries and context needed for the spectrum of weak equivalences.
-At the heart, we aim to find a modal spectrum characterization, where HML grammar and pricing are designed in such a way that we can apply the spectroscopy approach in the following @sec-silent-step-spectroscopy.
+At the heart, we aim to find a modal spectrum characterization, where HML grammar and pricing are designed in such a way that we can apply the spectroscopy approach in the following @sec-weak-spectorscopy.
 
 This is where we arrive at “The Linear Time–Branching Time Spectrum II: The Semantics of Sequential Systems with Silent Moves” [@glabbeek1993ltbt], already featured in @fig-ltbts2-paper of the introduction.
 We will reframe a big chunk of it to fit our modal framework.
@@ -1207,7 +1207,7 @@ But more non-terminals mean additional kinds of spectroscopy game positions and 
 ## Discussion {#sec-weak-spectrum-discussion}
 
 With this chapter, we have explored the space of weak behavioral equivalences in concurrency theory, focusing on their modal characterizations and relationships within the weak spectrum, following @glabbeek1993ltbt.
-This adds the preliminaries to consider their decision procedures in @sec-silent-step-spectroscopy.
+This adds the preliminaries to consider their decision procedures in @sec-weak-spectorscopy.
 
 In examples, we have seen how weak equivalences handle internal non-determinism due to communication in different ways.
 Practical scenarios, such as parallelizing compilers and process abstraction, reveal the possibilities and limitations of the different design decisions behind process equivalences.

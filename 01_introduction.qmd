@@ -336,7 +336,7 @@ More precisely, we make the following contributions, each coming with a “side 
   - Side quest: Deriving efficient *individual equivalence checkers*.
 - @sec-weak-spectrum recharts the *weak spectrum of equivalences accounting for silent steps* to fit our game approach.
   - Side quest: Case studies in concurrency theory research.
-- @sec-silent-step-spectroscopy adapts the game for the *weak spectrum of equivalences*.
+- @sec-weak-spectorscopy adapts the game for the *weak spectrum of equivalences*.
   - Side quest: Isabelle/HOL formalization.
 - @sec-implementations showcases four implementations to conveniently perform equivalence spectroscopies in web browsers.
   - Side quest: Analyzing Peterson's mutual exclusion protocol.

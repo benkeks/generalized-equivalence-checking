@@ -7,7 +7,7 @@ toc-title: "Chapter 7"
 {{< include style/macros.md >}}
 :::
 
-# Spectroscopy for the Weak Spectrum {#sec-silent-step-spectroscopy}
+# Spectroscopy for the Weak Spectrum {#sec-weak-spectorscopy}
 
 
 ::::{#related-7 .column-margin}

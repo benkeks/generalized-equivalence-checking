@@ -12,7 +12,7 @@ toc-title: "Chapter 8"
 All the nice theory of preceding chapters also works *in practice*.
 This chapter revisits the core parts of this thesis by discussing how they tie together in a tool implementation.
 
-The tool, {{< equivio >}} will be presented in @sec-equivio.
+The tool, {{< equivio >}}, will be presented in @sec-equivio.
 We demonstrate its use through the Peterson-mutex example.
 @sec-student-implementations shows that the game approach lends itself to many things:
 To explain equivalence notions in a computer game, to extend existing tools, and to parallelize equivalence checking through GPUs.
@@ -69,7 +69,7 @@ The standard queries are:
   The naming of notions in the output follows @tbl-notion-names.
 
 - `@compareSilent P1, P2` – 
-  Perform a spectroscopy on `P1` and `P2` with respect to the weak spectrum, treating silent steps along the lines of @sec-silent-step-spectroscopy.
+  Perform a spectroscopy on `P1` and `P2` with respect to the weak spectrum, treating silent steps along the lines of @sec-weak-spectorscopy.
   The output is analogous to `@compare`.
 - `@check equivalence-name, P1, P2` –
   Checks for (mutual) preordering between `P1` and `P2` with respect to individual notion `equivalence-name`. 
@@ -480,7 +480,7 @@ Data transformation flow in equiv.io
     {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.StrongSpectroscopy >}}
     and
     {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.WeakSpectroscopy >}}
-    for the respective spectroscopy variants of @sec-strong-spectroscopy and @sec-silent-step-spectroscopy.
+    for the respective spectroscopy variants of @sec-strong-spectroscopy and @sec-weak-spectorscopy.
     In particular, they facilitate the following steps in `SpectroscopyFramework.decideAll`:
     1. The spectroscopy defines a *spectroscopy game* (e.g. {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.StrongSpectroscopyGame >}}).
        The game must be a {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.EnergyGame >}}, inheriting a decision procedure along the lines of @alg-deciding-energy-games from trait {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.GameLazyDecision >}}.

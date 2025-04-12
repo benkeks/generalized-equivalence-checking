@@ -271,7 +271,7 @@ Lifted moves $(g, e) \gamemoveblank_R (g', e')$ are possible iff
 $e \neq \bot$, $g \gamemoveblank g'$, and $e' = \abstractupdate(g, g')(e)$.
 :::
 
-Note the fine point that positions of exhausted energy that derive from defender positions are transformed to stuck attacker positions!
+Note the fine point that positions of exhausted energy that derive from defender positions are transformed to stuck *attacker* positions!
 
 Winning regions of the reachability game and winning budgets of the energy game correspond.
 

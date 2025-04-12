@@ -875,6 +875,14 @@ So, effectively, we will be asking:
 What are the minimal notions to distinguish $p$ from $q$---and then often talk about the converse: The most-fitting notions to preorder or equate the states.
 Everything else is implied.
 
+:::{#rem-finite-spectroscopy}
+#### Infinitely many notions
+
+The spectrum as formulated in @def-strong-spectrum contains infinitely many notions.
+This would be a problem in a naive solution to @prob-spectroscopy-problem that relies on deciding equivalences individually, but will be no problem for us.
+Where we, however, assume finiteness for algorithms, is in the state-space size of $\system$.
+:::
+
 ### Spectroscopy as Abstract Subtraction
 
 Another way of viewing the spectroscopy problem is that we aim to compute an abstracted kind of *difference* between programs.
@@ -888,7 +896,6 @@ The *difference* between $p$ and $q$ is defined as:
 $$\difference{p}{q} ≔ \semanticsobs{p} \setminus \semanticsobs{q}.$$
 :::
 
-\noindent
 $\difference{p}{q}$ expresses the set of observations one could make of $p$ that one cannot make of $q$.
 This set will be empty, when the states are bisimilar, or infinite, otherwise.
 
@@ -965,11 +972,14 @@ Consequently, the spectroscopy problem for the standard equivalence spectra is $
 In this chapter, we have formalized how to handle *spectra of equivalence* (@idea-hierarchy), and instantiated the approach to the strong spectrum of @glabbeek2001ltbtsiReport.
 From there, we have introduced the *spectroscopy problem*, which asks for notions to preorder compared states (@idea-spectroscopy).
 
+{{< paragraph_heading "The shifted problem." >}}
 By formulating the problem in terms of a lattice over $\natsext$-vectors, the family of qualitative strong preorder/equivalence problems becomes a single quantitative problem:
 The spectroscopy problem for the strong spectrum.
+As we will see, the perspective of one quantitative problem is more insightful than the view of losely-related, isolated equivalence problems.
 
 We have already laid the groundwork to shift the semantic question of equivalence into a syntactic question of the shape of distinguishing formulas.
 
+{{< paragraph_heading "Prior publications." >}}
 The core ideas of this section have already been explored in @bjn2022decidingAllBehavioralEqs and @bisping2023equivalenceEnergyGames for the strong spectrum.
 However, in my prior work the expressiveness prices played a more crucial role.
 Here, we instead opted for a parameterized grammar to define notions and their observations $\observationsvar{N}$.
@@ -977,9 +987,10 @@ In this grammar, we force observations in conjuncts of conjunctions and count $\
 These are mostly superficial changes to streamline the following presentation.
 We have shown that traces, failures, simulation and bisimulation equivalence as defined by the notion coordinates match their textbook definitions.
 
+{{< paragraph_heading "What's next?" >}}
 So far, we have a problem and confidence that its solution conveys information about equivalences of the strong spectrum.
 Subsection [-@sec-equivalence-complexities] has established that spectroscopy complexity must be at least $\complexityname{PSPACE}$ on the strong spectrum.
 
 However, there is a polynomial-time part of spectrum around bisimilarity and (ready) similarity.
-In the next two chapters, we will first solve the spectroscopy problem for this polynomial slice and then extend to the whole strong spectrum.
-After that, we will also consider the weak spectrum.
+In the next two chapters, we will first solve the *spectroscopy problem for this polynomial slice* and then extend to the whole strong spectrum.
+After that, we will also consider the weak spectrum in the next part.

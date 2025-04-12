@@ -21,7 +21,15 @@ The present thesis is more detailed with respect to complexity and to handling o
 ::::
 
 By applying the ideas, we have explored so far, we can derive a game for the weak spectrum of @sec-weak-spectrum.
-The basic schematics of how this game solves the spectroscopy problem are exactly the same as for the strong spectroscopy in @fig-strong-spectroscopy-big-picture.
+The key new idea here is how to encode $\hmleps$ in game moves:
+
+::: {#idea-weakening-game .callout-idea .callout-tip}
+#### Weakening the attacker
+
+In the game, the places where $\hmleps$ appears in $\hmlsrbb$-formulas mean that the attacker must allow the maximization of defender's $Q$-options with respect to internal $\step{\tau}$-steps.
+:::
+
+The basic schematics of how the weak game solves the spectroscopy problem are exactly the same as for the strong spectroscopy in @fig-strong-spectroscopy-big-picture.
 
 What is different this time around is that we have a full Isabelle/HOL formalization of game correctness in @sec-weak-spectro-game, and that we can apply the algorithm to real case studies that involve internal behavior in @sec-tackling-case-studies.
 In @sec-weak-spectro-variants, we discuss how to use our method to check even more weak equivalences.  
@@ -229,7 +237,7 @@ $$
 :::
 
 Intuitively, the attacker is heavily weakened in the weak spectroscopy game due to the requirement to pass delay-moves in order to formulate observation attacks.
-These moves grow the right-hand-sets, which increases defender options.
+Following @idea-weakening-game, these moves grow the right-hand-sets, which increases defender options.
 At the same time, there are several new tactical possibilities for the attacker that correspond to the special weak conjunctions, as can be seen in the following example.
 
 ::: {#exm-phil-weak-spectroscopy}
@@ -1204,7 +1212,8 @@ With the weak spectroscopy game, we have departed from the individual equivalenc
 covering both linear-time and branching-time as well as stable and unstable notions.
 
 In principle, this chapter only executes @idea-modal-first to translate modal constructions to game moves appearing in $\hmlsrbb$, which follows @idea-weak-hml.
-But this involves many technicalities.
+The important trick is to weaken the attacker according to @idea-weakening-game,
+but this departs from prior approaches in weakened games and involves many technicalities.
 Therefore, it is relieving to have the Isabelle-formalization of @sec-isabelle-formalization by @bbhlmm2025weakSpectroscopyIsabelle to verify the construction.
 
 The mini case studies of @sec-tackling-case-studies show how the spectroscopy automates away the tedious kind of work of finding out the precise relationship between transformed processes that went, for instance, into @bell2013certifiably.

@@ -343,7 +343,7 @@ More precisely, we make the following contributions, each coming with a “side 
 
 {{< paragraph_heading "Not this thesis." >}}
 We limit ourselves to the spectra of @glabbeek1990ltbt1 and @glabbeek1993ltbt.
-For instance, this excludes questions around value-passing and open/late/early bisimilarities and congruences on the $\pi$-calculus [cf. @sangiorgi1996bisimPi].
+For instance, this excludes questions around value-passing and open/late/early bisimilarities and barbed congruences on the $\pi$-calculus [cf. @sangiorgi1996bisimPi].
 Also, we do not consider timed or probabilistic equivalences [cf. @bdh2020probabilisticSpectrum], nor behavioral distances [@fahrenberg2014quantitativeLTBTS].
 Neither do we aim to re-survey behavioral equivalences in encyclopedic detail, which means that several notions will be covered without a detailed discussion of their features and merits.
 

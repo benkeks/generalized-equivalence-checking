@@ -2,16 +2,103 @@
 toc-title: "Chapter 9"
 ---
 
-# Conclusion
+# Conclusion {#sec-conclusion}
 
 ::: {.content-visible when-format="html"}
 {{< include style/macros-html.md >}}
 {{< include style/macros.md >}}
 :::
 
+The main contribution of this thesis has been to solve @prob-spectroscopy-problem, the *spectroscopy problem*, deciding all behavioral preorders and equivalences of strong and weak spectrum, in one go.
+To do this, we have provided *generalized game characterizations* for both spectra.
+To turn these into decision procedures, we have developed a theory of *Galois energy games*.
+Thanks to the decision procedures, we can offer *tool support* for equivalence spectroscopies.
+
+{{< paragraph_heading "The big picture." >}}
+@fig-conclusion-big-picture shows the steps our theory has taken:
+
+::: {#fig-conclusion-big-picture fig-env="figure*" fig-pos="bt"}
+```tikz
+\begin{adjustbox}{max width=.9\linewidth, center}
+  \begin{tikzpicture}[auto,node distance=2.5cm,
+    algstep/.style={minimum width=3cm, minimum height=1.4cm, draw=gray, rectangle,align=center,rounded corners}]
+    \node[algstep, draw] (WeakSpectro) {Weak spectroscopy \\ Chapter \ref{sec-weak-spectorscopy}};
+    \node[algstep, draw, below of=WeakSpectro] (StrongSpectro) {Strong spectroscopy \\ Chapter \ref{sec-strong-spectroscopy}};
+    \node[algstep, draw, left of=StrongSpectro, node distance=6cm, minimum width=4cm] (PolySpectro) {Polynomial spectroscopy \\ Chapter \ref{sec-approach}};
+    \node[algstep, draw, below of=PolySpectro, minimum width=4cm] (BisimGame) {Bisimulation game \\ Chapter \ref{sec-preliminaries}};
+    \node[algstep, draw, left of=BisimGame, node distance=6cm] (HMThm) {Hennessy–Milner\\ theorem};
+
+    \path[->, dashed, thick]
+      (HMThm) edge node[align=center, swap] {certificates of\\strategies} (BisimGame)
+      (BisimGame) edge node[align=left, swap] {$(\infty, \infty, \infty)$-instance of\\ bisimulation energy game} (PolySpectro)
+      (PolySpectro) edge node[align=left, swap] {3d-version of} (StrongSpectro)
+      (StrongSpectro) edge node[align=left, swap] {special case with\\no internal $\tau$} (WeakSpectro);
+
+
+    \node[left=3mm of HMThm, align=right] (IndividualEqs) {Individual\\equivalences\\as baseline};
+    \node[left=3mm of PolySpectro, align=right] (Spectra) {Spectra\\of equivalence\\ Chapter \ref{sec-spectrum}};
+    \node[left=3mm of WeakSpectro, align=right] (WeakSpectra) {Abstracting\\ silent steps \\ Chapter \ref{sec-weak-spectrum}};
+  \end{tikzpicture}
+\end{adjustbox}
+```
+
+Hierarchy of abstraction from strong bisimilarity to weak spectroscopy.
+:::
+
+- We have started at the *level of individual equivalences* by revisiting the classical Hennessy–Milner theorem on the dualism of modal distinguishability and behavioral relatability.
+- @sec-preliminaries has revealed how relations and modal formulas in the Hennessy–Milner theorem are just *certificates* for defender and attacker strategies in the bisimulation reachability game.
+- @sec-spectrum has taken us to the level of *spectra* of equivalence, following van Glabbeek's approach of a hierarchy of Hennessy–Milner theorems.
+- On this level, @sec-approach has discovered that the bisimulation game just is an instance of the bisimulation *energy* game, which characterizes a small spectrum of $\complexityname{P}$-easy strong equivalences.
+  We can use it in algorithms thanks to our decision procedure for such *Galois energy games*.
+- The bisimulation energy game then again is only a lower-dimensional sibling of the *strong spectroscopy game*, which characterizes the full strong spectrum in @sec-strong-spectroscopy.
+- With @sec-weak-spectrum, we have entered the level of van Glabbeek's [-@glabbeek1993ltbt] *weak spectrum*, where silent steps are abstracted.
+- @sec-weak-spectorscopy has introduced the *weak spectroscopy game*, which could serve as strong spectroscopy game on systems without $\step{\tau}$-steps.
+
+Framing this journey along Plato's allegory of the cave:
+The Hennessy–Milner theorem *is a shadow* of the bisimulation game, which is a shadow of an energy game, which is a shadow of the strong spectroscopy game, which is a shadow of the weak spectroscopy game.
+With the tool implementations of @sec-implementations, we have returned from the abstract realm of ideas back to the material level.
+
+But in reality, there is no *ideal* hierachy of abstraction.
+Our journey has crossed many routes by other researches and could have taken different paths.
+Many interesting ones have been the topic of “Discussion” sections at the end of chapters.
+Let us close by looking at some ways one could go from here.
+
+{{< paragraph_heading "Blank spots." >}}
+There are some classical points to extend research around this thesis. For instance:
+
+- More formalization:
+  Our Isabelle/HOL formalization of the weak spectroscopy strengthens many results of the thesis (thanks to the hierarchy of shadows, @fig-conclusion-big-picture).
+  But so far, it does not cover revivals and thus failure-trace-like notions.
+  The proofs in @bisping2023equivalenceEnergyGamesReport give some confidence that the construction is correct, but an Isabelle/HOL formalization would be even nicer.
+- More Galois energy games:
+  There exist some interesting questions around the theory of Galois energy games of @sec-approach and their generalizability to more game variants.^[
+    Lemke and Bisping are already writing a paper on this.
+  ]
+- More tool support:
+  Proliferation of spectroscopy features to more tools beyond @sec-implementations would be great.
+  Our existing open source implementations hopefully can serve as good starting points.
+
+{{< paragraph_heading "More spectra." >}}
+Concurrency theory knows several other variants of linear-time--branching-time spectra.
+For some, it might be worthwhile to try to adapt our approach of generalized game characterizations, maybe even the whole spectroscopy framework.
+
+For probabilistic and quantitative bisimilarities there is recent work of “spectro-fication” in
+@ba2017bisimTraceApproximate, @bdh2020probabilisticSpectrum, and @sbkpq2024approximateProbabilisticBisimulations.
+
+barbed @Fournet2005
+
+, forward/reverse bisimilaritis
+- finiteness relies on fact that we can „forget” the transitions up to a configuration;  generality of @fahrenberg2014quantitativeLTBTS requires remembering traces.. likely the hardest
+
+For timed equivalences, bisimulation checking is decidable, but trace preordering is not [@cerans1993decidabilityTimedBisim].
+
+{{< paragraph_heading "A modal turn?" >}}
+
 There is a rich body of work on *process equivalence checking* and *refinement checking* for programs and specifications.
 This thesis argues that most of it can be viewed through one unified lense of *finding differences* in behavior.
 
-- Weak spectro -> strong spectro -> polynomial spectro -> Stirling bisim -> HM Thm
 
+{{< paragraph_heading "The encyclopedic project." >}}
 @garavel2023calculiWrong “Time has come for encyclopedic synthesis: reexamine / select / simplify / sort”
+
+*search engine for equivalences*

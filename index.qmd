@@ -2,27 +2,50 @@
 This is a work-in-progress document. Handle with care!
 :::
 
-## Abstract {.unnumbered .unlisted}
+## Summary {.unnumbered .unlisted}
 
-TODO
+We study the *spectroscopy problem* that asks which notions from a spectrum of behavioral equivalences relate a pair of states in a transition system.
+In particular, we solve the problem for finite-state processes and the *weak spectrum*, a hierarchy of semantical models of how to understand nondetermnism and internal behavior in concurrent programs.
+On our way there, we also treat the *strong spectrum* of concrete processes.
 
-## Preface {.unnumbered .unlisted}
+The approach relies on a *quantiative understanding of spectra* in terms of how many syntactic features of Hennessy–Milner logic are used to characterize equivalences.
+We prove the equivalences and preorders to be captured by *spectroscopy games* where energy budgets bound how much syntax the attacker may use to tell processes apart.
+Optimal attack strategies correspond to *minimal distinguishing formulas*.
+The spectroscopy problem thus reduces to the problem of computing *minimal attacker-winning budgets* in spectroscopy games.
+We provide an algorithm to compute such budgets on a wider class of *Galois energy games*.
 
-You should read this book (once it's finished) if you're interested in the semantics of concurrent programs and want to understand ...
+We implement the spectroscopy procedure in {{< equivio >}}, a *web tool* following the tradition of the Concurrency Workbench.
+Using it, we can *check for dozens of equivalences* at once.
+We apply the spectroscopy approach to small *case studies from verification and translation of concurrent programs*.
+Core parts of the thesis are supported by an *Isabelle/HOL-formalization*.
 
-- How behavioral process equivalences are treated uniformly in equivalence spectra.
-- How modal-logical and relational characterizations of behavioral equivalences are actually just “shadows” of game characterizations.
-- How energy games can be used to turn a family of qualitative equivalence problems into one quantitative problems.
-- How all behavioral equivalences can be decided at once.
-- How to extend the approach to the weak spectrum of equivalences that account for silent steps.
+\newpage
+
+### Dedication {.unnumbered .unlisted}
+
+> To the memory of Mark Alexander Sibly, creator of the programming language in which I wrote my first concurrent program, and a profound influence on me and so many others!
 
 ### TODO {.unnumbered .unlisted}
 
 (This is a space for TODOs that do not yet have a position in the text body.)
 
+- Notation index
+- Cover art
+- More consistent game figures
+- Instantiated grammars of strong spectrum 
+
 ### Acknowledgments {.unnumbered .unlisted}
 
 TODO
 
+```{=latex}
+{
+\newpage
+\hypersetup{linkcolor=black}
+\setstretch{1.0}
+\tableofcontents
+\setstretch{1.1}
+}
+\mainmatterforreal
+```
 
-\pagenumbering{arabic}

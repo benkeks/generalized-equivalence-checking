@@ -76,6 +76,9 @@ book:
 bibliography: similarities.bib
 csl: lib/apa.csl
 #csl: iso690-author-date-en
+citation:
+  type: thesis
+  genre: Doctoral dissertation
 
 format:
   html:
@@ -93,6 +96,7 @@ format:
       - ./lib/bangers-font/Bangers-Regular.ttf
       - ./lib/linux-libertine-font/*.woff
       - ./img/trollface.png
+      - ./img/tu-berlin-logo.png
     template: style/template.html
     css: style/style.css
     self-contained-math: true
@@ -129,7 +133,7 @@ format:
     colorlinks: true # must be set in order for quarto to load dvipsnames in xcolor for book class ....
     papersize: a4
     top-level-division: chapter
-    toc: true
+    toc: false # we add the latex toc manually
     template-partials:
       - style/before-body.tex
       - style/toc.tex

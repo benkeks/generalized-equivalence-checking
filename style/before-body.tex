@@ -29,8 +29,9 @@ $endif$
         \\[5pt]
         \url{https://bbisping.de}\\[14pt]
         % ----------------------------------------------------------------
-        \vspace{2cm}
+        \vspace{3cm}
         %{Thesis  submitted to} \\[5pt]
+        \includegraphics[width=0.2\textwidth]{img/tu-berlin-logo-long-red.pdf}\\[5pt]
         \emph{{Technische Universität Berlin}}\\[2cm]
         % {in partial fulfilment for the award of the degree
         % of} \\[2cm]
@@ -39,7 +40,6 @@ $endif$
         % {By}\\[5pt] {\Large \sc {Me}}
         \vfill
         % ----------------------------------------------------------------
-        %\includegraphics[width=0.19\textwidth]{example-image-a}\\[5pt]
         % {Department of Subject}\\[5pt]
         % {Address line -- 2}\\[5pt]
         % {Address line -- 4,
@@ -52,8 +52,8 @@ $endif$
 \end{titlepage}
 \restoregeometry
 %
-$if(abstract)$
-\begin{abstract}
-$abstract$
-\end{abstract}
-$endif$
+
+% deactivate mainmatter that is otherwise invoked at the wrong place by pandoc templates
+
+\let\mainmatterforreal=\mainmatter
+\renewcommand{\mainmatter}{}

@@ -165,6 +165,8 @@ diagram:
       execpath: xelatex
       header-includes:
         - '\input{PROJECT/style/preamble-general.tex}'
+        - '\usepackage{xr}'
+        - '\externaldocument{PROJECT/style/saved-labels}'
         - '\usepackage{unicode-math}'
         - '\setmathfont[Path=PROJECT/lib/newcomputermodern-font/]{NewCMMath-Regular.otf}'
         - '\input{PROJECT/style/preamble-font.tex}'

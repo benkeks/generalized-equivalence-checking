@@ -148,7 +148,7 @@ Can the attacker win from $\literal{g_1}$ with energy $(0,0)$?
 :::: {#fig-simple-energy-game}
 ```tikz
 \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
-  posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
+  posStyle/.style={draw, inner sep=1mm, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},
   defender/.style={ellipse, inner sep=0ex}]
 
   \node[posStyle, initial, initial text={}]
@@ -158,11 +158,11 @@ Can the attacker win from $\literal{g_1}$ with energy $(0,0)$?
   \node[posStyle]
     (Att_3) [below right = .5cm and 1cm of Att_1] {$\literal{g_3}$};
   \node[posStyle, defender]
-    (Dfn_4) [right = 4cm of Att_1] {$\literal{g_4}$};
+    (Dfn_4) [right = 3.5cm of Att_1] {$\literal{g_4}$};
   \node[posStyle]
-    (Att_5) [right = 4cm of Att_2] {$\literal{g_5}$};
+    (Att_5) [right = 3.5cm of Att_2] {$\literal{g_5}$};
   \node[posStyle, defender]
-    (Dfn_6) [right = 4cm of Att_3] {$\literal{g_6}$};
+    (Dfn_6) [right = 3.5cm of Att_3] {$\literal{g_6}$};
 
   \path
     (Att_1)
@@ -172,7 +172,7 @@ Can the attacker win from $\literal{g_1}$ with energy $(0,0)$?
     (Att_2)
       edge[bend left = 10] node {$+2,-1$} (Dfn_4)
     (Att_3)
-      edge[bend right = 10, swap] node {$0,0$} (Dfn_4)
+      edge[bend right = 10, swap,  pos=.45] node {$0,0$} (Dfn_4)
     (Dfn_4)
       edge[bend left = 10] node {$0,0$} (Att_5)
       edge[bend right = 10, swap] node {$-1,0$} (Dfn_6)
@@ -884,7 +884,7 @@ The game graph, labeled by the minimal attacker winning energies we find, is rep
 ::: {#fig-simple-energy-game-wins fig-pos='t'}
 ```tikz
 \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
-  posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
+  posStyle/.style={draw, inner sep=1mm, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},
   defender/.style={ellipse, inner sep=0ex}]
 
   \node[posStyle, initial, initial text={}, label={100:$(0,2),(2,1)$}]
@@ -894,11 +894,11 @@ The game graph, labeled by the minimal attacker winning energies we find, is rep
   \node[posStyle, label={100:$(1,1)$}]
     (Att_3) [below right = .5cm and 1cm of Att_1] {$\literal{g_3}$};
   \node[posStyle, defender, label={10:$(1,1)$}]
-    (Dfn_4) [right = 4cm of Att_1] {$\literal{g_4}$};
+    (Dfn_4) [right = 3.5cm of Att_1] {$\literal{g_4}$};
   \node[posStyle, label={100:$(0,1)$}]
-    (Att_5) [right = 4cm of Att_2] {$\literal{g_5}$};
+    (Att_5) [right = 3.5cm of Att_2] {$\literal{g_5}$};
   \node[posStyle, defender, label={100:$(0,0)$}]
-    (Dfn_6) [right = 4cm of Att_3] {$\literal{g_6}$};
+    (Dfn_6) [right = 3.5cm of Att_3] {$\literal{g_6}$};
 
   \path
     (Att_1)
@@ -908,7 +908,7 @@ The game graph, labeled by the minimal attacker winning energies we find, is rep
     (Att_2)
       edge[bend left = 10] node {$+2,-1$} (Dfn_4)
     (Att_3)
-      edge[bend right = 10, swap] node {$0,0$} (Dfn_4)
+      edge[bend right = 10, swap, pos=.45] node {$0,0$} (Dfn_4)
     (Dfn_4)
       edge[bend left = 10] node {$0,0$} (Att_5)
       edge[bend right = 10, swap] node {$-1,0$} (Dfn_6)

@@ -36,21 +36,21 @@ Simultaneously, the approach is *opinionated*, focusing on Robin Milner's tradit
   algstep/.style={minimum width=4.5cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
   \node[algstep, draw=TealBlue] (Bisim) {$p \beq{B} q$\\ $p$ and $q$ are bisimilar};
   \node[algstep, draw=TealBlue, right of=Bisim, node distance=7.5cm] (NotBisim) {$p \nbeq{B} q$ \\ $p$ and $q$ are not bisimilar};
-  \node[below of=Bisim, text=TealBlue, rotate=270, label={[align=center]270:(Def~2.7)}] (Biff) {$:\!\!\iff$};
+  \node[below of=Bisim, text=TealBlue, rotate=270, label={[align=center]270:(Def.~\ref{def-bisimilarity})}] (Biff) {$:\!\!\iff$};
   \node[below of=NotBisim, gray, rotate=270] (NBiff) {$\iff$};
   \node[algstep, draw=TealBlue, below of=Biff] (Rel) {There is bisimulation $\rel{R}$\\such that $(p,q) \in \rel{R}$};
   \node[algstep, draw=Fuchsia, below of=NBiff] (Distinction) {Some $\varphi \in \hml$\\distinguishes $p$ from $q$};
   \node[below of=Rel, text=Peach, rotate=270, label={[align=right]270:Stirling's\\characterization}] (Siff) {$\iff$};
-  \node[below of=Distinction, text=Peach, rotate=270, label=90:{Section 2.4.4}] (Giff) {$\iff$};
+  \node[below of=Distinction, text=Peach, rotate=270, label=90:{Section \ref{sec-bisim-game-hml}}] (Giff) {$\iff$};
   \node[algstep, draw=Peach, below of=Siff] (DefenderWins) {Defender wins bisimulation\\game from $[p,q]$};
   \node[algstep, draw=Peach, below of=Giff] (AttackerWins) {Attacker wins bisimulation\\game from $[p,q]$};
   \path
-    (Bisim) edge[draw=TealBlue] node[label=below:{(Def~2.7)}] {XOR} (NotBisim)
+    (Bisim) edge[draw=TealBlue] node[label=below:{(Def.~\ref{def-bisimilarity})}] {XOR} (NotBisim)
     (Rel) edge[draw=Fuchsia] node[label={[align=center]below:Hennessy--Milner\\theorem}] {XOR} (Distinction)
     (DefenderWins) edge[draw=Peach] node[label={[align=center]below:Determinacy\\of games}] {XOR} (AttackerWins);
-  \node[text=TealBlue, right=2mm of NotBisim] (Sec22) {Section 2.2};
-  \node[text=Fuchsia, right=2mm of Distinction] (Sec23) {Section 2.3};
-  \node[text=Peach, right=2mm of AttackerWins] (Sec24) {Section 2.4};
+  \node[text=TealBlue, right=2mm of NotBisim] (Sec22) {Section \ref{sec-behavioral-eq}};
+  \node[text=Fuchsia, right=2mm of Distinction] (Sec23) {Section \ref{sec-hml}};
+  \node[text=Peach, right=2mm of AttackerWins] (Sec24) {Section \ref{sec-games}};
 \end{tikzpicture}
 ```
 

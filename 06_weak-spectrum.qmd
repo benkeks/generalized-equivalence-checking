@@ -1209,6 +1209,7 @@ But more non-terminals mean additional kinds of spectroscopy game positions and 
 With this chapter, we have explored the space of weak behavioral equivalences in concurrency theory, focusing on their modal characterizations and relationships within the weak spectrum, following @glabbeek1993ltbt.
 This adds the preliminaries to consider their decision procedures in @sec-weak-spectorscopy.
 
+{{< paragraph_heading "The power of weakness." >}}
 In examples, we have seen how weak equivalences handle internal non-determinism due to communication in different ways.
 Practical scenarios, such as parallelizing compilers and process abstraction, reveal the possibilities and limitations of the different design decisions behind process equivalences.
 
@@ -1219,5 +1220,6 @@ Our spectrum, however, leaves out some classical notions such as stable failure 
   Especially for coupled similarity, this gap is ironic, as my research into game characterizations of equivalences has been kicked off by an interest in decision procedures for coupled similarity in @bn2019coupledsimTacas and @bnp2020coupledsim30.
 ]
 
+{{< paragraph_heading "What's next?" >}}
 Logic and pricing metric are designed in such a way that readers of preceding chapters might already be able to guess how they will translate to game moves for stable and branching conjunctions in the next chapter.
 Call this avenue for gamification yet another perk of modal characterizations---besides the benefits of built-in transitivity and consistency, we have noticed along the way of this chapter!

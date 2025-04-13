@@ -1302,6 +1302,7 @@ The bound drops to $\bigo{ \relsize{\states} \cdot \relsize{\step{}}}$ in the fl
 
 This chapter has shown how to solve the spectroscopy problem for the $\notions^{\literal{poly-strong}}$ spectrum in polynomial time, thereby deciding all its preorders and equivalences *at once*.
 
+{{< paragraph_heading "The energy game approach." >>}}
 The core ingredient has been to characterize the spectrum's observation languages through an energy game (@idea-energy-games, @thm-bisim-energy-game-characterization) derived from the bisimulation game.
 The Pareto front view is slightly more general than other characteristic games, which @hs1996complexityEquivalences for instance use to establish polynomial upper bounds individually for simulation-like notions.
 
@@ -1319,10 +1320,12 @@ Then, $e \in \attackerwinsmin(g)$ iff $e$ is the length of a shortest path from 
 In this instance, @alg-deciding-energy-games behaves like the well-known Bellman--Ford algorithm for shortest paths.
 :::
 
+{{< paragraph_heading "What's new?" >}}
 @alg-deciding-energy-games contains relevant generalizations and practical improvements compared to the one originally used in @bisping2023equivalenceEnergyGames.
 Most importantly, the declining energy version loses a dimension of exponentiality.
 For the polynomial equivalences we arrive at a reasonably polynomial complexity for the spectroscopy instantiation, including reasonable space complexity for a flattened energy lattice.
 
+{{< paragraph_heading "What's next?" >}}
 At this point, we have, in principle, *answered our main research question*
 how to conveniently decide for a pair of states which notions from a spectrum of behavioral equivalences equate the two.
 In the second half of the thesis, we will leverage this approach to treat the “strong spectrum” of concrete equivalences and the “weak spectrum” of equivalences that abstract silent steps.

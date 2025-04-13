@@ -883,7 +883,7 @@ This would be a problem in a naive solution to @prob-spectroscopy-problem that r
 Where we, however, assume finiteness for algorithms, is in the state-space size of $\system$.
 :::
 
-### Spectroscopy as Abstract Subtraction
+### Spectroscopy as Abstract Subtraction {#sec-abstract-subtraction}
 
 Another way of viewing the spectroscopy problem is that we aim to compute an abstracted kind of *difference* between programs.
 

@@ -347,6 +347,15 @@ that is, if $(\infty, \infty, \infty, \infty, \infty, \infty) \in \defenderwins(
 
 TODO: Example graph (just the old one?)
 
+:::{#rem-spectroscopy-triangle}
+
+#### The $\triangle$-symbol
+
+We use the $\triangle$ in $\gamespectroscopy$ with a double meaning:
+To symbolize a *prism*, which reveals the spectrum of light,
+and to mean *difference*, as the game expresses an abstract form of subtraction in the sense of @sec-abstract-subtraction.
+:::
+
 ### Correctness {#sec-correctness-strong-spectroscopy}
 
 To prove correctness, we proceed as with the bisimulation energy game in @sec-correctness-poly-spectroscopy:

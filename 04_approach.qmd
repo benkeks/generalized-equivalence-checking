@@ -93,7 +93,7 @@ To introduce energy games, we generalize the definitions on games (@def-game and
 We define how winning regions then become quantitative winning *budgets*, which can still be characterized inductively.
 
 ::: {#def-energy-game}
-#### Energy Reachability Game
+#### Energy reachability game
 
 Given a partially ordered set of energies $(\abstractenergies, \leq)$, an *energy reachability game* $\game^🗲$ is a reachability game $(G, G_\defender, \gamemoveblank)$ extended by an edge labeling of energy updates $\abstractupdate \colon (\gamemoveblank) \to (\abstractenergies \to (\set{⊥} ∪ \abstractenergies))$.
 
@@ -107,7 +107,7 @@ We denote by $\game^🗲(g_0, e_0)$ the game played from starting position $g_0 
 :::
 
 ::: {#def-energy-level}
-#### Energy Level
+#### Energy level
 
 For a finite play $ρ = {g_0}{g_1}…{g_{n-1}} ∈ G^{*}$ of $\game^🗲(g_0, e_0)$, its energy level $\energylevel(ρ)$ is computed recursively:
 
@@ -126,7 +126,7 @@ Additionally, we lift positional strategies of @def-strategies to be *energy-pos
 Instead of a winning region as in @def-winning-region, we define *winning budgets* for game positions:
 
 ::: {#def-winning-budgets}
-#### Winning Budgets
+#### Winning budgets
 
 For each position $g_0 ∈ G$ of energy game $\game^🗲$, the *attacker winning energy budgets*, $\attackerwins(g_0) \subseteq \abstractenergies$ are the energies $e_0$ where the attacker wins $\game^🗲(g_0, e_0)$.
 The defender winning budgets $\defenderwins$ are defined analogously.
@@ -135,6 +135,8 @@ The defender winning budgets $\defenderwins$ are defined analogously.
 Classical energy games use $\nats$-vectors for energies and vector addition for updates as in the following example:
 
 ::: {#exm-simple-energy-game}
+#### A simple energy game
+
 Consider vector energies $\abstractenergies = \nats^2$ with point-wise order and the energy game with graph in @fig-simple-energy-game.
 Edges are labeled by update vectors $\vec{u} ∈ \ints^2$, each representing an update function
 $$e \mapsto
@@ -224,12 +226,16 @@ Both are effects of @def-energy-game.
 More formally, the winning budgets are characterized by the following two propositions:
 
 ::: {#prp-winning-budget-upward-closure}
+#### Upward closure of attacker budgets
+
 Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game}$ are point-wise upward-closed, that is, $\upset \attackerwins^{\game}(g) = \attackerwins^{\game}(g)$ for all positions $g \in G$.^[
   This is formalized as Lemma 3.2 in @lemke2024multiweightedEnergyGames.
 ]
 :::
 
 ::: {#prp-winning-budget-rules}
+#### Inductive budgets
+
 Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game}$ are characterized inductively by the following rules:^[
   Proved as Theorem 3 in @lemke2024multiweightedEnergyGames.
 ]
@@ -263,7 +269,7 @@ Defender's wins on the other hand would dually be a *coinductive concept* becaus
 The proofs in @lemke2024multiweightedEnergyGames partially rely on the fact that one can derive reachability games from energy games, by inlining the energies and having the attacker stuck at exhausted energies.
 
 ::: {#def-derived-reachability-game}
-#### Derived Reachability Game
+#### Derived reachability game
 
 Given an energy game $\game = (G, G_\defender, \gamemoveblank, \abstractupdate)$ over $(\abstractenergies, \leq)$,
 the *derived reachability game* $\game^R = (G^R, G^R_\defender, \gamemoveblank_R)$ is played on tuples $G^R \defeq G \times (\abstractenergies \cup \set{\bot})$ with $G^R_\defender \defeq G_\defender \times \abstractenergies$.
@@ -276,17 +282,23 @@ Note the fine point that positions of exhausted energy that derive from defender
 Winning regions of the reachability game and winning budgets of the energy game correspond.
 
 ::: {#prp-derived-reachability-energies}
+#### Derived wins
+
 $(g, e) \in \attackerwins^{\game^R}$ precisely if $e \in \attackerwins^{\game}(g)$.^[
   Lemma 3.4 in @lemke2024multiweightedEnergyGames.
 ]
 :::
 
 ::: {#rem-energy-reachability}
+#### Generalized reachability
+
 Ordinary reachability games can be seen as a special case of energy games with trivial energies, e.g.\ $\abstractenergies = \set{1}$ and $\abstractupdate(\cdot) = \identity{\abstractenergies}$.
 On such games, $\game$ and $\game^R$ according to @def-derived-reachability-game have isomorphic game graphs.
 :::
 
 ::: {#rem-energy-games-in-general}
+#### Our flavor of energy games
+
 We deviate in two important points from other work on energy games:
 
 - In the literature, it is more common to consider the defender instead of the attacker to be energy-bounded [e.g. @fjls2011energyGamesMulti].
@@ -305,7 +317,7 @@ We now turn to special kind of monotonic energy games with vector-valued energy 
 A $d$-dimensional *declining energy game* is played on energy vectors:
 
 ::: {#def-energy-updates}
-#### Energies and Energy Updates
+#### Energies and energy updates
 
 For dimensionality $d$, the set of *energies*, $\energies$, is given by $(\nats ∪ \set{\infty})^d$.
 
@@ -314,11 +326,13 @@ The set of *energy update labels*, $\energyupdates$, contains $\vectorcomponents
 - $u_k ∈ \set{-1, 0}$ (relative update), or
 - $u_k = \mathtt{min}_D$ where $D \subseteq \{1, \ldots, d\}$ and $k ∈ D$ (minimum selection update).
 
-{{<noindent>}} Applying an update to an energy, $\energyupdate(u, e)$, where $e = \vectorcomponents[d]{e} ∈ \energies$ and $u = \vectorcomponents[d]{u} ∈ \energyupdates$, yields a new energy vector $e'$ where $k$th components $e'_k ≔ e_k + u_k$ for $u_k ∈ \ints$ and $e'_k ≔ \min_{d∈ D} e_d$ for $u_k = \mathtt{min}_D$.
+Applying an update to an energy, $\energyupdate(u, e)$, where $e = \vectorcomponents[d]{e} ∈ \energies$ and $u = \vectorcomponents[d]{u} ∈ \energyupdates$, yields a new energy vector $e'$ where $k$th components $e'_k ≔ e_k + u_k$ for $u_k ∈ \ints$ and $e'_k ≔ \min_{d∈ D} e_d$ for $u_k = \mathtt{min}_D$.
 Updates that would cause any component to become negative yield $\bot$.
 :::
 
 ::: {#exm-energy-update}
+#### Energy updates
+
 Consider the update label $(\updmin{1,2},0,-1)$.
 
 - $\energyupdate((\updmin{1,2},0,-1), (1,1,0))$ equals $\bot$ because of the last component.
@@ -331,7 +345,7 @@ The same is true for most other $u$ and $\energyupdate(u, \cdot)$ with a $\matht
 :::
 
 ::: {#def-declining-energy-game}
-#### Declining Energy Game
+#### Declining energy game
 
 Given a weight labeling $w \colon (\gamemoveblank) \to \energyupdates$, a $d$-dimensional *declining energy game* $\game^🗲$ is an energy reachability game with energies $\abstractenergies ≔ \energies$ and with edges labeled $\abstractupdate(m) ≔ \energyupdate(w(m), \cdot)$.
 
@@ -373,8 +387,7 @@ To define the polynomial slice, we only use three dimensions:
 Components for other dimensions of the strong spectrum of the previous chapter are effectively set to $∞$.
 
 ::: {#def-polynomial-strong-spectrum}
-
-#### Polynomial-Time Strong Spectrum
+#### Polynomial-time strong spectrum
 
 We denote as *polynomial-time strong spectrum* the projection of the strong spectrum (@def-strong-spectrum) to the first, fifth, and sixth dimension, thus by notions
 $$
@@ -444,7 +457,7 @@ As the game stands, we can meaningfully count the three dimensions used in Subse
 We add the computations that happen in the grammar of @def-polynomial-strong-spectrum as energy updates to the bisimulation game and obtain:
 
 ::: {#def-bisim-energy-game}
-#### Bisimulation Energy Game
+#### Bisimulation energy game
 
 For a transition system $\system$, the *bisimulation energy game* ${\game}_\notionname{B}^{🗲\system}$ is played on the same graph as the *bisimulation game* ${\game}_\notionname{B}^{\system}$ (of @def-bisim-game), but the moves are weighted by the following energy updates:
 
@@ -570,7 +583,7 @@ In following chapters, we will prove stronger results for more general games.
 The approach is to generalize the connection between winning attacks and distinguishing formulas in the  bisimulation game that we have already explored in @lem-attacks-imply-formulas and @lem-formulas-imply-attack to energies and spectrum.
 
 ::: {#def-strategy-formulas-poly}
-#### Strategy Formulas for ${\game}_\notionname{B}^{🗲}$
+#### Strategy formulas for ${\game}_\notionname{B}^{🗲}$
 
 The set of *strategy formulas* for a game position $g$ and a budget $e$, $\strat_\notionname{B}(g, e)$, in the context of a bisimulation energy game ${\game}_\notionname{B}^{🗲\system}$ is defined inductively by the following rules:
 $$
@@ -607,6 +620,8 @@ $$
 So the formulas we encountered before also serve as examples of such strategy formulas.
 
 ::: {#lem-bisim-energy-game-soundness}
+#### Distinction soundness
+
 If $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
 then there is $φ ∈ \strat_\notionname{B}([p, q], e)$ with $φ ∈ \observationsvar[\literal{poly-strong}]{e}$, $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$.
 :::
@@ -646,6 +661,8 @@ Proof by induction on the inductive characterizations of attacker winning budget
 :::
 
 ::: {#lem-bisim-energy-game-completeness}
+#### Distinction completeness
+
 If there is $φ ∈ \observationsvar[\literal{poly-strong}]{e}$ with $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$,
 then $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
 :::
@@ -686,7 +703,7 @@ A decision procedure for winning budgets in declining energy games.
 This section is about how to compute which energy budgets are winning for the attacker (or the defender) at positions of an energy game:
 
 ::: {#prob-energy-game-problem .problem .callout-problem .callout-tip}
-#### Energy Game Winner Problem
+#### Energy game winner problem
 
 In the context of an energy system $(\abstractenergies, \leq)$ and a finite energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$, the *energy game winner problem* goes:
 
@@ -714,6 +731,8 @@ Galois connections can be thought of as a pair of *monotonic functions that inve
 Another standard intuition is that Galois connections couple a *concrete* and a more *abstract* domain, and this is what the variable naming in the following definition alludes to.
 
 ::: {#def-galois-connection}
+#### Galois connection
+
 A *Galois connection* between two partially ordered sets $(C, \leq_C)$ and $(A,\leq_A)$ is a pair of functions $α \colon C \to A$ and $\gamma \colon A \to C$ such that, for all $a ∈ A$ and $c ∈ C$:
 $$
 α(c) \leq_A a \iff c \leq_C \gamma(a).
@@ -747,6 +766,8 @@ Visualization of Galois connections according to @def-galois-connection.
 :::
 
 ::: {#exm-galois-abstraction-reals}
+#### $\nats$ as abstraction for $\reals$
+
 Take the non-negative reals $\reals^{\geq 0}$ as concrete domain and the natural numbers $\nats$ as abstract domain.
 Then, as function $α_{\reals} \colon \reals^{\geq 0} \to \nats$, take flooring, $x \mapsto \floor{x}$, and for the other direction, the identity $\identity{\nats}$, $n \mapsto n$.
 Clearly, $\floor{x} \leq n \iff x \leq n$.
@@ -820,7 +841,9 @@ $$c \leq_C f^{-1}(a) \implies f(c) \leq_A f(f^{-1}(a)) \implies f(c) \leq_A a.\q
 In the following, we will use a $↺$-symbol to label the adjoint functions that we use to undo energy updates.
 
 ::: {#rem-galois-expr}
-@def-spectrum demands monotonicity of our observation languages for a spectrum, $\observationsvar{N \in \notions}$.
+#### Galois connections on the spectrum
+
+@def-spectrum demands monotonicity of our observation languages for a spectrum, $\observationsvar{N ∈ \notions}$.
 If we construct an abstraction function as in @lem-galois-inversion to undo the language selection for a set of formulas $\Phi$, the result would read: 
 $$
 \alpha_{\observations{}}(\Phi) := \inf \set{N \in \notions \mid \Phi \subseteq \observationsvar{N}}.
@@ -877,8 +900,9 @@ By $\zerovec$, we denote the minimal element of the energy system $\abstractener
 We illustrate the algorithm by running it on the simple energy game of @exm-simple-energy-game.
 
 ::: {#exm-simple-energy-game-execution}
+#### Deciding the simple energy game
 
-Let us execute @alg-deciding-energy-games on the $\nats^2$-game of @exm-simple-energy-game.
+Let us execute @alg-deciding-energy-games on the simple $\nats^2$-game of @exm-simple-energy-game.
 The game graph, labeled by the minimal attacker winning energies we find, is reproduced in @fig-simple-energy-game-wins.
 
 ::: {#fig-simple-energy-game-wins fig-pos='t'}
@@ -1015,6 +1039,8 @@ Additive combination (dashed red) of successor Pareto fronts (black) at attacker
 :::
 
 ::: {#thm-energy-game-correctness}
+#### Correctness
+
 Assume energies form a well-founded bounded $\lub$-semi-lattice $(\abstractenergies, \leq)$.
 Given a finite-state energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$
 with monotonic $\abstractupdateinv$-functions for all moves
@@ -1041,6 +1067,7 @@ The *width*, $\relwidth_B(b)$, of a (semi-)lattice $(B, \leq)$ below a point $b$
 :::
 
 ::: {#thm-energy-game-complexity}
+#### Complexity
 
 Consider the following parameters of an energy game problem on $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$ where the energies at least form a well-founded bounded $\lub$-semi-lattice $(\abstractenergies, \leq)$:
 
@@ -1069,6 +1096,8 @@ Let us instantiate the previous two subsections to declining energy games.
 All we have to do is instantiate $\abstractupdateinv$ to obtain an algorithm and think about the structure of the energies to tell its complexity.
 
 ::: {#def-declining-upd-inv}
+#### Inverting declining updates
+
 The undo-update function $\energyupdateinv$ on a $d$-dimensional declining energy game is defined component-wise for $k \in \set{1 … d}$ as:
 $$
 \begin{array}{rl}
@@ -1189,6 +1218,8 @@ As $\energyupdate(u, \cdot)$ is monotonic, all that needs to be shown according 
 :::
 
 ::: {#lem-declining-update-complexity}
+#### Declining complexity
+
 @alg-deciding-energy-games solves the energy game problem on a $d$-dimensional *declining* energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
 $$
 \bigo{o_{\gamemoveblank} \cdot \relsize{G}^{2 \cdot d} \cdot (d^2 + \relsize{G}^{d-1} \cdot d)}
@@ -1227,6 +1258,7 @@ For space complexity, we obtain:
 :::
 
 ::: {#def-flattened-energies}
+#### Flattened energies
 
 For $d$-dimensional energy games, we define the *flattened energies* as $\energiesflattened := (\set{0,1,\infty})^d$.
 A standard energy $e \in \energies$ is cast to $\energiesflattened$ by $\widehat{e}$ where
@@ -1249,6 +1281,8 @@ Effectively, this decouples the size of Pareto fronts from the game size.
 In this instance, @lem-declining-update-complexity becomes:
 
 ::: {#lem-declining-update-complexity-flattened}
+#### Flattened complexity
+
 @alg-deciding-energy-games solves the *flattened* energy game problem on a $d$-dimensional declining energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
 $$
 \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2d} \cdot (d^2 + 3^{d-1} \cdot d) }
@@ -1273,6 +1307,8 @@ By the definitions of winning budgets, $\notions^\literal{poly-strong} \setminus
  $\Min(\notions^\literal{poly-strong} \setminus \notions^\literal{poly-strong}_{p,q}) = \attackerwins^{\min\game_\notionname{B}^🗲}([p,q])$.
 
 ::: {#thm-bisim-energy-game-complexity}
+#### Overall complexity
+
 Given a transition system $\system$,
 the spectroscopy problem for the $\notions^\literal{poly-strong}$-spectrum can be solved in polynomial time with respect to the size of $\system$.
 :::
@@ -1302,7 +1338,7 @@ The bound drops to $\bigo{ \relsize{\states} \cdot \relsize{\step{}}}$ in the fl
 
 This chapter has shown how to solve the spectroscopy problem for the $\notions^{\literal{poly-strong}}$ spectrum in polynomial time, thereby deciding all its preorders and equivalences *at once*.
 
-{{< paragraph_heading "The energy game approach." >>}}
+{{< paragraph_heading "The energy game approach." >}}
 The core ingredient has been to characterize the spectrum's observation languages through an energy game (@idea-energy-games, @thm-bisim-energy-game-characterization) derived from the bisimulation game.
 The Pareto front view is slightly more general than other characteristic games, which @hs1996complexityEquivalences for instance use to establish polynomial upper bounds individually for simulation-like notions.
 
@@ -1312,6 +1348,8 @@ To compute the Pareto fronts, we use a fixed point algorithm (@idea-deciding-ene
 It can be thought of as a generalization of well-known ways to compute shortest distances in graphs:
 
 :::{#rem-shortest-paths}
+#### Shortest paths
+
 The energy game problem of this chapter can be seen as a *generalization of the shortest path problem* on directed graphs to account for two players as well as for much more general distances and cost functions.
 
 To see how, consider energy games on $(\nats, \leq)$ where only deadlock positions belong to the defender

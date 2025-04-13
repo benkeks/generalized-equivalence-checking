@@ -1146,6 +1146,8 @@ for any game, each game position has exactly one winner:
 $G = \attackerwins \cup \defenderwins$ and $\attackerwins \cap \defenderwins = \varnothing$,
 and they can win using a positional strategy.^[
   This is just an instantiation of positional determinacy of parity games [@zielonka1998infiniteGameColoured].
+  Parity games extend reachability games by number-coloring positions.
+  The defender only wins the infinite plays where the least color that appears infinitely often is even.
   Reachability games are the subclass of parity games only colored by 0.
 ]
 :::

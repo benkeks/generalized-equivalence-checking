@@ -46,7 +46,7 @@ Hierarchy of abstraction from strong bisimilarity to weak spectroscopy.
 :::
 
 - We have started at the *level of individual equivalences* by revisiting the classical Hennessy–Milner theorem on the dualism of modal distinguishability and behavioral relatability.
-- @sec-preliminaries has revealed how relations and modal formulas in the Hennessy–Milner theorem are just *certificates* for defender and attacker strategies in the bisimulation reachability game.
+- @sec-preliminaries has revealed how relations and modal formulas in the Hennessy–Milner theorem are just *certificates* for defender and attacker strategies in the bisimulation reachability game (@idea-games).
 - @sec-spectrum has taken us to the level of *spectra* of equivalence, following van Glabbeek's approach of a hierarchy of Hennessy–Milner theorems.
 - On this level, @sec-approach has discovered that the bisimulation game just is an instance of the bisimulation *energy* game, which characterizes a small spectrum of $\complexityname{P}$-easy strong equivalences.
   We can use it in algorithms thanks to our decision procedure for such *Galois energy games*.
@@ -79,26 +79,57 @@ There are some classical points to extend research around this thesis. For insta
   Our existing open source implementations hopefully can serve as good starting points.
 
 {{< paragraph_heading "More spectra." >}}
-Concurrency theory knows several other variants of linear-time--branching-time spectra.
+Concurrency theory knows other variants of linear-time--branching-time spectra.
 For some, it might be worthwhile to try to adapt our approach of generalized game characterizations, maybe even the whole spectroscopy framework.
 
-For probabilistic and quantitative bisimilarities there is recent work of “spectro-fication” in
-@ba2017bisimTraceApproximate, @bdh2020probabilisticSpectrum, and @sbkpq2024approximateProbabilisticBisimulations.
+- There are various *quantitative notions*, often understood in terms of *behavioral distances*.
+  They could be included into our game model by allowing the defender a certain amount of “cheating.”
+  For instance, the $Q$-sets in game positions could be fuzzy, and some defender-budget defines how unlikely positions they can pick.
 
-barbed @Fournet2005
+  The (strong) quantitative spectrum of @fahrenberg2014quantitativeLTBTS already is phrased in terms of a game model.
+  Combining it with our game would likely demand deeper changes to our game mechanics, because one has to remember traces (and not just current states) to compute the resulting distances in generarlity.
 
-, forward/reverse bisimilaritis
-- finiteness relies on fact that we can „forget” the transitions up to a configuration;  generality of @fahrenberg2014quantitativeLTBTS requires remembering traces.. likely the hardest
+  For Markovian models and probabilistic bisimilarities, there is recent work of “spectro-fication” in
+  @ba2017bisimTraceApproximate, @bdh2020probabilisticSpectrum, and @sbkpq2024approximateProbabilisticBisimulations, also extending to silent-step notions.
+  So, this might be the kind of quantitaive equivalences, where a connection to our approach works best.
 
-For timed equivalences, bisimulation checking is decidable, but trace preordering is not [@cerans1993decidabilityTimedBisim].
+  Timed equivalences would face conceptional boundaries to decision procedures on finite models:
+  While bisimilarity is decidable, trace preordering is not [@cerans1993decidabilityTimedBisim].
+- *Barbed and other congruences* on $\pi$-calculi rely on some system of *contexts* in which to place processes.
+  @Fournet2005 present a hierarchy for asynchronous name-passing calculi, on which one could base a spectroscopy. 
 
-{{< paragraph_heading "A modal turn?" >}}
+  Conceptionally, it is clear that the selection of a distinguishing context could also happen as an attacker move.
+  In practice, it might be hard to do this elegantly in a way where games remain finite for finite systems.
+- Some kinds of bisimilarity are based on *special modalities*.
+  For instance, there are forward/reverse bisimilarities [@be2023forwardReverseBisim] that add modalities to move backwards through the transition graph.
 
-There is a rich body of work on *process equivalence checking* and *refinement checking* for programs and specifications.
-This thesis argues that most of it can be viewed through one unified lense of *finding differences* in behavior.
+  Many such modalities could be added as special moves to the game graph.
+  For modalities where satisfaction depends on infinite behavior, the reachability game framework is not sufficently expressive.
+  An example would be the divergence modalities mentioned in @sec-extending-to-other-eqs, which require a parity-game winning condition.
 
+{{< paragraph_heading "A modal-logical turn?" >}}
+This thesis has approached the rich body of work on equivalence and refinement through one unified lense of *finding differences* in behavior.
+These were expressed in *modal logics* (@idea-modal-first “Modal first!”), which comes with several perks.
+
+In recent years, there seems to be a shift towards the “modal first” approach.
+The shift is visible in Geuvers and Golov's work on apartness [@geuversGolov2023positiveBB; @geuvers2022],
+similarly in @fms2021behavioralPreordGradedMonads and @fswbgm2024gradedSemantics connecting graded modal logics and monads,
+in @wms2021explainingBehavioralInequivGenerically strongly linking partition refinement and modal logic,
+as well as in @bgkm2023hmThmsViaGalois using Galois connections to obtain Hennessy–Milner theorems.
+
+This thesis and its surrounding publications, too, participate in this movement.
+However, we leave the stack of abstractions around coalgebras and monads aside.
+One of the effects of this decision is that our framework can be implemented by regular Bachelor students after one introductory course on reactive systems.
 
 {{< paragraph_heading "The encyclopedic project." >}}
-@garavel2023calculiWrong “Time has come for encyclopedic synthesis: reexamine / select / simplify / sort”
+Concurrency theory as a field has entered a stage where the initial explosion of questions and approaches has faded.
+A wave of Festschriften has been appearing.
+As @garavel2023calculiWrong puts it:
 
-*search engine for equivalences*
+> Time has come for encyclopedic synthesis: reexamine / select / simplify / sort
+
+This thesis hopes to fit into this project with a “search engine” for equivalences.
+It shows how to quickly survey spectra of equivalence and how the approach can easily be implemented into tools.
+While pioneers of the field are retiring, parts of their wisdom thus can be materialized into new generations of software.
+
+For concurrent computation will remain relevant, and so will questions on the equivalence of concurrent programs.

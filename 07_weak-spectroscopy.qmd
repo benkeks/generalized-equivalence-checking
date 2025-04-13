@@ -1181,7 +1181,8 @@ Then $\semantics{\hmleps\hmlobs{\delta}\hmltrue}^{\smash{\system'}} = \semantics
 
 For infinite systems, divergence is more tricky.
 Just like infinite traces, it depends on the possibility of characterizing infinite-duration attacks.^[And not just unbounded attacks as we support them now.]
-On the game level, for infinite plays to be winnable by the attacker, the game must have a Büchi winning condition.
+On the game level, for infinite plays to be winnable by the attacker, the game must have a parity-game winning condition:
+The attacker wins a subgame about divergence-distinction if they can make inifinitely much $\tau$-progress, but the defender cannot. 
 Such a richer game model is the route taken by @ekw2017gamesBisimAbstraction to characterize various divergence-aware bisimilarities.
 
 {{< paragraph_heading "Behavioral congruences." >}}

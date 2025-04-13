@@ -521,7 +521,7 @@ The output of the same mechanism for {{<code_link "shared/src/main/scala-2.12/io
 When following the links to source listings above, you might notice that most aspects only take a few hundred lines of code.
 Depending on how one counts, a total of 2000–3000 lines fit the two spectroscopies, preorder checking for all the notions, game algorithms, generation and validation of HML formulas, and presentation mechanisms.
 
-As far as code bases go that number is extremely compact.^[
+As far as code bases go, that size is extremely compact.^[
   For reference, @cs1996ncsuConcurrencyWorkbench report 18,000 LOC for the *NSCU Concurrency Workbench* in Standard&nbsp;ML.
   Performance-centric C++ code bases like mCRL2 [@groote2014mcrl2] are another order of magnitude bigger.
 ]

@@ -765,7 +765,7 @@ Without these tricks, the approach would not be applicable to systems with relev
 ]
 :::
 
-## Deciding Individuals Equivalences {#sec-deciding-individual-eqs}
+## Deciding Individual Equivalences {#sec-deciding-individual-eqs}
 
 As we have seen, the strong spectroscopy characterizes the spectroscopy problem *and* each individual equivalence (and preorder).
 This section is about the feasability to decide individual preorders using the spectroscopy game.
@@ -1064,7 +1064,8 @@ Both publications, however, use word-transition moves for trace-like equivalence
 In algorithms, this is unfortunate, since most interesting systems allow infinitely long transition sequences:
 For finite-state systems, this infinity appears as soon as there is a transition cycle.
 Therefore, the subset construction (or imperfect-information view) is technologically supperior.
-Also, theoretically, the link to conjunctions in modal logics is an advantage of our construction.
+On the side of theory, the link between moves in the game and conjunctions in modal logics adds clarity to our construction.
+It reinforces the idea of @sec-abstract-subtraction that equivalence checking is, in a way, subtraction of satisfied formulas.
 
 {{< paragraph_heading "Original formulation." >}}
 The idea to alternate *state subsets for nondeterministic words and conjunction moves to eliminate the blowup* is introduced by @bisping2021ltbtsTacas.

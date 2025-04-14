@@ -471,7 +471,7 @@ If we reexamine the grammar of $\observations{F}$ in @def-failures-modal, we not
   \node(Obs1) {$\hmlobs\tau$};
   \node(Conj0)[right=2cm of Obs1.center] {$\land$};
   \node(Neg)[right=3cm of Conj0.center] {$\neg$};
-  \node(ObsA)[right=2cm of Neg.center] {$\hmlobs{a}$};
+  \node(ObsA)[right=2cm of Neg.center] {$\hmlobs{\literal a}$};
   \node(Top)[right=2cm of ObsA.center] {$\top$};
 
   \node(E1) [above left=6mm and 1mm of Obs1.center]{$e_{\textcolor{obsColor}{1}} = 2$};
@@ -671,19 +671,19 @@ The defining aspects of each gramamr are marked in $\textcolor{RoyalBlue}{\textr
     Enabledness, $\notionname{E}$ at $(\mathhl{1},0,0,0,0,0)$:
   }
     \varphi_\notionname{E} \grammardef &
-      \grammarsp \mathhl{\hmlobs{a}\varphi_\notionname{U}}
+      \grammarsp \mathhl{\hmlobs{α}\varphi_\notionname{U}}
       \grammaror \mathdl{\varphi_\notionname{U}} \\
   \intertext{
     Traces, $\notionname{T}$ at $(\mathhl{\infty},0,0,0,0,0)$:
   }
     \varphi_\notionname{T} \grammardef &
-      \grammarsp \hmlobs{a}\mathhl{\varphi_\notionname{T}}
+      \grammarsp \hmlobs{α}\mathhl{\varphi_\notionname{T}}
       \grammaror \varphi_\notionname{U} \\
   \intertext{
     Failures, $\notionname{F}$ at $(\infty,\mathhl{1},0,0,\mathhl{1},\mathhl{1})$:
   }
     \varphi_\notionname{F} \grammardef &
-      \grammarsp \hmlobs{a}\varphi_\notionname{F}
+      \grammarsp \hmlobs{α}\varphi_\notionname{F}
       \grammaror \mathhl{\hmlands \set{ \psi_\notionname{F}, \psi_\notionname{F}, \ldots }} \\
     \psi_\notionname{F} \grammardef &
       \grammarsp \mathhl{\hmlneg\varphi_\notionname{E}}
@@ -692,13 +692,13 @@ The defining aspects of each gramamr are marked in $\textcolor{RoyalBlue}{\textr
     Revivals, $\notionname{RV}$ at $(\infty,1,\mathhl{1},0,1,1)$:
   }
     \varphi_\notionname{RV} \grammardef &
-      \grammarsp \hmlobs{a}\varphi_\notionname{RV}
+      \grammarsp \hmlobs{α}\varphi_\notionname{RV}
       \grammaror \hmlands \set{ \mathhl{\varphi_\notionname{E}}, \psi_\notionname{F}, \psi_\notionname{F}, \ldots } \\
   \intertext{
     Readiness, $\notionname{R}$ at $(\infty,1,1,\mathhl{1},1,1)$:
   }
     \varphi_\notionname{R} \grammardef &
-      \grammarsp \hmlobs{a}\varphi_\notionname{R}
+      \grammarsp \hmlobs{α}\varphi_\notionname{R}
       \grammaror \hmlands \set{ \psi_\notionname{R}, \psi_\notionname{R}, \ldots } \\
     \psi_\notionname{R} \grammardef &
       \grammarsp \mathhl{\varphi_\notionname{E}}
@@ -707,13 +707,13 @@ The defining aspects of each gramamr are marked in $\textcolor{RoyalBlue}{\textr
     Failure trace, $\notionname{FT}$ at $(\infty,1,\mathhl{\infty},0,1,1)$:
   }
     \varphi_\notionname{FT} \grammardef &
-      \grammarsp \hmlobs{a}\varphi_\notionname{FT}
+      \grammarsp \hmlobs{α}\varphi_\notionname{FT}
       \grammaror \hmlands \set{ \mathhl{\varphi_\notionname{FT}}, \psi_\notionname{F}, \psi_\notionname{F}, \ldots } \\
   \intertext{
     Ready trace, $\notionname{RT}$ at $(\infty,1,\infty,\mathhl{1},1,1)$:
   }
     \varphi_\notionname{RT} \grammardef &
-      \grammarsp \hmlobs{a}\varphi_\notionname{RT}
+      \grammarsp \hmlobs{α}\varphi_\notionname{RT}
       \grammaror \hmlands \set{ \mathhl{\varphi_\notionname{RT}}, \psi_\notionname{R}, \psi_\notionname{R}, \ldots }
   \end{align*}
 }
@@ -731,7 +731,7 @@ Grammars induced by coordinates for strong linear-time notions of equivalence.
     Impossible futures, $\notionname{IF}$ at $(\infty,1,0,0,\mathhl{\infty},1)$:
   }
     \varphi_\notionname{IF} \grammardef &
-      \grammarsp \hmlobs{a}\varphi_\notionname{IF}
+      \grammarsp \hmlobs{α}\varphi_\notionname{IF}
       \grammaror \hmlands \set{ \psi_\notionname{IF}, \psi_\notionname{IF}, \ldots } \\
     \psi_\notionname{IF} \grammardef &
       \grammarsp \mathhl{\hmlneg\varphi_\notionname{T}}
@@ -740,7 +740,7 @@ Grammars induced by coordinates for strong linear-time notions of equivalence.
     Possible futures, $\notionname{PF}$ at $(\infty,1,\mathhl{\infty},\mathhl{\infty},\infty,1)$:
   }
     \varphi_\notionname{PF} \grammardef &
-      \grammarsp \hmlobs{a}\varphi_\notionname{PF}
+      \grammarsp \hmlobs{α}\varphi_\notionname{PF}
       \grammaror \hmlands \set{ \psi_\notionname{PF}, \psi_\notionname{PF}, \ldots } \\
     \psi_\notionname{PF} \grammardef &
       \grammarsp \mathhl{\varphi_\notionname{T}}
@@ -749,13 +749,13 @@ Grammars induced by coordinates for strong linear-time notions of equivalence.
     Simulation, $\notionname{1S}$ at $(\infty,\mathhl{\infty},\mathhl{\infty},\mathhl{\infty},0,0)$:
   }
     \varphi_\notionname{1S} \grammardef &
-      \grammarsp \hmlobs{a}\varphi_\notionname{1S}
+      \grammarsp \hmlobs{α}\varphi_\notionname{1S}
       \grammaror \mathhl{\hmlands \set{ \varphi_\notionname{1S}, \varphi_\notionname{1S}, \ldots }} \\
   \intertext{
     Ready simulation, $\notionname{RS}$ at $(\infty,\infty,\infty,\infty,\mathhl{1},\mathhl{1})$:
   }
     \varphi_\notionname{RS} \grammardef &
-      \grammarsp \hmlobs{a}\varphi_\notionname{RS}
+      \grammarsp \hmlobs{α}\varphi_\notionname{RS}
       \grammaror \hmlands \set{ \psi_\notionname{RS}, \psi_\notionname{RS}, \ldots } \\
     \psi_\notionname{RS} \grammardef &
       \grammarsp \mathhl{\psi_\notionname{F}}
@@ -764,7 +764,7 @@ Grammars induced by coordinates for strong linear-time notions of equivalence.
     2-nested simulation, $\notionname{2S}$ at $(\infty,\infty,\infty,\infty,\mathhl{\infty},1)$:
   }
     \varphi_\notionname{2S} \grammardef &
-      \grammarsp \hmlobs{a}\varphi_\notionname{2S}
+      \grammarsp \hmlobs{α}\varphi_\notionname{2S}
       \grammaror \hmlands \set{ \psi_\notionname{2S}, \psi_\notionname{2S}, \ldots } \\
     \psi_\notionname{2S} \grammardef &
       \grammarsp \mathhl{\hmlneg\varphi_\notionname{1S}}
@@ -773,7 +773,7 @@ Grammars induced by coordinates for strong linear-time notions of equivalence.
     bisimulation, $\notionname{B}$ at $(\infty,\infty,\infty,\infty,\infty,\mathhl{\infty})$:
   }
     \varphi_\notionname{B} \grammardef &
-      \grammarsp \hmlobs{a}\varphi_\notionname{B}
+      \grammarsp \hmlobs{α}\varphi_\notionname{B}
       \grammaror \hmlands \set{ \psi_\notionname{B}, \psi_\notionname{B}, \ldots } \\
     \psi_\notionname{B} \grammardef &
       \grammarsp \mathhl{\hmlneg\varphi_\notionname{B}}

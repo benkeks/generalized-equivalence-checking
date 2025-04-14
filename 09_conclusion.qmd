@@ -19,7 +19,7 @@ Thanks to the decision procedures, we can offer *tool support* for equivalence s
 
 ::: {#fig-conclusion-big-picture fig-env="figure*" fig-pos="bt"}
 ```tikz
-\begin{adjustbox}{max width=.9\linewidth, center}
+\begin{adjustbox}{max width=.9\linewidth}
   \begin{tikzpicture}[auto,node distance=2.5cm,
     algstep/.style={minimum width=3cm, minimum height=1.4cm, draw=gray, rectangle,align=center,rounded corners}]
     \node[algstep, draw] (WeakSpectro) {Weak spectroscopy \\ Chapter \ref{sec-weak-spectorscopy}};
@@ -31,7 +31,7 @@ Thanks to the decision procedures, we can offer *tool support* for equivalence s
     \path[->, dashed, thick]
       (HMThm) edge node[align=center, swap] {certificates of\\strategies} (BisimGame)
       (BisimGame) edge node[align=left, swap] {$(\infty, \infty, \infty)$-instance of\\ bisimulation energy game} (PolySpectro)
-      (PolySpectro) edge node[align=left, swap] {3d-version of} (StrongSpectro)
+      (PolySpectro) edge node[align=left, swap] {3d-version} (StrongSpectro)
       (StrongSpectro) edge node[align=left, swap] {special case with\\no internal $\tau$} (WeakSpectro);
 
 
@@ -42,7 +42,8 @@ Thanks to the decision procedures, we can offer *tool support* for equivalence s
 \end{adjustbox}
 ```
 
-Hierarchy of abstraction from strong bisimilarity to weak spectroscopy.
+Hierarchy of abstraction from strong bisimilarity to weak spectroscopy.  
+(Read arrows as “… can be understood as … of …”.)
 :::
 
 - We have started at the *level of individual equivalences* by revisiting the classical Hennessy–Milner theorem on the dualism of modal distinguishability and behavioral relatability.

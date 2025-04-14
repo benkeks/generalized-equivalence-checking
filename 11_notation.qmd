@@ -15,7 +15,7 @@ toc-title: "Notation"
 
 \vspace{-2em}
 |        |                                                          |
-|----------------------------|----------------------------------------------------------------------------------------------|
+|--------------------------|----------------------------------------------------------------------------------------------|
 | iff                     | “if and only if”                                                           |
 | $\relsize{A}$           | Number of elements of $A$                                                  |
 | $\identity{A}$          | Identity relation on $A$                                                   |
@@ -29,7 +29,7 @@ toc-title: "Notation"
 
 \vspace{-2em}
 |                   |                                                                                     |
-|----------------------------|----------------------------------------------------------------------------------------------|
+|--------------------------|----------------------------------------------------------------------------------------------|
 | $\leq$                 | less-or-equal-to, usually point-wise on vectors                                                |
 | $\Min(A)$, $\Max(A)$   | Set of minimal / maximal elements in $A$ in the context of a preorder $\leq$                   |
 | $\lub$ / $\sup$, $\glb$ / $\inf$ | Least upper bound / greatest lower bound in the context of a lattice (@def-lattice)          |
@@ -41,7 +41,7 @@ toc-title: "Notation"
 
 \vspace{-2em}
 |                     |                                                                                   |
-|----------------------------|----------------------------------------------------------------------------------------------|
+|--------------------------|----------------------------------------------------------------------------------------------|
 | $\step{\alpha}$            | Transition relation (in context of a transition system, @def-ts), usually due to operational $\ccs$-semantics (@def-ccs-semantics) |
 | $\nostep{\alpha}$          | Absence of an $\alpha$-transition                                                            |
 | $\stepweak$        | Internal transition (@def-transition-systems-with-silent-steps)                             |
@@ -59,7 +59,7 @@ toc-title: "Notation"
 
 \vspace{-2em}
 |                     |                                                                                   |
-|----------------------------|----------------------------------------------------------------------------------------------|
+|--------------------------|----------------------------------------------------------------------------------------------|
 | $\bpreordvar{N}$, $\beqvar{N}$ | Behavioral preorder / equivalence with respect to notion $N$ (full names in @fig-strong-ltbt-spectrum and -@fig-weak-spectrum) |
 | $\beq{T}$, $\beq{S}$, $\beq{B}$ | Strong trace equivalence, similarity, bisimilarity (@def-trace-eq, -@def-bisimilarity) |
 | $\bpreordvar{\observationsvar{}}$, $\beqvar{\observationsvar{}}$ | Behavioral preorder / equivalence derived from a sublogic $\observationsvar{}\subseteq \hml$ (@def-distinctions) |
@@ -71,7 +71,7 @@ toc-title: "Notation"
 
 \vspace{-2em}
 |                     |                                                                                   |
-|----------------------------|----------------------------------------------------------------------------------------------|
+|--------------------------|----------------------------------------------------------------------------------------------|
 | $\gamemoveblank$           | Game move (@def-game)                                                                        |
 | $\gamemove{u}$             | Game move, labeled by an energy update (@def-energy-game)                                    |
 | ${\game}_\notionname{B}$   | Bisimulation game in the context of a transition system (@def-bisim-game)                    |
@@ -87,7 +87,7 @@ toc-title: "Notation"
 
 \vspace{-2em}
 |                     |                                                                                   |
-|----------------------------|----------------------------------------------------------------------------------------------|
+|--------------------------|----------------------------------------------------------------------------------------------|
 | $\notions_{p,q}$           | Notions from $\notions$ in the context of a spectrum preordering states $p$ and $q$ (solution to @prob-spectroscopy-problem) |
 | $\gamespectroscopy$        | Strong spectroscopy game, in the context of a transition system (@def-strong-spectroscopy-game) |
 | $\gamespectroscopyclever$  | Clever spectroscopy game (@def-strong-spectroscopy-game-clever)                              |
@@ -100,7 +100,7 @@ toc-title: "Notation"
 
 \vspace{-2em}
 |                     |                                                                                   |
-|----------------------------|----------------------------------------------------------------------------------------------|
+|--------------------------|----------------------------------------------------------------------------------------------|
 | $\bigo{f}$                | Set of functions that grow to infinity at most as quickly as $f$                             |
 | $\complexityname{P}$, $\complexityname{NP}$, $\complexityname{PSPACE}$ | Complexity classes of deterministic polynomial time / non-deterministic polynomial time / polynomial space complexity |
 
@@ -108,7 +108,7 @@ toc-title: "Notation"
 
 \vspace{-2em}
 |                     |                                                                                   |
-|----------------------------|----------------------------------------------------------------------------------------------|
+|--------------------------|----------------------------------------------------------------------------------------------|
 | $\literal{P}$, $\literal{Q}$ | Two systems of philosophers, differing in their determinism (@exm-ts, -@exm-ccs, -@exm-deterministic-phil) |
 | $\literal{T}$              | Trolled philosophers with additional $\troll$-deadlock (@exm-bisim-sim)                      |
 | $\literal{Pe}$, $\literal{Mx}$ | Implementation of Peterson's mutual exclusion protocol and its specification (@exm-peterson-mutex), `Pe` and `Mx` for their expression in the tool (@sec-equivio-peterson) |

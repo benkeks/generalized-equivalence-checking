@@ -413,9 +413,9 @@ $$
 
 ::: {#fig-polynomial-strong-spectrum fig-pos='th'}
 ```tikz
-\begin{tikzpicture}[auto,node distance=2.5cm,align=center]
+\begin{tikzpicture}[auto,node distance=2cm,align=center]
   \node (B){bisimulation $\notionname{B}$\\$\infty,\infty,\infty$};
-  \node (kB)[below right of=B,node distance=5cm]{$k$-step bisimulation $k\notionname{B}$\\$k,\infty,\infty$};
+  \node (kB)[below right of=B,node distance=4cm]{$k$-step bisimulation $k\notionname{B}$\\$k,\infty,\infty$};
   \node (S2)[below left of=B]{$k$-nested simulation $k\notionname{S}$\\$\infty,\infty,k-1$};
   \node (RS)[below left of=S2]{ready simulation $\notionname{RS}$~\\$\infty,1,1$};
   \node (S)[below right of=RS]{simulation $\notionname{1S}$\\$\infty,0,0$};
@@ -466,7 +466,33 @@ For a transition system $\system$, the *bisimulation energy game* ${\game}_\noti
   $$(α, p', q) \quad \gamemove{0,0,0}^🗲_\notionname{B} \quad [p', q'] \quad \text{if} \quad q \step{α} q'.$$
 :::
 
-\noindent
+@fig-bisim-energy-game-scheme visualizes the scheme of game rules, differing from @fig-game-scheme through energy updates.
+
+::: {#fig-bisim-energy-game-scheme fig-pos='t'}
+
+```tikz
+\begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm, rel/.style={dashed,font=\it},
+  posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
+    \node[posStyle, initial, initial text={}]
+      (Att){$[p,q]$};
+    \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
+      (Def) [right = 1.5cm of Att] {$(\alpha, p', q)$};
+    \node[posStyle, dashed]
+      (AttContinue) [right = 1.5cm of Def] {$[p', q']$};
+    \node[posStyle, dashed]
+      (AttContinueSwap) [below = 1.2cm of AttContinue] {$[q, p]$};
+    \path
+      (Att)
+        edge node[label=270:{$\textcolor{gray}{-1,0,0}$}] {$p \step{\alpha} p'$} (Def)
+        edge[bend right=10] node[swap] {$\textcolor{gray}{\updmin{1,2},0,-1}$} (AttContinueSwap)
+      (Def)
+        edge node[label=270:{$\textcolor{gray}{0,0,0}$}] {$q \step{\alpha} q'$} (AttContinue);
+\end{tikzpicture}
+```
+
+Game scheme of the bisimulation *energy* game with energy updates (@def-bisim-energy-game).
+:::
+
 The first dimension thus bounds how often the attacker may challenge simulation down the road,
 the third limits how often they may swap sides,
 and the middle dimension bounds the amount of simulation moves after a swap.

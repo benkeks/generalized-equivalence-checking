@@ -23,7 +23,7 @@ toc-title: "Notation"
 | $A^*$, $A^{\infty}$     | Language of finite / finite-or-infinite words over $A$                     |
 | $\inverse{\rel R}$      | Inverse relation of $\rel R$                                               |
 | $\nats$, $\natsext$     | Natural numbers / natural numbers extended by a $\infty$ as $\top$-element |
-| $\defeq$                | Definitional equality; in the context of CCS $\literal{X} \defeq P$ also means $\ccsasg(\literal{X}) \defeq P$ |
+| $\defeq$                | Definitional equality; in the context of CCS $\literal{X} \defeq P$ also means $\ccsasg(\literal{X}) \defeq P$ (@def-ccs-semantics) |
 
 ### Orders and Vectors {.unnumbered .unlisted}
 

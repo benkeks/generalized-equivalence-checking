@@ -54,6 +54,9 @@ Hierarchy of abstraction from strong bisimilarity to weak spectroscopy.
 - With @sec-weak-spectrum, we have entered the level of van Glabbeek's [-@glabbeek1993ltbt] *weak spectrum*, where silent steps are abstracted.
 - @sec-weak-spectorscopy has introduced the *weak spectroscopy game*, which could serve as strong spectroscopy game on systems without $\step{\tau}$-steps.
 
+In much the same way as we understand equivalences in a hierarchy by folding away dimensions of distinctions, this thesis itself has followed a hierarchy of spectroscopies.
+Starting from the Hennessy–Milner theorem, we have *unfolded* aspects, up to the weak spectroscopy.
+
 Framing this journey along Plato's allegory of the cave:
 The Hennessy–Milner theorem *is a shadow* of the bisimulation game, which is a shadow of an energy game, which is a shadow of the strong spectroscopy game, which is a shadow of the weak spectroscopy game.
 With the tool implementations of @sec-implementations, we have returned from the abstract realm of ideas back to the material level.

@@ -342,7 +342,7 @@ More precisely, we make the following contributions, each coming with a “side 
   - Side quest: Analyzing Peterson's mutual exclusion protocol.
 
 Each chapter ends with a discussion of its position in the context of the thesis and of related work.
-We close with a discussion of the wider picture in @sec-conclusion.
+We close with a discussion of the wider picture in @sec-conclusion and how this thesis ascends through a *hierarchy of shadows*.
 Recurring symbols can be looked up under [Notation](#sec-notation)`~on page~\pageref{sec-notation}`{=latex}.
 
 {{< paragraph_heading "Not this thesis." >}}

@@ -21,7 +21,7 @@ The core background of this thesis is the *trinity of characterizations for beha
 This chapter takes a tour into the field of formalisms used to model programs and communicating systems, which are accompanied by many notions for behavioral equivalence and refinement to relate or distinguish their models.
 
 The tour is *agnostic*, building on the basic formalism of *labeled transition systems* and standard equivalences such as *trace equivalence* and *bisimilarity*.
-Simultaneously, the approach is *opinionated*, focusing on Robin Milner's tradition of concurrency theory with a strong pull towards *game characterizations*.
+Simultaneously, the approach is *opinionated*, focusing on Milner's tradition of concurrency theory with a strong pull towards *game characterizations*.
 <!-- The very core concepts are described in @sec-programs. -->
 
 @fig-equivalence-big-picture shows the scaffold of this section along the trinity, instantiated to the classic notion of bisimilarity:
@@ -57,7 +57,8 @@ Simultaneously, the approach is *opinionated*, focusing on Robin Milner's tradit
 Core-correlations for bisimilarity between relational definition, modal distinguishability, and equivalence game.
 :::
 
-Readers familiar with the contents of @fig-equivalence-big-picture might mostly skim through this chapter of preliminaries (although they are quite exciting!).
+A reader familiar with the contents of @fig-equivalence-big-picture might mostly skim through this chapter of preliminaries (although they are quite exciting!).
+
 The two core insights this chapter aims to seed for the upcoming chapters are:
 
 ::: {#idea-games .callout-idea .callout-tip}

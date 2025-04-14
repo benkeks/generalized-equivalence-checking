@@ -341,6 +341,10 @@ More precisely, we make the following contributions, each coming with a “side 
 - @sec-implementations showcases four implementations to conveniently perform equivalence spectroscopies in web browsers.
   - Side quest: Analyzing Peterson's mutual exclusion protocol.
 
+Each chapter ends with a discussion of its position in the context of the thesis and of related work.
+We close with a discussion of the wider picture in @sec-conclusion.
+Recurring symbols can be looked up under [Notation](#sec-notation)`~on page~\pageref{sec-notation}`{=latex}.
+
 {{< paragraph_heading "Not this thesis." >}}
 We limit ourselves to the spectra of @glabbeek1990ltbt1 and @glabbeek1993ltbt.
 For instance, this excludes questions around value-passing and open/late/early bisimilarities and barbed congruences on the $\pi$-calculus [cf. @sangiorgi1996bisimPi].

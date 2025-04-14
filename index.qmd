@@ -30,8 +30,6 @@ Core parts of the thesis are supported by an *Isabelle/HOL-formalization*.
 (This is a space for TODOs that do not yet have a position in the text body.)
 
 - Cover art
-- More consistent game figures
-- Instantiated grammars of strong spectrum 
 
 ### Acknowledgments {.unnumbered .unlisted}
 

@@ -546,8 +546,8 @@ Let us quickly make this formal:
 :::: {#fig-core-hierarchy .column-margin}
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.5cm,
-  notion/.style={minimum width=3cm, minimum height=.8cm, draw=gray, rectangle,align=center,rounded corners}]
-  \node[notion, dashed] (GI){Graph isomorphism};
+  notion/.style={minimum width=3cm, minimum height=.8cm, rectangle,align=center,rounded corners}]
+  \node[notion, text=gray] (GI){Graph isomorphism};
   \node[notion, below of=GI] (B){Bisimilarity};
   \node[notion, below of=B] (S){Similarity};
   \node[notion, below of=S] (T){Trace equivalence};
@@ -577,7 +577,7 @@ If $p \bpreord{S} q$, then $p \bpreord{T} q$.{{<isb lemma Strong_Equivalences lt
 (Consequently, $p \beq{S} q$ also implies $p \beq{T} q$.{{<isb lemma Strong_Equivalences lts.sim_eq_implies_trace_eq>}})
 :::
 
-We also have seen with example @exm-phil-sim that this hierarchy is strict between trace and simulation preorder in the sense that there exist $p,q$ with $p \bpreord{T} q$ but not $p \bpreord{S} q$.
+We also have seen with example @exm-phil-sim that this hierarchy (visualized in @fig-core-hierarchy) is strict between trace and simulation preorder in the sense that there exist $p,q$ with $p \bpreord{T} q$ but not $p \bpreord{S} q$.
 The hierarchy also is strict between similarity and bisimilarity as the following example shows.
 
 ::: {#exm-bisim-sim}

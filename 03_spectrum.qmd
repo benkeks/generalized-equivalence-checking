@@ -152,7 +152,7 @@ On the other hand, no failure from $\observations{F}$, distinguishes $\literal Q
 :::: {#fig-failure-hierarchy .column-margin}
 ```tikz
 \begin{tikzpicture}[auto,node distance=2.1cm,
-  notion/.style={minimum width=2.5cm, minimum height=.8cm, draw=gray, rectangle,align=center,rounded corners}]
+  notion/.style={minimum width=2.5cm, minimum height=.8cm, rectangle,align=center,rounded corners}]
   \node[notion] (B){Bisimilarity};
   \node[notion, below left of=B] (S){Similarity};
   \node[notion, below right of=B] (F){Failure equivalence};
@@ -364,12 +364,12 @@ It matches the diamond of @fig-failure-hierarchy, but this time, the hierarchy i
 
 ```tikz
 \begin{tikzpicture}[auto,node distance=2.1cm,
-  notion/.style={minimum width=2.5cm, minimum height=.8cm, draw=gray, rectangle,align=center,rounded corners}]
+  notion/.style={minimum width=2.5cm, minimum height=.8cm, rectangle,align=center,rounded corners}]
   \node[notion] (B){Bisimilarity \\ $\set{\literal{⊕}, \literal{⊗}}$};
   \node[notion, below left of=B] (S){Similarity \\ $\set{\literal{⊕}}$};
   \node[notion, below right of=B] (F){Failure equivalence \\ $\set{\literal{⊗}}$};
   \node[notion, below right of=S] (T){Trace equivalence \\ $\varnothing$};
-  \path[->]
+  \path
     (B)
       edge node {} (S)
     (B)

@@ -865,7 +865,7 @@ $\notions^{\literal{strong}}_{\literal{Q}, \literal{T}} =
 
 Technically, it is convenient to not compute $\notions_{p,q}$ directly.
 Rather we aim to construct the *Pareto front* of minimal notions that do not hold, $\Min(\notions \setminus \notions_{p,q})$.
-The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as complement of the upwards closure $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$
+The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as complement of the upward closure $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$
 (where ${\upset\! B} := \set{b \mid \exists b' \in B \ldotp b' \leq b}$ is the upwards closure for $B$ subset of some partially-ordered set).
 Clearly, Pareto fronts form *anti-chains* and appear naturally in optimization problems.
 

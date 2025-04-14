@@ -107,7 +107,7 @@ We denote by $\game^🗲(g_0, e_0)$ the game played from starting position $g_0 
 :::
 
 ::: {#def-energy-level}
-#### Energy level
+#### Energy level as objective
 
 For a finite play $ρ = {g_0}{g_1}…{g_{n-1}} ∈ G^{*}$ of $\game^🗲(g_0, e_0)$, its energy level $\energylevel(ρ)$ is computed recursively:
 
@@ -130,6 +130,8 @@ Instead of a winning region as in @def-winning-region, we define *winning budget
 
 For each position $g_0 ∈ G$ of energy game $\game^🗲$, the *attacker winning energy budgets*, $\attackerwins(g_0) \subseteq \abstractenergies$ are the energies $e_0$ where the attacker wins $\game^🗲(g_0, e_0)$.
 The defender winning budgets $\defenderwins$ are defined analogously.
+
+We write the shorthand $\attackerwinsmin$ for *minimal attacker winning budgets*, $\attackerwinsmin(g_0) \defeq \Min(\attackerwins(g_0))$.
 :::
 
 Classical energy games use $\nats$-vectors for energies and vector addition for updates as in the following example:
@@ -359,12 +361,7 @@ Declining energy games differ from more common energy games with vector addition
 In this model, energy levels can only decline.
 
 - Updates may only decrease energies, $\energyupdate(u, e) \leq e$.
-- Updates are monotonic as demanded: If $e_A \leq e_B$, then $\energyupdate(u, e_A) \leq \energyupdate(u, e_B)$.<
-<!-- These are actually already covered by the previous subsection 
-- Energy level changes are monotonic:
-  If $\energylevel(\rho g) \leq \energylevel(\sigma g)$ and $g \gamemoveblank g'$
-  then $\energylevel(\rho g g') \leq \energylevel(\sigma g g')$.
-- If $e_0 \leq e'_0$ and $\game^🗲(g_0, e_0)$ has non-$\bot$ play $\rho$, then $\game^🗲(g_0, e'_0)$ also has non-$\bot$ play $\rho$.-->
+- Updates are monotonic as demanded: If $e_A \leq e_B$, then $\energyupdate(u, e_A) \leq \energyupdate(u, e_B)$.
 :::
 
 ## Characterizing the $\complexityname{P}$-Time Part of the Spectrum {#sec-characterzing-ptime-part}
@@ -1096,7 +1093,7 @@ Let us instantiate the previous two subsections to declining energy games.
 All we have to do is instantiate $\abstractupdateinv$ to obtain an algorithm and think about the structure of the energies to tell its complexity.
 
 ::: {#def-declining-upd-inv}
-#### Inverting declining updates
+#### Undoing declining updates
 
 The undo-update function $\energyupdateinv$ on a $d$-dimensional declining energy game is defined component-wise for $k \in \set{1 … d}$ as:
 $$
@@ -1275,7 +1272,6 @@ $$
 $$
 :::
 
-\noindent
 Clearly, @alg-deciding-energy-games can too be used to solve the flattened version of the problem by adapting $\energyupdateinv$ to represent all components above 1 by $\infty$.
 Effectively, this decouples the size of Pareto fronts from the game size.
 In this instance, @lem-declining-update-complexity becomes:

@@ -818,7 +818,7 @@ Such a mechanized survey would certainly have facilitated the research behind @b
 Though both processes are weak-failure-equivalent, their variants $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ where $\literal{idle}$-steps are relabelled to $\tau$-steps are not.
 
 To reconstruct this result on {{<equivio>}}, we first have to translate the processes of @fig-idle-process-abstraction to CCS.
-We express $\literal{P}_e$ and $\literal{P}_\ell$ as `Pe` and `Pt` through mutual recursion in the following model:
+We express $\literal{P}_e$ and $\literal{P}_\ell$ as `P_e` and `P_t` through mutual recursion in the following model:
 
 ```ccs
 Ae = idle.Ae + a
@@ -826,50 +826,50 @@ Be = idle.Be + b
 Al = idle.Bl + idle.Al + a
 Bl = idle.Al + idle.Bl + b
 
-Pe = op.Ae + op.Be
-Pl = op.Al + op.Bl
+P_e = op.Ae + op.Be
+P_l = op.Al + op.Bl
 
 @snip "---- abstracted processes ----"
 
 Idle = idle!Idle
-Pte = Pe | Idle \ {idle}
-Ptl = Pl | Idle \ {idle}
+P_te = (P_e | Idle) \ {idle}
+P_tl = (P_l | Idle) \ {idle}
 
 @snip "---- checks and comparison ----"
 
-@check weak-failure, Pe, Pl
-@check weak-failure, Pte, Ptl
+@check weak-failure, P_e, P_l
+@check weak-failure, P_te, P_tl
 
-@compareSilent Pe, Pl
-@compareSilent Pte, Ptl
+@compareSilent P_e, P_l
+@compareSilent P_te, P_tl
 
 @snip "---- layout ----"
 
-Pe(x=200, y=10, main)
-Pl(x=500, y=10, main)
-Pte(x=200, y=450, main)
-Ptl(x=500, y=450, main)
+P_e(x=200, y=10, main)
+P_l(x=500, y=10, main)
+P_te(x=200, y=450, main)
+P_tl(x=500, y=450, main)
 "0"(x=365, y=304)
 "(0 | Idle) \ {idle}"(x=350, y=780)
 ```
 
 To implement the *hiding* of `idle` in CCS, we use a parallel process that provides unlimited `idle!`-actions to synchronize instead of the environment.
-Hence, $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ are expressed as `Pte` and `Ptl`:
+Hence, $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ are expressed as `P_te` and `P_tl`:
 
 ```ccs
 @nolink
 Idle = idle!Idle
-Pte = (Pe | Idle) \ {idle}
-Ptl = (Pl | Idle) \ {idle}
+P_te = (P_e | Idle) \ {idle}
+P_tl = (P_l | Idle) \ {idle}
 ```
 
-We can now use the derived equivalence checkers (along the lines of @sec-deciding-individual-eqs) to establish that `Pe` and `Pl` are weak-failure-equivalent, but `Pte` and `Ptl` are not:
+We can now use the derived equivalence checkers (along the lines of @sec-deciding-individual-eqs) to establish that `P_e` and `P_l` are weak-failure-equivalent, but `P_te` and `P_tl` are not:
 
 ```ccs
 @nolink
-@check weak-failure, Pe, Pl
+@check weak-failure, P_e, P_l
   > "States are equivalent."
-@check weak-failure, Pte, Ptl
+@check weak-failure, P_te, P_tl
   > "States are inversely preordered (only from right to left)."
 ```
 
@@ -886,11 +886,11 @@ We can even go further, and decide all weak equivalences of our spectrum:
 
 ```ccs
 @nolink
-@compareSilent Pe, Pl
+@compareSilent P_e, P_l
   > "Equated by:
      weak-readiness
      stable-readiness"
-@compareSilent Pte, Ptl
+@compareSilent P_te, P_tl
   > "Equated by:
      stable-bisimulation"
 ```
@@ -1024,8 +1024,8 @@ For all $N \in \widehat{\notions}^\literal{weak}$, $p \in \states$, $Q \in \powe
 
 Complexity-wise, for the simplified game, $\gamespectroscopywsimple$,
 we have just
-$\relsize{G_{\swclever}} \in \bigo{ \relsize{\step{}} \cdot 2^{\relsize{\states}}}$
-and also $o_{\swclever} \in \bigo{ \relsize{\step{}}}$.
+$\relsize{G_{\swsimple}} \in \bigo{ \relsize{\step{}} \cdot 2^{\relsize{\states}}}$
+and also $o_{\swsimple} \in \bigo{ \relsize{\step{}}}$.
 Following the same argument as in @thm-weak-spectroscopy-complexity,
 deciding the whole game still has exponential time complexity of
 $\bigo{\relsize{\step{}} \cdot

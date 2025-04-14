@@ -996,9 +996,10 @@ As this does not change a conjunction's truth value, $\hml$ subsets with and wit
 :::
 
 Often, an equivalence may be characterized by different sublogics.
-In particular, one may find smaller characterizations as in the following example for bisimilarity.
+In particular, one may find smaller characterizations as in the following example for bisimilarity, which will be relevant in the upcoming game characterizations.
 
 ::: {#def-game-formulas}
+#### Bisimulation observations
 
 Consider $\observations{\floor{B}} \subseteq \hml$ described by the following grammar.
 

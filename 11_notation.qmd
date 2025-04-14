@@ -1,0 +1,89 @@
+---
+toc-title: "Notation"
+---
+
+# Notation {.unnumbered}
+
+::: {.content-visible when-format="html"}
+{{< include style/macros-html.md >}}
+{{< include style/macros.md >}}
+:::
+
+## Basics
+
+- iff – “if and only if”
+- $\relsize{A}$ – Number of elements of $A$
+- $\identity{A}$ – Identity relation on $A$
+- $\powerset{A}$ – Power set of $A$
+- $A^*$, $A^{\infty}$ – Language of finite / finite-or-infinite words over $A$
+- $\inverse{\rel R}$ – Inverse relation of $\rel R$
+- $\nats$, $\natsext$ – Natural numbers / natural numbers extended by a $\infty$ as $\top$-element
+- $\defeq$ – Definitional equality; in the context of CCS $\literal{X} \defeq P$ also means $\ccsasg(\literal{X}) \defeq P$
+
+## Orders and Vectors
+
+- $\leq$ – less-or-equal-to, usually point-wise on vectors
+- $\Min(A)$, $\Max(A)$ – Set of minimal / maximal elements in $A$ in the context of a preorder $\leq$
+- $\lub$ / $\sup$, $\glb$ / $\inf$ – Least uper bound / greatest lower bound in the context of a lattice (@def-lattice)
+- $\upset A$, $\downset A$ – Upward-closure / downward-closure of set $A$ in the context of a preorder $\leq$
+- $\unitvec{k}$ – Unit vector; component $k$ is 1, all others 0 (in the context of some dimensionality $d$)
+- $\zerovec$ – Vector of zeros (in the context of some dimensionality $d$); not to be confused with $\ccsnull$ as terminated $\ccs$-process in @def-ccs
+
+## Transition Systems
+
+- $\step{\alpha}$ – Transition relation (in context of a transition system, @def-ts), usually due to operational $\ccs$-semantics (@def-ccs-semantics)
+- $\nostep{\alpha}$ – Absence of an $\alpha$-transition
+- $\stepweak{\alpha}$ – Internal transition (@def-transition-systems-with-silent-steps)
+- $\stepopt{\alpha}$ – Optional transition (@def-transition-systems-with-silent-steps)
+- $\stepweakword{\vec{w}}$ – Weak $\vec{w}$-word step sequence (@def-transition-systems-with-silent-steps)
+- $\derivatives{p, \alpha}$ – $\alpha$-derivatives of $p$ (@def-ts)
+- $\initials{p}$ – Enabled actions of $p$ (@def-ts)
+- $\hmlobs{\alpha}$ – Modality of observing an $\alpha$-step (@def-hml)
+- $\hmlopt{\alpha}$ – Modality of observing an $\tau$-optional $\alpha$-step ([@def-transition-systems-with-silent-steps] and [-@def-hml-srbb])
+- $\hmleps$ – Modality of allowing internal behavior ([@def-transition-systems-with-silent-steps] and [-@def-hml-srbb])
+- $\semantics{\varphi}$ – Set of states that fulfill $\varphi$ (@def-hml-semantics)
+- $\quotient{\system}{\sim}$ – Quotient system on equivalence classes $\eqclass{\cdot}_{\sim}$ (@def-quotient-ts)
+
+## Behavioral Equivalences
+
+- $\bpreordvar{N}$, $\beqvar{N}$ – Behavioral preorder / equivalence with respect to notion $N$ (full names in @fig-strong-ltbt-spectrum and -@fig-weak-spectrum)
+- $\beq{T}$, $\beq{S}$, $\beq{B}$ – Strong trace equivalence, similarity, bisimilarity (@def-trace-eq, -@def-bisimilarity)
+- $\bpreordvar{\observationsvar{}}$, $\beqvar{\observationsvar{}}$ – Behavioral preorder / equivalence derived from a sublogic $\observationsvar{}\subseteq \hml$ (@def-distinctions)
+- $\observationsvar{N}$ – Observation logic for a notion $N \in \notions$ in the context of a spectrum (@def-spectrum)
+- $\observations{\floor{B}}$ – Bisimulation observation logic (@def-game-formulas)
+- $\expr{}(\varphi)$ – Syntactic expressiveness price of $\varphi$ in the context of a spectrum (@def-expressiveness-price)
+
+## Games
+
+- $\gamemoveblank$ – Game move (@def-game)
+- $\gamemove{u}$ – Game move, labeled by an energy update (@def-energy-game)
+- ${\game}_\notionname{B}$ – Bisimulation game in the context of a transition system (@def-bisim-game)
+- ${\game}_\notionname{B}^{🗲}$ – Bisimulation energy game (@def-bisim-energy-game)
+- $\attackerwins$, $\defenderwins$ – Attacker / defender winning regions in the context of a reachability game (@def-winning-region), or winning budgets in an energy game (@def-winning-budgets)
+- $\attackerwinsmin(g)$ – Minimal attacker winning budgets for position $g$ in an energy game (@def-winning-budgets)
+- $\abstractupdate$, $\abstractupdateinv$ – Updates on energy games (@def-energy-game) and their undo-function in the algorithm for Galois energy games (@alg-deciding-energy-games)
+- $\energies$ – Energy levels on declining energy games in the context of a dimensionality $d$ (@def-energy-updates)
+- $\energyupdate$, $\energyupdateinv$ – Updates on declining energy games (@def-energy-updates) and their undo-version (@def-declining-upd-inv)
+- $\mathtt{min}_{A}$ – A special kind of update component in declining energy games (@def-energy-updates)
+
+## Spectroscopy
+
+- $\notions_{p,q}$ – Notions from $\notions$ in the context of a spectrum preordering states $p$ and $q$ (solution to @prob-spectroscopy-problem)
+- $\gamespectroscopy$ – Strong spectroscopy game, in the context of a transition system (@def-strong-spectroscopy-game)
+- $\gamespectroscopyclever$ – Clever spectroscopy game (@def-strong-spectroscopy-game-clever)
+- $\gamespectroscopyeq{N}$, $\gamespectroscopyceq{N}$ –  Equivalence game for $N$, derived from a spectroscopy game (@def-derived-eq-game)
+- $\gamespectroscopyw$ – Weak spectroscopy game, in the context of a transition system with silent steps (@def-weak-spectroscopy-game)
+- $\gamespectroscopywsimple$ – Simplified weak spectroscopy game (@fig-weak-spec-game-simplified)
+- $\strat_\notionname{B}$, $\stratstrong$, $\stratweak$ – Strategy formulas in the context of polynomial / strong / weak spectroscopy (@def-strategy-formulas-poly, -@def-strategy-formulas-strong, -@def-strategy-formulas-weak)
+
+## Complexity
+
+- $\bigo{f}$ – Set of functions that grow to infinity at most as quickly as $f$
+- $\complexityname{P}$, $\complexityname{NP}$, $\complexityname{PSPACE}$ – Complexity classes of deterministic polynomial time / non-deterministic polynomial time / polynomial space complexity
+
+
+## Recurring Examples
+
+- $\literal{P}$, $\literal{Q}$ — Two systems of philosophers, differing in their determinism (@exm-ts, -@exm-ccs, -@exm-deterministic-phil)
+- $\literal{T}$ – Trolled philosophers with additional $\troll$-deadlock (@exm-bisim-sim)
+- $\literal{Pe}$, $\literal{Mx}$ – Implementation of Peterson's mutual exclusion protocol and its specification (@exm-peterson-mutex), `Pe` and `Mx` for their expression in the tool (@sec-equivio-peterson)

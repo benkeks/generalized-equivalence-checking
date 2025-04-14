@@ -72,6 +72,7 @@ book:
         - 08_implementations.qmd
         - 09_conclusion.qmd
         - 10_references.qmd
+        - 11_notation.qmd
 
 bibliography: similarities.bib
 csl: lib/apa.csl

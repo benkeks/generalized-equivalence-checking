@@ -34,7 +34,7 @@ In particular, @sec-ltbt-spectrum will introduce such a spectrum, forming a hier
 From there, we will quickly run into the second core idea:
 
 ::: {#idea-spectroscopy-prob .callout-idea .callout-tip}
-#### We have a Spectroscopy problem
+#### We have a spectroscopy problem
 
 We can ask what equivalences from a spectrum are the most fitting to relate two states.
 :::
@@ -57,6 +57,7 @@ As promised, we revisit the hierarchy between bisimilarity, similarity, and trac
 So far, we have only looked into the characterization of bisimilarity through the whole of $\hml$ in @thm-hennessy-milner or through $\observations{\floor{B}}$ in @def-game-formulas.
 
 ::: {#def-sim-trace-logics}
+#### Logics of simulation and traces
 
 We define the two $\hml$-sublogics $\observations{T}$, the linear positive fragment, and $\observations{S}$, the positive fragment, by the grammars starting at $φ^\mathrm{T}$ and $φ^\mathrm{S}$.
 
@@ -75,10 +76,14 @@ $$
 The logics characterize trace and simulation preorder (and equivalence):
 
 ::: {#lem-trace-logics}
+#### Trace characterizations
+
 $p \bpreord{T} q$ precisely if $p \bpreordvar{\observations{T}} q$.{{<isb theorem HML_Spectrum lts.observations_traces_characterizes_trace_preorder>}}
 :::
 
 ::: {#lem-sim-logics}
+#### Simulation characterization
+
 $p \bpreord{S} q$ precisely if $p \bpreordvar{\observations{S}} q$.{{<isb theorem HML_Spectrum lts.observations_simulation_characterize_simulation_preorder>}}
 :::
 
@@ -125,6 +130,7 @@ But would it not be nice if we could prevent the invention of new mathematical o
 Fortunately, we can save the work, by directly employing modal logics:
 
 ::: {#def-failures-modal}
+#### Failure logic
 
 We define failure observations $\observations{F}$ by the grammar:
 $$
@@ -177,8 +183,7 @@ To handle non-linearity, we will be working with lattices of notions of behavior
 The following definition gives the preliminaries to talk about this kind of partial orders.
 
 ::: {#def-lattice}
-
-#### Lattices, Bounds, Chains
+#### Lattices, bounds, chains
 
 A *lattice* is a partially ordered set $(B, \leq)$, where there are greatest lower bounds $\inf\set{b_1, b_2}$ and least upper bounds $\sup\set{b_1, b_2}$ between each pair of elements $b_1, b_2 \in B$.
 
@@ -247,7 +252,7 @@ Lattice of subsets from @exm-set-lattice.
 :::
 
 ::: {#exm-set-lattice}
-#### Subset Lattice
+#### Subset lattice
 
 Given any set $B$, its subsets and ordered by set inclusion, $(\powerset{B}, {\subseteq})$, form a complete lattice.
 
@@ -288,7 +293,7 @@ Visualization of the infinitary grid of $\nats^2$ (and in gray, $\natsext^2$) in
 :::
 
 ::: {#exm-nat-lattice}
-#### Vector Lattice
+#### Vector lattice
 
 Given linearly-ordered set $(B, \leq_B)$, its $n$-ary Cartesian product with pointwise order $(B^n, \leq)$ forms a lattice, where $b \leq b'$ iff $b_k \leq b'_k$ for all $k \in \set{1, …, n}$.
 Greatest lower bounds and least upper bounds can be transferred pointwisely from $B$.
@@ -317,7 +322,7 @@ We will introduce a similar construction: at first, in a generic form, then for 
 As we will discuss various equivalence spectra (van Glabbeek [-@glabbeek2001ltbtsiReport;-@glabbeek1993ltbt] already gives two different ones), let us first introduce an abstract description of such spectra.
 
 ::: {#def-spectrum}
-#### Equivalence Spectrum
+#### Equivalence spectrum
 
 An *equivalence spectrum* $(\notions, \leq, \observationsvar{N \in \notions})$ consists of
 
@@ -334,6 +339,7 @@ $$N \leq M \text{ implies } \observationsvar{N} \subseteq \observationsvar{M}.$$
 Let us use our new definition to construct a subset lattice as in @exm-set-lattice to recreate the hierarchy of @fig-failure-hierarchy.
 
 ::: {#exm-simple-spectrum}
+#### Diamond spectrum
 
 Consider the notions
 $$\notions^\literal{simple} ≔
@@ -385,7 +391,7 @@ This is one of the reasons why it is convenient to add *notions of observability
 We can also ask what the least notion is to include a specific formula:
 
 ::: {#def-expressiveness-price}
-#### Syntactic Expressiveness Price
+#### Syntactic expressiveness price
 
 In the context of a $\glb$-complete spectrum $(\notions, \leq, \observationsvar{N \in \notions})$, the *syntactic expressiveness price* of a formula $\varphi$ that appears in one of the logics is defined as
 $$\expr(\varphi) := \inf \set{N \in \notions \mid \varphi \in \observationsvar{N}}.$$
@@ -411,7 +417,7 @@ To cover all common behavioral preorders, we use six dimensions, counting certai
 6. Formula nesting depth of negations.
 
 ::: {#def-strong-spectrum}
-#### Strong Spectrum
+#### Strong spectrum
 
 We define the *strong notions of observability* using vectors of extended naturals
 $$\notions^\literal{strong} ≔
@@ -440,6 +446,8 @@ For instance, $φ^N \leadsto \hmlobs{α}φ^{N - \unitvec{1}}$ is no valid produc
 :::
 
 ::: {#exm-formula-language}
+#### Formula language
+
 The smallest notion to cover the failure formula of Subsection [-@sec-incomparabilities] would be $(2,1,0,0,1,1)$, that is, 
 $$\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observationsvar[\literal{strong}]{(2,1,0,0,1,1)}.$$
 This is because the formula has two levels of modal observations, where the inner one is negated.
@@ -525,7 +533,7 @@ Pricing formula $\hmlobs{\tau}\hmlands\{\hmlobs{ec_A}\hmlobs{lc_A}\hmltrue, \hml
 :::
 
 ::: {#rem-explicit-expr}
-#### Explicit Formula Prices
+#### Explicit formula prices
 
 In my papers, the syntactic expressiveness price of formulas is explicitly defined (instead of using a family of grammars).
 In this thesis, $\expr$ is indirectly defined through @def-expressiveness-price.
@@ -569,6 +577,8 @@ The grammar-view, on the other hand, is particularly nice to see how our $\hml$ 
 
 
 ::: {#lem-spectrum-characterization}
+#### Spectrum characterization
+
 The strong spectrum of @def-strong-spectrum contains the notions of behavioral equivalence we have discussed so far.
 
 1. The observation language $\observationsvar[\literal{strong}]{(\infty, 0, 0, 0, 0, 0)}$ exactly matches the characterization of traces $\observations{T}$ from @def-sim-trace-logics and thus characterizes trace preorder.{{<isb theorem Priced_Spectrum lts.traces_priced_characterization>}}
@@ -594,7 +604,7 @@ The extra dimensions will pay off in the next subsection.
 Using the six dimensions of @def-strong-spectrum, we can assign coordinates to all other common notions of the strong linear-time--branching-time spectrum.
 
 ::: {#def-strong-ltbt-spectrum}
-#### Strong Linear-Time–Branching-Time Spectrum
+#### Strong linear-time–branching-time spectrum
 
 Coordinates with respect to the notions of @def-strong-spectrum for the common notions of behavioral equivalence and preorder in the strong linear-time–branching-time spectrum are given in @fig-strong-ltbt-spectrum.^[When writing vectors in labels and figures, we omit the parentheses $(\dots)$ for readability.]
 
@@ -644,6 +654,7 @@ Hierarchy of common equivalences/preorders ordered by observability coordinates.
 :::
 
 For the rest of the thesis, we will take the equivalences as defined by the coordinates as canonical.
+
 @lem-spectrum-characterization has established that the coordinates of traces, simulation, failures, and bisimulation match the definitions one commonly finds in the literature.
 To establish the same for the other notions, entails a lot of (repetitive) definitions, which mostly reproduce van Glabbeek's survey [-@glabbeek2001ltbtsiReport].
 
@@ -657,6 +668,7 @@ The idea behind *failure traces* is that one observes a trace of actions and *at
 *Ready traces* work similarly, but with disabled and enabled actions in between.
 
 ::: {#exm-failure-trace-distinguished}
+#### Failure traces
 
 Consider the following processes, which are slighlty deeper variants of the situation we encountered with $\literal{Q}$ and troll process $\literal{T}$ in @exm-bisim-sim.
 $$
@@ -683,7 +695,7 @@ There are a few standard questions that come to mind for people who are familiar
 The following remarks address these points.
 
 ::: {#rem-other-strong-notions}
-#### Selection of Notions
+#### Selection of notions
 
 At the core, we treat the same notions as @glabbeek2001ltbtsiReport.
 But we feature a slightly more modern selection.
@@ -692,12 +704,10 @@ Our spectrum additionally includes strong versions of *impossible futures* (@vm2
 
 On the other hand, we glimpse over completed trace, completed simulation, and possible worlds observations like @ke1999logicalProcessQuotients, who studied properties of “good” observation languages.
 These notions would need a different HML grammar, featuring exhaustive conjunctions $\hmland{a}{\actions}\varphi_a$, where the $\varphi_a$ are deactivated actions for completed traces, and more complex trees for possible worlds.
-<!-- While it could be provided for with additional operators, it would break the closure property of observation languages, without giving much in return.
-For instance, for $\actions = \set{a,b}$, completed trace and completed simulation observations contain the observation $\hmlands\set{ \hmlneg\hmlobs{a}, \hmlneg\hmlobs{b} }$, but not its subformula $\hmlands\set{\hmlneg\hmlobs{a}}$.-->
 :::
 
 ::: {#rem-ambiguous-coordinates}
-#### Ambiguous Coordinates
+#### Ambiguous coordinates
 
 For many of the logics in @fig-strong-ltbt-spectrum, there are multiple coordinates that characterize the same logic.
 For instance, due to the second dimension (conjunctions) being set to $0$ for traces $\notionname{T}$, the higher dimensions do not matter and any coordinate $N = (\infty, 0, N_3, N_4, N_5, N_6)$ will lead to the same observation language $\observationsvar[\literal{strong}]{N} = \observations[\literal{strong}]{T}$.^[
@@ -713,7 +723,7 @@ This observation will become relevant again later for varying abstractions of bi
 :::
 
 ::: {#rem-other-coordinates}
-#### Other Coordinates
+#### Other coordinates
 
 We have singled out a handful of coordinates.
 Many other coordinates will still correspond to distinct equivalences.
@@ -728,7 +738,7 @@ Some kinds of depth-bounded families, however, are common in the literature to a
 :::
 
 ::: {#rem-dimensions}
-#### Fewer/Other Dimensions 
+#### Fewer/other dimensions 
 
 In principle, one can choose different dimensions to characterize the strong linear-time--branching-time spectrum.
 (Indeed, @bjn2022decidingAllBehavioralEqs, @bisping2023equivalenceEnergyGames and the present thesis all use slightly different dimensions.)
@@ -745,7 +755,7 @@ On the other hand, this would align less nicely with syntactic features of Henne
 :::
 
 ::: {#rem-infinities}
-#### (In-)finitary Variants
+#### (In-)finitary variants
 
 One can introduce more dimensions to the spectrum with respect to the possibility of infinitary observations.
 Our choice focuses on natural and most common versions of the equivalences, in particular:
@@ -761,6 +771,7 @@ For instance, the lines of simulation and failures join at ready simulation---an
 But $\observations[\literal{strong}]{S} \cup \observations[\literal{strong}]{F} \neq \observations[\literal{strong}]{RS}$ and this makes a difference:
 
 ::: {#exm-non-ready-sim}
+#### Simulation & Failures, donot mean ready-simulation
 
 Consider the $\ccs$ processes
 $\ccsprefix{\literal{a}} (\ccsprefix{\literal{a}} \literal{b} \ccschoice \literal{a})$ and
@@ -771,15 +782,14 @@ Still, the formula $\hmlobs{\literal{a}}\hmlands\set{\hmlobs{\literal a}\hmlands
 Therefore, the processes are not ready-simulation equivalent.
 :::
 
-\noindent
-What this shows is that one cannot prove two states to be ready-equivalent by showing that they are equated by simulation and failures:
+What @exm-non-ready-sim shows is that one cannot prove two states to be ready-simulation-equivalent by showing that they are equated by simulation and failures:
 $${\beq{S}} \cap {\beq{F}} \, \nsubseteq \, {\beq{RS}}.$$
 The relationship between the characterized equivalences is *non-intersectional*.
 
 In general, multiple preorders may relate two states without this entailing a stronger equivalence.
-So the question “Which equivalence from a spectrum relates two states?” is to simple, one has to ask: “Which equivalence**s** relate two processes?”
+So the question “Which equivalence from a spectrum relates two states?” is too simple---one has to ask: “Which equivalence**s** relate two processes?”
 
-This motivates the *spectroscopy problem*.
+This plural motivates the *spectroscopy problem*.
 
 ## Spectroscopy {#sec-spectroscopy}
 
@@ -792,7 +802,7 @@ The problem has originally been introduced in @bjn2022decidingAllBehavioralEqs a
 We here reintroduce it in a more generic form.
 
 ::: {#prob-spectroscopy-problem .problem .callout-problem .callout-tip}
-#### Spectroscopy Problem
+#### Spectroscopy problem
 
 In the context of a transition system $\system$ and a spectrum $(\notions, \leq, \observationsvar{N \in \notions})$, the *spectroscopy problem* asks:
 
@@ -804,6 +814,8 @@ Output
 :::
 
 ::: {#exm-spectroscopy-front}
+#### The spectrum of trolled philosophers
+
 For the “trolled philosophers” of @exm-bisim-sim, we have determined that the systems are simulation-preordered, but not bisimilar, that is, $\literal{Q} \bpreord{S} \literal{T}$, but $\literal{Q} \nbpreord{B} \literal{T}$.
 The first fact implies $\literal{Q} \bpreord{T} \literal{T}$.
 
@@ -888,7 +900,7 @@ Where we, however, assume finiteness for algorithms, is in the state-space size 
 Another way of viewing the spectroscopy problem is that we aim to compute an abstracted kind of *difference* between programs.
 
 ::: {#def-observations}
-#### Observations and Difference
+#### Observations and difference
 
 On a transition system $\system$, the possible observations of a state, $\semanticsobs{\cdot} \colon \states \to \powerset{\hml}$, are defined as:
 $$\semanticsobs{p} ≔ \set{φ ∈ \hml \mid p ∈ \semantics{φ}}.$$
@@ -906,7 +918,6 @@ Two states $p$ and $q$ are preordered with respect to a sublogic $\observationsv
 $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsvar{} = \varnothing.$$
 :::
 
-\noindent
 A spectroscopy then is about computing some abstraction $\Delta_\alpha$ such that
 $N \in \Delta_\alpha(p,q)$ precisely if $\difference{p}{q} \cap \observationsvar{N} \neq \varnothing$.
 

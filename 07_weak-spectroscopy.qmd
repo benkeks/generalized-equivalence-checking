@@ -879,7 +879,7 @@ In light of our finding, this cannot be right.^[
   The bug in the otherwise intriguing paper @gfm2020congruenceOperator is that the modal logic of weak failures is not closed under adding of weak observation sequences at $\hmleps$-operators:
   $\hmleps\hmlobs{\literal{a}}\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}} \in \observations{WF}$, but
   $\hmleps\hmlobs{\literal{a}}\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}\hmleps\hmlobs{\literal{a}}}$ is too strong for weak failure equivalence.
-  Requirement (ABS) together with the definition of $\mathcal{T}^{-1}_H$ would prescribe that the greatest logic to characterize weak failures contains both, for hiding to be a congruence.
+  Their requirement (ABS) together with the definition of $\mathcal{T}^{-1}_H$ would prescribe that the greatest logic to characterize weak failures contains both, for hiding to be a congruence.
 ]
 
 We can even go further, and decide all weak equivalences of our spectrum:

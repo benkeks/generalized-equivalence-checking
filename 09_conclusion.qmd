@@ -136,4 +136,4 @@ This thesis hopes to fit into this project with a “search engine” for equiva
 It shows how to quickly survey spectra of equivalence and how the approach can easily be implemented into tools.
 While pioneers of the field are retiring, parts of their wisdom thus can be materialized into new generations of software.
 
-For concurrent computation will remain relevant, and so will questions on the equivalence of concurrent programs.
+… for concurrent computation will remain relevant, and so will questions on the equivalence of concurrent programs.

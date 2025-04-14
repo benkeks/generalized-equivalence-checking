@@ -847,8 +847,8 @@ As $\wtraces{p} = \wtraces{q}$ for states $p$ and $q$ precisely if $\wtraces{p} 
 :::
 
 The whole list of weak linear-time notions can be found in @fig-weak-grammars-linear.
-The interesting points are highlighted in $\textcolor{RoyalBlue}{blue}$.
-Productions that could be left out without affecting distinctiveness are set in $\textcolor{gray}{gray}$.
+The interesting points are highlighted in $\textcolor{RoyalBlue}{\textrm{blue}}$.
+Productions that could be left out without affecting distinctiveness are set in $\textcolor{gray}{\textrm{gray}}$.
 
 :::{#fig-weak-grammars-linear fig-pos='t!'}
 
@@ -882,6 +882,7 @@ Productions that could be left out without affecting distinctiveness are set in 
       \grammaror \mathdl{\varphi_\notionname{WU}} \\
     \psi_\notionname{WF} \grammardef &
       \grammarsp \mathhl{\hmlneg\hmleps\hmlobs{a}\varphi_\notionname{WU}}
+      \grammaror \mathdl{\hmlneg\hmleps\hmltrue}
       \grammaror \mathdl{\hmleps\hmltrue}\\
   \intertext{
     Stable failures, $\notionname{WF^s}$ at $(\infty,0,\mathhl{0},\mathhl{1},0,0,1,1)$:

@@ -1192,7 +1192,7 @@ Its undo-update according to @def-declining-upd-inv computes $\energyupdateinv((
   \end{axis}
 \end{tikzpicture}
 ```
-Effects of $\textcolor{DarkGreen}{\energyupdate((\updmin{1,2},-1), \cdot)}$ and their undoing $\textcolor{DarkViolet}{\energyupdateinv((\updmin{1,2},-1), \cdot)}$.
+Effects of $\textcolor{DarkGreen}{\energyupdate((\updmin{1,2},-1), \cdot)}$ and their undoing via $\textcolor{DarkViolet}{\energyupdateinv((\updmin{1,2},-1), \cdot)}$.
 ::::
 
 For instance, we can observe the handling of non-invertibility:

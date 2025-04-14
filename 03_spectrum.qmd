@@ -608,7 +608,7 @@ Using the six dimensions of @def-strong-spectrum, we can assign coordinates to a
 
 Coordinates with respect to the notions of @def-strong-spectrum for the common notions of behavioral equivalence and preorder in the strong linear-time–branching-time spectrum are given in @fig-strong-ltbt-spectrum.^[When writing vectors in labels and figures, we omit the parentheses $(\dots)$ for readability.]
 
-::: {#fig-strong-ltbt-spectrum}
+:::: {#fig-strong-ltbt-spectrum}
 
 ```tikz
 \begin{tikzpicture}[auto,node distance=2.5cm,align=center]
@@ -650,20 +650,153 @@ Coordinates with respect to the notions of @def-strong-spectrum for the common n
 ```
 
 Hierarchy of common equivalences/preorders ordered by observability coordinates.
+::::
 :::
+
+The coordinates of @def-strong-ltbt-spectrum define a hierarchy of modal languages.
+@fig-strong-grammars-linear and @fig-strong-grammars-branching give the grammars that are described through the coordinates in conjunction with @def-strong-spectrum.
+The defining aspects of each gramamr are marked in $\textcolor{RoyalBlue}{\textrm{blue}}$.
+
+:::{#fig-strong-grammars-linear fig-pos='t!'}
+
+```tikz
+\parbox{12cm}{
+  \begin{align*}
+  \intertext{
+    Universal, $\notionname{U}$ at $(0,0,0,0,0,0)$:
+  }
+    \varphi_\notionname{U} \grammardef &
+      \grammarsp \hmltrue \\
+  \intertext{
+    Enabledness, $\notionname{E}$ at $(\mathhl{1},0,0,0,0,0)$:
+  }
+    \varphi_\notionname{E} \grammardef &
+      \grammarsp \mathhl{\hmlobs{a}\varphi_\notionname{U}}
+      \grammaror \mathdl{\varphi_\notionname{U}} \\
+  \intertext{
+    Traces, $\notionname{T}$ at $(\mathhl{\infty},0,0,0,0,0)$:
+  }
+    \varphi_\notionname{T} \grammardef &
+      \grammarsp \hmlobs{a}\mathhl{\varphi_\notionname{T}}
+      \grammaror \varphi_\notionname{U} \\
+  \intertext{
+    Failures, $\notionname{F}$ at $(\infty,\mathhl{1},0,0,\mathhl{1},\mathhl{1})$:
+  }
+    \varphi_\notionname{F} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{F}
+      \grammaror \mathhl{\hmlands \set{ \psi_\notionname{F}, \psi_\notionname{F}, \ldots }} \\
+    \psi_\notionname{F} \grammardef &
+      \grammarsp \mathhl{\hmlneg\varphi_\notionname{E}}
+      \grammaror \mathdl{\hmltrue} \\ 
+  \intertext{
+    Revivals, $\notionname{RV}$ at $(\infty,1,\mathhl{1},0,1,1)$:
+  }
+    \varphi_\notionname{RV} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{RV}
+      \grammaror \hmlands \set{ \mathhl{\varphi_\notionname{E}}, \psi_\notionname{F}, \psi_\notionname{F}, \ldots } \\
+  \intertext{
+    Readiness, $\notionname{R}$ at $(\infty,1,1,\mathhl{1},1,1)$:
+  }
+    \varphi_\notionname{R} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{R}
+      \grammaror \hmlands \set{ \psi_\notionname{R}, \psi_\notionname{R}, \ldots } \\
+    \psi_\notionname{R} \grammardef &
+      \grammarsp \mathhl{\varphi_\notionname{E}}
+      \grammaror \psi_\notionname{F} \\
+  \intertext{
+    Failure trace, $\notionname{FT}$ at $(\infty,1,\mathhl{\infty},0,1,1)$:
+  }
+    \varphi_\notionname{FT} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{FT}
+      \grammaror \hmlands \set{ \mathhl{\varphi_\notionname{FT}}, \psi_\notionname{F}, \psi_\notionname{F}, \ldots } \\
+  \intertext{
+    Ready trace, $\notionname{RT}$ at $(\infty,1,\infty,\mathhl{1},1,1)$:
+  }
+    \varphi_\notionname{RT} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{RT}
+      \grammaror \hmlands \set{ \mathhl{\varphi_\notionname{RT}}, \psi_\notionname{R}, \psi_\notionname{R}, \ldots }
+  \end{align*}
+}
+```
+
+Grammars induced by coordinates for strong linear-time notions of equivalence.
+:::
+
+:::{#fig-strong-grammars-branching fig-pos='t!'}
+
+```tikz
+\parbox{12cm}{
+  \begin{align*}
+  \intertext{
+    Impossible futures, $\notionname{IF}$ at $(\infty,1,0,0,\mathhl{\infty},1)$:
+  }
+    \varphi_\notionname{IF} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{IF}
+      \grammaror \hmlands \set{ \psi_\notionname{IF}, \psi_\notionname{IF}, \ldots } \\
+    \psi_\notionname{IF} \grammardef &
+      \grammarsp \mathhl{\hmlneg\varphi_\notionname{T}}
+      \grammaror \mathdl{\hmltrue} \\
+  \intertext{
+    Possible futures, $\notionname{PF}$ at $(\infty,1,\mathhl{\infty},\mathhl{\infty},\infty,1)$:
+  }
+    \varphi_\notionname{PF} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{PF}
+      \grammaror \hmlands \set{ \psi_\notionname{PF}, \psi_\notionname{PF}, \ldots } \\
+    \psi_\notionname{PF} \grammardef &
+      \grammarsp \mathhl{\varphi_\notionname{T}}
+      \grammaror \psi_\notionname{IF} \\
+  \intertext{
+    Simulation, $\notionname{1S}$ at $(\infty,\mathhl{\infty},\mathhl{\infty},\mathhl{\infty},0,0)$:
+  }
+    \varphi_\notionname{1S} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{1S}
+      \grammaror \mathhl{\hmlands \set{ \varphi_\notionname{1S}, \varphi_\notionname{1S}, \ldots }} \\
+  \intertext{
+    Ready simulation, $\notionname{RS}$ at $(\infty,\infty,\infty,\infty,\mathhl{1},\mathhl{1})$:
+  }
+    \varphi_\notionname{RS} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{RS}
+      \grammaror \hmlands \set{ \psi_\notionname{RS}, \psi_\notionname{RS}, \ldots } \\
+    \psi_\notionname{RS} \grammardef &
+      \grammarsp \mathhl{\psi_\notionname{F}}
+      \grammaror \varphi_\notionname{RS} \\
+  \intertext{
+    2-nested simulation, $\notionname{2S}$ at $(\infty,\infty,\infty,\infty,\mathhl{\infty},1)$:
+  }
+    \varphi_\notionname{2S} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{2S}
+      \grammaror \hmlands \set{ \psi_\notionname{2S}, \psi_\notionname{2S}, \ldots } \\
+    \psi_\notionname{2S} \grammardef &
+      \grammarsp \mathhl{\hmlneg\varphi_\notionname{1S}}
+      \grammaror \varphi_\notionname{2S} \\
+  \intertext{
+    bisimulation, $\notionname{B}$ at $(\infty,\infty,\infty,\infty,\infty,\mathhl{\infty})$:
+  }
+    \varphi_\notionname{B} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{B}
+      \grammaror \hmlands \set{ \psi_\notionname{B}, \psi_\notionname{B}, \ldots } \\
+    \psi_\notionname{B} \grammardef &
+      \grammarsp \mathhl{\hmlneg\varphi_\notionname{B}}
+      \grammaror \varphi_\notionname{B}
+  \end{align*}
+}
+```
+
+Grammars induced by coordinates for strong branching-time notions of equivalence.
 :::
 
 For the rest of the thesis, we will take the equivalences as defined by the coordinates as canonical.
+But, of course, it is natural to ask whether the equivalences thus defined correspond to previous definitions in this thesis and the literature.
 
-@lem-spectrum-characterization has established that the coordinates of traces, simulation, failures, and bisimulation match the definitions one commonly finds in the literature.
-To establish the same for the other notions, entails a lot of (repetitive) definitions, which mostly reproduce van Glabbeek's survey [-@glabbeek2001ltbtsiReport].
+@lem-spectrum-characterization already establishes that the coordinates of traces, simulation, failures, and bisimulation match the common definitions.
 
 @mattes2024expressivePowerHML proves in Isabelle/HOL that our coordinate system spectrum matches the distinctiveness of the modal characterizations in [@glabbeek2001ltbtsiReport].^[
   To be precise, @mattes2024expressivePowerHML works with the version of the spectrum of @bisping2023equivalenceEnergyGames.
   The only real difference is that, there, $\hmltrue$ is priced at $1$ conjunction, while the present spectrum prices it at $\zerovec$, cf. @rem-explicit-expr.
 ]
+This entails a lot of fineprint, which we will not reproduce here.
 
-We still should illustrate how *equivalences of decorated traces* are handled:
+The grammars already contain a trick to handle *equivalences of decorated traces*, which we should discuss as it will be mirrored in game rules later on:
 The idea behind *failure traces* is that one observes a trace of actions and *at every step* a set of actions that are *disabled*.
 *Ready traces* work similarly, but with disabled and enabled actions in between.
 
@@ -673,9 +806,9 @@ The idea behind *failure traces* is that one observes a trace of actions and *at
 Consider the following processes, which are slighlty deeper variants of the situation we encountered with $\literal{Q}$ and troll process $\literal{T}$ in @exm-bisim-sim.
 $$
 \begin{aligned}
-  \literal{Q'} := & \ccsprefix{\tau} (\ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b}) \\
-  \literal{T'_{\tau a a}} := & \literal{Q'} \ccschoice \ccsprefix{\tau}\ccsprefix{\literal a} \literal a \\
-  \literal{T'_{\tau a}} := & \literal{Q'} \ccschoice \ccsprefix{\tau}\literal a 
+  \literal{Q'} \defeq\, & \ccsprefix{\tau} (\ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b}) \\
+  \literal{T'_{\tau a a}} \defeq\, & \literal{Q'} \ccschoice \ccsprefix{\tau}\ccsprefix{\literal a} \literal a \\
+  \literal{T'_{\tau a}} \defeq\, & \literal{Q'} \ccschoice \ccsprefix{\tau}\literal a 
 \end{aligned}
 $$
 $\literal{T'_{\tau a a}}$ and $\literal{T'_{\tau a}}$ are simulation equivalent.

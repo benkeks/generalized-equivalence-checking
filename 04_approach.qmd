@@ -63,7 +63,7 @@ This approach is summarized in @fig-spectroscopy-poly-big-picture.
   \node[algstep, draw=TealBlue, below of=States, node distance=2.5cm] (EnergyGame) {Bisimulation \\ energy game ${\game}_\notionname{B}^{🗲\system}$};
   \node[algstep, draw=Peach, below of=Preorders, node distance=2.5cm] (AttackerWinningBudgets) {Minimal attacker winning \\ budgets $\attackerwinsmin([p,q])$};
   \path
-    (States) edge[->, dashed] node[label=270:{Problem~\ref*{prob-spectroscopy-problem}}] {Spectroscopy problem} (Preorders)
+    (States) edge[->, dashed] node[label=270:{Problem~\ref{prob-spectroscopy-problem}}] {Spectroscopy problem} (Preorders)
     (States) edge[->, draw=TealBlue] node {Def.~\ref{def-bisim-energy-game}} (EnergyGame)
     (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Thm.~\ref{thm-bisim-energy-game-characterization}} (Preorders)
     (EnergyGame) edge[->, draw=Peach] node[label=270:{Problem~\ref{prob-energy-game-problem}}] {Algorithm~\ref{alg-deciding-games}} (AttackerWinningBudgets);
@@ -600,7 +600,7 @@ Telling apart $\literal{T}$ from $\literal{Q}$ is slightly easier, only requirin
 But, due to the correspondence of the game to modal formulas and of the energy updates to the pricing of formulas in the spectrum, the attacker winning budgets tell us more:
 They reveal that one needs two observations and two (or more) negations to distinguish $\literal{Q}$ from $\literal{T}$ using formulas from $\observations{\floor{B}}$.
 
-Thus, $\notions^{\literal{poly-strong}}_{\literal{Q}, \literal{T}} = \set{N ∈ \notions^\literal{poly-strong} \mid N \nleq (2,2,2)}$ is the solution for the (polynomial-time strong) spectroscopy problem.
+Thus, $\notions^{\literal{poly-strong}}_{\literal{Q}, \literal{T}} = \set{N ∈ \notions^\literal{poly-strong} \mid (2,2,2) \nleq N}$ is the solution for the (polynomial-time strong) spectroscopy problem.
 $\literal{Q}$ is preordered to $\literal{T}$ by 2-nested simulation, 1-step bisimulation, and all notions below;
 but distinguished by all above, in particular, 3-nested simulation and 2-step bisimulation.
 

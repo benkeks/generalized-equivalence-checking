@@ -977,11 +977,11 @@ The first fact implies $\literal{Q} \bpreord{T} \literal{T}$.
 But what about other notions from the strong spectrum of Subsection -@sec-full-spectrum?
 Besides similarity, there might well be incomparable or finer notions that too preorder $\literal{Q}$ to $\literal{T}$!
 
-The solution to the spectroscopy problem on $\literal{Q}$ and $\literal{T}$ is $\notions^{\literal{strong}}_{\literal{Q}, \literal{T}} = \set{N \in \notions^\literal{strong} \mid N \nleq (2,2,0,0,2,2)}$.
+The solution to the spectroscopy problem on $\literal{Q}$ and $\literal{T}$ is $\notions^{\literal{strong}}_{\literal{Q}, \literal{T}} = \set{N \in \notions^\literal{strong} \mid (2,2,0,0,2,2) \nleq N}$.
 A minimal formula to distinguish $\literal{Q}$ from $\literal{T}$ with this coordinate would be $\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}}$.
 (The following chapters will reveal how to reliably arrive at this knowledge, in particular, the minimality.)
 
-Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\infty,\infty,\infty,\infty,1)$ is not less or equal to $(2,2,0,0,2,2)$, we arrive at $\literal{Q} \bpreord{2S} \literal{T}$, which implies *all* preorders of @fig-strong-ltbt-spectrum except for bisimilarity.
+Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\infty,\infty,\infty,\infty,1)$ is not above $(2,2,0,0,2,2)$, we arrive at $\literal{Q} \bpreord{2S} \literal{T}$, which implies *all* preorders of @fig-strong-ltbt-spectrum except for bisimilarity.
 
 :::: {#fig-spectroscopy-front fig-pos='th'}
 
@@ -1017,12 +1017,12 @@ Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\inf
 ```
 
 Cross section of the strong spectrum showing the dimensions conjunctions, negative conjunct depth, and negation depth.
-All preorders below the red mark at $(2,2,2)$ hold in @exm-spectroscopy-front.
+All preorders that are not hit by the red mark at $(2,2,2)$ hold in @exm-spectroscopy-front.
 ::::
 
-Note that we have expressed $\notions^{\literal{strong}}_{\literal{Q}, \literal{T}}$ through a negation (“$\dots \nleq (2,2,0,0,2,2)$”).
+Note that we have expressed $\notions^{\literal{strong}}_{\literal{Q}, \literal{T}}$ through a negation (“$(2,2,0,0,2,2) \nleq N$”).
 The reason is that a positive description is usually unwieldy.
-In this (comparably easy) case, we could for example list the half-spaces below the cheapest distinction, and this would read:
+In this (comparably easy) case, we could for example list the half-spaces undercutting the cheapest distinction, and this would read:
 $\notions^{\literal{strong}}_{\literal{Q}, \literal{T}} =
 (\set{0,1} \times \natsext^5) \cup
 (\natsext \times \set{0,1} \times \natsext^4) \cup

@@ -5,10 +5,10 @@ This is a work-in-progress document. Handle with care!
 ## Summary {.unnumbered .unlisted}
 
 We study the *spectroscopy problem* that asks which notions from a spectrum of behavioral equivalences relate a pair of states in a transition system.
-In particular, we solve the problem for finite-state processes and the *weak spectrum*, a hierarchy of semantical models of how to understand nondetermnism and internal behavior in concurrent programs.
+In particular, we solve the problem for finite-state processes and the *weak spectrum*, a hierarchy of semantical models of how to understand nondeterminism and internal behavior in concurrent programs.
 On our way there, we also treat the *strong spectrum* of concrete processes.
 
-The approach relies on a *quantiative understanding of spectra* in terms of how many syntactic features of Hennessy–Milner logic are used to characterize equivalences.
+The approach relies on a *quantitative understanding of spectra* in terms of how many syntactic features of Hennessy–Milner logic are used to characterize equivalences.
 We prove the equivalences and preorders to be captured by *spectroscopy games* where energy budgets bound how much syntax the attacker may use to tell processes apart.
 Optimal attack strategies correspond to *minimal distinguishing formulas*.
 The spectroscopy problem thus reduces to the problem of computing *minimal attacker-winning budgets* in spectroscopy games.

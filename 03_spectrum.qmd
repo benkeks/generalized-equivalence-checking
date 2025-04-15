@@ -13,7 +13,7 @@ toc-title: "Chapter 3"
 `\vspace{-2.2em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
 This chapter presents the spectrum of modal languages from @bisping2023equivalenceEnergyGames in a slightly clarified manner, which itself derives from @bjn2022decidingAllBehavioralEqs.
-The alignment to the authorative @glabbeek1990ltbt1 has been studied by @mattes2024expressivePowerHML.
+The alignment to the authoritative @glabbeek1990ltbt1 has been studied by @mattes2024expressivePowerHML.
 ::::
 
 We will now take a deeper dive into how groups of behavioral equivalences and preorders can be ranked in equivalence spectra.
@@ -593,7 +593,7 @@ The strong spectrum of @def-strong-spectrum contains the notions of behavioral e
   observe that $\observations{\floor{B}} \subseteq \observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ by examining its grammar in @def-game-formulas.
   As $\observations{\floor{B}}$ already has complete $\hml$-distinctiveness by @lem-game-formula-hml, so must its superlogic $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$.
 - For case (4) of failures, we must note that $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ also contains failure observations that end in conjunctions with a $\hmlneg \hmltrue$-conjunct.
-  But these are trivially false and thus cannot add to distintiveness.\qedhere
+  But these are trivially false and thus cannot add to distinctiveness.\qedhere
 :::
 
 So far, we have only established that the six-dimensional spectrum also covers the notions that @exm-simple-spectrum has already covered–in a more complicated way.
@@ -655,7 +655,7 @@ Hierarchy of common equivalences/preorders ordered by observability coordinates.
 
 The coordinates of @def-strong-ltbt-spectrum define a hierarchy of modal languages.
 @fig-strong-grammars-linear and @fig-strong-grammars-branching give the grammars that are described through the coordinates in conjunction with @def-strong-spectrum.
-The defining aspects of each gramamr are marked in $\textcolor{RoyalBlue}{\textrm{blue}}$.
+The defining aspects of each grammar are marked in $\textcolor{RoyalBlue}{\textrm{blue}}$.
 
 :::{#fig-strong-grammars-linear fig-pos='t!'}
 
@@ -794,7 +794,7 @@ But, of course, it is natural to ask whether the equivalences thus defined corre
   To be precise, @mattes2024expressivePowerHML works with the version of the spectrum of @bisping2023equivalenceEnergyGames.
   The only real difference is that, there, $\hmltrue$ is priced at $1$ conjunction, while the present spectrum prices it at $\zerovec$, cf. @rem-explicit-expr.
 ]
-This entails a lot of fineprint, which we will not reproduce here.
+This entails a lot of fine print, which we will not reproduce here.
 
 The grammars already contain a trick to handle *equivalences of decorated traces*, which we should discuss as it will be mirrored in game rules later on:
 The idea behind *failure traces* is that one observes a trace of actions and *at every step* a set of actions that are *disabled*.
@@ -803,7 +803,7 @@ The idea behind *failure traces* is that one observes a trace of actions and *at
 ::: {#exm-failure-trace-distinguished}
 #### Failure traces
 
-Consider the following processes, which are slighlty deeper variants of the situation we encountered with $\literal{Q}$ and troll process $\literal{T}$ in @exm-bisim-sim.
+Consider the following processes, which are slightly deeper variants of the situation we encountered with $\literal{Q}$ and troll process $\literal{T}$ in @exm-bisim-sim.
 $$
 \begin{aligned}
   \literal{Q'} \defeq\, & \ccsprefix{\tau} (\ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b}) \\
@@ -816,8 +816,8 @@ But they are distinguished by the failure trace observation $\hmlobs{\tau} \hmla
 The intuition is that we can observe the trace $\tau \literal{a} \literal{a}$ together with the fact that $\literal b$ is impossible after the first step of $\literal{T'_{\tau a a}}$, but not of $\literal{T'_{\tau a}}$.
 
 The formula pricing works out, that is, $\hmlobs{\tau} \hmlands\set{\hmlobs{\literal a}\hmlobs{\literal{a}}, \hmlneg \hmlobs{\literal b}} \in \observationsvar[\literal{strong}]{(3,1,2,0,1,1)} \subseteq \observations[\literal{strong}]{\literal{FT}}$.
-The important point here is that we can allow *one* arbitrarly deep positive conjunct but prevent any others,
-which would underminde the *trace-likeness* of the observation.
+The important point here is that we can allow *one* arbitrarily deep positive conjunct but prevent any others,
+which would undermine the *trace-likeness* of the observation.
 This is where it pays off that the spectrum grammar (@def-strong-spectrum) has a more lenient pricing for one of the positive conjuncts.
 We will sometimes refer to the deep positive conjunct of a conjunction as the *revival*, because revival equivalence is the first notion of equivalence with this feature.
 :::
@@ -850,7 +850,7 @@ For instance, due to the second dimension (conjunctions) being set to $0$ for tr
 
 Indeed, @fig-strong-ltbt-spectrum always selects the least coordinate to characterize a sublogic, in order for domination of coordinates in the figure and entailment between behavioral preorders to coincide.
 
-At the same time, some notions could be characteirzed by striclty smaller coordinates due to sublogics of matching expressiveness.
+At the same time, some notions could be characterized by strictly smaller coordinates due to sublogics of matching expressiveness.
 In particular, all $(\infty, \infty, N_3, N_4, \infty, \infty)$ would characterize bisimilarity due to the unbounded possibility of “hiding” positive conjuncts in double negations.
 This observation will become relevant again later for varying abstractions of bisimilarity in the spectrum of weak equivalences in @sec-weak-spectrum-exposition.
 :::
@@ -883,7 +883,7 @@ If we restrict our focus to a grid of ternary entries $\set{0,1,\infty}$, we can
 With four dimensions, the height of the lattice is nine, that is, the maximal number of nodes on increasing paths between $(0,0,0,0)$ and $(\infty, \infty, \infty, \infty)$.
 But the hierarchy of @fig-strong-ltbt-spectrum has height ten!
 
-With a grid of five ternary dimensions, we can recreate the hierarchy of @fig-strong-ltbt-spectrum, and “hard-code” the logis for coordinates, a bit as it happens in @exm-simple-spectrum.
+With a grid of five ternary dimensions, we can recreate the hierarchy of @fig-strong-ltbt-spectrum, and “hard-code” the logics for coordinates, a bit as it happens in @exm-simple-spectrum.
 On the other hand, this would align less nicely with syntactic features of Hennessy–Milner logic.
 :::
 
@@ -904,7 +904,7 @@ For instance, the lines of simulation and failures join at ready simulation---an
 But $\observations[\literal{strong}]{S} \cup \observations[\literal{strong}]{F} \neq \observations[\literal{strong}]{RS}$ and this makes a difference:
 
 ::: {#exm-non-ready-sim}
-#### Simulation & Failures, donot mean ready-simulation
+#### Simulation & Failures, do not mean ready-simulation
 
 Consider the $\ccs$ processes
 $\ccsprefix{\literal{a}} (\ccsprefix{\literal{a}} \literal{b} \ccschoice \literal{a})$ and
@@ -1119,7 +1119,7 @@ From there, we have introduced the *spectroscopy problem*, which asks for notion
 {{< paragraph_heading "The shifted problem." >}}
 By formulating the problem in terms of a lattice over $\natsext$-vectors, the family of qualitative strong preorder/equivalence problems becomes a single quantitative problem:
 The spectroscopy problem for the strong spectrum.
-As we will see, the perspective of one quantitative problem is more insightful than the view of losely-related, isolated equivalence problems.
+As we will see, the perspective of one quantitative problem is more insightful than the view of loosely-related, isolated equivalence problems.
 
 We have already laid the groundwork to shift the semantic question of equivalence into a syntactic question of the shape of distinguishing formulas.
 

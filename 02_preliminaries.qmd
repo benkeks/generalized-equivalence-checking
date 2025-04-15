@@ -423,7 +423,7 @@ We will then observe that the notions themselves can be compared in a hierarchy 
 ### Trace Equivalence
 
 Every computer science curriculum features automata and their languages sometime at the beginning.
-Accordingly, comparing two programs in terms of the sequences of input/ouput events they might expose, referred to as their *traces*, is a natural starting point to talk about behavioral equivalences.
+Accordingly, comparing two programs in terms of the sequences of input/output events they might expose, referred to as their *traces*, is a natural starting point to talk about behavioral equivalences.
 
 ::: {#def-traces}
 #### Traces
@@ -679,7 +679,7 @@ We will usually encounter settings where all components use the same order $(B_1
 The relation $\leq$ is then referred to as a *precongruence* for $f$.
 If $\leq$ moreover is symmetric (and thus an equivalence relation), then $\leq$ is called a *congruence* for $f$.
 :::
-
+precongruence
 ::: {#exm-congruence-oddity}
 #### Parity as Congruence
 As a standard example for a congruence, consider the equivalence relation of equally odd numbers
@@ -696,7 +696,7 @@ For instance, $2 \sim_\literal{odd} 4$, but $2 / 2 = 1 \not\sim_\literal{odd} 2 
 ::: {#prp-ccs-congruences}
 Trace equivalence and bisimilarity on the CCS transition system (@def-ccs-semantics)
 are congruences for the operators of CCS (@def-ccs).^[
-  For a generic proof of the congruence properties of trace equivalence, bisimiliarity, and most other notions of the equivalence spectrum, see @gfm2020congruenceOperator.
+  For a generic proof of the congruence properties of trace equivalence, bisimilarity, and most other notions of the equivalence spectrum, see @gfm2020congruenceOperator.
 ]
 :::
 <!--:::proof

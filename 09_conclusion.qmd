@@ -91,11 +91,11 @@ For some, it might be worthwhile to try to adapt our approach of generalized gam
   For instance, the $Q$-sets in game positions could be fuzzy, and some defender-budget defines how unlikely positions they can pick.
 
   The (strong) quantitative spectrum of @fahrenberg2014quantitativeLTBTS already is phrased in terms of a game model.
-  Combining it with our game would likely demand deeper changes to our game mechanics, because one has to remember traces (and not just current states) to compute the resulting distances in generarlity.
+  Combining it with our game would likely demand deeper changes to our game mechanics, because one has to remember traces (and not just current states) to compute the resulting distances in generality.
 
   For Markovian models and probabilistic bisimilarities, there is recent work of “spectro-fication” in
   @ba2017bisimTraceApproximate, @bdh2020probabilisticSpectrum, and @sbkpq2024approximateProbabilisticBisimulations, also extending to silent-step notions.
-  So, this might be the kind of quantitaive equivalences, where a connection to our approach works best.
+  So, this might be the kind of quantitative equivalences, where a connection to our approach works best.
 
   Timed equivalences would face conceptional boundaries to decision procedures on finite models:
   While bisimilarity is decidable, trace preordering is not [@cerans1993decidabilityTimedBisim].
@@ -108,7 +108,7 @@ For some, it might be worthwhile to try to adapt our approach of generalized gam
   For instance, there are forward/reverse bisimilarities [@be2023forwardReverseBisim] that add modalities to move backwards through the transition graph.
 
   Many such modalities could be added as special moves to the game graph.
-  For modalities where satisfaction depends on infinite behavior, the reachability game framework is not sufficently expressive.
+  For modalities where satisfaction depends on infinite behavior, the reachability game framework is not sufficiently expressive.
   An example would be the divergence modalities mentioned in @sec-extending-to-other-eqs, which require a parity-game winning condition.
 
 {{< paragraph_heading "A modal-logical turn?" >}}

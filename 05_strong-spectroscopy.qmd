@@ -242,7 +242,7 @@ Let us think back to @exm-failure-trace-distinguished, that is, to $\literal{Q'}
 $\literal{T'_{\tau a a}} := \literal{Q'} \ccschoice \ccsprefix{\tau}\ccsprefix{\literal a} \literal a$, and
 $\literal{T'_{\tau a}} := \literal{Q'} \ccschoice \ccsprefix{\tau}\literal a$, where $\literal{T'_{\tau a a}}$ is distinguished from $\literal{T'_{\tau a}}$ by the failure-trace observation $\hmlobs{\tau} \hmlands\set{\hmlobs{\literal a}\hmlobs{\literal{a}}, \hmlneg \hmlobs{\literal b}} \in \observationsvar[\literal{strong}]{(3,1,2,0,1,1)} \subseteq \observations[\literal{strong}]{\literal{FT}}$.
 
-To point out a similar distinction in the spetroscopy game, the attacker moves:
+To point out a similar distinction in the spectroscopy game, the attacker moves:
 $$
 \begin{array}{rcl}
   \attackerpos{\literal{T'_{\tau a a}}, \set{\literal{T'_{\tau a}}}}
@@ -294,7 +294,7 @@ The game also allows another path through nested negations that the attacker win
 Let us see what our prototype implementation on {{<equivio>}} reports about our original example processes of @sec-preliminaries.^[
   A usage guide on the syntax can be found in @sec-equivio-usage.
 ]
-We can input the philosopher processes of @exm-ccs and @exm-deterministic-phil, obtaining a tranistion system matching @exm-ts:
+We can input the philosopher processes of @exm-ccs and @exm-deterministic-phil, obtaining a transition system matching @exm-ts:
 
 ```ccs
 PA = fork.a
@@ -330,7 +330,7 @@ That `P` is simulated by `Q` matches our finding from @exm-phil-sim.
 Internally this is established by building the spectroscopy game and computing that $\attackerwinsmin(\attackerpos{\literal{P}, \set{\literal{Q}}}) = \set{(2,1,0,0,1,1)}$.
 
 That no equivalence besides or above simulation can hold, is justified to the user by the failure `⟨τ⟩⋀{¬⟨a⟩⊤}`, which we also discussed in @sec-incomparabilities.
-In the updcoming @sec-correctness-strong-spectroscopy we will also give the rules that the tool uses to construct this witness.
+In the upcoming @sec-correctness-strong-spectroscopy we will also give the rules that the tool uses to construct this witness.
 
 Invoking `@compare Q, P` for the other direction, {{<equivio>}} reports `⟨τ⟩⋀{⟨b⟩⊤,⟨a⟩⊤}` as a distinguishing formula disproving simulation (as we have found in @exm-hml).
 :::
@@ -528,7 +528,7 @@ We will explore these in the next section.
 We can exploit properties of the equivalences of the strong spectrum in @fig-strong-ltbt-spectrum we actually care about to focus on simpler variants of the spectroscopy game.
 
 1. Properties of bisimilarity allow to reduce the game graph size without losing information.
-1. Since the specific coordinates in @fig-strong-ltbt-spectrum only use 0, 1, and ∞ in components, we can employ @lem-declining-update-complexity-flattened to slighlty improve complexity bounds.
+1. Since the specific coordinates in @fig-strong-ltbt-spectrum only use 0, 1, and ∞ in components, we can employ @lem-declining-update-complexity-flattened to slightly improve complexity bounds.
 2. With more specific equivalences in mind, we can also focus on subgraphs of the spectroscopy game $\gamespectroscopy$ in order to obtain better bounds.
 
 In this section, @sec-bisim-approximations will first discuss how parts of the game graph can be pruned thanks to properties of bisimilarity.
@@ -620,12 +620,12 @@ The default spectroscopy game at the top has roughly $1200$ thousand game positi
 Pruning symmetric parts removes four fifth of the graph (leaving $241$ thousand positions).
 
 Only applying the bisimulation minimization roughly halves the graph (leaving $661$ thousand positions).
-The bisimulation reduction is suprisingly effective, given that the bisimulation minimized Peterson system still has 19 states, that is, only one less than the originals system.
+The bisimulation reduction is surprisingly effective, given that the bisimulation minimized Peterson system still has 19 states, that is, only one less than the originals system.
 On the other hand, bisimilar states are precisely those that allow the biggest space of distinctions, blowing up the game.
 
 Interestingly, the combination of both tricks reduces the game graph to $67$ thousand positions, roughly 5 % of the original size.
 (If the effects of both minimizations were only multiplicative, the number would be around $133$ thousand states.)
-This over-proporionate effect on the one hand has to do with the general exponentialities of the game graph, but also with the fact that bisimulation minimization increases the instances where pruning is applicable.
+This over-proportionate effect on the one hand has to do with the general exponentialities of the game graph, but also with the fact that bisimulation minimization increases the instances where pruning is applicable.
 :::
 
 So far, the optimizations have been *lossless* in the sense that we do not lose any information on the distinguishability of processes.
@@ -768,7 +768,7 @@ Without these tricks, the approach would not be applicable to systems with relev
 ## Deciding Individual Equivalences {#sec-deciding-individual-eqs}
 
 As we have seen, the strong spectroscopy characterizes the spectroscopy problem *and* each individual equivalence (and preorder).
-This section is about the feasability to decide individual preorders using the spectroscopy game.
+This section is about the feasibility to decide individual preorders using the spectroscopy game.
 
 The core idea behind @sec-deriving-eq-games is to *derive a reachability game* according to @def-derived-reachability-game, starting with an energy level from the strong spectrum, @def-strong-ltbt-spectrum.
 Then, @alg-deciding-games can be employed to decide player winning regions of the game and thus the equivalence.
@@ -778,7 +778,7 @@ Of course, in this situation, one wants to avoid complexities that are part of t
 
 ### Deriving Equivalence Games {#sec-deriving-eq-games}
 
-Let us first explicate how to derive characterize equivalences thrugh reachability games derived accoridng to @def-derived-reachability-game.
+Let us first explicate how to derive characterize equivalences through reachability games derived according to @def-derived-reachability-game.
 
 ::: {#def-derived-eq-game}
 #### Derived Strong Equivalence Games
@@ -962,7 +962,7 @@ Inserting our bounds in @prp-reachability-game-complexity, we obtain time and sp
 ::: {#exm-instance-game-sizes}
 Let us see how the instance game sizes behave on @fig-instance-games-strong-ltbt-spectrum the games of @exm-spectroscopy-equivalence-checking!
 @fig-instance-games-strong-ltbt-spectrum maps out the sizes of game instantiations for the preorders of the strong spectrum @fig-strong-ltbt-spectrum.
-Each game is derived from the clever spectroscopy game, with pruning and with capped non-determinsm where possible; to enable equivalence checks, the games combine the parts under $\attackerpos{\literal{ABCACB}, \set{\literal{ABC}}}$ and under $\attackerpos{\literal{ABC}, \set{\literal{ABCACB}}}$.
+Each game is derived from the clever spectroscopy game, with pruning and with capped non-determinism where possible; to enable equivalence checks, the games combine the parts under $\attackerpos{\literal{ABCACB}, \set{\literal{ABC}}}$ and under $\attackerpos{\literal{ABC}, \set{\literal{ABCACB}}}$.
 The game size is defined as the sum of positions and moves, $\relsize{\game} = \relsize{G} + \relsize{\gamemoveblank}$.
 Red parts symbolize bigger game graphs.
 
@@ -1041,7 +1041,7 @@ Instance game sizes of @exm-instance-game-sizes.
 The data match our thoughts on game sizes in @sec-deriving-eq-games.
 For instance, around the trace game $\gamespectroscopyceq{\notionname{T}}$, we can observe that zero-components usually reduce the game graph size.
 Between mutual simulation $\gamespectroscopyceq{\notionname{1S}}$ and bisimulation $\gamespectroscopyceq{\notionname{B}}$, one can see that $\infty$-components and $0$-components are usually better than $1$-components.
-The game for ready traces $\gamespectroscopyceq{\notionname{RT}}$, where all dimensions play a role, is the most costy.
+The game for ready traces $\gamespectroscopyceq{\notionname{RT}}$, where all dimensions play a role, is the most costly.
 :::
 
 TODO: Maybe also example where non-determinism has more effect?
@@ -1056,14 +1056,14 @@ This construction can also be viewed game-theoretically as a way to model an att
 The conjunction and negation points then describe moves where the attacker can obtain this information.
 @fahrenberg2014quantitativeLTBTS employ this alternative view in their game description for quantitative variants of strong equivalences.
 
-All prior publications with generalized game characterization of the spectum describe a hierarchy of reachability games---as opposed to our view of *one* energy game per system.
+All prior publications with generalized game characterization of the spectrum describe a hierarchy of reachability games---as opposed to our view of *one* energy game per system.
 
 The *general idea of giving generalized games* for the strong spectrum first appears in @shr1995hornsatGames.
 It receives a fuller treatment by @cd2008gameCharacetrizations.
 Both publications, however, use word-transition moves for trace-like equivalences.
 In algorithms, this is unfortunate, since most interesting systems allow infinitely long transition sequences:
 For finite-state systems, this infinity appears as soon as there is a transition cycle.
-Therefore, the subset construction (or imperfect-information view) is technologically supperior.
+Therefore, the subset construction (or imperfect-information view) is technologically superior.
 On the side of theory, the link between moves in the game and conjunctions in modal logics adds clarity to our construction.
 It reinforces the idea of @sec-abstract-subtraction that equivalence checking is, in a way, subtraction of satisfied formulas.
 
@@ -1074,13 +1074,13 @@ With respect to @bjn2022decidingAllBehavioralEqs, the presentation in this chapt
 
 1. @bjn2022decidingAllBehavioralEqs uses a reachability game, on which we construct distinguishing formulas.
   The formulas are then pruned on-the-fly to select those with minimal syntactic prices.
-  Introduced by @bisping2023equivalenceEnergyGames, we now can perform the whole *spectroscopy on energy vectors*, thereby making costy explicit formula construction optional.
+  Introduced by @bisping2023equivalenceEnergyGames, we now can perform the whole *spectroscopy on energy vectors*, thereby making costly explicit formula construction optional.
 2. @bjn2022decidingAllBehavioralEqs's game has super-exponential out-degree for conjunction moves.
   With the present formulation [from @bisping2023equivalenceEnergyGames], we can achieve constant degree, using the cleverness of @sec-clever-strong-spectro.
-3. On a pure rechability game, one cannot easily instantiate to select the subgraphs for individual equivalences as in @sec-deciding-individual-eqs.
+3. On a pure reachability game, one cannot easily instantiate to select the subgraphs for individual equivalences as in @sec-deciding-individual-eqs.
 
 {{< paragraph_heading "Back to many games." >}}
-The point of *deriving equivalence games from the energy game* (@idea-instance-games) connects the one-energy-game approach back to the hierachy-of-games approach of prior publications.
+The point of *deriving equivalence games from the energy game* (@idea-instance-games) connects the one-energy-game approach back to the hierarchy-of-games approach of prior publications.
 With @sec-deciding-individual-eqs, the present chapter has moved beyond the scope of @bisping2023equivalenceEnergyGames.
 Interestingly, @sec-regaining-polynomiality shows that, by the prioritizing conjunctions in derived simulation-like games, one obtains $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ complexity, restoring the bound of last chapter's @sec-polynomial-spectroscopy-complexity.
 For strong similarity, this matches the best known time bound, as discussed in @sec-equivalence-complexities.
@@ -1093,8 +1093,8 @@ The bisimulation game ${\game}_\notionname{B}$ of @sec-preliminaries *is a shado
 
 {{< paragraph_heading "What's next?" >}}
 Continuing the trajectory of shadows, *the next part of the thesis* will abstract further what we have been doing.
-The strong spectrum of equvialences is usually too strong for the analysis of concurrent systems.
+The strong spectrum of equivalences is usually too strong for the analysis of concurrent systems.
 Therefore, we will extend our approach to the “weak spectrum” of equivalences, accounting for the nuances of silent $\tau$-steps.
 This is of double relevance:
-Practical applications of concurency theory tend to need the weak semantics,
+Practical applications of concurrency theory tend to need the weak semantics,
 and, other than with the strong spectrum, nobody has previously proposed generalized game characterizations for the weak spectrum, at all.

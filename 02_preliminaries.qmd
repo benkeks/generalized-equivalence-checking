@@ -110,9 +110,10 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
 
 ::: {#fig-henzinger .column-margin}
 
-  ![](img/henzinger.jpg){.lightbox}
+![](img/henzinger.jpg){.lightbox}
 
-  Tom Henzinger employing @exm-ts during CAV'23.
+Tom Henzinger employing @exm-ts during CAV'23 to stress that “everything is a game.”
+(Incidentally, this chapter follows a similar mission.)  
 :::
 
 ::: {#exm-ts}

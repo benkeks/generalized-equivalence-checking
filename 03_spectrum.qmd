@@ -90,9 +90,11 @@ $p \bpreord{S} q$ precisely if $p \bpreordvar{\observations{S}} q$.{{<isb theore
 {{<noindent>}} Clearly, $\observations{T} \subset \observations{S} \subset \hml$.
 So, @prp-difference-contraposition that sublogics will equate at least as much as their parent logic, yields another way of establishing the entailment hierarchy between bisimilarity, similarity, and trace equivalence of Subsection [-@sec-hierarchy-equivalences].^[Taking the two previous lemmas together with @thm-hennessy-milner for $\beq{B}$ and $\hml$.]
 
-While the relational definitions for (bi-)similarity of @def-bisimilarity and the denotational definition of trace equivalence @def-trace-eq live in different worlds, the two equivalences become naturally comparable in the modal realm.
+Equivalences become naturally comparable in the modal realm.
+Contrast this with preceding definitions that live in different worlds:
+relational definition for (bi-)similarity of @def-bisimilarity and denotational definition for trace equivalence of @def-trace-eq.
 
-The modal view also reveals an intuitive hierarchy of “testing scenarios” for the equivalences, framed as black box tests:
+The modal view also reveals an intuitive hierarchy of “testing scenarios” for the equivalences, framed as black box tests in @glabbeek1990ltbt1:
 
 Trace equivalence
 : matches an observer that can see *sequences of events*.
@@ -110,6 +112,17 @@ This means that the experimenter can not only copy the execution state but also 
 But such levels of observability do not need to be linear, as we will see in the next subsection …
 
 ### Incomparabilities {#sec-incomparabilities}
+
+Often, things we compare are comparable with respect to *different dimensions*.
+For instance, one can compare smartphone sizes with respect to width and height, as seen in @fig-hermanss-hartmanns-smartphone-spectrum.
+This phenomenon of *orthogonal dimensions* also occurs for behavioral equivalences. 
+
+:::{#fig-hermanns-hartmanns-smartphone-spectrum .column-margin}
+![](img/hermanns-hartmanns-spectrum.jpg){.lightbox}
+
+Participants of ETAPS'22 discussing the spectrum of smartphone sizes.
+(Which is dominated by Hermanns's phone, at the bottom of the picture.)
+:::
 
 A well-known and natural notion of equivalence is that of *failure equivalence*.
 Intuitively, a failure says that the experimenter may follow a trace and see which actions are *impossible* at its end.
@@ -335,7 +348,6 @@ for any two notions $N,M \in \notions$, it holds that
 $$N \leq M \text{ implies } \observationsvar{N} \subseteq \observationsvar{M}.$$
 :::
 
-\noindent
 Let us use our new definition to construct a subset lattice as in @exm-set-lattice to recreate the hierarchy of @fig-failure-hierarchy.
 
 ::: {#exm-simple-spectrum}

@@ -130,8 +130,6 @@ On the other hand, note that our infinitary HML cannot express proper divergence
 This would demand an “observation of infinite depth.”
 This clashes with the well-foundedness, which is implied by the recursive grammar of @def-hml.
 On finite systems, however, the possibility of unbounded $\tau$-trees and infinite $\tau$-chains coincides, and divergence can be captured modally by $\hmland{n}{\nats} \hmlobs{\tau}^n$.
-
-<!--TODO: Would $\hmland{m}{\nats} \hmlobs{\tau}^n \hmland{n}{\nats} \hmlobs{\tau}^n$ catch infinitary divergence? -> No, as the evaluation would still eventually run into a point from where one knows the bound. -->
 :::
 
 ### Weak Traces and Weak Bisimulation
@@ -827,7 +825,7 @@ In this subsection, we take a deeper look into the observation languages charact
 Hierarchy of weak behavioral equivalences/preorders, by equivalence notion coordinates.
 :::
 
-{{<paragraph_heading "Linear-time notions.">}}
+{{< paragraph_heading "Linear-time notions." >}}
 Let us first see how trace-like notions are handled in our spectrum.
 
 ::: {#lem-weak-trace-eq}
@@ -945,7 +943,7 @@ Grammars induced by coordinates for weak linear-time notions of equivalence.
 
 The modal characterizations correspond to the ones one would expect, with some trivial ones appearing due to the language hierarchy approach.
 
-{{<paragraph_heading "Bisimulation-like notions.">}}
+{{< paragraph_heading "Bisimulation-like notions." >}}
 The abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more interesting things happen.
 
 :::{#fig-weak-grammars-bisim-like fig-pos='t!'}
@@ -1103,7 +1101,7 @@ In this sense, contrasimulation and stable bisimilarity are sibling notions in t
 ]
 We use the higher coordinate $(\infty, 0, 0, \infty, 0, \infty, \infty, \infty)$ with positive conjuncts for stable bisimulation in @fig-weak-spectrum to underscore that stable bisimulation preorder is finer than stable simulation preorder and its variants.
 
-{{<paragraph_heading "Simulation-like notions.">}}
+{{< paragraph_heading "Simulation-like notions." >}}
 @fig-weak-grammars-sim-like adds the simulation-like notions for completeness.
 At this point, they are not particularly interesting.
 

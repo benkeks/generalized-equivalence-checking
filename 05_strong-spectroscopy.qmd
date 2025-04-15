@@ -291,7 +291,7 @@ The game also allows another path through nested negations that the attacker win
 
 ::: {#exm-spectroscopy-classic-ts}
 
-Let us see what our prototype implementation on {{<equivio>}} reports about our original example processes of @sec-preliminaries.^[
+Let us see what our prototype implementation on {{< equivio >}} reports about our original example processes of @sec-preliminaries.^[
   A usage guide on the syntax can be found in @sec-equivio-usage.
 ]
 We can input the philosopher processes of @exm-ccs and @exm-deterministic-phil, obtaining a transition system matching @exm-ts:
@@ -312,7 +312,7 @@ P(x=150, y=50, main)
 Q(x=400, y=50, main)
 ```
 
-Starting `@compare` (on {{<equivio>}}) triggers a spectroscopy along the lines we have discussed, leading to the output:^[
+Starting `@compare` (on {{< equivio >}}) triggers a spectroscopy along the lines we have discussed, leading to the output:^[
   The spectroscopy game on this example, can also be explored in a computer game, see @sec-spectro-invaders.
 ]
 
@@ -332,7 +332,7 @@ Internally this is established by building the spectroscopy game and computing t
 That no equivalence besides or above simulation can hold, is justified to the user by the failure `⟨τ⟩⋀{¬⟨a⟩⊤}`, which we also discussed in @sec-incomparabilities.
 In the upcoming @sec-correctness-strong-spectroscopy we will also give the rules that the tool uses to construct this witness.
 
-Invoking `@compare Q, P` for the other direction, {{<equivio>}} reports `⟨τ⟩⋀{⟨b⟩⊤,⟨a⟩⊤}` as a distinguishing formula disproving simulation (as we have found in @exm-hml).
+Invoking `@compare Q, P` for the other direction, {{< equivio >}} reports `⟨τ⟩⋀{⟨b⟩⊤,⟨a⟩⊤}` as a distinguishing formula disproving simulation (as we have found in @exm-hml).
 :::
 
 The spectroscopy game still is a bisimulation game in the following sense.
@@ -570,7 +570,7 @@ We can use @lem-strong-spectroscopy-game-soundness and @lem-strong-spectroscopy-
 
 Both tricks of pruning “symmetric” parts (@lem-symmetric-positions-defender) and pre-minimization by bisimilarity (@lem-quotienting-spectro-game) make an effective difference for the applicability of the spectroscopy approach:
 
-{{<code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.tool.benchmark.Sizemark >}}
+{{< code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.tool.benchmark.Sizemark >}}
 uses a small example system from @bisping2023equivalenceEnergyGames modelling Peterson's mutual exclusion algorithm.
 The system has only $\relsize{\states} = 20$ states, but a lot of non-determinism due to saturation with internal behavior.
 
@@ -837,7 +837,7 @@ ABC(x=683, y=136, main)
 "b.d + c.e + c.f + b.g"(x=627, y=372)
 ```
 
-The `@check` keyword performs individual comparisons on {{<equivio>}}.
+The `@check` keyword performs individual comparisons on {{< equivio >}}.
 Invoking the check for traces, for instance, yields the following output:
 
 ```
@@ -901,7 +901,6 @@ $Q \cap \semantics{\varphi} = \varnothing$ implies $Q' \cap \semantics{\varphi} 
 We can lift this result immediately to the derived preorder games as in @thm-derive-eq-games-characterize.
 :::
 <!--
-:::proof
 The attacker's win must be due to a move sequence along a path of transitions to an attacker-won defender position $\attackerpos{p, Q} \gamemoveblank \attackerpos{p_1, Q_1} \gamemoveblank \dots \gamemoveblank \attackerpos{p_n, Q_n} \gamemoveblank \defenderpos{p_n, Q_n \setminus Q_*, Q_*}$ with $\varnothing \neq Q_* \subseteq Q_n$.
 
 The same transitions justify a move sequence $\attackerpos{p, Q'} \gamemoveblank \attackerpos{p_1, Q'_1} \gamemoveblank \dots \gamemoveblank \attackerpos{p_n, Q_n} \gamemoveblank \defenderpos{p_n, Q'_n \setminus Q'_*, Q'_*}$ with $Q'_* = Q_* \cap Q'_n$, where each $Q'_n \subseteq Q_n$.
@@ -909,7 +908,7 @@ These moves must also be winning for the attacker:
 
 Every conjunction answer $\attackerpos[\wedge]{p_n, q}$ with $q \in Q'_n \setminus Q'_*$ the defender may choose would also be possible from the end of the original move sequence.
 If the defender decides for the revival to $\attackerpos{p_n,Q'_*}$, we can continue to apply our strategy transfer from $\attackerpos{p_n,Q_*}$, since $Q'_* \subseteq Q_*$ and since the well-foundedness of the original attacker strategy ensures that the defender options must come to an end at some point. 
-:::-->
+-->
 
 :::{#lem-conjunction-optimization}
 If the attacker wins $(\attackerpos{p, Q}, e)$ with $\relsize{Q} > 1$ in a derived preorder game with $e \geq (0,\infty,\infty,\infty,0,0)$, then they can also win without using any observation moves of the form $(\attackerpos{p, Q}, e) \gamemoveblank (\attackerpos{p', Q'}, e')$.

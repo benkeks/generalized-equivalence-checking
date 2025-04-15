@@ -12,7 +12,7 @@ toc-title: "Chapter 7"
 
 ::::{#related-7 .column-margin}
 `\vspace{-2.2em}`{=latex}
-{{<paragraph_heading "Related publications.">}}
+{{< paragraph_heading "Related publications." >}}
 This chapter is based on @bj2024silentStepSpectroscopyExpress,
 its extended draft version @bj2025silentStepSpectroscopyJournal and
 its Isabelle/HOL formalization @bbhlmm2025weakSpectroscopyIsabelle.
@@ -1182,7 +1182,7 @@ Then $\semantics{\hmleps\hmlobs{\delta}\hmltrue}^{\smash{\system'}} = \semantics
 For infinite systems, divergence is more tricky.
 Just like infinite traces, it depends on the possibility of characterizing infinite-duration attacks.^[And not just unbounded attacks as we support them now.]
 On the game level, for infinite plays to be winnable by the attacker, the game must have a parity-game winning condition:
-The attacker wins a subgame about divergence-distinction if they can make inifinitely much $\tau$-progress, but the defender cannot. 
+The attacker wins a subgame about divergence-distinction if they can make infinitely much $\tau$-progress, but the defender cannot. 
 Such a richer game model is the route taken by @ekw2017gamesBisimAbstraction to characterize various divergence-aware bisimilarities.
 
 {{< paragraph_heading "Behavioral congruences." >}}

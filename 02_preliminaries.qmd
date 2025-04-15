@@ -453,9 +453,8 @@ We could say that trace $\literal{b}$ constitutes a *difference* between $\liter
 ::: {#prp-trace-eq-rel}
 The trace preorder $\bpreord{T}$ is indeed a preorder (i.e., transitive and reflexive){{<isb lemma Strong_Equivalences lts.trace_preorder_transitive>}} and trace equivalence $\beq{T}$ is indeed an equivalence relation (i.e., transitive, reflexive, and moreover symmetric).{{<isb lemma Strong_Equivalences lts.trace_equivalence_equiv>}}
 :::
-<!-- ::: proof
-The properties carry over directly from $⊆$ and $=$ on sets of $\traces{\cdot}$.
-:::-->
+<!-- proof
+The properties carry over directly from $⊆$ and $=$ on sets of $\traces{\cdot}$. -->
 
 Trace equivalence and preorder assign programs straightforward *denotational semantics*:
 The sets of traces they might expose.
@@ -679,7 +678,7 @@ We will usually encounter settings where all components use the same order $(B_1
 The relation $\leq$ is then referred to as a *precongruence* for $f$.
 If $\leq$ moreover is symmetric (and thus an equivalence relation), then $\leq$ is called a *congruence* for $f$.
 :::
-precongruence
+
 ::: {#exm-congruence-oddity}
 #### Parity as Congruence
 As a standard example for a congruence, consider the equivalence relation of equally odd numbers
@@ -699,7 +698,7 @@ are congruences for the operators of CCS (@def-ccs).^[
   For a generic proof of the congruence properties of trace equivalence, bisimilarity, and most other notions of the equivalence spectrum, see @gfm2020congruenceOperator.
 ]
 :::
-<!--:::proof
+<!--proof
 This is a well-established fact.
 
 As an example, let us prove the congruence property for choice, $\ccschoice$, on bisimilarity, $\beq{B}$.
@@ -710,7 +709,7 @@ By the semantics of CCS, the first step must be either due to $P \step{\alpha}_\
 Without loss of generality, we only consider $P \step{\alpha}_\ccs \mathit{PQ}'$.
 Due to $P \beq{B} R$, this step implies some $R'$ with $R \step{\alpha}_\ccs R'$ and $\mathit{PQ}' \beq{B} R'$.
 As $R \ccschoice T \step{\alpha}_\ccs R'$, we can take this $R'$ to prove our goal.
-:::-->
+-->
 
 The nice thing about congruences is that we can use them to *calculate with terms*, as is common in mathematics.
 

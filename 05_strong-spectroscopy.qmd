@@ -1100,7 +1100,6 @@ The author, discussing 3D energy games with participants of D-CON'25.
 (Photo: Nadine Karsten)
 :::
 
-
 {{< paragraph_heading "What's next?" >}}
 Continuing the trajectory of shadows, *the next part of the thesis* will abstract further what we have been doing.
 The strong spectrum of equivalences is usually too strong for the analysis of concurrent systems.

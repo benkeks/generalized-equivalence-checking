@@ -39,7 +39,7 @@ Players running out of a resource lose the game.
 After introducing such games in @sec-energy-games, we will prove in @sec-characterzing-ptime-part that several core equivalences can be characterized attacker energy budgets where the defender wins.
 For this, we will add three-dimensional energies to the bisimulation game.
 
-The second core idea is how to compute these winning budgets:
+The second core idea is how to compute these winning budgets for players:
 
 ::: {#idea-deciding-energy-games .callout-idea .callout-tip}
 #### Computing cheapest wins
@@ -63,13 +63,13 @@ This approach is summarized in @fig-spectroscopy-poly-big-picture.
   \node[algstep, draw=TealBlue, below of=States, node distance=2.5cm] (EnergyGame) {Bisimulation \\ energy game ${\game}_\notionname{B}^{🗲\system}$};
   \node[algstep, draw=Peach, below of=Preorders, node distance=2.5cm] (AttackerWinningBudgets) {Minimal attacker winning \\ budgets $\attackerwinsmin([p,q])$};
   \path
-    (States) edge[->, dashed] node {Spectroscopy problem} (Preorders)
-    (States) edge[->, draw=TealBlue] node {Definition 4.7} (EnergyGame)
-    (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Theorem 4.1} (Preorders)
-    (EnergyGame) edge[->, draw=Peach] node {Algorithm 4.1} (AttackerWinningBudgets);
-  \node[right=2mm of Preorders] (Chp3) {Chapter 3};
-  \node[text=TealBlue, above right=4mm and 2mm of AttackerWinningBudgets] (Sec42) {Section 4.2};
-  \node[text=Peach, right=2mm of AttackerWinningBudgets] (Sec43) {Section 4.3};
+    (States) edge[->, dashed] node[label=270:{Problem~\ref*{prob-spectroscopy-problem}}] {Spectroscopy problem} (Preorders)
+    (States) edge[->, draw=TealBlue] node {Def.~\ref{def-bisim-energy-game}} (EnergyGame)
+    (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Thm.~\ref{thm-bisim-energy-game-characterization}} (Preorders)
+    (EnergyGame) edge[->, draw=Peach] node[label=270:{Problem~\ref{prob-energy-game-problem}}] {Algorithm~\ref{alg-deciding-games}} (AttackerWinningBudgets);
+  \node[right=2mm of Preorders] (Chp3) {Chapter~\ref{sec-spectrum}};
+  \node[text=TealBlue, above right=4mm and 2mm of AttackerWinningBudgets] (Sec42) {Section~\ref{sec-characterzing-ptime-part}};
+  \node[text=Peach, right=2mm of AttackerWinningBudgets] (Sec43) {Section~\ref{sec-deciding-energy-games}};
 \end{tikzpicture}
 ```
 
@@ -85,13 +85,13 @@ How we will employ energy games to solve the spectroscopy problem on an easy spe
 Energy games extend games as discussed in @sec-games with resources of the players, called energies.
 We will focus on reachability games with an energy-bounded attacker.
 In most publications, energy games update vector-valued energy levels by vector addition or subtraction.
-We work with more general *monotonic energy games* (Subsection [-@sec-monotonic-energy-games]) and then zoom in on *declining energy games* (Subsection [-@sec-deciding-energy-games]), which include updates that combine vector components by taking their minimum.
+We work with more general *monotonic energy games* (@sec-monotonic-energy-games) and then zoom in on *declining energy games* (@sec-declining-energy-games), which include updates that combine vector components by taking their minimum.
 The latter are exactly what we need for the following @sec-characterzing-ptime-part.
 
 ### Monotonic Energy Games {#sec-monotonic-energy-games}
 
 To introduce energy games, we generalize the definitions on games (@def-game and the following) to include *energy levels*.
-We define how winning regions then become quantitative winning *budgets*, which can still be characterized inductively.
+We move beyond winning regions by defining quantitative winning *budgets*, which can still be characterized inductively.
 
 ::: {#def-energy-game}
 #### Energy reachability game
@@ -314,7 +314,7 @@ We deviate in two important points from other work on energy games:
   Even prior generalizations on energy update functions such as @eflq2013kleeneEnergyProblems do not allow sufficient flexibility in this regard.
 :::
 
-### Declining Energy Games
+### Declining Energy Games {#sec-declining-energy-games}
 
 We now turn to special kind of monotonic energy games with vector-valued energy levels where updates will never increase energy levels in any component.
 A $d$-dimensional *declining energy game* is played on energy vectors:
@@ -1375,7 +1375,7 @@ The Pareto front view is slightly more general than other characteristic games, 
 The focus on the attacker in the bisimulation game is highly analogous to @geuversJacobs2021apartness championing *apartness* as the dual of bisimilarity to work with equivalences.
 
 To compute the Pareto fronts, we use a fixed point algorithm (@idea-deciding-energy-games, @alg-deciding-energy-games).
-It can be thought of as a generalization of well-known ways to compute shortest distances in graphs:
+It can be thought of as a generalization of well-known ways to compute shortest distances in graphs [@mohri2002semiringShortest]:
 
 :::{#rem-shortest-paths}
 #### Shortest paths

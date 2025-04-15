@@ -36,7 +36,8 @@ Spectra of equivalence problems can be encoded as energy games.
 
 Energy games are games in which players have limited resources that can be used up or recharged during moves.
 Players running out of a resource lose the game.
-After introducing such games in @sec-energy-games, we will prove in @sec-characterzing-ptime-part that several core equivalences can be characterized as defender's winning energy budgets by adding three-dimensional energies to the bisimulation game.
+After introducing such games in @sec-energy-games, we will prove in @sec-characterzing-ptime-part that several core equivalences can be characterized attacker energy budgets where the defender wins.
+For this, we will add three-dimensional energies to the bisimulation game.
 
 The second core idea is how to compute these winning budgets:
 
@@ -330,6 +331,13 @@ The set of *energy update labels*, $\energyupdates$, contains $\vectorcomponents
 
 Applying an update to an energy, $\energyupdate(u, e)$, where $e = \vectorcomponents[d]{e} ∈ \energies$ and $u = \vectorcomponents[d]{u} ∈ \energyupdates$, yields a new energy vector $e'$ where $k$th components $e'_k ≔ e_k + u_k$ for $u_k ∈ \ints$ and $e'_k ≔ \min_{d∈ D} e_d$ for $u_k = \mathtt{min}_D$.
 Updates that would cause any component to become negative yield $\bot$.
+:::
+
+:::{#fig-bisping-cav23 .column-margin}
+![](img/bisping-counting-cav23.jpg){.lightbox}
+
+The author, illustrating multi-dimensional energy updates on declining games to the audience of CAV'23.  
+(Photo: Fei Bian)
 :::
 
 ::: {#exm-energy-update}

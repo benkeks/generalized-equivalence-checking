@@ -114,14 +114,15 @@ But such levels of observability do not need to be linear, as we will see in the
 ### Incomparabilities {#sec-incomparabilities}
 
 Often, things we compare are comparable with respect to *different dimensions*.
-For instance, one can compare smartphone sizes with respect to width and height, as seen in @fig-hermanss-hartmanns-smartphone-spectrum.
+For instance, one can compare smartphone sizes with respect to width and height, as seen in @fig-hermanns-hartmanns-smartphone-spectrum.
 This phenomenon of *orthogonal dimensions* also occurs for behavioral equivalences. 
 
 :::{#fig-hermanns-hartmanns-smartphone-spectrum .column-margin}
 ![](img/hermanns-hartmanns-spectrum.jpg){.lightbox}
 
 Participants of ETAPS'22 discussing the spectrum of smartphone sizes.
-(Which is dominated by Hermanns's phone, at the bottom of the picture.)
+(Which is dominated by Hermanns's phone, at the bottom of the picture.)  
+(Photo: ETAPS Association)
 :::
 
 A well-known and natural notion of equivalence is that of *failure equivalence*.
@@ -956,6 +957,15 @@ Input
 
 Output
 :  Set of notions $\notions_{p,q} \subseteq \notions$, such that $p \bpreordvar{\observationsvar{N}} q$ for each $N \in \notions_{p,q}$.
+:::
+
+Intuitively, the problem is about finding the ways in which processes can be related, beyond the black-and-white of the bisimilarity problem.
+So, we aim to *split up* information, analogously to a prism with light (@fig-prism), or also to more advanced forms of *spectroscopy* in physical experiments.
+
+:::{#fig-prism .column-margin}
+![](img/prism.jpg){.lightbox}
+
+A prism revealing the spectrum of sun light.
 :::
 
 ::: {#exm-spectroscopy-front}

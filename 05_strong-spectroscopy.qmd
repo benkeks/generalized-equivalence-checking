@@ -1090,6 +1090,17 @@ This would (almost) arrive at the game structure of last chapter's bisimulation 
 Conceptionally, the following relation emerges:
 The bisimulation game ${\game}_\notionname{B}$ of @sec-preliminaries *is a shadow of* the bisimulation energy game ${\game}_\notionname{B}^🗲$ of @sec-approach *is a shadow of* the strong spectroscopy game $\gamespectroscopy$ of the present chapter.
 
+The dimensions of energy games allow us to encode different games *within* one game.
+This is analogous to stereoscopic pictures, decodable by 3D glasses (@fig-3d-glasses).
+
+:::{#fig-3d-glasses .column-margin}
+![](img/3d-games-dcon25.jpg){.lightbox}
+
+The author, discussing 3D energy games with participants of D-CON'25.  
+(Photo: Nadine Karsten)
+:::
+
+
 {{< paragraph_heading "What's next?" >}}
 Continuing the trajectory of shadows, *the next part of the thesis* will abstract further what we have been doing.
 The strong spectrum of equivalences is usually too strong for the analysis of concurrent systems.

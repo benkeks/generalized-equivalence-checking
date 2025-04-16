@@ -12,7 +12,7 @@ toc-title: "Chapter 4"
 ::::{#related-4 .column-margin}
 `\vspace{-2.2em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
-This chapter revolves around the ideas I aimed to convey by my talk “Deciding All Behavioral Equivalences at Once through Energy Games” at D-CON'25 (Augusburg, 2025-03),
+This chapter revolves around the ideas I aimed to convey by my talk “Deciding All Behavioral Equivalences at Once through Energy Games” at D-CON'25 (Augsburg, 2025-03),
 and by its predecessors given at LFCS University of Edinburgh (2023-03), Highlights'23 (Kassel, 2023-07), and ISCAS Beijing (2024-09).
 It can be thought of as the core of @bisping2023equivalenceEnergyGames, and also of this thesis itself.
 ::::
@@ -98,7 +98,7 @@ We move beyond winning regions by defining quantitative winning *budgets*, which
 
 Given a partially ordered set of energies $(\abstractenergies, \leq)$, an *energy reachability game* $\game^🗲$ is a reachability game $(G, G_\defender, \gamemoveblank)$ extended by an edge labeling of energy updates $\abstractupdate \colon (\gamemoveblank) \to (\abstractenergies \to (\set{⊥} ∪ \abstractenergies))$.
 
-We demand the following for monotonic energy games:
+We demand the following or energy games to be monotonic in the following sense:
 
 - $⊥ \notin \abstractenergies$ is final in the sense that $\abstractupdate(m)(⊥) = ⊥$.
 - All update functions $u =\abstractupdate(m)$ with $m \in {\gamemoveblank}$ are monotonic and upward-closed with respect to $\leq$.
@@ -236,6 +236,8 @@ Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game
 ]
 :::
 
+TODO: Mention determinacy.
+
 ::: {#prp-winning-budget-rules}
 #### Inductive budgets
 
@@ -316,7 +318,7 @@ We deviate in two important points from other work on energy games:
 
 ### Declining Energy Games {#sec-declining-energy-games}
 
-We now turn to special kind of monotonic energy games with vector-valued energy levels where updates will never increase energy levels in any component.
+We now turn to a special kind of monotonic energy games with vector-valued energy levels where updates will never increase energy levels in any component.
 A $d$-dimensional *declining energy game* is played on energy vectors:
 
 ::: {#def-energy-updates}
@@ -736,7 +738,7 @@ This section is about how to compute which energy budgets are winning for the at
 ::: {#prob-energy-game-problem .problem .callout-problem .callout-tip}
 #### Energy game winner problem
 
-In the context of an energy system $(\abstractenergies, \leq)$ and a finite energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$, the *energy game winner problem* goes:
+In the context of an energy system $(\abstractenergies, \leq)$ and a finite monotonic energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$, the *energy game winner problem* goes:
 
 Input
 :  Game position $g ∈ G$.
@@ -745,8 +747,7 @@ Output
 :  $\attackerwinsmin(g)$---the Pareto front of minimal winning budgets for the attacker at $g$.
 :::
 
-\noindent
-We will show how to solve the problem for energy games with monotonic updates.
+We will show how to solve the problem for energy games with updates that can be undone in a certain sense.
 To this end, we will adapt the idea of back-propagating how the defender loses in reachability games from @alg-deciding-games.
 
 The change is that we have to propagate not just attacker wins, but Pareto fronts of attacker-winning energy levels.
@@ -839,22 +840,22 @@ Therefore, $α_{\reals}$ and $\identity{\nats}$ form a Galois connection.
 Illustration of the Galois connection of @exm-galois-abstraction-reals between $\reals^{\geq 0}$ and $\nats$ using $\floor{\cdot}$-function, whose mapping is illustrated by the gray triangles.
 :::
 
-Any monotonic function naturally induces a Galois-connected abstraction function.
+Many monotonic functions naturally induce a Galois-connected abstraction function.
 
 ::: {#lem-galois-inversion}
 The following are equivalent:
 
-- $\gamma \colon A \to C$ is a monotonic function, and $α(c) = \inf \set{a \mid c \leq_C \gamma(a)}$ for all $c ∈ C$.
+- $\gamma \colon A \to C$ is a monotonic function, and $α(c) = \min \set{a \mid c \leq_C \gamma(a)}$ for all $c ∈ C$.
 - $α$ and $\gamma$ constitute a Galois connection between $C$ and $A$.^[
   Proposition 4 of @ekms1993primerGaloisConnections.
 ]
 :::
 
-\noindent
 We will refer to functions derived like $α(c)$ in @lem-galois-inversion as “undo” functions.
-We understand them to generalize inverse functions of monotonic functions as these will always be Galois connected.
+We understand them to generalize inverse functions of those monotonic functions where $\min \set{a \mid c \leq_C \gamma(a)}$ is defined for any $c$.
+This intuition can also be expressed more formally as the following proposition:
 
-::: {#lem-galois-equality}
+::: {#prop-galois-equality}
 If a function $f \colon A \to C$ is surjective and injective, it has a unique inverse function $f^{-1} \colon C \to A$ such that $f^{-1} \circ f = \identity{A}$ and $f \circ f^{-1} = \identity{C}$.
 
 If $f$ is monotonic with respect to some partial orders on $C$ and $A$,
@@ -877,9 +878,9 @@ In the following, we will use a $↺$-symbol to label the adjoint functions that
 @def-spectrum demands monotonicity of our observation languages for a spectrum, $\observationsvar{N ∈ \notions}$.
 If we construct an abstraction function as in @lem-galois-inversion to undo the language selection for a set of formulas $\Phi$, the result would read: 
 $$
-\alpha_{\observations{}}(\Phi) := \inf \set{N \in \notions \mid \Phi \subseteq \observationsvar{N}}.
+\alpha_{\observations{}}(\Phi) := \min \set{N \in \notions \mid \Phi \subseteq \observationsvar{N}}.
 $$
-The singleton case of this function exactly matches our expressiveness prices of @def-expressiveness-price:
+If this function is defined, then its singleton case exactly matches our expressiveness prices of @def-expressiveness-price:
 $$
 \expr(\varphi) := \inf \set{N \in \notions \mid \varphi \in \observationsvar{N}}.
 $$
@@ -887,7 +888,7 @@ $$
 
 ### The Algorithm
 
-To implement a back-propagation algorithm, we have to assume that we know a function that undoes energy updates, $\abstractupdateinv \colon (\gamemoveblank) \to \abstractenergies \to \abstractenergies$ with $\abstractupdateinv(g, g')(e') = \inf \set{e \mid e' \leq \abstractupdate(g, g')(e)}$.
+To implement a back-propagation algorithm, we have to assume that we know a function that undoes energy updates, $\abstractupdateinv \colon (\gamemoveblank) \to \abstractenergies \to \abstractenergies$ with $\abstractupdateinv(g, g')(e') = \min \set{e \mid e' \leq \abstractupdate(g, g')(e)}$.
 That means, we assume that there is a Galois connection $(\abstractupdateinv, \abstractupdate)$ between energies $\abstractenergies$ and the domain of updates $\set{e ∈ \abstractenergies \mid \abstractupdate(e) \neq \bot}$.
 
 @alg-deciding-energy-games can be used to compute the minimal attacker winning budgets.

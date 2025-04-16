@@ -410,6 +410,8 @@ In the context of a $\glb$-complete spectrum $(\notions, \leq, \observationsvar{
 $$\expr(\varphi) := \inf \set{N \in \notions \mid \varphi \in \observationsvar{N}}.$$
 :::
 
+TODO: $\min$ or $\inf$???
+
 Thinking of the lattice of notions as a hierarchy of how difficult it is to tell processes apart, we consider this as a kind of “price tag” to put on formulas depending on their syntactic complexity.
 Higher syntactic complexity allows formula sets of higher expressiveness.
 

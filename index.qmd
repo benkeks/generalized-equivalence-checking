@@ -2,17 +2,23 @@
 This is a work-in-progress document. Handle with care!
 :::
 
+::: {.content-visible when-format="html"}
+{{< include style/macros-html.md >}}
+:::
+{{< include style/macros.md >}}
+
 ## Summary {.unnumbered .unlisted}
 
 We study the *spectroscopy problem* that asks which notions from a spectrum of behavioral equivalences relate a pair of states in a transition system.
 In particular, we solve the problem for finite-state processes and the *weak spectrum*, a hierarchy of semantical models of how to understand nondeterminism and internal behavior in concurrent programs.
-On our way there, we also treat the *strong spectrum* of concrete processes.
+On our way there, we also treat the *strong spectrum* of concrete processes as well as applications of generalized equivalence checking in verification and concurrency theory.
 
-The approach relies on a *quantitative understanding of spectra* in terms of how many syntactic features of Hennessy–Milner logic are used to characterize equivalences.
-We prove the equivalences and preorders to be captured by *spectroscopy games* where energy budgets bound how much syntax the attacker may use to tell processes apart.
+The approach relies on a *quantitative understanding of spectra* in terms of how many syntactic features of Hennessy–Milner modal logic are used to characterize equivalences.
+We prove the equivalences and preorders to be captured by *spectroscopy games* where energy budgets bound how much syntax an attacker may use to express differences of processes.
 Optimal attack strategies correspond to *minimal distinguishing formulas*.
 The spectroscopy problem thus reduces to the problem of computing *minimal attacker-winning budgets* in spectroscopy games.
 We provide an algorithm to compute such budgets on a wider class of *Galois energy games*.
+The resulting spectroscopy algorithms are exponential for the $\complexityclass{PSPACE}$-hard spectrum of equivalence problems, but can be instantiated to polynomial-time solutions on the $\complexityclass{P}$-easy part.
 
 We implement the spectroscopy procedure in {{< equivio >}}, a *web tool* following the tradition of the Concurrency Workbench.
 Using it, we can *check for dozens of equivalences* at once.

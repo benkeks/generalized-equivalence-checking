@@ -18,7 +18,7 @@ We prove the equivalences and preorders to be captured by *spectroscopy games* w
 Optimal attack strategies correspond to *minimal distinguishing formulas*.
 The spectroscopy problem thus reduces to the problem of computing *minimal attacker-winning budgets* in spectroscopy games.
 We provide an algorithm to compute such budgets on a wider class of *Galois energy games*.
-The resulting spectroscopy algorithms are exponential for the $\complexityclass{PSPACE}$-hard spectrum of equivalence problems, but can be instantiated to polynomial-time solutions on the $\complexityclass{P}$-easy part.
+The resulting spectroscopy algorithms are exponential for the $\complexityname{PSPACE}$-hard spectrum of equivalence problems, but can be instantiated to polynomial-time solutions on the $\complexityname{P}$-easy part.
 
 We implement the spectroscopy procedure in {{< equivio >}}, a *web tool* following the tradition of the Concurrency Workbench.
 Using it, we can *check for dozens of equivalences* at once.

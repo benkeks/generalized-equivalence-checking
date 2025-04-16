@@ -309,7 +309,7 @@ Visualization of the infinitary grid of $\nats^2$ (and in gray, $\natsext^2$) in
 ::: {#exm-nat-lattice}
 #### Vector lattice
 
-Given linearly-ordered set $(B, \leq_B)$, its $n$-ary Cartesian product with pointwise order $(B^n, \leq)$ forms a lattice, where $b \leq b'$ iff $b_k \leq b'_k$ for all $k \in \set{1, …, n}$.
+Given linearly-ordered set $(B, \leq_B)$, its $d$-ary Cartesian product with pointwise order $(B^d, \leq)$ forms a lattice, where $b \leq b'$ iff $b_k \leq b'_k$ for all $k \in \set{1, …, d}$.
 Greatest lower bounds and least upper bounds can be transferred pointwisely from $B$.
 
 For instance, pairs of natural numbers, $(\nats^2, \leq)$, form a lattice, as visualized in @fig-nat-lattice.
@@ -318,7 +318,7 @@ However, the lattice is not $\lub$-complete: For instance, the set $\nats \times
 If we take the natural numbers extended with an upper bound $\infty$, $\natsext$, as basis, then $(\natsext^2, \leq)$ forms a complete lattice.
 :::
 
-When working with vectors, we assume standard notation, in particular, for $n$-dimensional vector addition $(b + c) := (b_1 + c_1, …, b_n + c_n)$.
+When working with vectors, we assume standard notation, in particular, for $d$-dimensional vector addition $(b + c) := (b_1 + c_1, …, b_d + c_d)$.
 By $\unitvec{k}$ we denote the *unit vector* where the $k$-th component is 1 and all other components equal 0.
 For example, $\unitvec{2}$ in a 3-dimensional context equals $(0,1,0)$.
 The *zero vector* $(0,…,0)$ is denoted by $\zerovec$.

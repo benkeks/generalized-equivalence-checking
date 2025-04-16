@@ -30,7 +30,7 @@ toc-title: "Notation"
 \vspace{-2em}
 |                   |                                                                                     |
 |--------------------------|----------------------------------------------------------------------------------------------|
-| $\leq$                 | less-or-equal-to, usually point-wise on vectors                                                |
+| $\leq$                 | less-or-equal-to, usually pointwise on vectors                                                |
 | $\Min(A)$, $\Max(A)$   | Set of minimal / maximal elements in $A$ in the context of a preorder $\leq$                   |
 | $\lub$ / $\sup$, $\glb$ / $\inf$ | Least upper bound / greatest lower bound in the context of a lattice (@def-lattice)          |
 | $\upset A$, $\downset A$ | Upward-closure / downward-closure of set $A$ in the context of a preorder $\leq$              |

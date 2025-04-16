@@ -96,9 +96,9 @@ We move beyond winning regions by defining quantitative winning *budgets*, which
 ::: {#def-energy-game}
 #### Energy reachability game
 
-Given a partially ordered set of energies $(\abstractenergies, \leq)$, an *energy reachability game* $\game^🗲$ is a reachability game $(G, G_\defender, \gamemoveblank)$ extended by an edge labeling of energy updates $\abstractupdate \colon (\gamemoveblank) \to (\abstractenergies \to (\set{⊥} ∪ \abstractenergies))$.
+Given a partially ordered set of energies $(\abstractenergies, \leq)$, an *energy reachability game* $\game^🗲$ is a reachability game $(G, G_\defender, \gamemoveblank)$ extended by an edge labeling of energy updates $\abstractupdate \colon (\gamemoveblank) \to ((\set{⊥} ∪ \abstractenergies) \to (\set{⊥} ∪ \abstractenergies))$.
 
-We demand the following or energy games to be monotonic in the following sense:
+We demand the following energy games to be monotonic in the following sense:
 
 - $⊥ \notin \abstractenergies$ is final in the sense that $\abstractupdate(m)(⊥) = ⊥$.
 - All update functions $u =\abstractupdate(m)$ with $m \in {\gamemoveblank}$ are monotonic and upward-closed with respect to $\leq$.
@@ -124,12 +124,12 @@ Thus, we declare plays with $\energylevel(ρ) = ⊥$ to be won by the defender (
 Strategies and winning strategies work exactly as in the energy-less scenario.
 Additionally, we lift positional strategies of @def-strategies to be *energy-positional* in the sense that they pick next moves depending on the current energy level, i.e.\ $\rel f \colon G_\attacker × \abstractenergies \to G$.
 
-Instead of a winning region as in @def-winning-region, we define *winning budgets* for game positions:
+Generalizing the concept winning regions as in @def-winning-region, we define *winning budgets* for game positions:
 
 ::: {#def-winning-budgets}
 #### Winning budgets
 
-For each position $g_0 ∈ G$ of energy game $\game^🗲$, the *attacker winning energy budgets*, $\attackerwins(g_0) \subseteq \abstractenergies$ are the energies $e_0$ where the attacker wins $\game^🗲(g_0, e_0)$.
+For each position $g_0 ∈ G$ of energy game $\game^🗲$, the *attacker winning budgets*, $\attackerwins(g_0) \subseteq \abstractenergies$ are the energies $e_0$ where the attacker wins $\game^🗲(g_0, e_0)$.
 The defender winning budgets $\defenderwins$ are defined analogously.
 
 We write the shorthand $\attackerwinsmin$ for *minimal attacker winning budgets*, $\attackerwinsmin(g_0) \defeq \Min(\attackerwins(g_0))$.
@@ -140,7 +140,7 @@ Classical energy games use $\nats$-vectors for energies and vector addition for 
 ::: {#exm-simple-energy-game}
 #### A simple energy game
 
-Consider vector energies $\abstractenergies = \nats^2$ with point-wise order and the energy game with graph in @fig-simple-energy-game.
+Consider vector energies $\abstractenergies = \nats^2$ with pointwise order and the energy game with graph in @fig-simple-energy-game.
 Edges are labeled by update vectors $\vec{u} ∈ \ints^2$, each representing an update function
 $$e \mapsto
 \begin{cases}
@@ -190,15 +190,15 @@ Can the attacker win from $\literal{g_1}$ with energy $(0,0)$?
 Simple energy game of @exm-simple-energy-game.
 ::::
 
-No, as all outgoing paths would lead to $⊥$-energy and thus to the defender winning.
+No, as all outgoing paths would lead to $⊥$-energy and thus to the defender winning, before reaching $\literal{g_6}$.
 
 But if the attacker starts with budget $(0,2)$, they can take the upper path to $\literal{g_4}$ with energy $(2,1)$, from where both defender options lead to the defender being stuck in $\literal{g_6}$.
 
 Also, if the attacker starts with $(2,1)$, they win through the lower $\literal{g_3}$-path.
 
-Moving to $\literal{g_4}$ directly, would be more expensive than the  $\literal{g_2}$/$\literal{g_3}$-alternatives---so we can disregard this option.
+Moving to $\literal{g_4}$ directly, would be more expensive than the  $\literal{g_2}$/$\literal{g_3}$-alternatives---so we can disregard this option in the monotonic context.
 
-Starting with less energy means that the defender has an option of bankrupting the attacker at $\literal{g_4}$.
+Starting with less energy means that the defender has an option of bankrupting the attacker at $\literal{g_4}$ (or before).
 
 Summing up our observations, $(0,2)$ and $(2,1)$ define a Pareto front of minimal budgets where the attacker wins from $\literal{g_4}$, as depicted in @fig-exm-pareto-front.
 
@@ -207,6 +207,7 @@ Summing up our observations, $(0,2)$ and $(2,1)$ define a Pareto front of minima
 \begin{tikzpicture}[]
   \begin{scope}[rotate=45, scale=1]
     \draw[help lines] (0,0) grid (3.5,3.5);
+    \draw[white, pattern=horizontal lines, pattern color=red] (0,3.7) -- (0,2) -- (2,2) -- (2,1) -- (3.7,1) -- (3.7,3.7) -- (0,3.7);
     \draw[thick, red, opacity=0.5, text opacity=.8] (0,3.7) -- (0,2) node[below] {$(0,2)$} -- (2,2) -- (2,1) node[below] {$(2,1)$} -- (3.7,1);
   \end{scope}
 \end{tikzpicture}
@@ -231,12 +232,20 @@ More formally, the winning budgets are characterized by the following two propos
 ::: {#prp-winning-budget-upward-closure}
 #### Upward closure of attacker budgets
 
-Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game}$ are point-wise upward-closed, that is, $\upset \attackerwins^{\game}(g) = \attackerwins^{\game}(g)$ for all positions $g \in G$.^[
+Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game}$ are pointwise upward-closed, that is, $\upset \attackerwins^{\game}(g) = \attackerwins^{\game}(g)$ for all positions $g \in G$.^[
   This is formalized as Lemma 3.2 in @lemke2024multiweightedEnergyGames.
 ]
 :::
 
-TODO: Mention determinacy.
+::: {#prp-winning-budget-determinacy}
+#### Winning budget determinacy
+
+Given an energy game $\game$, attacker budgets at a position $g$ are attacker-winning if they are not defender-winning, and vice-versa:^[
+  This is formalized as Corollary 3.1 in @lemke2024multiweightedEnergyGames.
+]
+$$\attackerwins^{\game}(g) = \abstractenergies \setminus \defenderwins^{\game}(g)$$
+$$\defenderwins^{\game}(g) = \abstractenergies \setminus \attackerwins^{\game}(g)$$
+:::
 
 ::: {#prp-winning-budget-rules}
 #### Inductive budgets
@@ -309,7 +318,7 @@ We deviate in two important points from other work on energy games:
 - In the literature, it is more common to consider the defender instead of the attacker to be energy-bounded [e.g. @fjls2011energyGamesMulti].
   This choice follows the intuition that there is a party with scarce resources that wants to keep the system running.
   For our purposes, however we want to bound the resources of an attacker, which is no fundamental change.
-  Still, one cannot have both at the same time: @kh2022energyGamesResourceBounded, studying both-bounded energy games, establish that their winner is only decidable if both parties have only one-dimensional energies.
+  Still, one cannot have both at the same time: @kh2022energyGamesResourceBounded, studying both-bounded energy games, establish that their winner for a given energy is only decidable if both parties have only one-dimensional energies.
 - We define energy-reachability games more abstractly than is common:
   In other publications, energy games work on numbers with component-wise updates as seen in @exm-simple-energy-game.
   We do not demand this as, in the next sections, we will need updates that combine information from different components of the energy vector.
@@ -325,13 +334,18 @@ A $d$-dimensional *declining energy game* is played on energy vectors:
 #### Energies and energy updates
 
 For dimensionality $d$, the set of *energies*, $\energies$, is given by $(\nats ∪ \set{\infty})^d$.
+Energies are compared by $\leq$ pointwisely (cf. @exm-nat-lattice).
 
 The set of *energy update labels*, $\energyupdates$, contains $\vectorcomponents[d]{u} ∈ \energyupdates$ where each component $u_k$ is a symbol of the form
 
 - $u_k ∈ \set{-1, 0}$ (relative update), or
 - $u_k = \mathtt{min}_D$ where $D \subseteq \{1, \ldots, d\}$ and $k ∈ D$ (minimum selection update).
 
-Applying an update to an energy, $\energyupdate(u, e)$, where $e = \vectorcomponents[d]{e} ∈ \energies$ and $u = \vectorcomponents[d]{u} ∈ \energyupdates$, yields a new energy vector $e'$ where $k$th components $e'_k ≔ e_k + u_k$ for $u_k ∈ \ints$ and $e'_k ≔ \min_{d∈ D} e_d$ for $u_k = \mathtt{min}_D$.
+Applying an update to an energy, $\energyupdate(u, e)$, where $e = \vectorcomponents[d]{e} ∈ \energies$ and $u = \vectorcomponents[d]{u} ∈ \energyupdates$, yields a new energy vector $e'$ where $k$th components are given by
+
+- $e'_k ≔ e_k + u_k$ for $u_k ∈ \ints$ and
+- $e'_k ≔ \min_{d∈ D} e_d$ for $u_k = \mathtt{min}_D$.
+
 Updates that would cause any component to become negative yield $\bot$.
 :::
 
@@ -364,7 +378,6 @@ Given a weight labeling $w \colon (\gamemoveblank) \to \energyupdates$, a $d$-di
 We write $g \gamemove{\;u\;} g'$ for a move $g \gamemoveblank g'$ labeled by weight $w(g, g') = u$.
 :::
 
-\noindent
 Declining energy games differ from more common energy games with vector addition updates as seen in @exm-simple-energy-game due to the non-invertibility of updates we encountered in @exm-energy-update.
 
 ::: {#prp-declining-energies}
@@ -374,10 +387,12 @@ In this model, energy levels can only decline.
 - Updates are monotonic as demanded: If $e_A \leq e_B$, then $\energyupdate(u, e_A) \leq \energyupdate(u, e_B)$.
 :::
 
+We will use our new energy games to characterize not just single behavioral equivalences, but *whole spectra* of them.
+
 ## Characterizing the $\complexityname{P}$-Time Part of the Spectrum {#sec-characterzing-ptime-part}
 
 As hinted at in Subsection [-@sec-equivalence-complexities], parts of the strong equivalence spectrum can be decided in polynomial time, whereas others require polynomial space (and thus effectively exponential time).
-In this section, we will show how to adapt the standard bisimulation game of @def-bisim-game to decide not just bisimulation, but *all polynomial-time* equivalences of the strong spectrum *at once*.
+Thanks to declining energy games, we can adapt the standard bisimulation game of @def-bisim-game to decide not just bisimulation, but *all polynomial-time-easy* equivalences of the strong spectrum *at once*.
 
 ### The Polynomial Slice {#sec-poly-slice}
 
@@ -522,15 +537,15 @@ also exhibiting the cheapest formulas with regards to the polynomial spectrum th
     defender/.style={ellipse, inner sep=0ex},
     defWins/.style={fill=blue!5}]
 
-    \node[posStyle, initial, initial text={}, label={[text=gray]90:$\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}} \in \observationsvar[\literal{poly-strong}]{(2,2,2)}$}]
+    \node[posStyle, initial, initial text={}, label={[text=red]90:$\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}} \in \observationsvar[\literal{poly-strong}]{(2,2,2)}$}]
       (Att_Q_Qp){$[\literal{Q}, \literal{T}]$};
-    \node[posStyle, label={[text=gray]270:$\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{poly-strong}]{(2,1,1)}$}]
+    \node[posStyle, label={[text=red]270:$\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{poly-strong}]{(2,1,1)}$}]
       (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{T}, \literal{Q}]$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{AB}}, \literal{T})$};
     \node[posStyle, defWins]
       (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_{AB}}]$};
-    \node[posStyle, label={[text=gray]95:$\hmlobs{\literal{a}}\hmltrue \in \observationsvar[\literal{poly-strong}]{(1,0,0)}$}]
+    \node[posStyle, label={[text=red]95:$\hmlobs{\literal{a}}\hmltrue \in \observationsvar[\literal{poly-strong}]{(1,0,0)}$}]
       (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \troll]$};
     \node[posStyle, defender, above right = .1cm and 1.5cm of Att_qab_q3]
       (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \troll)$};
@@ -540,10 +555,10 @@ also exhibiting the cheapest formulas with regards to the polynomial spectrum th
       (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q})$};
     \node[posStyle, defender]
       (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
-    \node[posStyle, label={[text=gray]270:$\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{poly-strong}]{(1,1,1)}$}]
+    \node[posStyle, label={[text=red]270:$\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{poly-strong}]{(1,1,1)}$}]
       (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{AB}}]$};
 
-    \path
+    \path[text=gray]
       (Att_Q_Qp)
         edge[bend left = 10] node {$\updmin{1,2},0,-1$} (Att_Qp_Q)
         edge node {$-1,0,0$} (Dfn_t_qab_Qp)
@@ -561,9 +576,9 @@ also exhibiting the cheapest formulas with regards to the polynomial spectrum th
         edge node[swap] {$-1,0,0$} (Dfn_t_qab_Q)
         edge node {$-1,0,0$} (Dfn_t_q3_Q)
       (Dfn_t_qab_Q)
-        edge node[swap] {0,0,0} (Att_qab_qab)
+        edge node[swap] {$0,0,0$} (Att_qab_qab)
       (Dfn_t_q3_Q)
-        edge node {0,0,0} (Att_q3_qab)
+        edge node {$0,0,0$} (Att_q3_qab)
       (Att_qab_q3)
         edge node {$-1,0,0$} (Dfn_a_q1_q3)
         edge node {$-1,0,0$} (Dfn_b_q2_q3)
@@ -586,14 +601,18 @@ The second bound implies that the budgets, $(\infty,1,1)$ and $(\infty,0,0)$ are
   \begin{scope}[rotate=45, scale=1]
     \draw[help lines] (0,0) grid (3.5,3.5);
     \draw[dotted] (2,2) -- (3.5,3.5);
+    \draw[white, pattern=horizontal lines, pattern color=red] (3.5,5.2) -- (3.5,3.5) -- (5.2,3.5) -- (5.2, 5.2) -- (3.5,5.2);
+    \draw[white, pattern=north east lines, pattern color=red] (3.5,5.2) -- (3.5,3.5) -- (5.2,5.2) -- (5.2,6.9);
+    \draw[white, pattern=north west lines, pattern color=red] (5.2,3.5) -- (3.5,3.5) -- (5.2,5.2) -- (6.9,5.2);
     \draw[thick, red, opacity=0.5, text opacity=.8]
       (3.5,5.2) -- (3.5,3.5) node[below] {$(2,2,2)$} -- (5.2,3.5);
     \draw[thick, red, opacity=0.5, text opacity=.8]
       (3.5,3.5) -- (5,5);
+
   \end{scope}
 \end{tikzpicture}
 ```
-Attacker's Pareto front for $[\literal{Q}, \literal{T}]$ of the example bisim energy game.
+Attacker's 3D Pareto front for $[\literal{Q}, \literal{T}]$ of the example bisim energy game.
 ::::
 
 On the game-side, this tells us is that the attacker needs at least two simulation moves (after swaps) and two swaps to tell $\literal{Q}$ apart from $\literal{T}$.
@@ -612,8 +631,10 @@ This is in line with the solution we thought of for the original strong spectrum
 ### Correctness of Characterization {#sec-correctness-poly-spectroscopy}
 
 We now prove that the bisimulation energy game indeed characterizes the equivalences of the polynomial-time strong spectrum.
-In following chapters, we will prove stronger results for more general games.
-The approach is to generalize the connection between winning attacks and distinguishing formulas in the  bisimulation game that we have already explored in @lem-attacks-imply-formulas and @lem-formulas-imply-attack to energies and spectrum.
+The section's proofs give the blueprint for proof of stronger results for more general games in upcoming chapters.
+
+The approach is to generalize the connection between winning attacks and distinguishing formulas in the  bisimulation game.
+We have already explored this connection of strategies and logic in @lem-attacks-imply-formulas and @lem-formulas-imply-attack and now extend it to energies and spectrum.
 
 ::: {#def-strategy-formulas-poly}
 #### Strategy formulas for ${\game}_\notionname{B}^{🗲}$
@@ -649,7 +670,7 @@ $$
 $$
 :::
 
-{{<noindent>}} Effectively, this definition generalizes the construction of distinguishing formulas on ${\game}_\notionname{B}$ we introduced in @lem-attacks-imply-formulas.
+Effectively, this definition generalizes the construction of distinguishing formulas on ${\game}_\notionname{B}$ we introduced in @lem-attacks-imply-formulas.
 So the formulas we encountered before also serve as examples of such strategy formulas.
 
 ::: {#lem-bisim-energy-game-soundness}
@@ -659,7 +680,7 @@ If $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
 then there is $φ ∈ \strat_\notionname{B}([p, q], e)$ with $φ ∈ \observationsvar[\literal{poly-strong}]{e}$, $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$.
 :::
 ::: proof
-We prove the following, more general, property by induction.
+We prove the following (more general) property by induction.
 
 1. If $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
 then there is $ψ ∈ \strat_\notionname{B}([p, q], e)$ of form $ψ = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{ψ} ∈ \observationsvar[\literal{poly-strong}]{e}$, $p ∈ \semantics{ψ}$ and $q \notin \semantics{ψ}$.
@@ -678,15 +699,15 @@ Proof by induction on the inductive characterizations of attacker winning budget
           Because of the semantics of $\hml$, $\hmlneg\hmlobs{α}φ'$ must distinguish $p$ from $q$.
           Also, $\hmlands\set{\hmlneg\hmlobs{α}φ'} ∈ \observationsvar[\literal{poly-strong}]{e}$, by the calculations of the grammar in @def-polynomial-strong-spectrum.
         - $ψ = \hmlneg\hmlobs{α}φ'$.
-          This can only be in $\strat_\notionname{B}([q, p], e')$ due to $φ'$ being in $\strat_\notionname{B}([p, q], \energyupdate((\updmin{1,2},0,-1), e'))$.
-          Clearly, $φ'$ must distinguish $p$ from $q$ and $\hmlands\set{φ'} ∈ \observationsvar[\literal{poly-strong}]{e}$.
+          This can only be in $\strat_\notionname{B}([q, p], e')$ due to $\hmlobs{α}φ'$ being in $\strat_\notionname{B}([p, q], \energyupdate((\updmin{1,2},0,-1), e'))$.
+          Clearly, $\hmlobs{α}φ'$ must distinguish $p$ from $q$ and $\hmlands\set{\hmlobs{α}φ'} ∈ \observationsvar[\literal{poly-strong}]{e}$.
     - Case $[p, q] \gamemoveblank^🗲_\notionname{B} (α, p', q)$ with $p \step{α} p'$ and $e' = \energyupdate((-1,0,0), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
       By induction hypothesis on $(α, p', q)$, there is $\hmlands Ψ ∈ \strat_\notionname{B}((α, p', q), e')$ and $\hmlands Ψ ∈ \observationsvar[\literal{poly-strong}]{e'}$ with $p' ∈ \semantics{\hmlands Ψ}$ and $q \notin \semantics{\hmlobs{α}\hmlands Ψ}$.
       By @def-strategy-formulas-poly, we obtain $\hmlobs{α}\hmlands Ψ ∈ \strat_\notionname{B}([p, q], e)$.
       Due to the semantics of $\hml$ and $p \step{α} p'$, $p ∈ \semantics{\hmlobs{α}\hmlands Ψ}$, thus distinguishing $p$ from $q$.
       Also, $\hmlobs{α}\hmlands Ψ ∈ \observationsvar[\literal{poly-strong}]{e}$ as $\hmlands Ψ ∈ \observationsvar[\literal{poly-strong}]{e - \unitvec{1}}$.
 2. Assume $e ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
-  This means that $e$ suffices for the attacker to win every $q'$-move $(α, p', q) \gamemoveblank^🗲_\notionname{B} [p', q']$ with $q \step{α} q'$ that the defender might take, with $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$.
+  This means that $e$ suffices for the attacker to win every <move $(α, p', q) \gamemoveblank^🗲_\notionname{B} [p', q']$ with $q \step{α} q'$ that the defender might take, with $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$.
   For each $q'$, we employ the induction hypothesis to obtain $ψ_{q'} ∈ \strat_\notionname{B}([p', q'], e)$ of form $ψ_{q'} = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{ψ_{q'}} ∈ \observationsvar[\literal{poly-strong}]{e}$, $p' ∈ \semantics{ψ_{q'}}$ and $q' \notin \semantics{ψ_{q'}}$.
   By @def-strategy-formulas-poly, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'}) ∈ \strat_\notionname{B}((α, p', q), e)$.
   By the $\hml$-semantics, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'})$ must be true for $p'$, and also taking the semantics of observation, $\hmlobs{α}(\hmland{q'}{\derivatives{q, α}} ψ_{q'})$ false for $q$.
@@ -869,7 +890,6 @@ and
 $$c \leq_C f^{-1}(a) \implies f(c) \leq_A f(f^{-1}(a)) \implies f(c) \leq_A a.\qedhere$$
 :::
 
-\noindent
 In the following, we will use a $↺$-symbol to label the adjoint functions that we use to undo energy updates.
 
 ::: {#rem-galois-expr}
@@ -889,9 +909,12 @@ $$
 ### The Algorithm
 
 To implement a back-propagation algorithm, we have to assume that we know a function that undoes energy updates, $\abstractupdateinv \colon (\gamemoveblank) \to \abstractenergies \to \abstractenergies$ with $\abstractupdateinv(g, g')(e') = \min \set{e \mid e' \leq \abstractupdate(g, g')(e)}$.
-That means, we assume that there is a Galois connection $(\abstractupdateinv, \abstractupdate)$ between energies $\abstractenergies$ and the domain of updates $\set{e ∈ \abstractenergies \mid \abstractupdate(e) \neq \bot}$.
+That means, we assume that there is a Galois connection $(\abstractupdateinv(g, g'), \abstractupdate(g, g'))$ between energies $\abstractenergies$ and the domain of updates $\set{e ∈ \abstractenergies \mid \abstractupdate(e) \neq \bot}$ for each $(g,g') \in {\gamemoveblank}$.
 
-@alg-deciding-energy-games can be used to compute the minimal attacker winning budgets.
+Following @lemke2024multiweightedEnergyGames, we assume that the energy system $(\abstractenergies, \leq)$ is a well-founded bounded $\lub$-semi-lattice.
+By $\zerovec$, we denote its minimal element.
+
+@alg-deciding-energy-games computes the minimal attacker winning budgets.
 
 ::: {#alg-deciding-energy-games}
 
@@ -915,9 +938,10 @@ $$
      &  \quad \quad \quad \qquad e_\attacker ∈ \variable{new\_attacker\_win} \land
             {\variable{g} \gamemoveblank g'} \land \mathit{e'} ∈ \variable{attacker\_win}[g']} ) \\
   13 &  \quad \quad \kw{if} \variable{new\_attacker\_win} \neq \variable{attacker\_win}[\variable{g}] \colon \\
-  14 &  \quad \quad \quad \variable{todo} := \variable{todo} ∪ (\cdot \gamemoveblank \variable{g}) \\
-  15 &  \quad \attackerwinsmin := \variable{attacker\_win} \\
-  16 &  \quad \kw{return} \attackerwinsmin \\
+  14 &  \quad \quad \quad \variable{attacker\_win}[g] := \variable{new\_attacker\_win} \\
+  15 &  \quad \quad \quad \variable{todo} := \variable{todo} ∪ (\cdot \gamemoveblank \variable{g}) \\
+  16 &  \quad \attackerwinsmin := \variable{attacker\_win} \\
+  17 &  \quad \kw{return} \attackerwinsmin \\
 \end{array}
 $$
 
@@ -927,11 +951,10 @@ Algorithm determining the minimal attacker winning budgets $\attackerwinsmin$ of
 The algorithm can be understood as a generalization of @alg-deciding-games, but as positions might need to be revisited more than once, we have to depart from the option counting trick.
 Whenever we learn about a new minimal energy for the attacker to win, we schedule a position to be (re-)visited.
 The chain-reaction starts at defender positions with no outgoing moves (lines 3 and 10).
-By $\zerovec$, we denote the minimal element of the energy system $\abstractenergies$.
 
 We illustrate the algorithm by running it on the simple energy game of @exm-simple-energy-game.
 
-::: {#exm-simple-energy-game-execution}
+:::: {#exm-simple-energy-game-execution}
 #### Deciding the simple energy game
 
 Let us execute @alg-deciding-energy-games on the simple $\nats^2$-game of @exm-simple-energy-game.
@@ -977,11 +1000,10 @@ The game graph, labeled by the minimal attacker winning energies we find, is rep
 Computed winning budgets $\attackerwinsmin$ on the game in @exm-simple-energy-game-execution.
 :::
 
-\noindent
 What we need for the algorithm to run, is some undo function $\abstractupdateinv \colon (\gamemoveblank) \to \abstractenergies \to \abstractenergies$.
 We define it as:
 $$
-\abstractupdateinv(e') := \sup(e - \vec{u}, \zerovec)
+\abstractupdateinv(m)(e') := \sup(e - \vec{u}, \zerovec) \text{\; if $m$ is $\vec{u}$-labeled}
 $$
 We list the steps of the computation in @exm-simple-energy-game-execution, and the mechanics behind them in @tbl-simple-energy-game-execution.
 
@@ -1024,7 +1046,7 @@ We list the steps of the computation in @exm-simple-energy-game-execution, and t
 \end{tikzpicture}
 ```
 
-Multiplicative combination (dashed red) of successor Pareto fronts (black) at defender position $\literal{g_4}$ in step 4.
+Combination (dashed red) of successor Pareto fronts (black) to intersect at defender position $\literal{g_4}$ in step 4.
 :::
 
 ::: {#fig-game-attacker-intersection .column-margin}
@@ -1044,7 +1066,7 @@ Multiplicative combination (dashed red) of successor Pareto fronts (black) at de
 \end{tikzpicture}
 ```
 
-Additive combination (dashed red) of successor Pareto fronts (black) at attacker position $\literal{g_1}$ in step 8.
+Combination (dashed red) of successor Pareto fronts (black) to take the union at attacker position $\literal{g_1}$ in step 8.
 :::
 
 0. The algorithm begins with $\literal{g_6}$ in the $\variable{todo}$-set as this is the only position where the defender is stuck.
@@ -1052,12 +1074,12 @@ Additive combination (dashed red) of successor Pareto fronts (black) at attacker
   This means that the attacker wins here with any budget.
   As there has been a change, both predecessors $\literal{g_4}$ and $\literal{g_5}$ are added to the $\variable{todo}$.
   (Their order is undefined; for the sake of the simulation we will always pick the first positions from the $\variable{todo}$.)
-2. Updating $\literal{g_4} ∈ G_\defender$ finds no attacker wins so far because one successor $\variable{attacker\_win}[\literal{g_5}] = \varnothing$.
-3. $\literal{g_4} ∈ G_\attacker$ is updated with the $\abstractupdateinv((0, -1))((0,0)) = \sup((0,0) - (0,-1), \zerovec) = (0,1)$.
+2. Updating $\literal{g_4} ∈ G_\defender$ finds no attacker wins so far because we do not yet know a way for the attacker to win $\literal{g_5}$, that is, $\variable{attacker\_win}[\literal{g_5}] = \varnothing$.
+3. $\literal{g_5} ∈ G_\attacker$ is updated with the $\abstractupdateinv((0, -1))((0,0)) = \sup((0,0) - (0,-1), \zerovec) = (0,1)$.
   This places $\literal{g_4}$ in $\variable{todo}$ again.
 4. Now, we can find attacker winning budgets for $\literal{g_4} ∈ G_\defender$:
   The two successor options (after undo-update) are $(0,1)$ and $(1,0)$, as depicted in @fig-game-defender-intersection.
-  The unless the attacker at least arrives with energy $\sup((0,1), (1,0)) = (1,1)$, the defender has a way of winning.
+  Unless the attacker at least arrives with energy $\sup((0,1), (1,0)) = (1,1)$, the defender has a way of winning.
   Effectively, this amounts to intersecting attacker winning budgets of possible successor positions.
 5. For $\literal{g_1} ∈ G_\attacker$, it suffices to know a winning budget for one successor.
    So we determine as a preliminary winning budget $\abstractupdateinv((-2, -1))((1,1)) = (3,2)$.
@@ -1068,15 +1090,19 @@ Additive combination (dashed red) of successor Pareto fronts (black) at attacker
   This operation corresponds to taking the union of the three sets of attacker winning budgets.
   The previous minimal budget $(3,4)$ of step&nbsp;5 is thus superseded.
   As $\variable{todo}$ is empty, the algorithm terminates.
-:::
+::::
+
+::::{.content-visible when-format="pdf"}
+{{< contents fig-game-defender-intersection >}}
+{{< contents fig-game-attacker-intersection >}}
+::::
 
 ::: {#thm-energy-game-correctness}
 #### Correctness
 
 Assume energies form a well-founded bounded $\lub$-semi-lattice $(\abstractenergies, \leq)$.
 Given a finite-state energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$
-with monotonic $\abstractupdateinv$-functions for all moves
-and with computable undo function $\abstractupdateinv(g, g')(e') = \min \set{e \mid e' \leq \abstractupdate(g, g')(e)}$,
+with computable undo function $\abstractupdateinv(g, g')(e') = \min \set{e \mid e' \leq \abstractupdate(g, g')(e)}$ for all moves,
 @alg-deciding-energy-games computes the Pareto front of minimal attacker winning budgets, solving 
 the *energy game winner problem* (@prob-energy-game-problem).
 :::
@@ -1112,12 +1138,12 @@ Consider the following parameters of an energy game problem on $\game^🗲=(G,G_
 Then, @alg-deciding-energy-games computes the minimal attacker winning budgets in
 $$\bigo{ (\relsize{G}^2 + \relsize{\downset \set{e_{\game}}}) \cdot \relsize{G} \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.$$
 
-If $\abstractupdateinv$ is declining, then the following suffices:
+If $\abstractupdate$ is declining, then the following suffices:
 $$
 \bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.
 $$
 In both cases, the algorithm needs $\bigo{\relsize{G} \cdot \relwidth_{\abstractenergies}(e_{\game}) \cdot s_{\abstractenergies}}$ space to store the Pareto fronts, where $s_{\abstractenergies}$ bounds the space needed per energy.
-(For declining games, it is reasonable to assume $s_{\abstractenergies} \in \bigo{d}$.)^[
+(For declining energy games, it is reasonable to assume $s_{\abstractenergies} \in \bigo{d}$.)^[
   As in @thm-energy-game-correctness, we refer to @lemke2024multiweightedEnergyGames for a very detailed proof, where the corresponding fact is proved as Theorem&nbsp;7.
 ]
 :::
@@ -1224,8 +1250,8 @@ As $\energyupdate(u, \cdot)$ is monotonic, all that needs to be shown according 
   This boils down to showing $e'_k \leq (\energyupdate(u, \energyupdateinv(u, e')))_k$.
   Consider the cases of $u_k$.
   - Case $u_k \in \set{0,-1}$.
-    Then, we have to show $e'_k \leq \energyupdateinv(u, e') + u_k$.
-    Due to $\energyupdateinv$ being increasing, this must be the case as $e'_k \leq e'_k + u_k$.
+    Then, we have to show $e'_k \leq (\energyupdateinv(u, e'))_k + u_k$.
+    Due to the $\max$-definition of $\energyupdateinv$, this must be the case as $e'_k = e'_k - u_k + u_k \leq (\energyupdateinv(u, e'))_k + u_k$.
   - Case there is $D$ such that $u_k = \mathtt{min}_D$ and $k \in D$.
     Then, by definition of $\mathtt{min}$-updates, we have to show $e'_k \leq \min\set{(\energyupdateinv(u, e'))_j \mid j \in D}$,
     that is, $e'_k \leq \energyupdateinv(u, e')_j$ for all $j \in D$.
@@ -1234,7 +1260,7 @@ As $\energyupdate(u, \cdot)$ is monotonic, all that needs to be shown according 
     As $k \in D$, this is impossible due to the definition of $\energyupdateinv$ in terms of $\max$.
 - Minimality: For all $e' \leq \energyupdate(u, e)$, we show $\energyupdateinv(u, e') \leq e$.
   More specifically, $(\energyupdateinv(u, e'))_k \leq e_k$.
-  Let us define $d' := \max \set{e'_j \mid \exists D \ldotp u_j = \mathtt{min}_D \land k \in D}$.
+  Let us define $d' := \max (\set{0} \cup \set{e'_j \mid \exists D \ldotp u_j = \mathtt{min}_D \land k \in D})$.
   Consider the cases of $u_k \in \energyupdates$.
   - Case $u_k \in \set{0,-1}$ and $e'_k - u_k \geq d'$.
     Then $e'_k \leq (\energyupdate(u, e))_k = e_k + u_k$,
@@ -1331,11 +1357,15 @@ The space bounds behave similarly, but in the *flattened* variant fixed energy m
 We have gathered enough material to have this section prove that the spectroscopy problem for the polynomial-time strong spectrum is indeed solvable in polynomial time, thus justifying the name we chose for the spectrum.
 
 As outlined in @sec-spectro-problem, we consider the spectroscopy problem for $p$ and $q$ solved when we can compute $\Min(\notions \setminus \notions_{p,q})$.
-According to @thm-bisim-energy-game-characterization,
-$\notions^\literal{poly-strong}_{p,q} = \defenderwins^{\game_\notionname{B}^🗲}([p,q])$.
-By the definitions of winning budgets, $\notions^\literal{poly-strong} \setminus \notions^\literal{poly-strong}_{p,q} = \attackerwins^{\game_\notionname{B}^🗲}([p,q])$
- and thus
- $\Min(\notions^\literal{poly-strong} \setminus \notions^\literal{poly-strong}_{p,q}) = \attackerwins^{\min\game_\notionname{B}^🗲}([p,q])$.
+
+More specifically, according to @thm-bisim-energy-game-characterization, the defender-won energies answer the spectroscopy question of @prob-spectroscopy-problem:
+$$\notions^\literal{poly-strong}_{p,q} = \defenderwins^{\game_\notionname{B}^🗲}([p,q]).$$
+By the determinacy of winning budgets (@prp-winning-budget-determinacy),
+$$\notions^\literal{poly-strong} \setminus \notions^\literal{poly-strong}_{p,q} = \attackerwins^{\game_\notionname{B}^🗲}([p,q])$$
+and thus
+$$\Min(\notions^\literal{poly-strong} \setminus \notions^\literal{poly-strong}_{p,q}) = \attackerwins^{\min\game_\notionname{B}^🗲}([p,q]).$$
+Thereby, @prob-spectroscopy-problem for $\notions^\literal{poly-strong}$ on a transition system reduces to @prob-energy-game-problem on the corresponding bisimulation energy game $\game_\notionname{B}^🗲$.
+The latter is answered by @alg-deciding-energy-games.
 
 ::: {#thm-bisim-energy-game-complexity}
 #### Overall complexity

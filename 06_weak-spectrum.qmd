@@ -830,17 +830,17 @@ Let us first see how trace-like notions are handled in our spectrum.
 
 ::: {#lem-weak-trace-eq}
 
-The subset $\observationsvar[\literal{weak}]{\notionname{T}} = \observationsvar[\literal{weak}]{(\infty,0,0,0,0,0,0,0)} \subseteq \hmlsrbb$ can be given by the following grammar:
+The subset $\observations[\literal{weak}]{WT} = \observationsvar[\literal{weak}]{(\infty,0,0,0,0,0,0,0)} \subseteq \hmlsrbb$ can be given by the following grammar:
 \begin{align*}
-  \varphi_\notionname{T} \grammardef & \; \hmleps\hmlobs{a}\varphi_\notionname{T}
+  \varphi_\notionname{WT} \grammardef & \; \hmleps\hmlobs{a}\varphi_\notionname{WT}
               \grammaror \hmleps\hmltrue 
               \grammaror \hmltrue
               \qquad \text{with $a \in \actionsvis$.}
 \end{align*}
-There is a formula $\varphi \in \observationsvar[\literal{weak}]{T}$ distinguishing $p$ from $q$ precisely if $p$ is *not* trace-preordered to $q$.{{<isb lemma Weak_Traces LTS_Tau.trace_equals_trace_to_formula>}}
+There is a formula $\varphi \in \observations[\literal{weak}]{WT}$ distinguishing $p$ from $q$ precisely if $p$ is *not* weakly trace-preordered to $q$.{{<isb lemma Weak_Traces LTS_Tau.trace_equals_trace_to_formula>}}
 :::
 :::proof
-For a word $\vec{w} = a_1 \dots a_n \in \actionsvis^*$, the formula $\hmleps\hmlobs{a_1}\dots\hmleps\hmlobs{a_n}\hmleps\hmltrue \in \observationsvar[\literal{weak}]{T}$ is true for a state $p$ precisely if there is a $p'$ such that $p \stepweakword{\vec{w}} p'$, that is, if $\vec{w} \in \wtraces{p}$.
+For a word $\vec{w} = a_1 \dots a_n \in \actionsvis^*$, the formula $\hmleps\hmlobs{a_1}\dots\hmleps\hmlobs{a_n}\hmleps\hmltrue \in \observations[\literal{weak}]{WT}$ is true for a state $p$ precisely if there is a $p'$ such that $p \stepweakword{\vec{w}} p'$, that is, if $\vec{w} \in \wtraces{p}$.
 As $\wtraces{p} = \wtraces{q}$ for states $p$ and $q$ precisely if $\wtraces{p} \cap \actionsvis^* = \wtraces{q} \cap \actionsvis^*$, this completes the proof.
 :::
 

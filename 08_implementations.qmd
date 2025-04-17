@@ -126,7 +126,7 @@ The source can also contain layout information and prescribe some preprocessing 
   Apply preprocessing to the transition system after translation of the CCS term (that is, before presentation and queries happen).
   This will affect the whole transition system, but tries to preserve processes that have been marked as `main`.
   The order of processing steps can make a difference.
-  - `weakness_saturated` – Exchange transition relation to weak transitions, that is, there will be a transition whenever the original system allows $\stepweak\stepopt{\alpha}\stepweak$.
+  - `weakness_saturated` – Exchange transition relation to weak transitions, that is, there will be a transition whenever the original system allows $\stepweak\stepsoft{\alpha}\stepweak$.
   - `tauloop_compressed_marked` – Collapse states on $\tau$-loops and mark them with a $\delta$.
     (This follows the thought of how to make equivalence queries divergence-respecting from @sec-extending-to-other-eqs.)
   - `bisim_minimized` – Merge states that are strongly bisimilar.

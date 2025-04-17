@@ -38,10 +38,10 @@
 
 \providecommand{\step}[1]{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}
 \providecommand{\stepnosmash}[1]{\xrightarrow{{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}
-\providecommand{\nostep}[1]{\cancel{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}}
+\providecommand{\nostep}[1]{\overset{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}{\nrightarrow} }
 \providecommand{\stepweak}{\mathrel{\twoheadrightarrow}}
 \providecommand{\stepweakword}[1]{\xtwoheadrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{#1}$}}}}
-\providecommand{\stepopt}[1]{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{(#1)}$}}}}
+\providecommand{\stepsoft}[1]{\xrightarrow{\smash{\raisebox{-2pt}{$\scriptstyle{(#1)}$}}}}
 \providecommand{\states}{\mathcal{P}}
 \providecommand{\system}{\mathcal{S}}
 \providecommand{\labels}{\mathcal{L}}
@@ -83,7 +83,7 @@
 \providecommand{\hml}{\mathsf{HML}}
 \providecommand{\hmlsrbb}{\mathsf{HML}_{\mathsf{SRBB}}}
 \providecommand{\hmlobs}[1]{\langle #1 \rangle}
-\providecommand{\hmlopt}[1]{( #1 )}
+\providecommand{\hmlsoft}[1]{( #1 )}
 \providecommand{\hmleps}{\langle \varepsilon \rangle}
 \providecommand{\hmland}[2]{\textstyle\bigwedge_{#1 \in #2}}
 \providecommand{\hmlands}[1]{\textstyle\bigwedge #1}
@@ -128,7 +128,7 @@
 
 \providecommand{\gamemove}[1]{\mathrel{\smash{\xrightarrowtail{\scriptscriptstyle#1}}}}
 \providecommand{\gamemoveblank}{\gamemove{\enspace}}
-\providecommand{\ngamemove}[1]{\mathrel{\cancel{\smash{\xrightarrowtail{\scriptscriptstyle#1}}}}}
+\providecommand{\ngamemove}[1]{\mathrel{\smash{{›\small/\!\!\!\!\!\frac{\scriptstyle{\;#1\;}}{\;}\!\!›}}}}
 \providecommand{\ngamemoveblank}{\ngamemove{\enspace}}
 \providecommand{\game}{\mathcal{G}}
 

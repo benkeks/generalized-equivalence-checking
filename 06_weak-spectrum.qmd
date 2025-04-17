@@ -20,11 +20,15 @@ A gentler introduction to key concepts is provided by @sangiorgi2012.
 Virtually all *applications* of concurrency theory use *weak* behavioral equivalences, which can equate systems in spite of differing internal activity.
 Therefore, it matters that we can lift our approach to also account for such equivalences.
 
-This chapter serves as a second round of preliminaries and context needed for the spectrum of weak equivalences.
-At the heart, we aim to find a modal spectrum characterization, where HML grammar and pricing are designed in such a way that we can apply the spectroscopy approach in the following @sec-weak-spectorscopy.
+This chapter serves as a *second round of preliminaries* and context needed for the spectrum of *weak equivalences*.
+Some things are more complicated in the weak spectrum.
+For instance, we will be discussing eight weak forms of bisimilarity.
 
-This is where we arrive at “The Linear Time–Branching Time Spectrum II: The Semantics of Sequential Systems with Silent Moves” [@glabbeek1993ltbt], already featured in @fig-ltbts2-paper of the introduction.
-We will reframe a big chunk of it to fit our modal framework.
+At its heart, this chapter aims to find a modal spectrum characterization, where HML grammar and pricing are designed in such a way that we can apply the spectroscopy approach in the following @sec-weak-spectorscopy.
+The *northpole of the weak spectrum* will be the logic of stability-respecting branching bisimilarity.
+
+This is where the thesis arrives at “The Linear Time–Branching Time Spectrum&nbsp;II: The Semantics of Sequential Systems with Silent Moves” [@glabbeek1993ltbt], already featured in @fig-ltbts2-paper of the introduction.
+We will reframe a big chunk of it to fit our modal framework in @fig-weak-spectrum.
 In particular, we try to be much more restricted in the use of special modalities than the presentation in @glabbeek1993ltbt.
 
 ::: {#idea-weak-hml .callout-idea .callout-tip}
@@ -33,9 +37,9 @@ In particular, we try to be much more restricted in the use of special modalitie
 We can use a subset of Hennessy--Milner logic to characterize most interesting weak equivalences.
 :::
 
-@sec-weak-equivalences-in-general provides some preliminaries and define the $\hml$ subset, which will correspond to the notion of stability-respecting branching bisimilarity.
-We illustrate the use of some oft the weak notions through small examples in @sec-case-stduies-other-eqs.
-In @sec-weak-spectrum-quantities, we unfold the modal characterization for the weak spectrum.
+@sec-weak-equivalences-in-general provides some preliminaries and defines the $\hml$-subset $\hmlsrbb$, which will correspond to the notion of stability-respecting branching bisimilarity.
+@sec-case-stduies-other-eqs illustrates the use of some of the weak notions through small case studies from compiler verification and concurrency theory.
+In @sec-weak-spectrum-quantities, we unfold the hiearchy of modal characterizations for the weak spectrum.
 
 ::::{.content-visible when-format="html" .column-margin}
 {{< contents related-6 >}}
@@ -101,12 +105,12 @@ Internal transition relation
 : $p \stepweak p'$ iff $p \step{\tau}^* p'$, where $\step{\tau}^*$ is the reflexive transitive closure of silent steps.{{<isb inductive LTS LTS_Tau.silent_reachable>}}
 : The *internal* modality $\hmleps \varphi$ has $p \in \semantics{\hmleps\varphi}$ iff there is $p' \in \semantics{\varphi}$ with $p \stepweak p'$.
 
-Optional transition relation
-: $p \stepopt{\alpha} p'$ iff $p \step{\alpha} p'$, or if $\alpha = \tau$ and $p = p'$.{{<isb abbreviation LTS LTS_Tau.soft_step>}}
-: We accompany it by the *optional* step modality $\hmlopt{\alpha} \varphi$ with $p \in \semantics{\hmlopt{\alpha}\varphi}$ iff there is $p' \in \semantics{\varphi}$ with $p \stepopt{\alpha} p'$.
+Soft transition relation
+: $p \stepsoft{\alpha} p'$ iff $p \step{\alpha} p'$, or if $\alpha = \tau$ and $p = p'$.{{<isb abbreviation LTS LTS_Tau.soft_step>}}
+: We accompany it by the *soft* observation modality $\hmlsoft{\alpha} \varphi$ with $p \in \semantics{\hmlsoft{\alpha}\varphi}$ iff there is $p' \in \semantics{\varphi}$ with $p \stepsoft{\alpha} p'$.
 
 Weak word steps
-: $p \stepweakword{\vec w} p'$ for $\vec w = (w_1 w_2 \dots w_n) \in \actionsvis^*$ iff there is a path $p_i \stepweak\step{w_i} p_{n+1}$ for $i < n$ with $p_0 = p$ and $p_n \stepweak p'$.
+: $p \stepweakword{\vec w} p'$ for $\vec w = (w_1 w_2 \dots w_n) \in \actionsvis^*$ iff there is a path $p_i \stepweak\step{w_i} p_{i+1}$ for $i < n$ with $p_0 = p$ and $p_n \stepweak p'$.
 
 Stable state
 : A state $p$ is called *stable* iff $p \nostep{\tau}$.{{<isb abbreviation LTS LTS_Tau.stable_state>}}
@@ -120,11 +124,30 @@ Again, we implicitly lift the relations to sets of states, that is for instance,
 
 In upcoming definitions and facts, we use the convention that $\alpha$ continues to stand for elements of $\actions$, while $a$ comes from $\actionsvis = \actions \setminus \set{\tau}$.
 
+:::{#exm-weak-transitions}
+In @fig-simple-weak-eq, the state $\ccsprefix{\tau}\ccsprefix{\tau}\literal{a}$ allows the following weak steps:
+
+- Soft $\tau$-transitions to iteself and its immediate successor:
+  $\ccsprefix{\tau}\ccsprefix{\tau}\literal{a} \stepsoft{\tau} \ccsprefix{\tau}\ccsprefix{\tau}\literal{a}$ and 
+  $\ccsprefix{\tau}\ccsprefix{\tau}\literal{a} \stepsoft{\tau} \ccsprefix{\tau}\literal{a}$.
+  (But $\ccsprefix{\tau}\ccsprefix{\tau}\literal{a} \nostep{\tau} \ccsprefix{\tau}\ccsprefix{\tau}\literal{a}$!)
+- The internal transition $\ccsprefix{\tau}\ccsprefix{\tau}\literal{a} \stepweak \literal{a}$.
+  (On top of the internal transitions due to ${\stepsoft{\tau}} \subseteq {\stepweak}$.)
+- The weak word transition $\ccsprefix{\tau}\ccsprefix{\tau}\literal{a} \stepweakword{\literal{a}} \ccsnull$.
+- Starting in $\literal{a}$, all kinds of $\literal{a}$-steps coincide:
+  $\literal{a} \stepweakword{\literal{a}} \ccsnull$ and
+  $\literal{a} \stepsoft{\literal{a}} \ccsnull$ just as
+  $\literal{a} \step{\literal{a}} \ccsnull$.
+
+$\literal{a}$, $\ccsprefix{\tau}\literal{a}$ and $\ccsnull$ are stable.
+No state is divergent.
+:::
+
 :::{#rem-expressiveness-weak-hml}
-Note that the notation for $\hml$-operators $\hmleps \dots$ and $\hmlopt{\alpha}\dots$ introduced in @def-transition-systems-with-silent-steps does not affect the expressiveness of $\hml$.
+Note that the notation for $\hml$-operators $\hmleps \dots$ and $\hmlsoft{\alpha}\dots$ introduced in @def-transition-systems-with-silent-steps does not affect the expressiveness of $\hml$.
 To see why, assume notation for disjunction $\bigvee_{i \in I} \psi_i \defeq \hmlneg\hmland{i}{I} \hmlneg\psi_i$, and for $n$-time application of an operator.
 Then, $\semantics{\hmleps\varphi} = \semantics{\bigvee_{n \in \nats} \hmlobs{\tau}^n \varphi}$.
-Also, $\semantics{\hmlopt{\tau}\varphi} = \semantics{\bigvee\set{\varphi, \hmlobs{\tau}\varphi}}$ and $\semantics{\hmlopt{a}\varphi} = \semantics{\hmlobs{a}\varphi}$.
+Also, $\semantics{\hmlsoft{\tau}\varphi} = \semantics{\bigvee\set{\varphi, \hmlobs{\tau}\varphi}}$ and $\semantics{\hmlsoft{a}\varphi} = \semantics{\hmlobs{a}\varphi}$.
 
 On the other hand, note that our infinitary HML cannot express proper divergence $p \step{\tau}^\omega$ on infinitary systems.
 This would demand an “observation of infinite depth.”
@@ -235,7 +258,7 @@ But, as we will see in the next sections, there might be *multiple* abstractions
 
 ### HML of Stability-Respecting Branching Bisimilarity {#sec-hml-srbb}
 
-As noted in @rem-expressiveness-weak-hml, our $\hml$ notation for weak observations does not affect expressiveness---thus it still characterizes strong bisimilarity by @thm-hennessy-milner.
+As noted in @rem-expressiveness-weak-hml, our $\hml$-notation for weak observations does not affect expressiveness---thus it still characterizes strong bisimilarity by @thm-hennessy-milner.
 To characterize weak equivalences, we have to select appropriate subsets.
 We will use the following sublogic that, naturally, must be designed to correspond to the strongest weak notion we will be interested in.
 
@@ -251,7 +274,7 @@ $$
     \chi {} ::= {} & \hmlobs{a}\varphi & \quad\text{with } a \in \actionsvis & \text{“observation”} \\
     | \quad & \hmlands \set{\psi, \psi, ... } & & \text{“standard conjunction”} \\
     | \quad & \hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue, \psi, \psi, ...} & & \text{“stable conjunction”} \\
-    | \quad & \hmlands \set{\hmlopt{\alpha}\varphi, \psi, \psi, ...} &
+    | \quad & \hmlands \set{\hmlsoft{\alpha}\varphi, \psi, \psi, ...} &
     \quad \text{with } \alpha \in \actions & \text{“branching conjunction”} \\
     \psi {} ::= {} & \hmlneg\hmleps\chi \mid \hmleps\chi & & \text{“negative / positive conjuncts”}
 \end{array}
@@ -295,7 +318,7 @@ But branching bisimilarity is more distinctive than weak bisimilarity:
 Compare $\literal{P_{ab}} \defeq \literal{a} \ccschoice \ccsprefix{\tau} \literal{b} \ccschoice \literal{b}$
 and a subgraph-variant $\literal{P_{a\tau b}} \defeq \literal{a} \ccschoice \ccsprefix{\tau} \literal{b}$, where the $\literal{b}$ is *only* possible after committing to its branch.
 The processes are not branching bisimilar as
-$\hmleps\hmlands\set{\hmlopt{\literal{b}}, \hmleps\hmlobs{\literal{a}}}$ distinguishes them.
+$\hmleps\hmlands\set{\hmlsoft{\literal{b}}, \hmleps\hmlobs{\literal{a}}}$ distinguishes them.
 Intuitively, the formula expresses that, right at the moment when $\literal{b}$ can happen, $\literal{a}$ is still (weakly) possible.
 
 But the processes are weakly bisimilar, as weak bisimilarity does not care about branching due to $\tau$-steps that can also be achieved by visible actions.
@@ -319,7 +342,7 @@ We have already observed, that bisimulation equivalence can be abstracted to bra
 
 In this section, we use two minimal case study examples to see how one can arrive at even more abstractions of bisimulation and of failure equivalence.
 
-In @sec-tackling-case-studies, we will pick up on the examples to see how the spectroscopy algorithm can indeed simplify a researcher's life.
+Next chapter's @sec-tackling-case-studies will pick up on the examples to test tnat the spectroscopy algorithm can indeed simplify a researcher's life.
 
 ### Parallelizing Compiler---and Contrasimulation
 
@@ -418,6 +441,7 @@ In real-world programming languages, this would happen through spawning and join
 
 @fig-parallelized-ts shows the transition systems of the two programs.
 The $\tau$-steps mark internal computation or synchronization.
+In particulare, `compute_A_or_B` turns into a $\tau$-step.
 The action $\literal{ao}$ stands for `print("output:")` announcing the coming output, and $\literal{A}$ and $\literal{B}$ are the values of `x` that are actually produced by `print(x)`.
 
 Clearly, $\literal{P_{Seq}}$ and $\literal{P_{Para}}$ have the same weak traces.
@@ -518,15 +542,16 @@ The same for *stable failure equivalence and preorder*, using $φ^\mathrm{SF}$.
 $$
   φ^\mathrm{WF} \grammardef
     \hmleps\hmlobs{a}φ^\mathrm{WF}
-    \quad\grammaror\quad
+    \; \grammaror \;
     \hmleps\hmland{i}{I} \hmlneg \hmleps\hmlobs{a_i}\hmltrue 
 $$
 $$
   φ^\mathrm{SF} \grammardef
     \hmleps\hmlobs{a}φ^\mathrm{SF}
-    \quad\grammaror\quad
+    \; \grammaror\; \hmltrue
+    \; \grammaror\;
     \hmleps\hmland{i}{I} \hmlneg \hmlobs{α_i}\hmltrue
-      \text{ where }I=\varnothing \text{ or } 0 \in I \land α_0=\tau
+      \text{ where } 0 \in I \land α_0=\tau
 $$
 :::
 
@@ -653,8 +678,8 @@ But we need a few more dimensions.
 
 We adapt the notions of @sec-strong-notions for the weak spectrum to distinguish the new kinds of conjunctions that appear in $\hmlsrbb$ of @def-hml-srbb:
 
-1. Modal depth of *observations* ($\hmlobs{a}$, $\hmlopt{\alpha}$).
-2. **New:** Nesting depth of *branching conjunctions* (with one $\hmlopt{\alpha}$-observation conjunct, not starting with $\hmleps$).
+1. Modal depth of *observations* ($\hmlobs{a}$, $\hmlsoft{\alpha}$).
+2. **New:** Nesting depth of *branching conjunctions* (with one $\hmlsoft{\alpha}$-observation conjunct, not starting with $\hmleps$).
 3. **New:** Nesting depth of *unstable conjunctions* (that do not enforce stability by a $\hmlneg \hmlobs{\tau} \hmltrue$-conjunct).
 4. **New:** Nesting depth of *stable conjunctions* (that do enforce stability by a $\hmlneg \hmlobs{\tau} \hmltrue$-conjunct).
 5. Nesting depth of *immediate conjunctions* (that are not preceded by $\hmleps$).
@@ -697,7 +722,7 @@ $$
   \sup\;\set{ \expr[\wedge]\left(\psi\right) \mid \psi \in \Psi } +
   \begin{cases}
       \unitvec{4} & \text{if } \hmlneg\hmlobs{\tau}\hmltrue \in \Psi\\
-      \unitvec{2} + \unitvec{3} & \text{if there is } \hmlopt{\alpha}\varphi \in \Psi \\
+      \unitvec{2} + \unitvec{3} & \text{if there is } \hmlsoft{\alpha}\varphi \in \Psi \\
       \unitvec{3} & \text{otherwise}
   \end{cases}
   \\
@@ -708,7 +733,7 @@ $$
   \sup\;\set{ \unitvec{8} + \expr[\literal{weak}]\left(\varphi\right),\quad
       (0,0,0,0,0,0,\left(\expr[\literal{weak}]\left(\varphi\right)\right)_1,0) }
   \\
-  \expr[\wedge]\left(\hmlopt{\alpha}\varphi\right) & \defeq
+  \expr[\wedge]\left(\hmlsoft{\alpha}\varphi\right) & \defeq
   \sup\;\set{ \unitvec{1} + \expr[\literal{weak}]\left(\varphi\right),\quad
       (0,0,0,0,0,1 + \left(\expr[\literal{weak}]\left(\varphi\right)\right)_1,0,0) }
   \\
@@ -998,7 +1023,7 @@ The abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more int
     \chi_{\eta\notionname{B}} \grammardef &
       \grammarsp \hmlobs{a}\varphi_{\eta\notionname{B}}
       \grammaror \hmlands \set{ \psi_{\eta\notionname{B}}, \psi_{\eta\notionname{B}}, \ldots }
-      \grammaror \hmlands \set{ \mathhl{\hmlopt{\alpha}\varphi_{\eta\notionname{B}}}, \psi_{\eta\notionname{B}}, \psi_{\eta\notionname{B}}, \ldots } \\
+      \grammaror \hmlands \set{ \mathhl{\hmlsoft{\alpha}\varphi_{\eta\notionname{B}}}, \psi_{\eta\notionname{B}}, \psi_{\eta\notionname{B}}, \ldots } \\
     \psi_{\eta\notionname{B}} \grammardef &
       \grammarsp \hmlneg\hmleps\chi_{\eta\notionname{B}}
       \grammaror \hmleps\chi_{\eta\notionname{B}}\\
@@ -1011,7 +1036,7 @@ The abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more int
     \chi_{\notionname{BB}} \grammardef &
       \grammarsp \hmlobs{a}\varphi_{\notionname{BB}}
       \grammaror \hmlands \set{ \psi_{\notionname{BB}}, \psi_{\notionname{BB}}, \ldots }
-      \grammaror \hmlands \set{ \mathhl{\hmlopt{\alpha}\varphi_{\notionname{BB}}}, \psi_{\notionname{BB}}, \psi_{\notionname{BB}}, \ldots } \\
+      \grammaror \hmlands \set{ \mathhl{\hmlsoft{\alpha}\varphi_{\notionname{BB}}}, \psi_{\notionname{BB}}, \psi_{\notionname{BB}}, \ldots } \\
     \psi_{\notionname{BB}} \grammardef &
       \grammarsp \hmlneg\hmleps\chi_{\notionname{BB}}
       \grammaror \hmleps\chi_{\notionname{BB}}\\
@@ -1049,7 +1074,7 @@ The abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more int
     \chi_{\notionname{BB^s}} \grammardef &
       \grammarsp \hmlobs{a}\varphi_{\notionname{BB^s}}
       \grammaror \hmlands \set{ \psi_{\notionname{BB^s}}, \psi_{\notionname{BB^s}}, \ldots }
-      \grammaror \hmlands \set{ \mathhl{\hmlopt{\alpha}\varphi_{\notionname{BB^s}}}, \psi_{\notionname{BB^s}}, \psi_{\notionname{BB^s}}, \ldots } \\
+      \grammaror \hmlands \set{ \mathhl{\hmlsoft{\alpha}\varphi_{\notionname{BB^s}}}, \psi_{\notionname{BB^s}}, \psi_{\notionname{BB^s}}, \ldots } \\
       & \hphantom{\grammarsp \hmlobs{a}\varphi_{\notionname{BB^s}}} \grammaror \hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{BB^s}, \psi_\notionname{BB^s}, \ldots } \\
     \psi_{\notionname{BB^s}} \grammardef &
       \grammarsp \hmlneg\hmleps\chi_{\notionname{BB^s}}
@@ -1083,7 +1108,7 @@ For the other direction, there is a bigger difference due to $\observations{WB'}
 In particular, it permits top-level conjunctions and negated conjunctions without $\hmleps$ in between. But these features do not add distinctive power.
 $\observations{WB'}$ also allows top-level negation, and this adds distinctive power to the preorders, effectively turning them into equivalence relations.
 We do not enforce this and thus our $\mathord{\bpreord{WB}} \neq \mathord{\beq{WB}}$;
-for instance, $\ccsprefix{\tau} \literal{a} \bpreord{WB} \tau \ccschoice \ccsprefix{\tau} \literal{a}$, but $\tau \ccschoice \ccsprefix{\tau} \literal{a} \not\bpreord{WB} \ccsprefix{\tau} \literal{a}$ due to $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}\hmltrue}$.
+for instance, $\ccsprefix{\tau} \literal{a} \bpreord{WB} \tau \ccschoice \ccsprefix{\tau} \literal{a}$, but $\tau \ccschoice \ccsprefix{\tau} \literal{a} \nbpreord{WB} \ccsprefix{\tau} \literal{a}$ due to $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}\hmltrue}$.
 However, as a distinction by $\hmlneg \varphi$ in one direction implies one by $\varphi$ in the other, we know that this difference is ironed out once we consider the equivalence $\beq{WB}$.
 :::
 
@@ -1154,7 +1179,7 @@ At this point, they are not particularly interesting.
       \grammaror \mathdl{\varphi_\notionname{WU}} \\
     \psi_{\eta\notionname{S}} \grammardef &
       \grammarsp \hmleps\hmlobs{a}\varphi_{\eta\notionname{S}}
-      \grammaror \hmleps\hmlands \set{ \mathhl{\hmlopt{\alpha}\varphi_{\eta\notionname{S}}}, \psi_{\eta\notionname{S}}, \psi_{\eta\notionname{S}}, \ldots }
+      \grammaror \hmleps\hmlands \set{ \mathhl{\hmlsoft{\alpha}\varphi_{\eta\notionname{S}}}, \psi_{\eta\notionname{S}}, \psi_{\eta\notionname{S}}, \ldots }
       \grammaror \hmleps\hmlands \set{ \psi_{\eta\notionname{S}}, \psi_{\eta\notionname{S}}, \ldots }\\
   \intertext{
     Stable simulation, $\notionname{SS}$ at $(\infty,0,0,\mathhl{\infty},0,\infty,0,\mathhl{1})$:

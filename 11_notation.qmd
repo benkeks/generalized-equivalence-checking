@@ -45,12 +45,12 @@ toc-title: "Notation"
 | $\step{\alpha}$            | Transition relation (in context of a transition system, @def-ts), usually due to operational $\ccs$-semantics (@def-ccs-semantics) |
 | $\nostep{\alpha}$          | Absence of an $\alpha$-transition                                                            |
 | $\stepweak$        | Internal transition (@def-transition-systems-with-silent-steps)                             |
-| $\stepopt{\alpha}$         | Optional transition (@def-transition-systems-with-silent-steps)                             |
+| $\stepsoft{\alpha}$         | Soft transition (@def-transition-systems-with-silent-steps)                             |
 | $\stepweakword{\vec{w}}$   | Weak $\vec{w}$-word step sequence (@def-transition-systems-with-silent-steps)                |
 | $\derivatives{p, \alpha}$  | $\alpha$-derivatives of $p$ (@def-ts)                                                        |
 | $\initials{p}$             | Enabled actions of $p$ (@def-ts)                                                            |
 | $\hmlobs{\alpha}$          | Modality of observing an $\alpha$-step (@def-hml)                                            |
-| $\hmlopt{\alpha}$          | Modality of observing an $\tau$-optional $\alpha$-step ([@def-transition-systems-with-silent-steps] and [-@def-hml-srbb]) |
+| $\hmlsoft{\alpha}$          | Modality of observing an $\tau$-soft $\alpha$-step ([@def-transition-systems-with-silent-steps] and [-@def-hml-srbb]) |
 | $\hmleps$                  | Modality of allowing internal behavior ([@def-transition-systems-with-silent-steps] and [-@def-hml-srbb]) |
 | $\semantics{\varphi}$      | Set of states that fulfill $\varphi$ (@def-hml-semantics)                                    |
 | $\quotient{\system}{\sim}$ | Quotient system on equivalence classes $\eqclass{\cdot}_{\sim}$ (@def-quotient-ts)           |

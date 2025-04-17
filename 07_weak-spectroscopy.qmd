@@ -94,7 +94,7 @@ This makes the following schematic depiction in @fig-weak-spectroscopy-game-sche
     (AttDelay) edge
       node[pos=.7,label={[label distance=0.2cm]-175:$\textcolor{gray}{\zerovec}$}] {$p \nostep{\tau}$} (DefStab)
     (AttDelay) edge
-      node[pos=.65,align=center,label={[label distance=0cm]-90:$\textcolor{gray}{\zerovec}$}] {$p \step{\hmlopt\alpha} p'$\\$Q_\alpha \subseteq Q_\varepsilon$} (DefBranch)
+      node[pos=.65,align=center,label={[label distance=0cm]-90:$\textcolor{gray}{\zerovec}$}] {$p \stepsoft{\alpha} p'$\\$Q_\alpha \subseteq Q_\varepsilon$} (DefBranch)
     (Def) edge[bend right=17]
       node[pos=.85, label={[label distance=0.1cm]-100:$\textcolor{gray}{-\unitvec{3}}$}] {$q \in Q$} (AttConj)
     (DefStab) edge[bend right=10]
@@ -106,7 +106,7 @@ This makes the following schematic depiction in @fig-weak-spectroscopy-game-sche
     (AttConj) edge[bend right=15]
       node[below] {$\textcolor{gray}{\updmin{1,7},0,0,0,0,0,0,-1}$} (AttSwap)
     (DefBranch) edge
-      node[pos=.42, label={[label distance=0.1cm]-0:$\textcolor{gray}{\updmin{1,6},-1,-1,0,0,0,0,0}$}] {$Q_\alpha\! \step{\hmlopt{\alpha}} Q'$} (AttBranch)
+      node[pos=.42, label={[label distance=0.1cm]-0:$\textcolor{gray}{\updmin{1,6},-1,-1,0,0,0,0,0}$}] {$Q_\alpha\! \stepsoft{\alpha} Q'$} (AttBranch)
     (AttBranch) edge
       node[below]{$\textcolor{gray}{-\unitvec{1}}$} (AttObs)
     (DefBranch) edge[bend left=5]
@@ -196,7 +196,7 @@ $$
   & \attackerpos[\varepsilon]{p,Q}
   & \gamemove{0,0,0,0,0,0,0,0}
   & \defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}
-  & \text{if $p \step{\hmlopt\alpha} p'$, $Q_\alpha \subseteq Q$,}
+  & \text{if $p \stepsoft{\alpha} p'$, $Q_\alpha \subseteq Q$,}
   \\
   \textit{branch. answer}
   & \defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha}
@@ -208,7 +208,7 @@ $$
   & \defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha}
   & \gamemove{\updmin{1,6},-1,-1,0,0,0,0,0}
   & \attackerpos[\eta]{p',Q'}
-  & \text{with $Q_\alpha \step{\hmlopt\alpha} Q'$,}
+  & \text{with $Q_\alpha \stepsoft{\alpha} Q'$,}
   \\
   \textit{branch. accounting}
   & \attackerpos[\eta]{p,Q}
@@ -444,7 +444,7 @@ $$
   e_q = \energyupdate(e, u_q) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
   \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
 } {
-  \hmlands \left(\set{\hmlopt{\alpha} \varphi_\alpha } \cup \set{ \psi_q \mid q \in Q }\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha}, e)
+  \hmlands \left(\set{\hmlsoft{\alpha} \varphi_\alpha } \cup \set{ \psi_q \mid q \in Q }\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha}, e)
 }
 $$
 
@@ -471,7 +471,7 @@ By induction over game positions $g$ and energies $e$ according to the inductive
 5. If $e \in \attackerwins(\defenderpos[s]{p,Q})$,
   then there is $\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right) \in \stratweak(\defenderpos[s]{p,Q}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right)) \leq e$;
 6. If $e \in \attackerwins(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha})$,
-  then there is $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right)) \leq e$. \qedhere
+  then there is $\hmlands \left(\set{\hmlsoft{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlsoft{\alpha}\varphi' } \cup \Psi\right)) \leq e$. \qedhere
 :::
 
 Strategy formulas are distinguishing.
@@ -494,9 +494,9 @@ By induction over the derivation of $~\cdots \in \stratweak(g, e)$ according to 
 5. If $\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right) \in \stratweak(\defenderpos[s]{p,Q}, e)$
   and $p$ is stable,
   then the stable conjunction $\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right)$ distinguishes $p$ from $Q$;
-6. If $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$,
-    $p \step{\hmlopt\alpha} p'$ and $Q_\alpha \subseteq Q$,
-  then the branching conjunction $\hmlands \left(\set{\hmlopt{\alpha}\varphi' } \cup \Psi\right)$ distinguishes $p$ from $Q$. \qedhere
+6. If $\hmlands \left(\set{\hmlsoft{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$,
+    $p \stepsoft{\alpha} p'$ and $Q_\alpha \subseteq Q$,
+  then the branching conjunction $\hmlands \left(\set{\hmlsoft{\alpha}\varphi' } \cup \Psi\right)$ distinguishes $p$ from $Q$. \qedhere
 :::
 
 Distinguishing formulas certify the existence of equally cheap ways for the attacker to win.
@@ -518,8 +518,8 @@ By mutual structural induction on $\varphi$, $\chi$, and $\psi$ with respect to 
 5. If $\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi$ distinguishes $p$ from $Q \neq \varnothing$
   and the processes in $Q$ are stable,
   then $\expr[\varepsilon](\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi) \in \attackerwins(\defenderpos[s]{p,Q})$;
-6. If $\hmlands \set{ \hmlopt{\alpha}\varphi' } \cup \Psi$ distinguishes $p$ from $Q$,
-  then, for any $p \step{\hmlopt\alpha} p' \in \semantics{\varphi'}$ and $Q_\alpha = Q \setminus \semantics{\hmlobs{\alpha}\varphi'}{}{}$, $\expr[\varepsilon](\hmlands \set{ \hmlopt{\alpha}\varphi'\! } \cup \Psi) \in \attackerwins(\defenderpos[\eta]{p,\alpha,p'\!,Q \setminus Q_\alpha, Q_\alpha})$. \qedhere
+6. If $\hmlands \set{ \hmlsoft{\alpha}\varphi' } \cup \Psi$ distinguishes $p$ from $Q$,
+  then, for any $p \stepsoft{\alpha} p' \in \semantics{\varphi'}$ and $Q_\alpha = Q \setminus \semantics{\hmlobs{\alpha}\varphi'}{}{}$, $\expr[\varepsilon](\hmlands \set{ \hmlsoft{\alpha}\varphi'\! } \cup \Psi) \in \attackerwins(\defenderpos[\eta]{p,\alpha,p'\!,Q \setminus Q_\alpha, Q_\alpha})$. \qedhere
 :::
 
 ::: {#thm-weak-spectroscopy-game-characterization}
@@ -967,7 +967,7 @@ The *simplified* weak spectroscopy game $\gamespectroscopywsimple$ in @fig-weak-
         (AttDelay) edge
           node[pos=.87,label={[label distance=0.2cm]-177:$\textcolor{gray}{\zerovec}$}] {$p \nostep{\tau}$} (DefStab)
         (AttDelay) edge
-          node[align=center,pos=0.3,label={[label distance=0.1cm]-100:$\textcolor{gray}{\zerovec}$}] {$p \step{\hmlopt\alpha} p'$\\$Q_\varepsilon \neq \varnothing$} (DefBranch)
+          node[align=center,pos=0.3,label={[label distance=0.1cm]-100:$\textcolor{gray}{\zerovec}$}] {$p \stepsoft{\alpha} p'$\\$Q_\varepsilon \neq \varnothing$} (DefBranch)
         (Def) edge[bend right=17]
           node[pos=.85, label={[label distance=0.1cm]-100:$\textcolor{gray}{-\unitvec{3}}$}] {$q \in Q$} (AttConj)
         (DefStab) edge[bend right=10]
@@ -981,7 +981,7 @@ The *simplified* weak spectroscopy game $\gamespectroscopywsimple$ in @fig-weak-
         (DefBranch) edge
           node[label={[label distance=0.1cm]270:$\textcolor{gray}{-\unitvec{2}-\unitvec{3}}$}] {$q \in Q_\varepsilon$} (AttBranchClause)
         (AttBranchClause) edge
-          node[pos=.55, align=right] {$\{q\} \step{\hmlopt{\alpha}} Q'_\alpha$ \\
+          node[pos=.55, align=right] {$\{q\} \stepsoft{\alpha} Q'_\alpha$ \\
                                       $\textcolor{gray}{\updmin{1,6},0,0,0,0,0,0,0}$} (AttBranch)
         (AttBranchClause) edge[bend left=5]
           node[pos=.4, swap, align=center] {$\textcolor{gray}{\zerovec}$} (AttConj)
@@ -1002,7 +1002,7 @@ Schematic *simplified* weak spectroscopy game $\gamespectroscopywsimple$.
 Note that the immediate branching accounting/finishing moves lead to defender conjunction positions,
 while the late branching accounting move skips it, but still charges for the conjunction by an additional energy update of $-\unitvec{3}$.
 
-The simplified game part encodes nested conjunctions of the form $\hmlands\set{ \hmlopt{\alpha} \mathhl{\hmlands \Psi'}, \psi_1, \ldots}$ or the cheaper form $\hmlands\set{ \hmlopt{\alpha} \mathhl{\hmleps \hmlands \Psi'}, \psi_1, \ldots}$.
+The simplified game part encodes nested conjunctions of the form $\hmlands\set{ \hmlsoft{\alpha} \mathhl{\hmlands \Psi'}, \psi_1, \ldots}$ or the cheaper form $\hmlands\set{ \hmlsoft{\alpha} \mathhl{\hmleps \hmlands \Psi'}, \psi_1, \ldots}$.
 The $\Psi'$ are the formulas from after branching observation moves, while the $\psi_i$ come from the resets.
 
 In @bj2025silentStepSpectroscopyJournal we discuss this game's strategy formulas in detail and prove its correctness, resulting in the following theorem.^[

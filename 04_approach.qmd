@@ -601,7 +601,7 @@ The second bound implies that the budgets, $(\infty,1,1)$ and $(\infty,0,0)$ are
   \begin{scope}[rotate=45, scale=1]
     \draw[help lines] (0,0) grid (3.5,3.5);
     \draw[dotted] (2,2) -- (3.5,3.5);
-    \draw[white, pattern=horizontal lines, pattern color=red] (3.5,5.2) -- (3.5,3.5) -- (5.2,3.5) -- (5.2, 5.2) -- (3.5,5.2);
+    %\draw[white, pattern=horizontal lines, pattern color=red] (3.5,5.2) -- (3.5,3.5) -- (5.2,3.5) -- (5.2, 5.2) -- (3.5,5.2);
     \draw[white, pattern=north east lines, pattern color=red] (3.5,5.2) -- (3.5,3.5) -- (5.2,5.2) -- (5.2,6.9);
     \draw[white, pattern=north west lines, pattern color=red] (5.2,3.5) -- (3.5,3.5) -- (5.2,5.2) -- (6.9,5.2);
     \draw[thick, red, opacity=0.5, text opacity=.8]
@@ -1049,7 +1049,7 @@ We list the steps of the computation in @exm-simple-energy-game-execution, and t
 Combination (dashed red) of successor Pareto fronts (black) to intersect at defender position $\literal{g_4}$ in step 4.
 :::
 
-::: {#fig-game-attacker-intersection .column-margin}
+::: {#fig-game-attacker-combination .column-margin}
 ```tikz
 \begin{tikzpicture}[]
   \begin{scope}[rotate=45, scale=1]
@@ -1086,7 +1086,7 @@ Combination (dashed red) of successor Pareto fronts (black) to take the union at
 6. $\literal{g_2} ∈ G_\attacker$ also derives its winning budget from $(1,1)$.
   But $(1,1) - (2,-1) = (-1,2)$ would be outside the possible energy levels the attacker could carry here and is thus $\sup$-ed into $\nats^2$, yielding new win $(0,2)$.
 7. $\literal{g_3} ∈ G_\attacker$ just propagates $(1,1)$ from $\literal{g_4}$.
-8. Revisiting $\literal{g_1} ∈ G_\attacker$, we can now combine the three Pareto-fronts of its successors as illustrated in @fig-game-attacker-intersection as $\Min \set{(0,2), (2,1), (3,4)} = \set{(0,2), (2,1)}$.
+8. Revisiting $\literal{g_1} ∈ G_\attacker$, we can now combine the three Pareto-fronts of its successors as illustrated in @fig-game-attacker-combination as $\Min \set{(0,2), (2,1), (3,4)} = \set{(0,2), (2,1)}$.
   This operation corresponds to taking the union of the three sets of attacker winning budgets.
   The previous minimal budget $(3,4)$ of step&nbsp;5 is thus superseded.
   As $\variable{todo}$ is empty, the algorithm terminates.
@@ -1094,7 +1094,9 @@ Combination (dashed red) of successor Pareto fronts (black) to take the union at
 
 ::::{.content-visible when-format="pdf"}
 {{< contents fig-game-defender-intersection >}}
-{{< contents fig-game-attacker-intersection >}}
+::::
+::::{.content-visible when-format="pdf"}
+{{< contents fig-game-attacker-combination >}}
 ::::
 
 ::: {#thm-energy-game-correctness}

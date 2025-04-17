@@ -1037,8 +1037,8 @@ We list the steps of the computation in @exm-simple-energy-game-execution, and t
 \begin{tikzpicture}[]
   \begin{scope}[rotate=45, scale=1]
     \draw[help lines] (0,0) grid (3.5,3.5);
-    \draw[opacity=0.9, text opacity=.8] (0,3.7) -- (0,1) node[below left] {$\literal{g_5}: (0,1)$} -- (3.7,1);
-    \draw[opacity=0.9, text opacity=.8] (1,3.7) -- (1,0) node[below right] {$(1,0)$} -- (3.7,0);
+    \draw[opacity=0.9, thick, text opacity=.8] (0,3.7) -- (0,1) node[below left] {$\literal{g_5}: (0,1)$} -- (3.7,1);
+    \draw[opacity=0.9, thick, text opacity=.8] (1,3.7) -- (1,0) node[below right] {$(1,0)$} -- (3.7,0);
     \path[thick, violet, opacity=0.9, ->] (0,0) edge node[left=-.1] {$\mathit{upd}^{\circlearrowleft}$} (1,0);
     \node[label=270:{$\literal{g_6}: (0,0)$}] at (0,0) {};
     \draw[thick, red, dashed, opacity=0.9, text opacity=.8, shift={(-.05,-.05)}] (1,3.7) -- (1,1) node[above=.5] {$(1,1)$} -- (3.7,1);
@@ -1054,9 +1054,9 @@ Combination (dashed red) of successor Pareto fronts (black) to intersect at defe
 \begin{tikzpicture}[]
   \begin{scope}[rotate=45, scale=1]
     \draw[help lines] (0,0) grid (3.5,3.5);
-    \draw[opacity=0.9, text opacity=.8] (0,3.7) -- (0,2) node[below left] {$\literal{g_2}$} -- (3.7,2);
-    \draw[opacity=0.9, text opacity=.8] (2,3.7) -- (2,1) node[below right] {} -- (3.7,1);
-    \draw[opacity=0.9, text opacity=.8] (3,3.7) -- (3,2) node[below right] {$(3,2)$} -- (3.7,2);
+    \draw[opacity=0.9, thick, text opacity=.8] (0,3.7) -- (0,2) node[below left] {$\literal{g_2}$} -- (3.7,2);
+    \draw[opacity=0.9, thick, text opacity=.8] (2,3.7) -- (2,1) node[below right] {} -- (3.7,1);
+    \draw[opacity=0.9, thick, text opacity=.8] (3,3.7) -- (3,2) node[below right] {$(3,2)$} -- (3.7,2);
     \path[thick, violet, opacity=0.9, ->] (1,1) edge node[left=-.1] {$\mathit{upd}^{\circlearrowleft}$} (2,1);
     \path[thick, violet, opacity=0.9, ->, bend right=30] (1,1) edge node {} (3,2);
     \node [label=270:{$\literal{g_3},\literal{g_4}: (1,1)$}] at (1,1) {};

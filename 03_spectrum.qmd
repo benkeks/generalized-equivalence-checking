@@ -961,7 +961,7 @@ Output
 :  Set of notions $\notions_{p,q} \subseteq \notions$, such that $p \bpreordvar{\observationsvar{N}} q$ for each $N \in \notions_{p,q}$.
 :::
 
-Intuitively, the problem is about finding the ways in which processes can be related, beyond the black-and-white of the bisimilarity problem.
+Intuitively, the problem is about finding all the ways in which processes can be related, beyond the black-and-white of the bisimilarity problem.
 So, we aim to *split up* information, analogously to a prism with light (@fig-prism), or also to more advanced forms of *spectroscopy* in physical experiments.
 
 :::{#fig-prism .column-margin}
@@ -970,16 +970,31 @@ So, we aim to *split up* information, analogously to a prism with light (@fig-pr
 A prism revealing the spectrum of sun light.
 :::
 
+::: {#exm-trivial-spectroscopy}
+#### Warm-up spectroscopy
+
+In @exm-phil-traces, we have noticed that it is easy to distinguish $\literal{q_{ab}} \nbpreord{T} \literal{p_a}$ through the 1-symbol-trace $\literal{b}$.
+In $\hml$, the difference is expressed as $\hmlobs{\literal{b}}\hmltrue$.
+
+The solution to the strong spectroscopy problem on $\literal{q_{ab}}$ and $\literal{p_a}$ is
+$$\notions^{\literal{strong}}_{\literal{q_{ab}}, \literal{p_{a}}} = \set{N \in \notions^{\literal{strong}} \mid N_1 < 1}.$$
+
+All notions thus characteirzed correspond to universal equvialence $\notionname{U}$.
+In other words, the states are not equivalent with respect to any notion where states are told apart at all.
+They are as different as possible, in our metric.
+:::
+
 ::: {#exm-spectroscopy-front}
 #### The spectrum of trolled philosophers
 
 For the “trolled philosophers” of @exm-bisim-sim, we have determined that the systems are simulation-preordered, but not bisimilar, that is, $\literal{Q} \bpreord{S} \literal{T}$, but $\literal{Q} \nbpreord{B} \literal{T}$.
 The first fact implies $\literal{Q} \bpreord{T} \literal{T}$.
 
-But what about other notions from the strong spectrum of Subsection -@sec-full-spectrum?
+But what about other notions from the strong spectrum of @sec-full-spectrum?
 Besides similarity, there might well be incomparable or finer notions that too preorder $\literal{Q}$ to $\literal{T}$!
 
-The solution to the spectroscopy problem on $\literal{Q}$ and $\literal{T}$ is $\notions^{\literal{strong}}_{\literal{Q}, \literal{T}} = \set{N \in \notions^\literal{strong} \mid (2,2,0,0,2,2) \nleq N}$.
+The solution to the spectroscopy problem on $\literal{Q}$ and $\literal{T}$ is
+$$\notions^{\literal{strong}}_{\literal{Q}, \literal{T}} = \set{N \in \notions^\literal{strong} \mid (2,2,0,0,2,2) \nleq N}.$$
 A minimal formula to distinguish $\literal{Q}$ from $\literal{T}$ with this coordinate would be $\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}}$.
 (The following chapters will reveal how to reliably arrive at this knowledge, in particular, the minimality.)
 

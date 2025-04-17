@@ -100,7 +100,7 @@ It might be possible to reconstruct trace observations from such tree-like obser
 But by the closing arguments of @sec-spectrum-approach-discussion, and also according to @martensGroote2023minimalDistFormulasNP this must inherently be NP-hard.
 What we will do instead is adapt the bisimulation game such that it also expresses trace-like distinctions, and precisely counts conjunctions.
 
-### The Spectroscopy Game
+### The Strong Spectroscopy Game
 
 The *strong spectroscopy game* is played not on pairs of states, but on a pair of a state and *a set of states*!
 @fig-strong-spectroscopy-game gives a graphical representation.
@@ -108,7 +108,7 @@ The intuition is that the attacker shows how to construct formulas that distingu
 As long as observations happen, the defender is moved to the set of states $Q$ reachable through non-determinism; only at conjunction moves does the defender have to choose a $q \in Q$.
 Treating conjunctions more explicitly, will also allow us to track the depth of positive conjuncts in sufficient detail.
 
-::: {#fig-strong-spectroscopy-game fig-pos="th"}
+::: {#fig-strong-spectroscopy-game fig-pos="t"}
 
 ```tikz
 \begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm,
@@ -141,7 +141,7 @@ Treating conjunctions more explicitly, will also allow us to track the depth of 
     (AttConj) edge[bend left=10]
       node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{otherPosColor}{4}},0,0,0,0,0}$}] {} (AttContinue)
     (AttConj) edge[bend right=15]
-      node[align=center, label={[label distance=0.0cm]-90:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{negObsColor}{5}},0,0,0,0,\textcolor{negsColor}{-1}}$}] {} (AttSwap)
+      node[align=center, label={[label distance=0.0cm]-90:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{negObsColor}{5}},0,0,0,0,\textcolor{negsColor}{-1}}$}] {$p \neq q$} (AttSwap)
     (Def) edge[bend left=10]
       node[align=center, label={[label distance=0.0cm]-30:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{mainPosColor}{3}},\textcolor{conjColor}{-1},0,0,0,0}$}] {$p' = p$\\$Q'=Q_* \neq \varnothing$} (AttObs);
 \end{tikzpicture}
@@ -167,7 +167,7 @@ the $6$-dimensional *strong spectroscopy energy game*
 $\gamespectroscopy^{\system}=(G,G_{\defender},\gamemoveblank,w)$
 consists of
 
-- *attacker positions* $\attackerpos{p,Q} \in G_\attacker$,
+- *attacker (main) positions* $\attackerpos{p,Q} \in G_\attacker$,
 - *attacker conjunct positions* $\attackerpos[\land]{p,q} \in G_\attacker$,
 - *defender conjunction positions* $\defenderpos{p,Q,Q_*} \in G_\defender$,
 
@@ -286,7 +286,7 @@ Now, the defender has two options.
 
 To win in both cases, the attacker must start with a budget of at least $(3,1,2,0,1,1)$.
 
-The game also allows another path through nested negations that the attacker wins at $(3,2,0,0,2,2)$, but this is not interesting for specific equivalences below bisimilarity.
+The game also allows an alternative through nested negations that the attacker wins at $(3,2,0,0,2,2)$, but this is not interesting for specific equivalences below bisimilarity.
 :::
 
 ::: {#exm-spectroscopy-classic-ts}
@@ -491,17 +491,17 @@ Still, we can be confident that the conference paper results apply to the presen
 ### Complexity
 
 As expected, the bigger spectroscopy game leads to exponential runtimes.
-This comes as no surprise, for we have already discussed in @sec-equivalence-complexities that the complexity problem on the whole strong spectrum is PSPACE-hard.
+This comes as no surprise, for we have already discussed in @sec-equivalence-complexities that the spectroscopy problem on the whole strong spectrum is PSPACE-hard.
 
 ::: {#thm-strong-spectroscopy-complexity}
 Given a transition system $\system$,
 the spectroscopy problem for the $\notions^\literal{strong}$-spectrum can be solved by the game approach in exponential time and space with respect to the state space size $\relsize{\states}$.
 :::
 :::proof
-According to @thm-strong-spectroscopy-game-characterization, we can solve the spectroscopy problem for the $\notions^\literal{strong}$-spectrum by deciding the winning budgets of the strong spectroscopy game ${\gamespectroscopy}^{\system}$ on $\system=(\states,\actions,\step{})$.
+According to @thm-strong-spectroscopy-game-characterization, we can solve the spectroscopy problem for the $\notions^\literal{strong}$-spectrum by deciding the winning budgets of the strong spectroscopy game $\gamespectroscopy^{\system}$ on $\system=(\states,\actions,\step{})$.
 We instantiate the winning budget complexity of @lem-declining-update-complexity for the case $d=6$ with the size of $\gamespectroscopy$ according to @def-strong-spectroscopy-game.
 
-The number of attacker positions is bounded by $\relsize{\states} \cdot 2^{\relsize{\states}}$.
+The number of attacker main positions is bounded by $\relsize{\states} \cdot 2^{\relsize{\states}}$.
 The number of conjunction moves and defender conjunction positions is bounded by $\relsize{\states} \cdot 3^{\relsize{\states}}$.
 
 The maximal out-degree for attacker positions is in $\bigo{2^{\relsize{\states}}}$, which dominates that of defender conjunction positions of $\bigo{\relsize{\states}}$,
@@ -525,11 +525,12 @@ We will explore these in the next section.
 
 ## Clever Games on Subgraphs {#sec-specific-spectro-games}
 
-We can exploit properties of the equivalences of the strong spectrum in @fig-strong-ltbt-spectrum we actually care about to focus on simpler variants of the spectroscopy game.
+We can exploit properties of the equivalences to focus on simpler variants of the spectroscopy game.
+In particular, the named notions of the strong spectrum in @fig-strong-ltbt-spectrum can be covered by subsets of notions that are characterized by simpler games.
 
 1. Properties of bisimilarity allow to reduce the game graph size without losing information.
-1. Since the specific coordinates in @fig-strong-ltbt-spectrum only use 0, 1, and ∞ in components, we can employ @lem-declining-update-complexity-flattened to slightly improve complexity bounds.
-2. With more specific equivalences in mind, we can also focus on subgraphs of the spectroscopy game $\gamespectroscopy$ in order to obtain better bounds.
+2. Since the specific coordinates in @fig-strong-ltbt-spectrum only use 0, 1, and ∞ in components, we can employ @lem-declining-update-complexity-flattened to slightly improve complexity bounds.
+3. With more specific equivalences in mind, we can also focus on subgraphs of the spectroscopy game $\gamespectroscopy$ in order to obtain better bounds.
 
 In this section, @sec-bisim-approximations will first discuss how parts of the game graph can be pruned thanks to properties of bisimilarity.
 Then, we will use all listed tricks in the “clever” strong spectroscopy game in @sec-clever-strong-spectro.
@@ -552,7 +553,7 @@ Thus, there cannot be $e \in \attackerwins(\attackerpos{p,Q})$.
 
 For the game graph, this means that we do not need to consider any outgoing moves of $\attackerpos{p,\set{p} \cup Q}$-positions.
 They will not lead to attacker wins anyway.
-All game graph parts that are strictly below such positions can be disregarded.
+All game graph parts that are only reached through such positions can be disregarded.
 
 Another important trick to reduce game size, is to first apply bisimulation-minimization to the transition system and then only construct the spectroscopy game for the minimized system, $\gamespectroscopy^{\quotient{\system}{\beq{B}}}$.
 This approach is sound by the following lemma.
@@ -617,7 +618,7 @@ Example sizes of a spectroscopy game with and without pruning on Peterson's mute
 @fig-minimization-lattice lists the sizes of game graphs on this system.
 The default spectroscopy game at the top has roughly $1200$ thousand game positions.
 
-Pruning symmetric parts removes four fifth of the graph (leaving $241$ thousand positions).
+Pruning symmetric parts removes roughly four fifths of the graph (leaving $241$ thousand positions).
 
 Only applying the bisimulation minimization roughly halves the graph (leaving $661$ thousand positions).
 The bisimulation reduction is surprisingly effective, given that the bisimulation minimized Peterson system still has 19 states, that is, only one less than the originals system.
@@ -671,6 +672,10 @@ $\; Q_* \in
     \{ q \in Q \mid \initials{p} = \initials{q} \} \; \}.$
 :::
 
+The idea here is that the attacker only thinks about certain partitionings:
+Those where the $Q_*$-revival deals with parts of $Q$ that cannot be discharged through failure or readiness observations.
+The usage of $\initials{\cdot}$ is comparable to a small look-ahead into the possibilities to win through observations inside the conjunction.
+
 ::: {#thm-clever-strong-spectroscopy-correctness}
 #### Correctness of Cleverness
 
@@ -686,7 +691,7 @@ the spectroscopy problem for the simpler $\widehat{\notions}^\literal{strong}$-s
 :::proof
 We instantiate the “flattened” winning budget complexity of @lem-declining-update-complexity-flattened for the case $d=6$ with the size of $\gamespectroscopyclever$ according to @def-strong-spectroscopy-game-clever.
 
-Now, the number of all game positions is bounded by $\relsize{G_{\blacktriangle}} \in \relsize{\states} \cdot 2^{\relsize{\states}}$.
+Now, the number of all game positions is bounded by $\relsize{G_{\blacktriangle}} \in \bigo{\relsize{\states} \cdot 2^{\relsize{\states}}}$.
 
 Concerning the maximal out-degree, now, defender conjunction positions are dominant, $o_{\gamemoveblank_\blacktriangle} \in \bigo{\relsize{\states}}$.
 
@@ -778,7 +783,7 @@ Of course, in this situation, one wants to avoid complexities that are part of t
 
 ### Deriving Equivalence Games {#sec-deriving-eq-games}
 
-Let us first explicate how to derive characterize equivalences through reachability games derived according to @def-derived-reachability-game.
+Let us first explicate how to characterize equivalences through reachability games derived according to @def-derived-reachability-game.
 
 ::: {#def-derived-eq-game}
 #### Derived Strong Equivalence Games
@@ -786,8 +791,7 @@ Let us first explicate how to derive characterize equivalences through reachabil
 Given a system $\system=(\states,\actions,\step{})$, a strong notion of equivalence $N \in \notions^\literal{strong}$, and a pair of states $p,q$,
 the *derived $N$-preorder game*
 $\gamespectroscopyeq{N}^{\system,p,q}$
-is defined as the part of the reachability game derived from the spectroscopy game
-$(\gamespectroscopy^{\system})^R$
+is defined as the part of the reachability game $(\gamespectroscopy^{\system})^R$ derived from the spectroscopy game
 under starting position $(\attackerpos{p,\set{q}}, N)$.
 :::
 
@@ -851,7 +855,7 @@ Each position is won by the defender (hinted at by the positions being colored i
 
 :::: {#fig-derived-trace-eq-game fig-pos='t'}
 ```{dot}
-digraph rel{-1531522041 [shape=circle, width=2, fixedsize=true, color=blue, style=bold, label="ABCACB, {ABC}, {}\n(∞,0,0,0,0,0)"];-1478041764 [shape=square, color=blue, style=bold, label="ABCACB, {ABC}\n(∞,0,0,0,0,0)"];1890643406 [shape=square, color=blue, style=bold, label="c.f + b.g, b.d + c.e + c.f + b.g\n(∞,-1,0,0,0,0)"];-407584024 [shape=square, color=blue, style=bold, label="b.d + c.e, b.d + c.e + c.f + b.g\n(∞,-1,0,0,0,0)"];-1030115238 [shape=circle, width=2, fixedsize=true, color=blue, style=bold, label="c.f + b.g,\n{b.d + c.e + c.f + b.g}, {}\n(∞,0,0,0,0,0)"];490779022 [shape=circle, width=2, fixedsize=true, color=blue, style=bold, label="b.d + c.e,\n{b.d + c.e + c.f + b.g}, {}\n(∞,0,0,0,0,0)"];1655621242 [shape=square, color=blue, style=bold, label="ABCACB, ABC\n(∞,-1,0,0,0,0)"];695410661 [shape=square, color=blue, style=bold, label="e, {e,f}\n(∞,0,0,0,0,0)"];945131307 [shape=square, color=blue, style=bold, label="g, {g,d}\n(∞,0,0,0,0,0)"];-58372795 [shape=square, color=blue, style=bold, label="c.f + b.g, {b.d + c.e + c.f + b.g}\n(∞,0,0,0,0,0)"];1777001188 [shape=square, color=blue, style=bold, label="d, {g,d}\n(∞,0,0,0,0,0)"];11287976 [shape=square, color=blue, style=bold, label="b.d + c.e, {b.d + c.e + c.f + b.g}\n(∞,0,0,0,0,0)"];-1092705565 [shape=square, color=blue, style=bold, label="f, {e,f}\n(∞,0,0,0,0,0)"];-1531522041->1655621242[color=black, label="(0,-1,0,min{3,4},0,0)"];-1478041764->11287976[color=black, label="(-1,0,0,0,0,0)"];-1478041764->-58372795[color=black, label="(-1,0,0,0,0,0)"];-1478041764->-1531522041[color=black, label="(0,0,0,0,0,0)"];-1030115238->1890643406[color=black, label="(0,-1,0,min{3,4},0,0)"];490779022->-407584024[color=black, label="(0,-1,0,min{3,4},0,0)"];-58372795->945131307[color=black, label="(-1,0,0,0,0,0)"];-58372795->-1092705565[color=black, label="(-1,0,0,0,0,0)"];-58372795->-1030115238[color=black, label="(0,0,0,0,0,0)"];11287976->1777001188[color=black, label="(-1,0,0,0,0,0)"];11287976->695410661[color=black, label="(-1,0,0,0,0,0)"];11287976->490779022[color=black, label="(0,0,0,,0,0)"]}
+digraph rel{-1531522041 [shape=circle, width=2, fixedsize=true, color=blue, style=bold, label="ABCACB, {ABC}, {}\n(∞,0,0,0,0,0)"];-1478041764 [shape=square, color=blue, style=bold, label="ABCACB, {ABC}\n(∞,0,0,0,0,0)"];1890643406 [shape=square, color=blue, style=bold, label="c.f + b.g, b.d + c.e + c.f + b.g\n(∞,-1,0,0,0,0)"];-407584024 [shape=square, color=blue, style=bold, label="b.d + c.e, b.d + c.e + c.f + b.g\n(∞,-1,0,0,0,0)"];-1030115238 [shape=circle, width=2, fixedsize=true, color=blue, style=bold, label="c.f + b.g,\n{b.d + c.e + c.f + b.g}, {}\n(∞,0,0,0,0,0)"];490779022 [shape=circle, width=2, fixedsize=true, color=blue, style=bold, label="b.d + c.e,\n{b.d + c.e + c.f + b.g}, {}\n(∞,0,0,0,0,0)"];1655621242 [shape=square, color=blue, style=bold, label="ABCACB, ABC\n(∞,-1,0,0,0,0)"];695410661 [shape=square, color=blue, style=bold, label="e, {e,f}\n(∞,0,0,0,0,0)"];945131307 [shape=square, color=blue, style=bold, label="g, {d,g}\n(∞,0,0,0,0,0)"];-58372795 [shape=square, color=blue, style=bold, label="c.f + b.g, {b.d + c.e + c.f + b.g}\n(∞,0,0,0,0,0)"];1777001188 [shape=square, color=blue, style=bold, label="d, {d,g}\n(∞,0,0,0,0,0)"];11287976 [shape=square, color=blue, style=bold, label="b.d + c.e, {b.d + c.e + c.f + b.g}\n(∞,0,0,0,0,0)"];-1092705565 [shape=square, color=blue, style=bold, label="f, {e,f}\n(∞,0,0,0,0,0)"];-1531522041->1655621242[color=black, label="(0,-1,0,min{3,4},0,0)"];-1478041764->11287976[color=black, label="(-1,0,0,0,0,0)"];-1478041764->-58372795[color=black, label="(-1,0,0,0,0,0)"];-1478041764->-1531522041[color=black, label="(0,0,0,0,0,0)"];-1030115238->1890643406[color=black, label="(0,-1,0,min{3,4},0,0)"];490779022->-407584024[color=black, label="(0,-1,0,min{3,4},0,0)"];-58372795->945131307[color=black, label="(-1,0,0,0,0,0)"];-58372795->-1092705565[color=black, label="(-1,0,0,0,0,0)"];-58372795->-1030115238[color=black, label="(0,0,0,0,0,0)"];11287976->1777001188[color=black, label="(-1,0,0,0,0,0)"];11287976->695410661[color=black, label="(-1,0,0,0,0,0)"];11287976->490779022[color=black, label="(0,0,0,,0,0)"]}
 ```
 Pruned clever strong spectroscopy game below position $\attackerpos{\literal{ABCACB}, \set{\literal{ABC}}}$ instantiated to starting energy $\notionname{T} = (\infty, 0,0,0,0,0)$ to decide trace equivalence.
 ::::
@@ -879,7 +883,20 @@ Therefore, the subgame used by the tool for @exm-spectroscopy-equivalence-checki
 
 :::{#fig-derived-trace-eq-game-true fig-pos='t'}
 ```{dot}
-digraph rel{695410661 [shape=square, color=blue, style=bold, label="e, {e,f}\n(∞,0,0,0,0,0)"];945131307 [shape=square, color=blue, style=bold, label="g, {g,d}\n(∞,0,0,0,0,0)"];-58372795 [shape=square, color=blue, style=bold, label="c.f + b.g, {b.d + c.e + c.f + b.g}\n(∞,0,0,0,0,0)"];-1478041764 [shape=square, color=blue, style=bold, label="ABCACB, {ABC}\n(∞,0,0,0,0,0)"];1777001188 [shape=square, color=blue, style=bold, label="d, {g,d}\n(∞,0,0,0,0,0)"];11287976 [shape=square, color=blue, style=bold, label="b.d + c.e, {b.d + c.e + c.f + b.g}\n(∞,0,0,0,0,0)"];-1092705565 [shape=square, color=blue, style=bold, label="f, {e,f}\n(∞,0,0,0,0,0)"];-58372795->945131307[color=black, label="(-1,0,0,0,0,0)"];-58372795->-1092705565[color=black, label="(-1,0,0,0,0,0)"];-1478041764->11287976[color=black, label="(-1,0,0,0,0,0)"];-1478041764->-58372795[color=black, label="(-1,0,0,0,0,0)"];11287976->1777001188[color=black, label="(-1,0,0,0,0,0)"];11287976->695410661[color=black, label="(-1,0,0,0,0,0)"]}
+digraph rel{
+695410661 [shape=square, color=blue, style=bold, label="e, {e,f}\n(∞,0,0,0,0,0)"];
+945131307 [shape=square, color=blue, style=bold, label="g, {d,g}\n(∞,0,0,0,0,0)"];
+11287976 [shape=square, color=blue, style=bold, label="b.d + c.e, {b.d + c.e + c.f + b.g}\n(∞,0,0,0,0,0)"];
+-58372795 [shape=square, color=blue, style=bold, label="c.f + b.g, {b.d + c.e + c.f + b.g}\n(∞,0,0,0,0,0)"];
+-1478041764 [shape=square, color=blue, style=bold, label="ABCACB, {ABC}\n(∞,0,0,0,0,0)"];
+1777001188 [shape=square, color=blue, style=bold, label="d, {d,g}\n(∞,0,0,0,0,0)"];
+
+-1092705565 [shape=square, color=blue, style=bold, label="f, {e,f}\n(∞,0,0,0,0,0)"];-58372795->945131307[color=black, label="(-1,0,0,0,0,0)"];
+-58372795->-1092705565[color=black, label="(-1,0,0,0,0,0)"];
+-1478041764->11287976[color=black, label="(-1,0,0,0,0,0)"];
+-1478041764->-58372795[color=black, label="(-1,0,0,0,0,0)"];
+11287976->1777001188[color=black, label="(-1,0,0,0,0,0)"];
+11287976->695410661[color=black, label="(-1,0,0,0,0,0)"]}
 ```
 
 The subgame of @fig-derived-trace-eq-game that actually is used in *equiv.io*, disregarding some attacker options.
@@ -889,6 +906,10 @@ Still, non-determinism in the transition system might lead to exponentially-size
 Especially in the case of bisimilarity and similarity, such a blow up is not necessary as @sec-approach has shown.
 
 ### Regaining Polynomiality in Derived Equivalence Games {#sec-regaining-polynomiality}
+
+So far, the derived games include the exponentiality due to the subset construction.
+But we can restrict the attacker to only use a polynomially-sized portion of the game.
+If they have energy for unbounded conjunctions, this restriction will not affect their wins.
 
 :::{#prp-defender-options}
 If the attacker wins $(\attackerpos{p, Q}, e)$ in a derived preorder game $\gamespectroscopyeq{N}$ or $\gamespectroscopyceq{N}$, they also win $(\attackerpos{p, Q'}, e)$ for all $Q' \subseteq Q$.
@@ -914,7 +935,7 @@ If the defender decides for the revival to $\attackerpos{p_n,Q'_*}$, we can cont
 If the attacker wins $(\attackerpos{p, Q}, e)$ with $\relsize{Q} > 1$ in a derived preorder game with $e \geq (0,\infty,\infty,\infty,0,0)$, then they can also win without using any observation moves of the form $(\attackerpos{p, Q}, e) \gamemoveblank (\attackerpos{p', Q'}, e')$.
 :::
 :::proof
-The move must be due to a transition $p \step{α} p'$ with $Q \step{α} Q'$. 
+The move $(\attackerpos{p, Q}, e) \gamemoveblank (\attackerpos{p', Q'}, e')$ must be due to a transition $p \step{α} p'$ with $Q \step{α} Q'$. 
 Instead of the observation, the attacker can move to a conjunction $(\attackerpos{p, Q}, e) \gamemoveblank (\defenderpos{p, Q, \varnothing}, e)$.
 After the defender choice of $q \in Q$, the game continues $\dots \gamemoveblank (\attackerpos[\wedge]{p, q}, e) \gamemoveblank (\attackerpos{p, \set{q}}, e) \gamemoveblank (\attackerpos{p', \derivatives{q, α}}, e')$, thanks to the sufficient energy budget.
 As $\derivatives{q, α} \subseteq Q'$, we can use @prp-defender-options.
@@ -940,7 +961,7 @@ Therefore, the following arguments focus on the latter.
 
 There are at most $\relsize{\states}^2$ positions of the form $\attackerpos{p,\set{q}}$.
 Whenever they reach $\attackerpos{p',Q'}$ with $\relsize{Q'} > 1$,
-@lem-conjunction-optimization allows us to prune away all observation moves deriving from there, and return to an attacker position with $\relsize{Q''} \leq 1$.
+@lem-conjunction-optimization allows us to prune away all observation moves deriving from there, and return to an attacker main position with $\relsize{Q''} \leq 1$.
 The intermediate $\attackerpos{p',Q'}$-positions are a function of initial $q$ and the transitions from $p$, and thus collectively bounded by $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$, which bounds attacker positions as a whole.
 
 In the clever spectroscopy game $\gamespectroscopyclever$, there is a maximum of only five defender positions per such attacker position.
@@ -1043,7 +1064,9 @@ Between mutual simulation $\gamespectroscopyceq{\notionname{1S}}$ and bisimulati
 The game for ready traces $\gamespectroscopyceq{\notionname{RT}}$, where all dimensions play a role, is the most costly.
 :::
 
+<!--
 TODO: Maybe also example where non-determinism has more effect?
+-->
 
 ## Discussion {#sec-discussion-strong-spectroscopy}
 
@@ -1066,7 +1089,8 @@ Therefore, the subset construction (or imperfect-information view) is technologi
 On the side of theory, the link between moves in the game and conjunctions in modal logics adds clarity to our construction.
 It reinforces the idea of @sec-abstract-subtraction that equivalence checking is, in a way, subtraction of satisfied formulas.
 
-{{< paragraph_heading "Original formulation." >}}
+{{< paragraph_heading "Difference to original formulation." >}}
+This chapter's presentation improves in several ways on my original spectroscopy games.
 The idea to alternate *state subsets for nondeterministic words and conjunction moves to eliminate the blowup* is introduced by @bisping2021ltbtsTacas.
 Our initial 2021 game is unable to correctly handle failure-traces and similar observations, which has been corrected in @bjn2022decidingAllBehavioralEqs, thanks to David N. Jansen's input.
 With respect to @bjn2022decidingAllBehavioralEqs, the presentation in this chapter has three advantages:
@@ -1085,7 +1109,7 @@ Interestingly, @sec-regaining-polynomiality shows that, by the prioritizing conj
 For strong similarity, this matches the best known time bound, as discussed in @sec-equivalence-complexities.
 For bisimilarity, however, partition-refinement outperforms the game approach.
 
-We could go a step further in the polynomially-sized derivatives of the spectroscopy game, and “bake together” the attacker positions after observations with the following defender positions.
+We could go a step further in the polynomially-sized derivatives of the spectroscopy game, and “bake together” the attacker main positions after observations with the following defender positions.
 This would (almost) arrive at the game structure of last chapter's bisimulation energy game!
 Conceptionally, the following relation emerges:
 The bisimulation game ${\game}_\notionname{B}$ of @sec-preliminaries *is a shadow of* the bisimulation energy game ${\game}_\notionname{B}^🗲$ of @sec-approach *is a shadow of* the strong spectroscopy game $\gamespectroscopy$ of the present chapter.

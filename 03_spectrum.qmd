@@ -630,7 +630,7 @@ Coordinates with respect to the notions of @def-strong-spectrum for the common n
   \node (B){bisimulation $\notionname{B}$\\$\infty,\infty,\infty,\infty,\infty,\infty$};
   \node (S2)[below of=B, node distance=1.2cm]{$2$-nested simulation $\notionname{2S}$\\$\infty,\infty,\infty,\infty,\infty,1$};
   \node (RS)[below left of=S2]{ready simulation $\notionname{RS}$~\\$\infty,\infty,\infty,\infty,1,1$};
-  \node (RT)[below right of=RS]{readiness trace $\notionname{RT}$\\$\infty,\infty,\infty,1,1,1$};
+  \node (RT)[below right of=RS]{ready trace $\notionname{RT}$\\$\infty,\infty,\infty,1,1,1$};
   \node (FT)[below left of=RT]{failure trace $\notionname{FT}$\\$\infty,\infty,\infty,0,1,1$};
   \node (R)[below right of=RT]{readiness $\notionname{R}$\\$\infty,1,1,1,1,1$};
   \node (PF)[above right of=R]{~possible future $\notionname{PF}$\\$\infty,1,\infty,\infty,\infty,1$};
@@ -827,7 +827,7 @@ $$
 \end{aligned}
 $$
 $\literal{T'_{\tau a a}}$ and $\literal{T'_{\tau a}}$ are simulation equivalent.
-But they are distinguished by the failure trace observation $\hmlobs{\tau} \hmlands\set{\hmlobs{\literal a}\hmlobs{\literal{a}}, \hmlneg \hmlobs{\literal b}}$.
+But they are distinguished by the failure-trace observation $\hmlobs{\tau} \hmlands\set{\hmlobs{\literal a}\hmlobs{\literal{a}}, \hmlneg \hmlobs{\literal b}}$.
 The intuition is that we can observe the trace $\tau \literal{a} \literal{a}$ together with the fact that $\literal b$ is impossible after the first step of $\literal{T'_{\tau a a}}$, but not of $\literal{T'_{\tau a}}$.
 
 The formula pricing works out, that is, $\hmlobs{\tau} \hmlands\set{\hmlobs{\literal a}\hmlobs{\literal{a}}, \hmlneg \hmlobs{\literal b}} \in \observationsvar[\literal{strong}]{(3,1,2,0,1,1)} \subseteq \observations[\literal{strong}]{\literal{FT}}$.

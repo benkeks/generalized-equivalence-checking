@@ -26,20 +26,51 @@ We apply the spectroscopy approach to small *case studies from verification and 
 Core parts of the thesis are supported by an *Isabelle/HOL-formalization*.
 
 \newpage
+ \thispagestyle{empty}
+
+::: {.content-visible when-format="html"}
+----
 
 ### Dedication {.unnumbered .unlisted}
+:::
 
-> To the memory of Mark Alexander Sibly, creator of the programming language in which I wrote my first concurrent program, and a profound influence on me and so many others!
+> To the memory of **Mark** Alexander **Sibly**,
+> 
+> creator of the programming language in which I wrote my first concurrent program, and a profound influence on me and so many others!
 
-### TODO {.unnumbered .unlisted}
-
-(This is a space for TODOs that do not yet have a position in the text body.)
-
-- Cover art
+\vfill
 
 ### Acknowledgments {.unnumbered .unlisted}
 
-TODO
+This research project started due to Covid, in a way.
+Because of the pandemic, CONCUR'20 was taking place as an online event.
+And one afternoon, after listening to the talks, sitting alone in my office, I started to [implement a small idea](https://github.com/benkeks/equivalence-fiddle/commit/f188bc9a1ca18d4c27054bfbb8d652322b57f58f) on generalizing the bisimulation game.
+Last year, the office was closed---together with the whole building---because of rusty pipes.
+Unfortunately, that's not the only thing that's been going wrong, since.
+Crazy times!
+
+That this research project has still reached the stage of a (soon to be submitted) PhD thesis, is thanks to many great people (sorted by category, mostly in order of appearance).
+
+- **Environment:**
+  Uwe Nestmann and my colleages at the Modelle und Theorie Verteilter Systeme group, especially my lovely office mates Edgar Arndt, Valeria Zahoransky, and Alex Wiemhoefer.
+  My “Sunday friends” and my parents.
+- **Hospitality:**
+  The organizers of the VTSA Summer School 2021 in Liège.
+  Rob van Glabbeek and the Laboratory for Foundations of Computer Science for my 2023 stay in Edinburgh.
+  Julia (and Fréd and kids) as well as Rosi for hosting me during visits in Paris and Oldenburg.
+  David N. Jansen together with Lijun Zhang's group at the Institute of Software, Chinese Academy of Sciences for my 2024 stay in Beijing.
+- **Collaboration:**
+  David N. Jansen, who discovered and corrected cruicial flaws in my ideas. 
+  Caroline Lemke, who found out why “my” energy games are indeed decidable. 
+  And many more marvelous students and collaborators (listed in @sec-artifacts-papers).
+- **Co-writing:** Schrippe, Baum, Alina, and Anna.
+- **Feedback** on parts of this thesis:
+  Nadine Karsten,
+  Caroline Lemke,
+  Andrei Aleksandrov,
+  (you might soon appear here, dearest test reader)
+
+
 
 ```{=latex}
 {

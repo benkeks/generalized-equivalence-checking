@@ -23,7 +23,7 @@ toc-title: "Notation"
 | $A^*$, $A^{\infty}$     | Language of finite / finite-or-infinite words over $A$                     |
 | $\inverse{\rel R}$      | Inverse relation of $\rel R$                                               |
 | $\nats$, $\natsext$     | Natural numbers / natural numbers extended by a $\infty$ as $\top$-element |
-| $\defeq$                | Definitional equality; in the context of CCS $\literal{X} \defeq P$ also means $\ccsasg(\literal{X}) \defeq P$ (@def-ccs-semantics) |
+| $\defeq$                | Definitional equality; in the context of CCS, $\literal{X} \defeq P$ also means $\ccsasg(\literal{X}) \defeq P$ (@def-ccs-semantics) |
 
 ### Orders and Vectors {.unnumbered .unlisted}
 
@@ -77,7 +77,7 @@ toc-title: "Notation"
 | ${\game}_\notionname{B}$   | Bisimulation game in the context of a transition system (@def-bisim-game)                    |
 | ${\game}_\notionname{B}^{🗲}$ | Bisimulation energy game (@def-bisim-energy-game)                                           |
 | $\attackerwins$, $\defenderwins$ | Attacker / defender winning regions in the context of a reachability game (@def-winning-region), or winning budgets in an energy game (@def-winning-budgets) |
-| $\attackerwinsmin(g)$      | Minimal attacker winning budgets for position $g$ in an energy game (@def-winning-budgets)   |
+| $\attackerwinsmin(g)$      | Minimal attacker winning budgets for position $g$ in an energy game (@def-winning-budgets), solution to @prob-energy-game-problem |
 | $\abstractupdate$, $\abstractupdateinv$ | Updates on energy games (@def-energy-game) and their undo-function in the algorithm for Galois energy games (@alg-deciding-energy-games) |
 | $\energies$                | Energy levels on declining energy games in the context of a dimensionality $d$ (@def-energy-updates) |
 | $\energyupdate$, $\energyupdateinv$ | Updates on declining energy games (@def-energy-updates) and their undo-version (@def-declining-upd-inv) |

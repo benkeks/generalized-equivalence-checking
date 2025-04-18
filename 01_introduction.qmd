@@ -355,7 +355,7 @@ For instance, this excludes questions around value-passing and open/late/early b
 Also, we do not consider timed or probabilistic equivalences [cf. @bdh2020probabilisticSpectrum], nor behavioral distances [@fahrenberg2014quantitativeLTBTS].
 Neither do we aim to re-survey behavioral equivalences in encyclopedic detail, which means that several notions will be covered without a detailed discussion of their features and merits.
 
-## Artifacts and Papers
+## Artifacts and Papers {#sec-artifacts-papers}
 
 This thesis ties together the work of several publications in a coherent presentation.
 It is written to be understandable on its own.

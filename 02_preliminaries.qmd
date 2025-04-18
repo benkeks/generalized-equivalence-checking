@@ -741,6 +741,39 @@ $$
 $$
 -->
 
+::: {#rem-csp-ccs}
+#### Origins of linear time and branching time
+
+This thesis builds on the idea that behavioral equivalences form a *spectrum* between linear-time notions and branching-time notions.
+This hierarchy corresponds to “how much” calculation is allowed on algebraic expressions of processes.
+
+Bisimilarity is the prototypical *branching-time* equivalence: every decision during execution counts.
+Trace equivalence is the prototypical *linear-time* notion: only sequences of actions count.
+Therefore, more can be seen as equivalent than in bisimilarity.
+
+In the concurrency theory community, two prototypical *process algebras* stand for this spread:
+CCS for bisimilarity and branching time,
+and CSP for trace equivalence and linear-time.
+CSP (“Communicating Sequential Processes”) is due to Tony Hoare, another Turing award winner.
+
+@hoare1985csp [§ 7.4.1] summarizes the opposing design philosophies between CCS and CSP as follows:
+
+> [...] CCS is intended to serve as a framework for a family of models, each of which may make more identifications than CCS but cannot make less.
+> To avoid restricting the range of models, CCS makes only those identifications which seem absolutely essential.
+> In the mathematical model of [CSP] we have pursued exactly the opposite goal—we have made as many identifications as possible, preserving only the most essential distinctions.
+> We have therefore a far richer set of algebraic laws.
+
+The first comprehensive study on the correspondence between the hierachy of equivalences and algebraic laws has been dubbed “linear-time–branching-time spectrum” by @glabbeek1990ltbt1.
+
+Historically, therefore, this thesis originates from the variants of models between the works of two Turing award winners: Milner's CCS and Hoare's CSP.
+Or, as @hoare2006whyEverCSP puts it:
+“It seems that CCS and CSP occupy extreme ends of almost every spectrum.”
+<!--
+> Of all subsequently explored process calculi, CCS defined a minimal set of primitives and operators, with a minimal set of equations relating them, whereas CSP has explored a wide range of concepts that have proved useful in concurrent system design.
+-->
+:::
+
+
 ### Quotient Systems and Minimizations
 
 One of the prime applications of behavioral equivalences is to battle the *state space explosion problem*:

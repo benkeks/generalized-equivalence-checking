@@ -346,7 +346,7 @@ We close with a discussion of the wider picture in @sec-conclusion and how this 
 Recurring symbols can be looked up under [Notation](#sec-notation)`~on page~\pageref{sec-notation}`{=latex}.
 
 {{< paragraph_heading "Not this thesis." >}}
-We limit ourselves to the spectra of @glabbeek1990ltbt1 and @glabbeek1993ltbt.
+We limit ourselves to the *strong spectrum* [@glabbeek1990ltbt1] and the *weak spectrum* [@glabbeek1993ltbt].
 For instance, this excludes questions around value-passing and open/late/early bisimilarities and barbed congruences on the $\pi$-calculus [cf. @sangiorgi1996bisimPi].
 Also, we do not consider timed or probabilistic equivalences [cf. @bdh2020probabilisticSpectrum], nor behavioral distances [@fahrenberg2014quantitativeLTBTS].
 Neither do we aim to re-survey behavioral equivalences in encyclopedic detail, which means that several notions will be covered without a detailed discussion of their features and merits.

@@ -1,581 +1,705 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="550"
+   width="665"
    height="405"
    version="1.1"
-   id="svg268"
+   id="svg116"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs272" />
+     id="defs116" />
   <g
-     transform="translate(275, 405)"
-     id="g266">
+     transform="translate(342,391)"
+     id="g116">
     <g
-       id="g68">
+       id="g36">
       <path
-         d="M0 -10 L 0 -25"
-         style="stroke: black;"
+         d="M 0,-12 V -30"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path1" />
+      <path
+         d="M 0,-30 5,-97"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path2" />
       <path
-         d="M0 -25 L 2 -90"
-         style="stroke: black;"
+         d="m 0,-30 155,-77"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path3" />
+      <path
+         d="M 0,-30 -162.5,-85"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path4" />
       <path
-         d="M0 -25 L 82 -105"
-         style="stroke: black;"
+         d="M 0,-30 62.5,-160"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path5" />
+      <path
+         d="m 5,-97 -30,-10"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path6" />
       <path
-         d="M0 -25 L -100 -87.5"
-         style="stroke: black;"
+         d="m 5,-97 37.5,-45"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path7" />
+      <path
+         d="m 155,-107 -30,-10"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path8" />
       <path
-         d="M2 -90 L -8 -105"
-         style="stroke: black;"
+         d="m 155,-107 37.5,-45"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path9" />
+      <path
+         d="m -25,-107 -7.5,-60"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path10" />
       <path
-         d="M2 -90 L 24.5 -127.5"
-         style="stroke: black;"
+         d="m -25,-107 -97.5,-33"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path11" />
+      <path
+         d="M 125,-117 90,-127"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path12" />
       <path
-         d="M82 -105 L 42 -135"
-         style="stroke: black;"
+         d="m 125,-117 50,-48"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path13" />
+      <path
+         d="m 90,-127 50,-48"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path14" />
       <path
-         d="M82 -105 L 132 -180"
-         style="stroke: black;"
+         d="m 175,-165 -35,-10"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path15" />
+      <path
+         d="M 140,-175 87.5,-190"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path16" />
       <path
-         d="M82 -105 L 104.5 -142.5"
-         style="stroke: black;"
+         d="m 192.5,-152 -45,-120.5"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path17" />
+      <path
+         d="m 42.5,-142 -75,-25"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path18" />
       <path
-         d="M-8 -105 L -0.5 -165"
-         style="stroke: black;"
+         d="m 42.5,-142 -30,-55.5"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path19" />
+      <path
+         d="M -32.5,-167 -85,-185"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path20" />
       <path
-         d="M-8 -105 L -68 -142.5"
-         style="stroke: black;"
+         d="m -162.5,-85 -75,-30"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path21" />
+      <path
+         d="m -162.5,-85 40,-55"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path22" />
       <path
-         d="M42 -135 L 102 -195"
-         style="stroke: black;"
+         d="m -237.5,-115 100,-137.5"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path23" />
+      <path
+         d="M -122.5,-140 -85,-185"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path24" />
       <path
-         d="M132 -180 L 102 -195"
-         style="stroke: black;"
+         d="m 62.5,-160 25,-30"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path25" />
+      <path
+         d="m 87.5,-190 60,-82.5"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path26" />
       <path
-         d="M102 -195 L 57 -217.5"
-         style="stroke: black;"
+         d="m -85,-185 22.5,-37.5"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path27" />
+      <path
+         d="m 12.5,-197.5 -75,-25"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path28" />
       <path
-         d="M24.5 -127.5 L -0.5 -165"
-         style="stroke: black;"
+         d="m 147.5,-272.5 -100,-75"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path29" />
+      <path
+         d="m -62.5,-222.5 -12.5,-45"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path30" />
       <path
-         d="M24.5 -127.5 L 5 -187.5"
-         style="stroke: black;"
+         d="m -62.5,-222.5 -75,-30"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path31" />
+      <path
+         d="m -75,-267.5 122.5,-80"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path32" />
       <path
-         d="M104.5 -142.5 L 105 -300"
-         style="stroke: black;"
+         d="m -75,-267.5 -75,-30"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path33" />
+      <path
+         d="m 47.5,-347.5 -75,-30"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
          id="path34" />
       <path
-         d="M-0.5 -165 L -45.5 -180"
-         style="stroke: black;"
-         id="path36" />
+         d="m -137.5,-252.5 -12.5,-45"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path35" />
       <path
-         d="M-100 -87.5 L -162.5 -112.5"
-         style="stroke: black;"
+         d="m -150,-297.5 122.5,-80"
+         style="stroke:#000000;stroke-width:2;stroke-opacity:0.3"
+         id="path36" />
+    </g>
+    <g
+       id="g47">
+      <path
+         d="m 155,-92 v -15"
+         style="stroke:#cc1100"
+         id="path37" />
+      <path
+         d="M 5,-82 V -97"
+         style="stroke:#cc1100"
          id="path38" />
       <path
-         d="M-100 -87.5 L -68 -142.5"
-         style="stroke: black;"
+         d="m -237.5,-100 v -15"
+         style="stroke:#cc1100"
+         id="path39" />
+      <path
+         d="m 147.5,-257.5 v -15"
+         style="stroke:#cc1100"
          id="path40" />
       <path
-         d="M-162.5 -112.5 L -82.5 -250"
-         style="stroke: black;"
+         d="m 47.5,-332.5 v -15"
+         style="stroke:#cc1100"
+         id="path41" />
+      <path
+         d="m 47.5,-332.5 v -15"
+         style="stroke:#cc1100"
          id="path42" />
       <path
-         d="M-68 -142.5 L -45.5 -180"
-         style="stroke: black;"
+         d="m 12.5,-182.5 v -15"
+         style="stroke:#cc1100"
+         id="path43" />
+      <path
+         d="M 118.75,-132.5 175,-165"
+         style="stroke:#cc1100"
          id="path44" />
       <path
-         d="M57 -217.5 L 105 -300"
-         style="stroke: black;"
+         d="M 118.75,-132.5 62.5,-160"
+         style="stroke:#cc1100"
+         id="path45" />
+      <path
+         d="M 76.25,-113.5 90,-127"
+         style="stroke:#cc1100"
          id="path46" />
       <path
-         d="M-45.5 -180 L -20 -225"
-         style="stroke: black;"
-         id="path48" />
-      <path
-         d="M5 -187.5 L -20 -225"
-         style="stroke: black;"
-         id="path50" />
-      <path
-         d="M105 -300 L 50 -362.5"
-         style="stroke: black;"
-         id="path52" />
-      <path
-         d="M-20 -225 L 0 -262.5"
-         style="stroke: black;"
-         id="path54" />
-      <path
-         d="M-20 -225 L -82.5 -250"
-         style="stroke: black;"
-         id="path56" />
-      <path
-         d="M0 -262.5 L 50 -362.5"
-         style="stroke: black;"
-         id="path58" />
-      <path
-         d="M0 -262.5 L -62.5 -287.5"
-         style="stroke: black;"
-         id="path60" />
-      <path
-         d="M50 -362.5 L -12.5 -387.5"
-         style="stroke: black;"
-         id="path62" />
-      <path
-         d="M-82.5 -250 L -62.5 -287.5"
-         style="stroke: black;"
-         id="path64" />
-      <path
-         d="M-62.5 -287.5 L -12.5 -387.5"
-         style="stroke: black;"
-         id="path66" />
+         d="M 76.25,-113.5 62.5,-160"
+         style="stroke:#cc1100"
+         id="path47" />
     </g>
     <g
-       id="g84">
-      <path
-         d="M97 -130 L 104.5 -142.5"
-         style="stroke: rgb(204, 17, 0);"
-         id="path70" />
-      <path
-         d="M54 -95 L 50 -362.5"
-         style="stroke: rgb(204, 17, 0);"
-         id="path72" />
-      <path
-         d="M149 -155 L 105 -300"
-         style="stroke: rgb(204, 17, 0);"
-         id="path74" />
-      <path
-         d="M2 -75 L 2 -90"
-         style="stroke: rgb(204, 17, 0);"
-         id="path76" />
-      <path
-         d="M-65 -45 L -162.5 -112.5"
-         style="stroke: rgb(204, 17, 0);"
-         id="path78" />
-      <path
-         d="M-11 -115 L 5 -187.5"
-         style="stroke: rgb(204, 17, 0);"
-         id="path80" />
-      <path
-         d="M67 -55 L 82 -105"
-         style="stroke: rgb(204, 17, 0);"
-         id="path82" />
-    </g>
-    <g
-       id="g182">
+       id="g72">
       <circle
          cx="0"
-         cy="-10"
+         cy="-12"
          r="4"
-         style="fill: rgb(17, 119, 221); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle88">
+         style="fill:#1177dd;stroke:#33aaff;stroke-width:0"
+         id="circle47">
         <title
-           id="title86">(1,0,0,0,0,0,0,0,0)</title>
+           id="title47">(1,0,0,0,0,0,0,0,0)</title>
       </circle>
       <circle
          cx="0"
-         cy="-25"
+         cy="-30"
          r="4"
-         style="fill: rgb(17, 119, 221); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle92">
+         style="fill:#1177dd;stroke:#33aaff;stroke-width:0"
+         id="circle48">
         <title
-           id="title90">(∞,0,0,0,0,0,0,0,0)</title>
-      </circle>
-      <circle
-         cx="2"
-         cy="-90"
-         r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle96">
-        <title
-           id="title94">(∞,0,1,0,0,0,0,1,1)</title>
-      </circle>
-      <circle
-         cx="82"
-         cy="-105"
-         r="4"
-         style="fill: rgb(85, 119, 170); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle100">
-        <title
-           id="title98">(∞,0,0,1,0,0,0,1,1)</title>
-      </circle>
-      <circle
-         cx="-8"
-         cy="-105"
-         r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle104">
-        <title
-           id="title102">(∞,0,1,0,0,1,0,1,1)</title>
-      </circle>
-      <circle
-         cx="42"
-         cy="-135"
-         r="4"
-         style="fill: rgb(85, 119, 170); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle108">
-        <title
-           id="title106">(∞,0,0,1,0,1,1,1,1)</title>
-      </circle>
-      <circle
-         cx="132"
-         cy="-180"
-         r="4"
-         style="fill: rgb(85, 119, 170); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle112">
-        <title
-           id="title110">(∞,0,0,∞,0,∞,0,1,1)</title>
-      </circle>
-      <circle
-         cx="102"
-         cy="-195"
-         r="4"
-         style="fill: rgb(85, 119, 170); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle116">
-        <title
-           id="title114">(∞,0,0,∞,0,∞,1,1,1)</title>
-      </circle>
-      <circle
-         cx="24.5"
-         cy="-127.5"
-         r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle120">
-        <title
-           id="title118">(∞,0,1,0,0,0,0,∞,1)</title>
-      </circle>
-      <circle
-         cx="104.5"
-         cy="-142.5"
-         r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle124">
-        <title
-           id="title122">(∞,0,0,1,0,0,0,∞,1)</title>
-      </circle>
-      <circle
-         cx="-0.5"
-         cy="-165"
-         r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle128">
-        <title
-           id="title126">(∞,0,1,0,0,∞,0,∞,1)</title>
-      </circle>
-      <circle
-         cx="-100"
-         cy="-87.5"
-         r="4"
-         style="fill: rgb(17, 119, 221); stroke-width: 4; stroke: rgb(51, 170, 255);"
-         id="circle132">
-        <title
-           id="title130">(∞,0,∞,0,0,∞,0,0,0)</title>
-      </circle>
-      <circle
-         cx="-162.5"
-         cy="-112.5"
-         r="4"
-         style="fill: rgb(85, 119, 170); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle136">
-        <title
-           id="title134">(∞,∞,∞,0,0,∞,0,0,0)</title>
-      </circle>
-      <circle
-         cx="-68"
-         cy="-142.5"
-         r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle140">
-        <title
-           id="title138">(∞,0,∞,0,0,∞,0,1,1)</title>
-      </circle>
-      <circle
-         cx="57"
-         cy="-217.5"
-         r="4"
-         style="fill: rgb(85, 119, 170); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle144">
-        <title
-           id="title142">(∞,0,0,∞,0,∞,∞,1,1)</title>
-      </circle>
-      <circle
-         cx="-45.5"
-         cy="-180"
-         r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle148">
-        <title
-           id="title146">(∞,0,∞,0,0,∞,0,∞,1)</title>
+           id="title48">(∞,0,0,0,0,0,0,0,0)</title>
       </circle>
       <circle
          cx="5"
-         cy="-187.5"
+         cy="-97"
          r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle152">
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle49">
         <title
-           id="title150">(∞,0,∞,0,0,0,0,∞,∞)</title>
+           id="title49">(∞,0,1,0,0,0,0,1,1)</title>
       </circle>
       <circle
-         cx="105"
-         cy="-300"
+         cx="155"
+         cy="-107"
          r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle156">
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle50">
         <title
-           id="title154">(∞,0,0,∞,0,∞,∞,∞,∞)</title>
+           id="title50">(∞,0,0,1,0,0,0,1,1)</title>
       </circle>
       <circle
-         cx="-20"
-         cy="-225"
+         cx="-25"
+         cy="-107"
          r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle160">
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle51">
         <title
-           id="title158">(∞,0,∞,0,0,∞,0,∞,∞)</title>
+           id="title51">(∞,0,1,0,0,1,0,1,1)</title>
       </circle>
       <circle
-         cx="0"
-         cy="-262.5"
+         cx="125"
+         cy="-117"
          r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle164">
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle52">
         <title
-           id="title162">(∞,0,∞,0,∞,∞,0,∞,∞)</title>
+           id="title52">(∞,0,0,1,0,1,0,1,1)</title>
       </circle>
       <circle
-         cx="50"
-         cy="-362.5"
+         cx="90"
+         cy="-127"
          r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle168">
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle53">
         <title
-           id="title166">(∞,0,∞,∞,∞,∞,∞,∞,∞)</title>
+           id="title53">(∞,0,0,1,0,1,1,1,1)</title>
       </circle>
       <circle
-         cx="-82.5"
-         cy="-250"
+         cx="175"
+         cy="-165"
          r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle172">
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle54">
         <title
-           id="title170">(∞,∞,∞,0,0,∞,0,∞,∞)</title>
+           id="title54">(∞,0,0,∞,0,∞,0,1,1)</title>
+      </circle>
+      <circle
+         cx="140"
+         cy="-175"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle55">
+        <title
+           id="title55">(∞,0,0,∞,0,∞,1,1,1)</title>
+      </circle>
+      <circle
+         cx="192.5"
+         cy="-152"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle56">
+        <title
+           id="title56">(∞,0,0,1,0,0,0,∞,1)</title>
+      </circle>
+      <circle
+         cx="42.5"
+         cy="-142"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle57">
+        <title
+           id="title57">(∞,0,1,0,0,0,0,∞,1)</title>
+      </circle>
+      <circle
+         cx="-32.5"
+         cy="-167"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle58">
+        <title
+           id="title58">(∞,0,1,0,0,∞,0,∞,1)</title>
+      </circle>
+      <circle
+         cx="-162.5"
+         cy="-85"
+         r="4"
+         style="fill:#1177dd;stroke:#33aaff;stroke-width:4"
+         id="circle59">
+        <title
+           id="title59">(∞,0,∞,0,0,∞,0,0,0)</title>
+      </circle>
+      <circle
+         cx="-237.5"
+         cy="-115"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle60">
+        <title
+           id="title60">(∞,∞,∞,0,0,∞,0,0,0)</title>
+      </circle>
+      <circle
+         cx="-122.5"
+         cy="-140"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle61">
+        <title
+           id="title61">(∞,0,∞,0,0,∞,0,1,1)</title>
+      </circle>
+      <circle
+         cx="62.5"
+         cy="-160"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle62">
+        <title
+           id="title62">(∞,0,0,∞,0,∞,∞,0,1)</title>
+      </circle>
+      <circle
+         cx="87.5"
+         cy="-190"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle63">
+        <title
+           id="title63">(∞,0,0,∞,0,∞,∞,1,1)</title>
+      </circle>
+      <circle
+         cx="-85"
+         cy="-185"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle64">
+        <title
+           id="title64">(∞,0,∞,0,0,∞,0,∞,1)</title>
+      </circle>
+      <circle
+         cx="12.5"
+         cy="-197.5"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle65">
+        <title
+           id="title65">(∞,0,∞,0,0,0,0,∞,∞)</title>
+      </circle>
+      <circle
+         cx="147.5"
+         cy="-272.5"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle66">
+        <title
+           id="title66">(∞,0,0,∞,0,∞,∞,∞,∞)</title>
       </circle>
       <circle
          cx="-62.5"
-         cy="-287.5"
+         cy="-222.5"
          r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle176">
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle67">
         <title
-           id="title174">(∞,∞,∞,0,∞,∞,0,∞,∞)</title>
+           id="title67">(∞,0,∞,0,0,∞,0,∞,∞)</title>
       </circle>
       <circle
-         cx="-12.5"
-         cy="-387.5"
+         cx="-75"
+         cy="-267.5"
          r="4"
-         style="fill: rgb(153, 34, 17); stroke-width: 0; stroke: rgb(51, 170, 255);"
-         id="circle180">
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle68">
         <title
-           id="title178">(∞,∞,∞,∞,∞,∞,∞,∞,∞)</title>
+           id="title68">(∞,0,∞,0,∞,∞,0,∞,∞)</title>
+      </circle>
+      <circle
+         cx="47.5"
+         cy="-347.5"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle69">
+        <title
+           id="title69">(∞,0,∞,∞,∞,∞,∞,∞,∞)</title>
+      </circle>
+      <circle
+         cx="-137.5"
+         cy="-252.5"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle70">
+        <title
+           id="title70">(∞,∞,∞,0,0,∞,0,∞,∞)</title>
+      </circle>
+      <circle
+         cx="-150"
+         cy="-297.5"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle71">
+        <title
+           id="title71">(∞,∞,∞,0,∞,∞,0,∞,∞)</title>
+      </circle>
+      <circle
+         cx="-27.5"
+         cy="-377.5"
+         r="4"
+         style="fill:#992211;stroke:#33aaff;stroke-width:0"
+         id="circle72">
+        <title
+           id="title72">(∞,∞,∞,∞,∞,∞,∞,∞,∞)</title>
       </circle>
     </g>
     <g
-       id="g200">
+       id="g73">
+      <path
+         d="m -237.5,-119 a 4,4 0 0 0 0,8 z"
+         style="fill:#1177dd;stroke:#33aaff"
+         id="path72" />
+      <path
+         d="m 62.5,-164 a 4,4 0 0 0 0,8 z"
+         style="fill:#1177dd;stroke:#33aaff"
+         id="path73" />
+    </g>
+    <g
+       id="g82">
+      <path
+         d="m 5,-101 a 4,4 0 0 1 0,8 z"
+         style="fill:#1177dd;stroke:#33aaff"
+         id="path74" />
+      <path
+         d="m 155,-111 a 4,4 0 0 1 0,8 z"
+         style="fill:#1177dd;stroke:#33aaff"
+         id="path75" />
+      <path
+         d="m -25,-111 a 4,4 0 0 1 0,8 z"
+         style="fill:#1177dd;stroke:#33aaff"
+         id="path76" />
+      <path
+         d="m 125,-121 a 4,4 0 0 1 0,8 z"
+         style="fill:#1177dd;stroke:#33aaff"
+         id="path77" />
+      <path
+         d="m 192.5,-156 a 4,4 0 0 1 0,8 z"
+         style="fill:#1177dd;stroke:#33aaff"
+         id="path78" />
+      <path
+         d="m 42.5,-146 a 4,4 0 0 1 0,8 z"
+         style="fill:#1177dd;stroke:#33aaff"
+         id="path79" />
+      <path
+         d="m -32.5,-171 a 4,4 0 0 1 0,8 z"
+         style="fill:#1177dd;stroke:#33aaff"
+         id="path80" />
+      <path
+         d="m -122.5,-144 a 4,4 0 0 1 0,8 z"
+         style="fill:#1177dd;stroke:#33aaff"
+         id="path81" />
+      <path
+         d="m -85,-189 a 4,4 0 0 1 0,8 z"
+         style="fill:#1177dd;stroke:#33aaff"
+         id="path82" />
+    </g>
+    <g
+       id="g83">
       <polygon
-         points="94,-134 102,-130 94,-126"
-         style="fill: rgb(204, 17, 0);"
-         id="polygon186">
+         points="152,-96 160,-92 152,-88 "
+         style="fill:#cc1100"
+         id="polygon82">
         <title
-           id="title184">⟨ϵ⟩⟨ecA⟩⟨ϵ⟩⋀{¬⟨ϵ⟩⟨lcA⟩⟨ϵ⟩⟨ecA⟩⊤,¬⟨τ⟩⊤}</title>
+           id="title82">⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecA⟩⊤,¬⟨τ⟩⊤}</title>
       </polygon>
       <polygon
-         points="51,-99 59,-95 51,-91"
-         style="fill: rgb(204, 17, 0);"
-         id="polygon190">
+         points="2,-86 10,-82 2,-78 "
+         style="fill:#cc1100"
+         id="polygon83">
         <title
-           id="title188">⟨ϵ⟩⋀{¬⟨ϵ⟩⋀{¬⟨τ⟩⊤}}</title>
-      </polygon>
-      <polygon
-         points="146,-159 154,-155 146,-151"
-         style="fill: rgb(204, 17, 0);"
-         id="polygon194">
-        <title
-           id="title192">⟨ϵ⟩⟨ecB⟩⟨ϵ⟩⋀{¬⟨ϵ⟩⟨lcB⟩⟨ϵ⟩⋀{¬⟨τ⟩⊤},¬⟨τ⟩⊤}</title>
-      </polygon>
-      <polygon
-         points="-1,-79 7,-75 -1,-71"
-         style="fill: rgb(204, 17, 0);"
-         id="polygon198">
-        <title
-           id="title196">⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤}</title>
+           id="title83">⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤}</title>
       </polygon>
     </g>
     <g
-       id="g214">
+       id="g90">
       <polygon
-         points="-62,-49 -62,-41 -70,-45"
+         points="-234.5,-104 -234.5,-96 -242.5,-100 "
          title="⟨ϵ⟩⋀{⟨ecB⟩⊤,⟨ϵ⟩⟨ecA⟩⊤}"
-         style="fill: rgb(204, 17, 0);"
-         id="polygon204">
+         style="fill:#cc1100"
+         id="polygon84">
         <title
-           id="title202">⟨ϵ⟩⋀{⟨ecB⟩⊤,⟨ϵ⟩⟨ecA⟩⊤}</title>
+           id="title84">⟨ϵ⟩⋀{⟨ecB⟩⊤,⟨ϵ⟩⟨ecA⟩⊤}</title>
       </polygon>
       <polygon
-         points="-8,-119 -8,-111 -16,-115"
+         points="150.5,-261.5 150.5,-253.5 142.5,-257.5 "
+         title="⟨ϵ⟩⋀{¬⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤,¬⟨τ⟩⊤},¬⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecA⟩⊤,¬⟨τ⟩⊤},¬⟨τ⟩⊤}"
+         style="fill:#cc1100"
+         id="polygon85">
+        <title
+           id="title85">⟨ϵ⟩⋀{¬⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤,¬⟨τ⟩⊤},¬⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecA⟩⊤,¬⟨τ⟩⊤},¬⟨τ⟩⊤}</title>
+      </polygon>
+      <polygon
+         points="50.5,-336.5 50.5,-328.5 42.5,-332.5 "
+         title="⟨ϵ⟩⋀{¬⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecA⟩⊤},¬⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤},¬⟨τ⟩⊤}"
+         style="fill:#cc1100"
+         id="polygon86">
+        <title
+           id="title86">⟨ϵ⟩⋀{¬⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecA⟩⊤},¬⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤},¬⟨τ⟩⊤}</title>
+      </polygon>
+      <polygon
+         points="50.5,-336.5 50.5,-328.5 42.5,-332.5 "
+         title="⟨ϵ⟩⋀{⟨ϵ⟩⋀{⟨ϵ⟩⟨ecB⟩⊤,⟨ϵ⟩⟨ecA⟩⊤},¬⟨τ⟩⊤}"
+         style="fill:#cc1100"
+         id="polygon87">
+        <title
+           id="title87">⟨ϵ⟩⋀{⟨ϵ⟩⋀{⟨ϵ⟩⟨ecB⟩⊤,⟨ϵ⟩⟨ecA⟩⊤},¬⟨τ⟩⊤}</title>
+      </polygon>
+      <polygon
+         points="15.5,-186.5 15.5,-178.5 7.5,-182.5 "
          title="⟨ϵ⟩⋀{¬⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecA⟩⊤},¬⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤}}"
-         style="fill: rgb(204, 17, 0);"
-         id="polygon208">
+         style="fill:#cc1100"
+         id="polygon88">
         <title
-           id="title206">⟨ϵ⟩⋀{¬⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecA⟩⊤},¬⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤}}</title>
+           id="title88">⟨ϵ⟩⋀{¬⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecA⟩⊤},¬⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤}}</title>
       </polygon>
       <polygon
-         points="70,-59 70,-51 62,-55"
-         title="⟨ϵ⟩⋀{¬⟨τ⟩⊤}"
-         style="fill: rgb(204, 17, 0);"
-         id="polygon212">
+         points="121.75,-136.5 121.75,-128.5 113.75,-132.5 "
+         title="⟨ϵ⟩⟨ecB⟩⟨ϵ⟩⋀{⟨ϵ⟩⟨lcB⟩⟨ϵ⟩⟨ecB⟩⊤,¬⟨τ⟩⊤}"
+         style="fill:#cc1100"
+         id="polygon89">
         <title
-           id="title210">⟨ϵ⟩⋀{¬⟨τ⟩⊤}</title>
+           id="title89">⟨ϵ⟩⟨ecB⟩⟨ϵ⟩⋀{⟨ϵ⟩⟨lcB⟩⟨ϵ⟩⟨ecB⟩⊤,¬⟨τ⟩⊤}</title>
+      </polygon>
+      <polygon
+         points="79.25,-117.5 79.25,-109.5 71.25,-113.5 "
+         title="⟨ϵ⟩⋀{⟨ϵ⟩⟨ecA⟩⊤,⟨ϵ⟩⟨ecB⟩⊤,¬⟨τ⟩⊤}"
+         style="fill:#cc1100"
+         id="polygon90">
+        <title
+           id="title90">⟨ϵ⟩⋀{⟨ϵ⟩⟨ecA⟩⊤,⟨ϵ⟩⟨ecB⟩⊤,¬⟨τ⟩⊤}</title>
       </polygon>
     </g>
     <g
-       id="g264">
+       id="g115">
       <text
          x="5"
-         y="-5"
+         y="-7"
          text-anchor="start"
-         id="text216">weak-enabledness</text>
+         id="text90">weak-enabledness</text>
       <text
          x="5"
-         y="-20"
+         y="-25"
          text-anchor="start"
-         id="text218">weak-traces</text>
-      <text
-         x="7"
-         y="-85"
-         text-anchor="start"
-         id="text220">unstable-failure</text>
-      <text
-         x="87"
-         y="-100"
-         text-anchor="start"
-         id="text222">weak-failure</text>
-      <text
-         x="-13"
-         y="-100"
-         text-anchor="end"
-         id="text224">unstable-readiness</text>
-      <text
-         x="47"
-         y="-130"
-         text-anchor="start"
-         id="text226">weak-readiness</text>
-      <text
-         x="137"
-         y="-175"
-         text-anchor="start"
-         id="text228">weak-failure-trace</text>
-      <text
-         x="107"
-         y="-190"
-         text-anchor="start"
-         id="text230">weak-ready-trace</text>
-      <text
-         x="29.5"
-         y="-122.5"
-         text-anchor="start"
-         id="text232">weak-impossible-future</text>
-      <text
-         x="109.5"
-         y="-137.5"
-         text-anchor="start"
-         id="text234">s-impossible-future</text>
-      <text
-         x="-5.5"
-         y="-160"
-         text-anchor="end"
-         id="text236">weak-possible-future</text>
-      <text
-         x="-105"
-         y="-82.5"
-         text-anchor="end"
-         id="text238">weak-simulation</text>
-      <text
-         x="-167.5"
-         y="-107.5"
-         text-anchor="end"
-         id="text240">eta-simulation</text>
-      <text
-         x="-73"
-         y="-137.5"
-         text-anchor="end"
-         id="text242">weak-ready-simulation</text>
-      <text
-         x="62"
-         y="-212.5"
-         text-anchor="start"
-         id="text244">s-ready-simulation</text>
-      <text
-         x="-50.5"
-         y="-175"
-         text-anchor="end"
-         id="text246">2-nested-weak-simulation</text>
+         id="text91">weak-trace</text>
       <text
          x="10"
-         y="-182.5"
+         y="-92"
          text-anchor="start"
-         id="text248">contrasimulation</text>
+         id="text92">weak-failure</text>
       <text
-         x="110"
-         y="-295"
+         x="160"
+         y="-102"
          text-anchor="start"
-         id="text250">stable-bisimulation</text>
+         id="text93">stable-failure</text>
       <text
-         x="-25"
-         y="-220"
+         x="-30"
+         y="-102"
          text-anchor="end"
-         id="text252">weak-bisimulation</text>
+         id="text94">weak-readiness</text>
       <text
-         x="5"
-         y="-257.5"
+         x="130"
+         y="-112"
          text-anchor="start"
-         id="text254">delay-bisimulation</text>
+         id="text95">stable-revivals</text>
       <text
-         x="55"
-         y="-357.5"
+         x="95"
+         y="-122"
          text-anchor="start"
-         id="text256">sr-delay-bisimulation</text>
+         id="text96">stable-readiness</text>
       <text
-         x="-87.5"
-         y="-245"
+         x="180"
+         y="-160"
+         text-anchor="start"
+         id="text97">stable-failure-trace</text>
+      <text
+         x="145"
+         y="-170"
+         text-anchor="start"
+         id="text98">stable-ready-trace</text>
+      <text
+         x="197.5"
+         y="-147"
+         text-anchor="start"
+         id="text99">s-impossible-future</text>
+      <text
+         x="47.5"
+         y="-137"
+         text-anchor="start"
+         id="text100">weak-impossible-future</text>
+      <text
+         x="-37.5"
+         y="-162"
          text-anchor="end"
-         id="text258">eta-bisimulation</text>
+         id="text101">weak-possible-future</text>
+      <text
+         x="-167.5"
+         y="-80"
+         text-anchor="end"
+         id="text102">weak-simulation</text>
+      <text
+         x="-242.5"
+         y="-110"
+         text-anchor="end"
+         id="text103">eta-simulation</text>
+      <text
+         x="-127.5"
+         y="-135"
+         text-anchor="end"
+         id="text104">weak-ready-simulation</text>
+      <text
+         x="67.5"
+         y="-155"
+         text-anchor="start"
+         id="text105">stable-simulation</text>
+      <text
+         x="92.5"
+         y="-185"
+         text-anchor="start"
+         id="text106">s-ready-simulation</text>
+      <text
+         x="-90"
+         y="-180"
+         text-anchor="end"
+         id="text107">2-nested-weak-simulation</text>
+      <text
+         x="17.5"
+         y="-192.5"
+         text-anchor="start"
+         id="text108">contrasimulation</text>
+      <text
+         x="152.5"
+         y="-267.5"
+         text-anchor="start"
+         id="text109">stable-bisimulation</text>
       <text
          x="-67.5"
-         y="-282.5"
+         y="-217.5"
          text-anchor="end"
-         id="text260">branching-bisimulation</text>
+         id="text110">weak-bisimulation</text>
       <text
-         x="-17.5"
-         y="-382.5"
+         x="-80"
+         y="-262.5"
          text-anchor="end"
-         id="text262">sr-branching-bisimulation</text>
+         id="text111">delay-bisimulation</text>
+      <text
+         x="52.5"
+         y="-342.5"
+         text-anchor="start"
+         id="text112">sr-delay-bisimulation</text>
+      <text
+         x="-142.5"
+         y="-247.5"
+         text-anchor="end"
+         id="text113">eta-bisimulation</text>
+      <text
+         x="-155"
+         y="-292.5"
+         text-anchor="end"
+         id="text114">branching-bisimulation</text>
+      <text
+         x="-32.5"
+         y="-372.5"
+         text-anchor="end"
+         id="text115">sr-branching-bisimulation</text>
     </g>
   </g>
 </svg>

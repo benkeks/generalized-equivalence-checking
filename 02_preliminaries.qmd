@@ -744,7 +744,7 @@ $$
 ::: {#rem-csp-ccs}
 #### Origins of linear time and branching time
 
-This thesis builds on the idea that behavioral equivalences form a *spectrum* between linear-time notions and branching-time notions.
+This thesis builds on the classic idea that behavioral equivalences form a *spectrum* between linear-time notions and branching-time notions.
 This hierarchy corresponds to “how much” calculation is allowed on algebraic expressions of processes.
 
 Bisimilarity is the prototypical *branching-time* equivalence: every decision during execution counts.

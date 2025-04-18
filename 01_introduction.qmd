@@ -258,18 +258,22 @@ This query leads to the output in @fig-peterson-spectrum:^[
   This thesis often provides snippets for models on {{< equivio >}}.
   You can examine and modify the example models by clicking on the links reading `Interactive model on equiv.io`.
 ]
-Weak simulation indeed is the finest equivalence to equate $\literal{Pe}$ and $\literal{Mx}$!
-Moreover, $\literal{Pe}$ is *preordered* to $\literal{Mx}$ with respect to two more specific notions, namely *$\eta$-simulation* and *stable simulation* (and notions below).
-Intuitively, this means that $\literal{Pe}$ *implements* $\literal{Mx}$ more faithfully than pure weak similarity would demand.
 
-::: {#fig-peterson-spectrum .column-margin}
+::: {#fig-peterson-spectrum}
 
 ![](img/peterson-spectrum.svg){.lightbox}
-<!-- TODO: Final version: Update with final display. -->
 
-Output of equiv.io about weak equivalences to relate $\literal{Mx}$ to $\literal{Pe}$ of @exm-peterson-mutex.
-TODO: Update svg for new version!
+Output of equiv.io about weak equivalences to relate $\literal{Pe}$ to $\literal{Mx}$ of @exm-peterson-mutex.
 :::
+
+\noindent
+The big blue circle ![](img/equivio-eq.svg){width=0.9em} indicates that weak simulation indeed is the finest equivalence to equate $\literal{Pe}$ and $\literal{Mx}$.
+Blue half-circles ![](img/equivio-preord.svg){width=0.9em} indicate preordering in only one direction.
+For instance, $\literal{Pe}$ is *preordered* to $\literal{Mx}$ with respect to two more specific notions, namely $\eta$-*simulation* and *stable simulation* (and notions below).
+Intuitively, this means that $\literal{Pe}$ *implements* $\literal{Mx}$ more faithfully than pure weak similarity would demand.
+Red triangles ![](img/equivio-dist.svg){width=0.9em} mark distinctions.
+
+By running *one* simple algorithm, the tool decides *twenty-six* equivalence (and preorder) problems on $\literal{Pe}$ and $\literal{Mx}$.
 
 {{< paragraph_heading "Spectroscopy analogy." >}}
 How does the tool decide so many equivalences in one shot?

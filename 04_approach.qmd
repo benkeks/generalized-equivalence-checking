@@ -528,7 +528,7 @@ Let us label the bisimulation game of @exm-bisim-sim-game-formulas (distinguishi
 @fig-bisim-sim-game-energies shows the game graph,
 also exhibiting the cheapest formulas with regards to the polynomial spectrum that correspond to attacker winning strategies.
 
-:::: {#fig-bisim-sim-game-energies}
+:::: {#fig-bisim-sim-game-energies fig-pos='t' fig-env="figure*"}
 ```tikz
 
 \begin{adjustbox}{max width=\textwidth, center}

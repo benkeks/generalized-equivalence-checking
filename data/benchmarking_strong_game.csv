@@ -1,0 +1,22 @@
+System, States, Transitions, Bisim pre-minimization time, Bisim pre-minimized size, Initial pairs, Spectroscopy time, Game positions, Game moves, enabledness, trace, simulation
+shared/src/test/assets/vlts/vasy_25_25.csv, 25217, 25216, 565, 25217, 25217, 281, 25217, 0, 25217, 25217, 25217
+shared/src/test/assets/vlts/cwi_3_14.csv, 3996, 14552, 581, 62, 1832, 240, 11156, 18350, 3, 62, 62
+shared/src/test/assets/vlts/cwi_1_2.csv, 1952, 2387, 119, 1132, 481335, 185701, 8506068, 22707217, 11, 1132, 1132
+shared/src/test/assets/vlts/vasy_8_24.csv, 8879, 24411, 517, 416, 2625, 1255, 60095, 145965, 177, 416, 416
+shared/src/test/assets/vlts/vasy_8_38.csv, 8921, 38424, 1100, 219, 837, 95, 7523, 14958, 115, 219, 219
+shared/src/test/assets/vlts/vasy_10_56.csv, 10849, 56156, 2213, 2112, 239878, 94406, 1949428, 6012676, 14, 2112, 2112
+shared/src/test/assets/vlts/vasy_5_9.csv, 5486, 9392, 124, 145, 232, 13, 1856, 2988, 109, 145, 145
+shared/src/test/assets/vlts/vasy_1_4.csv, 1183, 4464, 43, 28, 88, 5, 548, 1000, 8, 28, 28
+shared/src/test/assets/other/peterson_mutex.csv, 36, 60, 0, 31, 157, 38, 2244, 4602, 10, 30, 30
+shared/src/test/assets/vlts/vasy_0_1.csv, 289, 1224, 8, 9, 30, 4, 279, 566, 3, 9, 9
+shared/src/test/assets/vlts/vasy_18_73.csv, 18746, 73043, 2376, 4087, 172428, nan
+
+shared/src/test/assets/vlts/vasy_8_38.csv, 8921, 38424, 1157, 219, 837, 271, 7523, 14958, 115, 219, 219
+shared/src/test/assets/vlts/vasy_1_4.csv, 1183, 4464, 58, 28, 88, 20, 548, 1000, 8, 28, 28
+shared/src/test/assets/vlts/vasy_5_9.csv, 5486, 9392, 139, 145, 232, 47, 1856, 2988, 109, 145, 145
+shared/src/test/assets/vlts/cwi_3_14.csv, 3996, 14552, 591, 62, 1832, 129, 11156, 18350, 3, 62, 62
+shared/src/test/assets/vlts/vasy_25_25.csv, 25217, 25216, 477, 25217, 25217, 210, 25217, 0, 25217, 25217, 25217
+shared/src/test/assets/vlts/vasy_8_24.csv, 8879, 24411, 490, 416, 2625, 1360, 60095, 145965, 177, 416, 416
+shared/src/test/assets/vlts/vasy_0_1.csv, 289, 1224, 13, 9, 30, 7, 279, 566, 3, 9, 9
+shared/src/test/assets/vlts/cwi_1_2.csv, 1952, 2387, 112, 1132, 481335, 201425, 8506068, 22707217, 11, 1132, 1132
+shared/src/test/assets/other/peterson_mutex.csv, 36, 60, 0, 31, 157, 40, 2244, 4602, 10, 30, 30

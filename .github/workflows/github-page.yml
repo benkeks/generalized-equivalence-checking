@@ -33,7 +33,7 @@ jobs:
           key: svg-diagrams
 
       - name: Install dependencies
-        run: sudo apt install pdf2svg fonts-linuxlibertine fonts-stix fonts-lmodern fonts-dejavu-mono librsvg2-bin
+        run: sudo apt install pdf2svg fonts-linuxlibertine fonts-stix fonts-lmodern fonts-dejavu-mono librsvg2-bin python3-numpy python3-pandas python3-tabulate
 
       - name: Install TeXlive
         uses: teatimeguest/setup-texlive-action@v3

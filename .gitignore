@@ -296,3 +296,11 @@ TSWLatexianTemp*
 
 *.Rhistory
 /.luarc.json
+
+# Libre office
+
+.~lock.*
+
+# Python
+
+__pycache__/

@@ -571,7 +571,7 @@ We can use @lem-strong-spectroscopy-game-soundness and @lem-strong-spectroscopy-
 
 Both tricks of pruning “symmetric” parts (@lem-symmetric-positions-defender) and pre-minimization by bisimilarity (@lem-quotienting-spectro-game) make an effective difference for the applicability of the spectroscopy approach:
 
-{{< code_link "shared/src/main/scala-2.12" io.equiv.eqfiddle.tool.benchmark.Sizemark >}}
+{{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" tool.benchmark.Sizemark >}}
 uses a small example system from @bisping2023equivalenceEnergyGames modelling Peterson's mutual exclusion algorithm.
 The system has only $\relsize{\states} = 20$ states, but a lot of non-determinism due to saturation with internal behavior.
 

@@ -1067,7 +1067,7 @@ The previous dimensions 7 and 8 now come 8th and 9th.
 %%| image-class: lightbox
 \definecolor{etaColor}{RGB}{100,100,100}%{cmyk}{0.8, 0, 0, 0.3}
 \definecolor{stabilityColor}{cmyk}{0, 0.7, 0.7, 0.4}
-\begin{adjustbox}{max width=\textwidth, center}
+\begin{adjustbox}{max width=\linewidth, center}
   \begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm, rel/.style={dashed,font=\it},
     posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
       \node[posStyle, initial, initial text={}]
@@ -1226,7 +1226,7 @@ Similar searches for weak bisimilarities have happened around @parrow1992 and @n
 ]
 
 Concise distinguishing formulas can be interesting diagnostic information to compare models.
-Like @mg2024minDepthDistBranchBisim, we find minimal-depth distinguishing formulas for branching bisimilarity, but we solve the problem for all weak notions at once.
+Like @mg2024minDepthDistBranchBisim, we find minimal-depth distinguishing formulas for branching bisimilarity without until, but we solve the problem for all weak notions at once.
 @hmy2023whenPrivacyFails report how inequivalence with respect to stronger modal logics can reveal privacy vulnerabilities in ePassports, which have been overlooked in a purely trace-based view.
 
 For a full understanding of a system's relationship to its specification, it is often helpful to pinpoint exactly how difficult it would be for an attacker to tell the two apart.

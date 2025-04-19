@@ -1036,7 +1036,10 @@ $,
 and space complexity
 $\bigo{ \relsize{\step{}}^8 \cdot 2^{8 \relsize{\states}} }$.
 But these are much lower bounds than in the original game $\gamespectroscopyw$.
-TODO: Forward-pointer to benchmarks.
+
+The practical difference is huge on transition systems with relevant branching-degree with respect to internal behavior such as the initial Peterson system of @fig-peterson-mutex:
+With the optimization, the tool solves it in fractions of a second, as reported in @tbl-weak-spectro-results.
+Without it, the exponential conjunctions lead to a game with 121,773 moves, taking 90 seconds.
 
 Moreover, we can again use the trick to work with *flattened energies*, according to @lem-declining-update-complexity-flattened.
 After all, $\gamespectroscopywsimple$ itself is only correct with respect to a simplified spectrum according to @thm-weak-spectroscopy-game-simplified-characterization.

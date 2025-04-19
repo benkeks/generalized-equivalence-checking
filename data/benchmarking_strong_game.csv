@@ -20,3 +20,39 @@ shared/src/test/assets/vlts/vasy_8_24.csv, 8879, 24411, 490, 416, 2625, 1360, 60
 shared/src/test/assets/vlts/vasy_0_1.csv, 289, 1224, 13, 9, 30, 7, 279, 566, 3, 9, 9
 shared/src/test/assets/vlts/cwi_1_2.csv, 1952, 2387, 112, 1132, 481335, 201425, 8506068, 22707217, 11, 1132, 1132
 shared/src/test/assets/other/peterson_mutex.csv, 36, 60, 0, 31, 157, 40, 2244, 4602, 10, 30, 30
+
+shared/src/test/assets/vlts/vasy_25_25.csv, 25217, 25216, 599, 25217, 25217, 305, 25217, 0, 25217, 25217, 25217
+shared/src/test/assets/vlts/cwi_1_2.csv, 1952, 2387, 146, 1132, 481335, 183881, 8506068, 22707217, 11, 1132, 1132
+shared/src/test/assets/vlts/vasy_8_38.csv, 8921, 38424, 1054, 219, 837, 103, 7523, 14958, 115, 219, 219
+shared/src/test/assets/vlts/vasy_0_1.csv, 289, 1224, 15, 9, 30, 5, 279, 566, 3, 9, 9
+shared/src/test/assets/vlts/vasy_8_24.csv, 8879, 24411, 505, 416, 2625, 1186, 60095, 145965, 177, 416, 416
+shared/src/test/assets/other/peterson_mutex.csv, 36, 60, 0, 31, 157, 37, 2244, 4602, 10, 30, 30
+shared/src/test/assets/vlts/vasy_10_56.csv, 10849, 56156, 2225, 2112, 239878, 95287, 1949428, 6012676, 14, 2112, 2112
+shared/src/test/assets/vlts/vasy_18_73.csv, 18746, 73043, 2411, 4087, 172428, nan
+shared/src/test/assets/vlts/vasy_1_4.csv, 1183, 4464, 78, 28, 88, 10, 548, 1000, 8, 28, 28
+shared/src/test/assets/vlts/vasy_5_9.csv, 5486, 9392, 245, 145, 232, 28, 1856, 2988, 109, 145, 145
+shared/src/test/assets/vlts/cwi_3_14.csv, 3996, 14552, 1223, 62, 1832, 171, 11156, 18350, 3, 62, 62
+
+shared/src/test/assets/vlts/vasy_8_38.csv, 8921, 38424, 1091, 219, 837, 271, 7523, 14958, 115, 219, 219
+shared/src/test/assets/vlts/cwi_3_14.csv, 3996, 14552, 577, 62, 1832, 142, 11156, 18350, 3, 62, 62
+shared/src/test/assets/vlts/vasy_25_25.csv, 25217, 25216, 412, 25217, 25217, 192, 25217, 0, 25217, 25217, 25217
+shared/src/test/assets/vlts/vasy_5_9.csv, 5486, 9392, 121, 145, 232, 26, 1856, 2988, 109, 145, 145
+shared/src/test/assets/vlts/vasy_0_1.csv, 289, 1224, 12, 9, 30, 6, 279, 566, 3, 9, 9
+shared/src/test/assets/vlts/vasy_18_73.csv, 18746, 73043, 2132, 4087, 172428, nan
+shared/src/test/assets/vlts/vasy_8_24.csv, 8879, 24411, 605, 416, 2625, 1944, 60095, 145965, 177, 416, 416
+shared/src/test/assets/other/peterson_mutex.csv, 36, 60, 2, 31, 157, 184, 2244, 4602, 10, 30, 30
+shared/src/test/assets/vlts/vasy_10_56.csv, 10849, 56156, 4280, 2112, 239878, 177758, 1949428, 6012676, 14, 2112, 2112
+shared/src/test/assets/vlts/vasy_1_4.csv, 1183, 4464, 52, 28, 88, 7, 548, 1000, 8, 28, 28
+shared/src/test/assets/vlts/cwi_1_2.csv, 1952, 2387, 223, 1132, 481335, nan
+
+shared/src/test/assets/vlts/vasy_1_4.csv, 1183, 4464, 173, 28, 88, 79, 548, 1000, 8, 28, 28
+shared/src/test/assets/vlts/vasy_10_56.csv, 10849, 56156, 1989, 2112, 239878, 100491, 1949428, 6012676, 14, 2112, 2112
+shared/src/test/assets/other/peterson_mutex.csv, 36, 60, 1, 31, 157, 71, 2244, 4602, 10, 30, 30
+shared/src/test/assets/vlts/vasy_5_9.csv, 5486, 9392, 144, 145, 232, 22, 1856, 2988, 109, 145, 145
+shared/src/test/assets/vlts/vasy_25_25.csv, 25217, 25216, 451, 25217, 25217, 221, 25217, 0, 25217, 25217, 25217
+shared/src/test/assets/vlts/vasy_8_38.csv, 8921, 38424, 1087, 219, 837, 119, 7523, 14958, 115, 219, 219
+shared/src/test/assets/vlts/cwi_3_14.csv, 3996, 14552, 735, 62, 1832, 114, 11156, 18350, 3, 62, 62
+shared/src/test/assets/vlts/cwi_1_2.csv, 1952, 2387, 110, 1132, 481335, 199052, 8506068, 22707217, 11, 1132, 1132
+shared/src/test/assets/vlts/vasy_18_73.csv, 18746, 73043, 2442, 4087, 172428, nan
+shared/src/test/assets/vlts/vasy_0_1.csv, 289, 1224, 16, 9, 30, 12, 279, 566, 3, 9, 9
+shared/src/test/assets/vlts/vasy_8_24.csv, 8879, 24411, 1315, 416, 2625, 1700, 60095, 145965, 177, 416, 416

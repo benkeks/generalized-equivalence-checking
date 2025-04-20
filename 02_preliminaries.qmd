@@ -93,7 +93,7 @@ Labeled transition systems are the standard formalism to discretely express the 
 One can think of them as nondeterministic finite automata where the finiteness constraint has been lifted.
 
 ::: {#def-ts}
-#### Transition Systems
+#### Transition systems
 
 A *labeled transition system* (LTS) $\system=(\states,\actions,\step{})$ consists of
 
@@ -164,7 +164,7 @@ There are two things one might wonder about @exm-ts:
 2. Should one consider $\literal P$ and $\literal Q$ equivalent? This heavily depends. Section [-@sec-behavioral-eq] will introduce a notion of equivalence under which the two are equivalent and one under which they differ.
 
 ::: {#rem-tau}
-#### A Note on $τ$
+#### A note on $τ$
 
 The action $τ$ (the greek letter “tau”) will in later chapters stand for *internal behavior* and receive special treatment in @sec-weak-spectrum.
 For the scope of this chapter and the following three, $τ$ is an action like every other.
@@ -221,7 +221,7 @@ This convention means that $(P_1 \ccschoice P_2) \ccschoice P_3$ and $P_1 \ccsch
 :::
 
 ::: {#exm-ccs}
-#### Concurrent Philosophers
+#### Concurrent philosophers
 
 Following tradition, we will express our examples in terms of philosophers who need forks to eat spaghetti.^[
   Of course, you can just as well read the examples to be about computer programs that race for resources.]
@@ -262,7 +262,7 @@ A process matching $\literal Q$ will follow in @exm-deterministic-phil.
 The formal relationship between process terms and their LTS semantics is given by the following definition.
 
 ::: {#def-ccs-semantics}
-#### CCS Semantics
+#### CCS semantics
 
 Given an assignment of names to processes, $\ccsasg \colon \ccsnames → \ccs$, the operational semantics ${\step{}_\ccs} ⊆ \ccs × \ccsactions × \ccs$ is defined inductively by the rules:
 
@@ -399,7 +399,7 @@ There are other ways how non-determinism plays a crucial role in models, for ins
 The second process $\literal Q$ of @exm-ts can be understood as a deterministic sibling of $\literal P$.
 
 ::: {#exm-deterministic-phil}
-#### Deterministic Philosophers
+#### Deterministic philosophers
 
 A process matching the transitions from $\literal Q$ in @exm-ts would be the following, where the philosophers take the fork as a team and then let the environment choose who of them eats:
 
@@ -436,7 +436,7 @@ The set of traces of a state $\traces{p} \subseteq \actions^*$ is inductively de
 :::
 
 ::: {#def-trace-eq}
-#### Trace Equivalence
+#### Trace equivalence
 
 Two states $p$ and $q$ are considered *trace-equivalent*, written $p \beq{T} q$, if $\traces{p} = \traces{q}$.{{<isb abbreviation Strong_Equivalences lts.trace_equivalent>}}
 
@@ -620,7 +620,7 @@ Thus $\literal Q \nbeq{B} \literal{T}$.
 The equivalences we have been discussed so far could also be understood as abstractions of an even finer equivalence, namely graph isomorphism:
 
 ::: {#def-graph-isomorphism}
-#### Graph Isomorphism
+#### Graph isomorphism
 
 A bijective function $f \colon \states \to \states$ is called a *graph isomorphism* on a transition system if, for all $p,p', α$, the transition $p \step{α} p'$ exists if and only if the transition $f(p) \step{α} f(p')$ exists.{{<isb definition Strong_Equivalences lts.isomorphism>}}
 
@@ -671,7 +671,7 @@ A congruence relates mathematical objects that can stand in for one-another in c
 The concept is closely linked to another core notion of mathematics: monotonicity.
 
 ::: {#def-monotonic}
-#### Monotonicity and Congruence
+#### Monotonicity and congruence
 
 An $n$-ary function $f \colon B_1 \times \dots \times B_n \to C$ is called *monotonic* with respect to a family of partial orders $(B_k, \leq_k)$ and $(C, \leq)$ iff, for all $b \in B_1 \times \dots \times B_n$ and $b' \in B_1 \times \dots \times B_n$, it is the case that $b_k \leq b'_k$ for all $k \leq n$ implies that $f(b) \leq f(b')$.
 We will usually encounter settings where all components use the same order $(B_1, \leq_1) = \cdots = (B_n, \leq_n) = (C, \leq)$
@@ -681,7 +681,7 @@ If $\leq$ moreover is symmetric (and thus an equivalence relation), then $\leq$ 
 :::
 
 ::: {#exm-congruence-oddity}
-#### Parity as Congruence
+#### Parity as congruence
 As a standard example for a congruence, consider the equivalence relation of equally odd numbers
 $${\sim_\literal{odd}} := \set{(m,n) \in \nats \times \nats \mid m \bmod 2 = n \bmod 2}.$$
 For instance, $1 \sim_\literal{odd} 3$ and $0 \sim_\literal{odd} 42$, but not $42 \sim_\literal{odd} 23$.
@@ -808,6 +808,8 @@ Minimized version of @fig-bisim-sim-ts.
 :::
 
 ::: {#def-quotient-ts}
+#### Quotient systems
+
 Given an equivalence relation $\sim$ on states, and a transition system $\system=(\states,\actions,\step{})$,
 each *equivalence class* for $p \in \states$ is defined $\eqclass{p}_{\sim} \defeq \set{p' \in \states \mid p \sim p'}$.
 
@@ -841,7 +843,7 @@ In this section, we will show how this characterization works and argue that, fo
 The idea is that HML formulas express “experiments” or “tests” that an observer performs interacting with a program.
 
 ::: {#def-hml}
-#### Hennessy–Milner Logic
+#### Hennessy–Milner logic
 
 Formulas of *Hennessy–Milner logic* $\hml$ are given by the grammar:{{<isb datatype Hennessy_Milner_Logic hml_formula>}}
 
@@ -875,7 +877,7 @@ The semantics of HML $\semantics{\cdot} \colon \hml → \powerset{\states}$ is d
 
 $$
 \begin{array}{rcl}
-  \semantics{\hmlobs{α}φ} & ≔ & \set{p \mid \exists p' ∈ \semantics{φ} \ldotp p \step α p'}\\
+  \semantics{\hmlobs{α}φ} & ≔ & \set{p \mid \exists p' ∈ \semantics{φ} \ldotp p \step{α} p'}\\
   \semantics{\hmland{i}{I}φ_i} & ≔ & \bigcap_{i ∈ I} \semantics{φ_i}\\
   \semantics{\hmlneg φ} & ≔ & \states \setminus \semantics{φ}
 \end{array}
@@ -896,7 +898,7 @@ We can now add the middle layer of our overview graphic in @fig-equivalence-big-
 That two states are bisimilar precisely if they cannot be told apart using HML formulas.
 
 ::: {#def-distinctions}
-#### Distinctions and Equivalences
+#### Distinctions and equivalences
 
 We say that formula $φ ∈ \hml$ *distinguishes* state $p$ *from* state $q$ if $p ∈ \semantics{φ}$ but $q \notin \semantics{φ}$.{{<isb abbreviation LTS_Semantics lts.distinguishes>}}
 
@@ -928,7 +930,7 @@ It must be true for $p$ and false for $q$, contradicting $p \beqvar{\hml} q$.
 :::
 
 ::: {#lem-hml-eq-bisim-invariant}
-#### HML Bisimulation Invariance
+#### HML bisimulation invariance
 
 If $p ∈ \semantics{φ}$ and $p \beq{B} q$ then $q ∈ \semantics{φ}$.{{<isb lemma HML_Spectrum lts.hml_bisim_invariant>}}
 :::
@@ -937,7 +939,7 @@ If $p ∈ \semantics{φ}$ and $p \beq{B} q$ then $q ∈ \semantics{φ}$.{{<isb l
 Induct over the structure of $φ$ with arbitrary $p$ and $q$.
 
 - Case $p ∈ \semantics{\hmlobs{α}φ}$.
-  Thus there is $p' ∈ \semantics{φ}$ with $p \step α p'$.
+  Thus there is $p' ∈ \semantics{φ}$ with $p \step{α} p'$.
   Because $\beq{B}$ is a simulation according to @lem-bisim-bisim, this implies $q'$ with $p' \beq{B} q'$.
   The induction hypothesis makes $p' ∈ \semantics{φ}$ entail $q' ∈ \semantics{φ}$
   and thus $q ∈ \semantics{\hmlobs{α}φ}$.
@@ -953,7 +955,7 @@ Induct over the structure of $φ$ with arbitrary $p$ and $q$.
 Combining the bisimulation invariance for one direction and that $\beq{\hml}$ is a symmetric simulation (@prp-hml-eq and @lem-hml-eq-sim) for the other, we obtain that $\hml$ precisely characterizes bisimilarity:
 
 ::: {#thm-hennessy-milner}
-#### Hennessy–Milner Theorem
+#### Hennessy–Milner theorem
 
 Bisimilarity and HML equivalence coincide, that is, $p \beq{B} q$ precisely if $p \beq{\hml} q$.{{<isb theorem HML_Spectrum lts.Hennessy_Milner_theorem>}}
 :::
@@ -996,12 +998,14 @@ In Chapter [-@sec-spectrum], we will discuss how the hierarchy of behavioral equ
 @prp-difference-contraposition actually is a weak version of another proposition about *distinctiveness* of logics.
 
 ::: {#def-leq-expressive}
+#### Preorder of expressiveness
 We say that an $\actions$-observation language $\observationsvar{}$ is *less or equal in expressiveness* to another $\observationsvar[\prime]{}$ iff, for any $\actions$-transition system, for each $φ ∈ \observationsvar{}$, there is $φ' ∈ \observationsvar[\prime]{}$ such that $\semantics{φ} = \semantics{φ'}$.
 (The definition can also be read with regards to a fixed transition system $\system$.){{<isb definition LTS_Semantics lts_semantics.leq_expressive>}}
 If the inclusion holds in both directions, $\observationsvar{}$ and $\observationsvar[\prime]{}$ are *equally expressive*.
 :::
 
 ::: {#def-leq-distincitve}
+#### Preorder of distinctiveness
 We say that an $\actions$-observation language $\observationsvar{}$ is *less or equal in distinctiveness* to another $\observationsvar[\prime]{}$ iff, for any $\actions$-transition system and states $p$ and $q$, for each $φ ∈ \observationsvar{}$ that distinguishes $p$ from $q$, there is $φ' ∈ \observationsvar[\prime]{}$ that distinguishes $p$ from $q$.{{<isb definition LTS_Semantics lts_semantics.leq_distinctive>}}
 If the inclusion holds in both directions, $\observationsvar{}$ and $\observationsvar[\prime]{}$ are *equally distinctive*.
 :::
@@ -1062,7 +1066,7 @@ For the other direction, we need to establish that for each $φ ∈ \hml$ distin
 We induct on the structure of $φ$ with arbitrary $p$ and $q$.
 
 - Case $\hmlobs{α}φ$ distinguishes $p$ from $q$.
-  Thus there is $p'$ with $p \step α p'$ distinguishing $p'$ from all $q' ∈ \derivatives{q, α}$.
+  Thus there is $p'$ such that $p \step{α} p'$ and that $φ$ distinguishes $p'$ from every $q' ∈ \derivatives{q, α}$.
   By induction hypothesis, there must be $φ'_{q'} ∈ \observations{\floor{B}}$ distinguishing $p'$ from $q'$ for each $q'$.
   Thus $\hmlobs{α}\hmland{q'}{\derivatives{q, α}} φ'_{q'} ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$.
 - Case $\hmland{i}{I}φ_i$ distinguishes $p$ from $q$.
@@ -1087,7 +1091,7 @@ Intuitively, the games can be understood as dialogs between a party that tries t
 We use *Gale--Stewart-style reachability games* [in the tradition of @galeStewart1953infiniteGamesPerfectInformation] where the defender wins all infinite plays.
 
 ::: {#def-game}
-#### Reachability Game
+#### Reachability game
 
 A *reachability game* $\game = (G, G_\defender, \gamemoveblank)$ is played on a directed graph consisting of
 
@@ -1100,7 +1104,7 @@ We denote by $\game(g_0)$ the game played from starting position $g_0 ∈ G$.
 :::
 
 ::: {#def-game-plays}
-#### Plays and Wins
+#### Plays and wins
 
 We call the paths ${g_0}{g_1} … ∈ G^{\infty}$ with $g_{i} \gamemoveblank g_{i+1}$ *plays* of $\game(g_0)$.
 They may be finite or infinite.
@@ -1112,7 +1116,7 @@ Usually, games are non-deterministic, that is, players have choices how a play p
 The player choices are formalized by *strategies*:
 
 ::: {#def-strategies}
-#### Strategies and Winning Strategies
+#### Strategies and winning strategies
 
 An *attacker strategy* is a (partial) function mapping play fragments ending at attacker positions to next positions to move to, $s_\attacker \colon G^*G_\attacker \to G$, where $g_\attacker \gamemoveblank f_\attacker(\rho g_\attacker)$ must hold for all $\rho g_\attacker$ where $s_\attacker$ is defined.
 
@@ -1129,14 +1133,14 @@ Usually, we will focus on positional strategies, that is, strategies that only d
 We call the positions where a player has a winning strategy their winning region.
 
 ::: {#def-winning-region}
-#### Winning Region
+#### Winning region
 
 The set $\attackerwins ⊆ G$ of all positions $g$ where the attacker wins $\game(g)$ is called the *attacker winning region* of $\game$.
 The defender winning region $\defenderwins$ is defined analogously.
 :::
 
 ::: {#exm-formula-game}
-#### A Simple Choice
+#### A simple choice
 
 Inspect the game in @fig-game-ex, where round nodes represent defender positions and rectangular ones attacker positions.
 Its valid plays starting from $(\literal{1})$ are
@@ -1236,7 +1240,7 @@ As first bigger example of how recursive definitions can be turned into games, l
 The defender wins precisely if the game starts from a state and formula such that the state satisfies the formula.
 
 ::: {#def-hml-game}
-#### HML Game
+#### HML game
 
 For a transition system $\system = (\states,\actions,\step{})$,
 the $\hml$ *game* ${\game}_\hml^{\system} = (G_\hml,G_\defender,\gamemoveblank_\hml)$ is played on $G_\hml = \states × \hml$,
@@ -1305,7 +1309,7 @@ That bisimilarity can be characterized through a game, where the defender wins i
 This approach has been popularized by @stirling1996modal.
 
 ::: {#def-bisim-game}
-#### Bisimulation Game
+#### Bisimulation game
 
 For a transition system $\system$, the *bisimulation game* ${\game}_\notionname{B}^{\system}$ is played on
 attack positions $G^\notionname{B}_\attacker ≔ \states × \states$ and defense positions $G^\notionname{B}_\defender ≔ \actions × \states × \states$ with the following moves:{{<isb locale Equivalence_Games bisim_game>}}
@@ -1467,7 +1471,7 @@ Defender-won positions are tinted blue.
 :::
 
 ::: {#thm-bisim-game-characterization}
-#### Stirling's Game Characterization
+#### Stirling's game characterization
 
 The defender wins the bisimulation game ${\game}_\notionname{B}^{\system}$ starting at attacker position $[p, q]$ precisely if $p \beq{B} q$.{{<isb theorem Equivalence_Games bisim_game.bisim_game_characterization>}}
 :::
@@ -1517,7 +1521,7 @@ The Hennessy–Milner theorem implies that we could directly use the HML game of
 
 ::: {#def-naive-bisim-game}
 
-#### Naive Bisimulation Game
+#### Naive bisimulation game
 
 We extend the @def-hml-game by the following prefix:
 
@@ -1653,8 +1657,8 @@ If $φ ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$, then the attack
 By induction on the derivation of $φ ∈ \observations{\floor{B}}$ according to the definition from @def-game-formulas with arbitrary $p$ and $q$.
 
 - Case $φ = \hmlobs{α} \hmland{i}{I} φ_i$.
-  As $φ$ distinguishes $p$ from $q$, there must be a $p'$ such that $p \step{α} p'$ and that $\hmland{i}{I} φ_i$ distinguishes $p'$ from every $q' \in \derivatives{q, α}$.
-  That is, for each $q' \in \derivatives{q, α}$, at least one $φ_i \in \observations{\floor{B}}$ must be false.
+  As $φ$ distinguishes $p$ from $q$, there must be a $p'$ such that $p \step{α} p'$ and that $\hmland{i}{I} φ_i$ distinguishes $p'$ from every $q' ∈ \derivatives{q, α}$.
+  That is, for each $q' ∈ \derivatives{q, α}$, at least one $φ_i \in \observations{\floor{B}}$ must be false.
   By induction hypothesis, the attacker thus wins each $[p',q']$.
   As these attacker positions encompass all successors of $(α, p', q)$, the attacker also wins this defender position and can win from $[p,q]$ by moving there with a simulation challenge.
 - Case $φ = \hmlneg φ'$.

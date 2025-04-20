@@ -54,7 +54,7 @@ By combining the two contributions, we arrive at a polynomial-time solution of t
 Effectively, we adapt the game framework of @fig-game-algo-overview to not treat one equivalence, but a spectrum of equivalences.
 This approach is summarized in @fig-spectroscopy-poly-big-picture.
 
-::: {#fig-spectroscopy-poly-big-picture}
+::: {#fig-spectroscopy-poly-big-picture fig-pos="t"}
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.1cm,
   algstep/.style={minimum width=4.3cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
@@ -436,7 +436,7 @@ $$
 $$
 @fig-polynomial-strong-spectrum gives names to coordinates that correspond to notions discussed previously.
 
-::: {#fig-polynomial-strong-spectrum fig-pos='th'}
+::: {#fig-polynomial-strong-spectrum fig-pos="th"}
 ```tikz
 \begin{tikzpicture}[auto,node distance=2cm,align=center]
   \node (B){bisimulation $\notionname{B}$\\$\infty,\infty,\infty$};

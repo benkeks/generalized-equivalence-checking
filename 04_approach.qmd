@@ -542,21 +542,21 @@ also exhibiting the cheapest formulas with regards to the polynomial spectrum th
     \node[posStyle, label={[text=red]270:$\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{poly-strong}]{(2,1,1)}$}]
       (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{T}, \literal{Q}]$};
     \node[posStyle, defender, defWins]
-      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{AB}}, \literal{T})$};
+      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{ab}}, \literal{T})$};
     \node[posStyle, defWins]
-      (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_{AB}}]$};
+      (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \literal{q_{ab}}]$};
     \node[posStyle, label={[text=red]95:$\hmlobs{\literal{a}}\hmltrue \in \observationsvar[\literal{poly-strong}]{(1,0,0)}$}]
-      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \troll]$};
+      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \troll]$};
     \node[posStyle, defender, above right = .1cm and 1.5cm of Att_qab_q3]
       (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \troll)$};
     \node[posStyle, defender]
       (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
     \node[posStyle, defender, defWins]
-      (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q})$};
+      (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{t_{ab}}, \literal{Q})$};
     \node[posStyle, defender]
       (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
     \node[posStyle, label={[text=red]270:$\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{poly-strong}]{(1,1,1)}$}]
-      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{AB}}]$};
+      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{ab}}]$};
 
     \path[text=gray]
       (Att_Q_Qp)

@@ -219,7 +219,7 @@ Intuitively, action $c$ represents receiving and its “coaction” $\coaction c
 A pair of action and coaction can “react” in a communication situation and only become internal activity $τ$ in the view of the environment.
 
 Each sub-process tree must end in a $\ccsnull$-process or recursion.
-For brevity, we usually drop a final $\ccsnull$ when writing terms, e.g., just writing $\literal{ac}$ for $\ccsprefix{\literal{ac}} \ccsnull$.
+For brevity, we usually drop a terminal $\ccsnull$ when writing terms, e.g., just writing $\literal{ac}$ for $\ccsprefix{\literal{ac}} \ccsnull$.
 
 We place parenthesis $(…)$ in terms where the syntax trees are otherwise ambiguous, but understand the choice operator $\ccschoice$ and the parallel operator $\ccspar$ to be associative.
 This convention means that $(P_1 \ccschoice P_2) \ccschoice P_3$ and $P_1 \ccschoice (P_2 \ccschoice P_3)$ are representations of the same term in our view.
@@ -543,10 +543,10 @@ The following relations are simulations on the of @exm-ts:
 
 - the empty relation $\rel R_\varnothing ≔ \varnothing$;
 - the identity relation $\rel R_\mathrm{id} ≔ \identity{\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}} = \set{(\literal P, \literal P),\allowbreak (\literal{p_a}, \literal{p_a}),\allowbreak (\literal{p_b}, \literal{p_b}), (\literal{p_1}, \literal{p_1}),\allowbreak (\literal{p_2}, \literal{p_2}), (\literal Q, \literal Q), (\literal{q_{ab}}, \literal{q_{ab}}), \allowbreak(\literal{q_1}, \literal{q_1}), (\literal{q_2}, \literal{q_2})}$;
-- the universal relation between all final states $\rel R_\mathrm{fin} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} \times \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}}$,
-- more generally, the relation from final states to all other states: $\rel R_\mathrm{up} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} × \states$;
+- the universal relation between all terminal states $\rel R_\mathrm{term} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} \times \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}}$,
+- more generally, the relation from terminal states to all other states: $\rel R_\mathrm{up} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} × \states$;
 - a minimal simulation for $\literal P$ and $\literal Q$: $\rel R_\literal{PQ} ≔ \set{(\literal{P}, \literal{Q}), (\literal{p_a}, \literal{q_{ab}}), (\literal{p_b}, \literal{q_{ab}}), (\literal{p_1}, \literal{q_1}), (\literal{p_2}, \literal{q_2})}$;
-- and the combination of the above $\rel R_\mathrm{big} ≔ \rel R_\mathrm{id} ∪ \rel R_\mathrm{fin} ∪ \rel R_\mathrm{up} ∪ \rel R_\literal{PQ}$.
+- and the combination of the above $\rel R_\mathrm{big} ≔ \rel R_\mathrm{id} ∪ \rel R_\mathrm{term} ∪ \rel R_\mathrm{up} ∪ \rel R_\literal{PQ}$.
 
 The simulation $\rel R_\literal{PQ}$ shows that $\literal P \bpreord{S} \literal Q$.
 
@@ -633,9 +633,9 @@ This adds another deadlock state to the transition system, seen in @fig-bisim-si
 ```tikz
 \begin{tikzpicture}[auto,node distance=2cm]
   \node[state] (q0){$\literal{T}$};
-  \node[state, below left of=q0] (qAB){$\literal{q_{ab}}$};
-  \node[state, below left of=qAB] (q1){$\literal{q_{1}}$};
-  \node[state, below right of=qAB] (q2){$\literal{q_{2}}$};
+  \node[state, below left of=q0] (qAB){$\literal{t_{ab}}$};
+  \node[state, below left of=qAB] (q1){$\literal{t_{1}}$};
+  \node[state, below right of=qAB] (q2){$\literal{t_{2}}$};
   \node[below right of=q0] (q3){${\huge{\trollface}}$};
   \path[->]
     (q0)
@@ -650,7 +650,15 @@ Example with new deadlock.
 ::::
 
 To similarity, this change is invisible, that is $\literal Q \beq{S} \literal{T}$.
-(Reason: The relation $\set{(\literal Q, \literal{T}), (\literal{T}, \literal{Q})} \cup \identity{\set{ \literal{q_{ab}}, \literal{q_1}, \literal{q_2}, \troll}}$ is a simulation.)
+(Reason: The relation $\set{
+  (\literal{Q}, \literal{T}),
+  (\literal{T}, \literal{Q}),
+  (\literal{q_{ab}}, \literal{t_{ab}}),
+  (\literal{t_{ab}}, \literal{q_{ab}}),
+  (\troll, \literal{q_{ab}})
+} \cup
+\set{ \literal{q_1}, \literal{q_2}, \literal{t_1}, \literal{t_2}, \troll}
+\times \set{ \literal{q_1}, \literal{q_2}, \literal{t_1}, \literal{t_2}, \troll}$ is a simulation.)
 
 However, to bisimilarity, $\literal{T} \step{τ} \troll$ constitutes a difference.
 There cannot be a symmetric simulation handling this transition as $\literal{Q}$ has no deadlocked successors.
@@ -824,15 +832,15 @@ This *minimization* hugely increases the size of models that can be handled in a
 ::: {#exm-bisim-minimization}
 #### Trolled philosophers, minimized
 
-In @exm-bisim-sim of “trolled philosophers,” all terminal states are bisimilar, $\literal{q_1} \beq{B} \literal{q_2} \beq{B} \troll$.
-We can thus merge them into one state $\literal{q_{123}^m}$ as depicted in @fig-bisim-min-ts, without affecting the behavioral properties of the other states with respect to bisimilarity, that is, $\literal{q_{ab}} \beq{B} \literal{q_{ab}^m}$ and $\literal{T} \beq{B} \literal{T^m}$.
+In @exm-bisim-sim of “trolled philosophers,” all terminal states are bisimilar, $\literal{t_1} \beq{B} \literal{t_2} \beq{B} \troll$.
+We can thus merge them into one state $\literal{t_{12}^m}$ as depicted in @fig-bisim-min-ts, without affecting the behavioral properties of the other states with respect to bisimilarity, that is, $\literal{t_{ab}} \beq{B} \literal{t_{ab}^m}$ and $\literal{T} \beq{B} \literal{T^m}$.
 
 :::: {#fig-bisim-min-ts .column-margin}
 ```tikz
 \begin{tikzpicture}[auto,node distance=2cm]
   \node[state] (q0){$\literal{T^m}$};
-  \node[state, below left of=q0] (qAB){$\literal{q^m_{ab}}$};
-  \node[state, below right of=qAB] (q123){$\literal{q^m_{123}}$};
+  \node[state, below left of=q0] (qAB){$\literal{t^m_{ab}}$};
+  \node[below right of=qAB] (q123){$\literal{\large{\trollface}^m}$};
   \path[->]
     (q0)
       edge[swap, bend right=10] node {$\tau$} (qAB)
@@ -1353,6 +1361,8 @@ We now can add the bottom layer of @fig-equivalence-big-picture:
 That bisimilarity can be characterized through a game, where the defender wins if the game starts on a pair of bisimilar states.
 This approach has been popularized by @stirling1996modal.
 
+TODO: Fix the game to use minimized troll / philosopher system....
+
 ::: {#def-bisim-game}
 #### Bisimulation game
 
@@ -1446,8 +1456,8 @@ The bisimulation game graph for the system is depicted in @fig-bisim-sim-game.
 The attacker can win by moving $[\literal{Q}, \literal{T}]
 \gamemoveblank_\notionname{B} [\literal{T}, \literal{Q}]
 \gamemoveblank_\notionname{B} (\tau, \troll, \literal{Q})
-\gamemoveblank_\notionname{B} [\troll, \literal{q_{AB}}]
-\gamemoveblank_\notionname{B} [\literal{q_{AB}}, \troll]
+\gamemoveblank_\notionname{B} [\troll, \literal{q_{ab}}]
+\gamemoveblank_\notionname{B} [\literal{q_{ab}}, \troll]
 \gamemoveblank_\notionname{B} (\literal{a}, \literal{q_1}, \troll)
 \ngamemoveblank_\notionname{B}$.
 Along this sequence of positions, the defender never has a choice and is stuck in the end.
@@ -1466,47 +1476,53 @@ The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\lite
     \node[posStyle]
       (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{T}, \literal{Q}]$};
     \node[posStyle, defender, defWins]
-      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{AB}}, \literal{T})$};
+      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{ab}}, \literal{T})$};
     \node[posStyle, defWins]
-      (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_{AB}}]$};
+      (Att_qab_tab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \literal{t_{ab}}]$};
+    \node[posStyle, defWins]
+      (Att_tab_qab) [below = 1cm of Att_qab_tab] {$[\literal{t_{ab}}, \literal{q_{ab}}]$};
     \node[posStyle]
-      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \troll]$};
+      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \troll]$};
     \node[posStyle, defender]
       (Dfn_a_q1_q3) [above right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{a}, \literal{q_1}, \troll)$};
     \node[posStyle, defender]
       (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
     \node[posStyle, defender, defWins]
-      (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q})$};
+      (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{t_{ab}}, \literal{Q})$};
     \node[posStyle, defender]
       (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
     \node[posStyle]
-      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{AB}}]$};
+      (Att_q3_qab) [below = 1cm of Att_tab_qab] {$[\troll, \literal{q_{ab}}]$};
 
     \path
       (Att_Q_Qp)
         edge[bend left = 10] node {swap} (Att_Qp_Q)
-        edge node {$\literal{Q} \step{\tau} \literal{q_{AB}}$} (Dfn_t_qab_Qp)
+        edge node {$\literal{Q} \step{\tau} \literal{q_{ab}}$} (Dfn_t_qab_Qp)
       (Att_qab_q3)
         edge[bend left = 65] node {swap} (Att_q3_qab)
       (Att_q3_qab)
         edge[bend right = 60] node {} (Att_qab_q3)
       (Dfn_t_qab_Qp)
         edge node {$\literal{T} \step{\tau} \troll$} (Att_qab_q3)
-        edge node {$\literal{T} \step{\tau} \literal{q_{AB}}$} (Att_qab_qab)
-      (Att_qab_qab)
-        edge [loop left] node {swap} ()
+        edge[swap] node {$\literal{T} \step{\tau} \literal{q_{ab}}$} (Att_qab_tab)
+      (Att_qab_tab)
+        edge[bend left = 10]  node {swap} (Att_tab_qab)
+      (Att_tab_qab)
+        edge[bend left = 10]  node {} (Att_qab_tab)
       (Att_Qp_Q)
         edge[bend left = 10] node {swap} (Att_Q_Qp)
-        edge[swap] node {$\literal{T} \step{\tau} \literal{q_{AB}}$} (Dfn_t_qab_Q)
+        edge[swap] node {$\literal{T} \step{\tau} \literal{q_{ab}}$} (Dfn_t_qab_Q)
         edge[swap] node {$\literal{T} \step{\tau} \troll$} (Dfn_t_q3_Q)
       (Dfn_t_qab_Q)
-        edge node[swap] {$\literal{Q} \step{\tau} \literal{q_{AB}}$} (Att_qab_qab)
+        edge[swap] node {$\literal{Q} \step{\tau} \literal{q_{ab}}$} (Att_tab_qab)
       (Dfn_t_q3_Q)
-        edge node[swap] {$\literal{Q} \step{\tau} \literal{q_{AB}}$} (Att_q3_qab)
+        edge node[swap] {$\literal{Q} \step{\tau} \literal{q_{ab}}$} (Att_q3_qab)
       (Att_qab_q3)
-        edge node {$\literal{q_{AB}} \step{\literal{a}} \literal{q_1}$} (Dfn_a_q1_q3)
-        edge node {$\literal{q_{AB}} \step{\literal{b}} \literal{q_2}$} (Dfn_b_q2_q3)
+        edge node {$\literal{q_{ab}} \step{\literal{a}} \literal{q_1}$} (Dfn_a_q1_q3)
+        edge node {$\literal{q_{ab}} \step{\literal{b}} \literal{q_2}$} (Dfn_b_q2_q3)
     ;
+    \path[dashed]
+      (Att_qab_tab) edge[swap] node {$\literal{q_{ab}} \step{\literal{a}} \literal{q_1}$} ([xshift=1cm, yshift=.2cm]Att_qab_tab.east);
   \end{tikzpicture}
 ```
 
@@ -1594,8 +1610,8 @@ Let us illustrate how to derive distinguishing formulas using the game of @exm-b
 Recall that the attacker wins by moving $[\literal{Q}, \literal{T}]
 \gamemoveblank_\notionname{B} [\literal{T}, \literal{Q}]
 \gamemoveblank_\notionname{B} (\tau, \troll, \literal{Q})
-\gamemoveblank_\notionname{B} [\troll, \literal{q_{AB}}]
-\gamemoveblank_\notionname{B} [\literal{q_{AB}}, \troll]
+\gamemoveblank_\notionname{B} [\troll, \literal{q_{ab}}]
+\gamemoveblank_\notionname{B} [\literal{q_{ab}}, \troll]
 \gamemoveblank_\notionname{B} (\literal{a}, \literal{q_1}, \troll)
 \ngamemoveblank_\notionname{B}$.
 In @fig-bisim-sim-game-formulas, we label the game nodes with the (sub-)formulas this strategy corresponds to.
@@ -1616,21 +1632,21 @@ This attacker strategy can thus be expressed by $\hmlneg\hmlobs{\tau}\hmlands\se
     \node[posStyle, label={100:$\textcolor{red}{\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}}$}]
       (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{T}, \literal{Q}]$};
     \node[posStyle, defender, defWins]
-      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{AB}}, \literal{T})$};
+      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{ab}}, \literal{T})$};
     \node[posStyle, defWins]
-      (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \literal{q_{AB}}]$};
+      (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \literal{q_{ab}}]$};
     \node[posStyle, label={100:$\textcolor{red}{\hmlobs{\literal{a}}\hmltrue}$}]
-      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{AB}}, \troll]$};
+      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \troll]$};
     \node[posStyle, defender, above right = .1cm and 1.5cm of Att_qab_q3]
       (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \troll)$};
     \node[posStyle, defender]
       (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
     \node[posStyle, defender, defWins]
-      (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{q_{AB}}, \literal{Q})$};
+      (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{t_{ab}}, \literal{Q})$};
     \node[posStyle, defender]
       (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
     \node[posStyle, label={100:$\textcolor{red}{\hmlneg\hmlobs{\literal{a}}\hmltrue}$}]
-      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{AB}}]$};
+      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{ab}}]$};
 
     \path
       (Att_Q_Qp)

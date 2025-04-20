@@ -95,7 +95,7 @@ One can think of them as nondeterministic finite automata where the finiteness c
 ::: {#def-ts}
 #### Transition systems
 
-A *labeled transition system* (LTS) $\system=(\states,\actions,\step{})$ consists of
+A *transition system* $\system=(\states,\actions,\step{})$ consists of
 
 - $\states$, a set of *states,*
 - $\actions$, a set of *actions,* and
@@ -117,7 +117,7 @@ Tom Henzinger employing @exm-ts during CAV'23 to stress that “everything is a 
 :::
 
 ::: {#exm-ts}
-#### A Classic Example
+#### A classic example
 
 Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}, \set{\literal a, \literal b, τ}, \step{}_\literal{PQ})$ given by the following graph:
 
@@ -154,8 +154,8 @@ Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \litera
 Example system $\system_\literal{PQ}$.
 ::::
 
-The program described by the transitions from $\literal{P}$ chooses non-deterministically during a $τ$-step between two options and then offers only either $\literal a$ *or* $\literal b$.
-The program $\literal{Q}$ on the other hand performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$ to the environment.
+The program described by the transitions from $\literal{P}$ chooses non-de{{<shy>}}terministically during a $τ$-step between two options and then offers only *either* $\literal a$ *or* $\literal b$.
+The program of $\literal{Q}$ on the other hand performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$ to the environment.
 :::
 
 There are two things one might wonder about @exm-ts:
@@ -166,7 +166,7 @@ There are two things one might wonder about @exm-ts:
 ::: {#rem-tau}
 #### A note on $τ$
 
-The action $τ$ (the greek letter “tau”) will in later chapters stand for *internal behavior* and receive special treatment in @sec-weak-spectrum.
+The action $τ$ (the greek letter “tau”) will stand for *internal behavior* in later chapters and receive special treatment in @sec-weak-spectrum.
 For the scope of this chapter and the following three, $τ$ is an action like every other.
 
 Generally, this thesis aims to be consistent with notation and naming in surrounding literature.
@@ -180,20 +180,26 @@ Otherwise, we follow the convention to write literals and constant names in $\te
 ### Calculus of Communicating Systems {#sec-ccs}
 
 To talk about programs in this thesis, we use Milner's [-@milner1980ccs] *Calculus of Communicating Systems* (CCS), which---together with other great contributions---earned him the Turing award.
-It is a tiny concurrent programming language that fits in your pocket, and can be properly described mathematically! 
+It is a tiny concurrent programming language that fits in your pocket, and can be properly described mathematically!^[
+  To those not familiar with CCS:
+  The following exposition of CCS is quite condensed.
+  Gentler introduction can be found in textbooks like @milner1989comcon or @ails2007reactiveSystems and in the *interactive learning experience* <https://book.pseuco.com/>.
+]
 
 ::: {#def-ccs}
-#### Calculus of Communicating Systems
+#### Syntax of $\ccs$
 
-Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names. Then, $\ccs$ processes, communicating via actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{α} \mid α ∈ \ccschannels } \cup \set{τ}$, are given by the following grammar:^[
+Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names.
+Then, $\ccs$ is the set of processes, communicating via actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{c} \mid c ∈ \ccschannels } \cup \set{τ}$, are given by the following grammar:^[
+  To those familiar with CCS dialects:
   For the examples of this thesis, a simple CCS variant without value passing and renaming suffices.
 ]
 $$
 \begin{array}{cllr}
   P \grammardef
-  & \ccsprefix{α} P & \quad\text{with } α ∈ \ccschannels &
+  & \ccsprefix{c} P & \quad\text{with } c ∈ \ccschannels &
       \text{“input action prefix”} \\
-  & \ccsprefix{\coaction α} P & \quad\text{with } α ∈ \ccschannels &
+  & \ccsprefix{\coaction c} P & \quad\text{with } c ∈ \ccschannels &
       \text{“output action prefix”} \\
   & \ccsprefix{τ} P & &
       \text{“internal action”} \\
@@ -209,24 +215,15 @@ $$
       \text{“restriction”}
 \end{array}
 $$
-We call pairs of actions $α$ and $\coaction α$ *coactions*, and work with the aliasing $\coaction{\coaction{α}} = α$.
-The intuition is that an action $α$ represents receiving and $\coaction α$ expresses sending in communication.
+Intuitively, action $c$ represents receiving and its “coaction” $\coaction c$ expresses sending on channcel $c \in \ccschannels$.
 A pair of action and coaction can “react” in a communication situation and only become internal activity $τ$ in the view of the environment.
 
 Each sub-process tree must end in a $\ccsnull$-process or recursion.
 For brevity, we usually drop a final $\ccsnull$ when writing terms, e.g., just writing $\literal{ac}$ for $\ccsprefix{\literal{ac}} \ccsnull$.
 
-We place parenthesis, $(…)$, in terms where the syntax trees are otherwise ambiguous, but understand the choice operator $\ccschoice$ and the parallel operator $\ccspar$ to be associative.
+We place parenthesis $(…)$ in terms where the syntax trees are otherwise ambiguous, but understand the choice operator $\ccschoice$ and the parallel operator $\ccspar$ to be associative.
 This convention means that $(P_1 \ccschoice P_2) \ccschoice P_3$ and $P_1 \ccschoice (P_2 \ccschoice P_3)$ are representations of the same term in our view.
 :::
-
-::: {#exm-ccs}
-#### Concurrent philosophers
-
-Following tradition, we will express our examples in terms of philosophers who need forks to eat spaghetti.^[
-  Of course, you can just as well read the examples to be about computer programs that race for resources.]
-So, consider two philosophers $\literal{P_A}$ and $\literal{P_B}$ who want to grab a resource $\literal{fork}$ modeled as an action in order to eat where we express $\literal{P_A}$ eating with action $\literal{a}$ and $\literal{P_B}$ eating with $\literal{b}$.
-The philosopher processes read:
 
 ::::: {.column-margin}
 ```tikz
@@ -242,24 +239,33 @@ The philosopher processes read:
 \end{tikzpicture}
 ```
 :::::
+
+::: {#exm-ccs}
+#### Concurrent philosophers
+
+Following tradition, we will express our examples in terms of philosophers who need forks to eat spaghetti.^[
+  Of course, you can just as well read the examples to be about computer programs that race for resources.]
+So, consider two philosophers $\literal{P_A}$ and $\literal{P_B}$ who want to grab a resource $\literal{fork}$, in order to eat, which we model as receiving communication.
+We express $\literal{P_A}$ eating with $\literal{a}$ and $\literal{P_B}$ eating with $\literal{b}$.
+The philosopher processes read:
 $$
 \begin{gathered}
   \literal{P_A} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull \\
   \literal{P_B} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal b} \ccsnull
 \end{gathered}
 $$
-An LTS representation of $\literal{P_A}$'s behavior can be seen in the margin.
+A transition system representation of $\literal{P_A}$'s behavior can be seen in the margin.
 Process $\literal P$ captures the whole scenario where the two philosophers compete for the fork using communication:
 $$
   \literal P ≔ ( \ccsprefix{\coaction{\literal{fork}}} \ccsnull \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
 $$
 The restriction $… \ccsrestrict \set{\literal{fork}}$ expresses that the $\literal{fork}$-channel can only be used for communication within the system.
 
-As the $\coaction{\literal{fork}}$-action can be consumed by just one of the two philosophers, process $\literal P$ expresses exactly the program behavior seen in state $\literal P$ of @exm-ts.
+As the $\coaction{\literal{fork}}$-message can be consumed by just one of the two philosophers, process $\literal P$ expresses exactly the program behavior seen in state $\literal P$ of @exm-ts.
 A process matching $\literal Q$ will follow in @exm-deterministic-phil.
 :::
 
-The formal relationship between process terms and their LTS semantics is given by the following definition.
+The formal relationship between process terms $\ccs$ and their transition system is given by the following semantics.
 
 ::: {#def-ccs-semantics}
 #### CCS semantics
@@ -305,15 +311,23 @@ $$
 }
 $$
 $$
-\inferrule[Com]{
-  P_1 \step{α}_\ccs P_1' \qquad
-  P_2 \step{\coaction α}_\ccs P_2'
+\inferrule[Com_1]{
+  P_1 \step{c}_\ccs P_1' \qquad
+  P_2 \step{\coaction c}_\ccs P_2'
 }{
   P_1 \ccspar P_2 \step{τ}_\ccs P_1' \ccspar P_2'
 }\qquad
+\inferrule[Com_2]{
+  P_1 \step{\coaction c}_\ccs P_1' \qquad
+  P_2 \step{c}_\ccs P_2'
+}{
+  P_1 \ccspar P_2 \step{τ}_\ccs P_1' \ccspar P_2'
+}
+$$
+$$
 \inferrule[Res]{
   P \step{α}_\ccs P' \qquad
-  α, \coaction α \notin A
+  \nexists c \in A \ldotp α = c \lor α = \coaction{c}
 }{
   P \ccsrestrict A \step{α}_\ccs P' \ccsrestrict A
 }
@@ -321,7 +335,7 @@ $$
 ::::
 
 \noindent
-A process $P ∈ \ccs$ now denotes a position in the transition system $(\ccs, \ccsactions, \step{}_\ccs)$ defined through @def-ccs.
+A process $P ∈ \ccs$ now denotes a position in the transition system $(\ccs, \ccsactions, \step{}_\ccs)$.
 :::
 
 So, when we were writing “$\literal{P_A} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$” above, this was actually to claim that we are talking about a CCS system where the *process name* $\literal{P_A} \in \ccsnames$ and $\ccsasg(\literal{P_A}) ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$.
@@ -338,7 +352,7 @@ $$
   \hspace{-2em}
   \inferruleapp[Res]{
     \hspace{-2em}
-    \inferruleapp[Com]{
+    \inferruleapp[Com_2]{
     \hspace{-2em}
       \inferruleapp[Pre]{
         \vphantom{\stepnosmash{\coaction{\literal{fork}}}_\ccs}
@@ -457,22 +471,45 @@ The trace preorder $\bpreord{T}$ is indeed a preorder (i.e., transitive and refl
 <!-- proof
 The properties carry over directly from $⊆$ and $=$ on sets of $\traces{\cdot}$. -->
 
-Trace equivalence and preorder assign programs straightforward *denotational semantics*:
+Trace equivalence (and preorder) give straightforward *denotational semantics* to programs:
 The sets of traces they might expose.
 For many formal languages, these mathematical objects can be constructed directly from the expressions of the language.
 With the idea that the program text “denotes” its possible executions, the set of traces is called a “denotation” in this context.
 CCS, as we use it, follows another approach to semantics, namely the one of “operational semantics,” where the meaning of a program is in how it might interact.
 
-There are several reasons why computer scientist did not content themselves with trace equivalence when studying interactive systems.
+There are several reasons why computer scientists did not content themselves with trace equivalence when studying interactive systems.
 The core argument is that, in this context, one usually does not want to consider processes like $\literal{P}$ and $\literal{Q}$ to be equivalent:
 The two might interact differently with an environment.
-For instance, assume there is a user that wants to communicate $(\dots \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\literal{success}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}$.
-In interactions with $\literal{Q}$, they will always reach $\literal{success}$.
-With $\literal{P}$, there is a possibility of ending up deadlocked in $((\ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\literal{success}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}$, never achieving success.
 
-So let us look into more distinctive equivalences!
+:::{#exm-philosopher-environment}
+#### Live lecture
 
-### Simulation and Bisimulation
+Consider a context in which $\literal{A}$ actually does not want to eat and the event of $\literal{B}$ eating is followed by $\literal{B}$ giving a live lecture:
+$$(\dots \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}$$
+If we insert $\literal{Q}$ into this context, the choice after the collective $\literal{fork}$-acquision is resolved to the $\literal{B}$-path.
+So the overall system choses for $\literal{B}$ to eat, and the lecture happens:
+$$(\literal{Q} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}} \step{\tau} \cdot \step{\tau} \cdot \step{\coaction{\literal{lecture}}}$$
+
+With $\literal{P}$, an analogous path is possible.
+But there moreover is a possibility of $\literal{A}$ obtaining the fork, which prevents $\literal{B}$ from eating.
+There, the system can end up deadlocked with no lecture:
+$$(\literal{P} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}
+\step{\tau} 
+((\ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}
+\nostep{}$$
+
+So, if $\literal{B}$'s teaching actually happening matters to us, we might say that scenario $\literal{P}$ and $\literal{Q}$ are not quite equivalent.^[
+  Traditionally, this feature of trace equivalence is often framed in terms of vending machines.
+  On <https://book.pseuco.com/#/interactive/trace-equivalent-vending-machines>, you can play through a comparable scenario of ordering drinks where *you are the environment*.
+]
+:::
+
+Computer scientists might not all care about philosophy lectures.
+But they care about the *liveness* of interactive programs.
+Therefore, they have invented many program equivalences that pay more attention to *possibilities coming and going*.
+The most prominent ones are the topic of the next subsection.
+
+### Similarity and Bisimilarity
 
 The other big approach to behavioral equivalence of programs is the one of relating parts of their state spaces to one-another.
 The idea here is to identify which states of one program can be used to *simulate* the behavior of the another.
@@ -500,14 +537,16 @@ We also call a symmetric simulation *bisimulation* for short.^[
 Canceled symbols of relations refer to their negations, for instance, $p \nbeq{S} q$ iff there is *no* simulation $\rel R$ with $(p, q) ∈ \rel R$.
 
 ::: {#exm-phil-sim}
-The following relations are simulations on the LTS of @exm-ts:
+#### Philosophical simulations
+
+The following relations are simulations on the of @exm-ts:
 
 - the empty relation $\rel R_\varnothing ≔ \varnothing$;
 - the identity relation $\rel R_\mathrm{id} ≔ \identity{\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}} = \set{(\literal P, \literal P),\allowbreak (\literal{p_a}, \literal{p_a}),\allowbreak (\literal{p_b}, \literal{p_b}), (\literal{p_1}, \literal{p_1}),\allowbreak (\literal{p_2}, \literal{p_2}), (\literal Q, \literal Q), (\literal{q_{ab}}, \literal{q_{ab}}), \allowbreak(\literal{q_1}, \literal{q_1}), (\literal{q_2}, \literal{q_2})}$;
-- the universal relation between all final states $\rel R_\mathrm{fin} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}}²$,
+- the universal relation between all final states $\rel R_\mathrm{fin} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} \times \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}}$,
 - more generally, the relation from final states to all other states: $\rel R_\mathrm{up} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} × \states$;
 - a minimal simulation for $\literal P$ and $\literal Q$: $\rel R_\literal{PQ} ≔ \set{(\literal{P}, \literal{Q}), (\literal{p_a}, \literal{q_{ab}}), (\literal{p_b}, \literal{q_{ab}}), (\literal{p_1}, \literal{q_1}), (\literal{p_2}, \literal{q_2})}$;
-- and the combination of the above $\rel R_\mathrm{max} ≔ \rel R_\mathrm{sim} ∪ \rel R_\mathrm{id} ∪ \rel R_\mathrm{up}$.
+- and the combination of the above $\rel R_\mathrm{big} ≔ \rel R_\mathrm{id} ∪ \rel R_\mathrm{fin} ∪ \rel R_\mathrm{up} ∪ \rel R_\literal{PQ}$.
 
 The simulation $\rel R_\literal{PQ}$ shows that $\literal P \bpreord{S} \literal Q$.
 
@@ -562,6 +601,7 @@ Let us quickly make this formal:
 ```
 
 Core hierarchy of equivalences.
+(Arrows mean implication.)
 ::::
 
 ::: {#lem-bisim-bisim}
@@ -577,7 +617,7 @@ If $p \bpreord{S} q$, then $p \bpreord{T} q$.{{<isb lemma Strong_Equivalences lt
 (Consequently, $p \beq{S} q$ also implies $p \beq{T} q$.{{<isb lemma Strong_Equivalences lts.sim_eq_implies_trace_eq>}})
 :::
 
-We also have seen with example @exm-phil-sim that this hierarchy (visualized in @fig-core-hierarchy) is strict between trace and simulation preorder in the sense that there exist $p,q$ with $p \bpreord{T} q$ but not $p \bpreord{S} q$.
+We also have seen with @exm-phil-sim that this hierarchy of implications (visualized in @fig-core-hierarchy) is strict between trace and simulation preorder in the sense that there exist $p,q$ with $p \bpreord{T} q$ but not $p \bpreord{S} q$.
 The hierarchy also is strict between similarity and bisimilarity as the following example shows.
 
 ::: {#exm-bisim-sim}
@@ -596,7 +636,7 @@ This adds another deadlock state to the transition system, seen in @fig-bisim-si
   \node[state, below left of=q0] (qAB){$\literal{q_{ab}}$};
   \node[state, below left of=qAB] (q1){$\literal{q_{1}}$};
   \node[state, below right of=qAB] (q2){$\literal{q_{2}}$};
-  \node[state, below right of=q0] (q3){$\troll$};
+  \node[below right of=q0] (q3){${\huge{\trollface}}$};
   \path[->]
     (q0)
       edge[swap] node {$\tau$} (qAB)

@@ -53,10 +53,12 @@ We^[
 
 ## Linear-Time–Branching-Time Spectroscopy {#sec-ltbt-spectroscopy-idea}
 
-To illustrate the problem, let us look at an example that we will be able to solve via tool support at the very end of the thesis, in @sec-equivio-peterson.
+To illustrate the problem, let us look at an example that we will be able to solve via tool support at the end of the thesis in @sec-equivio-peterson.
 It includes numerous concepts we will define and discuss more deeply on our way there.
 
 :::{#exm-peterson-mutex}
+#### Verifying Peterson's mutual exclusion
+
 Many verification tasks can be understood along the lines of “how equivalent” two models are.
 @fig-peterson-mutex replicates a standard example, known for instance from the textbook *Reactive Systems* [@ails2007reactiveSystems]:
 A specification of mutual exclusion $\literal{Mx}$ as two users $\literal A$ and $\literal B$ entering their critical section $\literal{ec_A} / \literal{ec_B}$ and leaving $\literal{lc_A} / \literal{lc_B}$ before the other may enter;
@@ -267,7 +269,7 @@ Output of equiv.io about weak equivalences to relate $\literal{Pe}$ to $\literal
 :::
 
 \noindent
-The big blue circle ![](img/equivio-eq.svg){width=0.9em} indicates that weak simulation indeed is the finest equivalence to equate $\literal{Pe}$ and $\literal{Mx}$.
+The big blue circle ![](img/equivio-eq.svg){width=0.9em} indicates that weak simulation indeed is the most specific equivalence to equate $\literal{Pe}$ and $\literal{Mx}$.
 Blue half-circles ![](img/equivio-preord.svg){width=0.9em} indicate preordering in only one direction.
 For instance, $\literal{Pe}$ is *preordered* to $\literal{Mx}$ with respect to two more specific notions, namely $\eta$-*simulation* and *stable simulation* (and notions below).
 Intuitively, this means that $\literal{Pe}$ *implements* $\literal{Mx}$ more faithfully than pure weak similarity would demand.
@@ -278,7 +280,7 @@ By running *one* simple algorithm, the tool decides *twenty-six* equivalence (an
 {{< paragraph_heading "Spectroscopy analogy." >}}
 How does the tool decide so many equivalences in one shot?
 The key are van Glabbeek's “linear-time--branching-time spectrum” papers on comparative concurrency semantics [-@glabbeek1990ltbt1;-@glabbeek1993ltbt].
-They treat a zoo of distinct *qualitative questions* of the form “Are processes $p$ and $q$ equivalent with respect to notion $N$?”, where $N$ would for example be trace or bisimulation equivalence.
+They treat a zoo of distinct *qualitative questions* of the form “Are processes $p$ and $q$ equivalent with respect to notion $N$?”, where $N$ would, for example, be trace or bisimulation equivalence.
 The papers unveil an underlying structure where equivalences can easily be compared with respect to their distinctive power.
 This is analogous to the *spectrum of light* where seemingly qualitative properties (“The light is blue / green / red.”) happen to be *quantitative* (“The distribution of wavelengths peaks at $460 / 550 / 630~\mathrm{nm}$.”).
 

@@ -66,7 +66,7 @@
 \lc{ CCS }
 
 \providecommand{\ccs}{\textsf{CCS}}
-\providecommand{\ccschannels}{\mathcal{A}}
+\providecommand{\ccschannels}{\mathcal{C}}
 \providecommand{\ccsactions}{\literal{Act}_\ccs}
 \providecommand{\ccslabels}{\labels_\ccs}
 \providecommand{\coaction}[1]{\overline{#1}}

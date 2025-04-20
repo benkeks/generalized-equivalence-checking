@@ -86,6 +86,7 @@ How we apply the spectroscopy approach to the full strong spectrum.
 In this section, we examine a game that does not “overlook” trace observations, as the *bisimulation energy game* (@def-bisim-energy-game) does.
 
 :::: {#exm-trace-distinction-bisim-game}
+#### Without a trace
 
 Consider the $\ccs$-processes
 $\ccsprefix{\literal{a}} \ccsprefix{\literal{b}} \literal{a}$ and
@@ -97,7 +98,7 @@ $\hmlobs{\literal{a}}\hmlands \set{ \hmlobs{\literal{b}}, \hmlobs{\literal{b}} \
 ::::
 
 It might be possible to reconstruct trace observations from such tree-like observations as the one of @exm-trace-distinction-bisim-game.
-But by the closing arguments of @sec-spectrum-approach-discussion, and also according to @martensGroote2023minimalDistFormulasNP this must inherently be NP-hard.
+But by the closing arguments of @sec-spectrum-approach-discussion, and also according to @martensGroote2023minimalDistFormulasNP, this must inherently be $\complexityname{NP}$-hard.
 What we will do instead is adapt the bisimulation game such that it also expresses trace-like distinctions, and precisely counts conjunctions.
 
 ### The Strong Spectroscopy Game
@@ -161,6 +162,8 @@ Again, energies limit the syntactic expressiveness of the formulas.
 The moves of the following definition closely match productions in the grammar of observations for the strong spectrum [@def-strong-spectrum].
 
 ::: {#def-strong-spectroscopy-game}
+
+#### Strong spectroscopy game
 
 For a system $\system=(\states,\actions,\step{})$,
 the $6$-dimensional *strong spectroscopy energy game*
@@ -237,6 +240,7 @@ Thereby the attacker would get the defender stuck on a trace budget of $(3,0,0,0
 The handling of conjunctions can be a little more intricate.
 
 ::: {#exm-spectroscopy-failure-trace-distinguished}
+#### Failure traces enter the game
 
 Let us think back to @exm-failure-trace-distinguished, that is, to $\literal{Q'} := \ccsprefix{\tau} (\ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b})$,
 $\literal{T'_{\tau a a}} := \literal{Q'} \ccschoice \ccsprefix{\tau}\ccsprefix{\literal a} \literal a$, and
@@ -290,11 +294,13 @@ The game also allows an alternative through nested negations that the attacker w
 :::
 
 ::: {#exm-spectroscopy-classic-ts}
+#### Simulated philosophers
 
-Let us see what our prototype implementation on {{< equivio >}} reports about our original example processes of @sec-preliminaries.^[
+Let us see what our prototype implementation on {{< equivio >}} reports about our original example processes $\literal{P}$ and $\literal{Q}$ of @sec-preliminaries.
+We can input the philosopher processes of @exm-ccs and @exm-deterministic-phil,^[
   A usage guide on the syntax can be found in @sec-equivio-usage.
 ]
-We can input the philosopher processes of @exm-ccs and @exm-deterministic-phil, obtaining a transition system matching @exm-ts:
+obtaining a transition system matching @exm-ts:
 
 ```ccs
 PA = fork.a
@@ -313,7 +319,7 @@ Q(x=400, y=50, main)
 ```
 
 Starting `@compare` (on {{< equivio >}}) triggers a spectroscopy along the lines we have discussed, leading to the output:^[
-  The spectroscopy game on this example, can also be explored in a computer game, see @sec-spectro-invaders.
+  A spectroscopy game on this example can also be played through in the computer game *The Spectrocopy Invaders*, see @sec-spectro-invaders.
 ]
 
 ```
@@ -337,18 +343,19 @@ Invoking `@compare Q, P` for the other direction, {{< equivio >}} reports `⟨τ
 
 The spectroscopy game still is a bisimulation game in the following sense.
 
-::: {#lem-spectroscopy-bisimulation-game}
+::: {#prp-spectroscopy-bisimulation-game}
+
+#### Defender bisimilarity
+
 $p_0$ and $q_0$ are bisimilar
-iff the defender wins $\gamespectroscopy$ from $\attackerpos{p_0, \{q_0\}}$ with $e_0$ for every initial energy budget $e_0$,
+precisely if
+the defender wins $\gamespectroscopy$ from $\attackerpos{p_0, \{q_0\}}$ with $e_0$ for every initial energy budget $e_0$,
 that is, if $(\infty, \infty, \infty, \infty, \infty, \infty) \in \defenderwins(\attackerpos{p_0, \{q_0\}})$.^[
   Proof in Lemma 1 of @bisping2023equivalenceEnergyGamesReport.
 ]
 :::
 
-TODO: Example graph (just the old one?)
-
 :::{#rem-spectroscopy-triangle}
-
 #### The $\triangle$-symbol
 
 We use the $\triangle$ in $\gamespectroscopy$ with a double meaning:
@@ -363,7 +370,7 @@ On the one hand, we show that game moves correspond to formulas of similar price
 On the other hand, we establish that formulas of certain expressiveness prices certify winning attacks of matching budgets.
 
 ::: {#def-strategy-formulas-strong}
-#### Strategy Formulas for $\gamespectroscopy$
+#### Strategy formulas for $\gamespectroscopy$
 
 The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratstrong(g, e)$, in the context of a strong spectroscopy game $\gamespectroscopy^{\system}$ is defined inductively by the following rules:
 $$
@@ -455,6 +462,8 @@ Proofs can be found in @bisping2023equivalenceEnergyGamesReport.
 There are two minor definitional nuances between the presentation here and there, upon which we will comment in @rem-differences-paper.
 
 ::: {#lem-strong-spectroscopy-game-soundness}
+#### Distinctions soundness
+
 If $e ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p, Q})$,
 then there is $φ ∈ \stratstrong(\attackerpos{p, Q}, e)$ with $φ ∈ \observationsvar[\literal{strong}]{e}$, $p ∈ \semantics{φ}$ and $Q \cap \semantics{φ} = \varnothing$.^[
   Proof in Lemma 2, 3, and 4 of @bisping2023equivalenceEnergyGamesReport.
@@ -462,6 +471,8 @@ then there is $φ ∈ \stratstrong(\attackerpos{p, Q}, e)$ with $φ ∈ \observa
 :::
 
 ::: {#lem-strong-spectroscopy-game-completeness}
+#### Distinction completeness
+
 If there is $φ ∈ \observationsvar[\literal{strong}]{e}$ with $p ∈ \semantics{φ}$ and $Q \cap \semantics{φ} = \varnothing$,
 then $e ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p, Q})$.^[
   Proof in Lemma 5 of @bisping2023equivalenceEnergyGamesReport.
@@ -471,13 +482,15 @@ then $e ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p, Q})$.^[
 Taken together, @lem-strong-spectroscopy-game-soundness and @lem-strong-spectroscopy-game-completeness prove that the strong spectroscopy game $\gamespectroscopy$ precisely characterizes the strong equivalence spectrum $\notions^\literal{strong}$.
 
 ::: {#thm-strong-spectroscopy-game-characterization}
-$p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{strong}$ precisely if the defender wins $\gamespectroscopy$ from $\attackerpos{p,\set{q}}$ if the attacker starts with budget $e$.
+#### $\notions^\literal{strong}$-characterization
+
+$p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{strong}$ precisely if the defender wins $\gamespectroscopy$ from $\attackerpos{p,\set{q}}$ for the attacker starting with budget $e$.
 :::
 
 Thus, we can solve the spectroscopy problem of @prob-spectroscopy-problem by computing $\notions^\literal{strong}_{p,q} = \notions^\literal{strong} \setminus \attackerwins^{\gamespectroscopy}(\attackerpos{p, \set{q}})$.
 
 ::: {#rem-differences-paper}
-#### Differences to Conference Version
+#### Differences to conference version
 
 As mentioned in @rem-explicit-expr, @bisping2023equivalenceEnergyGames uses a slightly different pricing, where $\expr(\hmltrue) = \unitvec{2}$.
 This difference is reflected in the game by @def-strong-spectroscopy-game charging $-\unitvec{2}$ for conjunctions after the defender conjunction positions instead of before.
@@ -491,9 +504,11 @@ Still, we can be confident that the conference paper results apply to the presen
 ### Complexity
 
 As expected, the bigger spectroscopy game leads to exponential runtimes.
-This comes as no surprise, for we have already discussed in @sec-equivalence-complexities that the spectroscopy problem on the whole strong spectrum is PSPACE-hard.
+This comes as no surprise, for we have already discussed in @sec-equivalence-complexities that the spectroscopy problem on the whole strong spectrum is $\complexityname{PSPACE}$-hard.
 
 ::: {#thm-strong-spectroscopy-complexity}
+#### Strong spectroscopy complexity
+
 Given a transition system $\system$,
 the spectroscopy problem for the $\notions^\literal{strong}$-spectrum can be solved by the game approach in exponential time and space with respect to the state space size $\relsize{\states}$.
 :::
@@ -538,10 +553,12 @@ In the following @sec-deciding-individual-eqs, we will take the last point to th
 
 ### Pruning with Approximations {#sec-bisim-approximations}
 
-We can exploit that the spectroscopy game is a bisimulation game by @lem-spectroscopy-bisimulation-game to reduce game graph size.
+We can exploit that the spectroscopy game is a bisimulation game by @prp-spectroscopy-bisimulation-game to reduce game graph size.
 In particular, we will profit from the properties of bisimilarity being symmetric and transitive.
 
 ::: {#lem-symmetric-positions-defender}
+#### Symmetry defense
+
 On a strong spectroscopy game, $\attackerwins(\attackerpos{p,Q}) = \varnothing$ for $p \in Q$.
 :::
 :::proof
@@ -559,6 +576,8 @@ Another important trick to reduce game size, is to first apply bisimulation-mini
 This approach is sound by the following lemma.
 
 ::: {#lem-quotienting-spectro-game}
+#### Quotienting by bisimilarity
+
 The attacker wins $\attackerpos{p, \set{q}}$ on $\gamespectroscopy^{\system}$ with $e$ precisely if they win $\attackerpos{\eqclass{p}_{\beq{B}}}, \set{\eqclass{q}_{\beq{B}}}$ on $\gamespectroscopy^{\quotient{\system}{\beq{B}}}$.
 :::
 ::: proof
@@ -568,6 +587,7 @@ We can use @lem-strong-spectroscopy-game-soundness and @lem-strong-spectroscopy-
 :::
 
 ::: {#exm-pruning-effects}
+#### Some measurements
 
 Both tricks of pruning “symmetric” parts (@lem-symmetric-positions-defender) and pre-minimization by bisimilarity (@lem-quotienting-spectro-game) make an effective difference for the applicability of the spectroscopy approach:
 
@@ -644,8 +664,9 @@ Given the spectrum we are interested in, we can drastically limit the sensible a
 In the following, we will focus on the sub-spectrum $\widehat{\notions}^\literal{strong} \subseteq \set{0, 1, \infty}^6 \subseteq \notions^\literal{strong}$, where dimensions 3, 4, and 5 of modal depth for positive and negative conjuncts can only appear in certain combinations.
 
 ::: {#def-simpler-strong-spectrum}
+#### Simpler strong spectrum
 
-The simpler strong spectrum, $\widehat{\notions}^\literal{strong}$, is defined as
+The *simpler strong spectrum*, $\widehat{\notions}^\literal{strong}$, is defined as
 $$
 \widehat{\notions}^\literal{strong} ≔
   \set{e \in \set{0, 1, \infty}^6 \mid e_4 \leq e_3 \land (e_5 = \infty \longrightarrow e_3 = e_4)}.
@@ -655,7 +676,7 @@ $$
 Observe that all the coordinates of the strong linear-time–branching-time spectrum are still covered by the simpler spectrum.
 
 ::: {#def-strong-spectroscopy-game-clever}
-#### Clever Spectroscopy Game
+#### Clever spectroscopy game
 
 The *clever spectroscopy game* $\gamespectroscopyclever$, is defined exactly like the previous spectroscopy game of @def-strong-spectroscopy-game with the restriction of the conjunction challenges
 $$
@@ -677,7 +698,7 @@ Those where the $Q_*$-revival deals with parts of $Q$ that cannot be discharged 
 The usage of $\initials{\cdot}$ is comparable to a small look-ahead into the possibilities to win through observations inside the conjunction.
 
 ::: {#thm-clever-strong-spectroscopy-correctness}
-#### Correctness of Cleverness
+#### Correctness of cleverness
 
 For $e \in \widehat{\notions}^\literal{strong}$, the attacker wins $\gamespectroscopyclever$ from $\attackerpos{p_0,Q_0}$ with $e$ precisely if they win $\gamespectroscopy$ from $\attackerpos{p_0,Q_0}$ with $e$.^[
   Proof in Theorem 2 of @bisping2023equivalenceEnergyGamesReport.
@@ -685,6 +706,8 @@ For $e \in \widehat{\notions}^\literal{strong}$, the attacker wins $\gamespectro
 :::
 
 ::: {#thm-clever-strong-spectroscopy-complexity}
+#### Complexity of cleverness
+
 Given a transition system $\system=(\states,\actions,\step{})$,
 the spectroscopy problem for the simpler $\widehat{\notions}^\literal{strong}$-spectrum is solved by the game approach in $O( \relsize{\states}^{13} \cdot 2^{12\relsize{\states}} )$ time and $O( \relsize{\states} \cdot 2^{\relsize{\states}} )$ space,
 :::
@@ -708,6 +731,7 @@ For space complexity, only game positions are relevant, $\bigo{ \relsize{G_\blac
 :::
 
 ::: {#exm-pruning-effects-clever}
+#### More measurements
 
 Let us see how the “clever game” adds up with the pruning effects on the Peterson example of @exm-pruning-effects.
 
@@ -786,7 +810,7 @@ Of course, in this situation, one wants to avoid complexities that are part of t
 Let us first explicate how to characterize equivalences through reachability games derived according to @def-derived-reachability-game.
 
 ::: {#def-derived-eq-game}
-#### Derived Strong Equivalence Games
+#### Derived strong equivalence games
 
 Given a system $\system=(\states,\actions,\step{})$, a strong notion of equivalence $N \in \notions^\literal{strong}$, and a pair of states $p,q$,
 the *derived $N$-preorder game*
@@ -795,7 +819,11 @@ is defined as the part of the reachability game $(\gamespectroscopy^{\system})^R
 under starting position $(\attackerpos{p,\set{q}}, N)$.
 :::
 
+We thus receive a game characterization for every equivalence, generalizing Stirling's result of the bisimulation game from @thm-bisim-game-characterization.
+
 ::: {#thm-derive-eq-games-characterize}
+#### Parametric characterizations
+
 $p \bpreord{\observations{N}} q$ precisely if
 the defender wins the $N$-preorder game ${\gamespectroscopyeq{N}^{\system,p,q}}$ from $(\attackerpos{p,\set{q}}, N)$.
 :::
@@ -813,6 +841,7 @@ Using @alg-deciding-games, our results entail decision procedures for each indiv
 Of course, it makes sense for algorithms to employ the clever game and pruning.
 
 ::: {#exm-spectroscopy-equivalence-checking}
+#### Checking equivalences
 
 The following processes are two of the more complex ones of the separating examples in @glabbeek2001ltbtsiReport [p. 59].
 They are equal with respect to ready traces, but not for simulation-like and possible-future-like equivalences.
@@ -908,10 +937,12 @@ Especially in the case of bisimilarity and similarity, such a blow up is not nec
 ### Regaining Polynomiality in Derived Equivalence Games {#sec-regaining-polynomiality}
 
 So far, the derived games include the exponentiality due to the subset construction.
-But we can restrict the attacker to only use a polynomially-sized portion of the game.
+But often we can restrict the attacker to only use a polynomially-sized portion of the game.
 If they have energy for unbounded conjunctions, this restriction will not affect their wins.
 
 :::{#prp-defender-options}
+#### Defender restriction
+
 If the attacker wins $(\attackerpos{p, Q}, e)$ in a derived preorder game $\gamespectroscopyeq{N}$ or $\gamespectroscopyceq{N}$, they also win $(\attackerpos{p, Q'}, e)$ for all $Q' \subseteq Q$.
 :::
 :::proof
@@ -932,6 +963,8 @@ If the defender decides for the revival to $\attackerpos{p_n,Q'_*}$, we can cont
 -->
 
 :::{#lem-conjunction-optimization}
+#### Conjunctive attacks
+
 If the attacker wins $(\attackerpos{p, Q}, e)$ with $\relsize{Q} > 1$ in a derived preorder game with $e \geq (0,\infty,\infty,\infty,0,0)$, then they can also win without using any observation moves of the form $(\attackerpos{p, Q}, e) \gamemoveblank (\attackerpos{p', Q'}, e')$.
 :::
 :::proof
@@ -944,6 +977,8 @@ As $\derivatives{q, α} \subseteq Q'$, we can use @prp-defender-options.
 As a consequence, we can obtain a polynomial complexity bound for equivalences that do not restrict conjunctions and positive conjuncts.
 
 :::{#lem-optimized-eq-complexity}
+#### Polynomial equivalence checking
+
 For a strong notion $N \in \set{0, 1, \infty}^6$ with $N \geq (0,\infty,\infty,\infty,0,0)$, and a system $(\states,\actions,\step{})$,
 one can decide $p \bpreord{\observations{N}} q$ in polynomial time,
 by computing who wins the $N$-preorder game in $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ time and space.
@@ -980,6 +1015,8 @@ Inserting our bounds in @prp-reachability-game-complexity, we obtain time and sp
 :::
 
 ::: {#exm-instance-game-sizes}
+#### Measurements of derived games
+
 Let us see how the instance game sizes behave on @fig-instance-games-strong-ltbt-spectrum the games of @exm-spectroscopy-equivalence-checking!
 @fig-instance-games-strong-ltbt-spectrum maps out the sizes of game instantiations for the preorders of the strong spectrum @fig-strong-ltbt-spectrum.
 Each game is derived from the clever spectroscopy game, with pruning and with capped non-determinism where possible; to enable equivalence checks, the games combine the parts under $\attackerpos{\literal{ABCACB}, \set{\literal{ABC}}}$ and under $\attackerpos{\literal{ABC}, \set{\literal{ABCACB}}}$.

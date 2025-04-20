@@ -744,6 +744,8 @@ Consider the cases of $φ ∈ \observationsvar[\literal{poly-strong}]{e}$ with $
 :::
 
 ::: {#thm-bisim-energy-game-characterization}
+#### $\notions^\literal{poly-strong}$-characterization
+
 $p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{poly-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $e$.
 :::
 

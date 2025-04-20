@@ -169,7 +169,7 @@ It is quite straightforward how to lift traces from the strong setting of @def-t
 Allow internal $\stepweak$-behavior in between.
 
 ::: {#def-weak-traces}
-#### Weak Traces, Preorder, and Equivalence
+#### Weak traces, preorder, and equivalence
 
 The set of *weak traces* of a state $\wtraces{p} \subseteq \actionsvis^*$ is defined as $\vec w \in \wtraces{p}$ iff there is $p'$ such that $p \stepweakword{\vec w} p'$.{{<isb abbreviation LTS LTS_Tau.weak_traces>}}^[
   The Isabelle theory has a slightly different definition that also allows $\tau$s in the trace words, which do not necessary stand for proper $\step{\tau}$-steps.
@@ -183,7 +183,7 @@ The blue groups of states in @fig-simple-weak-eq are weakly trace equivalent.
 Moreover, they also are related by the stronger notions of weak bisimulation and simulation.
 
 ::: {#def-weak-bisimilarity}
-#### Weak Simulation, Preorder and Equivalences
+#### Weak simulation, preorder and equivalences
 
 A relation, $\rel R ⊆ \states × \states$, is called a *weak simulation* if, for each $(p, q) ∈ \rel R$,
 
@@ -200,6 +200,8 @@ Weak simulation preorder, weak simulation equivalence and weak bisimilarity anal
 All three weak equivalences maintain that the small example processes of the introduction to @sec-weak-equivalences-in-general are equal.
 
 ::: {#exm-phil-weak-eqs}
+#### Weakly simulated philosophers
+
 For the processes of @exm-ts (repeated in @fig-ts-determinism-repeated), the weak traces would be $\wtraces{\literal{P}} = \set{\emptyword, \literal{a}, \literal{b}} = \wtraces{\literal Q}$.
 Consequently, $\literal P$ and $\literal Q$ are weakly trace-equivalent, $\literal P \beq{WT} \literal Q$.
 
@@ -271,8 +273,8 @@ To characterize weak equivalences, we have to select appropriate subsets.
 We will use the following sublogic that, naturally, must be designed to correspond to the strongest weak notion we will be interested in.
 
 :::{#def-hml-srbb}
+#### Branching Hennessy--Milner logic
 
-#### Branching Hennessy--Milner Logic
 We define *stability-respecting branching* Hennessy--Milner modal logic,
 $\hmlsrbb$, over an alphabet of actions $\actions$ by the following context-free grammar starting with $\varphi$:{{<isb datatype HML_SRBB hml_srbb>}}
 $$
@@ -293,23 +295,28 @@ We consider the semantics of $\hmlsrbb$ to be given by @def-hml-semantics and @d
 The name already alludes to $\hmlsrbb$ as a whole characterizing *stability-respecting branching bisimilarity*, which is a comparably strong abstraction of bisimilarity, a “strong weak bisimilarity,” so to speak.
 
 ::: {#def-stability-respecting}
-  We call a $\rel R$ *stability-respecting* iff,
-  for each $(p,q) \in \rel R$ with $p \nostep{\tau}$,
-  there is some $q'$ with $q \stepweak q' \nostep{\tau}$ and $(p, q') \in \rel R$.{{<isb definition LTS LTS_Tau.stability_respecting>}}
+#### Stability
+
+We call a $\rel R$ *stability-respecting* iff,
+for each $(p,q) \in \rel R$ with $p \nostep{\tau}$,
+there is some $q'$ with $q \stepweak q' \nostep{\tau}$ and $(p, q') \in \rel R$.{{<isb definition LTS LTS_Tau.stability_respecting>}}
 :::
 
 ::: {#def-branching-bisim}
-  A symmetric relation $\rel{R}$ is a *branching bisimulation*
-  if, for all $(p,q) \in \rel R$, a step $p \step{\alpha} p'$ implies
-    (1) $\alpha = \tau$ and $(p', q) \in \rel R$,
-    or (2) $q \stepweak q' \step{\alpha} q''$ for some $q', q''$ with $(p, q') \in \rel R$ and $(p', q'') \in \rel R$.{{<isb definition Branching_Bisimilarity LTS_Tau.branching_simulation>}}
+#### Branching bisimilarity
 
-  If there is a stability-respecting branching bisimulation $\rel R_{BB^{sr}}$ with $(p_0, q_0) \in \rel R_{BB^{sr}}$, then $p_0$ and $q_0$ are *stability-respecting branching bisimilar*.
+A symmetric relation $\rel{R}$ is a *branching bisimulation*
+if, for all $(p,q) \in \rel R$, a step $p \step{\alpha} p'$ implies
+(1) $\alpha = \tau$ and $(p', q) \in \rel R$,
+or (2) $q \stepweak q' \step{\alpha} q''$ for some $q', q''$ with $(p, q') \in \rel R$ and $(p', q'') \in \rel R$.{{<isb definition Branching_Bisimilarity LTS_Tau.branching_simulation>}}
+
+If there is a stability-respecting branching bisimulation $\rel R_{BB^{sr}}$ with $(p_0, q_0) \in \rel R_{BB^{sr}}$, then $p_0$ and $q_0$ are *stability-respecting branching bisimilar*.
 :::
 
 The power of @def-hml-srbb to distinguish mirrors exactly the power of @def-branching-bisim to equate:
 
 ::: {#thm-srbb-characterization}
+#### $\hmlsrbb$ Hennessy–Milner theorem
 
 $\hmlsrbb$ characterizes stability-respecting branching bisimilarity, that is,
 there is a stability-respecting branching bisimulation $\rel R$ with $(p,q) \in \rel R$
@@ -322,6 +329,7 @@ The example process groups of @fig-simple-weak-eq are stability-respecting branc
 But branching bisimilarity is more distinctive than weak bisimilarity:
 
 ::: {#exm-non-bb-procs}
+#### The strength of branching
 
 Compare $\literal{P_{ab}} \defeq \literal{a} \ccschoice \ccsprefix{\tau} \literal{b} \ccschoice \literal{b}$
 and a subgraph-variant $\literal{P_{a\tau b}} \defeq \literal{a} \ccschoice \ccsprefix{\tau} \literal{b}$, where the $\literal{b}$ is *only* possible after committing to its branch.
@@ -334,7 +342,7 @@ A formal argument would be that $\identity{\states} \cup \set{(\literal{P_{ab}},
 :::
 
 ::: {#rem-equivalence-indeed}
-#### An Equivalence Indeed
+#### An equivalence indeed
 
 It is a popular anecdote among those who know branching bisimilarity that the proof of its transitivity “assumed” originally does not exist.
 Six years after branching bisimilarity's inception, @bastern1996branchingBisimEqIndeed closes the gap by a proof that is surprisingly complex.
@@ -367,6 +375,7 @@ This runs into the problem that weak bisimilarity is too strong for this use cas
 The following example (adapted from @bell2013certifiably) shows why.
 
 :::{#exm-parallelizing-compilation}
+#### Parallelized execution
 
 Consider the following sequential program $\literal{P_{Seq}}$, which computes `x` (with possible values `A` and `B`), prints a header (`output:`) and then the computed value:
 
@@ -463,7 +472,7 @@ In @bm2024contrasimilarityInfComp, we discuss how two more standard notions from
 Stable bisimilarity and contrasimilarity.
 
 ::: {#def-stablebisim}
-#### Stable Bisimulation
+#### Stable bisimilarity
 
 A *stable bisimulation* is a relation $\rel R$ where,
 for all $(p,q) \in \rel R$ with $\vec w \in \actionsvis$ and $p \stepweakword{\vec w} p'$,
@@ -479,7 +488,7 @@ Intuitively, stable bisimilarity is allowed to “skip” intermediate that woul
 As we argue in @bm2024contrasimilarityInfComp, stable bisimilarity, in many ways, is better understood not as a stable variant of bisimilarity, but of *contrasimilarity*: 
 
 ::: {#def-contrasim}
-#### Contrasimulation
+#### Contrasimilarity
 
 A *contrasimulation* is a relation $\rel R$ where, for all $(p,q) \in \rel R$ with $\vec w \in \actionsvis$ and $p \stepweakword{\vec w} p'$, there is a $q'$ with $q \stepweakword{\vec w} q'$ and $(q', p') \in \rel R$.^[Note that $p'$ and $q'$ swap sides in the consequent!]
 The *contrasimulation preorder* $\bpreord{C}$ and *contrasimilarity* $\beq{C}$ are defined as in @def-weak-bisimilarity.
@@ -499,6 +508,8 @@ They also are more well-behaved than Bell's “eventual bisimilarity,” which f
 As we will establish in @sec-solution-parallelizing-compilation, contrasimilarity and stable bisimilarity indeed are the finest equivalences from the standard spectrum to equate the sequential and the parallel program.
 
 :::{#rem-stable-bisim-sangiorgi}
+#### Half a definition of stable bisimilarity
+
 @sangiorgi2012 [§ 6.5] gives the following, simpler definition for stable bisimulation:^[Quote adapted to the notation of the present thesis.]
 
 > A process relation $\rel R$ is a *stable bisimulation* if, whenever $(p,q) \in \rel R$, for all $\vec w$ we have:
@@ -544,9 +555,10 @@ Ones where negation and conjunctive observations are only possible when processe
 We will illustrate these options using modal characterizations of stable and weak failure equivalence, abstracting @def-failures:
 
 :::{#def-weak-failures}
+#### Weak failure preorder and equivalence
 
-Let *weak failure equivalence and preorder* be defined by the weak failure observations $\observations{WF}$ produced by $φ^\mathrm{WF}$ in the following grammar.
-The same for *stable failure equivalence and preorder*, using $φ^\mathrm{SF}$.
+Let *weak failure preorder and equivalence* be defined by the weak failure observations $\observations{WF}$ produced by $φ^\mathrm{WF}$ in the following grammar.
+The same for *stable failure preorder and equivalence*, using $φ^\mathrm{SF}$.
 $$
   φ^\mathrm{WF} \grammardef
     \hmleps\hmlobs{a}φ^\mathrm{WF}
@@ -572,13 +584,14 @@ In another respect, one loses the option to see failures in instable parts of th
 In particular, if all states of a transition system are divergent, stable failure preorder degenerates to weak trace preorder.
 
 Often, weak and stable failures will coincide.
-For instance, in $\literal{P}$ is distinguished from $\literal{Q}$ by weak failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ and by stable failure $\hmleps\hmlands\set{\hmlneg\hmlobs{\tau}, \hmlneg\hmlobs{\literal{a}}}$ alike.
+For instance, philosopher process $\literal{P}$ is distinguished from $\literal{Q}$ by weak failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ and by stable failure $\hmleps\hmlands\set{\hmlneg\hmlobs{\tau}, \hmlneg\hmlobs{\literal{a}}}$ alike.
 For the other direction, $\literal{Q}$ is preordered to $\literal{P}$ with respect to both, weak and stable failures.
 
 But in general, weak and stable failure equivalence are *incomparable.*
 The following example to highlight their differences is due to van Glabbeek:
 
 :::{#exm-idle-process-abstraction}
+#### Congruence on $\tau$-abstraction
 
 @fig-idle-process-abstraction presents transition systems of four processes, given through their initial states:
 $\literal{P}_e$ makes a nondeterministic choice $\literal{op}$ between $\literal{a}$ and $\literal{b}$, performing arbitrarily many $\literal{idle}$-actions in between.
@@ -671,6 +684,8 @@ Therefore, our spectrum in @sec-weak-spectrum-quantities will treat both.
 Weak failures will be located in the part below weak bisimilarity; stable failures in that below stable bisimilarity.
 
 :::{#rem-congruences-weak}
+#### More on congruences
+
 In general, congruence properties are harder to obtain in the weak spectrum.
 A classic example would be weak bisimilarity, not forming a congruence with respect to the choice operator $\ccschoice$,
 because $\literal{a} \beq{WB} \ccsprefix{\tau}\literal{a}$ but not $\literal{a} \ccschoice \literal{b} \beq{WB} \ccsprefix{\tau}\literal{a} \ccschoice \literal{b}$.
@@ -701,7 +716,7 @@ To formalize our weak spectrum, we need to fix the observation languages $\obser
 This time, we will do this by directly providing an expressiveness pricing metric.
 
 ::: {#def-weak-spectrum}
-#### Weak Spectrum
+#### Weak notions
 
 We define the *weak notions of observability* using vectors of extended naturals
 $$\notions^\literal{weak} ≔
@@ -862,6 +877,7 @@ Hierarchy of weak behavioral equivalences/preorders, by equivalence notion coord
 Let us first see how trace-like notions are handled in our spectrum.
 
 ::: {#lem-weak-trace-eq}
+#### Characterization of weak trace equivalence
 
 The subset $\observations[\literal{weak}]{WT} = \observationsvar[\literal{weak}]{(\infty,0,0,0,0,0,0,0)} \subseteq \hmlsrbb$ can be given by the following grammar:
 \begin{align*}
@@ -1102,6 +1118,7 @@ stability-respecting branching bisimilarity{{<isb theorem Branching_Bisimilarity
 The first interesting feature of the weak hierarchy is an effect of some languages not enforcing top-level negation as observed in @bj2024silentStepSpectroscopyExpress [Ex. 2.5].
 
 :::{#exm-weak-bisim-modal-features}
+#### Weak bisimulation logic
 
 Let us contrast the logic of weak bisimulation observations $\observations{WB}$ defined through $(\infty,0,\infty,0,0,\infty,\infty,\infty)$ to the weak bisimulation observations $\observations{WB'}$ from @gfm2020congruenceOperator:
 $$\varphi_\literal{WB'} \grammardef \hmleps\varphi_\literal{WB'}

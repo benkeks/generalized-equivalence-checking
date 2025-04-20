@@ -294,7 +294,7 @@ The game also allows an alternative through nested negations that the attacker w
 :::
 
 ::: {#exm-spectroscopy-classic-ts}
-#### Simulated philosophers
+#### Half-simulated philosophers
 
 Let us see what our prototype implementation on {{< equivio >}} reports about our original example processes $\literal{P}$ and $\literal{Q}$ of @sec-preliminaries.
 We can input the philosopher processes of @exm-ccs and @exm-deterministic-phil,^[

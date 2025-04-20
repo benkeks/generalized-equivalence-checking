@@ -120,9 +120,10 @@ Schematic weak spectroscopy game of @def-weak-spectroscopy-game.
 Formally, the game rules are defined as follows:
 
 ::: {#def-weak-spectroscopy-game}
+#### Weak spectroscopy game
 
 For a system $\system=(\states,\actions,\step{})$,
-the $8$-dimensional *weak spectroscopy energy game*
+the $8$-dimensional *weak spectroscopy game*
 $\gamespectroscopyw^{\system}=(G,G_{\defender},\gamemoveblank,w)$
 consists of
 
@@ -241,10 +242,11 @@ Following @idea-weakening-game, these moves grow the right-hand-sets, which incr
 At the same time, there are several new tactical possibilities for the attacker that correspond to the special weak conjunctions, as can be seen in the following example.
 
 ::: {#exm-phil-weak-spectroscopy}
+#### Failures of philosophy
 
 For our standard philosopher system of @fig-ts-determinism, @exm-phil-weak-eqs has determined that $\literal P$ and $\literal Q$ are not weakly bisimilar, but weakly similar (and thus weakly trace-equivalent).
 
-The stable failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ discussed in @sec-abstraction-failures corresponds to the following game moves, needing budget $(1,0,0,1,0,0,1,1)$:
+The stable failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ discussed in @sec-abstraction-failures corresponds to the following game moves, which need budget $(1,0,0,1,0,0,1,1)$:
 $$
 \begin{array}{rlc}
   \attackerpos{\literal{P}, \set{\literal{Q}}} \;
@@ -316,7 +318,7 @@ This subsection limits itself to citing the lemma heads and the inductive predic
 The following facts moreover have been fully formalized in Isabelle/HOl, which will be the topic of the following @sec-isabelle-formalization.
 
 ::: {#def-strategy-formulas-weak}
-#### Strategy Formulas for $\gamespectroscopyw$
+#### Strategy formulas for $\gamespectroscopyw$
 
 The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas.{{<isb inductive Strategy_Formulas weak_spectroscopy_game.strategy_formula>}}
 :::
@@ -454,6 +456,8 @@ Strategy formulas for the weak spectroscopy.
 Attacker winning budgets can be translated into strategy formulas of matching price.
 
 ::: {#lem-weak-spectroscopy-game-formulas}
+#### Distinction formulatability
+
 If $e \in \attackerwins(\attackerpos{p,Q})$, then there is $\varphi \in \stratweak (\attackerpos{p,Q}, e)$ with $\expr[\literal{weak}](\varphi) \leq e$.{{<isb lemma Strategy_Formulas weak_spectroscopy_game.winning_budget_implies_strategy_formula>}}
 :::
 :::proof
@@ -477,6 +481,8 @@ By induction over game positions $g$ and energies $e$ according to the inductive
 Strategy formulas are distinguishing.
 
 ::: {#lem-weak-spectroscopy-game-soundness}
+#### Distinction soundness
+
 If $\varphi \in \stratweak(\attackerpos{p,Q}, e)$,
 then $\varphi$ distinguishes $p$ from $Q$.{{<isb lemma Strategy_Formulas weak_spectroscopy_game.strategy_formulas_distinguish>}}
 :::
@@ -502,6 +508,8 @@ By induction over the derivation of $~\cdots \in \stratweak(g, e)$ according to 
 Distinguishing formulas certify the existence of equally cheap ways for the attacker to win.
 
 ::: {#lem-weak-spectroscopy-game-completeness}
+#### Distinction completeness
+
 If $\varphi \in \hmlsrbb$ distinguishes $p$ from $Q$, then $\expr[\literal{weak}](\varphi) \in \attackerwins^{\gamespectroscopyw}(\attackerpos{p,Q})$.{{<isb lemma Distinction_Implies_Winning_Budgets weak_spectroscopy_game.distinction_implies_winning_budgets>}}
 :::
 :::proof
@@ -523,6 +531,8 @@ By mutual structural induction on $\varphi$, $\chi$, and $\psi$ with respect to 
 :::
 
 ::: {#thm-weak-spectroscopy-game-characterization}
+#### $\notions^\literal{weak}$-characterization
+
 For all $N \in \notions^\literal{weak}$, $p \in \states$, $Q \in \powerset{\states}$, the following are equivalent:{{<isb theorem Silent_Step_Spectroscopy weak_spectroscopy_game.spectroscopy_game_correctness>}}
 
 - There exists a formula $\varphi \in \hmlsrbb$ with price $\expr[\literal{weak}](\varphi) \leq N$ that distinguishes $p$ from $Q$.
@@ -719,6 +729,8 @@ qed
 The complexity for spectroscopy using the weak game is quite comparable to the strong spectroscopy (@thm-strong-spectroscopy-complexity).
 
 ::: {#thm-weak-spectroscopy-complexity}
+#### Weak spectroscopy complexity
+
 Given a transition system $\system$,
 the spectroscopy problem for the $\notions^\literal{weak}$-spectrum can be solved by the game approach in exponential time and space with respect to the state space size $\relsize{\states}$.
 :::
@@ -1010,6 +1022,8 @@ In @bj2025silentStepSpectroscopyJournal we discuss this game's strategy formulas
 ]
 
 ::: {#thm-weak-spectroscopy-game-simplified-characterization}
+#### $\widehat{\notions}^\literal{weak}$ characterization
+
 Let the simplified weak notions $\widehat{\notions}^\literal{weak}$ be the union of $\nats \times \set{ 0 } \times \nats^6$
 and $\nats \times \set{ \infty } \times \set{ 0, \infty} \times \nats \times \set{ 0, \infty} \times \nats^3$.
 Let simplified expressiveness prices be defined by rounding up the prices of @def-weak-spectrum:
@@ -1161,6 +1175,9 @@ In fact, the implementation on {{<equivio>}} does employ this formulation, there
 Although this thesis remains short on providing a theorem for the game that contains the stable revival move, tests in the tool (and the theorems for the strong spectrum) justify some confidence for the correctness of variant in @fig-weak-spec-game-revivals.
 
 ### Extending to Other Equivalences {#sec-extending-to-other-eqs}
+
+At this point, we have covered most interesting parts of strong and weak spectrum.
+But there are still more notions one could reach for.
 
 {{< paragraph_heading "Divergence and completed observations." >}}
 Logic and game, as we have presented them, are blind to divergence and to completed observations.

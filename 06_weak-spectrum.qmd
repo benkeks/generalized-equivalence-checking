@@ -97,9 +97,13 @@ But this idea leads into a lot of fine points.
 
 ### Silent Transitions {#sec-silent-transitions}
 
-:::{#def-transition-systems-with-silent-steps}
+To help us with our abstractions of weak activity, we use some additional notation:
 
-For transition systems $\system=(\states,\actions,\step{})$ with an *internal action* $\tau \in \actions$, we call $\step{\tau}$-transitions “silent” and define special transition relations plus HML modalities, where $\actionsvis \defeq \actions \setminus \set{\tau}$ denotes “visible” actions:
+:::{#def-transition-systems-with-silent-steps}
+#### Transition systems with internal activity
+
+For transition systems $\system=(\states,\actions,\step{})$ with an *internal action* $\tau \in \actions$,
+we call $\step{\tau}$-transitions “silent” and define the following special transition relations plus HML modalities, where $\actionsvis \defeq \actions \setminus \set{\tau}$ denotes “visible” actions:
 
 Internal transition relation
 : $p \stepweak p'$ iff $p \step{\tau}^* p'$, where $\step{\tau}^*$ is the reflexive transitive closure of silent steps.{{<isb inductive LTS LTS_Tau.silent_reachable>}}
@@ -125,6 +129,8 @@ Again, we implicitly lift the relations to sets of states, that is for instance,
 In upcoming definitions and facts, we use the convention that $\alpha$ continues to stand for elements of $\actions$, while $a$ comes from $\actionsvis = \actions \setminus \set{\tau}$.
 
 :::{#exm-weak-transitions}
+#### Weak steps
+
 In @fig-simple-weak-eq, the state $\ccsprefix{\tau}\ccsprefix{\tau}\literal{a}$ allows the following weak steps:
 
 - Soft $\tau$-transitions to iteself and its immediate successor:
@@ -144,6 +150,8 @@ No state is divergent.
 :::
 
 :::{#rem-expressiveness-weak-hml}
+#### Just notation
+
 Note that the notation for $\hml$-operators $\hmleps \dots$ and $\hmlsoft{\alpha}\dots$ introduced in @def-transition-systems-with-silent-steps does not affect the expressiveness of $\hml$.
 To see why, assume notation for disjunction $\bigvee_{i \in I} \psi_i \defeq \hmlneg\hmland{i}{I} \hmlneg\psi_i$, and for $n$-time application of an operator.
 Then, $\semantics{\hmleps\varphi} = \semantics{\bigvee_{n \in \nats} \hmlobs{\tau}^n \varphi}$.

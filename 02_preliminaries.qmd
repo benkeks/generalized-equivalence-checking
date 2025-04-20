@@ -865,6 +865,9 @@ We also usually omit them when writing down formulas, e.g., shortening $\hmlobs{
 We will assume a form of associativity through the *convention that conjunctions are flat* in the sense that they do not immediately contain other conjunctions.
 In this sense, we consider $\hmlands \set{ φ_1, \hmlands \set{φ_2} }$ and $\hmlands \set{ φ_1, \hmlands \set{φ_2}, \hmltrue}$ just as different representatives of the flattened formula $\hmlands \set{φ_1, φ_2}$.
 
+We do not restrict the size of index sets in conjunctions.
+In particular, infinitary conjunctions are allowed, as we will discuss in @rem-image-finiteness.
+
 The intuition behind HML is that it describes *what sequences of behavior* one may or may not *observe* of a system.
 Observations $\hmlobs{α}…$ are used to build up possible action sequences;
 conjunctions $\hmlands\set{…}$ capture branching points in decision trees;
@@ -961,6 +964,8 @@ Bisimilarity and HML equivalence coincide, that is, $p \beq{B} q$ precisely if $
 :::
 
 ::: {#rem-image-finiteness}
+#### Infinitary conjunctions
+
 In the standard presentation of the theorem, image finiteness of the transition system is assumed.
 This means that $\derivatives{p, α}$ is finite for every $p ∈ \states$.
 The amount of outgoing transitions matters precisely in the construction of $φ_α$ in the proof of @lem-hml-eq-sim.

@@ -69,6 +69,7 @@ That this research project has still reached the stage of a (soon to be submitte
   Caroline Lemke,
   Andrei Aleksandrov,
   Dominik Geißler,
+  Uli Fahrenberg
   (you might soon appear here, dearest test reader)
 
 ```{=latex}

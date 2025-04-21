@@ -37,7 +37,7 @@ In particular, we try to be much more restricted in the use of special modalitie
 We can use a subset of Hennessy--Milner logic to characterize most interesting weak equivalences.
 :::
 
-@sec-weak-equivalences-in-general provides some preliminaries and defines the $\hml$-subset $\hmlsrbb$, which will correspond to the notion of stability-respecting branching bisimilarity.
+@sec-weak-equivalences-in-general provides some preliminaries and defines the $\hml$ subset $\hmlsrbb$, which will correspond to the notion of stability-respecting branching bisimilarity.
 @sec-case-stduies-other-eqs illustrates the use of some of the weak notions through small case studies from compiler verification and concurrency theory.
 In @sec-weak-spectrum-quantities, we unfold the hiearchy of modal characterizations for the weak spectrum.
 
@@ -152,7 +152,7 @@ No state is divergent.
 :::{#rem-expressiveness-weak-hml}
 #### Just notation
 
-Note that the notation for $\hml$-operators $\hmleps \dots$ and $\hmlsoft{\alpha}\dots$ introduced in @def-transition-systems-with-silent-steps does not affect the expressiveness of $\hml$.
+Note that the notation for $\hml$ operators $\hmleps \dots$ and $\hmlsoft{\alpha}\dots$ introduced in @def-transition-systems-with-silent-steps does not affect the expressiveness of $\hml$.
 To see why, assume notation for disjunction $\bigvee_{i \in I} \psi_i \defeq \hmlneg\hmland{i}{I} \hmlneg\psi_i$, and for $n$-time application of an operator.
 Then, $\semantics{\hmleps\varphi} = \semantics{\bigvee_{n \in \nats} \hmlobs{\tau}^n \varphi}$.
 Also, $\semantics{\hmlsoft{\tau}\varphi} = \semantics{\bigvee\set{\varphi, \hmlobs{\tau}\varphi}}$ and $\semantics{\hmlsoft{a}\varphi} = \semantics{\hmlobs{a}\varphi}$.
@@ -268,7 +268,7 @@ But, as we will see in the next sections, there might be *multiple* abstractions
 
 ### HML of Stability-Respecting Branching Bisimilarity {#sec-hml-srbb}
 
-As noted in @rem-expressiveness-weak-hml, our $\hml$-notation for weak observations does not affect expressiveness---thus it still characterizes strong bisimilarity by @thm-hennessy-milner.
+As noted in @rem-expressiveness-weak-hml, our $\hml$ notation for weak observations does not affect expressiveness---thus it still characterizes strong bisimilarity by @thm-hennessy-milner.
 To characterize weak equivalences, we have to select appropriate subsets.
 We will use the following sublogic that, naturally, must be designed to correspond to the strongest weak notion we will be interested in.
 

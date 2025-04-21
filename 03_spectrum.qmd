@@ -12,14 +12,15 @@ toc-title: "Chapter 3"
 ::::{#related-3 .column-margin}
 `\vspace{-2.2em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
-This chapter presents the spectrum of modal languages from @bisping2023equivalenceEnergyGames in a slightly clarified manner, which itself derives from @bjn2022decidingAllBehavioralEqs.
-The alignment to the authoritative @glabbeek1990ltbt1 has been studied by @mattes2024expressivePowerHML.
+This chapter presents the spectrum of modal languages from @bisping2023equivalenceEnergyGames in a slightly clarified manner.
+The used hierarchy itself derives from @bjn2022decidingAllBehavioralEqs.
+The alignment to the authoritative work by @glabbeek1990ltbt1 has been studied by @mattes2024expressivePowerHML.
 ::::
 
 We will now take a deeper dive into how groups of behavioral equivalences and preorders can be ranked in equivalence spectra.
 
 For the following chapters, we will focus on the main “linear-time--branching-time spectrum“ for the semantics of concrete processes treated by @glabbeek1990ltbt1, the so-called “strong spectrum.”
-However, we will order the equivalences using the approach of parameterized *notions of observability* from the later @glabbeek1993ltbt.
+However, we will order the equivalences using the approach of parameterized *notions of observability* from the later by @glabbeek1993ltbt.
 
 The first core idea of this chapter is:
 
@@ -39,7 +40,7 @@ From there, we will quickly run into the second core idea:
 We can ask what equivalences from a spectrum are the most fitting to relate two states.
 :::
 
-@sec-spectroscopy will define the problem formally and give lower-bounds for its complexity on the strong spectrum.
+@sec-spectroscopy will define the problem formally and give lower bounds for its complexity on the strong spectrum.
 
 ::::{.content-visible when-format="html" .column-margin}
 {{< contents "related-3" >}}
@@ -59,7 +60,7 @@ So far, we have only looked into the characterization of bisimilarity through th
 ::: {#def-sim-trace-logics}
 #### Logics of simulation and traces
 
-We define the two $\hml$-sublogics $\observations{T}$, the linear positive fragment, and $\observations{S}$, the positive fragment, by the grammars starting at $φ^\mathrm{T}$ and $φ^\mathrm{S}$.
+We define the two $\hml$ sublogics $\observations{T}$, the linear positive fragment, and $\observations{S}$, the positive fragment, by the grammars starting at $φ^\mathrm{T}$ and $φ^\mathrm{S}$.
 
 $$
 \begin{array}{rclll}
@@ -189,7 +190,7 @@ Preorder/equivalence hierarchy including failures.
 As a consequence, simulation preorder and failure preorder are *incomparable*, that is, neither one implies the other.
 The same is true of the corresponding equivalences: similarity and failure equivalence.
 The situation is summed up by the non-linear hierarchy in @fig-failure-hierarchy.
-After a quick glance at the diamond-like figure, it probably comes as no surprise, what kind of mathematical structure we employ to handle the hierarchy: Lattices.
+After a quick glance at the diamond-like figure, it probably comes as no surprise what kind of mathematical structure we employ to handle the hierarchy: Lattices.
 
 ### Lattices
 
@@ -204,6 +205,7 @@ A *lattice* is a partially ordered set $(B, \leq)$, where there are greatest low
 The *greatest lower bound* of a set $B' \subseteq B$ is called its *infimum*, $\inf B'$.
 It refers to the greatest element $b \in B$ such that $b \leq b'$ for all $b' \in B'$.^[
   Note that not necessarily $b \in B'$!
+  Moreover, some sets do not have lower/upper bounds.
 ]
 
 Dually, the *least upper bound* of a set $B' \subseteq B$ is called its *supremum*, $\sup B'$.
@@ -214,7 +216,7 @@ For the pair-wise infimum we also use infix notation $b_1 \glb b_2 = \inf \set{b
 If a lattice $(B, \leq)$ not only allows infima and suprema for pairs but for any set $B' \subseteq B$, it is called *complete*.
 We say $\glb$-complete or $\lub$-complete if only one of the two is true.
 
-We call totally ordered subset $B' \subseteq B$ a *chain*.
+We call a totally ordered subset $B' \subseteq B$ a *chain*.
 
 Dually, some $B' \subseteq B$ with no two elements $b_1, b_2 \in B'$ such that $b_1 \leq b_2$ is called an *anti-chain*.
 :::
@@ -268,11 +270,11 @@ Lattice of subsets from @exm-set-lattice.
 ::: {#exm-set-lattice}
 #### Subset lattice
 
-Given any set $B$, its subsets and ordered by set inclusion, $(\powerset{B}, {\subseteq})$, form a complete lattice.
+Given any set $B$, its subsets ordered by set inclusion $(\powerset{B}, {\subseteq})$ form a complete lattice.
 
 The *greatest lower bound* is given by set intersection $\bigcap B'$ with $B' \subseteq B$.
 The *least upper bound* is set union $\bigcup B'$ with $B' \subseteq B$.
-$\varnothing \in \powerset{B}$ is the least element, $B \in \powerset{B}$ is itself the greatest bound.
+The empty set $\varnothing \in \powerset{B}$ is the least element, $B \in \powerset{B}$ is itself the greatest element.
 
 Consider the subset lattice over $B = \set{1,2,3}$.
 It is “cube-like,” as can be seen in its Hasse diagram in @fig-set-lattice.
@@ -309,8 +311,8 @@ Visualization of the infinitary grid of $\nats^2$ (and in gray, $\natsext^2$) in
 ::: {#exm-nat-lattice}
 #### Vector lattice
 
-Given linearly-ordered set $(B, \leq_B)$, its $d$-ary Cartesian product with pointwise order $(B^d, \leq)$ forms a lattice, where $b \leq b'$ iff $b_k \leq b'_k$ for all $k \in \set{1, …, d}$.
-Greatest lower bounds and least upper bounds can be transferred pointwisely from $B$.
+Given a linearly-ordered set $(B, \leq_B)$, its $d$-ary Cartesian product with pointwise order $(B^d, \leq)$ forms a lattice, where $b \leq b'$ iff $b_k \leq b'_k$ for all $k \in \set{1, …, d}$.
+Greatest lower bounds and least upper bounds can be transferred pointwise from $B$.
 
 For instance, pairs of natural numbers, $(\nats^2, \leq)$, form a lattice, as visualized in @fig-nat-lattice.
 It is $\glb$-complete, that is, for any set from $\nats^2$, one can pick a greatest lower bound.
@@ -318,7 +320,7 @@ However, the lattice is not $\lub$-complete: For instance, the set $\nats \times
 If we take the natural numbers extended with an upper bound $\infty$, $\natsext$, as basis, then $(\natsext^2, \leq)$ forms a complete lattice.
 :::
 
-When working with vectors, we assume standard notation, in particular, for $d$-dimensional vector addition $(b + c) := (b_1 + c_1, …, b_d + c_d)$.
+When working with vectors, we assume standard notation, in particular, for $d$-dimensional vector addition $b + c := (b_1 + c_1, …, b_d + c_d)$.
 By $\unitvec{k}$ we denote the *unit vector* where the $k$-th component is 1 and all other components equal 0.
 For example, $\unitvec{2}$ in a 3-dimensional context equals $(0,1,0)$.
 The *zero vector* $(0,…,0)$ is denoted by $\zerovec$.
@@ -338,7 +340,7 @@ As we will discuss various equivalence spectra (van Glabbeek [-@glabbeek2001ltbt
 ::: {#def-spectrum}
 #### Equivalence spectrum
 
-An *equivalence spectrum* $(\notions, \leq, \observationsvar{N \in \notions})$ consists of
+An *equivalence spectrum* $(\notions, \leq,\allowbreak \observationsvar{N \in \notions})$ consists of
 
 - a lattice of notions of observability, $\notions$, partially ordered by ${\leq} \subseteq \notions \times \notions$, and
 - corresponding logics $\observationsvar{N} \colon \powerset{\hml}$ for $N \in \notions$.
@@ -407,22 +409,22 @@ We can also ask what the least notion is to include a specific formula:
 #### Syntactic expressiveness price
 
 In the context of a $\glb$-complete spectrum $(\notions, \leq, \observationsvar{N \in \notions})$, the *syntactic expressiveness price* of a formula $\varphi$ that appears in one of the logics is defined as
-$$\expr(\varphi) := \inf \set{N \in \notions \mid \varphi \in \observationsvar{N}}.$$
+$$\expr(\varphi) := \min \set{N \in \notions \mid \varphi \in \observationsvar{N}}.$$
 :::
 
-TODO: $\min$ or $\inf$???
+Note that this minimum does not need to exists---but it will for the spectra we will be working with.
 
 Thinking of the lattice of notions as a hierarchy of how difficult it is to tell processes apart, we consider this as a kind of “price tag” to put on formulas depending on their syntactic complexity.
 Higher syntactic complexity allows formula sets of higher expressiveness.
 
 In this view, a trace formula is *cheaper* than a failure formula.
-Using @exm-simple-spectrum: $\expr(\hmlobs{\tau}\hmlobs{\literal a}) = \varnothing \subset \set{(\neg)} = \expr(\hmlobs{\tau} \hmlands\set{\hmlneg\hmlobs{\literal{a}}})$, which captures that we need a strictly smaller part of the grammar to construct the trace formula.
+Using @exm-simple-spectrum: $\expr(\hmlobs{\tau}\hmlobs{\literal a}) = \varnothing \subset \set{⊗} = \expr(\hmlobs{\tau} \hmlands\set{\hmlneg\hmlobs{\literal{a}}})$, which captures that we need a strictly smaller part of the grammar to construct the trace formula.
 
 ### The Strong Notions of Observability {#sec-strong-notions}
 
 Now we can approach the *strong spectrum*.
 We will encode its notions as a $\natsext$-vector lattice as in @exm-nat-lattice.
-To cover all common behavioral preorders, we use six dimensions, counting certain syntactic features of $\hml$-formulas:
+To cover all common behavioral preorders, we use six dimensions, counting certain syntactic features of $\hml$ formulas:
 
 1. Formula modal depth of observations.
 2. Formula nesting depth of conjunctions.
@@ -447,7 +449,7 @@ $$
       & \grammaror  & \hmlobs{α}φ^{N - \unitvec{1}} & \\
       & \grammaror  & \hmlands\set{\varphi^{(N-\unitvec{2}) \sqcap (N_3, \infty, \infty, \infty, \infty, \infty)}, \\
       &             & \quad\;
-                        ψ^{(N-\unitvec{2}) \sqcap (\infty, \infty, \infty, N_3 \infty, \infty)},
+                        ψ^{(N-\unitvec{2}) \sqcap (\infty, \infty, \infty, N_3, \infty, \infty)},
                         ψ^{(N-\unitvec{2}) \sqcap (\infty, \infty, \infty, N_3, \infty, \infty)}, \ldots} & \\
   ψ^N & \grammardef &
       φ^{(N \sqcap (N_4, \infty, \infty, \infty, \infty, \infty))} & \\
@@ -553,9 +555,10 @@ Pricing formula $\hmlobs{\tau}\hmlands\{\hmlobs{ec_A}\hmlobs{lc_A}\hmltrue, \hml
 In my papers, the syntactic expressiveness price of formulas is explicitly defined (instead of using a family of grammars).
 In this thesis, $\expr$ is indirectly defined through @def-expressiveness-price.
 
-The expressiveness price $\expr[\literal{strong}]$ of formulas in the strong spectrum (@def-strong-spectrum, we will drop the $\literal{strong}$ for readability) can be recursively characterized as described in @bisping2023equivalenceEnergyGames:
+The expressiveness price $\expr[\literal{strong}]$ of formulas in the strong spectrum (@def-strong-spectrum) can be recursively characterized as described in @bisping2023equivalenceEnergyGames (we will drop the “$\literal{strong}$” for readability):
 
-\begin{align*}
+$$
+\begin{array}{rl}
   \expr(\hmltrue) & \defeq \zerovec \\
   \expr(\hmlobs{\alpha}\varphi) & \defeq \textcolor{obsColor}{\unitvec{1}} + \expr(\varphi) \\
   \expr(\hmlneg\varphi) & \defeq \textcolor{negsColor}{\unitvec{6}} + \expr(\varphi) \\
@@ -568,26 +571,27 @@ The expressiveness price $\expr[\literal{strong}]$ of formulas in the strong spe
     \textcolor{otherPosColor}{\sup_{i \in \mathit{Pos} \setminus \mathit{R}}}\, \expr_1(\psi_i)\\
     \textcolor{negObsColor}{\sup_{i \in \mathit{Neg}}}\, \expr_1(\psi_i)\\
     0
-  \end{pmatrix} \!\big\} \cup \{ \expr(\psi_i) \mid i \in I \}
+  \end{pmatrix} \!\big\} \cup \set{ \expr(\psi_i) \mid i \in I }
   \Biggr)
   \\
   &
   \begin{array}{rl}
-    \mathit{Neg} & \defeq \{i \in I \mid \exists \varphi'_i \ldotp \psi_i = \hmlneg \varphi'_i \}\\
+    \mathit{Neg} & \defeq \set{i \in I \mid \exists \varphi'_i \ldotp \psi_i = \hmlneg \varphi'_i }\\
     \mathit{Pos} & \defeq I \setminus \mathit{Neg}\\
     \mathit{R} & \defeq
     \begin{cases}
       \varnothing & \text{if } \mathit{Pos} = \varnothing\\
-      \{ r \} & \text{for some $r \in \mathit{Pos}$ where $\expr_1(\psi_r)$ maximal for $\mathit{Pos}$.}
+      \set{ r } & \text{for some $r \in \mathit{Pos}$ where $\expr_1(\psi_r)$ maximal for $\mathit{Pos}$.}
     \end{cases}
   \end{array}
-\end{align*}
+\end{array}
+$$
 
-There is a minor divergence from @bisping2023equivalenceEnergyGames in that the present thesis prices $\expr(\hmltrue)$ at $\zerovec$ instead of $\unitvec{2}$.
+Note that there is a minor divergence from @bisping2023equivalenceEnergyGames in that the present thesis prices $\expr(\hmltrue)$ at $\zerovec$ instead of $\unitvec{2}$.
 This change is done to align the pricing to the one we will need for the weak spectrum in later chapters.
 
 Clearly, the explicit pricing of formulas is more versatile for the implementation direction we are aiming at.
-The grammar-view, on the other hand, is particularly nice to see how our $\hml$ sublanguages align to games.
+The grammar view, on the other hand, is particularly nice to see how our $\hml$ sublanguages align to games.
 :::
 
 
@@ -606,12 +610,12 @@ The strong spectrum of @def-strong-spectrum contains the notions of behavioral e
 - Case (2) for simulation is trivial, given flattening of conjunctions.
 - For case (3) of bisimilarity,
   observe that $\observations{\floor{B}} \subseteq \observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ by examining its grammar in @def-game-formulas.
-  As $\observations{\floor{B}}$ already has complete $\hml$-distinctiveness by @lem-game-formula-hml, so must its superlogic $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$.
-- For case (4) of failures, we must note that $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ also contains failure observations that end in conjunctions with a $\hmlneg \hmltrue$-conjunct.
+  As $\observations{\floor{B}}$ already has complete $\hml$ distinctiveness by @lem-game-formula-hml, so must its superlogic $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$.
+- For case (4) of failures, we must note that $\observationsvar[\literal{strong}]{(\infty, 1, 0, 0, 1, 1)}$ also contains failure observations that end in conjunctions with a $\hmlneg \hmltrue$-conjunct.
   But these are trivially false and thus cannot add to distinctiveness.\qedhere
 :::
 
-So far, we have only established that the six-dimensional spectrum also covers the notions that @exm-simple-spectrum has already covered–in a more complicated way.
+So far, we have only established that the six-dimensional spectrum covers the notions that @exm-simple-spectrum has already covered–in a more complicated way.
 The extra dimensions will pay off in the next subsection.
 
 ### The Strong Linear-Time–Branching-Time Spectrum {#sec-full-spectrum}
@@ -800,6 +804,7 @@ Grammars induced by coordinates for strong linear-time notions of equivalence.
 Grammars induced by coordinates for strong branching-time notions of equivalence.
 :::
 
+\indent
 For the rest of the thesis, we will take the equivalences as defined by the coordinates as canonical.
 But, of course, it is natural to ask whether the equivalences thus defined correspond to previous definitions in this thesis and the literature.
 
@@ -834,7 +839,7 @@ The formula pricing works out, that is, $\hmlobs{\tau} \hmlands\set{\hmlobs{\lit
 The important point here is that we can allow *one* arbitrarily deep positive conjunct but prevent any others,
 which would undermine the *trace-likeness* of the observation.
 This is where it pays off that the spectrum grammar (@def-strong-spectrum) has a more lenient pricing for one of the positive conjuncts.
-We will sometimes refer to the deep positive conjunct of a conjunction as the *revival*, because revival equivalence is the first notion of equivalence with this feature.
+We will sometimes refer to the deep positive conjunct of a conjunction as the *revival*, because revivals equivalence [@rrs2007responsivenessRevivals] is the first notion of equivalence with this feature.
 :::
 
 ### Any Questions?
@@ -848,7 +853,7 @@ The following remarks address these points.
 At the core, we treat the same notions as @glabbeek2001ltbtsiReport.
 But we feature a slightly more modern selection.
 
-Our spectrum additionally includes strong versions of *impossible futures* (@vm2001impossible) and *revivals* (@roscoe2009revivalsHierarchy) as equivalences whose relevance has only been noted after the publication of @glabbeek2001ltbtsiReport.
+Our spectrum additionally includes strong versions of *impossible futures* [@vm2001impossible] and *revivals* [@rrs2007responsivenessRevivals; @roscoe2009revivalsHierarchy] as equivalences whose relevance has only been noted after the publication of @glabbeek2001ltbtsiReport.
 
 On the other hand, we glimpse over completed trace, completed simulation, and possible worlds observations like @ke1999logicalProcessQuotients, who studied properties of “good” observation languages.
 These notions would need a different HML grammar, featuring exhaustive conjunctions $\hmland{a}{\actions}\varphi_a$, where the $\varphi_a$ are deactivated actions for completed traces, and more complex trees for possible worlds.
@@ -891,7 +896,7 @@ Some kinds of depth-bounded families, however, are common in the literature to a
 In principle, one can choose different dimensions to characterize the strong linear-time--branching-time spectrum.
 (Indeed, @bjn2022decidingAllBehavioralEqs, @bisping2023equivalenceEnergyGames and the present thesis all use slightly different dimensions.)
 
-Naturally, one may ask whether the same spectrum can be characterized with less than six dimensions.
+Naturally, one may ask whether the same spectrum can be characterized with fewer than six dimensions.
 As some of the preceding examples also show, the dimensions we chose are not entirely orthogonal.
 
 If we restrict our focus to a grid of ternary entries $\set{0,1,\infty}$, we can be sure to need at least five dimensions:
@@ -919,7 +924,7 @@ For instance, the lines of simulation and failures join at ready simulation---an
 But $\observations[\literal{strong}]{S} \cup \observations[\literal{strong}]{F} \neq \observations[\literal{strong}]{RS}$ and this makes a difference:
 
 ::: {#exm-non-ready-sim}
-#### Simulation & Failures, do not mean ready-simulation
+#### Simulation & failures do not mean ready-simulation
 
 Consider the $\ccs$ processes
 $\ccsprefix{\literal{a}} (\ccsprefix{\literal{a}} \literal{b} \ccschoice \literal{a})$ and
@@ -958,7 +963,7 @@ Input
 :  States $p$ and $q$.
 
 Output
-:  Set of notions $\notions_{p,q} \subseteq \notions$, such that $p \bpreordvar{\observationsvar{N}} q$ for each $N \in \notions_{p,q}$.
+:  Maximal set of notions $\notions_{p,q} \subseteq \notions$, such that $p \bpreordvar{\observationsvar{N}} q$ for each $N \in \notions_{p,q}$.
 :::
 
 Intuitively, the problem is about finding all the ways in which processes can be related, beyond the black-and-white of the bisimilarity problem.
@@ -1051,7 +1056,7 @@ Technically, it is convenient to not compute $\notions_{p,q}$ directly.
 Rather we aim to construct the *Pareto front* of minimal notions that do not hold, $\Min(\notions \setminus \notions_{p,q})$.
 The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as complement of the upward closure $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$
 (where ${\upset\! B} := \set{b \mid \exists b' \in B \ldotp b' \leq b}$ is the upwards closure for $B$ subset of some partially-ordered set).
-Clearly, Pareto fronts form *anti-chains* and appear naturally in optimization problems.
+Pareto fronts form *anti-chains* and appear naturally in optimization problems.
 
 All spectra we are concerned with are well-quasi ordered, which means that each $\Min(\notions \setminus \notions_{p,q})$ must be finite in size [@kruskal1972wqo] and thus “more handy” than the full sets $\notions_{p,q}$ or $\notions \setminus \notions_{p,q}$.
 
@@ -1138,7 +1143,7 @@ For coarser simulation-like equivalences, the best known algorithms need $\bigo{
 
 The finer graph-isomorphism equivalence (@def-graph-isomorphism) again is harder with the best known solution [@babai2016graphIsomorphismQuasiPoly] in quasi-polynomial time $2^{\bigo{(\log n)^3}}$.
 
-There however are little strict hardness results at this level of granularity.
+There are few strict hardness results at this level of granularity.
 So, better time complexities for graph isomorphism, bisimilarity, and similarity are conceivable (albeit improbable).
 @gmv2023lowerboundsBisimPartitionRefinement show that at least partition-refinement algorithms for bisimilarity cannot do better than $\bigo{\relsize{\step{}} \log \relsize{\states}}$.
 In a recent preprint, @groote2024quadraticlowerboundsimulation establish that similarity is strictly more complex than bisimilarity.

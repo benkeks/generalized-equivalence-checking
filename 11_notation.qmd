@@ -35,14 +35,14 @@ toc-title: "Notation"
 | $\lub$ / $\sup$, $\glb$ / $\inf$ | Least upper bound / greatest lower bound in the context of a lattice (@def-lattice)          |
 | $\upset A$, $\downset A$ | Upward-closure / downward-closure of set $A$ in the context of a preorder $\leq$              |
 | $\unitvec{k}$          | Unit vector; component $k$ is 1, all others 0 (in the context of some dimensionality $d$)      |
-| $\zerovec$             | Vector of zeros (in the context of some dimensionality $d$); not to be confused with $\ccsnull$ as terminated $\ccs$-process in @def-ccs |
+| $\zerovec$             | Vector of zeros (in the context of some dimensionality $d$); not to be confused with $\ccsnull$ as terminated $\ccs$ process in @def-ccs |
 
 ### Transition Systems {.unnumbered .unlisted}
 
 \vspace{-2em}
 |                     |                                                                                   |
 |--------------------------|----------------------------------------------------------------------------------------------|
-| $\step{\alpha}$            | Transition relation (in context of a transition system, @def-ts), usually due to operational $\ccs$-semantics (@def-ccs-semantics) |
+| $\step{\alpha}$            | Transition relation (in context of a transition system, @def-ts), usually due to operational $\ccs$ semantics (@def-ccs-semantics) |
 | $\nostep{\alpha}$          | Absence of an $\alpha$-transition                                                            |
 | $\stepweak$        | Internal transition (@def-transition-systems-with-silent-steps)                             |
 | $\stepsoft{\alpha}$         | Soft transition (@def-transition-systems-with-silent-steps)                             |

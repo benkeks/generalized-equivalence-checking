@@ -1030,7 +1030,7 @@ There are four immediate big advantages to modal characterization:
 Modal characterizations lead to *proper preorders and equivalences by design* due to @prp-hml-eq.
 That is, if a behavioral preorder (or equivalence) is defined through modal logics, there is no need of proving transitivity and reflexivity (and symmetry).
 
-Secondly, checking state equivalence for notions of $\hml$-sublogics *can soundly be reduced to checks on bisimulation-minimized systems* as the transformation does not affect the sets of observations for minimized states (by combining @thm-hennessy-milner and @prp-bisim-minimization).
+Secondly, checking state equivalence for notions of $\hml$ sublogics *can soundly be reduced to checks on bisimulation-minimized systems* as the transformation does not affect the sets of observations for minimized states (by combining @thm-hennessy-milner and @prp-bisim-minimization).
 
 Thirdly, modal characterizations can directly *unveil the hierarchy between preorders*, if defined cleverly, because of the following property.
 

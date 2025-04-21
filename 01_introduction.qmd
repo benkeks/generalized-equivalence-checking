@@ -19,7 +19,7 @@ But obviously, the question already occurs every time one rewrites a program par
 ![](img/ltbts2.png){.lightbox}
 
 The linear-time–branching-time spectrum with silent moves as depicted in @glabbeek1993ltbt.
-(This thesis will use a simpler version in @fig-weak-spectrum.)
+(`Do not try to read this small figure! Its role here is that of a symbol.`{=latex} This thesis will use a simpler version in @fig-weak-spectrum.)
 :::
 
 The first time I formally faced the question has been when working as a student research assistant:
@@ -35,7 +35,7 @@ Even the definition of the question is tricky, as there are different notions of
 I then took my very first look into a seminal paper on the landscape of process equivalences with internal behavior, the “Linear-time–branching-time spectrum II” by @glabbeek1993ltbt.
 Its central figure, reproduced in @fig-ltbts2-paper, mesmerized me.
 But, how to use the spectrum to decide for a given pair of processes which of the many equivalences apply?
-Over the years, I have learned that others too have run into this not-quite-straight-forward problem:
+Over the years, I have learned that others, too, have run into this not-quite-straight-forward problem:
 For instance, @nestmann1996decoding thinking about process algebra encodings and @bell2013certifiably verifying compiler optimizations.
 
 {{< paragraph_heading "The problem" >}} can be abstractly summarized as follows:
@@ -44,7 +44,7 @@ For instance, @nestmann1996decoding thinking about process algebra encodings and
 > How does one conveniently decide for a pair of systems which notions from a spectrum of behavioral equivalences equate the two?
 \vspace*{-\medskipamount}
 
-Above question will be the *research question of this thesis*.
+The above question will be the *research question of this thesis*.
 We^[
     As you might have noticed, this text uses more personal pronouns than is common in much of computer science literature.
     Their meaning is the same as in a lecture:
@@ -163,7 +163,8 @@ Can we not treat the question in *one* algorithm?
 {{< paragraph_heading "Our offer." >}}
 This thesis describes how to *decide all equivalences* in one *uniform approach* based on *energy games*, which is *easily implemented in tools*.
 
-As we will discuss in more detail in @sec-equivio-peterson, our accompanying tool {{< equivio >}} answers the questions of @exm-peterson-mutex in the following query:
+As we will discuss in more detail in @sec-equivio-peterson, our accompanying tool {{< equivio >}} answers the questions of @exm-peterson-mutex in a small query.
+Here is an excerpt:
 
 ```ccs
 Pe = (A1 | B1 | TurnA | ReadyAf | ReadyBf)
@@ -290,7 +291,7 @@ So, we could reframe the question behind this thesis also:
 ::: {#idea-spectroscopy .callout-idea .callout-tip}
 #### A Spectroscopy for the Spectrum
 
-If there exists a “linear-time–branching time spectrum,” does this mean, there also is some kind of “linear-time–branching-time *spectroscopy*”?
+If there exists a “linear-time–branching time spectrum,” does this mean that there also is some kind of “linear-time–branching-time *spectroscopy*”?
 :::
 
 {{< paragraph_heading "State of the art, primed." >}}
@@ -348,7 +349,7 @@ More precisely, we make the following contributions, each coming with a “side 
   - Side quest: Analyzing Peterson's mutual exclusion protocol.
 
 Each chapter ends with a discussion of its position in the context of the thesis and of related work.
-We close with a discussion of the wider picture in @sec-conclusion and how this thesis ascends through a *hierarchy of shadows*.
+We close with a discussion of the wider picture in @sec-conclusion and how this thesis ascends through a *hierarchy of game charcaterizations*.
 Recurring symbols can be looked up under [Notation](#sec-notation)`~on page~\pageref{sec-notation}`{=latex}.
 
 {{< paragraph_heading "Not this thesis." >}}
@@ -366,14 +367,14 @@ For details, we typically refer to the original publications or to other artifac
 {{< paragraph_heading "Publications." >}}
 The following four publications (with me as main author) fuel the following chapters:
 
-- **“Deciding All Behavioral Equivalences at Once: A Game for Linear-Time–Branching-Time Spectroscopy”** [LMCS -@bjn2022decidingAllBehavioralEqs] introduces the *spectroscopy problem* and the *core idea* to decide the whole strong spectrum using games that search trees of possible distinguishing formulas.
+- **“Deciding All Behavioral Equivalences at Once: A Game for Linear-Time–Branching-Time Spectroscopy”** [LMCS -@bjn2022decidingAllBehavioralEqs, with Nestmann & Jansen] introduces the *spectroscopy problem* and the *core idea* to decide the whole strong spectrum using games that search trees of possible distinguishing formulas.
   [Conference version: TACAS -@bisping2021ltbtsTacas]
 - **“Process Equivalence Problems as Energy Games”** [CAV -@bisping2023equivalenceEnergyGames] makes a *big technical leap by using energy games*, removing the necessity for explicit formula construction.
   [Tech report: arXiv -@bisping2023equivalenceEnergyGamesReport]
-- **“Characterizing Contrasimilarity through Games, Modal Logic, and Complexity”** [Information & Computation -@bm2024contrasimilarityInfComp] closes *gaps in the weak spectrum of equivalences* for games and their complexity and their link to modal logics.
+- **“Characterizing Contrasimilarity through Games, Modal Logic, and Complexity”** [Information & Computation -@bm2024contrasimilarityInfComp, with Montanari] closes *gaps in the weak spectrum of equivalences* for games and their complexity and their link to modal logics.
   [Isabelle/HOL theory: AFP -@bm2023contrasimilarityAFP; Workshop version: EXPRESS/SOS -@bm2021contrasimilarity]
-- **“One Energy Game for the Spectrum Between Branching Bisimilarity and Weak Trace Semantics”** [EXPRESS/SOS -@bj2024silentStepSpectroscopyExpress] adapts the *spectroscopy approach for the weak spectrum*.
-  [Tech report: Preprint -@bj2025silentStepSpectroscopyJournal]
+- **“One Energy Game for the Spectrum Between Branching Bisimilarity and Weak Trace Semantics”** [EXPRESS/SOS -@bj2024silentStepSpectroscopyExpress, with Jansen] adapts the *spectroscopy approach for the weak spectrum*.
+  [Journal version: Preprint -@bj2025silentStepSpectroscopyJournal]
 
 {{<paragraph_heading "Prototype.">}}
 The algorithms of this thesis have been validated through a *Scala prototype implementation*.
@@ -395,15 +396,15 @@ Some parts of this thesis strongly rely on student work that I have supervised, 
 - @trzeciakiewicz2021ltbtBrowserGame: *Linear-Time--Branching-Time Spectroscopy as an Educational Web Browser Game* provides a computer game version of the spectroscopy procedure to be discussed in @sec-spectro-invaders.
 - @ozegowski2023eqCAAL: *Integration eines generischen Äquivalenzprüfers in CAAL* extends the Concurrency Workbench Aalborg Edition with a spectroscopy feature, reported in @sec-spectroscopy-caal.
 - @mattes2024expressivePowerHML: *Measuring Expressive Power of HML Formulas in Isabelle/HOL* proves the approach to modal characterization of @sec-ltbt-spectrum.
-- @vogel2024energyGamesWebGPU: *Accelerating Process Equivalence Energy Games using WebGPU*, topic of @sec-gpu-equiv, allows massive parallelization on the GPU of key parts of our algorithm.
-- @lemke2024multiweightedEnergyGames: *A Formal Proof of Decidability of Multi-Weighted Declining Energy Games* formalizes the fixedpoint algorithm of @sec-deciding-energy-games.
+- @vogel2024energyGamesWebGPU: *Accelerating Process Equivalence Energy Games using Web{{<shy>}}GPU*, topic of @sec-gpu-equiv, allows massive parallelization on the GPU of key parts of our algorithm.
+- @lemke2024multiweightedEnergyGames: *A Formal Proof of Decidability of Multi-Weighted Declining Energy Games* formalizes the *Galois energy games* of @sec-deciding-energy-games.
 
 {{<paragraph_heading "Other publications.">}}
-Only indirectly connected to this dissertation project are my prior publications in leading me to topic and techniques:
+Only indirectly connected to this dissertation project are my prior publications in leading me to topics and techniques:
 
-- @bbjrsswpn2016mechanicaProofFLP[ITP]: “Mechanical Verification of a Constructive Proof for FLP.”
-- @bn2019coupledsimTacas[TACAS]: “Computing Coupled Similarity.”
-- @bnp2020coupledsim30[Acta Informatica]: “Coupled similarity: the first 32 years.”
+- Bisping, Brodmann, Jungnickel, Rickmann, Seidler, Stüber, Wilhelm-Weidner, Peters, & Nestmann [ITP -@bbjrsswpn2016mechanicaProofFLP]: “Mechanical Verification of a Constructive Proof for FLP.”
+- Bisping & Nestmann [TACAS -@bn2019coupledsimTacas]: “Computing Coupled Similarity.”
+- Bisping, Nestmann, & Peters [Acta Informatica -@bnp2020coupledsim30]: “Coupled similarity: The first 32 years.”
 
 {{<paragraph_heading "Other Bachelor theses.">}}
 During my dissertation project, I also supervised several other Bachelor theses, many of which played important roles in shaping the research.
@@ -418,7 +419,7 @@ Although they do not appear directly on the following pages, I want to acknowled
 - @montanari2021kontrasimSpiel: *Kontrasimulation als Spiel*
 - @pohlmann2021reactiveBisimStrong: *Reducing Strong Reactive Bisimilarity to Strong Bisimilarity*
 - @england2021hmlSynthesis: *HML Synthesis of Distinguished Processes*
-- @duong2022toolLTBTS: *Developing an Educational Tool for Linear-Time–Branching-Time Spectroscopy*
+- @duong2022toolLTBTS: *Developing an Educational Tool for Linear-Time–Bran{{<shy>}}ching-Time Spectroscopy*
 - @alshukairi2022reaktiveBisimReduktion: *Automatisierte Reduktion von reaktiver zu starker Bisimilarität*
 - @adler2022fehlertoleranteAlgorithmen: *Simulation fehlertoleranter Konsensalgorithmen in Hash.ai*
 - @sandt2022gameReactiveBisim: *A Video Game about Reactive Bisimilarity*

@@ -88,7 +88,7 @@ In this section, we examine a game that does not “overlook” trace observatio
 :::: {#exm-trace-distinction-bisim-game}
 #### Without a trace
 
-Consider the $\ccs$-processes
+Consider the $\ccs$ processes
 $\ccsprefix{\literal{a}} \ccsprefix{\literal{b}} \literal{a}$ and
 $\ccsprefix{\literal{a}} (\literal{a} \ccschoice \literal{b})$.
 Clearly, only the first one allows the trace observation $\hmlobs{\literal{a}}\hmlobs{\literal{b}}\hmlobs{\literal{a}}$.

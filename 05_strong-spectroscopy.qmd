@@ -101,7 +101,7 @@ It might be possible to reconstruct trace observations from such tree-like obser
 But by the closing arguments of @sec-spectrum-approach-discussion, and also according to @martensGroote2023minimalDistFormulasNP, this must inherently be $\complexityname{NP}$-hard.
 What we will do instead is adapt the bisimulation game such that it also expresses trace-like distinctions, and precisely counts conjunctions.
 
-### The Strong Spectroscopy Game
+### The Game
 
 The *strong spectroscopy game* is played not on pairs of states, but on a pair of a state and *a set of states*!
 @fig-strong-spectroscopy-game gives a graphical representation.

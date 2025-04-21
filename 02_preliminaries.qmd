@@ -876,7 +876,7 @@ Together with the issue of congruence, we have now seen two reasons why graph is
 Thus, the following will focus on equivalences of bisimilarity and below.
 The next section will revisit a deeper, philosophical reason why bisimilarity is a reasonable limit of the properties one might care about in the comparison of processes.
 
-## Modal Logic {#sec-hml}
+## Modal Logics {#sec-hml}
 
 Modal logics are logics in which one can formalize how facts in one possible world relate to other possible worlds.
 In the computer science interpretation, the possible worlds are *program states*, and typical statements have the form:

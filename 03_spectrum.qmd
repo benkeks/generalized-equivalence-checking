@@ -559,10 +559,10 @@ The expressiveness price $\expr[\literal{strong}]$ of formulas in the strong spe
 
 $$
 \begin{array}{rl}
-  \expr(\hmltrue) & \defeq \zerovec \\
-  \expr(\hmlobs{\alpha}\varphi) & \defeq \textcolor{obsColor}{\unitvec{1}} + \expr(\varphi) \\
-  \expr(\hmlneg\varphi) & \defeq \textcolor{negsColor}{\unitvec{6}} + \expr(\varphi) \\
-  \textstyle\expr(\bigwedge\limits_{i \in I}\psi_i) & \defeq
+  \expr(\hmltrue) & = \zerovec \\
+  \expr(\hmlobs{\alpha}\varphi) & = \textcolor{obsColor}{\unitvec{1}} + \expr(\varphi) \\
+  \expr(\hmlneg\varphi) & = \textcolor{negsColor}{\unitvec{6}} + \expr(\varphi) \\
+  \textstyle\expr(\bigwedge\limits_{i \in I}\psi_i) & =
   \textcolor{conjColor}{\unitvec{2}} + \sup\Biggl(\big\{\!
   \begin{pmatrix}
     0\\

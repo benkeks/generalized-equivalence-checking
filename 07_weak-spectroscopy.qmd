@@ -354,7 +354,7 @@ $$
 }
 $$
 $$
-\inferrule[immediate conj.]{
+\inferrule[immediate\, conj.]{
   \attackerpos{p,Q} \gamemove{u} \defenderpos{p,Q} \quad
   e' = \energyupdate(e, u) \in \attackerwins(\defenderpos{p,Q}) \quad
   \varphi \in \stratweak(\defenderpos{p,Q}, e')
@@ -363,7 +363,7 @@ $$
 }
 $$
 $$
-\inferrule[late conj.]{
+\inferrule[late\, conj.]{
   \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos{p,Q} \quad
   e' = \energyupdate(e, u) \in \attackerwins(\defenderpos{p,Q}) \quad
   \chi \in \stratweak(\defenderpos{p,Q}, e')
@@ -372,7 +372,7 @@ $$
 }
 $$
 $$
-\inferrule[conj. answer]{
+\inferrule[conj.\, answer]{
   \defenderpos{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \\
   \forall q \in Q \ldotp \;
   e_q = \energyupdate(e, u_q) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
@@ -382,7 +382,7 @@ $$
 }
 $$
 $$
-\inferrule[positive conjunct]{
+\inferrule[positive\, conjunct]{
   \attackerpos[\land]{p,q} \gamemove{u} \attackerpos[\varepsilon]{p,Q'} \quad
   e' = \energyupdate(e, u) \in \attackerwins(\attackerpos[\varepsilon]{p,Q'}) \quad
   \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q'}, e')
@@ -391,7 +391,7 @@ $$
 }
 $$
 $$
-\inferrule[negative conjunct]{
+\inferrule[negative\, conjunct]{
   \attackerpos[\land]{p,q} \gamemove{u} \attackerpos[\varepsilon]{q,P'} \quad
   e' = \energyupdate(e, u) \in \attackerwins(\attackerpos[\varepsilon]{q,P'}) \quad
   \chi \in \stratweak(\attackerpos[\varepsilon]{q,P'}, e')
@@ -400,7 +400,7 @@ $$
 }
 $$
 $$
-\inferrule[stable conj.]{
+\inferrule[stable\, conj.]{
   \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos[s]{p,Q'} \quad
   e' = \energyupdate(e, u) \in \attackerwins(\defenderpos[s]{p,Q'}) \quad
   \chi \in \stratweak(\defenderpos[s]{p,Q'}, e')
@@ -409,7 +409,7 @@ $$
 }
 $$
 $$
-\inferrule[stable conj. answer]{
+\inferrule[stable\, conj.\, answer]{
   \defenderpos[s]{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \quad
   Q \neq \varnothing \\
   \forall q \in Q \ldotp \;
@@ -420,7 +420,7 @@ $$
 }
 $$
 $$
-\inferrule[stable finishing]{
+\inferrule[stable\, finishing]{
   \defenderpos[s]{p,\varnothing} \gamemove{u} \defenderpos{p,\varnothing} \quad
   e' = \energyupdate(e, u) \in \attackerwins(\defenderpos{p,\varnothing})
 } {
@@ -428,7 +428,7 @@ $$
 }
 $$
 $$
-\inferrule[branching conj.]{
+\inferrule[branching\, conj.]{
   \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha} \quad
   e' = \energyupdate(e, u) \in \attackerwins(\defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha}) \\
   \chi \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha}, e')
@@ -437,7 +437,7 @@ $$
 }
 $$
 $$
-\inferrule[branch. answer]{
+\inferrule[branch.\, answer]{
   g_\mathrm{d} = \defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha} \gamemove{u_\alpha} \attackerpos[\eta]{p',Q'} \gamemove{u'_\alpha} \attackerpos{p',Q'} \\
   e_\alpha = \energyupdate(\energyupdate(e, u_\alpha), u'_\alpha) \in \attackerwins(\attackerpos{p',Q'}) \quad
   \varphi_\alpha \in \stratweak(\attackerpos{p',Q'}, e_\alpha)\\

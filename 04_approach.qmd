@@ -543,8 +543,8 @@ also exhibiting the cheapest formulas with regards to the polynomial spectrum th
       (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{T}, \literal{Q}]$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{ab}}, \literal{T})$};
-    \node[posStyle, defWins]
-      (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \literal{q_{ab}}]$};
+    \node[dotted, cloud, cloud puffs=9,cloud puff arc=105, aspect=2, defWins, inner sep=.01cm, align=center]
+      (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {defender\\ wins};
     \node[posStyle, label={[text=red]95:$\hmlobs{\literal{a}}\hmltrue \in \observationsvar[\literal{poly-strong}]{(1,0,0)}$}]
       (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \troll]$};
     \node[posStyle, defender, above right = .1cm and 1.5cm of Att_qab_q3]
@@ -569,8 +569,6 @@ also exhibiting the cheapest formulas with regards to the polynomial spectrum th
       (Dfn_t_qab_Qp)
         edge node {0,0,0} (Att_qab_q3)
         edge node {0,0,0} (Att_qab_qab)
-      (Att_qab_qab)
-        edge [loop left] node {$\updmin{1,2},0,-1$} ()
       (Att_Qp_Q)
         edge[bend left = 10] node {$\updmin{1,2},0,-1$} (Att_Q_Qp)
         edge node[swap] {$-1,0,0$} (Dfn_t_qab_Q)

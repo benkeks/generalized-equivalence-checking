@@ -1361,8 +1361,6 @@ We now can add the bottom layer of @fig-equivalence-big-picture:
 That bisimilarity can be characterized through a game, where the defender wins if the game starts on a pair of bisimilar states.
 This approach has been popularized by @stirling1996modal.
 
-TODO: Fix the game to use minimized troll / philosopher system....
-
 ::: {#def-bisim-game}
 #### Bisimulation game
 
@@ -1450,8 +1448,10 @@ That it is always safe for the defender to *answer* with moves to $[\literal{p_{
 :::
 
 ::: {#exm-bisim-sim-game}
+#### A game of trolls
+
 Let us recall @exm-bisim-sim of the “trolled philosophers,” where we determined $\literal{Q}$ and $\literal{T}$ to be non-bisimilar.
-The bisimulation game graph for the system is depicted in @fig-bisim-sim-game.
+The bisimulation game graph for the system is depicted in @fig-bisim-sim-game, where we use the minimized version of $\literal{T}$ from @exm-bisim-minimization to fit the game graph onto the page.
 
 The attacker can win by moving $[\literal{Q}, \literal{T}]
 \gamemoveblank_\notionname{B} [\literal{T}, \literal{Q}]
@@ -1464,8 +1464,10 @@ Along this sequence of positions, the defender never has a choice and is stuck i
 The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\literal{T} \step{\tau} \troll$.
 :::
 
-::: {#fig-bisim-sim-game fig-pos='t' fig-env="figure*"}
+::: {#fig-bisim-sim-game fig-pos='t' fig-env="figure*" .column-body-outset}
 ```tikz
+%%| image-class: lightbox
+\begin{adjustbox}{max width=\linewidth, center}
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
     defender/.style={ellipse, inner sep=0ex},
@@ -1478,30 +1480,47 @@ The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\lite
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{ab}}, \literal{T})$};
     \node[posStyle, defWins]
-      (Att_qab_tab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \literal{t_{ab}}]$};
+      (Att_qab_tab) [below right = .15cm and 2cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \literal{t_{ab}}]$};
     \node[posStyle, defWins]
       (Att_tab_qab) [below = 1cm of Att_qab_tab] {$[\literal{t_{ab}}, \literal{q_{ab}}]$};
     \node[posStyle]
       (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \troll]$};
     \node[posStyle, defender]
-      (Dfn_a_q1_q3) [above right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{a}, \literal{q_1}, \troll)$};
+      (Dfn_a_q1_q3) [above right = .5cm and 2.5cm of Att_qab_q3] {$(\literal{a}, \literal{q_1}, \troll)$};
     \node[posStyle, defender]
-      (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
+      (Dfn_b_q2_q3) [below = .3cm of Dfn_a_q1_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{t_{ab}}, \literal{Q})$};
     \node[posStyle, defender]
       (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
     \node[posStyle]
-      (Att_q3_qab) [below = 1cm of Att_tab_qab] {$[\troll, \literal{q_{ab}}]$};
+      (Att_q3_qab) [below right = .1cm and 1.5cm of Dfn_t_q3_Q] {$[\troll, \literal{q_{ab}}]$};
+    \node[posStyle, defender, defWins]
+      (Dfn_a_q1_tab) [below = .3cm of Dfn_b_q2_q3] {$(\literal{a}, \literal{q_1}, \literal{t_{ab}})$};
+    \node[posStyle, defender, defWins]
+      (Dfn_b_q2_tab) [below = .3cm of Dfn_a_q1_tab] {$(\literal{b}, \literal{q_2}, \literal{t_{ab}})$};
+    \node[posStyle, defender, defWins]
+      (Dfn_b_q3_qab) [below = .3cm of Dfn_b_q2_tab] {$(\literal{b}, \troll, \literal{q_{ab}})$};
+    \node[posStyle, defender, defWins]
+      (Dfn_a_q3_qab) [below = .3cm of Dfn_b_q3_qab] {$(\literal{a}, \troll, \literal{q_{ab}})$};
+    \node[posStyle, defWins]
+      (Att_q1_q3) [right = 1.8cm of Dfn_a_q1_tab] {$[\literal{q_1}, \troll]$};
+    \node[posStyle, defWins]
+      (Att_q2_q3) [right = 1.8cm of Dfn_b_q2_tab] {$[\literal{q_2}, \troll]$};
+    \node[posStyle, defWins]
+      (Att_q3_q2) [right = 1.8cm of Dfn_b_q3_qab] {$[\troll, \literal{q_2}]$};
+    \node[posStyle, defWins]
+      (Att_q3_q1) [right = 1.8cm of Dfn_a_q3_qab] {$[\troll, \literal{q_1}]$};
+
 
     \path
       (Att_Q_Qp)
         edge[bend left = 10] node {swap} (Att_Qp_Q)
         edge node {$\literal{Q} \step{\tau} \literal{q_{ab}}$} (Dfn_t_qab_Qp)
       (Att_qab_q3)
-        edge[bend left = 65] node {swap} (Att_q3_qab)
+        edge[bend right = 35] node {swap} (Att_q3_qab)
       (Att_q3_qab)
-        edge[bend right = 60] node {} (Att_qab_q3)
+        edge[bend left = 30] node {} (Att_qab_q3)
       (Dfn_t_qab_Qp)
         edge node {$\literal{T} \step{\tau} \troll$} (Att_qab_q3)
         edge[swap] node {$\literal{T} \step{\tau} \literal{q_{ab}}$} (Att_qab_tab)
@@ -1510,7 +1529,7 @@ The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\lite
       (Att_tab_qab)
         edge[bend left = 10]  node {} (Att_qab_tab)
       (Att_Qp_Q)
-        edge[bend left = 10] node {swap} (Att_Q_Qp)
+        edge[bend left = 10] node {} (Att_Q_Qp)
         edge[swap] node {$\literal{T} \step{\tau} \literal{q_{ab}}$} (Dfn_t_qab_Q)
         edge[swap] node {$\literal{T} \step{\tau} \troll$} (Dfn_t_q3_Q)
       (Dfn_t_qab_Q)
@@ -1520,10 +1539,31 @@ The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\lite
       (Att_qab_q3)
         edge node {$\literal{q_{ab}} \step{\literal{a}} \literal{q_1}$} (Dfn_a_q1_q3)
         edge node {$\literal{q_{ab}} \step{\literal{b}} \literal{q_2}$} (Dfn_b_q2_q3)
+      (Att_qab_tab)
+        edge node[pos=.8] {$\literal{q_{ab}} \step{\literal{a}} \literal{q_1}$} (Dfn_a_q1_tab)
+        edge node[swap, pos=.8] {$\literal{q_{ab}} \step{\literal{b}} \literal{q_2}$} (Dfn_b_q2_tab)
+      (Att_tab_qab)
+        edge node {$\literal{t_{ab}} \step{\literal{b}} \troll$} (Dfn_b_q3_qab)
+        edge node[swap] {$\literal{t_{ab}} \step{\literal{a}} \troll$} (Dfn_a_q3_qab)
+      (Dfn_a_q1_tab)
+        edge node {$\literal{t_{ab}} \step{\literal{a}} \troll$} (Att_q1_q3)
+      (Dfn_b_q2_tab)
+        edge node {$\literal{t_{ab}} \step{\literal{b}} \troll$} (Att_q2_q3)
+      (Dfn_b_q3_qab)
+        edge node {$\literal{q_{ab}} \step{\literal{b}} \literal{q_2}$} (Att_q3_q2)
+      (Dfn_a_q3_qab)
+        edge node {$\literal{q_{ab}} \step{\literal{a}} \literal{q_1}$} (Att_q3_q1)
+      ([yshift=.15cm]Att_q3_q1.east)
+        edge[bend right = 30] node[swap] {swap} ([yshift=-.15cm]Att_q1_q3.east)
+      (Att_q1_q3.east)
+        edge[bend left = 35] node {} (Att_q3_q1.east)
+      ([yshift=.15cm]Att_q3_q2.east)
+        edge[bend right = 30] node {} ([yshift=-.15cm]Att_q2_q3.east)
+      (Att_q2_q3.east)
+        edge[bend left = 35] node {} (Att_q3_q2.east)
     ;
-    \path[dashed]
-      (Att_qab_tab) edge[swap] node {$\literal{q_{ab}} \step{\literal{a}} \literal{q_1}$} ([xshift=1cm, yshift=.2cm]Att_qab_tab.east);
   \end{tikzpicture}
+\end{adjustbox}
 ```
 
 Bisimulation game on non-bisimilar states $\literal{Q}$ and $\literal{T}$ of @exm-bisim-sim-game.
@@ -1548,6 +1588,8 @@ Sketch for both directions:
 :::
 
 ::: {#rem-computer-game}
+#### Playing equivalence games
+
 One of the big advantages of game characterizations is that they provide a way to discuss equivalence and inequivalence interactively among humans.
 There also are several computer game implementations of bisimulation games.
 
@@ -1564,6 +1606,8 @@ It can be played on <https://www.concurrency-theory.org/rvg-game/>.
 :::
 
 ::: {#exm-leq-bisim-game}
+#### Game comparison
+
 If one plays the bisimulation game of @def-bisim-game without the swapping moves, it will characterize the simulation preorder.
 
 Consider the family of processes $\literal{N}_n$ with $n \in \nats$.
@@ -1581,7 +1625,6 @@ You might have wondered why we even need a dedicated bisimulation game.
 The Hennessy–Milner theorem implies that we could directly use the HML game of @def-hml-game to decide bisimilarity:
 
 ::: {#def-naive-bisim-game}
-
 #### Naive bisimulation game
 
 We extend the @def-hml-game by the following prefix:
@@ -1604,6 +1647,7 @@ We will now argue that the *bisimulation game actually is a variant of the naive
 To this end, we will show that attacker's winning strategies imply distinguishing formulas, and that a distinguishing formula from $\observations{\floor{B}}$ certifies the existence of winning attacker strategies.
 
 ::: {#exm-bisim-sim-game-formulas}
+#### Formulating attacks
 
 Let us illustrate how to derive distinguishing formulas using the game of @exm-bisim-sim-game.
 
@@ -1615,6 +1659,7 @@ Recall that the attacker wins by moving $[\literal{Q}, \literal{T}]
 \gamemoveblank_\notionname{B} (\literal{a}, \literal{q_1}, \troll)
 \ngamemoveblank_\notionname{B}$.
 In @fig-bisim-sim-game-formulas, we label the game nodes with the (sub-)formulas this strategy corresponds to.
+The cloud indicates where we omit some region where the defender wins.
 Swap moves become negations, and simulation moves become observations with a conjunction of formulas for each defender option.
 This attacker strategy can thus be expressed by $\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observations{\floor{B}}$.
 :::
@@ -1633,8 +1678,8 @@ This attacker strategy can thus be expressed by $\hmlneg\hmlobs{\tau}\hmlands\se
       (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{T}, \literal{Q}]$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{ab}}, \literal{T})$};
-    \node[posStyle, defWins]
-      (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \literal{q_{ab}}]$};
+    \node[dotted, cloud, cloud puffs=9,cloud puff arc=105, aspect=2, defWins, inner sep=.01cm, align=center]
+      (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {defender\\ wins};
     \node[posStyle, label={100:$\textcolor{red}{\hmlobs{\literal{a}}\hmltrue}$}]
       (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \troll]$};
     \node[posStyle, defender, above right = .1cm and 1.5cm of Att_qab_q3]
@@ -1659,8 +1704,6 @@ This attacker strategy can thus be expressed by $\hmlneg\hmlobs{\tau}\hmlands\se
       (Dfn_t_qab_Qp)
         edge node {} (Att_qab_q3)
         edge node {} (Att_qab_qab)
-      (Att_qab_qab)
-        edge [loop left] node {} ()
       (Att_Qp_Q)
         edge[bend left = 10] node {} (Att_Q_Qp)
         edge node {} (Dfn_t_qab_Q)

@@ -36,7 +36,8 @@ Core parts of the thesis are supported by an *Isabelle/HOL-formalization*.
 
 > To the memory of **Mark** Alexander **Sibly**,
 > 
-> creator of the programming language in which I wrote my first concurrent program, and a profound influence on me and so many others!
+> `\raggedleft`{=latex}
+> creator of the programming language in which I wrote my first concurrent program, and a profound influence on me `\\`{=latex} and so many others!
 
 \vfill
 
@@ -69,7 +70,8 @@ That this research project has still reached the stage of a (soon to be submitte
   Caroline Lemke,
   Andrei Aleksandrov,
   Dominik Geißler,
-  Uli Fahrenberg
+  Uli Fahrenberg,
+  Karl Mattes,
   (you might soon appear here, dearest test reader)
 
 ```{=latex}

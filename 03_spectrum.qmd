@@ -673,8 +673,10 @@ Hierarchy of common equivalences/preorders ordered by observability coordinates.
 :::
 
 The coordinates of @def-strong-ltbt-spectrum define a hierarchy of modal languages.
-@fig-strong-grammars-linear and @fig-strong-grammars-branching give the grammars that are described through the coordinates in conjunction with @def-strong-spectrum.
+@fig-strong-grammars-linear and @fig-strong-grammars-branching give the grammars that are described through the coordinates in interplay with @def-strong-spectrum.
 The defining aspects of each grammar are marked in $\textcolor{RoyalBlue}{\textrm{blue}}$.
+The conjunction productions with $\dots$ are to be read in the sense that they allow arbitrary many conjuncts; in particular, empty and infinitary conjunctions are possible.
+If a nonterminal appears only once in the conjunction production, at most one such sub formula is allowed.
 
 :::{#fig-strong-grammars-linear fig-pos='t!'}
 

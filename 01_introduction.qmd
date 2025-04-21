@@ -304,43 +304,6 @@ Thereby *one* algorithm works for *all* of a spectrum.
 
 ## This Thesis
 
-:::{#fig-thesis-overview fig-pos="t"}
-
-```tikz
-\begin{adjustbox}{max width=\textwidth, center}
-  \begin{tikzpicture}[rounded corners = 5, outer sep=1mm]
-  \tikzstyle{every node}=[font=\normalsize, align=center]
-    %\draw[help lines] (0,0) grid (12,7.5);
-
-    \draw[thick] (0,1.5) rectangle (12,-0.5);
-    \node at (6,-0.25) {\textbf{Preliminaries} \quad Chapter \ref{sec-preliminaries}};
-    \draw  (0.1,1.4) rectangle  node {Behavior \& equivalences\\ \ref{sec-programs} \& \ref{sec-behavioral-eq}} (3.95,0.1);
-    \draw  (4.05,1.4) rectangle  node {Modal logics \\ \ref{sec-hml}}
-     (7.95,0.1);
-    \draw  (8.05,1.4) rectangle  node {Games \\ \ref{sec-games}} (11.9,0.1);
-
-    \draw[thick]  (1,3) rectangle  node {\textbf{Strong spectrum} \\ \textbf{\& spectroscopy problem} \\ Chapter~\ref{sec-spectrum}} (8,1.5);
-    \draw[thick] (8,1.5) -- (8,3) -- (6,3) -- (6,4.5) -- (12,4.5) -- (12,1.5) -- cycle;
-    \node at (9,3.75) {\textbf{Approach:} \\ \textbf{equivalence energy games} \\ Chapter \ref{sec-approach}};
-    \draw (8.1,2.9) rectangle node {Energy games \\ \ref{sec-energy-games} \& \ref{sec-deciding-energy-games}} (11.9,1.6);
-
-    \draw[thick] (2,3) -- (2,6) -- (12,6) -- (12,4.5) -- (6,4.5) -- (6,3) -- cycle;
-    \node at (4,4.5) {\textbf{Spectroscopy of} \\ \textbf{the strong spectrum} \\ Chapter \ref{sec-strong-spectroscopy}};
-    \draw (8.1,5.9) rectangle node {Individual checkers \\ \ref{sec-deciding-individual-eqs}} (11.9,4.6);
-
-    \draw[thick] (0,1.5) -- (0,6) -- (2,6) -- (2,3) -- (1,3) -- (1,1.5) -- cycle;
-    \node at (1,4.5) {\textbf{Weak} \\ \textbf{spectrum} \\ Chapter \ref{sec-weak-spectrum}};
-
-    \draw[thick] (0,7.5) rectangle node {\textbf{Weak spectroscopy} \\ Chapter \ref{sec-weak-spectorscopy}} (12,6);
-  \end{tikzpicture}
-\end{adjustbox}
-```
-
-The *theory stack* of this thesis.
-Chapters and ideas built upon those underneath.
-:::
-
-\noindent
 At the core, this thesis presents an algorithm to *decide all behavioral equivalences at once* for varying spectra of equivalence using *energy games to limit possible distinctions* through attacker budgets.
 More precisely, we make the following contributions, each coming with a “side quest:”
 
@@ -356,12 +319,54 @@ More precisely, we make the following contributions, each coming with a “side 
   - Side quest: Case studies in concurrency theory research.
 - @sec-weak-spectorscopy adapts the game for the *weak spectrum of equivalences*.
   - Side quest: Isabelle/HOL formalization.
-- @sec-implementations showcases four implementations to conveniently perform equivalence spectroscopies in web browsers.
+- @sec-implementations showcases four *implementations* to conveniently perform equivalence spectroscopies in web browsers.
   - Side quest: Analyzing Peterson's mutual exclusion protocol.
 
 Each chapter ends with a discussion of its position in the context of the thesis and of related work.
 We close with a discussion of the wider picture in @sec-conclusion and how this thesis ascends through a *hierarchy of game charcaterizations*.
 Recurring symbols can be looked up under [Notation](#sec-notation)`~on page~\pageref{sec-notation}`{=latex}.
+
+:::{#fig-thesis-overview fig-pos="t"}
+
+```tikz
+%%| image-class: lightbox
+\begin{adjustbox}{max width=\textwidth, center}
+  \begin{tikzpicture}[rounded corners = 5, outer sep=1mm]
+  \tikzstyle{every node}=[font=\normalsize, align=center]
+    %\draw[help lines] (0,0) grid (12,7.5);
+
+    \draw[thick] (0,1.5) rectangle (12,-0.5);
+    \node at (6,-0.25) {\textbf{Preliminaries} \quad Chapter \ref{sec-preliminaries}};
+    \draw  (0.1,1.4) rectangle  node {Behavior \& equivalences\\ \ref{sec-programs} \& \ref{sec-behavioral-eq}} (3.95,0.1);
+    \draw  (4.05,1.4) rectangle  node {Modal logics \\ \ref{sec-hml}}
+     (7.95,0.1);
+    \draw  (8.05,1.4) rectangle  node {Games \\ \ref{sec-games}} (11.9,0.1);
+
+    \draw[thick]  (1,3) rectangle  node {\textbf{Strong spectrum} \\ \textbf{\& spectroscopy problem} \\ Chapter~\ref{sec-spectrum}} (8,1.5);
+    \draw[thick] (8,1.5) -- (8,3) -- (6,3) -- (6,4.5) -- (12,4.5) -- (12,1.5) -- cycle;
+    \node at (9,3.75) {\textbf{Approach: Equivalence} \\ \textbf{problems as energy games} \\ Chapter \ref{sec-approach}};
+    \draw (8.1,2.9) rectangle node {Energy games \\ \ref{sec-energy-games} \& \ref{sec-deciding-energy-games}} (11.9,1.6);
+
+    \draw[thick] (2,3) -- (2,6) -- (12,6) -- (12,4.5) -- (6,4.5) -- (6,3) -- cycle;
+    \node at (4,4.5) {\textbf{Spectroscopy of} \\ \textbf{the strong spectrum} \\ Chapter \ref{sec-strong-spectroscopy}};
+    \draw (8.1,5.9) rectangle node {Individual checkers \\ \ref{sec-deciding-individual-eqs}} (11.9,4.6);
+
+    \draw[thick] (0,1.5) -- (0,6) -- (2,6) -- (2,3) -- (1,3) -- (1,1.5) -- cycle;
+    \node at (1,4.5) {\textbf{Weak} \\ \textbf{spectrum} \\ Chapter \ref{sec-weak-spectrum}};
+
+    \draw[thick] (0,7.5) rectangle node {\textbf{Weak spectroscopy} \\ Chapter \ref{sec-weak-spectorscopy}} (12,6);
+  \end{tikzpicture}
+\end{adjustbox}
+```
+
+The *theory stack* of this thesis.
+Chapters and ideas build upon those underneath.
+:::
+
+@fig-thesis-overview gives an overview of how parts of this thesis built upon each other.
+An example of how to read the figure:
+@sec-approach describes the approach to frame equivalence problems as energy games
+It builds on a part of the modal characterization for the strong spectrum in @sec-spectrum and on game theory from @sec-preliminaries, which is adapted through energy games.
 
 {{< paragraph_heading "Not this thesis." >}}
 We limit ourselves to the *strong spectrum* [@glabbeek1990ltbt1] and the *weak spectrum* [@glabbeek1993ltbt].

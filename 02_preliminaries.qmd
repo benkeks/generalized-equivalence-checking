@@ -225,7 +225,7 @@ We place parenthesis $(…)$ in terms where the syntax trees are otherwise ambig
 This convention means that $(P_1 \ccschoice P_2) \ccschoice P_3$ and $P_1 \ccschoice (P_2 \ccschoice P_3)$ are representations of the same term in our view.
 :::
 
-::::: {.column-margin}
+::::: {#fig-isolated-philosopher .column-margin}
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.7cm]
   \node[state] (Pa){$\literal{P_A}$};
@@ -238,6 +238,8 @@ This convention means that $(P_1 \ccschoice P_2) \ccschoice P_3$ and $P_1 \ccsch
       edge node {$\literal{a}$} (Null);
 \end{tikzpicture}
 ```
+
+Philosopher $\literal{P_A}$, on their own.
 :::::
 
 ::: {#exm-ccs}
@@ -254,7 +256,7 @@ $$
   \literal{P_B} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal b} \ccsnull
 \end{gathered}
 $$
-A transition system representation of $\literal{P_A}$'s behavior can be seen in the margin.
+A transition system representation of $\literal{P_A}$'s behavior can be seen in the @fig-isolated-philosopher.
 Process $\literal P$ captures the whole scenario where the two philosophers compete for the fork using communication:
 $$
   \literal P ≔ ( \ccsprefix{\coaction{\literal{fork}}} \ccsnull \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
@@ -343,10 +345,9 @@ By the semantics, this also leads to the existence of a *state* $\literal{P_A}$ 
 
 Feel free to go ahead and check that the transitions of @exm-ts indeed match those that @def-ccs-semantics prescribes for $\literal{P}$ of @exm-ccs!
 (For readability, @exm-ts, has shorter state names, however.)
-For instance, the transition $\literal P \step{τ} \literal{p_a}$ in the CCS system of @exm-ts would be justified as follows:
+For instance, the transition $\literal P \step{τ} \literal{p_a}$ in the CCS system of @exm-ts would be justified by the derivation in @fig-deriving-transition.
 
-\vspace{-2em}
-::: {.column-body-outset}
+::: {#fig-deriving-transition .column-body-outset}
 $$
 \inferruleapp[Rec]{
   \hspace{-2em}
@@ -404,9 +405,11 @@ $$
   \literal P \stepnosmash{τ}_\ccs ( \ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
 }
 $$
+
+Deriving $\ccs$ transitions due to communication.
 :::
 
-{{< noindent >}} Non-determinism like in $\literal P$ of @exm-ts can be understood as a natural phenomenon in models with concurrency.
+Non-determinism like in $\literal P$ of @exm-ts can be understood as a natural phenomenon in models with concurrency.
 The model leaves unspecified which of two processes will consume an internal resource and, to the outsider, it is transparent which one took the resource until they communicate.
 There are other ways how non-determinism plays a crucial role in models, for instance, as consequence of abstraction or parts that are left open in specifications.
 
@@ -1627,13 +1630,13 @@ The Hennessy–Milner theorem implies that we could directly use the HML game of
 ::: {#def-naive-bisim-game}
 #### Naive bisimulation game
 
-We extend the @def-hml-game by the following prefix:
+We extend the HML game of @def-hml-game by the following prefix:
 
 1. To challenge $[p,q]$, the attacker picks a formula $φ ∈ \hml$ (claiming that $φ$ distinguishes the states) and yields to the defender $(φ, p, q)$.
 2. The defender decides where to start the HML game:
     1. Either at $(p, \hmlneg φ)$ (claiming $φ$ to be non-distinguishing because it is untrue for $p$)
     2. or at $(q, φ)$ (claiming $φ$ to be non-distinguishing because it is true for $q$).
-3. After that the turns proceed as prescribed by @def-hml-game.
+3. After that, the turns proceed as prescribed by @def-hml-game.
 
 :::
 
@@ -1877,14 +1880,14 @@ In particular, in constructing the relationships of @fig-equivalence-big-picture
   \node[above of=Relation, node distance=2.5cm] (Yes) {Certifiably yes $✔$};
   \node[above of=Formula, node distance=2.5cm] (No) {$✗$ Certifiably no};
   \path
-    (TS) edge[->, swap] node {Def.~2.20} (BisimGame)
+    (TS) edge[->, swap] node {Def.~\ref{def-bisim-game}} (BisimGame)
     (TS) edge[->, dashed] node {Bisimilar?} (Output)
-    (BisimGame) edge[->] node {Alg.~2.1} (WinningRegion)
+    (BisimGame) edge[->] node {Alg.~\ref{alg-deciding-games}} (WinningRegion)
     (WinningRegion) edge[->, swap] node {$[p,q] \in \defenderwins^{{\game}^{\system}_{\notionname{B}}}$} (Decision)
-    (Decision) edge[->] node {Yes: Thm.~2.2\vphantom{p}} (Relation)
-    (Decision) edge[->, swap] node {No: Lem.~2.10\vphantom{p}} (Formula)
-    (Relation) edge[->] node[align=right] {Check relation fulfills \\ bisimulation Def.~2.6\vphantom{p}} (Yes)
-    (Formula) edge[->, swap] node[align=left] {Check distinction using \\ HML game Def~2.19 + Alg.~2.1\vphantom{p}} (No);
+    (Decision) edge[->] node {Yes: Thm.~\ref{thm-bisim-game-characterization}\vphantom{p}} (Relation)
+    (Decision) edge[->, swap] node {No: Lem.~\ref{lem-attacks-imply-formulas}\vphantom{p}} (Formula)
+    (Relation) edge[->] node[align=right] {Check relation fulfills \\ bisimulation Def.~\ref{def-bisimilarity}\vphantom{p}} (Yes)
+    (Formula) edge[->, swap] node[align=left] {Check distinction using \\ HML game Def~\ref{def-hml-game} + Alg.~\ref{alg-deciding-games}\vphantom{p}} (No);
   \draw
     (Output.south) |- (Yes.east)
     (Output.south) |- (No.west);
@@ -1902,12 +1905,42 @@ Bisimulation relations and modal formulas only appear as witnesses of defender a
 The Hennessy--Milner theorem emerges on this level as a shadow of the determinacy of the bisimulation game (@idea-games).
 This whole framework draws heavily from @stirling1996modal.
 
-We have disregarded the topic of axiomatic characterizations for behavioral equivalences.
-In these, sets of equations on process algebra terms (such as $\ccs$) define behavioral congruences.
-Thus, they tend to be coupled to specific process languages and lack the genericity we pursue in starting out from transition systems.
+{{< paragraph_heading "Alternatives." >}}
+There are different frameworks for deciding behavioral equivalences that this thesis will not be using.
+
+- *Fixed-point iteration.*
+  Simulation-like behavioral equivalences and preorders can be expressed as greatest fixed points of monotonic functions.
+  Thus, fixed-point iteration can compute such relations on finite-state transition systems.
+  Intuitively, one first assumes that all states are related and then iteratively throws out pairs that immediately violate the (bi-)simulation condition, until there are no such pairs.
+  In effect, the same chain reaction happens that @alg-deciding-games performs on the bisimulation game.
+  Compared to the game approach, fixed point iteration usually is slower as it possesses less knowledge about logical connections between pairs in the candidate relation.
+- *Partition refinement.*
+  The fastest algorithms for bisimilarity use partition refinement.
+  Paritions represent equvialence relations as colorings on graphs, which is linear in the state space $\relsize{\states}$ (opposed to quadratic combinations for pairs in relations and attacker positions).
+  Intuitively, a similar refinement happens as in the general fixed-point iteration, repeatedly splitting up parts of the partitions.
+  The splits are also informed by modal distinctions as explicated in @cleaveland1991explainingBisimInequiv.
+  But clever decisions of where to split next and the leaner representation of data allow for more efficient algorithmics.
+  However, the nice approach only works if the fixed-point characterization ensures intermediate relations to be *symmetric*.
+  This is only the case for bisimilarity, thus heavily restricting the direct applicability of partition refinement.
+- *Reduction to bisimilarity.*
+  Other equivalences are usually checked by transforming the transition system in some way to make bisimilarity and the respective equivalence coincide on the system.
+  A standard example would be to make the transition system deterministic via subset construction, after which trace equivalence can be checked as bisimilarity.
+- *Term rewriting.*
+  If working on process-algebraic terms, equivalence can also be established through equational reasoning.
+  This approach requires a behavioral *congruence* with an axiomatic characterization which proccesses to consider as equal.
+  Intuitively, the algorithm then searches ways of rewriting one process into another.
+  But the rules usually create an infinite search space, only allowing semi-decision procedures.
+  Together with the coupling to specific process calculi, the approach thus is better fit for the context of proof assistants than for general equivalence checkers.
+  However, proofs on axiomatic characterizations often contain normalizations that can inform the design of reductions to bisimilarity.
+- *Characteristic formulas.*
+  Equivalence can also be checked through characteristic modal formulas.
+  Intuitively, one constructs a formula for a state that is precisely true for all conceivable equivalent states.
+  Equivalence checking with another state then reduces to model checking the formula on that state.
+  This approach requires a more complex language of *recursive* modal formulas.
+  It seems to be mostly academic in the sense that no relevant tool actually uses it to decide equivalences.
 
 {{< paragraph_heading "Modal logics point the way." >}}
-We have observed that behavioral equivalences can be arranged in hierarchies and that these hierarchies could be handled nicely using modal characterizations to rank distinguishing powers (Subsection [-@sec-perks-modal-characterizations]).
+We have observed that behavioral equivalences form hierarchies and that these hierarchies are handled nicely using modal characterizations to rank distinguishing powers (Subsection [-@sec-perks-modal-characterizations]).
 
 We have also seen how to link game rules to productions in a language of potentially distinguishing formulas (Subsection [-@sec-bisim-game-hml]).
 This departs from common textbook presentations that motivate the bisimulation game through the relational (coinductive) characterization [e.g. @sangiorgi2012].

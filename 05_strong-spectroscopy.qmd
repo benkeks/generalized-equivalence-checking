@@ -55,20 +55,20 @@ By instantiating the spectroscopy game with known initial energies and exploitin
   \node[algstep, draw=Peach, below of=AttackerWinningBudgets, node distance=2.5cm] (AttackerWinningReachability) {Defender winning region\\ $(\attackerpos{p,\set{q}}, N) \in \defenderwins$};
   \path
     (States) edge[->, dashed] node {Spectroscopy problem} (Preorders)
-    (States) edge[->, draw=TealBlue] node {Definition 5.1} (EnergyGame)
-    (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Theorem 5.1} (Preorders)
-    (EnergyGame) edge[->, draw=TealBlue] node {Algorithm 4.1} (AttackerWinningBudgets);
+    (States) edge[->, draw=TealBlue] node {Definition~\ref{def-bisim-energy-game}} (EnergyGame)
+    (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Theorem~\ref{thm-strong-spectroscopy-game-characterization}} (Preorders)
+    (EnergyGame) edge[->, draw=TealBlue] node {Algorithm~\ref{alg-deciding-energy-games}} (AttackerWinningBudgets);
   
   \path
     (States) edge[->, dashed, bend left=20] node {$N$-preorder problem} (IndividualNotion)
     (Preorders) edge[->, gray] node {} (IndividualNotion)
-    (EnergyGame) edge[->, draw=Peach] node {Definition 5.2} (ReachabilityGame)
-    (ReachabilityGame) edge[->, draw=Peach] node {Algorithm 2.1} (AttackerWinningReachability)
+    (EnergyGame) edge[->, draw=Peach] node {Definition~\ref{def-derived-eq-game}} (ReachabilityGame)
+    (ReachabilityGame) edge[->, draw=Peach] node {Algorithm \ref{alg-deciding-games}} (AttackerWinningReachability)
     (AttackerWinningReachability.east) edge[->, draw=Peach, bend right=25] node {} (IndividualNotion)
     (AttackerWinningReachability.east) edge[->, draw=TealBlue, dashed, bend right=25] node {} (IndividualNotion);
   
-  \node[text=TealBlue, right=2mm of AttackerWinningBudgets, align=right] (Sec51) {Section 5.1 \\ and 5.2};
-  \node[text=Peach, right=2mm of AttackerWinningReachability] (Sec52) {Section 5.3};
+  \node[text=TealBlue, right=2mm of AttackerWinningBudgets, align=right] (Sec51) {Section \ref{sec-stong-spectro-game} \\ and \ref{sec-specific-spectro-games}};
+  \node[text=Peach, right=2mm of AttackerWinningReachability] (Sec52) {Section \ref{sec-deciding-individual-eqs}};
 
   \node[below=3mm of AttackerWinningReachability] (Phantom) {};
 \end{tikzpicture}

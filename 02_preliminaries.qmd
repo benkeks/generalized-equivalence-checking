@@ -546,7 +546,8 @@ The following relations are simulations on the of @exm-ts:
 
 - the empty relation $\rel R_\varnothing ≔ \varnothing$;
 - the identity relation $\rel R_\mathrm{id} ≔ \identity{\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}} = \set{(\literal P, \literal P),\allowbreak (\literal{p_a}, \literal{p_a}),\allowbreak (\literal{p_b}, \literal{p_b}), (\literal{p_1}, \literal{p_1}),\allowbreak (\literal{p_2}, \literal{p_2}), (\literal Q, \literal Q), (\literal{q_{ab}}, \literal{q_{ab}}), \allowbreak(\literal{q_1}, \literal{q_1}), (\literal{q_2}, \literal{q_2})}$;
-- the universal relation between all terminal states $\rel R_\mathrm{term} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} \times \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}}$,
+- the universal relation between all terminal states  
+  $\rel R_\mathrm{term} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} \times \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}}$,
 - more generally, the relation from terminal states to all other states: $\rel R_\mathrm{up} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} × \states$;
 - a minimal simulation for $\literal P$ and $\literal Q$:  
   $\rel R_\literal{PQ} ≔ \set{(\literal{P}, \literal{Q}), (\literal{p_a}, \literal{q_{ab}}), (\literal{p_b}, \literal{q_{ab}}), (\literal{p_1}, \literal{q_1}), (\literal{p_2}, \literal{q_2})}$;
@@ -726,7 +727,7 @@ The concept is closely linked to another core notion of mathematics: monotonicit
 #### Monotonicity and congruence
 
 An $n$-ary function $f \colon B_1 \times \dots \times B_n \to C$ is called *monotonic* with respect to a family of partial orders $(B_k, \leq_k)$ and $(C, \leq)$ iff, for all $b \in B_1 \times \dots \times B_n$ and $b' \in B_1 \times \dots \times B_n$, it is the case that $b_k \leq b'_k$ for all $k \leq n$ implies that $f(b) \leq f(b')$.
-We will usually encounter settings where all components use the same order $(B_1, \leq_1) = \cdots = (B_n, \leq_n) = (C, \leq)$
+We will usually encounter settings where all components use the same order $(B_1, \leq_1) = \cdots = (B_n, \leq_n) = (C, \leq)$.
 
 The relation $\leq$ is then referred to as a *precongruence* for $f$.
 If $\leq$ moreover is symmetric (and thus an equivalence relation), then $\leq$ is called a *congruence* for $f$.
@@ -734,7 +735,7 @@ If $\leq$ moreover is symmetric (and thus an equivalence relation), then $\leq$ 
 
 ::: {#exm-congruence-oddity}
 #### Parity as congruence
-As a standard example for a congruence, consider the equivalence relation of equally odd numbers
+As a standard example for a congruence, consider the equivalence relation of equally odd numbers:
 $${\sim_\literal{odd}} := \set{(m,n) \in \nats \times \nats \mid m \bmod 2 = n \bmod 2}.$$
 For instance, $1 \sim_\literal{odd} 3$ and $0 \sim_\literal{odd} 42$, but not $42 \sim_\literal{odd} 23$.
 
@@ -831,13 +832,13 @@ Or, as @hoare2006whyEverCSP puts it:
 One of the prime applications of behavioral equivalences is to battle the *state space explosion problem*:
 The transition systems of parallel processes quickly grow in size, usually exponentially with regard to the number of communication participants.
 But many of the states tend to be equivalent in behavior, and can be treated *as one* with their equals.
-This *minimization* hugely increases the size of models that can be handled in algorithms.
+This *minimization* enables the handling of vastly bigger input models.
 
 ::: {#exm-bisim-minimization}
 #### Trolled philosophers, minimized
 
 In @exm-bisim-sim of “trolled philosophers,” all terminal states are bisimilar, $\literal{t_1} \beq{B} \literal{t_2} \beq{B} \troll$.
-We can thus merge them into one state $\literal{t_{12}^m}$ as depicted in @fig-bisim-min-ts, without affecting the behavioral properties of the other states with respect to bisimilarity, that is, $\literal{t_{ab}} \beq{B} \literal{t_{ab}^m}$ and $\literal{T} \beq{B} \literal{T^m}$.
+We can thus merge them into one state $\smash{\troll}^\literal{m}$ as depicted in @fig-bisim-min-ts, without affecting the behavioral properties of the other states with respect to bisimilarity, that is, $\literal{t_{ab}} \beq{B} \literal{t_{ab}^m}$ and $\literal{T} \beq{B} \literal{T^m}$.
 
 :::: {#fig-bisim-min-ts .column-margin}
 ```tikz
@@ -891,7 +892,7 @@ In this section, we will show how this characterization works and argue that, fo
 
 ### Hennessy–Milner Logic to Express Observations
 
-@hm1980hml introduce the modal logic that is now commonly called *Hennessy–Milner logic* as a “little language for talking about programs.”
+@hm1980hml introduce the modal logic that is now commonly called *Hennessy–Milner logic* (HML) as a “little language for talking about programs.”
 The idea is that HML formulas express “experiments” or “tests” that an observer performs interacting with a program.
 
 ::: {#def-hml}
@@ -1042,10 +1043,10 @@ Thirdly, modal characterizations can directly *unveil the hierarchy between preo
 If $\observationsvar{} \subseteq \observationsvar[\prime]{}$ then $p \bpreordvar{\observationsvar[\prime]{}} q$ implies $p \bpreordvar{\observationsvar{}} q$ for all $p,q$.{{<isb lemma LTS_Semantics lts_semantics.preorder_contraposition>}}
 :::
 
-Pay attention to the opposing directions of $\subseteq$ and implication, here!
+Pay attention to the opposing directions of $\subseteq$ and implication here!
 
 Fourthly, as a corollary of @prp-difference-contraposition, modal characterizations *ensure equivalences to be abstractions of bisimilarity*, which is a sensible base notion of equivalence.^[
-  Among other things, bisimilarity checking has a better time complexity than other notions as will be discussed in Subsection [-@sec-equivalence-complexities].
+  Among other things, bisimilarity checking has a better time complexity than other notions as will be discussed in @sec-equivalence-complexities.
 ]
 
 In Chapter [-@sec-spectrum], we will discuss how the hierarchy of behavioral equivalences can be understood nicely and uniformly if viewed through the modal lens.
@@ -1163,8 +1164,8 @@ We denote by $\game(g_0)$ the game played from starting position $g_0 ∈ G$.
 ::: {#def-game-plays}
 #### Plays and wins
 
-We call the paths ${g_0}{g_1} … ∈ G^{\infty}$ with $g_{i} \gamemoveblank g_{i+1}$ *plays* of $\game(g_0)$.
-They may be finite or infinite.
+We call the paths ${g_0}{g_1} … ∈ G^{\infty}$ with $g_{i} \gamemoveblank g_{i+1}$ *plays* of $\game(g_0)$,
+where $G^{\infty}$ stands for finite and infinite words over $G$.
 The defender *wins* infinite plays.
 If a finite play $g_{0}\dots g_{n}\!\ngamemoveblank$ is stuck, the stuck player loses: The defender wins if $g_{n} ∈ G_\attacker$, and the attacker wins if $g_{n}∈ G_\defender$.
 :::
@@ -1609,14 +1610,16 @@ The human plays the attacker trying to point out the inequivalence of systems ac
 It can be played on <https://www.concurrency-theory.org/rvg-game/>.
 :::
 
-::: {#exm-leq-bisim-game}
-#### Game comparison
+::: {#rem-leq-bisim-game}
+#### Number comparison as simulation game
 
 If one plays the bisimulation game of @def-bisim-game without the swapping moves, it will characterize the simulation preorder.
 
 Consider the family of processes $\literal{N}_n$ with $n \in \nats$.
 Define $\literal{N}_0 := \ccsnull$ and $\literal{N}_{n + 1} := \ccsprefix{\literal{a}} \literal{N}_n$.
 Then, the simulation game played from $[\literal{N}_{n}, \literal{N}_{m}]$ is isomorphic to the $\leq$-game $\game_{\literal{leq}}$ from @exm-less-eq-game.
+Therefore, the defender wins $[\literal{N}_{n}, \literal{N}_{m}]$ in the simulation game precisely if they win $[n, m]$ in the $\leq$-game.
+We can compare numbers $n \leq m$ by comparing programs $\literal{N}_{n} \bpreord{S} \literal{N}_{m}$!
 
 In this sense, comparisons of programs and of numbers are … comparable.
 :::
@@ -1754,7 +1757,7 @@ Also, $φ_{s}([p,q]) ∈ \observations{\floor{B}}$.
      We choose $p^* = p'$, because,
      as $s$ is an attacker winning strategy, $s([p, q]) = (\alpha, p', q)$ is a valid move with $p \step{\alpha} p'$.
      Also, all $q'$ the defender may select in answers remain in the winning domain of the attacker, and we may use the induction hypothesis that $q' \notin \semantics{φ_{s}([p',q'])}$.
-    Therefore, for each $q^*$ there is a false conjunct with $q' = q^*$ in $\hmlands \set{ φ_{s}([p',q']) \mid q \step{\alpha} q' }$ that proves $q* \notin \semantics{\hmlands \set{ φ_{s}([p',q']) \mid q \step{\alpha} q' }}$. \qedhere
+    Therefore, for each $q^*$ there is a false conjunct with $q' = q^*$ in $\hmlands \set{ φ_{s}([p',q']) \mid q \step{\alpha} q' }$ that proves $q^* \notin \semantics{\hmlands \set{ φ_{s}([p',q']) \mid q \step{\alpha} q' }}$. \qedhere
 :::
 
 ::: {#lem-formulas-imply-attack}
@@ -1788,7 +1791,7 @@ We thus have added the last arrow on the right side of @fig-equivalence-big-pict
 ### Deciding Reachability Games
 
 All we need to turn a game characterization into a decision procedure, is a way to decide which player wins a position.
-@alg-deciding-games describes how to compute who wins a finite reachability game for each position in time linear to the size of the game graph $\relsize{\gamemoveblank}$.
+@alg-deciding-games describes how to compute who wins a finite reachability game for each position in time linear to the size of the game graph $\bigo{\relsize{\gamemoveblank}}$.
 
 ::: {#alg-deciding-games}
 
@@ -1845,7 +1848,7 @@ The following @tbl-game-example-execution lists how @alg-deciding-games computes
 | $(\literal{3})$ | $(\literal{1}) \mapsto 2$, $(\literal{3}) \mapsto 0$ | $[\literal{2a}]$  |
 | $[\literal{2a}]$ | $(\literal{1}) \mapsto 1$, $(\literal{3}) \mapsto 0$ | $\varnothing$ |
 
-: Solving the game of @def-game-formulas {#tbl-game-example-execution}
+: Solving the game of @def-game-formulas. {#tbl-game-example-execution}
 
 ``` {=latex}
 %\end{table}

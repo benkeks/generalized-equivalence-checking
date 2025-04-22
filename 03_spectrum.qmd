@@ -469,7 +469,7 @@ The smallest notion to cover the failure formula of Subsection [-@sec-incomparab
 $$\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observationsvar[\literal{strong}]{(2,1,0,0,1,1)}.$$
 This is because the formula has two levels of modal observations, where the inner one is negated.
 The negation is wrapped in a conjunction with no positive conjuncts.
-A visualization for how $\expr{\literal{strong}}(\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}) = (2,1,0,0,1,1)$ (according to @def-expressiveness-price) comes together is given in the upcoming @fig-formula-pricing.
+A visualization for how $\expr[\literal{strong}](\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}) = (2,1,0,0,1,1)$ (according to @def-expressiveness-price) comes together is given in the upcoming @fig-formula-pricing.
 Formally, the reason is that the following derivation is optimal:
 $$
 \begin{array}{rcl}
@@ -505,7 +505,7 @@ If we reexamine the grammar of $\observations{F}$ in @def-failures-modal, we not
 \end{tikzpicture}
 ```
 
-Pricing formula $\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}$ with syntactic expressiveness $e = (2,1,0,0,1,1)$.
+Pricing formula $\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}$ with syntactic expressiveness $(2,1,0,0,1,1)$.
 :::
 
 \noindent
@@ -546,7 +546,7 @@ An example for the pricing of a more complex tree-like formula is given in @fig-
 \end{tikzpicture}
 ```
 
-Pricing formula $\hmlobs{\tau}\hmlands\{\hmlobs{ec_A}\hmlobs{lc_A}\hmltrue, \hmlobs{\tau}\hmltrue, \hmlneg\hmlobs{ec_B}\hmltrue\}$ with syntactic expressiveness $e = (3,1,2,1,1,1)$.
+Pricing formula $\hmlobs{\tau}\hmlands\{\hmlobs{ec_A}\hmlobs{lc_A}\hmltrue, \hmlobs{\tau}\hmltrue, \hmlneg\hmlobs{ec_B}\hmltrue\}$ with syntactic expressiveness $(3,1,2,1,1,1)$.
 :::
 
 ::: {#rem-explicit-expr}
@@ -682,7 +682,7 @@ Hierarchy of common equivalences/preorders ordered by observability coordinates.
 :::
 
 The coordinates of @def-strong-ltbt-spectrum define a hierarchy of modal languages.
-@fig-strong-grammars-linear and @fig-strong-grammars-branching give the grammars that are described through the coordinates in interplay with @def-strong-spectrum.
+@fig-strong-grammars-linear and @fig-strong-grammars-branching list the grammars that are described through the coordinates in interplay with @def-strong-spectrum.
 The defining aspects of each grammar are marked in $\textcolor{RoyalBlue}{\textrm{blue}}$.
 The conjunction productions with $\dots$ are to be read in the sense that they allow arbitrary many conjuncts; in particular, empty and infinitary conjunctions are possible.
 If a nonterminal appears only once in the conjunction production, at most one such sub formula is allowed.
@@ -902,10 +902,10 @@ Some kinds of depth-bounded families, however, are common in the literature to a
 :::
 
 ::: {#rem-dimensions}
-#### Fewer/other dimensions 
+#### Alternate dimensions 
 
 In principle, one can choose different dimensions to characterize the strong linear-time--branching-time spectrum.
-(Indeed, @bjn2022decidingAllBehavioralEqs, @bisping2023equivalenceEnergyGames and the present thesis all use slightly different dimensions.)
+(Indeed, @bjn2022decidingAllBehavioralEqs, @bisping2023equivalenceEnergyGames and this thesis all use slightly different dimensions.)
 
 Naturally, one may ask whether the same spectrum can be characterized with fewer than six dimensions.
 As some of the preceding examples also show, the dimensions we chose are not entirely orthogonal.
@@ -935,7 +935,7 @@ For instance, the lines of simulation and failures join at ready simulation---an
 But $\observations[\literal{strong}]{S} \cup \observations[\literal{strong}]{F} \neq \observations[\literal{strong}]{RS}$ and this makes a difference:
 
 ::: {#exm-non-ready-sim}
-#### Simulation & failures do not mean ready-simulation
+#### Simulation + failures $\neq$ ready-simulation
 
 Consider the $\ccs$ processes
 $\ccsprefix{\literal{a}} (\ccsprefix{\literal{a}} \literal{b} \ccschoice \literal{a})$ and
@@ -995,9 +995,9 @@ In $\hml$, the difference is expressed as $\hmlobs{\literal{b}}\hmltrue$.
 The solution to the strong spectroscopy problem on $\literal{q_{ab}}$ and $\literal{p_a}$ is
 $$\notions^{\literal{strong}}_{\literal{q_{ab}}, \literal{p_{a}}} = \set{N \in \notions^{\literal{strong}} \mid N_1 < 1}.$$
 
-All notions thus characteirzed correspond to universal equvialence $\notionname{U}$.
+All notions thus characterized correspond to universal equvialence $\notionname{U}$.
 In other words, the states are not equivalent with respect to any notion where states are told apart at all.
-They are as different as possible, in our metric.
+They are *as different as possible*, in our metric.
 :::
 
 ::: {#exm-spectroscopy-front}

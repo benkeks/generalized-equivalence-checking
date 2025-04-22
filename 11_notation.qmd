@@ -65,7 +65,7 @@ toc-title: "Notation"
 | $\bpreordvar{\observationsvar{}}$, $\beqvar{\observationsvar{}}$ | Behavioral preorder / equivalence derived from a sublogic $\observationsvar{}\subseteq \hml$ (@def-distinctions) |
 | $\observationsvar{N}$      | Observation logic for a notion $N \in \notions$ in the context of a spectrum (@def-spectrum) |
 | $\observations{\floor{B}}$ | Bisimulation observation logic (@def-game-formulas)                                         |
-| $\expr{}(\varphi)$         | Syntactic expressiveness price of $\varphi$ in the context of a spectrum (@def-expressiveness-price) |
+| $\expr(\varphi)$         | Syntactic expressiveness price of $\varphi$ in the context of a spectrum (@def-expressiveness-price) |
 
 ### Games {.unnumbered .unlisted}
 

@@ -58,7 +58,7 @@ Hierarchy of abstraction from strong bisimilarity to weak spectroscopy.
 In much the same way as we understand equivalences in a hierarchy by folding away dimensions of distinctions, this thesis itself has followed a hierarchy of spectroscopies.
 Starting from the Hennessy–Milner theorem, we have *unfolded* aspects, up to the weak spectroscopy.
 If one looks closely, we have even started one level below:
-@exm-leq-bisim-game notices that the subtractive $\leq$-game on natural numbers is an instance of the simulation game.
+@rem-leq-bisim-game notices that the subtractive $\leq$-game on natural numbers is an instance of the simulation game.
 
 Framing this journey along Plato's allegory of the cave:
 The Hennessy–Milner theorem *is a shadow* of the bisimulation game, which is a shadow of an energy game, which is a shadow of the strong spectroscopy game, which is a shadow of the weak spectroscopy game.

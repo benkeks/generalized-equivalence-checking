@@ -1406,6 +1406,7 @@ The core ingredient has been to characterize the spectrum's observation language
 The Pareto front view is slightly more general than other characteristic games, which @hs1996complexityEquivalences for instance use to establish polynomial upper bounds individually for simulation-like notions.
 
 The focus on the attacker in the bisimulation game is highly analogous to @geuversJacobs2021apartness championing *apartness* as the dual of bisimilarity to work with equivalences.
+As @kw2024allAGame show, apartness proofs and attacker strategies correspond.
 
 To compute the Pareto fronts, we use a fixed point algorithm (@idea-deciding-energy-games, @alg-deciding-energy-games).
 It can be thought of as a generalization of well-known ways to compute shortest distances in graphs [@mohri2002semiringShortest]:

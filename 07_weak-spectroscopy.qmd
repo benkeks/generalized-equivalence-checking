@@ -488,7 +488,7 @@ By induction over game positions $g$ and energies $e$ according to the inductive
   then there is $\hmlands \left(\set{\hmlsoft{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlsoft{\alpha}\varphi' } \cup \Psi\right)) \leq e$. \qedhere
 :::
 
-Strategy formulas are distinguishing.
+Weak strategy formulas are distinguishing.
 
 ::: {#lem-weak-spectroscopy-game-soundness}
 #### Distinction soundness

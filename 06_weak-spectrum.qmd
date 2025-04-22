@@ -281,11 +281,11 @@ $$
 \begin{array}{rllr}
     \varphi {} ::= {} & \hmleps\chi & & \text{“delayed observation”} \\
         | \quad & \hmlands \set{\psi, \psi, ...} & & \text{“immediate conjunction”} \\
-    \chi {} ::= {} & \hmlobs{a}\varphi & \quad\text{with } a \in \actionsvis & \text{“observation”} \\
+    \chi {} ::= {} & \hmlobs{a}\varphi & \text{with } a \in \actionsvis & \text{“observation”} \\
     | \quad & \hmlands \set{\psi, \psi, ... } & & \text{“standard conjunction”} \\
     | \quad & \hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue, \psi, \psi, ...} & & \text{“stable conjunction”} \\
     | \quad & \hmlands \set{\hmlsoft{\alpha}\varphi, \psi, \psi, ...} &
-    \quad \text{with } \alpha \in \actions & \text{“branching conjunction”} \\
+      \text{with } \alpha \in \actions & \text{“branching conjunction”} \\
     \psi {} ::= {} & \hmlneg\hmleps\chi \mid \hmleps\chi & & \text{“negative / positive conjuncts”}
 \end{array}
 $$
@@ -897,7 +897,7 @@ The whole list of weak linear-time notions can be found in @fig-weak-grammars-li
 The interesting points are highlighted in $\textcolor{RoyalBlue}{\textrm{blue}}$.
 Productions that could be left out without affecting distinctiveness are set in $\textcolor{gray}{\textrm{gray}}$.
 
-:::{#fig-weak-grammars-linear fig-pos='t!'}
+:::{#fig-weak-grammars-linear fig-pos='tp'}
 
 ```tikz
 \parbox{12cm}{
@@ -995,7 +995,7 @@ The modal characterizations correspond to the ones one would expect, with some t
 {{< paragraph_heading "Bisimulation-like notions." >}}
 The abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more interesting things happen.
 
-:::{#fig-weak-grammars-bisim-like fig-pos='t!'}
+:::{#fig-weak-grammars-bisim-like fig-pos='tp'}
 
 ```tikz
 \parbox{12cm}{
@@ -1155,7 +1155,7 @@ We use the higher coordinate $(\infty, 0, 0, \infty, 0, \infty, \infty, \infty)$
 @fig-weak-grammars-sim-like adds the simulation-like notions for completeness.
 At this point, they are not particularly interesting.
 
-:::{#fig-weak-grammars-sim-like fig-pos='t!'}
+:::{#fig-weak-grammars-sim-like fig-pos='tp'}
 
 ```tikz
 \parbox{12cm}{

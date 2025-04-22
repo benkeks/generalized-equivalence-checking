@@ -42,7 +42,7 @@ By instantiating the spectroscopy game with known initial energies and exploitin
 
 @fig-strong-spectroscopy-big-picture gives an overview of the two routes to decide equivalences collectively and individually we will explore.
 
-::: {#fig-strong-spectroscopy-big-picture}
+::: {#fig-strong-spectroscopy-big-picture fig-pos="t" fig-env="figure*"}
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.1cm,
   algstep/.style={minimum width=4.3cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
@@ -109,7 +109,7 @@ The intuition is that the attacker shows how to construct formulas that distingu
 As long as observations happen, the defender is moved to the set of states $Q$ reachable through non-determinism; only at conjunction moves does the defender have to choose a $q \in Q$.
 Treating conjunctions more explicitly will also allow us to track the depth of positive conjuncts in sufficient detail.
 
-::: {#fig-strong-spectroscopy-game fig-pos="t"}
+::: {#fig-strong-spectroscopy-game fig-pos="t" fig-env="figure*"}
 
 ```tikz
 \begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm,
@@ -374,7 +374,10 @@ On the other hand, we establish that formulas of certain expressiveness prices c
 #### Strategy formulas for $\gamespectroscopy$
 
 In the context of a strong spectroscopy game $\gamespectroscopy^{\system}$,
-the set of *strategy formulas* $\stratstrong(g, e)$ for a game position $g$ and a budget $e$ is defined inductively by the following rules:
+the set of *strategy formulas* $\stratstrong(g, e)$ for a game position $g$ and a budget $e$ is defined inductively by the following rules in @fig-strategy-formulas-strong.
+:::
+
+::: {#fig-strategy-formulas-strong fig-env="figure*"}
 $$
 \dfrac{
   \begin{matrix}
@@ -442,7 +445,6 @@ $$
   \hmlobs{α} φ ∈ \stratstrong(\attackerpos[\wedge]{p, q}, e)
 }
 $$
-
 $$
 \dfrac{
   \begin{matrix}
@@ -457,7 +459,9 @@ $$
 }
 $$
 
+Rules to derive distinguishing formulas from winning attack strategies.
 :::
+
 
 The base case of the definition is the rule for conjunctions at $\defenderpos{p, \varnothing, \varnothing}$, yielding strategy formula $\hmltrue$, which trivially distinguishes any $p$ from the empty set.
 
@@ -602,38 +606,40 @@ The system has only $\relsize{\states} = 20$ states, but a lot of non-determinis
 :::: {#fig-minimization-lattice .column-margin}
 
 ```tikz
-\begin{tikzpicture}[auto,node distance=3cm,align=right]
-  \node (B13){
-    $\gamespectroscopy$ \\
-    $\relsize{G} = \num{1199904}$ \\
-    $\relsize{\gamemoveblank} = \num{6489300}$
-   };
-  \node (B1)[below left of=B13]{
-    symmetry-pruned \\
-    $\relsize{G} = \num{241419}$ \\
-    $\relsize{\gamemoveblank} = \num{1291824}$
-   };
-  \node (B3)[below right of=B13]{
-    bisim-minimized\vphantom{p} \\
-    $\relsize{G} = \num{661271}$ \\
-    $\relsize{\gamemoveblank} = \num{3523944}$
-   };
-  \node (Bnil)[below right of=B1]{
-    bisim-minimized,\\
-    symmetry-pruned\\
-    $\relsize{G} = \num{67703}$ \\
-    $\relsize{\gamemoveblank} = \num{348474}$
-   };
-  
-  \path
-  (B13)
-    edge (B1)
-    edge (B3)
-  (B1)
-    edge (Bnil)
-  (B3)
-    edge (Bnil);
-\end{tikzpicture}
+\begin{adjustbox}{max width=\textwidth}
+  \begin{tikzpicture}[auto,node distance=3cm,align=right]
+    \node (B13){
+      $\gamespectroscopy$ \\
+      $\relsize{G} = \num{1199904}$ \\
+      $\relsize{\gamemoveblank} = \num{6489300}$
+    };
+    \node (B1)[below left of=B13]{
+      symmetry-pruned \\
+      $\relsize{G} = \num{241419}$ \\
+      $\relsize{\gamemoveblank} = \num{1291824}$
+    };
+    \node (B3)[below right of=B13]{
+      bisim-minimized\vphantom{p} \\
+      $\relsize{G} = \num{661271}$ \\
+      $\relsize{\gamemoveblank} = \num{3523944}$
+    };
+    \node (Bnil)[below right of=B1]{
+      bisim-minimized,\\
+      symmetry-pruned\\
+      $\relsize{G} = \num{67703}$ \\
+      $\relsize{\gamemoveblank} = \num{348474}$
+    };
+    
+    \path
+    (B13)
+      edge (B1)
+      edge (B3)
+    (B1)
+      edge (Bnil)
+    (B3)
+      edge (Bnil);
+  \end{tikzpicture}
+\end{adjustbox}
 ```
 
 Example sizes of a spectroscopy game with and without pruning on Peterson's mutex system.
@@ -749,38 +755,40 @@ Let us see how the “clever game” adds up with the pruning effects on the Pet
 :::: {#fig-minimization-lattice-clever .column-margin}
 
 ```tikz
-\begin{tikzpicture}[auto,node distance=3cm,align=right]
-  \node (B13){
-    $\gamespectroscopyclever$ \\
-    $\relsize{G_\blacktriangle} = \num{1020}$ \\
-    $\relsize{\gamemoveblank_\blacktriangle} = \num{4774}$
-   };
-  \node (B1)[below left of=B13]{
-    symmetry-pruned \\
-    $\relsize{G_\blacktriangle} = \num{776}$ \\
-    $\relsize{\gamemoveblank_\blacktriangle} = \num{3035}$
-   };
-  \node (B3)[below right of=B13]{
-    bisim-minimized\vphantom{p} \\
-    $\relsize{G_\blacktriangle} = \num{853}$ \\
-    $\relsize{\gamemoveblank_\blacktriangle} = \num{3623}$
-   };
-  \node (Bnil)[below right of=B1]{
-    bisim-minimized,\\
-    symmetry-pruned\\
-    $\relsize{G_\blacktriangle} = \num{664}$ \\
-    $\relsize{\gamemoveblank_\blacktriangle} = \num{2363}$
-   };
-  
-  \path
-  (B13)
-    edge (B1)
-    edge (B3)
-  (B1)
-    edge (Bnil)
-  (B3)
-    edge (Bnil);
-\end{tikzpicture}
+\begin{adjustbox}{max width=\textwidth}
+  \begin{tikzpicture}[auto,node distance=3cm,align=right]
+    \node (B13){
+      $\gamespectroscopyclever$ \\
+      $\relsize{G_\blacktriangle} = \num{1020}$ \\
+      $\relsize{\gamemoveblank_\blacktriangle} = \num{4774}$
+    };
+    \node (B1)[below left of=B13]{
+      symmetry-pruned \\
+      $\relsize{G_\blacktriangle} = \num{776}$ \\
+      $\relsize{\gamemoveblank_\blacktriangle} = \num{3035}$
+    };
+    \node (B3)[below right of=B13]{
+      bisim-minimized\vphantom{p} \\
+      $\relsize{G_\blacktriangle} = \num{853}$ \\
+      $\relsize{\gamemoveblank_\blacktriangle} = \num{3623}$
+    };
+    \node (Bnil)[below right of=B1]{
+      bisim-minimized,\\
+      symmetry-pruned\\
+      $\relsize{G_\blacktriangle} = \num{664}$ \\
+      $\relsize{\gamemoveblank_\blacktriangle} = \num{2363}$
+    };
+    
+    \path
+    (B13)
+      edge (B1)
+      edge (B3)
+    (B1)
+      edge (Bnil)
+    (B3)
+      edge (Bnil);
+  \end{tikzpicture}
+\end{adjustbox}
 ```
 
 Sizes of *clever* spectroscopy games with and without pruning on Peterson's mutex system.
@@ -1034,73 +1042,75 @@ Each game is derived from the clever spectroscopy game, with pruning and with ca
 The game size is defined as the sum of positions and moves, $\relsize{\game} = \relsize{G} + \relsize{\gamemoveblank}$.
 Red parts symbolize bigger game graphs.
 
-:::: {#fig-instance-games-strong-ltbt-spectrum}
+:::: {#fig-instance-games-strong-ltbt-spectrum fig-pos="tp"}
 
 ```tikz
-\begin{tikzpicture}[auto,node distance=2.5cm,align=center]
-  \node[fill=purple!30!yellow!60] (B){
-    $\relsize{\gamespectroscopyceq{\notionname{B}}} = 105$\\
-    $\infty,\infty,\infty,\infty,\infty,\infty$};
-  \node[fill=purple!67!yellow!60] (S2)[below of=B, node distance=1.2cm]{
-    $\relsize{\gamespectroscopyceq{\notionname{2S}}} = 200$\\
-    $\infty,\infty,\infty,\infty,\infty,1$};
-  \node[fill=purple!82!yellow!60] (RS)[below left of=S2]{
-    $\relsize{\gamespectroscopyceq{\notionname{RS}}} = 248$\\
-    $\infty,\infty,\infty,\infty,1,1$};
-  \node[fill=purple!96!yellow!60] (RT)[below right of=RS]{
-    $\relsize{\gamespectroscopyceq{\notionname{RT}}} = 288$\\
-    $\infty,\infty,\infty,1,1,1$};
-  \node[fill=purple!72!yellow!60] (FT)[below left of=RT]{
-    $\relsize{\gamespectroscopyceq{\notionname{FT}}} = 216$\\
-    $\infty,\infty,\infty,0,1,1$};
-  \node[fill=purple!42!yellow!60] (R)[below right of=RT]{
-    $\relsize{\gamespectroscopyceq{\notionname{R}}} = 126$\\
-    $\infty,1,1,1,1,1$};
-  \node[fill=purple!48!yellow!60] (PF)[above right of=R]{
-    $\relsize{\gamespectroscopyceq{\notionname{PF}}} = 144$\\
-    $\infty,1,\infty,\infty,\infty,1$};
-  \node[fill=purple!30!yellow!60] (IF)[below right of=R]{
-    $\relsize{\gamespectroscopyceq{\notionname{IF}}} = 105$\\
-    $\infty,1,0,0,\infty,1$};
-  \node[fill=purple!32!yellow!60] (S)[left of=FT, node distance=3.8cm]{
-    $\relsize{\gamespectroscopyceq{\notionname{1S}}} = 95$\\
-    $\infty,\infty,\infty,\infty,0,0$};
-  \node[fill=purple!32!yellow!60] (RV)[below left of=R]{
-    $\relsize{\gamespectroscopyceq{\notionname{RV }}} = 96$\\
-    $\infty,1,1,0,1,1$};
-  \node[fill=purple!32!yellow!60] (F)[below right of=RV]{
-    $\relsize{\gamespectroscopyceq{\notionname{F}}} = 96$\\
-    $\infty,1,0,0,1,1$};
-  \node[fill=purple!7!yellow!60] (T)[below left of=F]{
-    $\relsize{\gamespectroscopyceq{\notionname{T}}} = 20$\\
-    $\infty,0,0,0,0,0$};
-  \node[fill=purple!3!yellow!60] (E)[below of=T, node distance=1.2cm]{
-    $\relsize{\gamespectroscopyceq{\notionname{E}}} = 8$\\
-    $1,0,0,0,0,0$};
-  \node[fill=purple!1!yellow!60] (U)[below of=E, node distance=1.2cm]{
-    $\relsize{\gamespectroscopyceq{\notionname{U}}} = 2$\\
-    $0,0,0,0,0,0$};
+\begin{adjustbox}{max width=\textwidth}
+  \begin{tikzpicture}[auto,node distance=2.5cm,align=center]
+    \node[fill=purple!30!yellow!60] (B){
+      $\relsize{\gamespectroscopyceq{\notionname{B}}} = 105$\\
+      $\infty,\infty,\infty,\infty,\infty,\infty$};
+    \node[fill=purple!67!yellow!60] (S2)[below of=B, node distance=1.2cm]{
+      $\relsize{\gamespectroscopyceq{\notionname{2S}}} = 200$\\
+      $\infty,\infty,\infty,\infty,\infty,1$};
+    \node[fill=purple!82!yellow!60] (RS)[below left of=S2]{
+      $\relsize{\gamespectroscopyceq{\notionname{RS}}} = 248$\\
+      $\infty,\infty,\infty,\infty,1,1$};
+    \node[fill=purple!96!yellow!60] (RT)[below right of=RS]{
+      $\relsize{\gamespectroscopyceq{\notionname{RT}}} = 288$\\
+      $\infty,\infty,\infty,1,1,1$};
+    \node[fill=purple!72!yellow!60] (FT)[below left of=RT]{
+      $\relsize{\gamespectroscopyceq{\notionname{FT}}} = 216$\\
+      $\infty,\infty,\infty,0,1,1$};
+    \node[fill=purple!42!yellow!60] (R)[below right of=RT]{
+      $\relsize{\gamespectroscopyceq{\notionname{R}}} = 126$\\
+      $\infty,1,1,1,1,1$};
+    \node[fill=purple!48!yellow!60] (PF)[above right of=R]{
+      $\relsize{\gamespectroscopyceq{\notionname{PF}}} = 144$\\
+      $\infty,1,\infty,\infty,\infty,1$};
+    \node[fill=purple!30!yellow!60] (IF)[below right of=R]{
+      $\relsize{\gamespectroscopyceq{\notionname{IF}}} = 105$\\
+      $\infty,1,0,0,\infty,1$};
+    \node[fill=purple!32!yellow!60] (S)[left of=FT, node distance=3.8cm]{
+      $\relsize{\gamespectroscopyceq{\notionname{1S}}} = 95$\\
+      $\infty,\infty,\infty,\infty,0,0$};
+    \node[fill=purple!32!yellow!60] (RV)[below left of=R]{
+      $\relsize{\gamespectroscopyceq{\notionname{RV }}} = 96$\\
+      $\infty,1,1,0,1,1$};
+    \node[fill=purple!32!yellow!60] (F)[below right of=RV]{
+      $\relsize{\gamespectroscopyceq{\notionname{F}}} = 96$\\
+      $\infty,1,0,0,1,1$};
+    \node[fill=purple!7!yellow!60] (T)[below left of=F]{
+      $\relsize{\gamespectroscopyceq{\notionname{T}}} = 20$\\
+      $\infty,0,0,0,0,0$};
+    \node[fill=purple!3!yellow!60] (E)[below of=T, node distance=1.2cm]{
+      $\relsize{\gamespectroscopyceq{\notionname{E}}} = 8$\\
+      $1,0,0,0,0,0$};
+    \node[fill=purple!1!yellow!60] (U)[below of=E, node distance=1.2cm]{
+      $\relsize{\gamespectroscopyceq{\notionname{U}}} = 2$\\
+      $0,0,0,0,0,0$};
 
-  \path
-  (B) edge (S2)
-  (S2) edge (RS)
-  (S2) edge (PF)
-  (RS) edge (S)
-  (RS) edge (RT)
-  (RT) edge (R)
-  (RT) edge (FT)
-  (PF) edge (R)
-  (PF) edge (IF)
-  (S) edge (T)
-  (FT) edge (RV)
-  (R) edge (RV)
-  (IF) edge (F)
-  (RV) edge (F)
-  (F) edge (T)
-  (T) edge (E)
-  (E) edge (U)
-  ;
-\end{tikzpicture}
+    \path
+    (B) edge (S2)
+    (S2) edge (RS)
+    (S2) edge (PF)
+    (RS) edge (S)
+    (RS) edge (RT)
+    (RT) edge (R)
+    (RT) edge (FT)
+    (PF) edge (R)
+    (PF) edge (IF)
+    (S) edge (T)
+    (FT) edge (RV)
+    (R) edge (RV)
+    (IF) edge (F)
+    (RV) edge (F)
+    (F) edge (T)
+    (T) edge (E)
+    (E) edge (U)
+    ;
+  \end{tikzpicture}
+\end{adjustbox}
 ```
 
 Instance game sizes of @exm-instance-game-sizes.

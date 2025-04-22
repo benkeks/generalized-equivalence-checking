@@ -318,7 +318,7 @@ $$
   P_2 \step{\coaction c}_\ccs P_2'
 }{
   P_1 \ccspar P_2 \step{τ}_\ccs P_1' \ccspar P_2'
-}\qquad
+}\;
 \inferrule[Com_2]{
   P_1 \step{\coaction c}_\ccs P_1' \qquad
   P_2 \step{c}_\ccs P_2'
@@ -337,7 +337,7 @@ $$
 ::::
 
 \noindent
-A process $P ∈ \ccs$ now denotes a position in the transition system $(\ccs, \ccsactions, \step{}_\ccs)$.
+A process $P ∈ \ccs$ now denotes a node within the transition system $(\ccs, \ccsactions, \step{}_\ccs)$.
 :::
 
 So, when we were writing “$\literal{P_A} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$” above, this was actually to claim that we are talking about a CCS system where the *process name* $\literal{P_A} \in \ccsnames$ and $\ccsasg(\literal{P_A}) ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$.
@@ -347,7 +347,7 @@ Feel free to go ahead and check that the transitions of @exm-ts indeed match tho
 (For readability, @exm-ts, has shorter state names, however.)
 For instance, the transition $\literal P \step{τ} \literal{p_a}$ in the CCS system of @exm-ts would be justified by the derivation in @fig-deriving-transition.
 
-::: {#fig-deriving-transition .column-body-outset}
+::: {#fig-deriving-transition fig-pos="t" fig-env="figure*"}
 $$
 \inferruleapp[Rec]{
   \hspace{-2em}
@@ -548,7 +548,8 @@ The following relations are simulations on the of @exm-ts:
 - the identity relation $\rel R_\mathrm{id} ≔ \identity{\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}} = \set{(\literal P, \literal P),\allowbreak (\literal{p_a}, \literal{p_a}),\allowbreak (\literal{p_b}, \literal{p_b}), (\literal{p_1}, \literal{p_1}),\allowbreak (\literal{p_2}, \literal{p_2}), (\literal Q, \literal Q), (\literal{q_{ab}}, \literal{q_{ab}}), \allowbreak(\literal{q_1}, \literal{q_1}), (\literal{q_2}, \literal{q_2})}$;
 - the universal relation between all terminal states $\rel R_\mathrm{term} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} \times \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}}$,
 - more generally, the relation from terminal states to all other states: $\rel R_\mathrm{up} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} × \states$;
-- a minimal simulation for $\literal P$ and $\literal Q$: $\rel R_\literal{PQ} ≔ \set{(\literal{P}, \literal{Q}), (\literal{p_a}, \literal{q_{ab}}), (\literal{p_b}, \literal{q_{ab}}), (\literal{p_1}, \literal{q_1}), (\literal{p_2}, \literal{q_2})}$;
+- a minimal simulation for $\literal P$ and $\literal Q$:  
+  $\rel R_\literal{PQ} ≔ \set{(\literal{P}, \literal{Q}), (\literal{p_a}, \literal{q_{ab}}), (\literal{p_b}, \literal{q_{ab}}), (\literal{p_1}, \literal{q_1}), (\literal{p_2}, \literal{q_2})}$;
 - and the combination of the above $\rel R_\mathrm{big} ≔ \rel R_\mathrm{id} ∪ \rel R_\mathrm{term} ∪ \rel R_\mathrm{up} ∪ \rel R_\literal{PQ}$.
 
 The simulation $\rel R_\literal{PQ}$ shows that $\literal P \bpreord{S} \literal Q$.

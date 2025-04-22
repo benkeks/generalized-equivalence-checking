@@ -135,7 +135,9 @@ consists of
 - **new:** *defender stable conjunction positions* $\defenderpos[s]{p,Q} \in G_\defender$,
 - **new:** *defender branching positions* $\defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha} \in G_\defender$,
 
-where $p, q \in \states$ and $Q, Q_\alpha \in \powerset{\states}$, and sixteen kinds of moves:{{<isb inductive Spectroscopy_Game LTS_Tau.spectroscopy_moves>}}
+where $p, q \in \states$ and $Q, Q_\alpha \in \powerset{\states}$, and the following sixteen kinds of moves.{{<isb inductive Spectroscopy_Game LTS_Tau.spectroscopy_moves>}}
+
+Moves to allow internal behavior between observations:
 $$
 \begin{array}{rrcll}
   \textit{delay}
@@ -191,8 +193,12 @@ $$
   & \gamemove{\updmin{1,7},0,0,0,0,0,0,-1}
   & \attackerpos[\varepsilon]{q,Q}
   & \text{if $\set{p} \stepweak Q$ and $p \neq q$,}
-  \\
-  \hline
+\end{array}
+$$
+moves to encode branching conjunctions $\hmlands \set{\hmlsoft{\alpha}\varphi, \psi, \psi, ...}$:
+
+$$
+\begin{array}{rrcll}
   \textit{branching conj.}\vphantom{I^{I^I}}
   & \attackerpos[\varepsilon]{p,Q}
   & \gamemove{0,0,0,0,0,0,0,0}
@@ -215,8 +221,12 @@ $$
   & \attackerpos[\eta]{p,Q}
   & \gamemove{-1,0,0,0,0,0,0,0}
   & \attackerpos{p,Q},
-  \\
-  \hline
+\end{array}
+$$
+and moves to encode stable conjunctions $\hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue, \psi, \psi, ...}$:
+
+$$
+\begin{array}{rrcll}
   \textit{stable conj.}\vphantom{I^{I^I}}
   & \attackerpos[\varepsilon]{p,Q}
   & \gamemove{0,0,0,0,0,0,0,0}

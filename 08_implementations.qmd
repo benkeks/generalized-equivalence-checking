@@ -570,6 +570,7 @@ This mostly matches the results already reported in @bisping2023equivalenceEnerg
 % fix to make the table float in spite of Pandoc's hardcoded longtable usage...
 \afterpage{\clearpage
 \begin{table*}[b!]
+\begin{center}
 \parbox{15cm}{
 ```
 ```{python}
@@ -712,6 +713,7 @@ d.Markdown(table)
 
 ```{=latex}
 }
+\end{center}
 \end{table*}
 }
 ```

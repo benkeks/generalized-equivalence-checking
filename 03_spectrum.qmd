@@ -224,7 +224,7 @@ Dually, some $B' \subseteq B$ with no two elements $b_1, b_2 \in B'$ such that $
 ::: {#fig-set-lattice .column-margin}
 
 ```tikz
-\begin{tikzpicture}[auto,node distance=2.5cm,align=center]
+\begin{tikzpicture}[auto,node distance=2cm,align=center]
   \node (B123){$\set{1,2,3}$};
   \node (B13)[below of=B123]{$\set{1,3}$};
   \node (B12)[left of=B13]{$\set{1,2}$};
@@ -286,7 +286,7 @@ Their respective subsets are chains / anti-chains as well.
 ::: {#fig-nat-lattice .column-margin}
 ```tikz
 \begin{tikzpicture}[]
-  \begin{scope}[rotate=45, scale=1]
+  \begin{scope}[rotate=45, scale=.85]
     \draw[help lines] (0,0) grid (2.5,2.5);
     \draw (-.25,-.25) node {$(0,0)$};
     \draw (1,-.25) node {$1$};
@@ -486,10 +486,10 @@ If we reexamine the grammar of $\observations{F}$ in @def-failures-modal, we not
 ```tikz
 \begin{tikzpicture}
   \node(Obs1) {$\hmlobs\tau$};
-  \node(Conj0)[right=2cm of Obs1.center] {$\land$};
-  \node(Neg)[right=3cm of Conj0.center] {$\neg$};
-  \node(ObsA)[right=2cm of Neg.center] {$\hmlobs{\literal a}$};
-  \node(Top)[right=2cm of ObsA.center] {$\top$};
+  \node(Conj0)[right=1.7cm of Obs1.center] {$\land$};
+  \node(Neg)[right=2.5cm of Conj0.center] {$\neg$};
+  \node(ObsA)[right=1.7cm of Neg.center] {$\hmlobs{\literal a}$};
+  \node(Top)[right=1.7cm of ObsA.center] {$\top$};
 
   \node(E1) [above left=6mm and 1mm of Obs1.center]{$e_{\textcolor{obsColor}{1}} = 2$};
   \node(E2) [above left=2mm and 1mm of Obs1.center]{$e_{\textcolor{conjColor}{2}} = 1$};
@@ -516,15 +516,15 @@ An example for the pricing of a more complex tree-like formula is given in @fig-
 
 \begin{tikzpicture}
   \node(Obs1) {$\hmlobs\tau$};
-  \node(Conj0)[right=2cm of Obs1.center] {$\land$};
-  \node(ObsEC1)[above right=1cm and 3cm of Conj0.center] {$\hmlobs{ec_A}$};
-  \node(ObsLC1)[right=2cm of ObsEC1.center] {$\hmlobs{lc_A}$};
-  \node(Top1)[right=2cm of ObsLC1.center] {$\top$};
-  \node(ObsEC2)[right=3cm of Conj0.center] {$\hmlobs{\tau}$};
-  \node(Top2)[right=2cm of ObsEC2.center] {$\top$};
-  \node(Neg)[below right=1cm and 3cm of Conj0.center] {$\neg$};
-  \node(NegObsEC)[right=2cm of Neg.center] {$\hmlobs{ec_B}$};
-  \node(Top3)[right=2cm of NegObsEC.center] {$\top$};
+  \node(Conj0)[right=1.7cm of Obs1.center] {$\land$};
+  \node(ObsEC1)[above right=1cm and 2.7cm of Conj0.center] {$\hmlobs{ec_A}$};
+  \node(ObsLC1)[right=1.7cm of ObsEC1.center] {$\hmlobs{lc_A}$};
+  \node(Top1)[right=1.7cm of ObsLC1.center] {$\top$};
+  \node(ObsEC2)[right=2.7cm of Conj0.center] {$\hmlobs{\tau}$};
+  \node(Top2)[right=1.7cm of ObsEC2.center] {$\top$};
+  \node(Neg)[below right=1cm and 2.7cm of Conj0.center] {$\neg$};
+  \node(NegObsEC)[right=1.7cm of Neg.center] {$\hmlobs{ec_B}$};
+  \node(Top3)[right=1.7cm of NegObsEC.center] {$\top$};
 
   \node(E1) [above left=10mm and 1mm of Obs1.center]{$e_{\textcolor{obsColor}{1}} = 3$};
   \node(E2) [above left=6mm and 1mm of Obs1.center]{$e_{\textcolor{conjColor}{2}} = 1$};
@@ -557,12 +557,16 @@ In this thesis, $\expr$ is indirectly defined through @def-expressiveness-price.
 
 The expressiveness price $\expr[\literal{strong}]$ of formulas in the strong spectrum (@def-strong-spectrum) can be recursively characterized as described in @bisping2023equivalenceEnergyGames (we will drop the “$\literal{strong}$” for readability):
 
-$$
-\begin{array}{rl}
-  \expr(\hmltrue) & = \zerovec \\
-  \expr(\hmlobs{\alpha}\varphi) & = \textcolor{obsColor}{\unitvec{1}} + \expr(\varphi) \\
-  \expr(\hmlneg\varphi) & = \textcolor{negsColor}{\unitvec{6}} + \expr(\varphi) \\
-  \textstyle\expr(\bigwedge\limits_{i \in I}\psi_i) & =
+```{=latex}
+\medskip
+\begin{adjustbox}{center,max width=1.2\textwidth}
+```
+
+$\begin{array}{rl}
+  \expr(\hmltrue) \!\! &= \zerovec \\
+  \expr(\hmlobs{\alpha}\varphi) \!\! &= \textcolor{obsColor}{\unitvec{1}} + \expr(\varphi) \\
+  \expr(\hmlneg\varphi) \!\! &= \textcolor{negsColor}{\unitvec{6}} + \expr(\varphi) \\
+  \textstyle\expr(\bigwedge\limits_{i \in I}\psi_i) \!\! &=
   \textcolor{conjColor}{\unitvec{2}} + \sup\Biggl(\big\{\!
   \begin{pmatrix}
     0\\
@@ -581,12 +585,17 @@ $$
     \mathit{R} & \defeq
     \begin{cases}
       \varnothing & \text{if } \mathit{Pos} = \varnothing\\
-      \set{ r } & \text{for some $r \in \mathit{Pos}$ where $\expr_1(\psi_r)$ maximal for $\mathit{Pos}$.}
+      \set{ r } & \text{for some $r \in \mathit{Pos}$ with $\expr_1(\psi_r)$ max.\ for $\mathit{Pos}$.}\!
     \end{cases}
   \end{array}
-\end{array}
-$$
+\end{array}$
 
+```{=latex}
+\end{adjustbox}
+\smallskip
+```
+
+\noindent
 Note that there is a minor divergence from @bisping2023equivalenceEnergyGames in that the present thesis prices $\expr(\hmltrue)$ at $\zerovec$ instead of $\unitvec{2}$.
 This change is done to align the pricing to the one we will need for the weak spectrum in later chapters.
 
@@ -1118,7 +1127,7 @@ The best known bisimilarity algorithms for finite-state transition systems take 
 \begin{tikzpicture}[]
   \begin{axis}[
         title = {},
-        width = 12cm,
+        width = 10cm,
         height = 5cm,
         symbolic x coords = {ID,GI,B,S,T,E,U},
         xtick = data,

@@ -88,7 +88,7 @@ format:
     html-math-method: katex
     #fig-cap-location: margin
     reference-location: margin
-    crossrefs-hover: true # this lead to poor preview browsing experience and katex exceptions :/
+    crossrefs-hover: true
     citation-location: document
     linestretch: 1.3
     mainfont: Linux Libertine O
@@ -115,7 +115,7 @@ format:
     #   href: https://github.com/benkeks/generalized-equivalence-checking
   pdf:
     documentclass: book
-    classoption: [oneside]
+    classoption: [twoside]
     pdf-engine: xelatex
     from: markdown-latex_macros
     mainfont: Linux Libertine O

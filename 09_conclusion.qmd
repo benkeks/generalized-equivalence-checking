@@ -42,7 +42,7 @@ Thanks to the decision procedures, we can offer *tool support* for equivalence s
 \end{adjustbox}
 ```
 
-Hierarchy of abstraction from strong bisimilarity to weak spectroscopy.  
+Hierarchy of abstraction from strong bisimilarity to weak spectroscopy.
 (Read arrows as “… can be understood as … of …”.)
 :::
 

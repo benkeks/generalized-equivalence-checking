@@ -95,7 +95,7 @@ That this research project has still reached the stage of a (soon to be submitte
       \draw  (0.1,1.4) rectangle  node {Behavior \& equivalences} (3.95,0.1);
       \draw  (4.05,1.4) rectangle  node {Modal logics}
       (7.95,0.1);
-      \draw  (8.05,1.4) rectangle  node {Games} (11.9,0.1);
+      \draw  (8.05,1.4) rectangle  node {Games \vphantom{q}} (11.9,0.1);
 
       \draw[thick]  (1,3) rectangle  node {\textbf{Strong spectrum} \\ \textbf{\& spectroscopy problem} \\ Chapter~\ref{sec-spectrum}} (8,1.5);
       %\draw[thick] (8,1.5) -- (8,3) -- (6,3) -- (6,4.5) -- (12,4.5) -- (12,1.5) -- cycle;
@@ -119,12 +119,12 @@ That this research project has still reached the stage of a (soon to be submitte
     \begin{tikzpicture}[rounded corners = 5, outer sep=1mm]
     \tikzstyle{every node}=[font=\normalsize, align=center]
       \draw[thick, gray, fill=gray] (-.5,-.7) rectangle (12.5,-.3);
-      \draw[thick, fill=white] (0,1.5) rectangle (12,-0.5);
+      \draw[thick, gray, fill=white] (0,1.5) rectangle (12,-0.5);
       \node[gray] at (6,-0.25) {\textbf{Preliminaries} \quad Chapter \ref*{sec-preliminaries}};
       \draw[gray]  (0.1,1.4) rectangle  node {Behavior \& equivalences} (3.95,0.1);
       \draw[gray]  (4.05,1.4) rectangle  node {Modal logics}
       (7.95,0.1);
-      \draw[gray]  (8.05,1.4) rectangle  node {Games} (11.9,0.1);
+      \draw[gray]  (8.05,1.4) rectangle  node {Games \vphantom{q}} (11.9,0.1);
 
       \draw[gray, thick]  (1,3) rectangle  node {\textbf{Strong spectrum} \\ \textbf{\& spectroscopy problem} \\ Chapter~\ref*{sec-spectrum}} (8,1.5);
       
@@ -149,12 +149,12 @@ That this research project has still reached the stage of a (soon to be submitte
     \begin{tikzpicture}[rounded corners = 5, outer sep=1mm]
     \tikzstyle{every node}=[font=\normalsize, align=center]
       \draw[thick, gray, fill=gray] (-.5,-.7) rectangle (12.5,-.3); 
-      \draw[thick, fill=white] (0,1.5) rectangle (12,-0.5);
+      \draw[thick, gray, fill=white] (0,1.5) rectangle (12,-0.5);
       \node[gray] at (6,-0.25) {\textbf{Preliminaries} \quad Chapter \ref*{sec-preliminaries}};
       \draw[gray]  (0.1,1.4) rectangle  node {Behavior \& equivalences} (3.95,0.1);
       \draw[gray]  (4.05,1.4) rectangle  node {Modal logics}
       (7.95,0.1);
-      \draw[gray]  (8.05,1.4) rectangle  node {Games} (11.9,0.1);
+      \draw[gray]  (8.05,1.4) rectangle  node {Games \vphantom{q}} (11.9,0.1);
 
       \draw[gray, thick]  (1,3) rectangle  node {\textbf{Strong spectrum} \\ \textbf{\& spectroscopy problem} \\ Chapter~\ref*{sec-spectrum}} (8,1.5);
       

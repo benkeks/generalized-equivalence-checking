@@ -340,7 +340,7 @@ Recurring symbols can be looked up under [Notation](#sec-notation)`~on page~\pag
     \draw  (0.1,1.4) rectangle  node {Behavior \& equivalences\\ \ref{sec-programs} \& \ref{sec-behavioral-eq}} (3.95,0.1);
     \draw  (4.05,1.4) rectangle  node {Modal logics \\ \ref{sec-hml}}
      (7.95,0.1);
-    \draw  (8.05,1.4) rectangle  node {Games \\ \ref{sec-games}} (11.9,0.1);
+    \draw  (8.05,1.4) rectangle  node {Games \vphantom{q} \\ \ref{sec-games}} (11.9,0.1);
 
     \draw[thick]  (1,3) rectangle  node {\textbf{Strong spectrum} \\ \textbf{\& spectroscopy problem} \\ Chapter~\ref{sec-spectrum}} (8,1.5);
     \draw[thick] (8,1.5) -- (8,3) -- (6,3) -- (6,4.5) -- (12,4.5) -- (12,1.5) -- cycle;

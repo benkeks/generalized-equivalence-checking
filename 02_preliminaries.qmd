@@ -160,7 +160,7 @@ The program of $\literal{Q}$ on the other hand performs a $τ$-step and then off
 
 There are two things one might wonder about @exm-ts:
 
-1. Should one care about non-determinism in programs? Subsection [-@sec-ccs] shows how non-determinism arises naturally in concurrent programs.
+1. Should one care about non-determinism in programs? @sec-ccs shows how non-determinism arises naturally in concurrent programs.
 2. Should one consider $\literal P$ and $\literal Q$ equivalent? This heavily depends. Section [-@sec-behavioral-eq] will introduce a notion of equivalence under which the two are equivalent and one under which they differ.
 
 ::: {#rem-tau}
@@ -1136,7 +1136,7 @@ We induct on the structure of $φ$ with arbitrary $p$ and $q$.
   Accordingly, $\hmlneg φ' ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$.\qedhere
 :::
 
-The smaller bisimulation logic $\observations{\floor{B}}$ will become important again later in the next section (in Subsection [-@sec-bisim-game-hml]).
+The smaller bisimulation logic $\observations{\floor{B}}$ will become important again later in the next section (in @sec-bisim-game-hml).
 
 ## Games {#sec-games}
 
@@ -1943,9 +1943,9 @@ There are alternative frameworks for deciding behavioral equivalences that this 
   However, this approach requires a more complex language of *recursive* modal formulas and remains mostly academic, as no major tools use it for equivalence checking.
 
 {{< paragraph_heading "Modal logics point the way." >}}
-We have observed that behavioral equivalences form hierarchies and that these hierarchies are handled nicely using modal characterizations to rank distinguishing powers (Subsection [-@sec-perks-modal-characterizations]).
+We have observed that behavioral equivalences form hierarchies and that these hierarchies are handled nicely using modal characterizations to rank distinguishing powers (@sec-perks-modal-characterizations).
 
-We have also seen how to link game rules to productions in a language of potentially distinguishing formulas (Subsection [-@sec-bisim-game-hml]).
+We have also seen how to link game rules to productions in a language of potentially distinguishing formulas (@sec-bisim-game-hml).
 This departs from common textbook presentations that motivate the bisimulation game through the relational (coinductive) characterization [e.g. @sangiorgi2012].
 In later chapters, we will rather derive equivalence games from grammars of modal formulas (@idea-modal-first), to generalize the framework of @fig-game-algo-overview for whole spectra of equivalences.
 

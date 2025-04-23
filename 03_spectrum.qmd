@@ -48,13 +48,13 @@ We can ask what equivalences from a spectrum are the most fitting to relate two 
 
 ## Observability Hierarchies
 
-Let us begin to pick up the idea from Subsection [-@sec-perks-modal-characterizations] that modal logics can nicely rank equivalences.
+Let us begin to pick up the idea from @sec-perks-modal-characterizations that modal logics can nicely rank equivalences.
 The intuition is that $\hml$ sublogics capture what we consider to be *observable*.
 The more we mark as observable, the finer the resulting equivalence relations do become.
 
 ### Understanding the Equivalence Hierarchy through Modal Logics
 
-As promised, we revisit the hierarchy between bisimilarity, similarity, and trace equivalence of Subsection [-@sec-hierarchy-equivalences], modally.
+As promised, we revisit the hierarchy between bisimilarity, similarity, and trace equivalence of @sec-hierarchy-equivalences, modally.
 So far, we have only looked into the characterization of bisimilarity through the whole of $\hml$ in @thm-hennessy-milner or through $\observations{\floor{B}}$ in @def-game-formulas.
 
 ::: {#def-sim-trace-logics}
@@ -89,7 +89,7 @@ $p \bpreord{S} q$ precisely if $p \bpreordvar{\observations{S}} q$.{{<isb theore
 :::
 
 {{<noindent>}} Clearly, $\observations{T} \subset \observations{S} \subset \hml$.
-So, @prp-difference-contraposition that sublogics will equate at least as much as their parent logic, yields another way of establishing the entailment hierarchy between bisimilarity, similarity, and trace equivalence of Subsection [-@sec-hierarchy-equivalences].^[Taking the two previous lemmas together with @thm-hennessy-milner for $\beq{B}$ and $\hml$.]
+So, @prp-difference-contraposition that sublogics will equate at least as much as their parent logic, yields another way of establishing the entailment hierarchy between bisimilarity, similarity, and trace equivalence of @sec-hierarchy-equivalences.^[Taking the two previous lemmas together with @thm-hennessy-milner for $\beq{B}$ and $\hml$.]
 
 Equivalences become naturally comparable in the modal realm.
 Contrast this with preceding definitions that live in different worlds:
@@ -400,7 +400,7 @@ Hierarchy of simple notions of equivalence.
 :::
 
 \noindent
-While the incomparable languages of [Subsection -@sec-incomparabilities] form no lattice, e.g. $\observations{S} \cup \observations{F} \neq \hml$, the *notions* of the present @exm-simple-spectrum do form a lattice, as $\set{\literal{⊕}} \cup \set{\literal{⊗}} = \set{\literal{⊕}, \literal{⊗}}$.
+While the incomparable languages of @sec-incomparabilities form no lattice, e.g. $\observations{S} \cup \observations{F} \neq \hml$, the *notions* of the present @exm-simple-spectrum do form a lattice, as $\set{\literal{⊕}} \cup \set{\literal{⊗}} = \set{\literal{⊕}, \literal{⊗}}$.
 This is one of the reasons why it is convenient to add *notions of observability* as an abstraction layer.
 
 We can also ask what the least notion is to include a specific formula:
@@ -465,7 +465,7 @@ For instance, $φ^N \leadsto \hmlobs{α}φ^{N - \unitvec{1}}$ is no valid produc
 ::: {#exm-formula-language}
 #### Formula language
 
-The smallest notion to cover the failure formula of Subsection [-@sec-incomparabilities] would be $(2,1,0,0,1,1)$, that is, 
+The smallest notion to cover the failure formula of @sec-incomparabilities would be $(2,1,0,0,1,1)$, that is, 
 $$\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observationsvar[\literal{strong}]{(2,1,0,0,1,1)}.$$
 This is because the formula has two levels of modal observations, where the inner one is negated.
 The negation is wrapped in a conjunction with no positive conjuncts.
@@ -1187,7 +1187,7 @@ We have shown that traces, failures, simulation and bisimulation equivalence as 
 
 {{< paragraph_heading "What's next?" >}}
 So far, we have a problem and confidence that its solution conveys information about equivalences of the strong spectrum.
-Subsection [-@sec-equivalence-complexities] has established that spectroscopy complexity must be at least $\complexityname{PSPACE}$ on the strong spectrum.
+@sec-equivalence-complexities has established that spectroscopy complexity must be at least $\complexityname{PSPACE}$ on the strong spectrum.
 
 However, there is a polynomial-time part of spectrum around bisimilarity and (ready) similarity.
 In the next two chapters, we will first solve the *spectroscopy problem for this polynomial slice* and then extend to the whole strong spectrum.

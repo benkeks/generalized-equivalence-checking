@@ -82,7 +82,7 @@ How we will employ energy games to solve the spectroscopy problem on an easy spe
 
 ## Energy Games {#sec-energy-games}
 
-Energy games extend games as discussed in @sec-games with resources of the players, called energies.
+Energy games extend games as discussed in @sec-games with resources of the players, called *energies*.
 We will focus on reachability games with an energy-bounded attacker.
 In most publications, energy games update vector-valued energy levels by vector addition or subtraction.
 We work with more general *monotonic energy games* (@sec-monotonic-energy-games) and then zoom in on *declining energy games* (@sec-declining-energy-games), which include updates that combine vector components by taking their minimum.
@@ -96,7 +96,7 @@ We move beyond winning regions by defining quantitative winning *budgets*, which
 ::: {#def-energy-game}
 #### Energy reachability game
 
-Given a partially ordered set of energies $(\abstractenergies, \leq)$, an *energy reachability game* $\game^🗲$ is a reachability game $(G, G_\defender, \gamemoveblank)$ extended by an edge labeling of energy updates $\abstractupdate \colon (\gamemoveblank) \to ((\set{⊥} ∪ \abstractenergies) \to (\set{⊥} ∪ \abstractenergies))$.
+Given a partially ordered set of energies $(\abstractenergies, \leq)$, an *energy reachability game* $\game^🗲$ is a reachability game $(G\!, G_\defender, \gamemoveblank)$ extended by an edge labeling of energy updates $\abstractupdate \colon (\gamemoveblank) \to ((\set{⊥} ∪ \abstractenergies) \to (\set{⊥} ∪ \abstractenergies))$.
 
 We demand the following energy games to be monotonic in the following sense:
 
@@ -122,7 +122,7 @@ Thus, we declare plays with $\energylevel(ρ) = ⊥$ to be won by the defender (
 :::
 
 Strategies and winning strategies work exactly as in the energy-less scenario.
-Additionally, we lift positional strategies of @def-strategies to be *energy-positional* in the sense that they pick next moves depending on the current energy level, i.e.\ $\rel f \colon G_\attacker × \abstractenergies \to G$.
+Additionally, we lift positional strategies of @def-strategies to be *energy-positional* in the sense that they pick next moves depending on the current energy level, i.e.\ $\rel{f} \colon G_\attacker × \abstractenergies \to G$.
 
 Generalizing the concept winning regions as in @def-winning-region, we define *winning budgets* for game positions:
 
@@ -140,7 +140,7 @@ Classical energy games use $\nats$-vectors for energies and vector addition for 
 ::: {#exm-simple-energy-game}
 #### A simple energy game
 
-Consider vector energies $\abstractenergies = \nats^2$ with pointwise order and the energy game with graph in @fig-simple-energy-game.
+Consider vector energies $\abstractenergies = \nats^2$ with pointwise order and the energy game with graph as in @fig-simple-energy-game.
 Edges are labeled by update vectors $\vec{u} ∈ \ints^2$, each representing an update function
 $$e \mapsto
 \begin{cases}
@@ -220,7 +220,7 @@ We can notice two things from the example:
 
 1. A *purely positional strategy would not suffice* for the defender to win reliably at $\literal{g_4}$.
   Say the game starts with energy $(1,1)$, that is, with a budget where the defender should win.
-  Then, the level with either be $(0,1)$ or $(3,0)$ at $\literal{g_4}$.
+  Then, the level will either be $(0,1)$ or $(3,0)$ at $\literal{g_4}$.
   The defender has to either move to $\literal{g_5}$ or $\literal{g_6}$, depending on the play so far.
   So, either the defender must know the history, or at least the current energy level to make an ideal decision.
 2. *Attacker's winning budgets are upward-closed*, and defender budgets are downward-closed.
@@ -232,7 +232,7 @@ More formally, the winning budgets are characterized by the following two propos
 ::: {#prp-winning-budget-upward-closure}
 #### Upward closure of attacker budgets
 
-Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game}$ are pointwise upward-closed, that is, $\upset \attackerwins^{\game}(g) = \attackerwins^{\game}(g)$ for all positions $g \in G$.^[
+Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game}$ are pointwise upward-closed, that is, ${\upset \attackerwins^{\game}(g)} = \attackerwins^{\game}(g)$ for all positions $g \in G$.^[
   This is formalized as Lemma 3.2 in @lemke2024multiweightedEnergyGames.
 ]
 :::
@@ -273,7 +273,7 @@ $$
 $$
 :::
 
-The inductive definition is nice as it allows for local proves of how the attacker wins.
+The inductive definition is nice as it allows for local proofs of how the attacker wins.
 Defender's wins on the other hand would dually be a *coinductive concept* because the defender wins loops.^[
   By the way, to those wondering:
   It is intentional that this thesis aims to achieve all its constructions without recurring to coinduction.
@@ -333,13 +333,13 @@ A $d$-dimensional *declining energy game* is played on energy vectors:
 ::: {#def-energy-updates}
 #### Energies and energy updates
 
-For dimensionality $d$, the set of *energies*, $\energies$, is given by $(\nats ∪ \set{\infty})^d$.
+For dimensionality $d$, the set of *energies*, $\energies$, is given by $\natsext^d$.
 Energies are compared by $\leq$ pointwise (cf. @exm-nat-lattice).
 
 The set of *energy update labels*, $\energyupdates$, contains $\vectorcomponents[d]{u} ∈ \energyupdates$ where each component $u_k$ is a symbol of the form
 
-- $u_k ∈ \set{-1, 0}$ (relative update), or
-- $u_k = \mathtt{min}_D$ where $D \subseteq \{1, \ldots, d\}$ and $k ∈ D$ (minimum selection update).
+- $u_k ∈ \set{-1, 0}$ *(relative update)*, or
+- $u_k = \mathtt{min}_D$ where $D \subseteq \{1, \ldots, d\}$ and $k ∈ D$ *(minimum selection update)*.
 
 Applying an update to an energy, $\energyupdate(u, e)$, where $e = \vectorcomponents[d]{e} ∈ \energies$ and $u = \vectorcomponents[d]{u} ∈ \energyupdates$, yields a new energy vector $e'$ where $k$th components are given by
 
@@ -391,7 +391,7 @@ We will use our new energy games to characterize not just single behavioral equi
 
 ## Characterizing the $\complexityname{P}$-easy Part of the Spectrum {#sec-characterzing-ptime-part}
 
-As hinted at in Subsection [-@sec-equivalence-complexities], parts of the strong equivalence spectrum can be decided in polynomial time, whereas others require polynomial space (and thus effectively exponential time).
+As hinted at in @sec-equivalence-complexities, parts of the strong equivalence spectrum can be decided in polynomial time, whereas others require polynomial space (and thus effectively exponential time).
 Thanks to declining energy games, we can adapt the standard bisimulation game of @def-bisim-game to decide not just bisimulation, but *all polynomial-time-easy* equivalences of the strong spectrum *at once*.
 
 ### The Polynomial Slice {#sec-poly-slice}
@@ -469,9 +469,9 @@ Let us upgrade the bisimulation game of @def-bisim-game with energies.
 The claim is that the resulting game ${\game}_\notionname{B}^🗲$ will characterize all equivalences of the polynomial-time strong spectrum in the sense that
 $p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{poly-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $e$.
 
-As we have seen in Subsection [-@sec-bisim-game-hml], the game moves match the distinctive power of productions in the $\observations{\floor{B}}$-grammar of @def-game-formulas.
+As we have seen in @sec-bisim-game-hml, the game moves match the distinctive power of productions in the $\observations{\floor{B}}$-grammar of @def-game-formulas.
 Consequently, we can *count* the use of HML constructs in the game.
-As the game stands, we can meaningfully count the three dimensions used in Subsection [-@sec-poly-slice].^[
+As the game stands, we can meaningfully count the three dimensions used in @sec-poly-slice.^[
   We cannot hope to count the other dimensions of @def-strong-spectrum:
   the bisimulation game washes away the amount of *necessary* conjunctions as its HML has conjunctions under each observation, even though they might not be necessary for a distinguishing formula.
 ]
@@ -610,7 +610,7 @@ The second bound implies that the budgets, $(\infty,1,1)$ and $(\infty,0,0)$ are
   \end{scope}
 \end{tikzpicture}
 ```
-Attacker's 3D Pareto front for $[\literal{Q}, \literal{T}]$ of the example bisim energy game.
+Attacker's 3D Pareto front for $[\literal{Q}, \literal{T}]$ of the example bisimulation energy game.
 ::::
 
 On the game-side, this tells us is that the attacker needs at least two simulation moves (after swaps) and two swaps to tell $\literal{Q}$ apart from $\literal{T}$.
@@ -876,7 +876,7 @@ We will refer to functions derived like $α(c)$ in @lem-galois-inversion as “u
 We understand them to generalize inverse functions of those monotonic functions where $\min \set{a \mid c \leq_C \gamma(a)}$ is defined for any $c$.
 This intuition can also be expressed more formally as the following proposition:
 
-::: {#prop-galois-equality}
+::: {#prp-galois-equality}
 If a function $f \colon A \to C$ is surjective and injective, it has a unique inverse function $f^{-1} \colon C \to A$ such that $f^{-1} \circ f = \identity{A}$ and $f \circ f^{-1} = \identity{C}$.
 
 If $f$ is monotonic with respect to some partial orders on $C$ and $A$,
@@ -950,7 +950,7 @@ Algorithm determining the minimal attacker winning budgets $\attackerwinsmin$ of
 
 The algorithm can be understood as a generalization of @alg-deciding-games, but as positions might need to be revisited more than once, we have to depart from the option counting trick.
 Whenever we learn about a new minimal energy for the attacker to win, we schedule a position to be (re-)visited.
-The chain-reaction starts at defender positions with no outgoing moves (lines 3 and 10).
+The chain reaction starts at defender positions with no outgoing moves (lines 3 and 10).
 
 We illustrate the algorithm by running it on the simple energy game of @exm-simple-energy-game.
 
@@ -1000,7 +1000,7 @@ The game graph, labeled by the minimal attacker winning energies we find, is rep
 Computed winning budgets $\attackerwinsmin$ on the game in @exm-simple-energy-game-execution.
 :::
 
-What we need for the algorithm to run, is some undo function $\abstractupdateinv \colon (\gamemoveblank) \to \abstractenergies \to \abstractenergies$.
+What we need for the algorithm to run is some undo function $\abstractupdateinv \colon {(\gamemoveblank)} \to \abstractenergies \to \abstractenergies$.
 We define it as:
 $$
 \abstractupdateinv(m)(e') := \sup(e - \vec{u}, \zerovec) \text{\; if $m$ is $\vec{u}$-labeled}
@@ -1152,8 +1152,8 @@ In both cases, the algorithm needs $\bigo{\relsize{G} \cdot \relwidth_{\abstract
 
 ### Solving Declining Energy Games
 
-Let us instantiate the previous two subsections to declining energy games.
-All we have to do is instantiate $\abstractupdateinv$ to obtain an algorithm and think about the structure of the energies to tell its complexity.
+The preceding two subsections have established facts that we now only need to instantiate to declining energy games.
+For this, we must instantiate $\abstractupdateinv$ to obtain an algorithm and think about the structure of the energies to tell its complexity.
 
 ::: {#def-declining-upd-inv}
 #### Undoing declining updates
@@ -1169,10 +1169,10 @@ $$
 :::
 
 ::: {#exm-energy-update-undone}
-Consider the update label $(\updmin{1,2},-1)$ (a 2d-sibling of the one from @exm-energy-update).
+Consider the update label $(\updmin{1,2},-1)$ (a 2D-sibling of the one from @exm-energy-update).
 Its undo-update according to @def-declining-upd-inv computes $\energyupdateinv((\updmin{1,2},-1), (e_1, e_2)) = (\max(e_1, e_2), e_2 + 1)$.
 
-@fig-update-vectors shows how updates and undo-updates transform 2d-coordinates.
+@fig-update-vectors shows how updates and undo-updates transform 2D-coordinates.
 
 ::::{#fig-update-vectors}
 ```tikz

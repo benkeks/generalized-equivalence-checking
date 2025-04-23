@@ -32,7 +32,7 @@ Trace-like notions can be addressed in the spectroscopy game by interjecting a *
 
 This will lead to exponential blow-up.
 Some of it can be alleviated, as we will see in @sec-specific-spectro-games.
-In @sec-deciding-individual-eqs, we discuss how to get rid of the blowup where possible when instantiating the game to *decide equivalences individually*.
+In @sec-deciding-individual-eqs, we discuss how to get rid of the blow-up where possible when instantiating the game to *decide equivalences individually*.
 
 ::: {#idea-instance-games .callout-idea .callout-tip}
 #### Generating equivalence checkers
@@ -157,7 +157,7 @@ Again, energies limit the syntactic expressiveness of the formulas.
 - The first dimension bounds for how many turns the attacker may challenge observations of actions.
 - The second dimension limits how often they may use conjunctions to resolve nondeterminism.
 - The third, fourth, and fifth dimensions limit how deeply observations may nest underneath a conjunction, for which they do not need to change themselves.
-  The fifth stands for negated conjuncts, the third for one of the deepest positive conjuncts and the fourth for the other positive conjuncts.
+  The third stands for one of the deepest positive conjuncts and the fourth for the other positive conjuncts; the fifths stands for negative conjuncts.
 - The last dimension limits how often the attacker may use negations to enforce symmetry by swapping sides.
 
 The moves of the following definition closely match productions in the grammar of observations for the strong spectrum of @def-strong-spectrum.
@@ -808,7 +808,7 @@ All in all, we have reduced the number of positions by a factor of 1800, and the
 
 Especially, the cleverness has paid off.
 Without these tricks, the approach would not be applicable to systems with relevant non-determinism due to communication.^[
-  The blowup on Peterson's mutex is precisely the argument I made in the introduction of @bisping2023equivalenceEnergyGames for why one has to move beyond the original spectroscopy algorithm of @bjn2022decidingAllBehavioralEqs.
+  The blow-up on Peterson's mutex is precisely the argument I made in the introduction of @bisping2023equivalenceEnergyGames for why one has to move beyond the original spectroscopy algorithm of @bjn2022decidingAllBehavioralEqs.
   Therefore, the original/deprecated approach also is not present in this thesis.
 ]
 :::
@@ -926,7 +926,7 @@ Therefore, $0$-entries in components lead to smaller games, only using subgraphs
 Only $1$-components grow the derived game graph.
 In principle, each component that starts at $1$ instead of $\infty$ or $0$ might roughly double the graph size.
 
-The *equiv.io* implementation does prune some attacker moves that cannot be winning, in particular non-empty conjunctions if the conjunction budget is at 0.
+The {{< equivio >}} implementation does prune some attacker moves that cannot be winning, in particular non-empty conjunctions if the conjunction budget is at 0.
 Therefore, the subgame used by the tool for @exm-spectroscopy-equivalence-checking in reality is the one in @fig-derived-trace-eq-game-true.
 
 :::{#fig-derived-trace-eq-game-true fig-pos='t'}
@@ -947,7 +947,7 @@ digraph rel{
 11287976->695410661[color=black, label="(-1,0,0,0,0,0)"]}
 ```
 
-The subgame of @fig-derived-trace-eq-game that actually is used in *equiv.io*, disregarding some attacker options.
+The subgame of @fig-derived-trace-eq-game that actually is used in {{< equivio >}}, disregarding some attacker options.
 :::
 
 Still, non-determinism in the transition system might lead to exponentially-sized derived games.
@@ -1008,8 +1008,8 @@ For $N \geq (0,\infty,\infty,\infty,0,0)$, this also works on the subgraph where
 
 We want to use that, according to @prp-reachability-game-complexity, deciding a reachability game $(G,G_\defender,\gamemoveblank)$ takes $\bigo{\relsize{\gamemoveblank}}$ time and $\bigo{\relsize{G}}$ space.
 
-We observe that the ${0,1,\infty}$-valued energy components in the game might only create a constant-factor increase in the size of $\gamespectroscopyceq{N}$, compared to the underlying game $\gamespectroscopyclever$.^[
-  If we were to allow $k$-step equivalences as in @fig-polynomial-strong-spectrum, the $k$ would also become a factor.
+We observe that the $\set{0,1,\infty}$-valued energy components in the game might only create a constant-factor increase in the size of $\gamespectroscopyceq{N}$, compared to the underlying game $\gamespectroscopyclever$.^[
+  If we were to allow $k$-step equivalences as in @fig-polynomial-strong-spectrum, $k$ would also become a factor.
 ]
 Therefore, the following arguments focus on the latter.
 
@@ -1036,8 +1036,8 @@ Inserting our bounds in @prp-reachability-game-complexity, we obtain time and sp
 ::: {#exm-instance-game-sizes}
 #### Measurements of derived games
 
-Let us see how the instance game sizes behave on the games of @exm-spectroscopy-equivalence-checking!
-@fig-instance-games-strong-ltbt-spectrum maps out the sizes of game instantiations for the preorders of the strong spectrum @fig-strong-ltbt-spectrum.
+Let us examine how the instance game sizes behave on the games of @exm-spectroscopy-equivalence-checking!
+@fig-instance-games-strong-ltbt-spectrum maps out the sizes of game instantiations for the preorders of the strong spectrum as in @fig-strong-ltbt-spectrum.
 Each game is derived from the clever spectroscopy game, with pruning and with capped non-determinism where possible; to enable equivalence checks, the games combine the parts under $\attackerpos{\literal{ABCACB}, \set{\literal{ABC}}}$ and under $\attackerpos{\literal{ABC}, \set{\literal{ABCACB}}}$.
 The game size is defined as the sum of positions and moves, $\relsize{\game} = \relsize{G} + \relsize{\gamemoveblank}$.
 Red parts symbolize bigger game graphs.
@@ -1145,7 +1145,7 @@ It reinforces the idea of @sec-abstract-subtraction that equivalence checking is
 
 {{< paragraph_heading "Difference to original formulation." >}}
 This chapter's presentation improves in several ways on my original spectroscopy games.
-The idea to alternate *state subsets for nondeterministic words and conjunction moves to eliminate the blowup* is introduced by @bisping2021ltbtsTacas.
+The idea to alternate *state subsets for nondeterministic words and conjunction moves to eliminate the blow-up* is introduced by @bisping2021ltbtsTacas.
 Our initial 2021 game is unable to correctly handle failure-traces and similar observations, which has been corrected in @bjn2022decidingAllBehavioralEqs, thanks to David N. Jansen's input.
 With respect to @bjn2022decidingAllBehavioralEqs, the presentation in this chapter has three advantages:
 

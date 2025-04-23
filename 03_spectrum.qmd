@@ -995,7 +995,7 @@ In $\hml$, the difference is expressed as $\hmlobs{\literal{b}}\hmltrue$.
 The solution to the strong spectroscopy problem on $\literal{q_{ab}}$ and $\literal{p_a}$ is
 $$\notions^{\literal{strong}}_{\literal{q_{ab}}, \literal{p_{a}}} = \set{N \in \notions^{\literal{strong}} \mid N_1 < 1}.$$
 
-All notions thus characterized correspond to universal equvialence $\notionname{U}$.
+All notions thus characterized correspond to universal equivalence $\notionname{U}$.
 In other words, the states are not equivalent with respect to any notion where states are told apart at all.
 They are *as different as possible*, in our metric.
 :::

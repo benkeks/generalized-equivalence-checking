@@ -53,7 +53,7 @@ Crazy times!
 That this research project has still reached the stage of a (soon to be submitted) PhD thesis, is thanks to many great people (sorted by category, mostly in order of appearance).
 
 - **Environment:**
-  Uwe Nestmann and my colleages at the Modelle und Theorie Verteilter Systeme group, especially my lovely office mates Edgar Arndt, Valeria Zahoransky, and Alex Wiemhoefer.
+  Uwe Nestmann and my colleagues at the Modelle und Theorie Verteilter Systeme group, especially my lovely office mates Edgar Arndt, Valeria Zahoransky, and Alex Wiemhoefer.
   My “Sunday friends” and my parents.
 - **Hospitality:**
   The organizers of the VTSA Summer School 2021 in Liège.
@@ -61,7 +61,7 @@ That this research project has still reached the stage of a (soon to be submitte
   Julia (and Fréd and kids) as well as Rosi for hosting me during visits in Paris and Oldenburg.
   David N. Jansen together with Lijun Zhang's group at the Institute of Software, Chinese Academy of Sciences for my 2024 stay in Beijing.
 - **Collaboration:**
-  David N. Jansen, who discovered and corrected cruicial flaws in my ideas. 
+  David N. Jansen, who discovered and corrected crucial flaws in my ideas. 
   Caroline Lemke, who found out why “my” energy games are indeed decidable. 
   And many more marvelous students and collaborators (listed in @sec-artifacts-papers).
 - **Co-writing:** Schrippe, Baum, Alina, and Anna.

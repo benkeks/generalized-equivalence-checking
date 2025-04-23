@@ -550,7 +550,7 @@ But the heavy lifting in making the implementation so light-weight is achieved b
 #### Tests
 
 The codebase of the backend of {{< equivio >}} includes test suites for strong and weak spectroscopy.
-These ensure that the algorithms (with and without optimizations) return the expected results for the finitary separating examples of stong and weak spectrum [@glabbeek1990ltbt1; @glabbeek1993ltbt].
+These ensure that the algorithms (with and without optimizations) return the expected results for the finitary separating examples of strong and weak spectrum [@glabbeek1990ltbt1; @glabbeek1993ltbt].
 This provides some confidence that not too much is going astray on the way between our correctness theorems and optimized implementation.
 :::
 
@@ -723,7 +723,7 @@ The table lists the $\states$-sizes of the input transition systems and of their
 
 The test suite constructs the game graph on the quotient system, starting at all positions that compare pairs of enabledness-equivalent states.
 The $\gamemoveblank_\blacktriangle$-column reports the size of the discovered game graph in terms of moves.
-The **time**-column lists execution times of the spectorsocpy procedure in seconds.^[
+The **time**-column lists execution times of the spectroscopy procedure in seconds.^[
   Average of mid three runs out of five,
   in the Java Virtual Machine with 8&nbsp;GB heap space, single-threaded on Intel® Core™ Ultra 7 155H.
 ]
@@ -744,7 +744,7 @@ Like our implementation, the prototype of SA of @rt2010efficientSimulation ran o
 This is in spite of SA theoretically having optimal complexity and similarity being less complex than trace equivalence, which we need to cover (cf. @sec-equivalence-complexities).
 The benchmarks in @rt2010efficientSimulation failed at `vasy_10_56`, and `vasy_25_25`, which might be due to 2010's tighter memory requirements (they used 2 GB of RAM) or the degree to which bisimilarity and enabledness in the models is exploited.
 
-@tbl-weak-spectro-results lists analgous values for the weak spectroscopy game $\gamespectroscopywsimple$, in the simplified variant, but also containing revivals moves of @sec-covering-revivals.
+@tbl-weak-spectro-results lists analogous values for the weak spectroscopy game $\gamespectroscopywsimple$, in the simplified variant, but also containing revivals moves of @sec-covering-revivals.
 
 ::::{.content-visible when-format="html"}
 {{< contents weak-spectro-results-div >}}
@@ -752,7 +752,7 @@ The benchmarks in @rt2010efficientSimulation failed at `vasy_10_56`, and `vasy_2
 
 The algorithmic setup is slightly changed for the weak setting:
 We work with the quotient system of *stability-respecting branching bisimilarity* and start at *weakly* enabledness-equivalent states.
-The last three columns give the ouput quotient sizes for weak enabledness $\notionname{WE}$, weak traces $\notionname{WT}$, and weak simulation $\notionname{1WS}$.
+The last three columns give the output quotient sizes for weak enabledness $\notionname{WE}$, weak traces $\notionname{WT}$, and weak simulation $\notionname{1WS}$.
 
 The `peterson` example, after minimization, has exactly the 21 states shown in @fig-peterson-mutex.
 Its weak similarity quotient is smaller (16 states), which fits our observations that weak similarity equates more in this model than bisimilarity-like notions do.^[
@@ -767,10 +767,10 @@ Only `vasy_8_24` differs between 170 states in $\quotient{\states}{\beq{BB^{sr}}
 
 The numbers align with the output of a different implementation in @bn2019coupledsimTacas, which is a good sign for the correctness of both programs.
 There, the same samples were analyzed with respect to coupled similarity, a weak notion close to contrasimilarity and weak similarity.
-Interestingly, the coupled simulation algoriothm in @bn2019coupledsimTacas takes minutes for `vasy_25_25`, constructing a game wit 126,000 moves.
+Interestingly, the coupled simulation algorithm in @bn2019coupledsimTacas takes minutes for `vasy_25_25`, constructing a game wit 126,000 moves.
 The trivial game of @tbl-weak-spectro-results suggests that this would not be necessary.
 
-In summary, the equvialences of our spectra mostly coincide on the considered VLTS samples.
+In summary, the equivalences of our spectra mostly coincide on the considered VLTS samples.
 This suggests that the examples are based around models that avoid the expressive power finer branching-time notions.
 
 ## Student Implementations {#sec-student-implementations}
@@ -908,7 +908,7 @@ Quick equivalence checking in the browser, and even quicker checking in a native
 @vogel2024energyGamesWebGPU reports 10⨯ speed-ups.
 However, the fast growth of game graphs remains a limiting factor as larger examples run into the size boundary of buffers to upload game moves.
 For `vasy_18_73`, @vogel2024energyGamesWebGPU also fails to complete the spectroscopy (like our experience in @sec-benchmarks):
-It constrcuts a game graph of 623,482,227 moves, but only 536,870,911 moves fit into the buffer.
+It constructs a game graph of 623,482,227 moves, but only 536,870,911 moves fit into the buffer.
 
 At the time of writing, another Bachelor project is underway to add a frontend and support for the *weak* spectroscopy game to gpuequiv.
 

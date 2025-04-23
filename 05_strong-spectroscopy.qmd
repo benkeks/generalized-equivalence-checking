@@ -320,7 +320,7 @@ Q(x=400, y=50, main)
 ```
 
 Starting `@compare` (on {{< equivio >}}) triggers a spectroscopy along the lines we have discussed, leading to the output:^[
-  A spectroscopy game on this example can also be played through in the computer game *The Spectrocopy Invaders*, see @sec-spectro-invaders.
+  A spectroscopy game on this example can also be played through in the computer game *The Spectroscopy Invaders*, see @sec-spectro-invaders.
 ]
 
 ```

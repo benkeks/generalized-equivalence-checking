@@ -25,7 +25,7 @@ Some things are more complicated in the weak spectrum.
 For instance, we will be discussing eight weak forms of bisimilarity.
 
 At its heart, this chapter aims to find a modal spectrum characterization, where HML grammar and pricing are designed in such a way that we can apply the spectroscopy approach in the following @sec-weak-spectorscopy.
-The *northpole of the weak spectrum* will be the logic of stability-respecting branching bisimilarity.
+The *north pole of the weak spectrum* will be the logic of stability-respecting branching bisimilarity.
 
 This is where the thesis arrives at “The Linear Time–Branching Time Spectrum&nbsp;II: The Semantics of Sequential Systems with Silent Moves” [@glabbeek1993ltbt], already featured in @fig-ltbts2-paper of the introduction.
 We will reframe a big chunk of it to fit our modal framework in @fig-weak-spectrum.
@@ -39,7 +39,7 @@ We can use a subset of Hennessy--Milner logic to characterize most interesting w
 
 @sec-weak-equivalences-in-general provides some preliminaries and defines the $\hml$ subset $\hmlsrbb$, which will correspond to the notion of stability-respecting branching bisimilarity.
 @sec-case-stduies-other-eqs illustrates the use of some of the weak notions through small case studies from compiler verification and concurrency theory.
-In @sec-weak-spectrum-quantities, we unfold the hiearchy of modal characterizations for the weak spectrum.
+In @sec-weak-spectrum-quantities, we unfold the hierarchy of modal characterizations for the weak spectrum.
 
 ::::{.content-visible when-format="html" .column-margin}
 {{< contents related-6 >}}
@@ -133,7 +133,7 @@ In upcoming definitions and facts, we use the convention that $\alpha$ continues
 
 In @fig-simple-weak-eq, the state $\ccsprefix{\tau}\ccsprefix{\tau}\literal{a}$ allows the following weak steps:
 
-- Soft $\tau$-transitions to iteself and its immediate successor:
+- Soft $\tau$-transitions to itself and its immediate successor:
   $\ccsprefix{\tau}\ccsprefix{\tau}\literal{a} \stepsoft{\tau} \ccsprefix{\tau}\ccsprefix{\tau}\literal{a}$ and 
   $\ccsprefix{\tau}\ccsprefix{\tau}\literal{a} \stepsoft{\tau} \ccsprefix{\tau}\literal{a}$.
   (But $\ccsprefix{\tau}\ccsprefix{\tau}\literal{a} \nostep{\tau} \ccsprefix{\tau}\ccsprefix{\tau}\literal{a}$!)
@@ -458,7 +458,7 @@ In real-world programming languages, this would happen through spawning and join
 
 @fig-parallelized-ts shows the transition systems of the two programs.
 The $\tau$-steps mark internal computation or synchronization.
-In particulare, `compute_A_or_B` turns into a $\tau$-step.
+In particular, `compute_A_or_B` turns into a $\tau$-step.
 The action $\literal{ao}$ stands for `print("output:")` announcing the coming output, and $\literal{A}$ and $\literal{B}$ are the values of `x` that are actually produced by `print(x)`.
 
 Clearly, $\literal{P_{Seq}}$ and $\literal{P_{Para}}$ have the same weak traces.

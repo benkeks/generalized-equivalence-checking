@@ -389,7 +389,7 @@ In this model, energy levels can only decline.
 
 We will use our new energy games to characterize not just single behavioral equivalences, but *whole spectra* of them.
 
-## Characterizing the $\complexityname{P}$-Time Part of the Spectrum {#sec-characterzing-ptime-part}
+## Characterizing the $\complexityname{P}$-easy Part of the Spectrum {#sec-characterzing-ptime-part}
 
 As hinted at in Subsection [-@sec-equivalence-complexities], parts of the strong equivalence spectrum can be decided in polynomial time, whereas others require polynomial space (and thus effectively exponential time).
 Thanks to declining energy games, we can adapt the standard bisimulation game of @def-bisim-game to decide not just bisimulation, but *all polynomial-time-easy* equivalences of the strong spectrum *at once*.

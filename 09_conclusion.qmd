@@ -86,7 +86,7 @@ There are some classical points to extend research around this thesis. For insta
 
 {{< paragraph_heading "More spectra." >}}
 Concurrency theory knows other variants of linear-time--branching-time spectra.
-For some, it might be worthwhile to try to adapt our approach of generalized game characterizations, maybe even the whole spectroscopy framework.
+For some, it might be worthwhile to ask spectroscopy questions or to adapt our approach of generalized game characterizations.
 
 - There are various *quantitative notions*, often understood in terms of *behavioral distances*.
   They could be included into our game model by allowing the defender a certain amount of “cheating.”
@@ -106,6 +106,7 @@ For some, it might be worthwhile to try to adapt our approach of generalized gam
 
   Conceptionally, it is clear that the selection of a distinguishing context could also happen as an attacker move.
   In practice, it might be hard to do this elegantly in a way where games remain finite for finite systems.
+  Likely, the most feasible route leads through *conditional* equivalences [@hkks2020conditionalBisim].
 - Some kinds of bisimilarity are based on *special modalities*.
   For instance, there are forward/reverse bisimilarities [@be2023forwardReverseBisim] that add modalities to move backwards through the transition graph.
 

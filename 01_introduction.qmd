@@ -276,7 +276,7 @@ For instance, $\literal{Pe}$ is *preordered* to $\literal{Mx}$ with respect to t
 Intuitively, this means that $\literal{Pe}$ *implements* $\literal{Mx}$ more faithfully than pure weak similarity would demand.
 Red triangles ![](img/equivio-dist.svg){width=0.9em} mark distinctions.
 
-By running *one* simple algorithm, the tool decides *twenty-six* equivalence (and preorder) problems on $\literal{Pe}$ and $\literal{Mx}$.
+By running *one* simple algorithm, the tool decides *twenty-six* equivalence (and preorder) problems on $\literal{Pe}$ and $\literal{Mx}$ (in about 150&nbsp;ms on my laptop).
 
 {{< paragraph_heading "Spectroscopy analogy." >}}
 How does the tool decide so many equivalences in one shot?

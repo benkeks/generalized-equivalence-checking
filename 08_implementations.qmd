@@ -767,7 +767,7 @@ Only `vasy_8_24` differs between 170 states in $\quotient{\states}{\beq{BB^{sr}}
 
 The numbers align with the output of a different implementation in @bn2019coupledsimTacas, which is a good sign for the correctness of both programs.
 There, the same samples were analyzed with respect to coupled similarity, a weak notion close to contrasimilarity and weak similarity.
-Interestingly, the coupled simulation algorithm in @bn2019coupledsimTacas takes minutes for `vasy_25_25`, constructing a game wit 126,000 moves.
+Interestingly, the coupled simulation algorithm in @bn2019coupledsimTacas takes minutes for `vasy_25_25`, constructing a game with 126,000 moves.
 The trivial game of @tbl-weak-spectro-results suggests that this would not be necessary.
 
 In summary, the equivalences of our spectra mostly coincide on the considered VLTS samples.
@@ -812,11 +812,12 @@ Screenshot of browser game “The Spectroscopy Invaders.”
 This level corresponds exactly to the classic @exm-ts if we match the orange transitions to $\tau$-steps, blue to $\literal{a}$, and yellow to $\literal{b}$.
 The metaphor on top of the game mechanics is that the human-controlled hero (left) has to outmaneuver a group of elves (right) that might split up on non-deterministic transitions.
 
-From @exm-spectroscopy-classic-ts, we know that the failure $\hmlobs{\tau}\hmlneg\hmlobs{\literal{a}}$ is a cheapest distinction of the left state from the right in this system.
-In the game, we would use this distinction as follows:
+From @exm-spectroscopy-classic-ts, we know that the failure $\hmlobs{\tau}\hmlneg\hmlobs{\literal{a}}$ is a cheapest distinction of the left state from the right in this system,
+translated as $\hmlobs{\literal{orange}}\hmlneg\hmlobs{\literal{blue}}$.
+In the computer game, we would use this distinction as follows:
 First click on the state behind the left-most orange transition to *observe* it.
 Then, click on the “negation” button ![](img/spectro-invaders-swap.png){width=1em} to swap sides of hero and elve.
-Defeat the elve by moving along the right-most yellow edge.
+Depending where the elve has moved, defeat them by moving along the right-most blue / yellow edge.
 
 The handling of conjunctions is a little more involved.
 
@@ -916,9 +917,9 @@ At the time of writing, another Bachelor project is underway to add a frontend a
 
 In this chapter, we have surveyed the four existing implementations of the spectroscopy algorithm.
 
-We focussed on {{<equivio>}}, which closely aligns with this thesis.
+We focused on {{< equivio >}}, which closely aligns with this thesis.
 We have seen how the tool easily answers questions such as “How equivalent is Peterson's algorithm to the specification of mutual exclusion.”
-{{<equivio>}} can check behavioral preorders and equivalences for more than 38 notions of strong and weak spectrum.
+{{< equivio >}} can check behavioral preorders and equivalences for more than 38 notions of strong and weak spectrum.
 Due to the possibility to mark divergences, even more notions are available.
 
 {{< paragraph_heading "Other tools." >}}

@@ -1191,9 +1191,9 @@ But there are still more notions one could reach for.
 
 {{< paragraph_heading "Divergence and completed observations." >}}
 Logic and game, as we have presented them, are blind to divergence and to completed observations.
-@glabbeek1993ltbt uses additional modalities:
+Van Glabbeek -@glabbeek1993ltbt uses additional modalities:
 $\Delta$ for divergence with $\semantics{\Delta} \defeq \{p \mid p \step{\tau}^\omega\}$;
-$0$~for completed observations with $\semantics{} \defeq \set{p \mid \forall a. \nostep{a} }$
+$0$&nbsp;for completed observations with $\semantics{0} \defeq \set{p \mid \forall a. \nostep{a} }$
 (and $\lambda \defeq 0 \lor \Delta$).
 
 @bj2024silentStepSpectroscopyExpress have decided against including these in the game.

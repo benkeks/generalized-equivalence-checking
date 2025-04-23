@@ -176,7 +176,7 @@ The set of *weak traces* of a state $\wtraces{p} \subseteq \actionsvis^*$ is def
 ]
 
 Two states are *weakly trace-preordered*, $p \bpreord{WT} q$, if $\wtraces{p} ⊆ \wtraces{q}$.{{<isb definition LTS LTS_Tau.weakly_trace_preordered>}}
-As usual, if both directions are maintained, the states are called *weakly trace-equivalent*, $p \beq{WT} q$.
+As before, if both directions are maintained, the states are called *weakly trace-equivalent*, $p \beq{WT} q$.
 :::
 
 The blue groups of states in @fig-simple-weak-eq are weakly trace equivalent.
@@ -358,7 +358,7 @@ We have already observed, that bisimulation equivalence can be abstracted to bra
 
 In this section, we use two minimal case study examples to see how one can arrive at even more abstractions of bisimulation and of failure equivalence.
 
-Next chapter's @sec-tackling-case-studies will pick up on the examples to test tnat the spectroscopy algorithm can indeed simplify a researcher's life.
+Next chapter's @sec-tackling-case-studies will pick up on the examples to test that the spectroscopy algorithm can indeed simplify a researcher's life.
 
 ### Parallelizing Compiler---and Contrasimulation
 
@@ -496,13 +496,13 @@ The *contrasimulation preorder* $\bpreord{C}$ and *contrasimilarity* $\beq{C}$ a
 
 Contrasimilarity allows *local asymmetry* in matching internal transitions.
 A witness relation for @exm-parallelizing-compilation would also include $(\literal{p_a}, \literal{p_{ab}})$ and $(\literal{p_b}, \literal{p_{ab}})$.
-The intuition is that contrasimulation preorder allows states to slightly get ahead of their counterparts---$\literal{p_a}$ is mor committed than $\literal{p_{ab}}$---as long as the latter can catch up silently.
+The intuition is that contrasimulation preorder allows states to slightly get ahead of their counterparts---$\literal{p_a}$ is more committed than $\literal{p_{ab}}$---as long as the latter can catch up silently.
 
 Contrasimilarity and stable bisimilarity, both are at the weak end of abstractions of bisimilarity,
 “weakest” bisimilarities, one could say.
 We discuss them and their characterizations in great detail in @bm2024contrasimilarityInfComp.
 
-Contrasimilarity and stable bisimilarity are nice for proofs as they have coninductive characterizations
+Contrasimilarity and stable bisimilarity are nice for proofs as they have coinductive characterizations.
 They also are more well-behaved than Bell's “eventual bisimilarity,” which fails to be an equivalence if the transition system has divergent states [cf. @bell2014loopParallelizingTransformations § 3.3].
 
 As we will establish in @sec-solution-parallelizing-compilation, contrasimilarity and stable bisimilarity indeed are the finest equivalences from the standard spectrum to equate the sequential and the parallel program.
@@ -557,8 +557,8 @@ We will illustrate these options using modal characterizations of stable and wea
 :::{#def-weak-failures}
 #### Weak failure preorder and equivalence
 
-Let *weak failure preorder and equivalence* be defined by the weak failure observations $\observations{WF}$ produced by $φ^\mathrm{WF}$ in the following grammar.
-The same for *stable failure preorder and equivalence*, using $φ^\mathrm{SF}$.
+Let *weak failure preorder and equivalence* be defined by the weak failure observations $\observations{WF}$ produced by $φ^\mathrm{WF}$ in the following grammar,
+and *stable failure preorder and equivalence*, by the products of $φ^\mathrm{SF}$.
 $$
   φ^\mathrm{WF} \grammardef
     \hmleps\hmlobs{a}φ^\mathrm{WF}
@@ -578,7 +578,7 @@ $$
 *Weak failures* are obtained by intermitting $\hmleps$-observations in between the steps.
 In comparison to the strong modal characterization of @def-failures-modal, this just means prepending productions (and negated actions) by $\hmleps$.
 
-*Stable failures* demand a negative $\hmlneg\hmlobs{\tau}$-conjunct in the conjunctions of refused actions.
+*Stable failures* demand a $\hmlneg\hmlobs{\tau}$-conjunct in the conjunctions of refused actions.
 In one respect, this increases expressivity, as the possibility to stabilize into a state where $p \nostep{\tau}$ becomes observable.
 In another respect, one loses the option to see failures in instable parts of the transition system.
 In particular, if all states of a transition system are divergent, stable failure preorder degenerates to weak trace preorder.
@@ -678,7 +678,7 @@ For most process algebras, weak failures are *too strong* in the following sense
 Weak failures cannot be a congruence for hiding operators, as witnessed by @exm-idle-process-abstraction!
 
 Therefore, the standard models of CSP following @bhr1984theoryCSP have used stable failures for their semantics.
-@glabbeek1993ltbt only includes variants of stable failures in his weak spectrum, disregarding weak failures.
+Van Glabbeek -@glabbeek1993ltbt only includes variants of stable failures in his weak spectrum, disregarding weak failures.
 Other authors such as @gfm2020congruenceOperator work with weak failures.
 Therefore, our spectrum in @sec-weak-spectrum-quantities will treat both.
 Weak failures will be located in the part below weak bisimilarity; stable failures in that below stable bisimilarity.
@@ -1260,7 +1260,7 @@ This adds the preliminaries to consider their decision procedures in @sec-weak-s
 
 {{< paragraph_heading "The power of weakness." >}}
 In examples, we have seen how weak equivalences handle internal non-determinism due to communication in different ways.
-Practical scenarios, such as parallelizing compilers and process abstraction, reveal the possibilities and limitations of the different design decisions behind process equivalences.
+Practical scenarios, such as parallelizing compilers and process abstraction of @sec-case-stduies-other-eqs, reveal the possibilities and limitations of the different design decisions behind process equivalences.
 
 Following @idea-weak-hml, our modal logic characterization through $\hmlsrbb$ captures a rich weak spectrum between stability-respecting branching bisimilarity and weak trace equivalence.
 This adds to the rich body of work on *modal characterizations of branching bisimilarity* by @nicolaVaandrager1995threeLogicsBB, @fokkinkGL19DivCong3, @geuvers2022, and @geuversGolov2023positiveBB.

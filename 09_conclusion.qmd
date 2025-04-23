@@ -64,7 +64,7 @@ Framing this journey along Plato's allegory of the cave:
 The Hennessy–Milner theorem *is a shadow* of the bisimulation game, which is a shadow of an energy game, which is a shadow of the strong spectroscopy game, which is a shadow of the weak spectroscopy game.
 With the tool implementations of @sec-implementations, we have returned from the abstract realm of ideas back to the material level.
 
-But in reality, there is no *ideal* hierachy of abstraction.
+But in reality, there is no *ideal* hierarchy of abstraction.
 Our journey has crossed many routes by other researches and could have taken different paths.
 Many interesting ones have been the topic of “Discussion” sections at the end of chapters.
 Let us close by looking at some ways one could go from here.

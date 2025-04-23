@@ -215,7 +215,7 @@ $$
       \text{“restriction”}
 \end{array}
 $$
-Intuitively, action $c$ represents receiving and its “coaction” $\coaction c$ expresses sending on channcel $c \in \ccschannels$.
+Intuitively, action $c$ represents receiving and its “coaction” $\coaction c$ expresses sending on channel $c \in \ccschannels$.
 A pair of action and coaction can “react” in a communication situation and only become internal activity $τ$ in the view of the environment.
 
 Each sub-process tree must end in a $\ccsnull$-process or recursion.
@@ -489,7 +489,7 @@ The two might interact differently with an environment.
 
 Consider a context in which $\literal{A}$ actually does not want to eat and the event of $\literal{B}$ eating is followed by $\literal{B}$ giving a live lecture:
 $$(\dots \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}$$
-If we insert $\literal{Q}$ into this context, the choice after the collective $\literal{fork}$-acquision is resolved to the $\literal{B}$-path.
+If we insert $\literal{Q}$ into this context, the choice after the collective $\literal{fork}$-acquisition is resolved to the $\literal{B}$-path.
 So the overall system choses for $\literal{B}$ to eat, and the lecture happens:
 $$(\literal{Q} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}} \step{\tau} \cdot \step{\tau} \cdot \step{\coaction{\literal{lecture}}}$$
 
@@ -816,7 +816,7 @@ CSP (“Communicating Sequential Processes”) is due to Tony Hoare, another Tur
 > In the mathematical model of [CSP] we have pursued exactly the opposite goal—we have made as many identifications as possible, preserving only the most essential distinctions.
 > We have therefore a far richer set of algebraic laws.
 
-The first comprehensive study on the correspondence between the hierachy of equivalences and algebraic laws has been dubbed “linear-time–branching-time spectrum” by @glabbeek1990ltbt1.
+The first comprehensive study on the correspondence between the hierarchy of equivalences and algebraic laws has been dubbed “linear-time–branching-time spectrum” by @glabbeek1990ltbt1.
 
 Historically, therefore, this thesis originates from the variants of models between the works of two Turing award winners: Milner's CCS and Hoare's CSP.
 Or, as @hoare2006whyEverCSP puts it:
@@ -1920,7 +1920,7 @@ There are alternative frameworks for deciding behavioral equivalences that this 
   Compared to the game approach, fixed-point iteration usually is slower as it lacks knowledge about logical connections between pairs in the candidate relation.
 - **Partition refinement.**
   The fastest algorithms for bisimilarity use partition refinement.
-  Paritions represent equvialence relations as colorings on graphs, which is linear in the state space $\relsize{\states}$ (opposed to quadratic combinations for pairs in relations and attacker positions).
+  Partitions represent equivalence relations as colorings on graphs, which is linear in the state space $\relsize{\states}$ (opposed to quadratic combinations for pairs in relations and attacker positions).
   Intuitively, parts of the partitions are split up repeatedly, leading to a similar iterative refinement as in the general fixed-point approach.
   The splits are also informed by modal distinctions as explicated in @cleaveland1991explainingBisimInequiv.
   But clever decisions of where to split next and the leaner representation of data allow for more efficient algorithmics.
@@ -1931,7 +1931,7 @@ There are alternative frameworks for deciding behavioral equivalences that this 
   A standard example would be to make the transition system deterministic via subset construction, after which trace equivalence can be checked as bisimilarity.
 - **Term rewriting.**
   If working on process-algebraic terms, equivalence can also be established through equational reasoning.
-  This approach requires a behavioral *congruence* with an axiomatic characterization which proccesses to consider as equal.
+  This approach requires a behavioral *congruence* with an axiomatic characterization which processes to consider as equal.
   Intuitively, the algorithm then searches ways of rewriting one process into another.
   But the rules usually create an infinite search space, only allowing semi-decision procedures.
   Together with the coupling to specific process calculi, the approach thus is better fit for the context of proof assistants than for general equivalence checkers.

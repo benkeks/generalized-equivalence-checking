@@ -1120,7 +1120,7 @@ The rule of thumb is that trace-like equivalences are $\complexityname{PSPACE}$-
 
 Bisimilarity finds itself in a *valley* of tractability,
 if we look at a cross section through the equivalence spectrum as in @fig-complexity-slope.
-The best known bisimilarity algorithms for finite-state transition systems take $\bigo{\relsize{\step{}} \log \relsize{\states}}$ time [usually deriving from @paigetarjan1987partitionrefinement].
+The best known bisimilarity algorithms for finite-state transition systems take $\bigo{\relsize{\step{}} \log \relsize{\states}}$ time [usually deriving from @paigetarjan1987partitionrefinement; e.g. @valmari2009bisimMin].
 
 ::: {#fig-complexity-slope}
 ```tikz
@@ -1137,13 +1137,12 @@ The best known bisimilarity algorithms for finite-state transition systems take 
           $\bigo{\relsize{\step{}}}$,
           $\bigo{\relsize{\step{}} \log \relsize{\states}}$,
           $\bigo{\relsize{\step{}} \relsize{\states}}$,
-          $\complexityname{NP}$,
+          $2^{\bigo{(\log n)^3}}$,
           $\complexityname{PSPACE}$,
         }
     ]
     \addplot+ [smooth] coordinates {(ID,0) (GI,4) (B,2) (S,3) (T,5) (E,1) (U,0)};
-    \addplot [opacity=0.2, dashed, thick]
-        coordinates {(B,0) (B,5) (U,5) (U,0) (B,0)};
+    \draw[draw=gray] (axis cs:{[normalized]1.9},-0.1) rectangle (axis cs:{[normalized]6.1},5.1);
   \end{axis}
 \end{tikzpicture}
 ```

@@ -897,7 +897,7 @@ But it is difficult to make a case for such a “notion of equivalence,” which
 Some kinds of depth-bounded families, however, are common in the literature to approximate bisimilarity and can also be placed in our spectrum:
 
 - $k$-step bisimilarity: $(k,\infty,\infty,\infty,\infty,\infty)$ is a depth-$k$ approximation of bisimilarity that sometimes appears in its fixed point characterizations, for instance in @ails2007reactiveSystems [§ 4.3].
-- $k$-stratified bisimilarity: $(\infty, k,\infty,\infty,\infty,\infty)$ would be what @milner1989comcon[§ 10.4] calls “stratification of bisimilarity.”
+- $k$-stratified bisimilarity: $(\infty,k,\infty,\infty,\infty,\infty)$ would be what @milner1989comcon[§ 10.4] calls “stratification of bisimilarity,” also appearing as “$(k+1)$-nested trace equivalence” in @afgi2004nestedSemantics.
 - $k$-nested similarity: $(\infty,\infty,\infty,\infty,\infty,k-1)$ for $k>1$ defines a spectrum of modal quantifier alternation depth between similarity and bisimilarity.
 :::
 
@@ -1116,7 +1116,7 @@ Details depend, of course, on the specific spectrum and flavor of Hennessy–Mil
 Still, solving the spectroscopy problem cannot be easier than solving the covered individual equivalence problems.
 
 To get a first idea, let us examine the complexities of common equivalence checking problems in the strong spectrum.
-The rule of thumb is that trace-like equivalences are $\complexityname{PSPACE}$-complete and bisimilarities are $\complexityname{P}$-complete [@hs1996complexityEquivalences;@bgs1992bisimPComplete].
+The rule of thumb is that trace-like equivalences are $\complexityname{PSPACE}$-complete and bisimilarities are $\complexityname{P}$-complete [@hs1996complexityEquivalences;@kanellakisSmolka1983threeProbsEq;@bgs1992bisimPComplete].
 
 Bisimilarity finds itself in a *valley* of tractability,
 if we look at a cross section through the equivalence spectrum as in @fig-complexity-slope.

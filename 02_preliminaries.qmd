@@ -1863,7 +1863,7 @@ Given a finite reachability game $\game=(G,G_\defender,\gamemoveblank)$,
 the attacker's winning region $\attackerwins$ (and $\defenderwins$ as well) can be computed in $\bigo{\relsize{\gamemoveblank}}$ time and $\bigo{\relsize{G}}$ space.
 :::
 
-## Discussion
+## Discussion {#sec-preliminaries-discussion}
 
 This chapter has taken a tour of characterizations for standard notions of behavioral preorder and equivalence on transition systems such as trace equivalence and bisimilarity.
 
@@ -1913,31 +1913,31 @@ This whole framework draws heavily from @stirling1996modal.
 There are alternative frameworks for deciding behavioral equivalences that this thesis will not be using:
 
 - **Fixed-point iteration.**
-  Simulation-like behavioral equivalences and preorders can be expressed as greatest fixed points of monotonic functions.
+  Simulation-like behavioral equivalences and preorders can be expressed as greatest fixed points of monotonic functions [@ails2007reactiveSystems § 4.3].
   Fixed-point iteration computes such relations on finite-state transition systems by initially assuming all states are related and iteratively removing pairs that violate the (bi-)simulation condition.
   This process continues until no such pairs remain.
   In effect, the same chain reaction happens that @alg-deciding-games performs on the bisimulation game.
   Compared to the game approach, fixed-point iteration usually is slower as it lacks knowledge about logical connections between pairs in the candidate relation.
 - **Partition refinement.**
-  The fastest algorithms for bisimilarity use partition refinement.
+  The fastest algorithms for bisimilarity use partition refinement [@paigetarjan1987partitionrefinement].
   Partitions represent equivalence relations as colorings on graphs, which is linear in the state space $\relsize{\states}$ (opposed to quadratic combinations for pairs in relations and attacker positions).
   Intuitively, parts of the partitions are split up repeatedly, leading to a similar iterative refinement as in the general fixed-point approach.
-  The splits are also informed by modal distinctions as explicated in @cleaveland1991explainingBisimInequiv.
+  The splits are also informed by modal distinctions as explicated by @cleaveland1991explainingBisimInequiv.
   But clever decisions of where to split next and the leaner representation of data allow for more efficient algorithmics.
   However, the nice approach only works if the fixed-point characterization ensures intermediate relations to be *symmetric*.
   This is only the case for bisimilarity, thus heavily restricting the direct applicability of partition refinement.
 - **Reduction to bisimilarity.**
-  Other equivalences are usually checked by transforming the transition system in some way to make bisimilarity and the respective equivalence coincide on the system.
-  A standard example would be to make the transition system deterministic via subset construction, after which trace equivalence can be checked as bisimilarity.
+  Other equivalences are usually checked by transforming the transition system in some way to make bisimilarity and the respective equivalence coincide on the system [@cleavelandSokolsky2001eqChecking § 3.4].
+  A standard example would be to make the transition system deterministic via subset construction, after which trace equivalence can be checked as bisimilarity [@cleavelandHennessy1993testingEq].
 - **Term rewriting.**
-  If working on process-algebraic terms, equivalence can also be established through equational reasoning.
+  If working on process-algebraic terms and similar formalisms, equivalence can also be established through equational reasoning [@mayr2000procRewriteSystems].
   This approach requires a behavioral *congruence* with an axiomatic characterization which processes to consider as equal.
   Intuitively, the algorithm then searches ways of rewriting one process into another.
   But the rules usually create an infinite search space, only allowing semi-decision procedures.
   Together with the coupling to specific process calculi, the approach thus is better fit for the context of proof assistants than for general equivalence checkers.
   However, proofs on axiomatic characterizations often contain normalizations that can inform the design of reductions to bisimilarity.
 - **Characteristic formulas.**
-  Equivalence can also be handled through characteristic modal formulas.
+  Equivalence can also be handled through characteristic modal formulas [@steffen1989characteristicFormulae].
   Intuitively, one constructs a formula for a state that is precisely true for all conceivable equivalent states.
   Checking equivalence with another state then reduces to model checking the formula on that state.
   However, this approach requires a more complex language of *recursive* modal formulas and remains mostly academic, as no major tools use it for equivalence checking.

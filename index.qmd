@@ -72,6 +72,7 @@ That this research project has still reached the stage of a (soon to be submitte
   Dominik Geißler,
   Uli Fahrenberg,
   Karl Mattes,
+  Jeroen Keiren,
   (you might soon appear here, dearest test reader)
 
 ```{=latex}

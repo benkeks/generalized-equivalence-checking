@@ -156,7 +156,7 @@ Are there notions relating $\literal{Pe}$ and $\literal{Mx}$ *besides* mutual we
 {{< paragraph_heading "State of the art." >}}
 For many of the existing behavioral preorders and equivalences, there are various algorithms and implementations to decide whether processes are equivalent [see @gl2022eqChecking for a survey].
 So, it would be an option to throw an array of algorithms on the transition systems of @exm-peterson-mutex.
-For instance, weak similarity, stable failures and contrasimilarity are neighbors in @fig-ltbts2-paper. CAAL [@aaehlow2015caal] could establish mutual weak similarity, mCRL2 [@groote2014mcrl2] would rule out stable-failure equivalence, and, for contrasimilarity, we would need to implement our own solution because there is no tool supporting it.
+For instance, weak similarity, stable failures and contrasimilarity are neighbors in @fig-ltbts2-paper. CAAL [@aaehlow2015caal] could establish mutual weak similarity, mCRL2 [@groote2014mcrl2; @bgklnvww2019mcrl2tacas] would rule out stable-failure equivalence, and, for contrasimilarity, we would need to implement our own solution because there is no tool supporting it.
 Combining different tools and algorithms like this is tiresome and prone to subtle errors.
 Can we not treat the question in *one* algorithm?
 

@@ -17,3 +17,4 @@ To build the website and PDF document:
 - quarto 1.7.13+
 - pdf2svg, librsvg2-bin
 - fonts-linuxlibertine
+- Juypyter: python3-ipython python3-numpy python3-pandas python3-tabulate jupyter

@@ -42,7 +42,21 @@ Disc% Encoding: UTF-8
   timestamp = {2017.06.17},
 }
 
-@Article{ch1993,
+@incollection{cleavelandSokolsky2001eqChecking,
+title = {Equivalence and Preorder Checking for Finite-State Systems},
+editor = {J.A. Bergstra and A. Ponse and S.A. Smolka},
+booktitle = {Handbook of Process Algebra},
+publisher = {Elsevier Science},
+address = {Amsterdam},
+pages = {391-424},
+year = {2001},
+isbn = {978-0-444-82830-9},
+doi = {10.1016/B978-044482830-9/50024-2},
+author = {Rance Cleaveland and Oleg Sokolsky},
+abstract = {This chapter surveys algorithms for computing semantic equivalences and refinement relations, or preorders, over states in finite-state labeled transitions systems. Methods for calculating a general equivalence, namely bisimulation equivalence, and a general preorder are described and shown to be useful as a basis for calculating other semantic relations as well. Two general classes of algorithms are considered: global ones, which require the a priori construction of the state space but are generally more efficient in the asymptotic case, and local, or on-the-fly ones, which avoid the construction of unnecessary states while incurring some additional computational overhead.}
+}
+
+@Article{cleavelandHennessy1993testingEq,
   Title                    = {Testing equivalence as a bisimulation equivalence},
   Author                   = {Cleaveland, Rance and Hennessy, Matthew},
   Journal                  = {Formal Aspects of Computing},
@@ -169,6 +183,20 @@ Disc% Encoding: UTF-8
   Publisher                = {Elsevier}
 }
 
+@article{afgi2004nestedSemantics,
+  title = {Nested semantics over finite trees are equationally hard},
+  journal = {Information and Computation},
+  volume = {191},
+  number = {2},
+  pages = {203-232},
+  year = {2004},
+  issn = {0890-5401},
+  doi = {10.1016/j.ic.2004.02.001},
+  author = {Luca Aceto and Wan Fokkink and Rob {van Glabbeek} and Anna Ingólfsdóttir},
+  keywords = {Concurrency, Process algebra, BCCSP, Nested simulation, Possible futures, Nested trace semantics, Equational logic, Complete axiomatizations, Non-finitely based algebras, Hennessy–Milner logic},
+  abstract = {This paper studies nested simulation and nested trace semantics over the language BCCSP, a basic formalism to express finite process behaviour. It is shown that none of these semantics affords finite (in)equational axiomatizations over BCCSP. In particular, for each of the nested semantics studied in this paper, the collection of sound, closed (in)equations over a singleton action set is not finitely based.}
+}
+
 @article{be2023forwardReverseBisim,
    title={Modal Logic Characterizations of Forward, Reverse, and Forward-Reverse Bisimilarities},
    volume={390},
@@ -195,6 +223,19 @@ Disc% Encoding: UTF-8
   doi       = {10.1007/3-540-45694-5_39},
   file      = {:km2002_why-is-simulation-harder-than-bisimulation.pdf:PDF},
   isbn      = {978-3-540-45694-0},
+}
+
+@article{mayr2000procRewriteSystems,
+  title = {Process Rewrite Systems},
+  journal = {Information and Computation},
+  volume = {156},
+  number = {1},
+  pages = {264-286},
+  year = {2000},
+  issn = {0890-5401},
+  doi = {10.1006/inco.1999.2826},
+  author = {Richard Mayr},
+  abstract = {Many formal models for infinite-state concurrent systems are equivalent to special classes of rewrite systems. We classify these models by their expressiveness and define a hierarchy of classes of rewrite systems. We show that this hierarchy is strict with respect to bisimulation equivalence. The most general and most expressive class of systems in this hierarchy is called process rewrite systems (PRS). They subsume Petri nets, PA-processes, and pushdown processes and are strictly more expressive than any of these. Intuitively, PRS can be seen as an extension of Petri nets by subroutines that can return a value to their caller. We show that the reachability problem is decidable for PRS. It is even decidable if there is a reachable state that satisfies certain properties that can be encoded in a simple logic. Thus, PRS are more expressive than Petri nets, but not Turing-powerful.}
 }
 
 @incollection{gs2013simulations,
@@ -452,7 +493,6 @@ Disc% Encoding: UTF-8
   editor =	{Majumdar, Rupak and Silva, Alexandra},
   publisher =	{Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik},
   address =	{Dagstuhl, Germany},
-  URL =		{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CONCUR.2024.37},
   URN =		{urn:nbn:de:0030-drops-208099},
   doi =		{10.4230/LIPIcs.CONCUR.2024.37},
   annote =	{Keywords: Markov chains, Approximate bisimulation, Abstraction, Model checking}
@@ -603,6 +643,28 @@ Disc% Encoding: UTF-8
   publisher={MIT Press},
   isbn = {9780262027717},
   doi = {10.7551/mitpress/9946.001.0001}
+}
+@InProceedings{bgklnvww2019mcrl2tacas,
+  author="Bunte, Olav
+  and Groote, Jan Friso
+  and Keiren, Jeroen J. A.
+  and Laveaux, Maurice
+  and Neele, Thomas
+  and de Vink, Erik P.
+  and Wesselink, Wieger
+  and Wijs, Anton
+  and Willemse, Tim A. C.",
+  editor="Vojnar, Tom{\'a}{\v{s}}
+  and Zhang, Lijun",
+  title="The mCRL2 Toolset for Analysing Concurrent Systems",
+  booktitle="Tools and Algorithms for the Construction and Analysis of Systems",
+  year="2019",
+  publisher="Springer International Publishing",
+  address="Cham",
+  pages="21--39",
+  abstract="Reasoning about the correctness of parallel and distributed systems requires automated tools. By now, the mCRL2 toolset and language have been developed over a course of more than fifteen years. In this paper, we report on the progress and advancements over the past six years. Firstly, the mCRL2 language has been extended to support the modelling of probabilistic behaviour. Furthermore, the usability has been improved with the addition of refinement checking, counterexample generation and a user-friendly GUI. Finally, several performance improvements have been made in the treatment of behavioural equivalences. Besides the changes to the toolset itself, we cover recent applications of mCRL2 in software product line engineering and the use of domain specific languages (DSLs).",
+  isbn="978-3-030-17465-1",
+  doi={10.1007/978-3-030-17465-1_2}
 }
 
 @incollection{ph2015encodingCspCcs,
@@ -784,6 +846,23 @@ Disc% Encoding: UTF-8
   pages         = {973--989},
   publisher     = {SIAM},
   doi           = {10.1137/0216062},
+}
+
+@inproceedings{kanellakisSmolka1983threeProbsEq,
+  author = {Kanellakis, Paris C. and Smolka, Scott A.},
+  title = {CCS expressions, finite state processes, and three problems of equivalence},
+  year = {1983},
+  isbn = {0897911105},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  doi = {10.1145/800221.806724},
+  abstract = {We examine the computational complexity of testing finite state processes for equivalence, in the Calculus of Communicating Systems (CCS). This equivalence problem in CCS is presented as a refinement of the familiar problem of testing whether two nondeterministic finite state automata (n.f.s.a.) accept the same language. Three notions of equivalence, proposed for CCS, are investigated: (1) observation equivalence, (2) congruence, and (3) failure equivalence. We show that observation equivalence (@@@@) can be tested in cubic time and is the limit of a sequence of equivalence notions (@@@@k), where, @@@@1 is the familiar n.f.s.a. equivalence and, for each fixed k, @@@@k is PSPACE-complete. We provide an O(nlogn) test for congruence for n state processes of bounded fanout, by extending the algorithm that minimizes the states of d.f.s.a.'s. Finally, we show that, even for a very restricted type of process, testing for failure equivalence is PSPACE-complete.},
+  booktitle = {Proceedings of the Second Annual ACM Symposium on Principles of Distributed Computing},
+  pages = {228–240},
+  numpages = {13},
+  location = {Montreal, Quebec, Canada},
+  series = {PODC '83},
+  doi={10.1145/800221.806724},
 }
 
 @Article{bulychev2011gameSimulation,
@@ -1230,6 +1309,23 @@ isbn="978-3-540-48168-3",
 doi="10.1007/3-540-48168-0_35"
 }
 
+@InProceedings{steffen1989characteristicFormulae,
+  author="Steffen, Bernhard",
+  editor="Ausiello, Giorgio
+  and Dezani-Ciancaglini, Mariangiola
+  and Della Rocca, Simonetta Ronchi",
+  title="Characteristic formulae",
+  booktitle="Automata, Languages and Programming",
+  year="1989",
+  publisher="Springer Berlin Heidelberg",
+  address="Berlin, Heidelberg",
+  pages="723--732",
+  abstract="Characteristic formulae have been introduced by Graf and Sifakis to relate equational reasoning about processes to reasoning in a modal logic, and therefore to allow proofs about processes to be carried out in a logical framework. Based upon an intuitionistic understanding of the modal mu-calculus, this paper extends the results of Graf and Sifakis in two respects. First, it covers not only finite processes, but finite state processes. Second, it handles not only bisimulation-like equivalences but also preorders, which are sensitive to liveness properties.",
+  isbn="978-3-540-46201-9",
+  doi="10.1007/BFb0035794"
+}
+
+
 @article{jss2020characteristicInvariantsHML,
   title={Characteristic invariants in {H}ennessy--{M}ilner logic},
   author={Jasper, Marc and Schl{\"u}ter, Maximilian and Steffen, Bernhard},
@@ -1500,7 +1596,6 @@ pages = {113842},
 year = {2023},
 issn = {0304-3975},
 doi = {10.1016/j.tcs.2023.113842},
-url = {https://www.sciencedirect.com/science/article/pii/S030439752300155X},
 author = {Ross Horne and Sjouke Mauw and Semen Yurkov},
 keywords = {Cryptographic calculi, Bisimilarity, Security, Privacy, Intuitionistic modal logic, Compositionality},
 abstract = {We prove that three semantics for the applied π-calculus coincide – a testing semantics, a labelled equivalence, and a modal logic – and explain how design decisions in each of these semantics are objectively supported by this convergence. Each of these semantics has a distinct role when verifying security protocols. Testing semantics are suited to security and privacy problems expressed in terms of a process equivalence problem, where tests define the space of attack strategies. A labelled equivalence is suited to proving the given equivalence problem when such security and privacy properties hold; while, dually, the modal logic describes attacks when such security or privacy properties are violated. For this particular investigation into this good-practice design pattern, we select what is perhaps the most powerful (interleaving) testing semantics: open barbed bisimilarity. Selecting open barbed bisimilarity comes with the bonus that it is a congruence hence is suited to compositional reasoning. This reference testing semantics leads to a notion of quasi-open bisimilarity and an intuitionistic modal logic for the applied π-calculus. We argue that, since we characterise the finest (interleaving) testing semantics and tests are attack strategies, our intuitionistic modal logic can describe all attacks whenever a privacy property expressed as an equivalence problem fails.}
@@ -2194,7 +2289,6 @@ year = {1993}
   editor =	{P\'{e}rez, Guillermo A. and Raskin, Jean-Fran\c{c}ois},
   publisher =	{Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik},
   address =	{Dagstuhl, Germany},
-  URL =		{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CONCUR.2023.32},
   URN =		{urn:nbn:de:0030-drops-190268},
   doi =		{10.4230/LIPIcs.CONCUR.2023.32},
   annote =	{Keywords: Distinguishing behaviour, Hennessy-Milner logic, NP-hardness}

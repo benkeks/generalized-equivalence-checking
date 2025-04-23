@@ -540,7 +540,7 @@ Depending on how one counts, a total of 2000–3000 lines fit the two spectrosco
 
 As far as code bases go, that size is extremely compact.^[
   For reference, @cs1996ncsuConcurrencyWorkbench report 18,000 LOC for the *NSCU Concurrency Workbench* in Standard&nbsp;ML.
-  Performance-centric C++ code bases like mCRL2 [@groote2014mcrl2] are another order of magnitude bigger.
+  Performance-centric C++ code bases like mCRL2 [@groote2014mcrl2; @bgklnvww2019mcrl2tacas] are another order of magnitude bigger.
 ]
 In part, this is enabled by Scala's conciseness.
 But the heavy lifting in making the implementation so light-weight is achieved by the energy-game abstraction.
@@ -1029,6 +1029,7 @@ One only needs to implement the model-checking for formulas once, and new notion
 But the data suggests that 20 states already demand several seconds in this approach for some equivalences.
 
 The third path to genericity is through *equivalences-as-functors*, to enable *coalgebraic partition-refinement algorithms* from category theory.
+We already hinted to this in @sec-preliminaries-discussion.
 @dmsw2019genericPartitionRefinement follow this route in their tool *CoPaR* (short for “Coalgebraic Partition Refiner”).
 This way, the support of new equivalences boils down to a few lines of defining new functors.
 The big advantage is that extensions---for instance, to quantitative behavioral distances---can also be achieved this way.

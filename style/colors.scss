@@ -46,3 +46,22 @@ footer.footer{
 #quarto-sidebar {
   max-width: 100vw;
 }
+
+.callout-idea.callout-style-default > div.callout-header {
+  background-color: lighten(desaturate($primary, 20%), 15%);
+  color: white;
+}
+
+div.callout.callout-idea {
+  border-left-color: $primary;
+}
+
+
+.callout-problem.callout-style-default > div.callout-header {
+  background-color: lighten(desaturate($secondary, 50%), 20%);
+  color: white;
+}
+
+div.callout.callout-problem {
+  border-left-color: $secondary;
+} 

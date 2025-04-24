@@ -9,12 +9,6 @@
   }
 }
 
-.problem {
-  border: 1px solid gray;
-  padding: .5em;
-  margin: 1em;
-}
-
 .katex { font-size: 1.1em; }
 
 .img-fluid {

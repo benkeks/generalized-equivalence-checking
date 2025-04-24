@@ -1264,6 +1264,6 @@ In the next chapter, we will return to the initial @exm-peterson-mutex of Peters
 
 {{< paragraph_heading "To be continued." >}}
 Some applications would demand more specialized modal logics.
-As outlined in @sec-extending-to-other-eqs, matching adaptions in game or semantic model are usually straight-forward thanks to the clear connection of productions in the modal grammar and mechanics in the spectroscopy game.
+As outlined in @sec-extending-to-other-eqs, matching adaptions in game or semantic model are usually straightforward thanks to the clear connection of productions in the modal grammar and mechanics in the spectroscopy game.
 
 So much for the theory.

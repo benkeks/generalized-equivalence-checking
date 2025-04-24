@@ -35,7 +35,7 @@ Even the definition of the question is tricky, as there are different notions of
 I then took my very first look into a seminal paper on the landscape of process equivalences with internal behavior, the “Linear-time–branching-time spectrum II” by @glabbeek1993ltbt.
 Its central figure, reproduced in @fig-ltbts2-paper, mesmerized me.
 But, how to use the spectrum to decide for a given pair of processes which of the many equivalences apply?
-Over the years, I have learned that others, too, have run into this not-quite-straight-forward problem:
+Over the years, I have learned that others, too, have run into this not-quite-straightforward problem:
 For instance, @nestmann1996decoding thinking about process algebra encodings and @bell2013certifiably verifying compiler optimizations.
 
 {{< paragraph_heading "The problem" >}} can be abstractly summarized as follows:

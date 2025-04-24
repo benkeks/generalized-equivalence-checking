@@ -781,7 +781,8 @@ For details, readers are referred to @lemke2024multiweightedEnergyGames.
 ### Galois Connections
 
 Galois connections can be thought of as a pair of *monotonic functions that invert each other up to their partial ordering relations*.
-Another standard intuition is that Galois connections couple a *concrete* and a more *abstract* domain, and this is what the variable naming in the following definition alludes to.
+Another standard intuition is that Galois connections couple a *concrete* and a more *abstract* domain.
+This pairing is what the variable naming in the following definition alludes to.
 
 ::: {#def-galois-connection}
 #### Galois connection
@@ -821,8 +822,11 @@ Visualization of Galois connections according to @def-galois-connection.
 ::: {#exm-galois-abstraction-reals}
 #### $\nats$ as abstraction for $\reals$
 
-Take the non-negative reals $\reals^{\geq 0}$ as concrete domain and the natural numbers $\nats$ as abstract domain.
-Then, as function $α_{\reals} \colon \reals^{\geq 0} \to \nats$, take flooring, $x \mapsto \floor{x}$, and for the other direction, the identity $\identity{\nats}$, $n \mapsto n$.
+Intervals of positive real numbers can be abstracted into natural numbers, as illustrated by @fig-galois-abstraction-reals. More formally:
+
+Adopt the non-negative reals $\reals^{\geq 0}$ as concrete domain and the natural numbers $\nats$ as abstract domain.
+Then, as function $α_{\reals} \colon \reals^{\geq 0} \to \nats$ take flooring, $x \mapsto \floor{x}$,
+and for the other direction, the identity $\identity{\nats}$, $n \mapsto n$.
 Clearly, $\floor{x} \leq n \iff x \leq n$.
 Therefore, $α_{\reals}$ and $\identity{\nats}$ form a Galois connection.
 :::
@@ -872,11 +876,13 @@ The following are equivalent:
 ]
 :::
 
-We will refer to functions derived like $α(c)$ in @lem-galois-inversion as “undo” functions.
+We will refer to functions derived like $α$ in @lem-galois-inversion as “undo” functions.
 We understand them to generalize inverse functions of those monotonic functions where $\min \set{a \mid c \leq_C \gamma(a)}$ is defined for any $c$.
 This intuition can also be expressed more formally as the following proposition:
 
 ::: {#prp-galois-equality}
+#### Inversion as Galois connection
+
 If a function $f \colon A \to C$ is surjective and injective, it has a unique inverse function $f^{-1} \colon C \to A$ such that $f^{-1} \circ f = \identity{A}$ and $f \circ f^{-1} = \identity{C}$.
 
 If $f$ is monotonic with respect to some partial orders on $C$ and $A$,

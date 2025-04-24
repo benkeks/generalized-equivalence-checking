@@ -890,7 +890,7 @@ Still, the project shows that the spectroscopy approach is sufficiently simple a
 
 Would it not be nice if one could use modern hardware to perform spectroscopies as fast as possible?
 
-@vogel2024energyGamesWebGPU implements the strong equivalence spectroscopy in *gpuequiv* using shaders in the WebGPU Shading Language @w3c2025wgsl.
+@vogel2024energyGamesWebGPU implements the strong equivalence spectroscopy in *gpuequiv* using shaders in the WebGPU Shading Language [@w3c2025wgsl].
 
 Technically, this is superior to the other three implementations of this chapter, which can only exploit the single-threaded CPU model of JavaScript when running in the browser.
 
@@ -909,7 +909,7 @@ Quick equivalence checking in the browser, and even quicker checking in a native
 @vogel2024energyGamesWebGPU reports 10⨯ speed-ups.
 However, the fast growth of game graphs remains a limiting factor as larger examples run into the size boundary of buffers to upload game moves.
 For `vasy_18_73`, @vogel2024energyGamesWebGPU also fails to complete the spectroscopy (like our experience in @sec-benchmarks):
-It constructs a game graph of 623,482,227 moves, but only 536,870,911 moves fit into the buffer.
+It constructs a game graph of 623,482,227 moves, but only 536,870,911 moves fit into the buffer with the employed data packing.
 
 At the time of writing, another Bachelor project is underway to add a frontend and support for the *weak* spectroscopy game to gpuequiv.
 

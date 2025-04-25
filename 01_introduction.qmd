@@ -32,13 +32,14 @@ I was tasked with implementing a translation from the process algebra Timed CSP 
 Did it translate CSP terms to automata *with the same meaning*?
 Even the definition of the question is tricky, as there are different notions of what counts as “same meaning” in the semantics of programs.
 
-I then took my very first look into a seminal paper on the landscape of process equivalences with internal behavior, the “Linear-time–branching-time spectrum II” by @glabbeek1993ltbt.
-Its central figure, reproduced in @fig-ltbts2-paper, mesmerized me.
-But, how to use the spectrum to decide for a given pair of processes which of the many equivalences apply?
+I then took my very first look into seminal work on the landscape of process equivalences, the “linear-time–branching-time spectrum” by van Glabbeek [-@glabbeek1990ltbt1; -@glabbeek1993ltbt; -@glabbeek2001ltbtsiReport with a combined 2500 citations on Google Scholar].
+Their central figure, reproduced in @fig-ltbts2-paper, mesmerized me.
+So many equivalences!
+But, how to find out for a given pair of processes which of the many equivalences apply?
 Over the years, I have learned that others, too, have run into this not-quite-straightforward problem:
 For instance, @nestmann1996decoding thinking about process algebra encodings and @bell2013certifiably verifying compiler optimizations.
 
-{{< paragraph_heading "The problem" >}} can be abstractly summarized as follows:
+{{< paragraph_heading "The problem" >}} can abstractly be summarized as follows:
 
 \vspace*{-\medskipamount}
 > How does one conveniently decide for a pair of systems which notions from a spectrum of behavioral equivalences equate the two?
@@ -62,11 +63,12 @@ It includes numerous concepts we will define and discuss more deeply on our way 
 Many verification tasks can be understood along the lines of “how equivalent” two models are.
 @fig-peterson-mutex replicates a standard example, known for instance from the textbook *Reactive Systems* [@ails2007reactiveSystems]:
 A specification of mutual exclusion $\literal{Mx}$ as two users $\literal A$ and $\literal B$ entering their critical section $\literal{ec_A} / \literal{ec_B}$ and leaving $\literal{lc_A} / \literal{lc_B}$ before the other may enter;
-and the transition system of Peterson's [-@peterson1981mythsMutex] mutual exclusion algorithm $\literal{Pe}$, with internal steps $\color{gray}\step{}$ due to the coordination that needs to happen.
-(To fit on the page, $\literal{Pe}$ is minimized by stability-respecting branching bisimilarity.)
+and the transition system of Peterson's [-@peterson1981mythsMutex] mutual exclusion algorithm $\literal{Pe}$, with internal steps $\color{gray}\step{}$ due to the coordination that needs to happen.^[
+  To fit on the page, $\literal{Pe}$ is minimized by a behavioral equivalence, that will be important later on: stability-respecting branching bisimilarity.
+]
 For $\literal{Pe}$ to faithfully implement mutual exclusion, it should behave somewhat similarly to $\literal{Mx}$.
 
-::::{#fig-peterson-mutex}
+::::{#fig-peterson-mutex fig-pos="ht"}
 ```tikz
 \begin{tikzpicture}[scale=.9, transform shape,->,auto,node distance=1.7cm, rel/.style={dashed,font=\it, blue},
     ext/.style={line width=1pt},
@@ -143,6 +145,7 @@ For $\literal{Pe}$ to faithfully implement mutual exclusion, it should behave so
 A specification of mutual exclusion $\literal{Mx}$, and Peterson's protocol $\literal{Pe}$, minimized with respect to stability-respecting branching bisimilarity.
 ::::
 
+\noindent
 Semantics in concurrent models must take nondeterminism and internal steps into account.
 Setting the degree to which nondeterminism counts induces equivalence notions with subtle differences:
 $\literal{Pe}$ and $\literal{Mx}$ *weakly simulate* each other, intuitively meaning that a tree of options passing over internal activity from one process can be matched by a similar tree of the other.
@@ -158,12 +161,12 @@ For many of the existing behavioral preorders and equivalences, there are variou
 So, it would be an option to throw an array of algorithms on the transition systems of @exm-peterson-mutex.
 For instance, weak similarity, stable failures and contrasimilarity are neighbors in @fig-ltbts2-paper. CAAL [@aaehlow2015caal] could establish mutual weak similarity, mCRL2 [@groote2014mcrl2; @bgklnvww2019mcrl2tacas] would rule out stable-failure equivalence, and, for contrasimilarity, we would need to implement our own solution because there is no tool supporting it.
 Combining different tools and algorithms like this is tiresome and prone to subtle errors.
-Can we not treat the question in *one* algorithm?
+It would be nice to treat the question in *just one* algorithm!
 
 {{< paragraph_heading "Our offer." >}}
 This thesis describes how to *decide all equivalences* in one *uniform approach* based on *energy games*, which is *easily implemented in tools*.
 
-As we will discuss in more detail in @sec-equivio-peterson, our accompanying tool {{< equivio >}} answers the questions of @exm-peterson-mutex in a small query.
+As we will discuss in more detail in @sec-equivio-peterson, our accompanying tool {{< equivio >}} answers the questions which equivalences apply for @exm-peterson-mutex in a small query.
 Here is an excerpt:
 
 ```ccs

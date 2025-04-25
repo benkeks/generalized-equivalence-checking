@@ -10,7 +10,9 @@ This is a work-in-progress document. Handle with care!
 ## Summary {.unnumbered .unlisted}
 
 We study the *spectroscopy problem* that asks which notions from a spectrum of behavioral equivalences relate a pair of states in a transition system.
-In particular, we solve the problem for finite-state systems and the *weak spectrum*, a hierarchy of semantical models of how to understand nondeterminism and internal behavior in models of concurrent programs.
+This allows a generalized handling of questions on *how equivalent two programs are*.
+
+In particular, we solve the spectroscopy problem for *finite-state systems* and a hierarchy of semantical models of how to understand nondeterminism and internal behavior in models of concurrent programs, known as the *weak linear-time–branching-time spectrum*, due to van Glabbeek.
 On our way there, we also treat the *strong spectrum* (without internal behavior) as well as applications of generalized equivalence checking in verification and concurrency theory.
 
 Our approach relies on a *quantitative understanding of spectra* in terms of how many syntactic features of Hennessy–Milner modal logic are used to characterize equivalences.
@@ -53,8 +55,10 @@ Crazy times!
 That this research project has still reached the stage of a (soon to be submitted) PhD thesis, is thanks to many great people (sorted by category, mostly in order of appearance).
 
 - **Environment:**
-  Uwe Nestmann and my colleagues at the Modelle und Theorie Verteilter Systeme group, especially my lovely office mates Edgar Arndt, Valeria Zahoransky, and Alex Wiemhoefer.
+  Uwe Nestmann and my colleagues at the Modelle und Theorie Verteilter Systeme group, especially my lovely office mates Edgar Arndt, Valeria Zahoransky.
+  Alex Wiemhoefer, who offered a desk in her office when mine was closed.
   My “Sunday friends” and my parents.
+  You're all amazing!
 - **Hospitality:**
   The organizers of the VTSA Summer School 2021 in Liège.
   Rob van Glabbeek and the Laboratory for Foundations of Computer Science for my 2023 stay in Edinburgh.

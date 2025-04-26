@@ -10,7 +10,7 @@ toc-title: "Chapter 5"
 :::
 
 ::::{#related-5 .column-margin}
-`\vspace{-2.2em}`{=latex}
+`\vspace{-2em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
 This chapter showcases the main result of my paper “Process Equivalence Problems as Energy Games” [@bisping2023equivalenceEnergyGames].
 ::::
@@ -379,7 +379,7 @@ the set of *strategy formulas* $\stratstrong(g, e)$ for a game position $g$ and 
 
 ::: {#fig-strategy-formulas-strong fig-env="figure*"}
 $$
-\dfrac{
+\inferrule[observation]{
   \begin{matrix}
     \attackerpos{p,Q} \gamemove{-\unitvec{1}} \attackerpos{p', Q'} \quad
     e' = \energyupdate(-\unitvec{1}, e) ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p', Q'})
@@ -392,7 +392,7 @@ $$
 }
 $$
 $$
-\dfrac{
+\inferrule[conjunction]{
   \attackerpos{p,Q} \gamemove{\zerovec} \defenderpos{p, Q', Q_*} \quad
   e ∈ \attackerwins^{\gamespectroscopy}(\defenderpos{p, Q', Q_*}) \quad
   φ ∈ \stratstrong(\defenderpos{p, Q', Q_*}, e)
@@ -401,7 +401,7 @@ $$
 }
 $$
 $$
-\dfrac{
+\inferrule[conj.~answer]{
   \begin{matrix}
     \forall q ∈ Q \ldotp \;
     \defenderpos{p, Q, \varnothing} \gamemove{u_q} \attackerpos[\wedge]{p, q}
@@ -415,7 +415,7 @@ $$
 }
 $$
 $$
-\dfrac{
+\inferrule[conj.~revival]{
   \begin{matrix}
     \forall q ∈ Q \ldotp \;
     \defenderpos{p, Q, Q_*} \gamemove{u_q} \attackerpos[\wedge]{p, q}
@@ -434,7 +434,7 @@ $$
 }
 $$
 $$
-\dfrac{
+\inferrule[positive~conjunct]{
   \begin{matrix}
     \attackerpos[\wedge]{p, q} \gamemove{u} \attackerpos{p, \set{q}} \quad
     e' = \energyupdate(u, e) ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p, \set{q}})
@@ -446,7 +446,7 @@ $$
 }
 $$
 $$
-\dfrac{
+\inferrule[negative~conjunct]{
   \begin{matrix}
     \attackerpos[\wedge]{p, q} \gamemove{u} \attackerpos{q, \set{p}} \quad
     e' = \energyupdate(u, e) ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{q, \set{p}})
@@ -481,8 +481,8 @@ then there is $φ ∈ \stratstrong(\attackerpos{p, Q}, e)$ with $φ ∈ \observa
 ::: {#lem-strong-spectroscopy-game-completeness}
 #### Distinction completeness
 
-If there is $φ ∈ \observationsvar[\literal{strong}]{e}$ with $p ∈ \semantics{φ}$ and $Q \cap \semantics{φ} = \varnothing$,
-then $e ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p, Q})$.^[
+If there is $φ ∈ \observationsvar[\literal{strong}]{N}$ with $p ∈ \semantics{φ}$ and $Q \cap \semantics{φ} = \varnothing$,
+then $N ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p, Q})$.^[
   Proof in Lemma 5 of @bisping2023equivalenceEnergyGamesReport.
 ]
 :::
@@ -492,7 +492,7 @@ Taken together, @lem-strong-spectroscopy-game-soundness and @lem-strong-spectros
 ::: {#thm-strong-spectroscopy-game-characterization}
 #### $\notions^\literal{strong}$-characterization
 
-$p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{strong}$ precisely if the defender wins $\gamespectroscopy$ from $\attackerpos{p,\set{q}}$ for the attacker starting with budget $e$.
+$p \bpreordvar{\observationsvar{N}} q$ for $N ∈ \notions^\literal{strong}$ precisely if the defender wins $\gamespectroscopy$ from $\attackerpos{p,\set{q}}$ for the attacker starting with budget $N$.
 :::
 
 Thus, we can solve the spectroscopy problem (@prob-spectroscopy-problem) by computing $\notions^\literal{strong}_{p,q} = \notions^\literal{strong} \setminus \attackerwins^{\gamespectroscopy}(\attackerpos{p, \set{q}})$.
@@ -956,7 +956,7 @@ Especially in the case of bisimilarity and similarity, such a blow-up is not nec
 ### Regaining Polynomiality in Derived Equivalence Games {#sec-regaining-polynomiality}
 
 So far, the derived games include the exponentiality due to the subset construction.
-But often we can restrict the attacker to only use a polynomially-sized portion of the game.
+But often, we can restrict the attacker to only use a polynomially-sized portion of the game.
 If they have energy for unbounded conjunctions, this restriction will not affect their wins.
 
 :::{#prp-defender-options}
@@ -967,7 +967,7 @@ If the attacker wins $(\attackerpos{p, Q}, e)$ in a derived preorder game $\game
 :::proof
 If the attacker wins $\attackerpos{p, Q}$ with $e$ in a spectroscopy game, they also win $\attackerpos{p, Q'}$ with $e$ for all $Q' \subseteq Q$.
 This is a side benefit of the spectroscopy characterization (@lem-strong-spectroscopy-game-soundness and -@lem-strong-spectroscopy-game-completeness) through distinctions, as 
-$Q \cap \semantics{\varphi} = \varnothing$ implies $Q' \cap \semantics{\varphi} = \varnothing$ for any $\varphi$.^[TODO: Try this out in Isabelle project]
+$Q \cap \semantics{\varphi} = \varnothing$ implies $Q' \cap \semantics{\varphi} = \varnothing$ for any $\varphi$.
 
 We can lift this result immediately to the derived preorder games as in @thm-derive-eq-games-characterize.
 :::

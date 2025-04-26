@@ -10,7 +10,7 @@ toc-title: "Chapter 4"
 :::
 
 ::::{#related-4 .column-margin}
-`\vspace{-2.2em}`{=latex}
+`\vspace{-2em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
 This chapter revolves around the ideas I aimed to convey by my talk “Deciding All Behavioral Equivalences at Once through Energy Games” at D-CON'25 (Augsburg, 2025-03),
 and by its predecessors given at LFCS University of Edinburgh (2023-03), Highlights'23 (Kassel, 2023-07), and ISCAS Beijing (2024-09).
@@ -36,7 +36,7 @@ Spectra of equivalence problems can be encoded as energy games.
 
 Energy games are games in which players have limited resources that can be used up or recharged during moves.
 Players running out of a resource lose the game.
-After introducing such games in @sec-energy-games, we will prove in @sec-characterzing-ptime-part that several core equivalences can be characterized attacker energy budgets where the defender wins.
+After introducing such games in @sec-energy-games, we will prove in @sec-characterzing-ptime-part that several core equivalences can be characterized through attacker energy budgets where the defender wins.
 For this, we will add three-dimensional energies to the bisimulation game.
 
 The second core idea is how to compute these winning budgets for players:
@@ -530,6 +530,7 @@ also exhibiting the cheapest formulas with regards to the polynomial spectrum th
 
 :::: {#fig-bisim-sim-game-energies fig-pos='t' fig-env="figure*"}
 ```tikz
+%%| image-class: lightbox
 
 \begin{adjustbox}{max width=\textwidth, center}
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
@@ -629,7 +630,7 @@ This is in line with the solution we thought of for the original strong spectrum
 ### Correctness of Characterization {#sec-correctness-poly-spectroscopy}
 
 We now prove that the bisimulation energy game indeed characterizes the equivalences of the polynomial-time strong spectrum.
-The section's proofs give the blueprint for proof of stronger results for more general games in upcoming chapters.
+The section's proofs give the blueprint for proofs of stronger results for more general games in upcoming chapters.
 
 The approach is to generalize the connection between winning attacks and distinguishing formulas in the  bisimulation game.
 We have already explored this connection of strategies and logic in @lem-attacks-imply-formulas and @lem-formulas-imply-attack and now extend it to energies and spectrum.
@@ -639,7 +640,7 @@ We have already explored this connection of strategies and logic in @lem-attacks
 
 The set of *strategy formulas* for a game position $g$ and a budget $e$, $\strat_\notionname{B}(g, e)$, in the context of a bisimulation energy game ${\game}_\notionname{B}^{🗲\system}$ is defined inductively by the following rules:
 $$
-\dfrac{
+\inferrule[observation]{
   [p, q] \gamemove{-1,0,0}^🗲_\notionname{B} (α, p', q) \quad
   e' = \energyupdate((-1,0,0), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q)) \quad
   φ ∈ \strat_\notionname{B}((α, p', q), e')
@@ -648,7 +649,7 @@ $$
 }
 $$
 $$
-\dfrac{
+\inferrule[conjunction]{
   \forall q' ∈ \derivatives{q, α} \ldotp \quad
   (α, p', q) \gamemove{0,0,0}^🗲_\notionname{B} [p', q'] \; \land \;
   e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q']) \; \land \;
@@ -658,7 +659,7 @@ $$
 }
 $$
 $$
-\dfrac{
+\inferrule[negation]{
   [p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p] \quad
   e' = \energyupdate((\updmin{1,2},0,-1), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}([q, p]) \quad
   \hmlobs{α} φ ∈ \strat_\notionname{B}([q, p], e')
@@ -668,7 +669,7 @@ $$
 $$
 :::
 
-Effectively, this definition generalizes the construction of distinguishing formulas on ${\game}_\notionname{B}$ we introduced in @lem-attacks-imply-formulas.
+Effectively, this definition generalizes the construction of distinguishing formulas on ${\game}_\notionname{B}$ we have introduced in @lem-attacks-imply-formulas.
 So the formulas we encountered before also serve as examples of such strategy formulas.
 
 ::: {#lem-bisim-energy-game-soundness}
@@ -705,7 +706,7 @@ Proof by induction on the inductive characterizations of attacker winning budget
       Due to the semantics of $\hml$ and $p \step{α} p'$, $p ∈ \semantics{\hmlobs{α}\hmlands Ψ}$, thus distinguishing $p$ from $q$.
       Also, $\hmlobs{α}\hmlands Ψ ∈ \observationsvar[\literal{poly-strong}]{e}$ as $\hmlands Ψ ∈ \observationsvar[\literal{poly-strong}]{e - \unitvec{1}}$.
 2. Assume $e ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
-  This means that $e$ suffices for the attacker to win every <move $(α, p', q) \gamemoveblank^🗲_\notionname{B} [p', q']$ with $q \step{α} q'$ that the defender might take, with $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$.
+  This means that $e$ suffices for the attacker to win every move $(α, p', q) \gamemoveblank^🗲_\notionname{B} [p', q']$ with $q \step{α} q'$ that the defender might take, with $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$.
   For each $q'$, we employ the induction hypothesis to obtain $ψ_{q'} ∈ \strat_\notionname{B}([p', q'], e)$ of form $ψ_{q'} = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{ψ_{q'}} ∈ \observationsvar[\literal{poly-strong}]{e}$, $p' ∈ \semantics{ψ_{q'}}$ and $q' \notin \semantics{ψ_{q'}}$.
   By @def-strategy-formulas-poly, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'}) ∈ \strat_\notionname{B}((α, p', q), e)$.
   By the $\hml$ semantics, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'})$ must be true for $p'$, and also taking the semantics of observation, $\hmlobs{α}(\hmland{q'}{\derivatives{q, α}} ψ_{q'})$ false for $q$.
@@ -715,39 +716,38 @@ Proof by induction on the inductive characterizations of attacker winning budget
 ::: {#lem-bisim-energy-game-completeness}
 #### Distinction completeness
 
-If there is $φ ∈ \observationsvar[\literal{poly-strong}]{e}$ with $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$,
-then $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
+If there is $φ ∈ \observationsvar[\literal{poly-strong}]{N}$ with $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$,
+then $N ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
 :::
 ::: proof
-By induction on the grammar of $\observationsvar[\literal{poly-strong}]{e}$.
+By induction on the grammar of $\observationsvar[\literal{poly-strong}]{N}$.
 
-Consider the cases of $φ ∈ \observationsvar[\literal{poly-strong}]{e}$ with $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$.
+Consider the cases of $φ ∈ \observationsvar[\literal{poly-strong}]{N}$ with $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$.
 
 - $φ = \hmltrue$.
   This cannot be the case as $q \notin \semantics{φ}$ and $\semantics{\hmltrue} = \states$.
-- $φ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{e - \unitvec{1}}$.
+- $φ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{N - \unitvec{1}}$.
   As $φ$ distinguishes $p$ from $q$, there must be a $p' ∈ \semantics{φ'}$ such that $p \step{α} p'$ and, for all $q' ∈ \derivatives{q, α}$, $q' \notin \semantics{φ'}$.
-  Due to the induction hypothesis, $e - \unitvec{1} ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$ for all such $q' ∈ \derivatives{q, α}$.
-  Therefore, $e - \unitvec{1} ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
-  As the attacker can move $[p, q] \gamemove{-\unitvec{1}} (α, p', q)$, this proves $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$ by @prp-winning-budget-rules.
-- $φ = \hmlands\setΨ$ one of the $ψ ∈ Ψ$ must be false for $q$.
+  Due to the induction hypothesis, $N - \unitvec{1} ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$ for all such $q' ∈ \derivatives{q, α}$.
+  Therefore, $N - \unitvec{1} ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
+  As the attacker can move $[p, q] \gamemove{-\unitvec{1}} (α, p', q)$, this proves $N ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$ by @prp-winning-budget-rules.
+- $φ = \hmlands Ψ$ one of the $ψ ∈ Ψ$ must be false for $q$.
   Consider the possible forms of $ψ$:
-    - Case $ψ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{e - \unitvec{1}}$.
+    - Case $ψ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{N - \unitvec{1}}$.
       Then we can apply the same argument as in the case of $φ = \hmlobs{α}φ'$.
-    - Case $ψ = \hmlneg\hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{(e \sqcap (e_2, \infty, \infty)) - \unitvec{1} - \unitvec{3}}$.
-      Therefore, $\hmlobs{α}φ' ∈ \observationsvar[\literal{poly-strong}]{(e \sqcap (e_2, \infty, \infty)) - \unitvec{3}}$ distinguishes $q$ from $p$.
-      This time, we can employ the same argument as in the case of $φ = \hmlobs{α}φ'$ to obtain that $(e \sqcap (e_2, \infty, \infty)) - \unitvec{3} ∈ \attackerwins^{\game_\notionname{B}^🗲}([q, p])$.
-      The move $[p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p]$ and $\energyupdate((\updmin{1,2},0,-1), e) = (e \sqcap (e_2, \infty, \infty)) - \unitvec{3}$ justify that $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
+    - Case $ψ = \hmlneg\hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{(N \sqcap (N_2, \infty, \infty)) - \unitvec{1} - \unitvec{3}}$.
+      Therefore, $\hmlobs{α}φ' ∈ \observationsvar[\literal{poly-strong}]{(N \sqcap (N_2, \infty, \infty)) - \unitvec{3}}$ distinguishes $q$ from $p$.
+      This time, we can employ the same argument as in the case of $φ = \hmlobs{α}φ'$ to obtain that $(N \sqcap (N_2, \infty, \infty)) - \unitvec{3} ∈ \attackerwins^{\game_\notionname{B}^🗲}([q, p])$.
+      The move $[p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p]$ and $\energyupdate((\updmin{1,2},0,-1), N) = (N \sqcap (N_2, \infty, \infty)) - \unitvec{3}$ justify that $N ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
       \qedhere
 :::
 
 ::: {#thm-bisim-energy-game-characterization}
 #### $\notions^\literal{poly-strong}$-characterization
 
-$p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{poly-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $e$.
+$p \bpreordvar{\observationsvar{N}} q$ for $N ∈ \notions^\literal{poly-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $N$.
 :::
 
-\noindent
 Thus, we have established that the bisimulation energy game ${\game}_\notionname{B}^🗲$ characterizes the equivalences of the polynomial-time strong spectrum $\notions^\literal{poly-strong}$.
 To exploit this property to decide equivalences and solve the spectroscopy problem algorithmically, we need one more ingredient:
 A decision procedure for winning budgets in declining energy games.

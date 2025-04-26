@@ -11,7 +11,7 @@ toc-title: "Chapter 7"
 
 
 ::::{#related-7 .column-margin}
-`\vspace{-2.2em}`{=latex}
+`\vspace{-2em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
 This chapter is based on @bj2024silentStepSpectroscopyExpress,
 its extended draft version @bj2025silentStepSpectroscopyJournal and
@@ -104,7 +104,7 @@ This makes the following schematic depiction in @fig-weak-spectroscopy-game-sche
     (AttConj) edge[bend left=10]
       node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{1,6},0,0,0,0,0,0,0}$}] {} (AttContinue)
     (AttConj) edge[bend right=15]
-      node[below] {$\textcolor{gray}{\updmin{1,7},0,0,0,0,0,0,-1}$} (AttSwap)
+      node[above, label={270:$\textcolor{gray}{\updmin{1,7},0,0,0,0,0,0,-1}$}] {$p \neq q$} (AttSwap)
     (DefBranch) edge
       node[pos=.42, label={[label distance=0.1cm]-0:$\textcolor{gray}{\updmin{1,6},-1,-1,0,0,0,0,0}$}] {$Q_\alpha\! \stepsoft{\alpha} Q'$} (AttBranch)
     (AttBranch) edge
@@ -195,7 +195,30 @@ $$
   & \text{if $\set{p} \stepweak Q$ and $p \neq q$,}
 \end{array}
 $$
-moves to encode branching conjunctions $\hmlands \set{\hmlsoft{\alpha}\varphi, \psi, \psi, ...}$:
+moves to encode stable conjunctions $\hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue, \psi, \psi, ...}$:
+
+$$
+\begin{array}{rrcll}
+  \textit{stable conj.}\vphantom{I^{I^I}}
+  & \attackerpos[\varepsilon]{p,Q}
+  & \gamemove{0,0,0,0,0,0,0,0}
+  & \defenderpos[s]{p,Q'}
+  & \text{if } Q' = \set{ q \in Q \mid q \nostep{\tau}}, p \nostep{\tau},
+  \\
+  \textit{stable conj. answer}
+  & \defenderpos[s]{p,Q}
+  & \gamemove{0,0,0,-1,0,0,0,0}
+  & \attackerpos[\land]{p,q}
+  & \text{if $q \in Q$,}
+  \\
+  \textit{stable finishing}
+  & \defenderpos[s]{p,\varnothing}
+  & \gamemove{0,0,0,-1,0,0,0,-1}
+  & \defenderpos{p,\varnothing},
+\end{array}
+$$
+:::
+and moves to encode branching conjunctions $\hmlands \set{\hmlsoft{\alpha}\varphi, \psi, \psi, ...}$:
 
 $$
 \begin{array}{rrcll}
@@ -220,32 +243,9 @@ $$
   \textit{branch. accounting}
   & \attackerpos[\eta]{p,Q}
   & \gamemove{-1,0,0,0,0,0,0,0}
-  & \attackerpos{p,Q},
+  & \attackerpos{p,Q}.
 \end{array}
 $$
-and moves to encode stable conjunctions $\hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue, \psi, \psi, ...}$:
-
-$$
-\begin{array}{rrcll}
-  \textit{stable conj.}\vphantom{I^{I^I}}
-  & \attackerpos[\varepsilon]{p,Q}
-  & \gamemove{0,0,0,0,0,0,0,0}
-  & \defenderpos[s]{p,Q'}
-  & \text{if } Q' = \set{ q \in Q \mid q \nostep{\tau}}, p \nostep{\tau},
-  \\
-  \textit{stable conj. answer}
-  & \defenderpos[s]{p,Q}
-  & \gamemove{0,0,0,-1,0,0,0,0}
-  & \attackerpos[\land]{p,q}
-  & \text{if $q \in Q$,}
-  \\
-  \textit{stable finishing}
-  & \defenderpos[s]{p,\varnothing}
-  & \gamemove{0,0,0,-1,0,0,0,-1}
-  & \defenderpos{p,\varnothing}.
-\end{array}
-$$
-:::
 
 Intuitively, the attacker is heavily weakened in the weak spectroscopy game due to the requirement to pass delay-moves in order to formulate observation attacks.
 Following @idea-weakening-game, these moves grow the right-hand-sets, which increases defender options.
@@ -284,7 +284,7 @@ $$
 \end{array}
 $$
 A similar sequence of moves works for weak failures.
-For weak simulation, we know that $\literal{P}$ is strongly simulated by $\literal{Q}$, which transfers to the weak game in the sense that we also can not find a weak simulation distinction in this direction. The attacker must pass through a negative-conjunct move to exploit that $\literal{P}$ resolves the choice quicker than $\literal{Q}$.
+For weak simulation, we know that $\literal{P}$ is strongly simulated by $\literal{Q}$, which transfers to the weak game in the sense that we also can not find a weak simulation distinction in this direction. The attacker must pass through a negative-conjunct move to exploit that $\literal{P}$ resolves the choice more quickly than $\literal{Q}$.
 
 <!--
 The weak failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ discussed in @sec-abstraction-failures corresponds to the following game moves, needing budget $(1,0,1,0,0,0,1,1)$ for delay--procrastination--late conj.--conj.answer--negative conjunct:$$\attackerpos{\literal{P}, \set{\literal{Q}}} \gamemove{\;\zerovec\;}
@@ -296,9 +296,9 @@ The weak failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ discu
 -->
 
 For the other direction, @exm-phil-weak-eqs has established that weak simulation, $\literal{Q} \bpreord{WS} \literal{P}$, holds as well.
-But how does this go together with @exm-spectroscopy-classic-ts mentioning that strong simulation is disproved by the $\hmlobs{\tau}\hmlands\set{\hmlobs{\literal{a}}, \hmlobs{\literal{b}}}$?
+But how does this go together with @exm-spectroscopy-classic-ts mentioning that strong simulation is disproved by the $\hml$ formula $\hmlobs{\tau}\hmlands\set{\hmlobs{\literal{a}}, \hmlobs{\literal{b}}}$?
 In the weak game, there are no strong $\tau$-observation moves.
-The closest weak equivalent is to just use delay/procrastination, corresponding to the $\hmlsrbb$-formula $\mathhl{\hmleps}\hmlands\set{\hmleps\hmlobs{\literal{a}}, \hmleps\hmlobs{\literal{b}}}$.
+The closest weak equivalent is to just use delay/procrastination, corresponding to the $\hmlsrbb$ formula $\mathhl{\hmleps}\hmlands\set{\hmleps\hmlobs{\literal{a}}, \hmleps\hmlobs{\literal{b}}}$.
 But this fails to be a distinction in the weak game as the defender can just stay at $\literal P \in \set{\literal{P}, \literal{p_a}, \literal{p_b}}$.
 
 However, other forms of abstracted simulation can be used to force the defender out of $\literal{P}$ without negations:
@@ -488,7 +488,13 @@ By induction over game positions $g$ and energies $e$ according to the inductive
   then there is $\hmlands \left(\set{\hmlsoft{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlsoft{\alpha}\varphi' } \cup \Psi\right)) \leq e$. \qedhere
 :::
 
-Weak strategy formulas are distinguishing.
+Weak strategy formulas distinguish the left state from the set of states on the right, where we lift @def-distinctions to sets as follows:
+
+:::{#def-distinguishes-set}
+#### Distinguishes from set
+
+We say a formula $\varphi$ distinguishes a state $p \in states$ from a set of states $Q \subseteq \states$ iff $p \in \semantics{\varphi}$ and $Q \cap \semantics{\varphi} = \varnothing$.
+:::
 
 ::: {#lem-weak-spectroscopy-game-soundness}
 #### Distinction soundness
@@ -558,13 +564,11 @@ This subsection is devoted to providing some insights into the formalization.^[
 ]
 We take a tour through roughly hundred of the most interesting lines of the 6500 line theory development.
 
-TODO: Maybe overview figure.
-
 The weak spectroscopy game (@def-weak-spectroscopy-game) is modelled through a *parametric datatype* `('s, 'a) spectroscopy_position` for its positions and a *partial function* to determine the moves connecting them `spectroscopy_moves`.^[
   To be precise: “Partial function” here means that it returns `option`-values, which might either be `Some x` with an output or `None` otherwise.
-  All functions in higher order logic are *total*.
+  All functions in higher-order logic are *total*.
 ]
-The parameter types `'s` and `'a` capture the states $\states$ and actions $\actions$ of the transition system on which we operate.
+The parameter types `'s` and `'a` capture the states $\states$ and actions $\actions$ of the transition system on which we operate.{{<isb datatype Spectroscopy_Game spectroscopy_position>}}
 
 ```isabelle
 datatype ('s, 'a) spectroscopy_position =
@@ -590,7 +594,7 @@ where
 ```
 
 The game itself is then built as a combination of the *locale* for transition systems with internal actions `LTS_Tau` (with a transition relation `step`)
-and an `energy_game`, instantiated with the moves, a predicate `spectroscopy_defender` singling out defender positions, and the $\leq$-relation on 8-dimensional energies.
+and an `energy_game`, instantiated with the moves, a predicate `spectroscopy_defender` singling out defender positions, and the $\leq$-relation on 8-dimensional energies.{{<isb locale Spectroscopy_Game weak_spectroscopy_game>}}
 
 ```isabelle
 locale weak_spectroscopy_game =
@@ -603,7 +607,7 @@ locale weak_spectroscopy_game =
 Within the locale, we can establish our correctness results.
 
 The strategy formulas $\stratweak$ appear as three mutually *inductive predicates*,
-because the grammar of $\hmlsrbb$ (@def-hml-srbb) is implemented as three mutually recursive data types (one per non-terminal).
+because the grammar of $\hmlsrbb$ (@def-hml-srbb) is implemented as three mutually recursive data types (one per non-terminal).{{<isb inductive Strategy_Formulas weak_spectroscopy_game.strategy_formula>}}
 
 ```isabelle
 inductive
@@ -625,7 +629,7 @@ where
 ```
 
 We then reproduce the induction of @lem-weak-spectroscopy-game-formulas on attacker winning budgets in the following lemma.
-For this, the theory uses the inductive characterization of $\attackerwins$ in @prp-winning-budget-rules as definition for `attacker_wins`.
+For this, the theory uses the inductive characterization of $\attackerwins$ in @prp-winning-budget-rules as definition for `attacker_wins`.{{<isb lemma Strategy_Formulas weak_spectroscopy_game.winning_budget_implies_strategy_formula>}}
 
 ```isabelle
 lemma winning_budget_implies_strategy_formula:
@@ -654,7 +658,11 @@ proof (induction rule: attacker_wins.induct)
   [...]
 ```
 
-The (mutual) induction on the formula structure to establish the distinctiveness of $\stratweak$-formulas of @lem-weak-spectroscopy-game-soundness begins:
+There are superficial differences due to the different medium.
+For instance, note that the inductive predicate in the Isabelle theory has a seventh case for `Attacker_Branch` / $\attackerpos[\eta]{\dots}$ that does not exist in the “paper version” of @lem-weak-spectroscopy-game-formulas.
+This is more natural for the `case ... of ...` formulation in the formalization, but addresses a technicality that @bj2025silentStepSpectroscopyJournal handle in the proof body.
+
+The (mutual) induction on the formula structure to establish the distinctiveness of $\stratweak$-formulas of @lem-weak-spectroscopy-game-soundness begins:{{<isb lemma Strategy_Formulas weak_spectroscopy_game.strategy_formulas_distinguish>}}
 
 ```isabelle
 lemma strategy_formulas_distinguish:
@@ -690,7 +698,7 @@ proof (induction rule:
   [...]
 ```
 
-For the other direction, the following expresses @lem-weak-spectroscopy-game-completeness that attacks for formulas.
+For the other direction, the following expresses @lem-weak-spectroscopy-game-completeness that attacks for formulas.{{<isb lemma Distinction_Implies_Winning_Budgets weak_spectroscopy_game.distinction_implies_winning_budgets>}}
 
 ```isabelle
 lemma distinction_implies_winning_budgets:
@@ -701,7 +709,7 @@ lemma distinction_implies_winning_budgets:
 
 The main theorem @thm-weak-spectroscopy-game-characterization is built by combining the previous facts and the upward-closedness of attacker winning budgets `win_a_upwards_closure`.
 This is quite straightforward.
-I reproduce it here in full to provide some idea of what Isar proofs look like.
+I reproduce it here in full to provide some idea of what Isar proofs look like.{{<isb theorem Silent_Step_Spectroscopy weak_spectroscopy_game.spectroscopy_game_correctness>}}
 
 ```isabelle
 theorem spectroscopy_game_correctness:
@@ -828,8 +836,6 @@ The spectroscopy reports `⟨ϵ⟩⟨printOutput!⟩⟨ϵ⟩⋀{⟨ϵ⟩⟨print
 This formula disproves weak simulation plus weak readiness and everything above in the weak spectrum.
 The minimality means that all other notions must hold.
 These are the equivalences of contrasimilarity and stable bisimilarity, and below.
-
-TODO: Add Screenshot
 
 This nicely shows that our spectroscopy algorithm allows to survey the whole spectrum of possible equivalences between such small processes in milliseconds.
 Such a mechanized survey would certainly have facilitated the research behind @bell2013certifiably. 
@@ -999,7 +1005,8 @@ The *simplified* weak spectroscopy game $\gamespectroscopywsimple$ in @fig-weak-
         (AttConj) edge[bend left=10]
           node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{1,6},0,0,0,0,0,0,0}$}] {} (AttContinue)
         (AttConj) edge[bend right=15]
-          node[below] {$\textcolor{gray}{\updmin{1,7},0,0,0,0,0,0,-1}$} (AttSwap)
+          node[above, label={270:$\textcolor{gray}{\updmin{1,7},0,0,0,0,0,0,-1}$}] {$p \neq q$} (AttSwap)
+
         (DefBranch) edge
           node[label={[label distance=0.1cm]270:$\textcolor{gray}{-\unitvec{2}-\unitvec{3}}$}] {$q \in Q_\varepsilon$} (AttBranchClause)
         (AttBranchClause) edge
@@ -1157,7 +1164,8 @@ The previous dimensions 7 and 8 now come 8th and 9th.
         (AttConj) edge[bend left=10]
           node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{1,6},0,0,0,0,0,0,0,0}$}] {} (AttContinue)
         (AttConj) edge[bend right=15]
-          node[below] {$\textcolor{gray}{\updmin{1,8},0,0,0,0,0,0,0,-1}$} (AttSwap)
+          node[above, label={270:$\textcolor{gray}{\updmin{1,8},0,0,0,0,0,0,0,-1}$}] {$p \neq q$} (AttSwap)
+
         (DefBranch) edge[draw=etaColor, dashed]
           node[pos=.5] {$\dots$} (AttObs)
         (DefBranch) edge[draw=etaColor]
@@ -1165,7 +1173,7 @@ The previous dimensions 7 and 8 now come 8th and 9th.
         (AttConjStab) edge[bend left=10, draw=stabilityColor]
           node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{1,\textcolor{stabilityColor}{7}},0,0,0,0,0,0,0,0}$}] {} (AttContinueStab)
         (AttConjStab) edge[bend right=15, draw=stabilityColor]
-          node[below] {$\textcolor{gray}{\updmin{1,8},0,0,0,0,0,0,0,-1}$} (AttSwapStab);
+          node[above, label={270:$\textcolor{gray}{\updmin{1,8},0,0,0,0,0,0,0,-1}$}] {$p \neq q$} (AttSwapStab);
   \end{tikzpicture}
 \end{adjustbox}
 ```
@@ -1196,13 +1204,13 @@ $\Delta$ for divergence with $\semantics{\Delta} \defeq \{p \mid p \step{\tau}^\
 $0$&nbsp;for completed observations with $\semantics{0} \defeq \set{p \mid \forall a. \nostep{a} }$
 (and $\lambda \defeq 0 \lor \Delta$).
 
-@bj2024silentStepSpectroscopyExpress have decided against including these in the game.
+@bj2024silentStepSpectroscopyExpress decide against including these modalities in the game.
 At least on finite-state systems, they may be understood to be special action observations, as follows.
 In this view, divergence and completion are something to be modelled (or added through pre-processing) into a system $\system$ before turning to our game of equivalence questions on $\system'$.
 
 For $0$, the transformation from $\system$ to $\system'$ is obvious:
 Add a $p \step{\checkmark} \bot$ to the transition system for each $p \in \states$ where $p \nostep{a}$ for every $a \in \actions \setminus \set{\tau}$ (with $\checkmark$ and $\bot$ fresh).
-Then $\semantics{\hmlobs{\checkmark}\hmltrue}^{\smash{\system'}} = \semantics{0}^{\smash0{\system}}$.
+Then $\semantics{\hmlobs{\checkmark}\hmltrue}^{\smash{\system'}} = \semantics{0}^{\smash{\system}}$.
 
 For finite-state systems, divergence can be addressed by an argument from @gjkw2017branching.
 Add a state $\bot$, an action $\delta \notin \actions$ and transitions $p \step{\delta} \bot$ to the transition system for each $p \in \states$ that lives on a $\tau$-cycle $p \step{\tau}^+ p$.

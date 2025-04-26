@@ -987,7 +987,7 @@ Comparison of supported notions.
     @aha2015caal2games [§ 3.3] also mention how to use their game backend to handle 2-nested simulation and ready-traces.
     But this is neither elaborated upon nor supported in the frontend.
   ]
-- **mCRL2** [@groote2014mcrl2], built around a ACP/CCS-like modelling language of the same name, supports a wide-range of notions with highly efficient implementations and a strong focus on branching bisimilarity.
+- **mCRL2** [@groote2014mcrl2], built around an ACP/CCS-like modelling language of the same name, supports a wide-range of notions with highly efficient implementations and a strong focus on branching bisimilarity.
   On the notions it supports, it will generally be much faster than the spectroscopy-game algorithm.
   The only notion that is exclusively supported by mCRL2 is coupled similarity, implemented by @le2020coupledSimMcrl2.
 - **CADP** [@garavel2013cadp] can check several notions on-the-fly, also in a highly optimized fashion.

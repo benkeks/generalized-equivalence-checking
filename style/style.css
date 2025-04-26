@@ -44,6 +44,12 @@
   transform: rotate(-6deg) scale(1.1);
 }
 
+.sidebar-menu-container .sidebar-item {
+  margin-bottom: .3em;
+  line-height: 1.1rem;
+  margin-top: .5rem;
+}
+
 #TOC {
   transition: all 0.15s ease-out;
 }

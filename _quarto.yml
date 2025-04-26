@@ -153,7 +153,7 @@ format:
     #cite-method: natbib
     biblio-config: true
     link-citations: true
-    latex-max-runs: 4
+    latex-max-runs: 5
 
 # jupyter:
 #  kernelspec:

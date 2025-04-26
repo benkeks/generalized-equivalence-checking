@@ -672,6 +672,8 @@ $$
 Effectively, this definition generalizes the construction of distinguishing formulas on ${\game}_\notionname{B}$ we have introduced in @lem-attacks-imply-formulas.
 So the formulas we encountered before also serve as examples of such strategy formulas.
 
+The general design principle for the construction of strategy formulas as in @def-strategy-formulas-poly is that each rule either corresponds to a kind of attacker move (observation/simulation, negation/swap) or a kind of defender position (conjunction).
+
 ::: {#lem-bisim-energy-game-soundness}
 #### Distinction soundness
 

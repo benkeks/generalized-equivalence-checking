@@ -102,7 +102,8 @@ For some, it might be worthwhile to ask spectroscopy questions or to adapt our a
   Timed equivalences would face conceptional boundaries to decision procedures on finite models:
   While bisimilarity is decidable, trace preordering is not [@cerans1993decidabilityTimedBisim].
 - *Barbed and other congruences* on $\pi$-calculi rely on some system of *contexts* in which to place processes.
-  @Fournet2005 present a hierarchy for asynchronous name-passing calculi, on which one could base a spectroscopy. 
+  @Fournet2005 present a hierarchy for asynchronous name-passing calculi, on which one could base a spectroscopy.
+  @valmari2020allWeakCongruencesBelowFairTesting even identifies a spectrum of *all* linear-time congruences for a sensible set of operators.
 
   Conceptionally, it is clear that the selection of a distinguishing context could also happen as an attacker move.
   In practice, it might be hard to do this elegantly in a way where games remain finite for finite systems.

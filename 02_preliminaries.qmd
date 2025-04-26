@@ -807,7 +807,7 @@ Therefore, more can be seen as equivalent than in bisimilarity.
 In the concurrency theory community, two prototypical *process algebras* stand for this spread:
 CCS for bisimilarity and branching time,
 and CSP for trace equivalence and linear-time.
-CSP (“Communicating Sequential Processes”) is due to Tony Hoare, another Turing award winner.
+CSP (“Communicating Sequential Processes”) is due to Hoare, another Turing award winner.
 
 @hoare1985csp [§ 7.4.1] summarizes the opposing design philosophies between CCS and CSP as follows:
 
@@ -816,9 +816,11 @@ CSP (“Communicating Sequential Processes”) is due to Tony Hoare, another Tur
 > In the mathematical model of [CSP] we have pursued exactly the opposite goal—we have made as many identifications as possible, preserving only the most essential distinctions.
 > We have therefore a far richer set of algebraic laws.
 
-The first comprehensive study on the correspondence between the hierarchy of equivalences and algebraic laws has been dubbed “linear-time–branching-time spectrum” by @glabbeek1990ltbt1.
+The first comprehensive study on the correspondence between the hierarchy of equivalences and algebraic laws has been dubbed “linear-time–branching-time spectrum” by @glabbeek1990ltbt1.^[
+  Further historical remarks on the spectrum are assmbled by @erph2013unfyingLTBTS, incidentally also quoting from @hoare1985csp.
+]
 
-Historically, therefore, this thesis originates from the variants of models between the works of two Turing award winners: Milner's CCS and Hoare's CSP.
+Historically, therefore, this thesis originates from the tension between the works of two Turing award winners: Milner's CCS and Hoare's CSP.
 Or, as @hoare2006whyEverCSP puts it:
 “It seems that CCS and CSP occupy extreme ends of almost every spectrum.”
 <!--

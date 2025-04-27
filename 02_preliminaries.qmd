@@ -13,7 +13,7 @@ toc-title: "Chapter 2"
 `\vspace{-2em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
 This chapter is based on my introductory lectures and Isabelle-theory on behavioral equivalences, given in the Master course “Research at Work” at TU Berlin in Winter 2023/24.
-We pursue to be mostly compatible with the textbook *Reactive Systems* @ails2007reactiveSystems.
+We pursue to be mostly compatible with the textbook *Reactive Systems* [@ails2007reactiveSystems].
 ::::
 
 The core background of this thesis is the *trinity of characterizations for behavioral equivalences*: relational, modal, and game-theoretic.
@@ -36,17 +36,17 @@ Simultaneously, the approach is *opinionated*, focusing on Milner's tradition of
   algstep/.style={minimum width=4.5cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
   \node[algstep, draw=TealBlue] (Bisim) {$p \beq{B} q$\\ $p$ and $q$ are bisimilar};
   \node[algstep, draw=TealBlue, right of=Bisim, node distance=7.5cm] (NotBisim) {$p \nbeq{B} q$ \\ $p$ and $q$ are not bisimilar};
-  \node[below of=Bisim, text=TealBlue, rotate=270, label={[align=center]270:(Def.~\ref{def-bisimilarity})}] (Biff) {$:\!\!\iff$};
+  \node[below of=Bisim, text=TealBlue, rotate=270, label={[align=center]270:Def.~\ref{def-bisimilarity}}] (Biff) {$:\!\!\iff$};
   \node[below of=NotBisim, gray, rotate=270] (NBiff) {$\iff$};
   \node[algstep, draw=TealBlue, below of=Biff] (Rel) {There is bisimulation $\rel{R}$\\such that $(p,q) \in \rel{R}$};
   \node[algstep, draw=Fuchsia, below of=NBiff] (Distinction) {Some $\varphi \in \hml$\\distinguishes $p$ from $q$};
-  \node[below of=Rel, text=Peach, rotate=270, label={[align=right]270:Stirling's\\characterization}] (Siff) {$\iff$};
-  \node[below of=Distinction, text=Peach, rotate=270, label=90:{Section \ref{sec-bisim-game-hml}}] (Giff) {$\iff$};
+  \node[below of=Rel, text=Peach, rotate=270, label={[align=right]270:Stirling's\\characterization}, label={[align=left]90:Thm.~\ref{thm-bisim-game-characterization}}] (Siff) {$\iff$};
+  \node[below of=Distinction, text=Peach, rotate=270, label=90:{Thm.~\ref{thm-game-formulas}}] (Giff) {$\iff$};
   \node[algstep, draw=Peach, below of=Siff] (DefenderWins) {Defender wins bisimulation\\game from $[p,q]$};
   \node[algstep, draw=Peach, below of=Giff] (AttackerWins) {Attacker wins bisimulation\\game from $[p,q]$};
   \path
-    (Bisim) edge[draw=TealBlue] node[label=below:{(Def.~\ref{def-bisimilarity})}] {XOR} (NotBisim)
-    (Rel) edge[draw=Fuchsia] node[label={[align=center]below:Hennessy--Milner\\theorem}] {XOR} (Distinction)
+    (Bisim) edge[draw=TealBlue] node[label=below:{Def.~\ref{def-bisimilarity}}] {XOR} (NotBisim)
+    (Rel) edge[draw=Fuchsia] node[label={[align=center]below:Hennessy--Milner\\Thm.~\ref{thm-hennessy-milner}}] {XOR} (Distinction)
     (DefenderWins) edge[draw=Peach] node[label={[align=center]below:Determinacy\\of games}] {XOR} (AttackerWins);
   \node[text=TealBlue, right=2mm of NotBisim] (Sec22) {Section \ref{sec-behavioral-eq}};
   \node[text=Fuchsia, right=2mm of Distinction] (Sec23) {Section \ref{sec-hml}};
@@ -63,7 +63,7 @@ The two core insights this chapter aims to seed for the upcoming chapters are:
 
 ::: {#idea-games .callout-idea .callout-tip}
 #### It's all a game!
-Equivalence games are a most versatile way to handle behavioral equivalences and obtain decision procedures.
+Equivalence games are a versatile way to handle behavioral equivalences and obtain decision procedures.
 The Hennessy--Milner theorem appears as a shadow of the determinacy of the bisimulation reachability game.
 :::
 
@@ -75,7 +75,7 @@ Productions in grammars of potential distinguishing formulas translate to game r
 :::
 
 Both points might seem non-standard to those more accustomed to relational or denotational definitions of behavioral equivalences.
-To provide them with a bridge, we will start with relational and denotational definitions---but once we have crossed this bridge, we will not go back.
+To provide them with a bridge, we will start with relational and denotational definitions---but once we have crossed this bridge, we will stay in the realm of games and logics.
 
 ::::{.content-visible when-format="html" .column-margin}
 {{< contents related-2 >}}
@@ -84,8 +84,10 @@ To provide them with a bridge, we will start with relational and denotational de
 ## Behavior of Programs {#sec-programs}
 
 Every computer scientist has some model in their head of what it is that their algorithms and programs are doing.
-Usually these models are wrong,^[But some are useful, as the saying goes.] especially, once concurrency enters the picture.
-The area of *formal methods* tries to make models sufficiently precise that one at least can say what went wrong.
+Usually these models are wrong,^[
+  But some are useful, as the saying goes.
+] especially, once concurrency enters the picture.
+The area of *formal methods* tries to make models sufficiently precise that one, at least, can say what went wrong.
 
 ### Labeled Transition Systems
 
@@ -101,7 +103,7 @@ A *transition system* $\system=(\states,\actions,\step{})$ consists of
 - $\actions$, a set of *actions,* and
 - ${\step{}} ⊆ \states × \actions × \states$, a *transition relation*.{{<isb locale Labeled_Transition_Systems lts>}}
 
-We write $\derivatives{p, α}$ for the set of derivative states $\set{p' \mid p \step α p'}$,
+We write $\derivatives{p, α}$ for the set of *derivative states* $\set{p' \mid p \step α p'}$,
 and $\initials{p}$ for the set of enabled actions $\set{α \mid \exists p' \ldotp p \step α p'}$.
 :::
 
@@ -112,8 +114,8 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
 
 ![](img/henzinger.jpg){.lightbox}
 
-Tom Henzinger employing @exm-ts during CAV'23 to stress that “everything is a game.”
-(Incidentally, this chapter follows a similar mission.)  
+Tom Henzinger employing @exm-ts during CAV'23 to stress that “games are everywhere.”
+(Incidentally, this chapter follows a similar mission.)
 :::
 
 ::: {#exm-ts}
@@ -154,13 +156,14 @@ Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \litera
 Example system $\system_\literal{PQ}$.
 ::::
 
+\noindent
 The program described by the transitions from $\literal{P}$ chooses non-de{{<shy>}}terministically during a $τ$-step between two options and then offers only *either* $\literal a$ *or* $\literal b$.
-The program of $\literal{Q}$ on the other hand performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$ to the environment.
+The program of $\literal{Q}$, on the other hand, performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$ to the environment.
 :::
 
 There are two things one might wonder about @exm-ts:
 
-1. Should one care about non-determinism in programs? @sec-ccs shows how non-determinism arises naturally in concurrent programs.
+1. Should one care about nondeterminism in programs? @sec-ccs shows how nondeterminism arises naturally in concurrent programs.
 2. Should one consider $\literal P$ and $\literal Q$ equivalent? This heavily depends. Section [-@sec-behavioral-eq] will introduce a notion of equivalence under which the two are equivalent and one under which they differ.
 
 ::: {#rem-tau}
@@ -190,9 +193,9 @@ It is a tiny concurrent programming language that fits in your pocket, and can b
 #### Syntax of $\ccs$
 
 Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names.
-Then, $\ccs$ is the set of processes, communicating via actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{c} \mid c ∈ \ccschannels } \cup \set{τ}$, are given by the following grammar:^[
+Then, $\ccs$ is the set of processes, communicating via actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{c} \mid c ∈ \ccschannels } \cup \set{τ}$, as given by the following grammar:^[
   To those familiar with CCS dialects:
-  For the examples of this thesis, a simple CCS variant without value passing and relabeling suffices.
+  For the examples of the thesis, a simple CCS variant without value passing and relabeling suffices.
 ]
 $$
 \begin{array}{cllr}
@@ -247,7 +250,7 @@ Philosopher $\literal{P_A}$, on their own.
 
 Following tradition, we will express our examples in terms of philosophers who need forks to eat spaghetti.^[
   Of course, you can just as well read the examples to be about computer programs that race for resources.]
-So, consider two philosophers $\literal{P_A}$ and $\literal{P_B}$ who want to grab a resource $\literal{fork}$, in order to eat, which we model as receiving communication.
+Consider two philosophers $\literal{P_A}$ and $\literal{P_B}$ who want to grab a resource $\literal{fork}$, in order to eat, which we model as receiving communication.
 We express $\literal{P_A}$ eating with $\literal{a}$ and $\literal{P_B}$ eating with $\literal{b}$.
 The philosopher processes read:
 $$
@@ -256,18 +259,18 @@ $$
   \literal{P_B} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal b} \ccsnull
 \end{gathered}
 $$
-A transition system representation of $\literal{P_A}$'s behavior can be seen in the @fig-isolated-philosopher.
+A transition system representation of $\literal{P_A}$'s behavior can be seen in @fig-isolated-philosopher.
 Process $\literal P$ captures the whole scenario where the two philosophers compete for the fork using communication:
 $$
   \literal P ≔ ( \ccsprefix{\coaction{\literal{fork}}} \ccsnull \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
 $$
-The restriction $… \ccsrestrict \set{\literal{fork}}$ expresses that the $\literal{fork}$-channel can only be used for communication within the system.
+The restriction $… \ccsrestrict \set{\literal{fork}}$ expresses that the $\literal{fork}$-channel can only be used for communication *within* the system.
 
 As the $\coaction{\literal{fork}}$-message can be consumed by just one of the two philosophers, process $\literal P$ expresses exactly the program behavior seen in state $\literal P$ of @exm-ts.
 A process matching $\literal Q$ will follow in @exm-deterministic-phil.
 :::
 
-The formal relationship between process terms $\ccs$ and their transition system is given by the following semantics.
+The formal relationship between process terms of $\ccs$ and their transition system is established by the following semantics.
 
 ::: {#def-ccs-semantics}
 #### CCS semantics
@@ -337,7 +340,7 @@ $$
 ::::
 
 \noindent
-A process $P ∈ \ccs$ now denotes a node within the transition system $(\ccs, \ccsactions, \step{}_\ccs)$.
+A process $P ∈ \ccs$ now denotes a node within the labeled transition system $(\ccs, \ccsactions, \step{}_\ccs)$.
 :::
 
 So, when we were writing “$\literal{P_A} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$” above, this was actually to claim that we are talking about a CCS system where the value of $\ccsasg$ for the *process name* $\literal{P_A} \in \ccsnames$ is defined by $\ccsasg(\literal{P_A}) ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$.
@@ -371,10 +374,12 @@ $$
             \stepnosmash{\literal{fork}}_\ccs
             \literal a
           }
-          \;
-          \begin{matrix} \hphantom{\ccsasg} \\
-            \ccsasg(\literal{P_A}) = \ccsprefix{\literal{fork}} \literal a
-          \end{matrix}
+          \qquad
+          \begin{array}{c}
+            \vphantom{\ccsasg\stepnosmash{\literal{fork}}_\ccs} \\
+            \vphantom{\stepnosmash{\literal{fork}}_\ccs}
+            \ccsasg(\literal{P_A}) = \ccsprefix{\literal{fork}} \literal{a}
+          \end{array}
         }{
           \literal{P_A} \stepnosmash{\literal{fork}}_\ccs \literal a
         }
@@ -409,39 +414,39 @@ $$
 Deriving $\ccs$ transitions due to communication.
 :::
 
-Non-determinism like in $\literal P$ of @exm-ts can be understood as a natural phenomenon in models with concurrency.
+Nondeterminism as in $\literal P$ of @exm-ts can be understood as a natural phenomenon in models with concurrency.
 The model leaves unspecified which of two processes will consume an internal resource and, to the outsider, it is transparent which one took the resource until they communicate.
-There are other ways how non-determinism plays a crucial role in models, for instance, as consequence of abstraction or parts that are left open in specifications.
+There are other ways how nondeterminism plays a crucial role in models, for instance, as consequence of abstraction or of parts that are left open in specifications.
 
-The second process $\literal Q$ of @exm-ts can be understood as a deterministic sibling of $\literal P$.
+The second process $\literal Q$ of @exm-ts can be understood as a *deterministic* sibling of $\literal P$.
 
 ::: {#exm-deterministic-phil}
 #### Deterministic philosophers
 
 A process matching the transitions from $\literal Q$ in @exm-ts would be the following, where the philosophers take the fork as a team and then let the environment choose who of them eats:
-
 $$
 \literal Q ≔ (\coaction{\literal{fork}} \ccspar \ccsprefix{\literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
 $$
 :::
 
-But are $\literal{P}$ and $\literal{Q}$ equivalent?
+But are $\literal{P}$ and $\literal{Q}$ *equivalent*?
 
 ## Behavioral Equivalences {#sec-behavioral-eq}
 
 A behavioral equivalence formally defines when to consider two processes (or states, or programs) as *equivalent*.
-Clearly, there might be different ways of choosing such a notion of equivalence.
+Evidently, there are different ways of choosing such a notion of equivalence.
 Also, sometimes we are interested in a behavioral *preorder*, for instance, as a way of saying that a program does “less than” what some specification allows.
 Such a relationship is often also called *refinement* or *inclusion*, but we will go with *preorder*.
 
-This section will quickly introduce the most common representatives of behavioral equivalences:
+This section quickly introduces the most common representatives of behavioral equivalences:
 Trace equivalence (and preorder), simulation equivalence (and preorder), and bisimilarity.
 We will then observe that the notions themselves can be compared in a hierarchy of equivalences.
 
 ### Trace Equivalence
 
 Every computer science curriculum features automata and their languages sometime at the beginning.
-Accordingly, comparing two programs in terms of the sequences of input/output events they might expose, referred to as their *traces*, is a natural starting point to talk about behavioral equivalences.
+Accordingly, comparing two programs in terms of the sequences of input/output events they might expose is a natural starting point to talk about behavioral equivalences.
+Such sequences are referred to as *traces*.
 
 ::: {#def-traces}
 #### Traces
@@ -449,7 +454,7 @@ Accordingly, comparing two programs in terms of the sequences of input/output ev
 The set of traces of a state $\traces{p} \subseteq \actions^*$ is inductively defined as
 
 - $\emptyword ∈ \traces{p}$,^[We denote the empty word by $\emptyword$.]
-- $α \cdot \vec w ∈ \traces{p}$ if there is $p'$ with $p \step α p'$ and $\vec w ∈ \traces{p'}$.{{<isb abbreviation Labeled_Transition_Systems lts.traces>}}
+- $α {\vec w} ∈ \traces{p}$ if there is $p'$ with $p \step α p'$ and $\vec w ∈ \traces{p'}$.{{<isb abbreviation Labeled_Transition_Systems lts.traces>}}
 :::
 
 ::: {#def-trace-eq}
@@ -469,7 +474,7 @@ We could say that trace $\literal{b}$ constitutes a *difference* between $\liter
 :::
 
 ::: {#prp-trace-eq-rel}
-The trace preorder $\bpreord{T}$ is indeed a preorder (i.e., transitive and reflexive){{<isb lemma Strong_Equivalences lts.trace_preorder_transitive>}} and trace equivalence $\beq{T}$ is indeed an equivalence relation (i.e., transitive, reflexive, and moreover symmetric).{{<isb lemma Strong_Equivalences lts.trace_equivalence_equiv>}}
+Trace preorder $\bpreord{T}$ is indeed a preorder (i.e., transitive and reflexive){{<isb lemma Strong_Equivalences lts.trace_preorder_transitive>}} and trace equivalence $\beq{T}$ is indeed an equivalence relation (i.e., transitive, reflexive, and moreover symmetric).{{<isb lemma Strong_Equivalences lts.trace_equivalence_equiv>}}
 :::
 <!-- proof
 The properties carry over directly from $⊆$ and $=$ on sets of $\traces{\cdot}$. -->
@@ -490,17 +495,18 @@ The two might interact differently with an environment.
 Consider a context in which $\literal{A}$ actually does not want to eat and the event of $\literal{B}$ eating is followed by $\literal{B}$ giving a live lecture:
 $$(\dots \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}$$
 If we insert $\literal{Q}$ into this context, the choice after the collective $\literal{fork}$-acquisition is resolved to the $\literal{B}$-path.
-So the overall system choses for $\literal{B}$ to eat, and the lecture happens:
+So the overall system chooses for $\literal{B}$ to eat, and the lecture happens:
 $$(\literal{Q} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}} \step{\tau} \cdot \step{\tau} \cdot \step{\coaction{\literal{lecture}}}$$
 
 With $\literal{P}$, an analogous path is possible.
 But there moreover is a possibility of $\literal{A}$ obtaining the fork, which prevents $\literal{B}$ from eating.
 There, the system can end up deadlocked with no lecture:
-$$(\literal{P} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}
+$$
+(\literal{P} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}
 \step{\tau} 
 ((\ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}
-\nostep{}$$
-
+\nostep{}
+$$
 So, if $\literal{B}$'s teaching actually happening matters to us, we might say that scenario $\literal{P}$ and $\literal{Q}$ are not quite equivalent.^[
   Traditionally, this feature of trace equivalence is often framed in terms of vending machines.
   On <https://book.pseuco.com/#/interactive/trace-equivalent-vending-machines>, you can play through a comparable scenario of ordering drinks where *you are the environment*.
@@ -515,7 +521,7 @@ The most prominent ones are the topic of the next subsection.
 ### Similarity and Bisimilarity
 
 The other big approach to behavioral equivalence of programs is the one of relating parts of their state spaces to one-another.
-The idea here is to identify which states of one program can be used to *simulate* the behavior of the another.
+The idea here is to identify which states of one program can be used to *simulate* the behavior of the other.
 
 ::: {#def-simulation}
 #### Simulation
@@ -537,12 +543,12 @@ We also call a symmetric simulation *bisimulation* for short.^[
   Other authors use a weaker definition, namely, that $\rel R$ is a bisimulation if $\rel{R}$ and $\inverse{\rel{R}}$ are simulations.
   Both definitions lead to the characterization of the same notion of bisimilarity.
 ]
-Canceled symbols of relations refer to their negations, for instance, $p \nbeq{S} q$ iff there is *no* simulation $\rel R$ with $(p, q) ∈ \rel R$.
+Canceled symbols of relations refer to their negations, for instance, $p \nbpreord{S} q$ iff there is *no* simulation $\rel R$ with $(p, q) ∈ \rel R$.
 
 ::: {#exm-phil-sim}
 #### Philosophical simulations
 
-The following relations are simulations on the of @exm-ts:
+The following relations are simulations on the system of @exm-ts:
 
 - the empty relation $\rel R_\varnothing ≔ \varnothing$;
 - the identity relation $\rel R_\mathrm{id} ≔ \identity{\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}} = \set{(\literal P, \literal P),\allowbreak (\literal{p_a}, \literal{p_a}),\allowbreak (\literal{p_b}, \literal{p_b}), (\literal{p_1}, \literal{p_1}),\allowbreak (\literal{p_2}, \literal{p_2}), (\literal Q, \literal Q), (\literal{q_{ab}}, \literal{q_{ab}}), \allowbreak(\literal{q_1}, \literal{q_1}), (\literal{q_2}, \literal{q_2})}$;
@@ -628,9 +634,9 @@ The hierarchy also is strict between similarity and bisimilarity as the followin
 ::: {#exm-bisim-sim}
 #### Trolled philosophers
 
-Let us extend $\literal{Q}$ of @exm-deterministic-phil to include a troll process that might consume the $\literal{fork}$ and then do nothing:
+Let us extend $\literal{Q}$ of @exm-deterministic-phil to include a troll process (highlighted in blue) that might consume the $\literal{fork}$ and then do nothing:
 $$
-\literal {T} ≔ (\coaction{\literal{fork}} \ccspar \ccsprefix{\literal{fork} \ccspar \literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
+\literal {T} ≔ (\coaction{\literal{fork}} \ccspar \mathhl{\literal{fork}} \ccspar \ccsprefix{\literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
 $$
 This adds another deadlock state to the transition system, seen in @fig-bisim-sim-ts.
 
@@ -670,7 +676,7 @@ There cannot be a symmetric simulation handling this transition as $\literal{Q}$
 Thus $\literal Q \nbeq{B} \literal{T}$.
 :::
 
-The equivalences we have been discussed so far could also be understood as abstractions of an even finer equivalence, namely graph isomorphism:
+The equivalences we have discussed so far could also be understood as abstractions of an even finer equivalence, namely graph isomorphism:
 
 ::: {#def-graph-isomorphism}
 #### Graph isomorphism
@@ -707,6 +713,8 @@ The relation $\beq{ISO}$ is itself a symmetric simulation and thus $p \beq{ISO} 
 Once again, the hierarchy is strict because of bisimilarity being less restricted in the matching of equivalent states.
 
 ::: {#exm-iso-vs-bisim}
+#### Graph isomorphism counts too much
+
 Consider the processes $\literal{P_1} ≔ (\coaction{\literal{fork}} \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$ and $\literal{P_2} ≔ (\coaction{\literal{fork}} \ccspar \literal{fork} \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$.
 $\literal{P_1}$ can transition to $(\ccsnull \ccspar \ccsnull) \ccsrestrict \set{\literal{fork}}$, while $\literal{P_2}$ has two options, namely $(\ccsnull \ccspar \ccsnull \ccspar \literal{fork}) \ccsrestrict \set{\literal{fork}}$ and $(\ccsnull \ccspar \literal{fork} \ccspar \ccsnull) \ccsrestrict \set{\literal{fork}}$.
 All three reachable processes are deadlocks and thus isomorphic.
@@ -726,8 +734,8 @@ The concept is closely linked to another core notion of mathematics: monotonicit
 ::: {#def-monotonic}
 #### Monotonicity and congruence
 
-An $n$-ary function $f \colon B_1 \times \dots \times B_n \to C$ is called *monotonic* with respect to a family of partial orders $(B_k, \leq_k)$ and $(C, \leq)$ iff, for all $b \in B_1 \times \dots \times B_n$ and $b' \in B_1 \times \dots \times B_n$, it is the case that $b_k \leq b'_k$ for all $k \leq n$ implies that $f(b) \leq f(b')$.
-We will usually encounter settings where all components use the same order $(B_1, \leq_1) = \cdots = (B_n, \leq_n) = (C, \leq)$.
+An $n$-ary function $f \colon B_1 \times \dots \times B_n \to C$ is called *monotonic* with respect to a family of preorders $(B_k, \leq_k)$ and $(C, \leq)$ iff, for all $b \in B_1 \times \dots \times B_n$ and $b' \in B_1 \times \dots \times B_n$, it is the case that $b_k \leq b'_k$ for all $k \leq n$ implies that $f(b) \leq f(b')$.
+We will usually encounter settings where all components use the same order ${(B_1, \leq_1)} = \cdots = {(B_n, \leq_n)} = {(C, \leq)}$.
 
 The relation $\leq$ is then referred to as a *precongruence* for $f$.
 If $\leq$ moreover is symmetric (and thus an equivalence relation), then $\leq$ is called a *congruence* for $f$.
@@ -736,7 +744,7 @@ If $\leq$ moreover is symmetric (and thus an equivalence relation), then $\leq$ 
 ::: {#exm-congruence-oddity}
 #### Parity as congruence
 As a standard example for a congruence, consider the equivalence relation of equally odd numbers:
-$${\sim_\literal{odd}} := \set{(m,n) \in \nats \times \nats \mid m \bmod 2 = n \bmod 2}.$$
+$${\sim_\literal{odd}} ≔ \set{(m,n) \in \nats \times \nats \mid m \bmod 2 = n \bmod 2}.$$
 For instance, $1 \sim_\literal{odd} 3$ and $0 \sim_\literal{odd} 42$, but not $42 \sim_\literal{odd} 23$.
 
 $\sim_\literal{odd}$ is a congruence for addition and multiplication.
@@ -794,10 +802,15 @@ $$
 $$
 -->
 
+By now, we have ecountered some behavioral equivalences.
+Both, bisimilarity and trace equivalence make for fine congruences that allow calculations on process-algebraic expressions of $\ccs$.
+Which one to choose?
+That there is no definitive answer is a root cause of this thesis.
+
 ::: {#rem-csp-ccs}
 #### Origins of linear time and branching time
 
-This thesis builds on the classic idea that behavioral equivalences form a *spectrum* between linear-time notions and branching-time notions.
+This thesis is a consequence of the classic idea that behavioral equivalences form a *spectrum* between linear-time notions and branching-time notions.
 This hierarchy corresponds to “how much” calculation is allowed on algebraic expressions of processes.
 
 Bisimilarity is the prototypical *branching-time* equivalence: every decision during execution counts.
@@ -834,7 +847,7 @@ Or, as @hoare2006whyEverCSP puts it:
 One of the prime applications of behavioral equivalences is to battle the *state space explosion problem*:
 The transition systems of parallel processes quickly grow in size, usually exponentially with regard to the number of communication participants.
 But many of the states tend to be equivalent in behavior, and can be treated *as one* with their equals.
-This *minimization* enables the handling of vastly bigger input models.
+Such *minimization* enables the handling of vastly bigger input models.
 
 ::: {#exm-bisim-minimization}
 #### Trolled philosophers, minimized
@@ -868,7 +881,7 @@ Minimized version of @fig-bisim-sim-ts.
 Given an equivalence relation $\sim$ on states, and a transition system $\system=(\states,\actions,\step{})$,
 each *equivalence class* for $p \in \states$ is defined $\eqclass{p}_{\sim} \defeq \set{p' \in \states \mid p \sim p'}$.
 
-The *quotient system* is defined as $\quotient{\system}{\sim} \defeq (\quotient{\states}{\sim}, \actions, \step{}_{\sim})$, where $\quotient{\states}{\sim}$ is the set of equivalence classes $\set{ \eqclass{p} \mid p \in \states}$, and
+The *quotient system* is defined as $\quotient{\system}{\sim} \defeq (\quotient{\states}{\sim}, \actions, \step{}_{\sim})$, where $\quotient{\states}{\sim}$ is the set of equivalence classes $\set{ \eqclass{p}_{\sim} \mid p \in \states}$, and
 $$P \step{\alpha}_\sim P' \text{ iff there are $p \in P$ and $p' \in P'$ such that $p \step{\alpha} p'$.}$$
 :::
 
@@ -889,7 +902,7 @@ Modal logics are logics in which one can formalize how facts in one possible wor
 In the computer science interpretation, the possible worlds are *program states*, and typical statements have the form:
 “If $X$ happens during the execution, then $Y$ will happen in the next step.”
 
-We care about modal logics as they too can be used to characterize behavioral equivalences.
+We care about modal logics as they, too, can be used to characterize behavioral equivalences.
 In this section, we will show how this characterization works and argue that, for our purposes of comparative semantics, modal characterizations are a superb medium.
 
 ### Hennessy–Milner Logic to Express Observations
@@ -915,10 +928,10 @@ $$
 
 We also write conjunctions as sets $\hmlands \set{φ_1, φ_2…}$.
 The empty conjunction $\hmlands \varnothing$ is denoted by $\hmltrue$ and serves as the nil-element of HML syntax trees.
-We also usually omit them when writing down formulas, e.g., shortening $\hmlobs{\literal a}\hmlobs{\literal b}\hmltrue$ to $\hmlobs{\literal a}\hmlobs{\literal b}$.
+We also usually omit them when writing down formulas, e.g., shortening $\hmlobs{\literal a}\hmlobs{\literal b}\hmltrue$ to $\hmlobs{\literal a}\hmlobs{\literal b}$, which says that one may observe $\literal{a}$ and then $\literal{b}$.
 
 We will assume a form of associativity through the *convention that conjunctions are flat* in the sense that they do not immediately contain other conjunctions.
-In this sense, we consider $\hmlands \set{ φ_1, \hmlands \set{φ_2} }$ and $\hmlands \set{ φ_1, \hmlands \set{φ_2}, \hmltrue}$ just as different representatives of the flattened formula $\hmlands \set{φ_1, φ_2}$.
+Accordingly, we consider $\hmlands \set{ \hmlobs{\literal a}, \hmlands \set{\hmlobs{\literal{b}}} }$ and $\hmlands \set{ \hmlobs{\literal a}, \hmlands \set{\hmlobs{\literal{b}}}, \hmltrue}$ just as different representatives of the flattened formula $\hmlands \set{\hmlobs{\literal a}, \hmlobs{\literal{b}}}$, stating that one may observe $\literal{a}$ *and* one may observe $\literal{b}$.
 
 We do not restrict the size of index sets in conjunctions.
 In particular, infinitary conjunctions are allowed, as we will discuss in @rem-image-finiteness.
@@ -931,7 +944,7 @@ and negations $\hmlneg …$ describe impossibilities.
 ::: {#def-hml-semantics}
 #### HML semantics
 
-The semantics of HML $\semantics{\cdot} \colon \hml → \powerset{\states}$ is defined recursively by:{{<isb primrec Hennessy_Milner_Logic lts.satisfies>}}
+Given a transition system $(\states,\actions,\step{})$, the semantics of HML $\semantics{\cdot} \colon \hml → \powerset{\states}$ is defined recursively by:{{<isb primrec Hennessy_Milner_Logic lts.satisfies>}}
 
 $$
 \begin{array}{rcl}
@@ -960,15 +973,14 @@ That two states are bisimilar precisely if they cannot be told apart using HML f
 
 We say that formula $φ ∈ \hml$ *distinguishes* state $p$ *from* state $q$ if $p ∈ \semantics{φ}$ but $q \notin \semantics{φ}$.{{<isb abbreviation LTS_Semantics lts.distinguishes>}}
 
-We say a sublogic $\observationsvar{} ⊆ \hml$ *preorders* state $p$ to $q$, $p \bpreordvar{\observationsvar{}} q$, if no $φ ∈ \observationsvar{}$ is distinguishing $p$ from $q$.{{<isb definition LTS_Semantics lts.preordered>}}
-If the preordering goes in both directions, we say that $p$ and $q$ are equivalent with respect to sublogic $\observationsvar{}$, written $p \beqvar{\observationsvar{}} q$.{{<isb definition LTS_Semantics lts.equivalent>}}
+We say a sublogic $\observationsvar{} ⊆ \hml$ *preorders* state $p$ to $q$, $p \bpreordvar{\observationsvar{}} q$, if no $φ ∈ \observationsvar{}$ distinguishes $p$ from $q$.{{<isb definition LTS_Semantics lts.preordered>}}
+If the preordering goes in both directions, we say that $p$ and $q$ are *equivalent* with respect to sublogic $\observationsvar{}$, written $p \beqvar{\observationsvar{}} q$.{{<isb definition LTS_Semantics lts.equivalent>}}
 :::
 
 By this account, $\hmlobs{τ}\hmlneg\hmlobs{\literal a}$ of @exm-hml distinguishes $\literal P$ from $\literal Q$.
 On the other hand, $\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}$ distinguishes $\literal Q$ from $\literal P$.
 (The direction matters!)
 For instance, the sublogic $\set{\hmlobs{τ}\hmlobs{\literal a}, \hmlobs{τ}\hmlobs{\literal b}}$ preorders $\literal P$ and $\literal Q$ in both directions; so the two states are equivalent with respect to this logic.
-
 
 ::: {#prp-hml-eq}
 Consider an arbitrary HML sublogic $\observationsvar{} ⊆ \hml$.
@@ -978,7 +990,6 @@ Then, $\bpreordvar{\observationsvar{}}$ is a preorder, and $\beqvar{\observation
 ::: {#lem-hml-eq-sim}
 Hennessy–Milner logic equivalence $\beqvar{\hml}$ is a simulation relation.{{<isb lemma HML_Spectrum lts.hml_equiv_sim>}}
 :::
-
 ::: proof
 Assume it were not.
 Then there would need to be $p \beqvar{\hml} q$ with step $p \step α p'$, and no $q'$ such that $q \step α q'$ and $p' \beqvar{\hml} q'$.
@@ -1010,7 +1021,7 @@ Induct over the structure of $φ$ with arbitrary $p$ and $q$.
   So, using contraposition, the case implies $q ∈ \semantics{\hmlneg φ}$.\qedhere
 :::
 
-Combining the bisimulation invariance for one direction and that $\beq{\hml}$ is a symmetric simulation (@prp-hml-eq and @lem-hml-eq-sim) for the other, we obtain that $\hml$ precisely characterizes bisimilarity:
+Combining bisimulation invariance for one direction and that $\beq{\hml}$ is a symmetric simulation (@prp-hml-eq and @lem-hml-eq-sim) for the other, we obtain that $\hml$ precisely characterizes bisimilarity:
 
 ::: {#thm-hennessy-milner}
 #### Hennessy–Milner theorem
@@ -1021,7 +1032,7 @@ Bisimilarity and HML equivalence coincide, that is, $p \beq{B} q$ precisely if $
 ::: {#rem-image-finiteness}
 #### Infinitary conjunctions
 
-In the standard presentation of the theorem, image finiteness of the transition system is assumed.
+In the standard presentation of the Hennessy–Milner theorem, image finiteness of the transition system is assumed.
 This means that $\derivatives{p, α}$ is finite for every $p ∈ \states$.
 The amount of outgoing transitions matters precisely in the construction of $φ_α$ in the proof of @lem-hml-eq-sim.
 But as our definition of $\hml$ (@def-hml) allows infinite conjunctions $\hmland{i}{I} …$, we do not need an assumption here.
@@ -1072,7 +1083,7 @@ If the inclusion holds in both directions, $\observationsvar{}$ and $\observatio
 
 ::: {#lem-subset-expressiveness-distinctiveness}
 
-Subset relationship entails expressiveness entails distinctiveness.
+Subset relationship entails expressiveness, which entails distinctiveness.
 
 - If $\observationsvar{} ⊆ \observationsvar[\prime]{}$, then $\observationsvar{}$ is less or equal in expressiveness to $\observationsvar[\prime]{}$.{{<isb lemma LTS_Semantics lts_semantics.subset_expressiveness>}}
 - If $\observationsvar{}$ is less or equal in expressiveness to $\observationsvar[\prime]{}$, then $\observationsvar{}$ is less or equal in distinctiveness to $\observationsvar[\prime]{}$.{{<isb lemma LTS_Semantics lts_semantics.expressiveness_entails_distinctiveness>}}
@@ -1089,7 +1100,7 @@ If $\observationsvar{}$ is less or equal *in distinctiveness* to $\observationsv
 :::
 
 ::: {#rem-flattened-conjunctions}
-Through the lense of expressiveness, we can also justify why our convention to implicitly flatten conjunctions is sound:
+Through the lens of expressiveness, we can also justify why our convention to implicitly flatten conjunctions is sound:
 As this does not change a conjunction's truth value, $\hml$ subsets with and without flattening-convention are equally expressive and thus distinctive.
 :::
 
@@ -1099,8 +1110,7 @@ In particular, one may find smaller characterizations as in the following exampl
 ::: {#def-game-formulas}
 #### Bisimulation observations
 
-Consider $\observations{\floor{B}} \subseteq \hml$ described by the following grammar.
-
+Consider $\observations{\floor{B}} \subseteq \hml$ described by the following grammar:
 $$
 \begin{array}{rcll}
   φ^\mathrm{\floor{B}}
@@ -1122,7 +1132,7 @@ $\observations{\floor{B}}$ and $\hml$ are equally distinctive.{{<isb theorem HML
 
 One direction is immediate from @lem-subset-expressiveness-distinctiveness as $\observations{\floor{B}} \subseteq \hml$.
 
-For the other direction, we need to establish that for each $φ ∈ \hml$ distinguishing some $p$ from some $q$, there is a $φ' ∈ \observations{\floor{B}}$ distinguishing $p$ from $q$.
+For the other direction, we need to establish that, for each $φ ∈ \hml$ distinguishing some $p$ from some $q$, there is a $φ' ∈ \observations{\floor{B}}$ distinguishing $p$ from $q$.
 We induct on the structure of $φ$ with arbitrary $p$ and $q$.
 
 - Case $\hmlobs{α}φ$ distinguishes $p$ from $q$.
@@ -1131,14 +1141,14 @@ We induct on the structure of $φ$ with arbitrary $p$ and $q$.
   Thus $\hmlobs{α}\hmland{q'}{\derivatives{q, α}} φ'_{q'} ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$.
 - Case $\hmland{i}{I}φ_i$ distinguishes $p$ from $q$.
   Therefore some $φ_i$ already distinguishes $p$ from $q$.
-  By induction hypothesis, there must be $φ'_i ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$.
+  By induction hypothesis, there must be $φ'_i ∈ \observations{\floor{B}}$ distinguishing $p$ from $q$.
 - Case $\hmlneg φ$ distinguishes $p$ from $q$.
   Thus $φ$ distinguishes $q$ from $p$.
   By induction hypothesis, there is $φ' ∈ \observations{\floor{B}}$ distinguishing $q$ from $p$.
   Accordingly, $\hmlneg φ' ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$.\qedhere
 :::
 
-The smaller bisimulation logic $\observations{\floor{B}}$ will become important again later in the next section (in @sec-bisim-game-hml).
+The smaller bisimulation logic $\observations{\floor{B}}$ will become important again later in @sec-bisim-game-hml.
 
 ## Games {#sec-games}
 
@@ -1159,20 +1169,18 @@ A *reachability game* $\game = (G, G_\defender, \gamemoveblank)$ is played on a 
   - *defender positions* $G_\defender ⊆ G$
   - and *attacker positions* $G_\attacker ≔ G \setminus G_\defender$,
 - and a set of *game moves* ${\gamemoveblank} ⊆ G × G$.{{<isb locale Equivalence_Games game>}}
-
-We denote by $\game(g_0)$ the game played from starting position $g_0 ∈ G$.
 :::
 
 ::: {#def-game-plays}
 #### Plays and wins
 
-We call the paths ${g_0}{g_1} … ∈ G^{\infty}$ with $g_{i} \gamemoveblank g_{i+1}$ *plays* of $\game(g_0)$,
+We call the paths ${g_0}{g_1} … ∈ G^{\infty}$ with ${g_{i} \gamemoveblank g_{i+1}}$ *plays* of $\game$ from $g_0$,
 where $G^{\infty}$ stands for finite and infinite words over $G$.
 The defender *wins* infinite plays.
 If a finite play $g_{0}\dots g_{n}\!\ngamemoveblank$ is stuck, the stuck player loses: The defender wins if $g_{n} ∈ G_\attacker$, and the attacker wins if $g_{n}∈ G_\defender$.
 :::
 
-Usually, games are non-deterministic, that is, players have choices how a play proceeds at their positions.
+Usually, games are nondeterministic, that is, players have choices how a play proceeds at their positions.
 The player choices are formalized by *strategies*:
 
 ::: {#def-strategies}
@@ -1185,7 +1193,7 @@ A play ${g_0}{g_1} … ∈ G^{\infty}$ is consistent with an attacker strategy $
 *Defender strategies* are defined analogously, $s_\defender \colon G^*G_\defender \to G$.
 
 If $s$ ensures a player to win, $s$ is called a *winning strategy* for this player.
-The player with a winning strategy for $\game(g_{0})$ is said to *win* $\game(g_{0})$.
+The player with a winning strategy from $g_{0}$ is said to *win* $\game$ from $g_{0}$.
 
 Usually, we will focus on positional strategies, that is, strategies that only depend on the most recent position, which we will type $s_\attacker \colon G_\attacker \to G$ (or $s_\defender \colon G_\defender \to G$, respectively).
 :::
@@ -1195,7 +1203,7 @@ We call the positions where a player has a winning strategy their winning region
 ::: {#def-winning-region}
 #### Winning region
 
-The set $\attackerwins ⊆ G$ of all positions $g$ where the attacker wins $\game(g)$ is called the *attacker winning region* of $\game$.
+The set $\attackerwins ⊆ G$ of all positions $g$ where the attacker wins in $\game$ is called the *attacker winning region* of $\game$.
 The defender winning region $\defenderwins$ is defined analogously.
 :::
 
@@ -1211,18 +1219,21 @@ $(\literal{1})[\literal{2a}](\literal{3})$.
 The defender can win from $(\literal{1})$ with a strategy moving to $[\literal{2b}]$ where the attacker is stuck.
 Moving to $[\literal{2a}]$ instead would get the defender stuck.
 So, the defender winning region is $\defenderwins = \set{(\literal{1}),[\literal{2b}]}$ and the attacker wins $\attackerwins = \set{[\literal{2a}], (\literal{3})}$.
+In @fig-game-ex, the winning regions are marked with blue for the defender and red for the attacker.
 
 :::: {#fig-game-ex .column-margin}
 
 ```tikz
 \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm, 
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},
-    defender/.style={ellipse, inner sep=0ex}]
-  \node[posStyle, defender] (p1){$1$};
-  \node[posStyle, below left of=p1] (p2a){$\literal{2a}$};
-  \node[posStyle, below right of=p1] (p2b){$\literal{2b}$};
-  \node[posStyle, defender, below of=p2a] (p3){$\literal{3}$};
-  \path[->]
+    defender/.style={ellipse, inner sep=0ex},
+    defWins/.style={fill=blue!5},
+    attWins/.style={fill=red!5}]
+  \node[posStyle, defender, defWins] (p1){$(\literal{1})$};
+  \node[posStyle, below left of=p1, attWins] (p2a){$[\literal{2a}]$};
+  \node[posStyle, below right of=p1, defWins] (p2b){$[\literal{2b}]$};
+  \node[posStyle, defender, below of=p2a, attWins] (p3){$(\literal{3})$};
+  \path[>->]
     (p1)
       edge node {} (p2a)
       edge node {} (p2b)
@@ -1234,7 +1245,7 @@ A simple game.
 ::::
 :::
 
-The games we consider are positionally determined.
+The games we consider are *positionally determined*.
 This means, for each possible initial position, exactly one of the two players has a positional winning strategy $s$.
 
 ::: {#prp-determinacy}
@@ -1245,7 +1256,7 @@ for any game, each game position has exactly one winner:
 $G = \attackerwins \cup \defenderwins$ and $\attackerwins \cap \defenderwins = \varnothing$,
 and they can win using a positional strategy.^[
   This is just an instantiation of positional determinacy of parity games [@zielonka1998infiniteGameColoured].
-  Parity games extend reachability games by number-coloring positions.
+  Parity games extend reachability games by number-coloring of positions.
   The defender only wins the infinite plays where the least color that appears infinitely often is even.
   Reachability games are the subclass of parity games only colored by 0.
 ]
@@ -1283,12 +1294,41 @@ $$
     & [n, m].
 \end{array}
 $$
+An excerpt of the game graph below $[3,1]$ and $[1,2]$ is shown in @fig-leq-game.
+
+::::{#fig-leq-game .column-margin}
+```tikz
+\begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm, 
+    posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},
+    defender/.style={ellipse, inner sep=0ex},
+    defWins/.style={fill=blue!5},
+    attWins/.style={fill=red!5}]
+  \node[posStyle, defender, attWins] (d10){$(1,0)$};
+  \node[posStyle, attWins, above of=d10] (a20){$[2,0]$};
+  \node[posStyle, defender, attWins, above of=a20] (d21){$(2,1)$};
+  \node[posStyle, attWins, above of=d21] (a31){$[3,1]$};
+
+  \node[posStyle, defWins, right of=d10] (a01){$[0,1]$};
+  \node[posStyle, defender, defWins, above of=a01] (d02){$(0,2)$};
+  \node[posStyle, defWins, above of=d02] (a12){$[1,2]$};
+
+  \path[>->]
+    (a31) edge node {} (d21)
+    (d21) edge node {} (a20)
+    (a20) edge node {} (d10)
+    (a12) edge node {} (d02)
+    (d02) edge node {} (a01);
+\end{tikzpicture}
+```
+A part of $\game_{\literal{leq}}$.
+::::
+
 $\game_\literal{leq}$ now characterizes $\leq$ on $\nats$ in the sense that:
 The defender wins $\game_\literal{leq}$ from $[n, m]$ precisely if $n \leq m$.
 (Proof: Induct over $n$ with arbitrary $m$.)
 
 The game is *boring* because the players do not ever have any choices.
-They just count down their way through the natural numbers till they hit $[0, m - n]$ if $n \leq m$, or $(n - m, 0)$ otherwise.
+They just count down their way through the natural numbers until they hit $[0, m - n]$ if $n \leq m$, or $(n - m - 1, 0)$ otherwise.
 
 $\game_\literal{leq}$ is quite archetypical for the preorder and equivalence games we will use in the following pages.
 But do not worry, the following games will demand the players to make choices.
@@ -1303,7 +1343,7 @@ The defender wins precisely if the game starts from a state and formula such tha
 #### HML game
 
 For a transition system $\system = (\states,\actions,\step{})$,
-the $\hml$ *game* ${\game}_\hml^{\system} = (G_\hml,G_\defender,\gamemoveblank_\hml)$ is played on $G_\hml = \states × \hml$,
+the *HML game* ${\game}_\hml^{\system} = (G_\hml,G_\defender,\gamemoveblank_\hml)$ is played on $G_\hml = \states × \hml$,
 where the defender controls observations and negated conjunctions,
 that is $(p, \hmlobs{α}φ) ∈ G_\defender$ and
 $(p,\hmlneg\hmland{i}{I}φ_i) ∈ G_\defender$ (for all $φ,p,I$), and the attacker controls the rest.
@@ -1340,8 +1380,9 @@ $(p,\hmlneg\hmland{i}{I}φ_i) ∈ G_\defender$ (for all $φ,p,I$), and the attac
   $$
 :::
 
-The intuition is that disjunctive constructs ($\hmlobs{\cdot}\cdots$, $\hmlneg \hmlands \cdots$) make it easier for a formula to be true and thus are controlled by the defender who may choose which of the ways to show truth is most convenient.
-At conjunctive constructs ($\hmlneg\hmlobs{\cdot}\cdots$, $\hmlands \cdots$) the attacker chooses the option that is the easiest to disprove.
+The intuition is that *disjunctive* constructs ($\hmlobs{\cdot}\cdots$, $\hmlneg \hmlands \cdots$) make it easier for a formula to be true and thus are controlled by the defender who may choose which of the ways to show truth is most convenient.
+At *conjunctive* constructs ($\hmlneg\hmlobs{\cdot}\cdots$, $\hmlands \cdots$) the attacker chooses the option that is the easiest to disprove.
+The most trivial case for the attacker to lose is $(p, \hmltrue)$.
 
 ::: {#exm-formula-game-cont}
 
@@ -1359,7 +1400,7 @@ As the technicalities are tangential to this thesis, we state the characterizati
 ]
 
 ::: {#lem-hml-semantic-game}
-The defender wins ${\game}_\hml^{\system}((p, φ))$ precisely if $p ∈ \semantics{φ}$.
+The defender wins ${\game}_\hml^{\system}$ from $(p, φ)$ precisely if $p ∈ \semantics{φ}$.
 :::
 
 ### The Bisimulation Game
@@ -1372,7 +1413,7 @@ This approach has been popularized by @stirling1996modal.
 #### Bisimulation game
 
 For a transition system $\system$, the *bisimulation game* ${\game}_\notionname{B}^{\system}$ is played on
-attack positions $G^\notionname{B}_\attacker ≔ \states × \states$ and defense positions $G^\notionname{B}_\defender ≔ \actions × \states × \states$ with the following moves:{{<isb locale Equivalence_Games bisim_game>}}
+attack positions $G_\attacker ≔ \states × \states$ and defense positions $G_\defender ≔ \actions × \states × \states$ with the following moves:{{<isb locale Equivalence_Games bisim_game>}}
 
 - The attacker may *swap sides*
   $$[p, q] \quad \gamemoveblank_\notionname{B} \quad [q, p],$$
@@ -1407,27 +1448,28 @@ From dashed nodes, the game proceeds analogously to the initial attacker positio
 \end{tikzpicture}
 ```
 
-Game scheme of the bisimulation game (@def-bisim-game).
+Game scheme of the bisimulation game ${\game}_\notionname{B}$ (@def-bisim-game).
 :::
 
 ::: {#exm-bisim-game}
 Consider $\literal{p_{even}} \beq{B} \literal{p_{odd}}$ of @exm-graph-isomorphism.
 The bisimulation game on this system is given by @fig-bisim-game-even-odd:
 
-:::: {#fig-bisim-game-even-odd}
+:::: {#fig-bisim-game-even-odd fig-pos="ht"}
   ```tikz
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=4cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
     defender/.style={ellipse, inner sep=0ex},
-    defWins/.style={fill=blue!5}]
+    defWins/.style={fill=blue!5},
+    attWins/.style={fill=red!5}]
 
-    \node[posStyle, initial, initial text={}]
+    \node[posStyle, initial, initial text={}, defWins]
       (Att_EO){$[\literal{p_{even}}, \literal{p_{odd}}]$};
-    \node[posStyle, defender]
+    \node[posStyle, defender, defWins]
       (Dfn_tOO) [below left of=Att_EO] {$(\tau, \literal{p_{odd}}, \literal{p_{odd}})$};
-    \node[posStyle, defender]
+    \node[posStyle, defender, defWins]
       (Dfn_tEE) [below right of=Att_EO] {$(\tau, \literal{p_{even}}, \literal{p_{even}})$};
-    \node[posStyle]
+    \node[posStyle, defWins]
       (Att_OE) [below right of=Dfn_tOO] {$[\literal{p_{odd}}, \literal{p_{even}}]$};
 
     \path
@@ -1459,6 +1501,7 @@ That it is always safe for the defender to *answer* with moves to $[\literal{p_{
 
 Let us recall @exm-bisim-sim of the “trolled philosophers,” where we determined $\literal{Q}$ and $\literal{T}$ to be non-bisimilar.
 The bisimulation game graph for the system is depicted in @fig-bisim-sim-game, where we use the minimized version of $\literal{T}$ from @exm-bisim-minimization to fit the game graph onto the page.
+(This means, technically, read $\literal{T}$ to denote $\literal{T^m}$.)
 
 The attacker can win by moving $[\literal{Q}, \literal{T}]
 \gamemoveblank_\notionname{B} [\literal{T}, \literal{Q}]
@@ -1478,11 +1521,12 @@ The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\lite
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
     defender/.style={ellipse, inner sep=0ex},
-    defWins/.style={fill=blue!5}]
+    defWins/.style={fill=blue!5},
+    attWins/.style={fill=red!5}]
 
-    \node[posStyle, initial, initial text={}]
+    \node[posStyle, initial, initial text={}, attWins]
       (Att_Q_Qp){$[\literal{Q}, \literal{T}]$};
-    \node[posStyle]
+    \node[posStyle, attWins]
       (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{T}, \literal{Q}]$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{ab}}, \literal{T})$};
@@ -1490,17 +1534,17 @@ The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\lite
       (Att_qab_tab) [below right = .15cm and 2cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \literal{t_{ab}}]$};
     \node[posStyle, defWins]
       (Att_tab_qab) [below = 1cm of Att_qab_tab] {$[\literal{t_{ab}}, \literal{q_{ab}}]$};
-    \node[posStyle]
+    \node[posStyle, attWins]
       (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \troll]$};
-    \node[posStyle, defender]
+    \node[posStyle, defender, attWins]
       (Dfn_a_q1_q3) [above right = .5cm and 2.5cm of Att_qab_q3] {$(\literal{a}, \literal{q_1}, \troll)$};
-    \node[posStyle, defender]
+    \node[posStyle, defender, attWins]
       (Dfn_b_q2_q3) [below = .3cm of Dfn_a_q1_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{t_{ab}}, \literal{Q})$};
-    \node[posStyle, defender]
+    \node[posStyle, defender, attWins]
       (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
-    \node[posStyle]
+    \node[posStyle, attWins]
       (Att_q3_qab) [below right = .1cm and 1.5cm of Dfn_t_q3_Q] {$[\troll, \literal{q_{ab}}]$};
     \node[posStyle, defender, defWins]
       (Dfn_a_q1_tab) [below = .3cm of Dfn_b_q2_q3] {$(\literal{a}, \literal{q_1}, \literal{t_{ab}})$};
@@ -1524,10 +1568,10 @@ The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\lite
       (Att_Q_Qp)
         edge[bend left = 10] node {swap} (Att_Qp_Q)
         edge node {$\literal{Q} \step{\tau} \literal{q_{ab}}$} (Dfn_t_qab_Qp)
-      (Att_qab_q3)
-        edge[bend right = 35] node {swap} (Att_q3_qab)
-      (Att_q3_qab)
-        edge[bend left = 30] node {} (Att_qab_q3)
+      ([xshift=-4mm] Att_qab_q3.south)
+        edge[bend right = 35] node {} ([xshift=-4mm] Att_q3_qab.north)
+      ([xshift=-2mm] Att_q3_qab.north)
+        edge[bend left = 35] node[right] {swap} ([xshift=-2mm] Att_qab_q3.south)
       (Dfn_t_qab_Qp)
         edge node {$\literal{T} \step{\tau} \troll$} (Att_qab_q3)
         edge[swap] node {$\literal{T} \step{\tau} \literal{q_{ab}}$} (Att_qab_tab)
@@ -1561,9 +1605,9 @@ The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\lite
       (Dfn_a_q3_qab)
         edge node {$\literal{q_{ab}} \step{\literal{a}} \literal{q_1}$} (Att_q3_q1)
       ([yshift=.15cm]Att_q3_q1.east)
-        edge[bend right = 30] node[swap] {swap} ([yshift=-.15cm]Att_q1_q3.east)
+        edge[bend right = 30] node {} ([yshift=-.15cm]Att_q1_q3.east)
       (Att_q1_q3.east)
-        edge[bend left = 35] node {} (Att_q3_q1.east)
+        edge[bend left = 35] node[right] {swap} (Att_q3_q1.east)
       ([yshift=.15cm]Att_q3_q2.east)
         edge[bend right = 30] node {} ([yshift=-.15cm]Att_q2_q3.east)
       (Att_q2_q3.east)
@@ -1586,12 +1630,12 @@ The defender wins the bisimulation game ${\game}_\notionname{B}^{\system}$ start
 ::: proof
 Sketch for both directions:
 
-- If $\rel R$ is a symmetric simulation with $(p,q) ∈ \rel R$,
-  then the following positional defender strategy is well-defined and winning from $[p, q]$:{{<isb lemma Equivalence_Games bisim_game.bisim_implies_defender_winning_strategy>}}
-  $$s (α, p', q) ≔ [p', \operatorname{choose} q'\ldotp (p', q') ∈ \rel R \land q \step{α} q'].$$
-- If there is a positional defender strategy $s$ winning from $[p, q]$,
-  then the following relation $\rel{R_s}$ with $(p_0,q_0) ∈ \rel{R_s}$ is a symmetric simulation:{{<isb lemma Equivalence_Games bisim_game.defender_winning_strategy_implies_bisim>}}
-  $$\rel{R_s} ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),\dots,(p,q)$ following strategy $s$}}.\qedhere$$
+- If $\rel R$ is a symmetric simulation with $(p_0,q_0) ∈ \rel R$,
+  then the following positional defender strategy is winning from $[p_0, q_0]$:{{<isb lemma Equivalence_Games bisim_game.bisim_implies_defender_winning_strategy>}}
+  $$s((α, p', q)) ≔ [p', \operatorname{choose} q'\ldotp (p', q') ∈ \rel R \land q \step{α} q'].$$
+- If there is a positional defender strategy $s$ winning from $[p_0, q_0]$,
+  then the following relation $\rel{R}_s$ with $(p_0,q_0) ∈ \rel{R}_s$ is a symmetric simulation:{{<isb lemma Equivalence_Games bisim_game.defender_winning_strategy_implies_bisim>}}
+  $$\rel{R}_s ≔ \set{(p,q) \mid \text{there is a play $(p_0, q_0),\dots,(p,q)$ following strategy $s$}}.\qedhere$$
 :::
 
 ::: {#rem-computer-game}
@@ -1618,7 +1662,7 @@ It can be played on <https://www.concurrency-theory.org/rvg-game/>.
 If one plays the bisimulation game of @def-bisim-game without the swapping moves, it will characterize the simulation preorder.
 
 Consider the family of processes $\literal{N}_n$ with $n \in \nats$.
-Define $\literal{N}_0 := \ccsnull$ and $\literal{N}_{n + 1} := \ccsprefix{\literal{a}} \literal{N}_n$.
+Define $\literal{N}_0 ≔ \ccsnull$ and $\literal{N}_{n + 1} ≔ \ccsprefix{\literal{one}} \literal{N}_n$.
 Then, the simulation game played from $[\literal{N}_{n}, \literal{N}_{m}]$ is isomorphic to the $\leq$-game $\game_{\literal{leq}}$ from @exm-less-eq-game.
 Therefore, the defender wins $[\literal{N}_{n}, \literal{N}_{m}]$ in the simulation game precisely if they win $[n, m]$ in the $\leq$-game.
 We can compare numbers $n \leq m$ by comparing programs $\literal{N}_{n} \bpreord{S} \literal{N}_{m}$!
@@ -1671,6 +1715,7 @@ In @fig-bisim-sim-game-formulas, we label the game nodes with the (sub-)formulas
 The cloud indicates where we omit some region where the defender wins.
 Swap moves become negations, and simulation moves become observations with a conjunction of formulas for each defender option.
 This attacker strategy can thus be expressed by $\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observations{\floor{B}}$.
+We will call such formulas “strategy formulas.”
 :::
 
 ::: {#fig-bisim-sim-game-formulas fig-pos='t' fig-env="figure*"}
@@ -1679,27 +1724,28 @@ This attacker strategy can thus be expressed by $\hmlneg\hmlobs{\tau}\hmlands\se
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
     defender/.style={ellipse, inner sep=0ex},
-    defWins/.style={fill=blue!5}]
+    defWins/.style={fill=blue!5},
+    attWins/.style={fill=red!5}]
 
-    \node[posStyle, initial, initial text={}, label={100:$\textcolor{red}{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}}$}]
+    \node[posStyle, initial, initial text={}, attWins, label={100:$\textcolor{red}{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}}$}]
       (Att_Q_Qp){$[\literal{Q}, \literal{T}]$};
-    \node[posStyle, label={100:$\textcolor{red}{\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}}$}]
+    \node[posStyle, attWins, label={100:$\textcolor{red}{\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}}$}]
       (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{T}, \literal{Q}]$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{ab}}, \literal{T})$};
     \node[dotted, cloud, cloud puffs=9,cloud puff arc=105, aspect=2, defWins, inner sep=.01cm, align=center]
       (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {defender\\ wins};
-    \node[posStyle, label={100:$\textcolor{red}{\hmlobs{\literal{a}}\hmltrue}$}]
+    \node[posStyle, attWins, label={100:$\textcolor{red}{\hmlobs{\literal{a}}\hmltrue}$}]
       (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \troll]$};
-    \node[posStyle, defender, above right = .1cm and 1.5cm of Att_qab_q3]
+    \node[posStyle, attWins, defender, above right = .1cm and 1.5cm of Att_qab_q3]
       (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \troll)$};
-    \node[posStyle, defender]
+    \node[posStyle,  attWins, defender]
       (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{t_{ab}}, \literal{Q})$};
-    \node[posStyle, defender]
+    \node[posStyle, attWins, defender]
       (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
-    \node[posStyle, label={100:$\textcolor{red}{\hmlneg\hmlobs{\literal{a}}\hmltrue}$}]
+    \node[posStyle, attWins, label={100:$\textcolor{red}{\hmlneg\hmlobs{\literal{a}}\hmltrue}$}]
       (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{ab}}]$};
 
     \path
@@ -1732,22 +1778,30 @@ The bisimulation game of @exm-bisim-sim-game-formulas with attacker formulas.
 :::
 
 \noindent
-More generally, the following lemma explains the construction of distinguishing formulas from attacker strategies:
+More generally, the following lemmas explain the construction of distinguishing formulas from attacker strategies, and back.
+They are a blueprint of game characterization proofs throughout the thesis.
+
+We will refer to the property that attacker wins in a game represent distinguishing formulas as “distinction soundness” of a game.
 
 ::: {#lem-attacks-imply-formulas}
+#### Distinction soundness
+
 Let $s$ be a positional winning strategy for the attacker on ${\game}_\notionname{B}$ from $[p,q]$.
-Construct formulas recursively from game positions, ${φ}_{\rel{s}}(g)$, as follows:
+Construct formulas recursively from game positions, ${φ}_{s}(g)$, as follows:
 $$
 φ_{s}([p,q]) ≔ \begin{cases}
   \hmlneg φ_{s}([q,p])  & \text{if } s([p,q]) = [q,p] \\
   \hmlobs{\alpha} \hmlands \set{ φ_{s}([p',q']) \mid q \step{\alpha} q' } & \text{if } s([p,q]) = (\alpha,p',q)
 \end{cases}
 $$
-Then $φ_{s}([p,q])$ is well-defined and distinguishes $p$ from $q$.
+Then $φ_{s}$ is defined for $[p,q]$ and distinguishes $p$ from $q$.
 Also, $φ_{s}([p,q]) ∈ \observations{\floor{B}}$.
 :::
 ::: proof
-1. The given construction is well-defined as $s$ must induce a well-founded order on game positions in order for the attacker to win, and the recursive invocations remain in the attacker winning strategy.
+1. The recursive construction works to define $φ_{s}([p,q])$ as $s$ must induce a well-founded order on game positions^[
+    An order on a set $A$ is well-founded iff each nonempty subset $A' \subseteq A$ has a minimal element $\min A'$.
+    In the game, the minima correspond to the defender dead ends the attacker is navigating towards.
+  ] in order for the attacker to win, and as the recursive invocations remain in the attacker winning strategy.
 2. The distinction can be derived by induction on the construction of $φ_{s}([p,q])$:
   Assume for $p',q'$ appearing in recursive invocations of the definition of $φ_{s}$ that $φ_{s}([p', q'])$ distinguishes them and that $φ_{s}([p', q']) ∈ \observations{\floor{B}}$.
   We have to show that the constructions in $φ_{s}$ still fulfill this property:
@@ -1762,7 +1816,11 @@ Also, $φ_{s}([p,q]) ∈ \observations{\floor{B}}$.
     Therefore, for each $q^*$ there is a false conjunct with $q' = q^*$ in $\hmlands \set{ φ_{s}([p',q']) \mid q \step{\alpha} q' }$ that proves $q^* \notin \semantics{\hmlands \set{ φ_{s}([p',q']) \mid q \step{\alpha} q' }}$. \qedhere
 :::
 
+We say that a game moreover is distinction-complete if distinguishing formulas of a sublogic can be mirrored by attacker strategies.
+
 ::: {#lem-formulas-imply-attack}
+#### Distinction completeness
+
 If $φ ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$, then the attacker wins from $[p,q]$.
 :::
 ::: proof
@@ -1783,7 +1841,7 @@ By induction on the derivation of $φ ∈ \observations{\floor{B}}$ according to
 @lem-attacks-imply-formulas and @lem-formulas-imply-attack, together with the fact that $\observations{\floor{B}}$ and $\hml$ are equally distinctive (@lem-game-formula-hml), yield:
 
 ::: {#thm-game-formulas}
-The attacker wins ${\game}_\notionname{B}$ from $[p,q]$ precisely if there is $φ ∈ \hml$ distinguishing $p$ from $q$.
+The attacker wins ${\game}_\notionname{B}$ from $[p,q]$ precisely if there is a formula $φ ∈ \hml$ distinguishing $p$ from $q$.
 :::
 
 Of course, we already knew this!
@@ -1793,6 +1851,8 @@ We thus have added the last arrow on the right side of @fig-equivalence-big-pict
 ### Deciding Reachability Games
 
 All we need to turn a game characterization into a decision procedure, is a way to decide which player wins a position.
+With this, ${\game}_\hml$ of @def-hml-game entails a model checking procedure for $\hml$ and ${\game}_{\notionname{B}}$ a bisimulation checking algorithm on finite-state systems.
+
 @alg-deciding-games describes how to compute who wins a finite reachability game for each position in time linear to the size of the game graph $\bigo{\relsize{\gamemoveblank}}$.
 
 ::: {#alg-deciding-games}
@@ -1800,26 +1860,29 @@ All we need to turn a game characterization into a decision procedure, is a way 
 $$
 \begin{array}{lr}
   \kw{def} \variable{compute\_winning\_region}(\game=(G,G_\defender,\gamemoveblank)) \colon & \\
-  \quad \variable{defender\_options} :=
+  \quad \variable{defender\_options} ≔
     [g \mapsto n \mid g \in G \land n = \relsize{\set{g' \mid g \gamemoveblank g'}}] & \\
-  \quad \variable{attacker\_win} := \varnothing & \\
-  \quad \variable{todo} := \set{g\in G_\defender \mid \variable{defender\_options}[g]=0} & \\
+  \quad \variable{attacker\_win} ≔ \varnothing & \\
+  \quad \variable{todo} ≔ \set{g\in G_\defender \mid \variable{defender\_options}[g]=0} & \\
   \quad \kw{while} \variable{todo} \neq \varnothing \colon & \\
-  \quad \quad \variable{g} := \kw{some} \variable{todo} & \\
-  \quad \quad \variable{todo} := \variable{todo} \setminus \set{\variable{g}} & \\
+  \quad \quad \variable{g} ≔ \kw{some} \variable{todo} & \\
+  \quad \quad \variable{todo} ≔ \variable{todo} \setminus \set{\variable{g}} & \\
   \quad \quad \kw{if} \variable{g} \notin \variable{attacker\_win} \colon & \\
   % note: the if should not be necessary for sets.
-  \quad \quad \quad \variable{attacker\_win} := \variable{attacker\_win} \cup \set{\variable{g}} & \\
+  \quad \quad \quad \variable{attacker\_win} ≔ \variable{attacker\_win} \cup \set{\variable{g}} & \\
   \quad \quad \quad \kw{for} \variable{g_{p}} \in (\cdot \gamemoveblank \variable{g}) \colon & \\
-  \quad \quad \quad \quad \variable{defender\_options}[\variable{g_{p}}]:=\variable{defender\_options}[\variable{g_{p}}]-1 & \\
-  \quad \quad \quad \quad \kw{if} \variable{g_{p}} \in G_\attacker \lor \variable{defender\_options}[\variable{g_{p}}]=0 \colon & \\
-  \quad \quad \quad \quad \quad \variable{todo} := \variable{todo} \cup \set{\variable{g_{p}}} & \\
-  \quad \attackerwins := \variable{attacker\_win} & \\
+  \quad \quad \quad \quad \kw{if} \variable{g_{p}} \in G_\attacker \colon & \\
+  \quad \quad \quad \quad \quad \variable{todo} ≔ \variable{todo} \cup \set{\variable{g_{p}}} & \\
+  \quad \quad \quad \quad \kw{else} \colon & \\
+  \quad \quad \quad \quad \quad \variable{defender\_options}[\variable{g_{p}}]≔\variable{defender\_options}[\variable{g_{p}}]-1 & \\
+  \quad \quad \quad \quad \quad \kw{if} \variable{defender\_options}[\variable{g_{p}}]=0 \colon & \\
+  \quad \quad \quad \quad \quad \quad \variable{todo} ≔ \variable{todo} \cup \set{\variable{g_{p}}} & \\
+  \quad \attackerwins ≔ \variable{attacker\_win} & \\
   \quad \kw{return} \attackerwins & \\
 \end{array}
 $$
 
-Algorithm for deciding the attacker winning region $\attackerwins$ of a reachability game $\game$ in linear time of $\relsize{\gamemoveblank}$ and linear space of $\relsize{G}$.
+Deciding the attacker winning region $\attackerwins$ of a reachability game $\game$ in linear time of $\relsize{\gamemoveblank}$ and linear space of $\relsize{G}$.
 :::
 
 Intuitively, $\variable{compute\_winning\_region}$ first assumes that the defender were to win everywhere and that each outgoing move of every position might be a winning option for the defender.
@@ -1827,14 +1890,14 @@ Over time, every position that is determined to be lost by the defender is added
   Variants of this algorithm and explanation have also been used in @bisping2018coupledsim and @bjn2022decidingAllBehavioralEqs.
 ]
 
-At first, the defender loses immediately exactly at the defender's dead-ends.
+At first, the defender loses immediately exactly at the defender's dead ends.
 Each defender-lost position is added to the $\variable{attacker\_win}$ set.
 To trigger the recursion, each predecessor is noted as defender-lost, if it is controlled by the attacker, or the amount of outgoing defender options is decremented if the predecessor is defender-controlled.
 If the count of a predecessor position hits 0, the defender also loses from there.
 
 Once we run out of $\variable{todo}$ positions, we know that the attacker has winning strategies exactly for each position we have visited.
 
-The following @tbl-game-example-execution lists how @alg-deciding-games computes the winning region $\attackerwins = \set{[\literal{2a}], (\literal{3})}$ of the game of @def-game-formulas.
+The following @tbl-game-example-execution lists how @alg-deciding-games computes the winning region $\attackerwins = \set{[\literal{2a}], (\literal{3})}$ of the simple choice game of @exm-formula-game.
 
 
 ```{=latex}
@@ -1850,27 +1913,33 @@ The following @tbl-game-example-execution lists how @alg-deciding-games computes
 | $(\literal{3})$ | $(\literal{1}) \mapsto 2$, $(\literal{3}) \mapsto 0$ | $[\literal{2a}]$  |
 | $[\literal{2a}]$ | $(\literal{1}) \mapsto 1$, $(\literal{3}) \mapsto 0$ | $\varnothing$ |
 
-: Solving the game of @def-game-formulas. {#tbl-game-example-execution}
+: Solving the game of @exm-formula-game. {#tbl-game-example-execution}
 
 ``` {=latex}
 %\end{table}
 %}
 ```
 
+\noindent
+As this game corresponds to the HML game by @exm-formula-game-cont, the computation that the defender wins $(\literal{1})$ checks that $\hmlobs{τ}\hmlneg\hmlobs{\literal a}\hmltrue$ is true for state $\literal P$ of @exm-hml.
+
 The inner loop of @alg-deciding-games clearly can run at most $\relsize{\gamemoveblank}$-many times.
-Using sufficiently clever data structures, the algorithm thus shows:
+Using sufficiently clever data structures, the algorithm hence shows:
 
 ::: {#prp-reachability-game-complexity}
 Given a finite reachability game $\game=(G,G_\defender,\gamemoveblank)$,
-the attacker's winning region $\attackerwins$ (and $\defenderwins$ as well) can be computed in $\bigo{\relsize{\gamemoveblank}}$ time and $\bigo{\relsize{G}}$ space.
+the attacker's winning region $\attackerwins^\game$ (and $\defenderwins^\game$ as well) can be computed in $\bigo{\relsize{\gamemoveblank}}$ time and $\bigo{\relsize{G}}$ space.
 :::
+
+Everything we can characterize as a reachability game, can thus be easily decided.
 
 ## Discussion {#sec-preliminaries-discussion}
 
 This chapter has taken a tour of characterizations for standard notions of behavioral preorder and equivalence on transition systems such as trace equivalence and bisimilarity.
+The aim of this has been to prepare a generic framework to characterize and decide behavioral equivalences.
 
 {{< paragraph_heading "Perspicuous algorithmics." >}}
-In particular, in constructing the relationships of @fig-equivalence-big-picture for bisimilarity, we have collected the theoretical ingredients for a *certifying algorithm* to check bisimilarity of states.
+In constructing the relationships of @fig-equivalence-big-picture for bisimilarity, we have collected the theoretical ingredients for a *certifying algorithm* to check bisimilarity of states.
 
 ::: {#fig-game-algo-overview fig-pos='t' fig-env="figure*"}
 ```tikz
@@ -1907,9 +1976,10 @@ Checking bisimilarity and providing certificates.
 (The arrows stand for computations, the boxes for data.)
 
 In this view, the game of possible distinctions and their preventability between attacker and defender serves as the “ground truth” about the bisimilarity of two states.
-Bisimulation relations and modal formulas only appear as witnesses of defender and attacker strategies, mediating between game and transition system.
-The Hennessy--Milner theorem emerges on this level as a shadow of the determinacy of the bisimulation game (@idea-games).
+Bisimulation relations and modal formulas only appear as certificates of defender and attacker strategies, mediating between game and transition system.
+The Hennessy--Milner theorem emerges on this level as a *shadow of the determinacy* of the bisimulation game (@idea-games).
 This whole framework draws heavily from @stirling1996modal.
+The following chapters will reveal how the game framework generalizes to check multiple equivalences.
 
 {{< paragraph_heading "Alternatives." >}}
 There are alternative frameworks for deciding behavioral equivalences that this thesis will not be using:
@@ -1918,11 +1988,11 @@ There are alternative frameworks for deciding behavioral equivalences that this 
   Simulation-like behavioral equivalences and preorders can be expressed as greatest fixed points of monotonic functions [@ails2007reactiveSystems § 4.3].
   Fixed-point iteration computes such relations on finite-state transition systems by initially assuming all states are related and iteratively removing pairs that violate the (bi-)simulation condition.
   This process continues until no such pairs remain.
-  In effect, the same chain reaction happens that @alg-deciding-games performs on the bisimulation game.
+  In effect, a chain reaction happens analogous to the one that @alg-deciding-games performs on the bisimulation game.
   Compared to the game approach, fixed-point iteration usually is slower as it lacks knowledge about logical connections between pairs in the candidate relation.
 - **Partition refinement.**
   The fastest algorithms for bisimilarity use partition refinement [@paigetarjan1987partitionrefinement].
-  Partitions represent equivalence relations as colorings on graphs, which is linear in the state space $\relsize{\states}$ (opposed to quadratic combinations for pairs in relations and attacker positions).
+  Partitions represent equivalence relations as colorings on graphs, which is linear in the state space $\relsize{\states}$ (opposed to quadratic combinations for pairs in relations for fixed points and attacker positions for games).
   Intuitively, parts of the partitions are split up repeatedly, leading to a similar iterative refinement as in the general fixed-point approach.
   The splits are also informed by modal distinctions as explicated by @cleaveland1991explainingBisimInequiv.
   But clever decisions of where to split next and the leaner representation of data allow for more efficient algorithmics.
@@ -1941,7 +2011,7 @@ There are alternative frameworks for deciding behavioral equivalences that this 
 - **Characteristic formulas.**
   Equivalence can also be handled through characteristic modal formulas [@steffen1989characteristicFormulae].
   Intuitively, one constructs a formula for a state that is precisely true for all conceivable equivalent states.
-  Checking equivalence with another state then reduces to model checking the formula on that state.
+  Checking equivalence with another state then boils down to model checking the formula on that state.
   However, this approach requires a more complex language of *recursive* modal formulas and remains mostly academic, as no major tools use it for equivalence checking.
 
 {{< paragraph_heading "Modal logics point the way." >}}
@@ -1951,4 +2021,4 @@ We have also seen how to link game rules to productions in a language of potenti
 This departs from common textbook presentations that motivate the bisimulation game through the relational (coinductive) characterization [e.g. @sangiorgi2012].
 In later chapters, we will rather derive equivalence games from grammars of modal formulas (@idea-modal-first), to generalize the framework of @fig-game-algo-overview for whole spectra of equivalences.
 
-But first, we have to make formal what we mean by *equivalence spectra*.
+But first, we have to make formal what we mean by *spectra of behavioral equivalences*.

@@ -104,7 +104,7 @@ toc-title: "Notation"
 |                     |                                                                                   |
 |--------------------------|----------------------------------------------------------------------------------------------|
 | $\bigo{f}$                | Set of functions that grow to infinity at most as quickly as $f$                             |
-| $\complexityname{P}$, $\complexityname{NP}$, $\complexityname{PSPACE}$ | Complexity classes of deterministic polynomial time / non-deterministic polynomial time / polynomial space complexity |
+| $\complexityname{P}$, $\complexityname{NP}$, $\complexityname{PSPACE}$ | Complexity classes of deterministic polynomial time / nondeterministic polynomial time / polynomial space complexity |
 
 ### Recurring Examples {.unnumbered .unlisted}
 

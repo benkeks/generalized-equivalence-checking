@@ -116,7 +116,7 @@ For some, it might be worthwhile to ask spectroscopy questions or to adapt our a
   An example would be the divergence modalities mentioned in @sec-extending-to-other-eqs, which require a parity-game winning condition.
 
 {{< paragraph_heading "A modal-logical turn?" >}}
-This thesis has approached the rich body of work on equivalence and refinement through one unified lense of *finding differences* in behavior.
+This thesis has approached the rich body of work on equivalence and refinement through one unified lens of *finding differences* in behavior.
 These were expressed in *modal logics* (@idea-modal-first “Modal first!”), which comes with several perks.
 
 In recent years, there seems to be a shift towards the “modal first” approach.

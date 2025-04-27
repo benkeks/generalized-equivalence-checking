@@ -102,7 +102,7 @@ We demand the following energy games to be monotonic in the following sense:
 
 - $⊥ \notin \abstractenergies$ is final in the sense that $\abstractupdate(m)(⊥) = ⊥$.
 - All update functions $u =\abstractupdate(m)$ with $m \in {\gamemoveblank}$ are monotonic and upward-closed with respect to $\leq$.
-  More formally, this means that for any energies $e, e' \in \abstractenergies$, if $e \in \domain(u)$ and $e \leq e'$, then $e' \in \domain(u)$ and $u(e) \leq u(e')$, where $\domain(u) := \set{e ∈ \abstractenergies \mid u(e) \neq \bot}$.
+  More formally, this means that for any energies $e, e' \in \abstractenergies$, if $e \in \domain(u)$ and $e \leq e'$, then $e' \in \domain(u)$ and $u(e) \leq u(e')$, where $\domain(u) ≔ \set{e ∈ \abstractenergies \mid u(e) \neq \bot}$.
 
 We denote by $\game^🗲(g_0, e_0)$ the game played from starting position $g_0 ∈ G$ with initial energy level $e_0 ∈ \abstractenergies$.
 :::
@@ -906,11 +906,11 @@ In the following, we will use a $↺$-symbol to label the adjoint functions that
 @def-spectrum demands monotonicity of our observation languages for a spectrum, $\observationsvar{N ∈ \notions}$.
 If we construct an abstraction function as in @lem-galois-inversion to undo the language selection for a set of formulas $\Phi$, the result would read: 
 $$
-\alpha_{\observations{}}(\Phi) := \min \set{N \in \notions \mid \Phi \subseteq \observationsvar{N}}.
+\alpha_{\observations{}}(\Phi) ≔ \min \set{N \in \notions \mid \Phi \subseteq \observationsvar{N}}.
 $$
 If this function is defined, then its singleton case exactly matches our expressiveness prices of @def-expressiveness-price:
 $$
-\expr(\varphi) := \min \set{N \in \notions \mid \varphi \in \observationsvar{N}}.
+\expr(\varphi) ≔ \min \set{N \in \notions \mid \varphi \in \observationsvar{N}}.
 $$
 :::
 
@@ -929,26 +929,26 @@ By $\zerovec$, we denote its minimal element.
 $$
 \begin{array}{rl}
    1 &  \kw{def} \variable{compute\_winning\_budgets}(\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate), \abstractupdateinv) \colon \\
-   2 &  \quad \variable{attacker\_win} := [ g \mapsto \varnothing \mid g ∈ G ] \\
-   3 &  \quad \variable{todo} := \set{g ∈ G_\defender \mid g \ngamemoveblank} \\
+   2 &  \quad \variable{attacker\_win} ≔ [ g \mapsto \varnothing \mid g ∈ G ] \\
+   3 &  \quad \variable{todo} ≔ \set{g ∈ G_\defender \mid g \ngamemoveblank} \\
    4 &  \quad \kw{while} \variable{todo} \neq \varnothing \colon \\
-   5 &  \quad \quad \variable{g} := \kw{some} \variable{todo} \\
-   6 &  \quad \quad \variable{todo} := \variable{todo} \setminus \set{\variable{g}} \\
+   5 &  \quad \quad \variable{g} ≔ \kw{some} \variable{todo} \\
+   6 &  \quad \quad \variable{todo} ≔ \variable{todo} \setminus \set{\variable{g}} \\
    7 &  \quad \quad \kw{if} \variable{g} ∈ G_\attacker \colon \\
-   8 &  \quad \quad \quad \variable{new\_attacker\_win} :=
+   8 &  \quad \quad \quad \variable{new\_attacker\_win} ≔
             \Min( \set{\abstractupdateinv(\variable{g}, g')(\mathit{e'}) \\
      &  \quad \quad \quad \quad \mid {\variable{g} \gamemoveblank g'} \land \mathit{e'} ∈ \variable{attacker\_win}[g']}) \\
    9 &  \quad \quad \kw{else \colon} \\
-  10 &  \quad \quad \quad \variable{new\_attacker\_win} := \set{\zerovec} \\
+  10 &  \quad \quad \quad \variable{new\_attacker\_win} ≔ \set{\zerovec} \\
   11 &  \quad \quad \quad \kw{for} \variable{g'} ∈ (\variable{g} \gamemoveblank \cdot) \colon \\
-  12 &  \quad \quad \quad \quad \variable{new\_attacker\_win} :=
+  12 &  \quad \quad \quad \quad \variable{new\_attacker\_win} ≔
             \Min( \set{ \sup(e_\attacker, \abstractupdateinv(\variable{g}, g')(\mathit{e'})) \mid \\
      &  \quad \quad \quad \qquad e_\attacker ∈ \variable{new\_attacker\_win} \land
             {\variable{g} \gamemoveblank g'} \land \mathit{e'} ∈ \variable{attacker\_win}[g']} ) \\
   13 &  \quad \quad \kw{if} \variable{new\_attacker\_win} \neq \variable{attacker\_win}[\variable{g}] \colon \\
-  14 &  \quad \quad \quad \variable{attacker\_win}[g] := \variable{new\_attacker\_win} \\
-  15 &  \quad \quad \quad \variable{todo} := \variable{todo} ∪ (\cdot \gamemoveblank \variable{g}) \\
-  16 &  \quad \attackerwinsmin := \variable{attacker\_win} \\
+  14 &  \quad \quad \quad \variable{attacker\_win}[g] ≔ \variable{new\_attacker\_win} \\
+  15 &  \quad \quad \quad \variable{todo} ≔ \variable{todo} ∪ (\cdot \gamemoveblank \variable{g}) \\
+  16 &  \quad \attackerwinsmin ≔ \variable{attacker\_win} \\
   17 &  \quad \kw{return} \attackerwinsmin \\
 \end{array}
 $$
@@ -1011,7 +1011,7 @@ Computed winning budgets $\attackerwinsmin$ on the game in @exm-simple-energy-ga
 What we need for the algorithm to run is some undo function $\abstractupdateinv \colon {(\gamemoveblank)} \to \abstractenergies \to \abstractenergies$.
 We define it as:
 $$
-\abstractupdateinv(m)(e') := \sup(e - \vec{u}, \zerovec) \text{\; if $m$ is $\vec{u}$-labeled}
+\abstractupdateinv(m)(e') ≔ \sup(e - \vec{u}, \zerovec) \text{\; if $m$ is $\vec{u}$-labeled}
 $$
 We list the steps of the computation in @exm-simple-energy-game-execution, and the mechanics behind them in @tbl-simple-energy-game-execution.
 
@@ -1169,7 +1169,7 @@ For this, we must instantiate $\abstractupdateinv$ to obtain an algorithm and th
 The undo-update function $\energyupdateinv$ on a $d$-dimensional declining energy game is defined component-wise for $k \in \set{1 … d}$ as:
 $$
 \begin{array}{rl}
-(\energyupdateinv(u, e'))_k := \max(
+(\energyupdateinv(u, e'))_k ≔ \max(
       & \set{e'_k - u_k  \mid  u_k \in \set{0,-1}} \\
   \cup & \set{e'_j        \mid \exists D \ldotp u_j = \mathtt{min}_D \land k \in D}).
 \end{array}
@@ -1270,7 +1270,7 @@ As $\energyupdate(u, \cdot)$ is monotonic, all that needs to be shown according 
     As $k \in D$, this is impossible due to the definition of $\energyupdateinv$ in terms of $\max$.
 - Minimality: For all $e' \leq \energyupdate(u, e)$, we show $\energyupdateinv(u, e') \leq e$.
   More specifically, $(\energyupdateinv(u, e'))_k \leq e_k$.
-  Let us define $d' := \max (\set{0} \cup \set{e'_j \mid \exists D \ldotp u_j = \mathtt{min}_D \land k \in D})$.
+  Let us define $d' ≔ \max (\set{0} \cup \set{e'_j \mid \exists D \ldotp u_j = \mathtt{min}_D \land k \in D})$.
   Consider the cases of $u_k \in \energyupdates$.
   - Case $u_k \in \set{0,-1}$ and $e'_k - u_k \geq d'$.
     Then $e'_k \leq (\energyupdate(u, e))_k = e_k + u_k$,
@@ -1328,10 +1328,10 @@ For space complexity, we obtain:
 ::: {#def-flattened-energies}
 #### Flattened energies
 
-For $d$-dimensional energy games, we define the *flattened energies* as $\energiesflattened := (\set{0,1,\infty})^d$.
+For $d$-dimensional energy games, we define the *flattened energies* as $\energiesflattened ≔ (\set{0,1,\infty})^d$.
 A standard energy $e \in \energies$ is cast to $\energiesflattened$ by $\widehat{e}$ where
 $$
-(\widehat{e})_k :=
+(\widehat{e})_k ≔
 \begin{cases}
   e_k     & \text{if } e_k \leq 1 \\
   \infty  & \text{otherwise}
@@ -1339,7 +1339,7 @@ $$
 $$
 We denote as *flattened* energy game winner problem the variant of @prob-energy-game-problem that outputs
 $$
-\widehat{\attackerwinsmin}(g) := \Min (\attackerwins(g) \cap \energiesflattened).
+\widehat{\attackerwinsmin}(g) ≔ \Min (\attackerwins(g) \cap \energiesflattened).
 $$
 :::
 

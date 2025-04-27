@@ -106,7 +106,7 @@ What we will do instead is adapt the bisimulation game such that it also express
 The *strong spectroscopy game* is played not on pairs of states, but on a pair of a state and *a set of states*!
 @fig-strong-spectroscopy-game gives a graphical representation.
 The intuition is that the attacker shows how to construct formulas that distinguish a process $p$ from every $q$ in a set of processes $Q$.
-As long as observations happen, the defender is moved to the set of states $Q$ reachable through non-determinism; only at conjunction moves does the defender have to choose a $q \in Q$.
+As long as observations happen, the defender is moved to the set of states $Q$ reachable through nondeterminism; only at conjunction moves does the defender have to choose a $q \in Q$.
 Treating conjunctions more explicitly will also allow us to track the depth of positive conjuncts in sufficient detail.
 
 ::: {#fig-strong-spectroscopy-game fig-pos="t" fig-env="figure*"}
@@ -243,9 +243,9 @@ The handling of conjunctions can be a little more intricate.
 ::: {#exm-spectroscopy-failure-trace-distinguished}
 #### Failure traces enter the game
 
-Let us think back to @exm-failure-trace-distinguished, that is, to $\literal{Q'} := \ccsprefix{\tau} (\ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b})$,
-$\literal{T'_{\tau a a}} := \literal{Q'} \ccschoice \ccsprefix{\tau}\ccsprefix{\literal a} \literal a$, and
-$\literal{T'_{\tau a}} := \literal{Q'} \ccschoice \ccsprefix{\tau}\literal a$, where $\literal{T'_{\tau a a}}$ is distinguished from $\literal{T'_{\tau a}}$ by the failure-trace observation $\hmlobs{\tau} \hmlands\set{\hmlobs{\literal a}\hmlobs{\literal{a}}, \hmlneg \hmlobs{\literal b}} \in \observationsvar[\literal{strong}]{(3,1,2,0,1,1)} \subseteq \observations[\literal{strong}]{\literal{FT}}$.
+Let us think back to @exm-failure-trace-distinguished, that is, to $\literal{Q'} ≔ \ccsprefix{\tau} (\ccsprefix{\literal a} \literal a \ccschoice \ccsprefix{\literal b} \literal{b})$,
+$\literal{T'_{\tau a a}} ≔ \literal{Q'} \ccschoice \ccsprefix{\tau}\ccsprefix{\literal a} \literal a$, and
+$\literal{T'_{\tau a}} ≔ \literal{Q'} \ccschoice \ccsprefix{\tau}\literal a$, where $\literal{T'_{\tau a a}}$ is distinguished from $\literal{T'_{\tau a}}$ by the failure-trace observation $\hmlobs{\tau} \hmlands\set{\hmlobs{\literal a}\hmlobs{\literal{a}}, \hmlneg \hmlobs{\literal b}} \in \observationsvar[\literal{strong}]{(3,1,2,0,1,1)} \subseteq \observations[\literal{strong}]{\literal{FT}}$.
 
 To point out a similar distinction in the spectroscopy game, the attacker moves:
 $$
@@ -470,7 +470,7 @@ Proofs can be found in @bisping2023equivalenceEnergyGamesReport.
 There are two minor definitional nuances between the presentation here and there, upon which we will comment in @rem-differences-paper.
 
 ::: {#lem-strong-spectroscopy-game-soundness}
-#### Distinctions soundness
+#### Distinction soundness
 
 If $e ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p, Q})$,
 then there is $φ ∈ \stratstrong(\attackerpos{p, Q}, e)$ with $φ ∈ \observationsvar[\literal{strong}]{e}$, $p ∈ \semantics{φ}$ and $Q \cap \semantics{φ} = \varnothing$.^[
@@ -601,7 +601,7 @@ Both tricks of pruning “symmetric” parts (@lem-symmetric-positions-defender)
 
 {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" tool.benchmark.Sizemark >}}
 uses a small example system from @bisping2023equivalenceEnergyGames modelling Peterson's mutual exclusion algorithm.
-The system has only $\relsize{\states} = 20$ states, but a lot of non-determinism due to saturation with internal behavior.
+The system has only $\relsize{\states} = 20$ states, but a lot of nondeterminism due to saturation with internal behavior.
 
 :::: {#fig-minimization-lattice .column-margin}
 
@@ -797,7 +797,7 @@ Sizes of *clever* spectroscopy games with and without pruning on Peterson's mute
 @fig-minimization-lattice-clever is the lower part of a cube of possible game graph optimizations, where @fig-minimization-lattice has already provided the upper part.
 
 We can directly observe that $\gamespectroscopyclever$ is smaller than $\gamespectroscopy$ *by a factor of more than 1000*, with $1020$ positions instead of $1\,199\,904$.
-This is due to the high non-determinism of the Peterson system, which leads to big $Q$-sets in $\attackerpos{p,Q}$-positions.
+This is due to the high nondeterminism of the Peterson system, which leads to big $Q$-sets in $\attackerpos{p,Q}$-positions.
 These entail exponentially many conjunction moves in $\gamespectroscopy$, which are absent in the $\gamespectroscopyclever$ subgraph.
 
 The tricks of bisimulation minimization and pruning still pay off, reducing the game positions to 65 % of the unpruned game.
@@ -807,7 +807,7 @@ Still, it makes sense to combine all three optimizations.
 All in all, we have reduced the number of positions by a factor of 1800, and the number of moves by factor 2700.
 
 Especially, the cleverness has paid off.
-Without these tricks, the approach would not be applicable to systems with relevant non-determinism due to communication.^[
+Without these tricks, the approach would not be applicable to systems with relevant nondeterminism due to communication.^[
   The blow-up on Peterson's mutex is precisely the argument I made in the introduction of @bisping2023equivalenceEnergyGames for why one has to move beyond the original spectroscopy algorithm of @bjn2022decidingAllBehavioralEqs.
   Therefore, the original/deprecated approach also is not present in this thesis.
 ]
@@ -950,7 +950,7 @@ digraph rel{
 The subgame of @fig-derived-trace-eq-game that actually is used in {{< equivio >}}, disregarding some attacker options.
 :::
 
-Still, non-determinism in the transition system might lead to exponentially-sized derived games.
+Still, nondeterminism in the transition system might lead to exponentially-sized derived games.
 Especially in the case of bisimilarity and similarity, such a blow-up is not necessary as @sec-approach has shown.
 
 ### Regaining Polynomiality in Derived Equivalence Games {#sec-regaining-polynomiality}
@@ -971,15 +971,6 @@ $Q \cap \semantics{\varphi} = \varnothing$ implies $Q' \cap \semantics{\varphi} 
 
 We can lift this result immediately to the derived preorder games as in @thm-derive-eq-games-characterize.
 :::
-<!--
-The attacker's win must be due to a move sequence along a path of transitions to an attacker-won defender position $\attackerpos{p, Q} \gamemoveblank \attackerpos{p_1, Q_1} \gamemoveblank \dots \gamemoveblank \attackerpos{p_n, Q_n} \gamemoveblank \defenderpos{p_n, Q_n \setminus Q_*, Q_*}$ with $\varnothing \neq Q_* \subseteq Q_n$.
-
-The same transitions justify a move sequence $\attackerpos{p, Q'} \gamemoveblank \attackerpos{p_1, Q'_1} \gamemoveblank \dots \gamemoveblank \attackerpos{p_n, Q_n} \gamemoveblank \defenderpos{p_n, Q'_n \setminus Q'_*, Q'_*}$ with $Q'_* = Q_* \cap Q'_n$, where each $Q'_n \subseteq Q_n$.
-These moves must also be winning for the attacker:
-
-Every conjunction answer $\attackerpos[\wedge]{p_n, q}$ with $q \in Q'_n \setminus Q'_*$ the defender may choose would also be possible from the end of the original move sequence.
-If the defender decides for the revival to $\attackerpos{p_n,Q'_*}$, we can continue to apply our strategy transfer from $\attackerpos{p_n,Q_*}$, since $Q'_* \subseteq Q_*$ and since the well-foundedness of the original attacker strategy ensures that the defender options must come to an end at some point. 
--->
 
 :::{#lem-conjunction-optimization}
 #### Conjunctive attacks
@@ -993,6 +984,9 @@ After the defender choice of $q \in Q$, the game continues $\dots \gamemoveblank
 As $\derivatives{q, α} \subseteq Q'$, we can use @prp-defender-options.
 :::
 
+Thus the closure of a logic under conjunctions allows us to use a game that, practically, leaves out many formulas, without losing distinctiveness.
+This trick is basically the same as in the crucial $\hmlobs{\alpha}$-case of @lem-game-formula-hml that “game HML” $\observations{\floor{B}}$ and $\hml$ are equally distinctive.
+
 As a consequence, we can obtain a polynomial complexity bound for equivalences that do not restrict conjunctions and positive conjuncts.
 
 :::{#lem-optimized-eq-complexity}
@@ -1004,7 +998,7 @@ by computing who wins the $N$-preorder game in $\bigo{\relsize{\states} \cdot \r
 :::
 :::proof
 We can use the clever version of the strong spectroscopy game $\gamespectroscopyclever$ to decide individual equivalences for these coordinates by @thm-derive-eq-games-characterize and @thm-clever-strong-spectroscopy-correctness.
-For $N \geq (0,\infty,\infty,\infty,0,0)$, this also works on the subgraph where non-determinism is resolved immediately thanks to @lem-conjunction-optimization.
+For $N \geq (0,\infty,\infty,\infty,0,0)$, this also works on the subgraph where nondeterminism is resolved immediately thanks to @lem-conjunction-optimization.
 
 We want to use that, according to @prp-reachability-game-complexity, deciding a reachability game $(G,G_\defender,\gamemoveblank)$ takes $\bigo{\relsize{\gamemoveblank}}$ time and $\bigo{\relsize{G}}$ space.
 
@@ -1038,7 +1032,7 @@ Inserting our bounds in @prp-reachability-game-complexity, we obtain time and sp
 
 Let us examine how the instance game sizes behave on the games of @exm-spectroscopy-equivalence-checking!
 @fig-instance-games-strong-ltbt-spectrum maps out the sizes of game instantiations for the preorders of the strong spectrum as in @fig-strong-ltbt-spectrum.
-Each game is derived from the clever spectroscopy game, with pruning and with capped non-determinism where possible; to enable equivalence checks, the games combine the parts under $\attackerpos{\literal{ABCACB}, \set{\literal{ABC}}}$ and under $\attackerpos{\literal{ABC}, \set{\literal{ABCACB}}}$.
+Each game is derived from the clever spectroscopy game, with pruning and with capped nondeterminism where possible; to enable equivalence checks, the games combine the parts under $\attackerpos{\literal{ABCACB}, \set{\literal{ABC}}}$ and under $\attackerpos{\literal{ABC}, \set{\literal{ABCACB}}}$.
 The game size is defined as the sum of positions and moves, $\relsize{\game} = \relsize{G} + \relsize{\gamemoveblank}$.
 Red parts symbolize bigger game graphs.
 

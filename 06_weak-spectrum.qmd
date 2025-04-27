@@ -279,14 +279,14 @@ We define *stability-respecting branching* Hennessy--Milner modal logic,
 $\hmlsrbb$, over an alphabet of actions $\actions$ by the following context-free grammar starting with $\varphi$:{{<isb datatype HML_SRBB hml_srbb>}}
 $$
 \begin{array}{rllr}
-    \varphi {} ::= {} & \hmleps\chi & & \text{“delayed observation”} \\
+    \varphi {} :≔ {} & \hmleps\chi & & \text{“delayed observation”} \\
         | \quad & \hmlands \set{\psi, \psi, ...} & & \text{“immediate conjunction”} \\
-    \chi {} ::= {} & \hmlobs{a}\varphi & \text{with } a \in \actionsvis & \text{“observation”} \\
+    \chi {} :≔ {} & \hmlobs{a}\varphi & \text{with } a \in \actionsvis & \text{“observation”} \\
     | \quad & \hmlands \set{\psi, \psi, ... } & & \text{“standard conjunction”} \\
     | \quad & \hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue, \psi, \psi, ...} & & \text{“stable conjunction”} \\
     | \quad & \hmlands \set{\hmlsoft{\alpha}\varphi, \psi, \psi, ...} &
       \text{with } \alpha \in \actions & \text{“branching conjunction”} \\
-    \psi {} ::= {} & \hmlneg\hmleps\chi \mid \hmleps\chi & & \text{“negative / positive conjuncts”}
+    \psi {} :≔ {} & \hmlneg\hmleps\chi \mid \hmleps\chi & & \text{“negative / positive conjuncts”}
 \end{array}
 $$
 We consider the semantics of $\hmlsrbb$ to be given by @def-hml-semantics and @def-transition-systems-with-silent-steps.
@@ -1259,7 +1259,7 @@ With this chapter, we have explored the space of weak behavioral equivalences in
 This adds the preliminaries to consider their decision procedures in @sec-weak-spectorscopy.
 
 {{< paragraph_heading "The power of weakness." >}}
-In examples, we have seen how weak equivalences handle internal non-determinism due to communication in different ways.
+In examples, we have seen how weak equivalences handle internal nondeterminism due to communication in different ways.
 Practical scenarios, such as parallelizing compilers and process abstraction of @sec-case-stduies-other-eqs, reveal the possibilities and limitations of the different design decisions behind process equivalences.
 
 Following @idea-weak-hml, our modal logic characterization through $\hmlsrbb$ captures a rich weak spectrum between stability-respecting branching bisimilarity and weak trace equivalence.

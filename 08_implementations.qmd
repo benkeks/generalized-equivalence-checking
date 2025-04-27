@@ -810,7 +810,7 @@ Screenshot of browser game “The Spectroscopy Invaders.”
   In the online version of this thesis, it is actually a screen capture by Trzeciakiewicz, illustrating negation moves in the game tutorial.
 ]
 This level corresponds exactly to the classic @exm-ts if we match the orange transitions to $\tau$-steps, blue to $\literal{a}$, and yellow to $\literal{b}$.
-The metaphor on top of the game mechanics is that the human-controlled hero (left) has to outmaneuver a group of elves (right) that might split up on non-deterministic transitions.
+The metaphor on top of the game mechanics is that the human-controlled hero (left) has to outmaneuver a group of elves (right) that might split up on nondeterministic transitions.
 
 From @exm-spectroscopy-classic-ts, we know that the failure $\hmlobs{\tau}\hmlneg\hmlobs{\literal{a}}$ is a cheapest distinction of the left state from the right in this system,
 translated as $\hmlobs{\literal{orange}}\hmlneg\hmlobs{\literal{blue}}$.

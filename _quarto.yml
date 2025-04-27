@@ -141,7 +141,7 @@ format:
     #keep-md: true
     #keep-tex: true
     geometry:
-    - left=2.5cm
+    - left=3cm
     - textwidth=11cm
     - marginparsep=0.5cm
     - marginparwidth=5.5cm

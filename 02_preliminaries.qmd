@@ -1116,7 +1116,7 @@ Due to the subset relation, $\observations{\floor{B}}$ must be less or equal in 
 But both logics are equally distinctive!
 
 ::: {#lem-game-formula-hml}
-$\observations{\floor{B}}$ and $\hml$ are equally distinctive.{{<isb theorem HML_Spectrum lts.hml_and_bisimulation_game_observations_equally_expressive>}}
+$\observations{\floor{B}}$ and $\hml$ are equally distinctive.{{<isb theorem HML_Spectrum lts.hml_and_bisimulation_game_observations_equally_distinctive>}}
 :::
 ::: proof
 

@@ -61,7 +61,7 @@ It includes numerous concepts we will define and discuss more deeply on our way 
 #### Verifying Peterson's mutual exclusion
 
 Many verification tasks can be understood along the lines of “how equivalent” two models are.
-The models can usually be expressed as labeled transition systems, that is, as graphs where nodes represent program states and edges represent transitions between them, labeled by *actions*.
+The models can usually be expressed as labeled transition systems, that is, as graphs where nodes represent program *states* and edges represent *transitions* between them, labeled by *actions*.
 
 @fig-peterson-mutex replicates a standard example, known for instance from the textbook *Reactive Systems* [@ails2007reactiveSystems]:
 A graph specification of mutual exclusion $\literal{Mx}$ as two users $\literal A$ and $\literal B$ entering their critical section $\literal{ec_A} / \literal{ec_B}$ and leaving $\literal{lc_A} / \literal{lc_B}$ before the other may enter;

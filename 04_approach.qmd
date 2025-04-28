@@ -21,7 +21,7 @@ Time to get real.
 This chapter will demonstrate my core approach by solving the spectroscopy problem in an *easy* instance.
 
 It will be easy in two regards:
-Firstly, complexity-wise---we narrow our focus on equivalences of polynomial-time, the “$\complexityname{P}$-easy ones”.
+Firstly, complexity-wise---we narrow our focus on equivalences of polynomial-time, the “$\complexityname{P}$-easy ones.”
 Secondly, conceptually---we just use the bisimulation game of Chapter [-@sec-preliminaries], almost directly!
 
 We already know that winning attacker strategies in the bisimulation game correspond to distinguishing formulas, and that these can be computed quite straightforwardly.

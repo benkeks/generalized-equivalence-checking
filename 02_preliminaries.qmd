@@ -936,7 +936,6 @@ The idea is that HML formulas express “experiments” or “tests” that an o
 #### Hennessy–Milner logic
 
 Formulas of *Hennessy–Milner logic* $\hml$ are given by the grammar:{{<isb datatype Hennessy_Milner_Logic hml_formula>}}
-
 $$
 \begin{array}{rcllr}
   φ & \grammardef &
@@ -1437,10 +1436,10 @@ This approach has been popularized by @stirling1996modal.
 For a transition system $\system$, the *bisimulation game* ${\game}_\notionname{B}^{\system}$ is played on
 attack positions $G_\attacker ≔ \states × \states$ and defense positions $G_\defender ≔ \actions × \states × \states$ with the following moves:{{<isb locale Equivalence_Games bisim_game>}}
 
-- The attacker may *swap sides*
-  $$[p, q] \quad \gamemoveblank_\notionname{B} \quad [q, p],$$
-- or *challenge simulation*
-  $$[p, q] \quad \gamemoveblank_\notionname{B} \quad (α, p', q) \quad \text{if} \quad p \step{α} p';$$
+- The attacker may *challenge simulation*
+  $$[p, q] \quad \gamemoveblank_\notionname{B} \quad (α, p', q) \quad \text{if} \quad p \step{α} p',$$
+- or the attacker may *swap sides*
+  $$[p, q] \quad \gamemoveblank_\notionname{B} \quad [q, p], \vphantom{p'}$$
 - and the defender *answers simulation challenges*
   $$(α, p', q) \quad \gamemoveblank_\notionname{B} \quad [p', q'] \quad \text{if} \quad q \step{α} q'.$$
 :::
@@ -1692,12 +1691,103 @@ We can compare numbers $n \leq m$ by comparing programs $\literal{N}_{n} \bpreor
 In this sense, comparisons of programs and of numbers are … comparable.
 :::
 
+### Deciding Reachability Games {#sec-deciding-reachability-games}
+
+All we need to turn a game characterization into a decision procedure is a way to decide which player wins a position.
+With this, ${\game}_\hml$ of @def-hml-game entails a model checking procedure for $\hml$ and ${\game}_{\notionname{B}}$ a bisimulation checking algorithm on finite-state systems.
+
+@alg-deciding-games describes how to compute who wins a finite reachability game for each position in time linear to the size of the game graph $\bigo{\relsize{\gamemoveblank}}$.
+
+::: {#alg-deciding-games}
+
+$$
+\begin{array}{lr}
+  \kw{def} \variable{compute\_winning\_region}(\game=(G,G_\defender,\gamemoveblank)) \colon & \\
+  \quad \variable{defender\_options} ≔
+    [g \mapsto n \mid g \in G_\defender \land n = \relsize{\set{g' \mid g \gamemoveblank g'}}] & \\
+  \quad \variable{attacker\_win} ≔ \varnothing & \\
+  \quad \variable{todo} ≔ \set{g\in G_\defender \mid \variable{defender\_options}[g]=0} & \\
+  \quad \kw{while} \variable{todo} \neq \varnothing \colon & \\
+  \quad \quad \variable{g} ≔ \kw{some} \variable{todo} & \\
+  \quad \quad \variable{todo} ≔ \variable{todo} \setminus \set{\variable{g}} & \\
+  \quad \quad \kw{if} \variable{g} \notin \variable{attacker\_win} \colon & \\
+  % note: the if should not be necessary for sets.
+  \quad \quad \quad \variable{attacker\_win} ≔ \variable{attacker\_win} \cup \set{\variable{g}} & \\
+  \quad \quad \quad \kw{for} \variable{g_{p}} \in (\cdot \gamemoveblank \variable{g}) \colon & \\
+  \quad \quad \quad \quad \kw{if} \variable{g_{p}} \in G_\attacker \colon & \\
+  \quad \quad \quad \quad \quad \variable{todo} ≔ \variable{todo} \cup \set{\variable{g_{p}}} & \\
+  \quad \quad \quad \quad \kw{else} \colon & \\
+  \quad \quad \quad \quad \quad \variable{defender\_options}[\variable{g_{p}}]≔\variable{defender\_options}[\variable{g_{p}}]-1 & \\
+  \quad \quad \quad \quad \quad \kw{if} \variable{defender\_options}[\variable{g_{p}}]=0 \colon & \\
+  \quad \quad \quad \quad \quad \quad \variable{todo} ≔ \variable{todo} \cup \set{\variable{g_{p}}} & \\
+  \quad \attackerwins ≔ \variable{attacker\_win} & \\
+  \quad \kw{return} \attackerwins & \\
+\end{array}
+$$
+
+Deciding the attacker winning region $\attackerwins$ of a reachability game $\game$ in linear time of $\relsize{\gamemoveblank}$ and linear space of $\relsize{G}$.
+:::
+
+Intuitively, $\variable{compute\_winning\_region}$ first assumes that the defender were to win everywhere and that each outgoing move of every position might be a winning option for the defender.
+Over time, every position that is determined to be lost by the defender is added to a $\variable{todo}$ list.^[
+  Variants of this algorithm and explanation have also been used in @bisping2018coupledsim and @bjn2022decidingAllBehavioralEqs.
+]
+
+At first, the defender loses immediately exactly at the defender's dead ends.
+Each defender-lost position is added to the $\variable{attacker\_win}$ set.
+To trigger the recursion, each predecessor is noted as defender-lost, if it is controlled by the attacker, or the amount of outgoing defender options is decremented if the predecessor is defender-controlled.
+If the count of a predecessor position hits 0, the defender also loses from there.
+
+Once we run out of $\variable{todo}$ positions, we know that the attacker has winning strategies exactly for each position we have visited.
+
+The following @tbl-game-example-execution lists how @alg-deciding-games computes the winning region $\attackerwins = \set{[\literal{2a}], (\literal{3})}$ of the simple choice game of @exm-formula-game.
+
+
+```{=latex}
+% fix to make the table float in spite of Pandoc's hardcoded longtable usage...
+% push to next page to fix the problem of longtable breaking pages with other floats -_-
+%\afterpage{\clearpage
+%\begin{table}%[b!]
+```
+
+| $\variable{g}$ | $\variable{defender\_options}$ | $\variable{todo}$ |
+|------|---------------|------|
+|   -    |  $(\literal{1}) \mapsto 2$, $(\literal{3}) \mapsto 0$ | $(\literal{3})$  |
+| $(\literal{3})$ | $(\literal{1}) \mapsto 2$, $(\literal{3}) \mapsto 0$ | $[\literal{2a}]$  |
+| $[\literal{2a}]$ | $(\literal{1}) \mapsto 1$, $(\literal{3}) \mapsto 0$ | $\varnothing$ |
+
+: Solving the game of @exm-formula-game. {#tbl-game-example-execution}
+
+``` {=latex}
+%\end{table}
+%}
+```
+
+\noindent
+As this game corresponds to the HML game by @exm-formula-game-cont, the computation that the defender wins $(\literal{1})$ checks that $\hmlobs{τ}\hmlneg\hmlobs{\literal a}\hmltrue$ is true for state $\literal P$ of @exm-hml.
+
+The inner loop of @alg-deciding-games clearly can run at most $\relsize{\gamemoveblank}$-many times.
+Using sufficiently clever data structures, the algorithm hence shows:
+
+::: {#prp-reachability-game-complexity}
+Given a finite reachability game $\game=(G,G_\defender,\gamemoveblank)$,
+the attacker's winning region $\attackerwins^\game$ (and $\defenderwins^\game$ as well) can be computed in $\bigo{\relsize{\gamemoveblank}}$ time and $\bigo{\relsize{G}}$ space.
+:::
+
+Everything we can characterize as a reachability game, can thus be easily decided.
+
+So, by now we know a world where equivalences are nice to characterize, *modal logics*, and a world where they are nice to compute: *games*.
+Obviously, there must be a link!
+Making this link explicit yields the *core proof approach* for the rest of this thesis.
+
 ### How Bisimulation Game and HML Are Connected {#sec-bisim-game-hml}
 
-Let us pause to think how bisimulation game and Hennessy–Milner logic connect.
+Bisimulation game and Hennessy–Milner logic connect in a beautiful way.
+This connection usually receives less attention than Hennessy–Milner theorem and Stirling's characterization.
+But it is the key insight for the main results of later chapters.
 
-You might have wondered why we even need a dedicated bisimulation game.
-The Hennessy–Milner theorem implies that we could directly use the HML game of @def-hml-game to decide bisimilarity:
+Let us briefly imagine a world without a dedicated bisimulation game.
+The Hennessy–Milner theorem implies that we could directly use the HML game of @def-hml-game to describe bisimilarity:
 
 ::: {#def-naive-bisim-game}
 #### Naive bisimulation game
@@ -1716,7 +1806,7 @@ This naive game, too, has the property that the defender wins from $[p,q]$ iff $
 The downside of the game is that the attacker has infinitely many options $φ ∈ \hml$ to pick from!
 
 The proper bisimulation game of @def-bisim-game, on the other hand, is *finite for finite transition systems*.
-Therefore, it induces decision procedures.
+Therefore, it induces decision procedures by the reasoning of @sec-deciding-reachability-games.
 
 We will now argue that the *bisimulation game actually is a variant of the naive game*, where (1) the attacker names their formula *gradually*, and (2) the formulas stem from $\observations{\floor{B}} \subseteq \hml$ of @def-game-formulas.
 To this end, we will show that attacker's winning strategies imply distinguishing formulas, and that a distinguishing formula from $\observations{\floor{B}}$ certifies the existence of winning attacker strategies.
@@ -1866,94 +1956,20 @@ By induction on the derivation of $φ ∈ \observations{\floor{B}}$ according to
 The attacker wins ${\game}_\notionname{B}$ from $[p,q]$ precisely if there is a formula $φ ∈ \hml$ distinguishing $p$ from $q$.
 :::
 
-Of course, we already knew this!
-@thm-game-formulas is just another way of gluing together the Hennessy–Milner theorem on bisimulation (@thm-hennessy-milner) and Stirling's bisimulation game characterization (@thm-bisim-game-characterization), modulo the determinacy of games.
-We thus have added the last arrow on the right side of @fig-equivalence-big-picture.
+With @thm-game-formulas, we have added the last arrow on the right side of @fig-equivalence-big-picture.
 
-### Deciding Reachability Games
+Of course, @thm-game-formulas could also be arrived at by gluing together the Hennessy–Milner theorem on bisimulation (@thm-hennessy-milner) and Stirling's bisimulation game characterization (@thm-bisim-game-characterization), modulo the determinacy of games.
+But @thm-game-formulas transports a deeper insight.
 
-All we need to turn a game characterization into a decision procedure, is a way to decide which player wins a position.
-With this, ${\game}_\hml$ of @def-hml-game entails a model checking procedure for $\hml$ and ${\game}_{\notionname{B}}$ a bisimulation checking algorithm on finite-state systems.
+The bisimulation game actually is a game of an attacker assembling a distinguishing formula from $\observations{\floor{B}}$.
+The rules for attacker moves follow the grammar of $\observations{\floor{B}}$.
+But parts of the HML semantics are baked into the game:
+Intuitively, the attacker must propose formulas that are true-by-construction for the left-hand state.
+To disprove the distinction, the defender may point out how the formula is also satisfied by the right-hand state.
+Negation turns the tables.
 
-@alg-deciding-games describes how to compute who wins a finite reachability game for each position in time linear to the size of the game graph $\bigo{\relsize{\gamemoveblank}}$.
-
-::: {#alg-deciding-games}
-
-$$
-\begin{array}{lr}
-  \kw{def} \variable{compute\_winning\_region}(\game=(G,G_\defender,\gamemoveblank)) \colon & \\
-  \quad \variable{defender\_options} ≔
-    [g \mapsto n \mid g \in G_\defender \land n = \relsize{\set{g' \mid g \gamemoveblank g'}}] & \\
-  \quad \variable{attacker\_win} ≔ \varnothing & \\
-  \quad \variable{todo} ≔ \set{g\in G_\defender \mid \variable{defender\_options}[g]=0} & \\
-  \quad \kw{while} \variable{todo} \neq \varnothing \colon & \\
-  \quad \quad \variable{g} ≔ \kw{some} \variable{todo} & \\
-  \quad \quad \variable{todo} ≔ \variable{todo} \setminus \set{\variable{g}} & \\
-  \quad \quad \kw{if} \variable{g} \notin \variable{attacker\_win} \colon & \\
-  % note: the if should not be necessary for sets.
-  \quad \quad \quad \variable{attacker\_win} ≔ \variable{attacker\_win} \cup \set{\variable{g}} & \\
-  \quad \quad \quad \kw{for} \variable{g_{p}} \in (\cdot \gamemoveblank \variable{g}) \colon & \\
-  \quad \quad \quad \quad \kw{if} \variable{g_{p}} \in G_\attacker \colon & \\
-  \quad \quad \quad \quad \quad \variable{todo} ≔ \variable{todo} \cup \set{\variable{g_{p}}} & \\
-  \quad \quad \quad \quad \kw{else} \colon & \\
-  \quad \quad \quad \quad \quad \variable{defender\_options}[\variable{g_{p}}]≔\variable{defender\_options}[\variable{g_{p}}]-1 & \\
-  \quad \quad \quad \quad \quad \kw{if} \variable{defender\_options}[\variable{g_{p}}]=0 \colon & \\
-  \quad \quad \quad \quad \quad \quad \variable{todo} ≔ \variable{todo} \cup \set{\variable{g_{p}}} & \\
-  \quad \attackerwins ≔ \variable{attacker\_win} & \\
-  \quad \kw{return} \attackerwins & \\
-\end{array}
-$$
-
-Deciding the attacker winning region $\attackerwins$ of a reachability game $\game$ in linear time of $\relsize{\gamemoveblank}$ and linear space of $\relsize{G}$.
-:::
-
-Intuitively, $\variable{compute\_winning\_region}$ first assumes that the defender were to win everywhere and that each outgoing move of every position might be a winning option for the defender.
-Over time, every position that is determined to be lost by the defender is added to a $\variable{todo}$ list.^[
-  Variants of this algorithm and explanation have also been used in @bisping2018coupledsim and @bjn2022decidingAllBehavioralEqs.
-]
-
-At first, the defender loses immediately exactly at the defender's dead ends.
-Each defender-lost position is added to the $\variable{attacker\_win}$ set.
-To trigger the recursion, each predecessor is noted as defender-lost, if it is controlled by the attacker, or the amount of outgoing defender options is decremented if the predecessor is defender-controlled.
-If the count of a predecessor position hits 0, the defender also loses from there.
-
-Once we run out of $\variable{todo}$ positions, we know that the attacker has winning strategies exactly for each position we have visited.
-
-The following @tbl-game-example-execution lists how @alg-deciding-games computes the winning region $\attackerwins = \set{[\literal{2a}], (\literal{3})}$ of the simple choice game of @exm-formula-game.
-
-
-```{=latex}
-% fix to make the table float in spite of Pandoc's hardcoded longtable usage...
-% push to next page to fix the problem of longtable breaking pages with other floats -_-
-%\afterpage{\clearpage
-%\begin{table}%[b!]
-```
-
-| $\variable{g}$ | $\variable{defender\_options}$ | $\variable{todo}$ |
-|------|---------------|------|
-|   -    |  $(\literal{1}) \mapsto 2$, $(\literal{3}) \mapsto 0$ | $(\literal{3})$  |
-| $(\literal{3})$ | $(\literal{1}) \mapsto 2$, $(\literal{3}) \mapsto 0$ | $[\literal{2a}]$  |
-| $[\literal{2a}]$ | $(\literal{1}) \mapsto 1$, $(\literal{3}) \mapsto 0$ | $\varnothing$ |
-
-: Solving the game of @exm-formula-game. {#tbl-game-example-execution}
-
-``` {=latex}
-%\end{table}
-%}
-```
-
-\noindent
-As this game corresponds to the HML game by @exm-formula-game-cont, the computation that the defender wins $(\literal{1})$ checks that $\hmlobs{τ}\hmlneg\hmlobs{\literal a}\hmltrue$ is true for state $\literal P$ of @exm-hml.
-
-The inner loop of @alg-deciding-games clearly can run at most $\relsize{\gamemoveblank}$-many times.
-Using sufficiently clever data structures, the algorithm hence shows:
-
-::: {#prp-reachability-game-complexity}
-Given a finite reachability game $\game=(G,G_\defender,\gamemoveblank)$,
-the attacker's winning region $\attackerwins^\game$ (and $\defenderwins^\game$ as well) can be computed in $\bigo{\relsize{\gamemoveblank}}$ time and $\bigo{\relsize{G}}$ space.
-:::
-
-Everything we can characterize as a reachability game, can thus be easily decided.
+The rest of this thesis is about leveraging this intuition to address every behavioral equivalence.
+We will meet @thm-game-formulas again three times---each time in a more abstract form.
 
 ## Discussion {#sec-preliminaries-discussion}
 
@@ -2042,6 +2058,6 @@ We have observed that behavioral equivalences form hierarchies and that these hi
 
 We have also seen how to link game rules to productions in a language of potentially distinguishing formulas (@sec-bisim-game-hml).
 This departs from common textbook presentations that motivate the bisimulation game through the relational (coinductive) characterization [e.g. @sangiorgi2012].
-In later chapters, we will rather derive equivalence games from grammars of modal formulas (@idea-modal-first), to generalize the framework of @fig-game-algo-overview for whole spectra of equivalences.
+In later chapters, we will rather derive equivalence games from grammars of modal formulas (@idea-modal-first), to generalize the framework of @fig-game-algo-overview for whole spectra of equivalence.
 
-But first, we have to make formal what we mean by *spectra of behavioral equivalences*.
+But first, we have to make formal what we mean by *spectra of behavioral equivalence*.

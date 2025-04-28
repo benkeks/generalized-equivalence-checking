@@ -33,7 +33,7 @@ Did it translate CSP terms to automata *with the same meaning*?
 Even the definition of the question is tricky, as there are different notions of what counts as “same meaning” in the semantics of programs.
 
 I then took my very first look into seminal work on the landscape of process equivalences, the “linear-time–branching-time spectrum” by van Glabbeek [-@glabbeek1990ltbt1; -@glabbeek1993ltbt; -@glabbeek2001ltbtsiReport with a combined 2500 citations on Google Scholar].
-Their central figure, reproduced in @fig-ltbts2-paper, mesmerized me.
+A central figure, reproduced in @fig-ltbts2-paper, mesmerized me.
 So many equivalences!
 But, how to find out for a given pair of processes which of the many equivalences apply?
 Over the years, I have learned that others, too, have run into this not-quite-straightforward problem:
@@ -61,8 +61,10 @@ It includes numerous concepts we will define and discuss more deeply on our way 
 #### Verifying Peterson's mutual exclusion
 
 Many verification tasks can be understood along the lines of “how equivalent” two models are.
+The models can usually be expressed as labeled transition systems, that is, as graphs where nodes represent program states and edges represent transitions between them, labeled by *actions*.
+
 @fig-peterson-mutex replicates a standard example, known for instance from the textbook *Reactive Systems* [@ails2007reactiveSystems]:
-A specification of mutual exclusion $\literal{Mx}$ as two users $\literal A$ and $\literal B$ entering their critical section $\literal{ec_A} / \literal{ec_B}$ and leaving $\literal{lc_A} / \literal{lc_B}$ before the other may enter;
+A graph specification of mutual exclusion $\literal{Mx}$ as two users $\literal A$ and $\literal B$ entering their critical section $\literal{ec_A} / \literal{ec_B}$ and leaving $\literal{lc_A} / \literal{lc_B}$ before the other may enter;
 and the transition system of Peterson's [-@peterson1981mythsMutex] mutual exclusion algorithm $\literal{Pe}$, with internal steps $\color{gray}\step{}$ due to the coordination that needs to happen.^[
   To fit on the page, $\literal{Pe}$ is minimized by a behavioral equivalence, that will be important later on: stability-respecting branching bisimilarity.
 ]
@@ -146,9 +148,11 @@ A specification of mutual exclusion $\literal{Mx}$, and Peterson's protocol $\li
 ::::
 
 \noindent
-Semantics in concurrent models must take nondeterminism and internal steps into account.
-Setting the degree to which nondeterminism counts induces equivalence notions with subtle differences:
-$\literal{Pe}$ and $\literal{Mx}$ *weakly simulate* each other, intuitively meaning that a tree of options passing over internal activity from one process can be matched by a similar tree of the other.
+In @sec-equivio-peterson, we will see how the transitions of $\literal{Pe}$ derive from pseudocode and formal model.
+
+Semantics in concurrent models must treat nondeterminism and internal steps in some way.
+As we will see throughout this thesis, setting the degree to which nondeterminism counts induces equivalence notions with subtle differences.
+In the example, $\literal{Pe}$ and $\literal{Mx}$ *weakly simulate* each other, intuitively meaning that a tree of options passing over internal activity from one process can be matched by a similar tree of the other.
 This implies that they have the same *weak traces*, that is, matching paths.
 However, they are not weakly *bi-*similar, which would require a higher degree of symmetry than mutual similarity, namely, matching absence of options.
 There are many more such notions, which can be incomparable in how they relate processes.
@@ -260,20 +264,23 @@ MxIC = tau.ecA.lcA.MxIC + tau.ecB.lcB.MxIC
 "lcB.Mx"(x=433, y=290)
 ```
 
-This query leads to the output in @fig-peterson-spectrum:^[
+This query leads to the output in @fig-peterson-spectrum,^[
   This thesis often provides snippets for models on {{< equivio >}}.
   You can examine and modify the example models by clicking on the links reading `Interactive model on equiv.io`.
 ]
+which is to be understood as an interactive version of the linear-time--branching-time spectrum of @fig-ltbts2-paper.
 
 ::: {#fig-peterson-spectrum}
 
 ![](img/peterson-spectrum.svg){.lightbox}
 
-Output of equiv.io about weak equivalences to relate $\literal{Pe}$ to $\literal{Mx}$ of @exm-peterson-mutex.
+Output of {{< equivio >}} about weak equivalences to relate $\literal{Pe}$ to $\literal{Mx}$ of @exm-peterson-mutex.
+Where notions are connected, the one at the top implies the one underneath.
 :::
 
 \noindent
-The big blue circle ![](img/equivio-eq.svg){width=0.9em} indicates that weak simulation indeed is the most specific equivalence to equate $\literal{Pe}$ and $\literal{Mx}$.
+The big blue circle ![](img/equivio-eq.svg){width=0.9em} in @fig-peterson-spectrum indicates that weak simulation indeed is the most specific equivalence to equate $\literal{Pe}$ and $\literal{Mx}$.
+Lines mean that the notion at the top implies the one below.
 Blue half-circles ![](img/equivio-preord.svg){width=0.9em} indicate preordering in only one direction.
 For instance, $\literal{Pe}$ is *preordered* to $\literal{Mx}$ with respect to two more specific notions, namely $\eta$-*simulation* and *stable simulation* (and notions below).
 Intuitively, this means that $\literal{Pe}$ *implements* $\literal{Mx}$ more faithfully than pure weak similarity would demand.
@@ -292,21 +299,26 @@ For light (i.e. electromagnetic radiation), the mix of wavelengths can be determ
 So, we could reframe the question behind this thesis also:
 
 ::: {#idea-spectroscopy .callout-idea .callout-tip}
-#### A Spectroscopy for the Spectrum
+#### A Spectroscopy for the Spectra
 
-If there exists a “linear-time–branching time spectrum,” does this mean that there also is some kind of “linear-time–branching-time *spectroscopy*”?
+If there are “linear-time–branching time spectra,” does this mean that there also is some kind of “linear-time–branching-time *spectroscopy*”?
 :::
 
 {{< paragraph_heading "State of the art, primed." >}}
 This thesis answers the spectroscopy question positively, which is the key step to tackle our research question.
 One can compute what mix of (in-)distinguishabilities exists between a pair of finite-state processes,
-and this places the two on the spectrum of equivalences.
+and this places the two on a spectrum of equivalences.
 We thus turn a set of *qualitative* equivalence problems into one *quantitative* problem of *how equivalent* two systems are.
 As we will see, this amounts to an abstract form of subtraction between programs, determining what kinds of differences an outside examiner might observe.
 Thereby *one* algorithm works for *all* of a spectrum.
 
 ## This Thesis
 
+::::{.content-visible when-format="pdf"}
+{{< contents fig-thesis-overview >}}
+::::
+
+\noindent
 At the core, this thesis presents an algorithm to *decide all behavioral equivalences at once* for varying spectra of equivalence using *energy games to limit possible distinctions* through attacker budgets.
 More precisely, we make the following contributions, each coming with a “side quest:”
 

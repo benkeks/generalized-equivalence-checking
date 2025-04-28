@@ -103,7 +103,8 @@ A *transition system* $\system=(\states,\actions,\step{})$ consists of
 - $\actions$, a set of *actions,* and
 - ${\step{}} ⊆ \states × \actions × \states$, a *transition relation*.{{<isb locale Labeled_Transition_Systems lts>}}
 
-We write $\derivatives{p, α}$ for the set of *derivative states* $\set{p' \mid p \step α p'}$,
+We use infix notation for arrows, that is, $p \step{\alpha} p'$ stands for $(p, \alpha, p') \in {\step{}}$.
+We write $\derivatives{p, α}$ for the set of *derivative states* $\set{p' \mid p \step α p'}$
 and $\initials{p}$ for the set of enabled actions $\set{α \mid \exists p' \ldotp p \step α p'}$.
 :::
 
@@ -157,7 +158,7 @@ Example system $\system_\literal{PQ}$.
 ::::
 
 \noindent
-The program described by the transitions from $\literal{P}$ chooses non-de{{<shy>}}terministically during a $τ$-step between two options and then offers only *either* $\literal a$ *or* $\literal b$.
+The program described by the transitions from $\literal{P}$ chooses nondeterministically during a $τ$-step between two options and then offers only *either* $\literal a$ *or* $\literal b$.
 The program of $\literal{Q}$, on the other hand, performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$ to the environment.
 :::
 
@@ -193,7 +194,7 @@ It is a tiny concurrent programming language that fits in your pocket, and can b
 #### Syntax of $\ccs$
 
 Let $\ccschannels$ be a set of channel names, and $\ccsnames$ a set of process names.
-Then, $\ccs$ is the set of processes, communicating via actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{c} \mid c ∈ \ccschannels } \cup \set{τ}$, as given by the following grammar:^[
+Then, $\ccs$ is the set of processes given by the following grammar:^[
   To those familiar with CCS dialects:
   For the examples of the thesis, a simple CCS variant without value passing and relabeling suffices.
 ]
@@ -218,8 +219,9 @@ $$
       \text{“restriction”}
 \end{array}
 $$
-Intuitively, action $c$ represents receiving and its “coaction” $\coaction c$ expresses sending on channel $c \in \ccschannels$.
-A pair of action and coaction can “react” in a communication situation and only become internal activity $τ$ in the view of the environment.
+Intuitively, input action $c$ represents receiving and output action $\coaction c$ expresses sending on channel $c \in \ccschannels$.
+A pair of input and output can “react” in a communication situation and only become internal activity $τ$ in the view of the environment.
+In summary, CCS processes exhibit via the actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{c} \mid c ∈ \ccschannels } \cup \set{τ}$. 
 
 Each part of the syntax tree must end in a $\ccsnull$-process or recursion.
 For brevity, we usually drop a terminal $\ccsnull$ when writing terms, e.g., just writing $\literal{ac}$ for $\ccsprefix{\literal{ac}} \ccsnull$.
@@ -275,7 +277,12 @@ The formal relationship between process terms of $\ccs$ and their transition sys
 ::: {#def-ccs-semantics}
 #### CCS semantics
 
-Given an assignment of names to processes, $\ccsasg \colon \ccsnames → \ccs$, the operational semantics ${\step{}_\ccs} ⊆ \ccs × \ccsactions × \ccs$ is defined inductively by the rules:
+Given an assignment of names to processes, $\ccsasg \colon \ccsnames → \ccs$, the operational semantics ${\step{}_\ccs} ⊆ \ccs × \ccsactions × \ccs$ is defined inductively by the inference rules:^[
+  Such rules are read like this:
+  “If we can derive the facts above the line, we may infer the relation below.”
+  $\mathrm{Pre}$, having no premises, serves as the only axiom of this inference system.
+  @fig-deriving-transition shows how to stack such rules to infer that a certain step is possible for a process.
+]
 
 \vspace{-2em}
 :::: {.column-body-outset}
@@ -414,6 +421,9 @@ $$
 Deriving $\ccs$ transitions due to communication.
 :::
 
+Therefore, after one step from $\literal{P}$, the (internal) $\literal{fork}$ has been consumed, and only one philosopher may eat.
+From the outside, this appears as nondeterminism of the system.
+
 Nondeterminism as in $\literal P$ of @exm-ts can be understood as a natural phenomenon in models with concurrency.
 The model leaves unspecified which of two processes will consume an internal resource and, to the outsider, it is transparent which one took the resource until they communicate.
 There are other ways how nondeterminism plays a crucial role in models, for instance, as consequence of abstraction or of parts that are left open in specifications.
@@ -425,7 +435,7 @@ The second process $\literal Q$ of @exm-ts can be understood as a *deterministic
 
 A process matching the transitions from $\literal Q$ in @exm-ts would be the following, where the philosophers take the fork as a team and then let the environment choose who of them eats:
 $$
-\literal Q ≔ (\coaction{\literal{fork}} \ccspar \ccsprefix{\literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
+\literal Q ≔ (\ccsprefix{\coaction{\literal{fork}}} \ccsnull \ccspar \ccsprefix{\literal{fork}} ( \ccsprefix{\literal{a}} \ccsnull \ccschoice \ccsprefix{\literal{b}} \ccsnull )) \ccsrestrict \set{\literal{fork}}.
 $$
 :::
 
@@ -446,7 +456,7 @@ We will then observe that the notions themselves can be compared in a hierarchy 
 
 Every computer science curriculum features automata and their languages sometime at the beginning.
 Accordingly, comparing two programs in terms of the sequences of input/output events they might expose is a natural starting point to talk about behavioral equivalences.
-Such sequences are referred to as *traces*.
+Such sequences of actions are referred to as *traces*.
 
 ::: {#def-traces}
 #### Traces
@@ -474,7 +484,10 @@ We could say that trace $\literal{b}$ constitutes a *difference* between $\liter
 :::
 
 ::: {#prp-trace-eq-rel}
-Trace preorder $\bpreord{T}$ is indeed a preorder (i.e., transitive and reflexive){{<isb lemma Strong_Equivalences lts.trace_preorder_transitive>}} and trace equivalence $\beq{T}$ is indeed an equivalence relation (i.e., transitive, reflexive, and moreover symmetric).{{<isb lemma Strong_Equivalences lts.trace_equivalence_equiv>}}
+Trace preorder $\bpreord{T}$ is indeed a preorder (i.e., transitive and reflexive){{<isb lemma Strong_Equivalences lts.trace_preorder_transitive>}} and trace equivalence $\beq{T}$ is indeed an equivalence relation{{<isb lemma Strong_Equivalences lts.trace_equivalence_equiv>}} (i.e., transitive, reflexive, and moreover symmetric).^[
+  This thesis states many facts, only linking to their proof.
+  In this case, proofs can be found in the Isabelle/HOL formalization, indicated by ![Isabelle icon](img/isabelle.png){height=0.9em}.
+]
 :::
 <!-- proof
 The properties carry over directly from $⊆$ and $=$ on sets of $\traces{\cdot}$. -->
@@ -493,13 +506,17 @@ The two might interact differently with an environment.
 #### Live lecture
 
 Consider a context in which $\literal{A}$ actually does not want to eat and the event of $\literal{B}$ eating is followed by $\literal{B}$ giving a live lecture:
-$$(\dots \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}$$
+$$
+(\dots \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}
+$$
 If we insert $\literal{Q}$ for the “$\dots$” in this context, the choice after the collective $\literal{fork}$-acquisition is resolved to the $\literal{B}$-path.
 So the overall system chooses for $\literal{B}$ to eat, and the lecture happens:
-$$(\literal{Q} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}} \step{\tau} \cdot \step{\tau} \cdot \step{\coaction{\literal{lecture}}}$$
-
+$$
+(\literal{Q} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}} \step{\tau} \cdot \step{\tau} \cdot \step{\coaction{\literal{lecture}}}
+(\ccsnull \ccspar \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}
+$$
 With $\literal{P}$, an analogous path is possible.
-But there moreover is a possibility of $\literal{A}$ obtaining the fork, which prevents $\literal{B}$ from eating.
+But there, moreover, is a possibility of $\literal{A}$ obtaining the fork, which prevents $\literal{B}$ from eating.
 There, the system can end up deadlocked with no lecture:
 $$
 (\literal{P} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}
@@ -776,7 +793,9 @@ As $R \ccschoice T \step{\alpha}_\ccs R'$, we can take this $R'$ to prove our go
 The nice thing about congruences is that we can use them to *calculate with terms*, as is common in mathematics.
 
 Graph isomorphism fails to be a congruence for CCS operators.
-For instance, consider $\ccsprefix{\literal{a}} (\ccsnull \ccspar \ccsnull) \beq{ISO} \ccsprefix{\literal{a}} \ccsnull$, but $\ccsprefix{\literal{a}} \ccsnull + \ccsprefix{\literal{a}} (\ccsnull \ccspar \ccsnull) \nbeq{ISO} \ccsprefix{\literal{a}}\ccsnull + \ccsprefix{\literal{a}}\ccsnull \beq{ISO} \ccsprefix{\literal{a}} \ccsnull$.
+For instance, consider $\ccsprefix{\literal{a}} (\ccsnull \ccspar \ccsnull) \beq{ISO} \ccsprefix{\literal{a}} \ccsnull$.
+But if one inserts the two terms in a choice context, the results differ with respect to isomorphism:
+$\ccsprefix{\literal{a}} \ccsnull + \ccsprefix{\literal{a}} (\ccsnull \ccspar \ccsnull) \nbeq{ISO} \ccsprefix{\literal{a}}\ccsnull + \ccsprefix{\literal{a}}\ccsnull \beq{ISO} \ccsprefix{\literal{a}} \ccsnull$. 
 
 <!-- too complicated!
 
@@ -836,6 +855,8 @@ The first comprehensive study on the correspondence between the hierarchy of equ
 Historically, therefore, this thesis originates from the tension between the works of two Turing award winners: Milner's CCS and Hoare's CSP.
 Or, as @hoare2006whyEverCSP puts it:
 “It seems that CCS and CSP occupy extreme ends of almost every spectrum.”
+
+But do not worry---although our research question is a consequence of the possibility to come up with various process algebras, this thesis will stick to only one, CCS. 
 <!--
 > Of all subsequently explored process calculi, CCS defined a minimal set of primitives and operators, with a minimal set of equations relating them, whereas CSP has explored a wide range of concepts that have proved useful in concurrent system design.
 -->
@@ -902,8 +923,9 @@ Modal logics are logics in which one can formalize how facts in one possible wor
 In the computer science interpretation, the possible worlds are *program states*, and typical statements have the form:
 “If $X$ happens during the execution, then $Y$ will happen in the next step.”
 
-We care about modal logics as they, too, can be used to characterize behavioral equivalences.
-In this section, we will show how this characterization works and argue that, for our purposes of comparative semantics, modal characterizations are a superb medium.
+Each modal logic naturally characterizes a behavioral equivalence.
+In this section, we show how such characterization works and argue that, for our purposes of comparative semantics, modal characterizations are a superb medium.
+In the next chapter, the equivalence hierarchy will turn out to be a hierarchy of modal sublogics.
 
 ### Hennessy–Milner Logic to Express Observations
 
@@ -959,8 +981,8 @@ $$
 Let us consider some observations on the system of @exm-ts.
 
 - $\semantics{\hmlobs{τ}\hmlobs{\literal a}} = \set{\literal P, \literal Q}$ as both, $\literal P$ and $\literal Q$, expose the trace $τ\literal{a}$,
-- $\literal Q ∈ \semantics{\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}}$, but $\literal P \notin \semantics{\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}}$.
-- $\literal P ∈ \semantics{\hmlobs{τ}\hmlneg\hmlobs{\literal a}}$, but $\literal Q \notin \semantics{\hmlobs{τ}\hmlneg\hmlobs{\literal a}}$.
+- $\literal Q ∈ \semantics{\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}}$, but $\literal P \notin \semantics{\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}}$ as $\literal{Q}$ leaves the choice between $\literal{a}$ and $\literal{b}$ to the environment.
+- $\literal P ∈ \semantics{\hmlobs{τ}\hmlneg\hmlobs{\literal a}}$, but $\literal Q \notin \semantics{\hmlobs{τ}\hmlneg\hmlobs{\literal a}}$ as $\literal{P}$ can internally decide against $\literal{a}$.
 :::
 
 ### Characterizing Bisimilarity via HML
@@ -1121,7 +1143,7 @@ $$
 :::
 
 $\observations{\floor{B}}$ is a proper subset of $\hml$.
-For instance, it lacks the observation $\hmlobs{\literal a} \hmlobs{\literal b} \hmltrue$.
+For instance, it lacks the observation $\hmlands\set{\hmlobs{\literal a}, \hmlobs{\literal b}}$.
 Due to the subset relation, $\observations{\floor{B}}$ must be less or equal in expressiveness to $\hml$, but this inclusion too is strict as $\hmltrue$ cannot be covered for.
 But both logics are equally distinctive!
 
@@ -1186,7 +1208,7 @@ The player choices are formalized by *strategies*:
 ::: {#def-strategies}
 #### Strategies and winning strategies
 
-An *attacker strategy* is a (partial) function mapping play fragments ending at attacker positions to next positions to move to, $s_\attacker \colon G^*G_\attacker \to G$, where $g_\attacker \gamemoveblank f_\attacker(\rho g_\attacker)$ must hold for all $\rho g_\attacker$ where $s_\attacker$ is defined.
+An *attacker strategy* is a (partial) function mapping play fragments ending at attacker positions to next positions to move to, $s_\attacker \colon G^*G_\attacker \to G$, where $g_\attacker \gamemoveblank s_\attacker(\rho g_\attacker)$ must hold for all $\rho g_\attacker$ where $s_\attacker$ is defined.
 
 A play ${g_0}{g_1} … ∈ G^{\infty}$ is consistent with an attacker strategy $s_\attacker$ if, for all its prefixes $g_0 … g_i$ ending in $g_i \in G_\attacker$, $g_{i + 1} = s_\attacker(g_0 … g_i)$.
 
@@ -1277,7 +1299,7 @@ Consider the following recursive definition of a less-or-equal operator `≤` on
 (Succ n ≤ Succ m) = (n ≤ m)
 ```
 
-We can think of this recursion as a game where the attacker tries to prove that the left number is bigger than the right by always decrementing the left number and challenging the defender to do the same for the right stack too.
+We can think of this recursion as a game where the attacker tries to prove that some natural number on the left is bigger than the right by always decrementing the left number and challenging the defender to do the same for the right stack too.
 Whoever hits zero first, loses.
 
 This means we distribute the roles such that the defender wins for output `True` and the attacker for output `False`.
@@ -1937,6 +1959,7 @@ Everything we can characterize as a reachability game, can thus be easily decide
 
 This chapter has taken a tour of characterizations for standard notions of behavioral preorder and equivalence on transition systems such as trace equivalence and bisimilarity.
 The aim of this has been to prepare a generic framework to characterize and decide behavioral equivalences.
+So far, we have only instantiated the framework for bisimilarity, but the rest will follow.
 
 {{< paragraph_heading "Perspicuous algorithmics." >}}
 In constructing the relationships of @fig-equivalence-big-picture for bisimilarity, we have collected the theoretical ingredients for a *certifying algorithm* to check bisimilarity of states.

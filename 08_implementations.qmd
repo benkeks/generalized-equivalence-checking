@@ -49,7 +49,7 @@ CCS processes are written according to the grammar in @def-ccs, with the concret
 | Recursion       | `P_Name`         | $\literal{P_{Name}}$                  |
 | Choice          | `P1 + P2`        | $P_1 \ccschoice P_2$                  |
 | Parallel        | `P1 | P2`        | $P_1 \ccspar P_2$                     |
-| Restriction     | `P \ {a1, a2}`   | $P_1 \ccsrestrict \set{\literal{a_1}, \literal{a_2}}$ |
+| Restriction     | `P \ {a1, a2}`   | $P \ccsrestrict \set{\literal{a_1}, \literal{a_2}}$ |
 
 : Concrete ASCII syntax for CCS terms {#tbl-ccs-syntax fig-pos='b'}
 

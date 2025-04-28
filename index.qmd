@@ -1,3 +1,4 @@
+
 ::: {.callout-warning}
 This is a work-in-progress document. Handle with care!
 :::
@@ -7,8 +8,7 @@ This is a work-in-progress document. Handle with care!
 :::
 {{< include style/macros.md >}}
 
-## Summary {.unnumbered .unlisted}
-
+:::{#summary-block-en}
 We study the *spectroscopy problem* that asks which notions from a spectrum of behavioral equivalences relate a pair of states in a transition system.
 This allows a generalized handling of questions on *how equivalent two programs are*.
 
@@ -26,11 +26,43 @@ We implement the spectroscopy procedure in the web tool {{< equivio >}}, which c
 Using it, we can *check for dozens of equivalences* at once.
 We apply the spectroscopy approach to small *case studies from verification and translation of concurrent programs*.
 Core parts of the thesis are supported by an *Isabelle/HOL-formalization*.
+:::
+
+:::{#summary-block-de}
+TODO
+:::
+
+::::{.content-visible when-format="pdf"}
+
+## Summary {.unnumbered .unlisted}
+
+{{< contents summary-block-en >}}
 
 \newpage
- \thispagestyle{empty}
+\thispagestyle{empty}
 
-::: {.content-visible when-format="html"}
+## Zusammenfassung {.unnumbered .unlisted}
+
+{{< contents summary-block-de >}}
+
+::::
+
+\newpage
+\thispagestyle{empty}
+
+:::{.content-visible when-format="html"}
+:::: {.panel-tabset}
+
+## Summary
+
+{{< contents summary-block-en >}}
+
+## Zusammenfassung
+
+{{< contents summary-block-de >}}
+
+::::
+
 ----
 
 ### Dedication {.unnumbered .unlisted}
@@ -55,7 +87,7 @@ Crazy times!
 That this research project has still reached the stage of a (soon to be submitted) PhD thesis, is thanks to many great people (sorted by category, mostly in order of appearance).
 
 - **Environment:**
-  Uwe Nestmann and my colleagues at the Modelle und Theorie Verteilter Systeme group, especially my lovely office mates Edgar Arndt, Valeria Zahoransky.
+  Uwe Nestmann and my colleagues at the Modelle und Theorie Verteilter Systeme group, especially my lovely office mates Edgar Arndt and Valeria Zahoransky.
   Alex Wiemhoefer, who offered a desk in her office when mine was closed.
   My “Sunday friends” and my parents.
   You're all amazing!
@@ -81,6 +113,7 @@ That this research project has still reached the stage of a (soon to be submitte
   Amelie Heindl,
   Gabriel Vogel,
   Sebastian Wolf,
+  David Karcher
   (you might soon appear here, dearest test reader)
 
 ```{=latex}

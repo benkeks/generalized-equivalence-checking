@@ -855,7 +855,7 @@ We will sometimes refer to the deep positive conjunct of a conjunction as the *r
 
 ### Any Questions?
 
-There are a few standard questions that come to mind for people who are familiar with the various spectra of equivalences when seeing @fig-strong-ltbt-spectrum.
+There are a few standard questions that come to mind for people who are familiar with the various spectra of equivalence when seeing @fig-strong-ltbt-spectrum.
 The following remarks address these points.
 
 ::: {#rem-other-strong-notions}

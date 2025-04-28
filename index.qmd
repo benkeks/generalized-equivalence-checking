@@ -78,6 +78,7 @@ That this research project has still reached the stage of a (soon to be submitte
   Karl Mattes,
   Jeroen Keiren,
   Uwe Nestmann,
+  Amelie Heindl,
   (you might soon appear here, dearest test reader)
 
 ```{=latex}

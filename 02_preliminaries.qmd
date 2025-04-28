@@ -221,7 +221,7 @@ $$
 Intuitively, action $c$ represents receiving and its “coaction” $\coaction c$ expresses sending on channel $c \in \ccschannels$.
 A pair of action and coaction can “react” in a communication situation and only become internal activity $τ$ in the view of the environment.
 
-Each sub-process tree must end in a $\ccsnull$-process or recursion.
+Each part of the syntax tree must end in a $\ccsnull$-process or recursion.
 For brevity, we usually drop a terminal $\ccsnull$ when writing terms, e.g., just writing $\literal{ac}$ for $\ccsprefix{\literal{ac}} \ccsnull$.
 
 We place parenthesis $(…)$ in terms where the syntax trees are otherwise ambiguous, but understand the choice operator $\ccschoice$ and the parallel operator $\ccspar$ to be associative.
@@ -348,7 +348,7 @@ By the semantics, this also leads to the existence of a *state* $\literal{P_A}$ 
 
 Feel free to go ahead and check that the transitions of @exm-ts indeed match those that @def-ccs-semantics prescribes for $\literal{P}$ of @exm-ccs!
 (For readability, @exm-ts, has shorter state names, however.)
-For instance, the transition $\literal P \step{τ} \literal{p_a}$ in the CCS system of @exm-ts would be justified by the derivation in @fig-deriving-transition.
+For instance, the transition $\literal P \step{τ} \literal{p_a}$ in the CCS system of @exm-ts would be justified by the derivation in @fig-deriving-transition with $\literal{p_a} = ( \ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}$.
 
 ::: {#fig-deriving-transition fig-pos="t" fig-env="figure*"}
 $$
@@ -494,7 +494,7 @@ The two might interact differently with an environment.
 
 Consider a context in which $\literal{A}$ actually does not want to eat and the event of $\literal{B}$ eating is followed by $\literal{B}$ giving a live lecture:
 $$(\dots \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}$$
-If we insert $\literal{Q}$ into this context, the choice after the collective $\literal{fork}$-acquisition is resolved to the $\literal{B}$-path.
+If we insert $\literal{Q}$ for the “$\dots$” in this context, the choice after the collective $\literal{fork}$-acquisition is resolved to the $\literal{B}$-path.
 So the overall system chooses for $\literal{B}$ to eat, and the lecture happens:
 $$(\literal{Q} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}} \step{\tau} \cdot \step{\tau} \cdot \step{\coaction{\literal{lecture}}}$$
 
@@ -734,7 +734,7 @@ The concept is closely linked to another core notion of mathematics: monotonicit
 ::: {#def-monotonic}
 #### Monotonicity and congruence
 
-An $n$-ary function $f \colon B_1 \times \dots \times B_n \to C$ is called *monotonic* with respect to a family of preorders $(B_k, \leq_k)$ and $(C, \leq)$ iff, for all $b \in B_1 \times \dots \times B_n$ and $b' \in B_1 \times \dots \times B_n$, it is the case that $b_k \leq b'_k$ for all $k \leq n$ implies that $f(b) \leq f(b')$.
+An $n$-ary function $f \colon B_1 \times \dots \times B_n \to C$ is called *monotonic* with respect to a family of preorders $(B_k, \leq_k)$ and $(C, \leq)$ iff, for all $b \in B_1 \times \dots \times B_n$ and $b' \in B_1 \times \dots \times B_n$, it is the case that $b^{\vphantom{\prime}}_k \leq^{\vphantom{\prime}}_k b'_k$ for all $k \leq n$ implies that $f(b) \leq f(b')$.
 We will usually encounter settings where all components use the same order ${(B_1, \leq_1)} = \cdots = {(B_n, \leq_n)} = {(C, \leq)}$.
 
 The relation $\leq$ is then referred to as a *precongruence* for $f$.
@@ -1861,7 +1861,7 @@ $$
 \begin{array}{lr}
   \kw{def} \variable{compute\_winning\_region}(\game=(G,G_\defender,\gamemoveblank)) \colon & \\
   \quad \variable{defender\_options} ≔
-    [g \mapsto n \mid g \in G \land n = \relsize{\set{g' \mid g \gamemoveblank g'}}] & \\
+    [g \mapsto n \mid g \in G_\defender \land n = \relsize{\set{g' \mid g \gamemoveblank g'}}] & \\
   \quad \variable{attacker\_win} ≔ \varnothing & \\
   \quad \variable{todo} ≔ \set{g\in G_\defender \mid \variable{defender\_options}[g]=0} & \\
   \quad \kw{while} \variable{todo} \neq \varnothing \colon & \\

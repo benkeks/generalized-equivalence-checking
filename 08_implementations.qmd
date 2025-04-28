@@ -900,10 +900,11 @@ With WebGPU/WGSL [@w3c2025wgsl], times are changing.
 @vogel2024energyGamesWebGPU makes this progress available to the spectroscopy approach.
 
 Big parts of the game graph construction and the game solving are quite parallelizable.
-Therefore, for instance, a whole batch of game positions on a `todo`-list in @alg-deciding-energy-games can be processed simultaneously.
+gpuequiv parallelizes the budget computation of @alg-deciding-energy-games.
+For instance, a whole batch of game positions on a `todo`-list can be processed simultaneously.
 The details are explained in @vogel2024energyGamesWebGPU.
 
-gpuequiv's control code surrounding the shader invocations is written in Rust that can be compiled to native code and to JavaScript.
+gpuequiv's control code surrounding the shader invocations is written in Rust that can be compiled to native code and to WebAssembly.
 Therefore, gpuequiv can be compiled for both kinds of targets:
 Quick equivalence checking in the browser, and even quicker checking in a native application.
 @vogel2024energyGamesWebGPU reports 10⨯ speed-ups.

@@ -651,7 +651,7 @@ The default spectroscopy game at the top has roughly $1200$ thousand game positi
 Pruning symmetric parts removes roughly four fifths of the graph (leaving $241$ thousand positions).
 
 Only applying the bisimulation minimization roughly halves the graph (leaving $661$ thousand positions).
-The bisimulation reduction is surprisingly effective, given that the bisimulation minimized Peterson system still has 19 states, that is, only one less than the originals system.
+The bisimulation reduction is surprisingly effective, given that the bisimulation minimized Peterson system still has 19 states, that is, only one fewer than the original system.
 On the other hand, bisimilar states are precisely those that allow the biggest space of distinctions, blowing up the game.
 
 Interestingly, the combination of both tricks reduces the game graph to $67$ thousand positions, roughly 5 % of the original size.
@@ -662,9 +662,12 @@ This over-proportionate effect on the one hand has to do with the general expone
   Bisimulation minimization of the input system would shrink this region as $\literal{t_{ab}} \beq{B} \literal{q_{ab}}$.
   The two positions would be merged into $[\set{\literal{t_{ab}}, \literal{q_{ab}}}, \set{\literal{t_{ab}}, \literal{q_{ab}}}]$.
   But this is a symmetric position!
-  Therefore, we can drop this part of the altogether.
+  Therefore, we can drop this part altogether.
 ]
 :::
+
+The implementations (@sec-implementations) sometimes use small additional tricks for pruning.
+For instance, one can leave out observation moves behind $\attackerpos{p, \varnothing}$ positions and finish the game optimally by conjunction.
 
 So far, the optimizations have been *lossless* in the sense that we do not lose any information on the distinguishability of processes.
 If we are willing to lose precision, additional reductions of the game graph are possible.

@@ -802,7 +802,7 @@ $$
 $$
 -->
 
-By now, we have ecountered some behavioral equivalences.
+By now, we have encountered some behavioral equivalences.
 Both, bisimilarity and trace equivalence make for fine congruences that allow calculations on process-algebraic expressions of $\ccs$.
 Which one to choose?
 That there is no definitive answer is a root cause of this thesis.
@@ -830,7 +830,7 @@ CSP (“Communicating Sequential Processes”) is due to Hoare, another Turing a
 > We have therefore a far richer set of algebraic laws.
 
 The first comprehensive study on the correspondence between the hierarchy of equivalences and algebraic laws has been dubbed “linear-time–branching-time spectrum” by @glabbeek1990ltbt1.^[
-  Further historical remarks on the spectrum are assmbled by @erph2013unfyingLTBTS, incidentally also quoting from @hoare1985csp.
+  Further historical remarks on the spectrum are assembled by @erph2013unfyingLTBTS, incidentally also quoting from @hoare1985csp.
 ]
 
 Historically, therefore, this thesis originates from the tension between the works of two Turing award winners: Milner's CCS and Hoare's CSP.

@@ -1959,17 +1959,19 @@ The attacker wins ${\game}_\notionname{B}$ from $[p,q]$ precisely if there is a 
 With @thm-game-formulas, we have added the last arrow on the right side of @fig-equivalence-big-picture.
 
 Of course, @thm-game-formulas could also be arrived at by gluing together the Hennessy–Milner theorem on bisimulation (@thm-hennessy-milner) and Stirling's bisimulation game characterization (@thm-bisim-game-characterization), modulo the determinacy of games.
-But @thm-game-formulas transports a deeper insight.
+But @thm-game-formulas transports a deeper insight:
 
 The bisimulation game actually is a game of an attacker assembling a distinguishing formula from $\observations{\floor{B}}$.
-The rules for attacker moves follow the grammar of $\observations{\floor{B}}$.
+The game rules for attacker moves follow the grammar of $\observations{\floor{B}}$.
 But parts of the HML semantics are baked into the game:
 Intuitively, the attacker must propose formulas that are true-by-construction for the left-hand state.
 To disprove the distinction, the defender may point out how the formula is also satisfied by the right-hand state.
 Negation turns the tables.
 
 The rest of this thesis is about leveraging this intuition to address every behavioral equivalence.
-We will meet @thm-game-formulas again three times---each time in a more abstract form.
+We will meet @thm-game-formulas again three times---each time in a more abstract form.^[
+  And for the most abstract incarnation, there will even be an Isabelle/HOL formalization in @sec-isabelle-formalization.
+]
 
 ## Discussion {#sec-preliminaries-discussion}
 

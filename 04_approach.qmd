@@ -21,7 +21,7 @@ Time to get real.
 This chapter will demonstrate my core approach by solving the spectroscopy problem in an *easy* instance.
 
 It will be easy in two regards:
-Firstly, complexity-wise---we narrow our focus on equivalences of polynomial-time.
+Firstly, complexity-wise---we narrow our focus on equivalences of polynomial-time, the “$\complexityname{P}$-easy ones”.
 Secondly, conceptually---we just use the bisimulation game of Chapter [-@sec-preliminaries], almost directly!
 
 We already know that winning attacker strategies in the bisimulation game correspond to distinguishing formulas, and that these can be computed quite straightforwardly.
@@ -49,7 +49,7 @@ Attacker's winning budgets in energy reachability games can be computed by a gen
 
 @sec-deciding-energy-games will provide an algorithm to solve a range of energy-game-like quantitative problems as long as the energy updates can be *undone* through a *Galois connection*, which is a generalization of invertibility on monotonic functions.
 
-By combining the two contributions, we arrive at a polynomial-time solution of the spectroscopy problem for the polynomial slice of the strong spectrum.
+By combining the two contributions, we arrive at a polynomial-time solution of the spectroscopy problem for the $\complexityname{P}$-easy slice of the strong spectrum.
 
 Effectively, we adapt the game framework of @fig-game-algo-overview to not treat one equivalence, but a spectrum of equivalences.
 This approach is summarized in @fig-spectroscopy-poly-big-picture.
@@ -394,12 +394,12 @@ We will use our new energy games to characterize not just single behavioral equi
 As hinted at in @sec-equivalence-complexities, parts of the strong equivalence spectrum can be decided in polynomial time, whereas others require polynomial space (and thus effectively exponential time).
 Thanks to declining energy games, we can adapt the standard bisimulation game of @def-bisim-game to decide not just bisimulation, but *all polynomial-time-easy* equivalences of the strong spectrum *at once*.
 
-### The Polynomial Slice {#sec-poly-slice}
+### The $\complexityname{P}$-easy Slice {#sec-poly-slice}
 
 First, let us make explicit which equivalences we include in the polynomial-time slice of the spectrum.
 (The fact that they indeed can be decided efficiently is mostly well-known, but also itself a corollary of this section.)
 
-To define the polynomial slice, we only use three dimensions:
+To define the $\complexityname{P}$-easy slice, we only use three dimensions:
 
 1. modal depth
 2. depth of negative conjuncts, and
@@ -409,20 +409,20 @@ To define the polynomial slice, we only use three dimensions:
 Components for other dimensions of the strong spectrum of the previous chapter are effectively set to $∞$.
 
 ::: {#def-polynomial-strong-spectrum}
-#### Polynomial-time strong spectrum
+#### $\complexityname{P}$-easy strong spectrum
 
-We denote as *polynomial-time strong spectrum* the projection of the strong spectrum (@def-strong-spectrum) to the first, fifth, and sixth dimension, thus by notions
+We denote as *$\complexityname{P}$-easy strong spectrum* the projection of the strong spectrum (@def-strong-spectrum) to the first, fifth, and sixth dimension, thus by notions
 $$
-\notions^\literal{poly-strong} ≔ \natsext^3,
+\notions^\literal{peasy-strong} ≔ \natsext^3,
 $$
 and the family of strong observation languages
 $$
-\observationsvar[\literal{poly-strong}]{(N_1, N_2, N_3) ∈ \notions^\literal{poly-strong}} ≔ \observationsvar[\literal{strong}]{(N_1,∞,∞,∞,N_2,N_3)}.
+\observationsvar[\literal{peasy-strong}]{(N_1, N_2, N_3) ∈ \notions^\literal{peasy-strong}} ≔ \observationsvar[\literal{strong}]{(N_1,∞,∞,∞,N_2,N_3)}.
 $$
 :::
 
 \noindent
-In effect, $\observationsvar{N ∈ \notions^\literal{poly-strong}}$ can be characterized by $φ^N$ in the following grammar:
+In effect, $\observationsvar{N ∈ \notions^\literal{peasy-strong}}$ can be characterized by $φ^N$ in the following grammar:
 $$
 \begin{array}{rcll}
   φ^N & \grammardef & \hmltrue{} & \\
@@ -466,8 +466,8 @@ The characterized language is strictly more expressive, as it contains conjuncti
 ### The Bisimulation *Energy* Game
 
 Let us upgrade the bisimulation game of @def-bisim-game with energies.
-The claim is that the resulting game ${\game}_\notionname{B}^🗲$ will characterize all equivalences of the polynomial-time strong spectrum in the sense that
-$p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{poly-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $e$.
+The claim is that the resulting game ${\game}_\notionname{B}^🗲$ will characterize all equivalences of the $\complexityname{P}$-easy strong spectrum in the sense that
+$p \bpreordvar{\observationsvar{e}} q$ for $e ∈ \notions^\literal{peasy-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $e$.
 
 As we have seen in @sec-bisim-game-hml, the game moves match the distinctive power of productions in the $\observations{\floor{B}}$-grammar of @def-game-formulas.
 Consequently, we can *count* the use of HML constructs in the game.
@@ -538,15 +538,15 @@ also exhibiting the cheapest formulas with regards to the polynomial spectrum th
     defender/.style={ellipse, inner sep=0ex},
     defWins/.style={fill=blue!5}]
 
-    \node[posStyle, initial, initial text={}, label={[text=red]90:$\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}} \in \observationsvar[\literal{poly-strong}]{(2,2,2)}$}]
+    \node[posStyle, initial, initial text={}, label={[text=red]90:$\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}} \in \observationsvar[\literal{peasy-strong}]{(2,2,2)}$}]
       (Att_Q_Qp){$[\literal{Q}, \literal{T}]$};
-    \node[posStyle, label={[text=red]270:$\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{poly-strong}]{(2,1,1)}$}]
+    \node[posStyle, label={[text=red]270:$\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{peasy-strong}]{(2,1,1)}$}]
       (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{T}, \literal{Q}]$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{ab}}, \literal{T})$};
     \node[dotted, cloud, cloud puffs=9,cloud puff arc=105, aspect=2, defWins, inner sep=.01cm, align=center]
       (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {defender\\ wins};
-    \node[posStyle, label={[text=red]95:$\hmlobs{\literal{a}}\hmltrue \in \observationsvar[\literal{poly-strong}]{(1,0,0)}$}]
+    \node[posStyle, label={[text=red]95:$\hmlobs{\literal{a}}\hmltrue \in \observationsvar[\literal{peasy-strong}]{(1,0,0)}$}]
       (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \troll]$};
     \node[posStyle, defender, above right = .1cm and 1.5cm of Att_qab_q3]
       (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \troll)$};
@@ -556,7 +556,7 @@ also exhibiting the cheapest formulas with regards to the polynomial spectrum th
       (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{t_{ab}}, \literal{Q})$};
     \node[posStyle, defender]
       (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
-    \node[posStyle, label={[text=red]270:$\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{poly-strong}]{(1,1,1)}$}]
+    \node[posStyle, label={[text=red]270:$\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{peasy-strong}]{(1,1,1)}$}]
       (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{ab}}]$};
 
     \path[text=gray]
@@ -620,7 +620,7 @@ Telling apart $\literal{T}$ from $\literal{Q}$ is slightly easier, only requirin
 But, due to the correspondence of the game to modal formulas and of the energy updates to the pricing of formulas in the spectrum, the attacker winning budgets tell us more:
 They reveal that one needs two observations and two (or more) negations to distinguish $\literal{Q}$ from $\literal{T}$ using formulas from $\observations{\floor{B}}$.
 
-Thus, $\notions^{\literal{poly-strong}}_{\literal{Q}, \literal{T}} = \set{N ∈ \notions^\literal{poly-strong} \mid (2,2,2) \nleq N}$ is the solution for the (polynomial-time strong) spectroscopy problem.
+Thus, $\notions^{\literal{peasy-strong}}_{\literal{Q}, \literal{T}} = \set{N ∈ \notions^\literal{peasy-strong} \mid (2,2,2) \nleq N}$ is the solution for the ($\complexityname{P}$-easy strong) spectroscopy problem.
 $\literal{Q}$ is preordered to $\literal{T}$ by 2-nested simulation, 1-step bisimulation, and all notions below;
 but distinguished by all above, in particular, 3-nested simulation and 2-step bisimulation.
 
@@ -629,11 +629,12 @@ This is in line with the solution we thought of for the original strong spectrum
 
 ### Correctness of Characterization {#sec-correctness-poly-spectroscopy}
 
-We now prove that the bisimulation energy game indeed characterizes the equivalences of the polynomial-time strong spectrum.
+We now prove that the bisimulation energy game indeed characterizes the equivalences of the $\complexityname{P}$-easy strong spectrum.
 The section's proofs give the blueprint for proofs of stronger results for more general games in upcoming chapters.
 
 The approach is to generalize the connection between winning attacks and distinguishing formulas in the  bisimulation game.
 We have already explored this connection of strategies and logic in @lem-attacks-imply-formulas and @lem-formulas-imply-attack and now extend it to energies and spectrum.
+One can say that the following is an “energized” version of @sec-bisim-game-hml.
 
 ::: {#def-strategy-formulas-poly}
 #### Strategy formulas for ${\game}_\notionname{B}^{🗲}$
@@ -678,79 +679,79 @@ The general design principle for the construction of strategy formulas as in @de
 #### Distinction soundness
 
 If $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
-then there is $φ ∈ \strat_\notionname{B}([p, q], e)$ with $φ ∈ \observationsvar[\literal{poly-strong}]{e}$, $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$.
+then there is $φ ∈ \strat_\notionname{B}([p, q], e)$ with $φ ∈ \observationsvar[\literal{peasy-strong}]{e}$, $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$.
 :::
 ::: proof
 We prove the following (more general) property by induction.
 
 1. If $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
-then there is $ψ ∈ \strat_\notionname{B}([p, q], e)$ of form $ψ = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{ψ} ∈ \observationsvar[\literal{poly-strong}]{e}$, $p ∈ \semantics{ψ}$ and $q \notin \semantics{ψ}$.
+then there is $ψ ∈ \strat_\notionname{B}([p, q], e)$ of form $ψ = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{ψ} ∈ \observationsvar[\literal{peasy-strong}]{e}$, $p ∈ \semantics{ψ}$ and $q \notin \semantics{ψ}$.
 2. If $e ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$,
-then there is $φ ∈ \strat_\notionname{B}((α, p', q), e)$ of form $φ = \hmlands Ψ$ with $φ ∈ \observationsvar[\literal{poly-strong}]{e}$, $p' ∈ \semantics{φ}$ and $q \notin \semantics{\hmlobs{α}φ}$.
+then there is $φ ∈ \strat_\notionname{B}((α, p', q), e)$ of form $φ = \hmlands Ψ$ with $φ ∈ \observationsvar[\literal{peasy-strong}]{e}$, $p' ∈ \semantics{φ}$ and $q \notin \semantics{\hmlobs{α}φ}$.
 
 Proof by induction on the inductive characterizations of attacker winning budgets @prp-winning-budget-rules.
 
 1. Assume $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
   This must be due to one of the following moves:
     - Case $[p, q] \gamemoveblank^🗲_\notionname{B} [q, p]$ with $e' = \energyupdate((\updmin{1,2},0,-1), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}([q, p])$.
-      By induction hypothesis on $[q, p]$, there is $ψ ∈ \strat_\notionname{B}([q, p], e')$ with $\hmlands\set{ψ} ∈ \observationsvar[\literal{poly-strong}]{e'}$, $q ∈ \semantics{ψ}$ and $p \notin \semantics{ψ}$.
+      By induction hypothesis on $[q, p]$, there is $ψ ∈ \strat_\notionname{B}([q, p], e')$ with $\hmlands\set{ψ} ∈ \observationsvar[\literal{peasy-strong}]{e'}$, $q ∈ \semantics{ψ}$ and $p \notin \semantics{ψ}$.
       Consider the possible forms of $ψ$:
         - $ψ = \hmlobs{α}φ'$.
           By @def-strategy-formulas-poly of $\strat_\notionname{B}$, we obtain $\hmlneg\hmlobs{α}φ' ∈ \strat_\notionname{B}([p, q], e)$.
           Because of the semantics of $\hml$, $\hmlneg\hmlobs{α}φ'$ must distinguish $p$ from $q$.
-          Also, $\hmlands\set{\hmlneg\hmlobs{α}φ'} ∈ \observationsvar[\literal{poly-strong}]{e}$, by the calculations of the grammar in @def-polynomial-strong-spectrum.
+          Also, $\hmlands\set{\hmlneg\hmlobs{α}φ'} ∈ \observationsvar[\literal{peasy-strong}]{e}$, by the calculations of the grammar in @def-polynomial-strong-spectrum.
         - $ψ = \hmlneg\hmlobs{α}φ'$.
           This can only be in $\strat_\notionname{B}([q, p], e')$ due to $\hmlobs{α}φ'$ being in $\strat_\notionname{B}([p, q], \energyupdate((\updmin{1,2},0,-1), e'))$.
-          Clearly, $\hmlobs{α}φ'$ must distinguish $p$ from $q$ and $\hmlands\set{\hmlobs{α}φ'} ∈ \observationsvar[\literal{poly-strong}]{e}$.
+          Clearly, $\hmlobs{α}φ'$ must distinguish $p$ from $q$ and $\hmlands\set{\hmlobs{α}φ'} ∈ \observationsvar[\literal{peasy-strong}]{e}$.
     - Case $[p, q] \gamemoveblank^🗲_\notionname{B} (α, p', q)$ with $p \step{α} p'$ and $e' = \energyupdate((-1,0,0), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
-      By induction hypothesis on $(α, p', q)$, there is $\hmlands Ψ ∈ \strat_\notionname{B}((α, p', q), e')$ and $\hmlands Ψ ∈ \observationsvar[\literal{poly-strong}]{e'}$ with $p' ∈ \semantics{\hmlands Ψ}$ and $q \notin \semantics{\hmlobs{α}\hmlands Ψ}$.
+      By induction hypothesis on $(α, p', q)$, there is $\hmlands Ψ ∈ \strat_\notionname{B}((α, p', q), e')$ and $\hmlands Ψ ∈ \observationsvar[\literal{peasy-strong}]{e'}$ with $p' ∈ \semantics{\hmlands Ψ}$ and $q \notin \semantics{\hmlobs{α}\hmlands Ψ}$.
       By @def-strategy-formulas-poly, we obtain $\hmlobs{α}\hmlands Ψ ∈ \strat_\notionname{B}([p, q], e)$.
       Due to the semantics of $\hml$ and $p \step{α} p'$, $p ∈ \semantics{\hmlobs{α}\hmlands Ψ}$, thus distinguishing $p$ from $q$.
-      Also, $\hmlobs{α}\hmlands Ψ ∈ \observationsvar[\literal{poly-strong}]{e}$ as $\hmlands Ψ ∈ \observationsvar[\literal{poly-strong}]{e - \unitvec{1}}$.
+      Also, $\hmlobs{α}\hmlands Ψ ∈ \observationsvar[\literal{peasy-strong}]{e}$ as $\hmlands Ψ ∈ \observationsvar[\literal{peasy-strong}]{e - \unitvec{1}}$.
 2. Assume $e ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
   This means that $e$ suffices for the attacker to win every move $(α, p', q) \gamemoveblank^🗲_\notionname{B} [p', q']$ with $q \step{α} q'$ that the defender might take, with $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$.
-  For each $q'$, we employ the induction hypothesis to obtain $ψ_{q'} ∈ \strat_\notionname{B}([p', q'], e)$ of form $ψ_{q'} = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{ψ_{q'}} ∈ \observationsvar[\literal{poly-strong}]{e}$, $p' ∈ \semantics{ψ_{q'}}$ and $q' \notin \semantics{ψ_{q'}}$.
+  For each $q'$, we employ the induction hypothesis to obtain $ψ_{q'} ∈ \strat_\notionname{B}([p', q'], e)$ of form $ψ_{q'} = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{ψ_{q'}} ∈ \observationsvar[\literal{peasy-strong}]{e}$, $p' ∈ \semantics{ψ_{q'}}$ and $q' \notin \semantics{ψ_{q'}}$.
   By @def-strategy-formulas-poly, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'}) ∈ \strat_\notionname{B}((α, p', q), e)$.
   By the $\hml$ semantics, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'})$ must be true for $p'$, and also taking the semantics of observation, $\hmlobs{α}(\hmland{q'}{\derivatives{q, α}} ψ_{q'})$ false for $q$.
-  Moreover, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'}) ∈ \observationsvar[\literal{poly-strong}]{e}$ by the grammar.\qedhere 
+  Moreover, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'}) ∈ \observationsvar[\literal{peasy-strong}]{e}$ by the grammar.\qedhere 
 :::
 
 ::: {#lem-bisim-energy-game-completeness}
 #### Distinction completeness
 
-If there is $φ ∈ \observationsvar[\literal{poly-strong}]{N}$ with $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$,
+If there is $φ ∈ \observationsvar[\literal{peasy-strong}]{N}$ with $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$,
 then $N ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
 :::
 ::: proof
-By induction on the grammar of $\observationsvar[\literal{poly-strong}]{N}$.
+By induction on the grammar of $\observationsvar[\literal{peasy-strong}]{N}$.
 
-Consider the cases of $φ ∈ \observationsvar[\literal{poly-strong}]{N}$ with $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$.
+Consider the cases of $φ ∈ \observationsvar[\literal{peasy-strong}]{N}$ with $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$.
 
 - $φ = \hmltrue$.
   This cannot be the case as $q \notin \semantics{φ}$ and $\semantics{\hmltrue} = \states$.
-- $φ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{N - \unitvec{1}}$.
+- $φ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{peasy-strong}]{N - \unitvec{1}}$.
   As $φ$ distinguishes $p$ from $q$, there must be a $p' ∈ \semantics{φ'}$ such that $p \step{α} p'$ and, for all $q' ∈ \derivatives{q, α}$, $q' \notin \semantics{φ'}$.
   Due to the induction hypothesis, $N - \unitvec{1} ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$ for all such $q' ∈ \derivatives{q, α}$.
   Therefore, $N - \unitvec{1} ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
   As the attacker can move $[p, q] \gamemove{-\unitvec{1}} (α, p', q)$, this proves $N ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$ by @prp-winning-budget-rules.
 - $φ = \hmlands Ψ$ one of the $ψ ∈ Ψ$ must be false for $q$.
   Consider the possible forms of $ψ$:
-    - Case $ψ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{N - \unitvec{1}}$.
+    - Case $ψ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{peasy-strong}]{N - \unitvec{1}}$.
       Then we can apply the same argument as in the case of $φ = \hmlobs{α}φ'$.
-    - Case $ψ = \hmlneg\hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{poly-strong}]{(N \sqcap (N_2, \infty, \infty)) - \unitvec{1} - \unitvec{3}}$.
-      Therefore, $\hmlobs{α}φ' ∈ \observationsvar[\literal{poly-strong}]{(N \sqcap (N_2, \infty, \infty)) - \unitvec{3}}$ distinguishes $q$ from $p$.
+    - Case $ψ = \hmlneg\hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{peasy-strong}]{(N \sqcap (N_2, \infty, \infty)) - \unitvec{1} - \unitvec{3}}$.
+      Therefore, $\hmlobs{α}φ' ∈ \observationsvar[\literal{peasy-strong}]{(N \sqcap (N_2, \infty, \infty)) - \unitvec{3}}$ distinguishes $q$ from $p$.
       This time, we can employ the same argument as in the case of $φ = \hmlobs{α}φ'$ to obtain that $(N \sqcap (N_2, \infty, \infty)) - \unitvec{3} ∈ \attackerwins^{\game_\notionname{B}^🗲}([q, p])$.
       The move $[p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p]$ and $\energyupdate((\updmin{1,2},0,-1), N) = (N \sqcap (N_2, \infty, \infty)) - \unitvec{3}$ justify that $N ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
       \qedhere
 :::
 
 ::: {#thm-bisim-energy-game-characterization}
-#### $\notions^\literal{poly-strong}$-characterization
+#### $\notions^\literal{peasy-strong}$-characterization
 
-$p \bpreordvar{\observationsvar{N}} q$ for $N ∈ \notions^\literal{poly-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $N$.
+$p \bpreordvar{\observationsvar{N}} q$ for $N ∈ \notions^\literal{peasy-strong}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $N$.
 :::
 
-Thus, we have established that the bisimulation energy game ${\game}_\notionname{B}^🗲$ characterizes the equivalences of the polynomial-time strong spectrum $\notions^\literal{poly-strong}$.
+Thus, we have established that the bisimulation energy game ${\game}_\notionname{B}^🗲$ characterizes the equivalences of the $\complexityname{P}$-easy strong spectrum $\notions^\literal{peasy-strong}$.
 This generalizes @thm-game-formulas through energy games.
 
 To exploit this property to decide equivalences and solve the spectroscopy problem algorithmically, we need one more ingredient:
@@ -1366,27 +1367,27 @@ The space bounds behave similarly, but in the *flattened* variant fixed energy m
 
 ### Polynomial Spectroscopy Complexity {#sec-polynomial-spectroscopy-complexity}
 
-We have gathered enough material to have this section prove that the spectroscopy problem for the polynomial-time strong spectrum is indeed solvable in polynomial time, thus justifying the name we chose for the spectrum.
+We have gathered enough material to have this section prove that the spectroscopy problem for the $\complexityname{P}$-easy strong spectrum is indeed solvable in polynomial time, thus justifying the name we chose for the spectrum.
 
 As outlined in @sec-spectro-problem, we consider the spectroscopy problem for $p$ and $q$ solved when we can compute $\Min(\notions \setminus \notions_{p,q})$.
 
 More specifically, according to @thm-bisim-energy-game-characterization, the defender-won energies answer the spectroscopy question of @prob-spectroscopy-problem:
-$$\notions^\literal{poly-strong}_{p,q} = \defenderwins^{\game_\notionname{B}^🗲}([p,q]).$$
+$$\notions^\literal{peasy-strong}_{p,q} = \defenderwins^{\game_\notionname{B}^🗲}([p,q]).$$
 By the determinacy of winning budgets (@prp-winning-budget-determinacy),
-$$\notions^\literal{poly-strong} \setminus \notions^\literal{poly-strong}_{p,q} = \attackerwins^{\game_\notionname{B}^🗲}([p,q])$$
+$$\notions^\literal{peasy-strong} \setminus \notions^\literal{peasy-strong}_{p,q} = \attackerwins^{\game_\notionname{B}^🗲}([p,q])$$
 and thus
-$$\Min(\notions^\literal{poly-strong} \setminus \notions^\literal{poly-strong}_{p,q}) = \attackerwins^{\min\game_\notionname{B}^🗲}([p,q]).$$
-Thereby, @prob-spectroscopy-problem for $\notions^\literal{poly-strong}$ on a transition system reduces to @prob-energy-game-problem on the corresponding bisimulation energy game $\game_\notionname{B}^🗲$.
+$$\Min(\notions^\literal{peasy-strong} \setminus \notions^\literal{peasy-strong}_{p,q}) = \attackerwins^{\min\game_\notionname{B}^🗲}([p,q]).$$
+Thereby, @prob-spectroscopy-problem for $\notions^\literal{peasy-strong}$ on a transition system reduces to @prob-energy-game-problem on the corresponding bisimulation energy game $\game_\notionname{B}^🗲$.
 The latter is answered by @alg-deciding-energy-games.
 
 ::: {#thm-bisim-energy-game-complexity}
 #### Overall complexity
 
 Given a transition system $\system$,
-the spectroscopy problem for the $\notions^\literal{poly-strong}$-spectrum can be solved in polynomial time with respect to the size of $\system$.
+the spectroscopy problem for the $\notions^\literal{peasy-strong}$-spectrum can be solved in polynomial time with respect to the size of $\system$.
 :::
 :::proof
-@thm-bisim-energy-game-characterization has established that we can solve the spectroscopy problem for the $\notions^\literal{poly-strong}$-spectrum by deciding the winning budgets of the bisimulation energy game ${\game}_\notionname{B}^🗲$ on $\system=(\states,\actions,\step{})$.
+@thm-bisim-energy-game-characterization has established that we can solve the spectroscopy problem for the $\notions^\literal{peasy-strong}$-spectrum by deciding the winning budgets of the bisimulation energy game ${\game}_\notionname{B}^🗲$ on $\system=(\states,\actions,\step{})$.
 Thus, all that remains to be done is to instantiate the winning budget complexity of @lem-declining-update-complexity for the case $d=3$ with the size of ${\game}_\notionname{B}^🗲$ according to @def-bisim-energy-game.
 
 The amount of attacker positions is bounded by $\relsize{\states}^2$.
@@ -1409,7 +1410,7 @@ The bound drops to $\bigo{ \relsize{\states} \cdot \relsize{\step{}}}$ in the fl
 
 ## Discussion {#sec-spectrum-approach-discussion}
 
-This chapter has shown how to solve the spectroscopy problem for the $\notions^{\literal{poly-strong}}$ spectrum in polynomial time, thereby deciding all its preorders and equivalences *at once*.
+This chapter has shown how to solve the spectroscopy problem for the $\notions^{\literal{peasy-strong}}$ spectrum in polynomial time, thereby deciding all its preorders and equivalences *at once*.
 
 {{< paragraph_heading "The energy game approach." >}}
 The core ingredient has been to characterize the spectrum's observation languages through an energy game (@idea-energy-games, @thm-bisim-energy-game-characterization) derived from the bisimulation game.

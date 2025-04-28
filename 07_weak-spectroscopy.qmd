@@ -742,6 +742,9 @@ next
 qed
 ```
 
+In @sec-preliminaries, we started our journey of connecting attacker strategies and distinguishing formulas in @thm-game-formulas.
+In retrospect, it is just a corollary of this formalized theorem.
+
 ### Complexity
 
 The complexity for spectroscopy using the weak game is quite comparable to the strong spectroscopy (@thm-strong-spectroscopy-complexity).

@@ -1189,6 +1189,6 @@ We have shown that traces, failures, simulation and bisimulation equivalence as 
 So far, we have a problem and confidence that its solution conveys information about equivalences of the strong spectrum.
 @sec-equivalence-complexities has established that spectroscopy complexity must be at least $\complexityname{PSPACE}$ on the strong spectrum.
 
-However, there is a polynomial-time part of spectrum around bisimilarity and (ready) similarity.
+However, there is a polynomial-time-easy part of spectrum around bisimilarity and (ready) similarity.
 In the next two chapters, we will first solve the *spectroscopy problem for this polynomial slice* and then extend to the whole strong spectrum.
 After that, we will also consider the weak spectrum in the next part.

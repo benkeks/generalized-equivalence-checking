@@ -144,14 +144,14 @@
 \lc{ Energy Games }
 
 \providecommand{\abstractupdate}{\mathit{upd}}
-\providecommand{\abstractupdateinv}{\mathit{upd}^{↺}}
+\providecommand{\abstractupdateinv}{\smash{\mathit{upd}^{↺}}}
 \providecommand{\abstractenergies}{\mathcal{E}}
 \providecommand{\energylevel}{\operatorname{EL}}
 \providecommand{\energies}{\mathbf{En}}
 \providecommand{\energiesflattened}{\widehat{\energies}}
 \providecommand{\energyupdates}{\mathbf{Up}} 
 \providecommand{\energyupdate}{\mathsf{upd}}
-\providecommand{\energyupdateinv}{\mathsf{upd}^{↺}}
+\providecommand{\energyupdateinv}{\smash{\mathsf{upd}^{↺}}}
 \providecommand{\updmin}[1]{\mathtt{min}_{\{\!#1\!\}}}
 
 \lc{ Spectroscopy }

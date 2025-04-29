@@ -922,7 +922,7 @@ $$
 To implement a back-propagation algorithm, we have to assume that we know a function that undoes energy updates, $\abstractupdateinv \colon (\gamemoveblank) \to \abstractenergies \to \abstractenergies$ with $\abstractupdateinv(g, g')(e') = \min \set{e \mid e' \leq \abstractupdate(g, g')(e)}$.
 That means, we assume that there is a Galois connection $(\abstractupdateinv(g, g'), \abstractupdate(g, g'))$ between energies $\abstractenergies$ and the domain of updates $\set{e ∈ \abstractenergies \mid \abstractupdate(e) \neq \bot}$ for each $(g,g') \in {\gamemoveblank}$.
 
-Following @lemke2024multiweightedEnergyGames, we assume that the energy system $(\abstractenergies, \leq)$ is a well-founded bounded $\lub$-semi-lattice.
+Following @lemke2024multiweightedEnergyGames, we assume that the energy system $(\abstractenergies, \leq)$ is a well-founded bounded $\sup$-semi-lattice.
 By $\zerovec$, we denote its minimal element.
 
 @alg-deciding-energy-games computes the minimal attacker winning budgets.
@@ -1113,7 +1113,7 @@ Combination (dashed red) of successor Pareto fronts (black) to take the union at
 ::: {#thm-energy-game-correctness}
 #### Correctness
 
-Assume energies form a well-founded bounded $\lub$-semi-lattice $(\abstractenergies, \leq)$.
+Assume energies form a well-founded bounded $\sup$-semi-lattice $(\abstractenergies, \leq)$.
 Given a finite-state energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$
 with computable undo function $\abstractupdateinv(g, g')(e') = \min \set{e \mid e' \leq \abstractupdate(g, g')(e)}$ for all moves,
 @alg-deciding-energy-games computes the Pareto front of minimal attacker winning budgets, solving 
@@ -1140,7 +1140,7 @@ The *width*, $\relwidth_B(b)$, of a (semi-)lattice $(B, \leq)$ below a point $b$
 ::: {#thm-energy-game-complexity}
 #### Complexity
 
-Consider the following parameters of an energy game problem on $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$ where the energies at least form a well-founded bounded $\lub$-semi-lattice $(\abstractenergies, \leq)$:
+Consider the following parameters of an energy game problem on $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$ where the energies at least form a well-founded bounded $\sup$-semi-lattice $(\abstractenergies, \leq)$:
 
 - $t_{\sup}$, time to calculate the supremum between two elements of $\abstractenergies$,
 - $t_\leq$, time to compare two elements of $\abstractenergies$,
@@ -1312,12 +1312,11 @@ For *declining energy games* as defined in @def-declining-energy-game, we can fi
 
 \noindent
 This yields:
-
 \begin{align*}
     & \bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relwidth_{\energies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\energies}(e_{\game}) \cdot t_\leq) } \\
   =\; & \bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot (\relsize{G}^{d-1})^2 \cdot (d^2 + d + \relsize{G}^{d-1} \cdot d) } \\
   =\; & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2d+2-2} \cdot (d^2 + \relsize{G}^{d-1} \cdot d) } \\
-  =\; & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2d} \cdot (d^2 + \relsize{G}^{d-1} \cdot d) } \\
+  =\; & \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2d} \cdot (d^2 + \relsize{G}^{d-1} \cdot d) }
 \end{align*}
 For space complexity, we obtain:
 \begin{align*}

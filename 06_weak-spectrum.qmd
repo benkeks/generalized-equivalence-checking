@@ -1138,7 +1138,7 @@ However, as a distinction by $\hmlneg \varphi$ in one direction implies one by $
 :::
 
 Another point of interest is the relationship of weak bisimilarity, contrasimilarity and stable bisimilarity.
-@rem-ambiguous-coordinates on ambiguous coordinates has mentioned that $(\infty, \infty, 0, 0, \infty, \infty) \in \notions^\literal{strong}$, which disallows positive conjuncts, already characterizes strong bisimilarity.
+@rem-synonymous-coordinates on synonymous coordinates has mentioned that $(\infty, \infty, 0, 0, \infty, \infty) \in \notions^\literal{strong}$, which disallows positive conjuncts, already characterizes strong bisimilarity.
 Translating this coordinate to the weak spectrum, we hit $(\infty, 0, \infty, 0, 0, 0, \infty, \infty)$ or $(\infty, 0, 0, \infty, 0, 0, \infty, \infty) \in \notions^\literal{weak}$.
 In the weak spectrum, these coordinates correspond to differing notions!
 The first of the two is exactly the coordinate of contrasimilarity.

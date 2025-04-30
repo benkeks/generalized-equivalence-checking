@@ -201,7 +201,7 @@ Moving to $\literal{g_4}$ directly, would be more expensive than the  $\literal{
 
 Starting with less energy means that the defender has an option of bankrupting the attacker at $\literal{g_4}$ (or before).
 
-Summing up our observations, $(0,2)$ and $(2,1)$ define a Pareto front of minimal budgets where the attacker wins from $\literal{g_4}$, as depicted in @fig-exm-pareto-front.
+Summing up our observations, $(0,2)$ and $(2,1)$ define a Pareto front of minimal budgets where the attacker wins from $\literal{g_1}$, as depicted in @fig-exm-pareto-front.
 
 ::::: {#fig-exm-pareto-front .column-margin}
 ```tikz
@@ -593,9 +593,10 @@ The bisimulation energy game of @exm-bisim-sim-energy-game with energy updates a
 ::::
 
 The attacker wins ${\game}^🗲_\notionname{B}$ from $[\literal{Q}, \literal{T}]$ if they start out with an energy budget of $(2,2,2)$ or above.
+This space is visualized in @fig-exm-bisim-sim-pareto-front.
 But if the budget does not dominate this bound, the attacker loses.
 For instance, neither $(1,\infty,\infty)$ nor $(\infty,\infty,1)$ is enough.
-The second bound implies that the budgets, $(\infty,1,1)$ and $(\infty,0,0)$ are won by the defender as well.
+The bound implies that the budgets, $(\infty,1,1)$ and $(\infty,0,0)$ are won by the defender as well.
 
 :::: {#fig-exm-bisim-sim-pareto-front .column-margin}
 ```tikz
@@ -912,9 +913,9 @@ then $f^{-1}$ and $f$ must form a Galois connection.
 :::proof
 Because of injectivity and monotonicity, $f$ and $f^{-1}$, must be (strictly) monotonic.
 Together with the definition of function inversion, we can reason
-$$f(c) \leq_A a \implies f^{-1}(f(c)) \leq_A f^{-1}(a) \implies c \leq_C f^{-1}(a)$$
+$$f^{-1}(c) \leq_A a \implies f(f^{-1}(c)) \leq_A f(a) \implies c \leq_C f(a)$$
 and
-$$c \leq_C f^{-1}(a) \implies f(c) \leq_A f(f^{-1}(a)) \implies f(c) \leq_A a.\qedhere$$
+$$c \leq_C f(a) \implies f^{-1}(c) \leq_A f^{-1}(f(a)) \implies f^{-1}(c) \leq_A a.\qedhere$$
 :::
 
 In the following, we will use a $↺$-symbol to label the functions that we use to undo energy updates.

@@ -104,7 +104,7 @@
 \lc{ Relations }
 
 \providecommand{\rel}[1]{\mathcal{#1}}
-\providecommand{\relsize}[1]{\left|#1\right|}
+\providecommand{\relsize}[1]{\smash{|#1|}}
 \providecommand{\relqotient}[2]{#1_{/#2}}
 \providecommand{\relwidth}{\operatorname{wdh}}
 \providecommand{\relheight}{\operatorname{hgt}}

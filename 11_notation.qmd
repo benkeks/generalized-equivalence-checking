@@ -22,6 +22,7 @@ toc-title: "Notation"
 | $\powerset{A}$          | Power set of $A$                                                           |
 | $A^*$, $A^{\omega}$, $A^{\infty}$     | Language of finite / infinite / finite-or-infinite words over $A$                     |
 | $\inverse{\rel R}$      | Inverse relation of $\rel R$                                               |
+| $\domain(f)$            | Domain of where function $f$ is defined, $\bot$ counts as undefined (first appearing in @def-energy-game) 
 | $\nats$, $\natsext$     | Natural numbers / natural numbers extended by a $\infty$ as $\top$-element |
 | $\defeq$                | Definitional equality; in the context of CCS, $\literal{X} \defeq P$ also means $\ccsasg(\literal{X}) \defeq P$ (@def-ccs-semantics); in the context of pseudocode, assignment of variables |
 

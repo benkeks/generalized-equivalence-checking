@@ -43,7 +43,7 @@ toc-title: "Notation"
 \vspace{-2em}
 |                     |                                                                                   |
 |--------------------------|----------------------------------------------------------------------------------------------|
-| $\step{\alpha}$            | Transition relation (in context of a transition system, @def-ts), usually due to operational $\ccs$ semantics (@def-ccs-semantics) |
+| $\step{\alpha}$            | Transition relation (in context of a transition system, @def-ts), usually due to operational $\ccs$ semantics (@def-ccs-semantics); can also connect *sets* of states |
 | $\nostep{\alpha}$          | Absence of an $\alpha$-transition                                                            |
 | $\stepweak$        | Internal transition (@def-transition-systems-with-silent-steps)                             |
 | $\stepsoft{\alpha}$         | Soft transition (@def-transition-systems-with-silent-steps)                             |

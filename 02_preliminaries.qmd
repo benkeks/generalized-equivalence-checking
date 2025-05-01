@@ -106,6 +106,7 @@ A *transition system* $\system=(\states,\actions,\step{})$ consists of
 We use infix notation for arrows, that is, $p \step{\alpha} p'$ stands for $(p, \alpha, p') \in {\step{}}$.
 We write $\derivatives{p, α}$ for the set of *derivative states* $\set{p' \mid p \step α p'}$
 and $\initials{p}$ for the set of enabled actions $\set{α \mid \exists p' \ldotp p \step α p'}$.
+We sometimes lift transitions to sets $P, P' \subseteq \states$ with $P \step{\alpha} P'$ iff $P' = \set{p' \in \states \mid \exists p \in P \ldotp p \step{\alpha} p'}$.
 :::
 
 There is a canonical example used to discuss equivalences within transition systems, which we want to draw from.

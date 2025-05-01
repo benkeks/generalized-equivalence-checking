@@ -1246,7 +1246,7 @@ A natural impulse might be to somehow change the grammar to optimize these parts
 
 But this optimization would be premature in our context!
 Spectroscopy strategy formulas will never contain trivial conjuncts, by design, because those can not be distinguishing.
-Even more, the minimal winning budgets in the spectroscopy energy game will only ever lead to witness formulas that are minimal with respect to syntactic expressiveness prices.
+Even more, the minimal winning budgets in the spectroscopy game will only ever lead to witness formulas that are minimal with respect to syntactic expressiveness prices.
 Therefore, optimizing away superfluous conjuncts in the grammars would itself be superfluous.
 
 On the other hand, shrinking the languages would call for additional contexts, that is, non-terminals in the grammar.

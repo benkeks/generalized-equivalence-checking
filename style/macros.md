@@ -132,8 +132,8 @@
 \providecommand{\ngamemoveblank}{\ngamemove{\enspace}}
 \providecommand{\game}{\mathcal{G}}
 
-\providecommand{\attackerpos}[2][]{{{\color{gray}[}#2{\color{gray}]}}_\mathtt{a}^{\color{gray}\smash{\scriptscriptstyle#1}}}
-\providecommand{\defenderpos}[2][]{{{\color{gray}(}#2{\color{gray})}}_\mathtt{d}^{\color{gray}\smash{\scriptscriptstyle#1}}}
+\providecommand{\attackerpos}[2][]{\smash{{\color{gray}[}#2{\color{gray}]}}_\mathtt{a}^{\color{gray}\smash{\scriptscriptstyle#1}}}
+\providecommand{\defenderpos}[2][]{\smash{{\color{gray}(}#2{\color{gray})}}_\mathtt{d}^{\color{gray}\smash{\scriptscriptstyle#1}}}
 \providecommand{\attacker}{{\mathrm{a}}}
 \providecommand{\defender}{{\mathrm{d}}}
 \providecommand{\attackerwins}{\mathsf{Win}_\mathrm{a}}

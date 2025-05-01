@@ -305,13 +305,13 @@ However, other forms of abstracted simulation can be used to force the defender 
 
 - *$\eta$-simulation* allows branching conjunction moves:
   $\attackerpos[\epsilon]{\literal{q_{ab}}, \set{\literal{P}, \literal{p_a}, \literal{p_b}}}
-  \gamemove{\zerovec} \defenderpos[\eta]{\literal{q_{ab}}, \literal{a}, \literal{q_1}, \set{\literal{p_a}}, \set{\literal{P}, \literal{p_b}}}$.
+  \gamemove{\;\zerovec\;} \defenderpos[\eta]{\literal{q_{ab}}, \literal{a}, \literal{q_1}, \set{\literal{p_a}}, \set{\literal{P}, \literal{p_b}}}$.
   After this, $\literal{p_a}$ is discharged through a positive conjunct $\literal b$-observation, possible from $\literal{q_{ab}}$;
   and the $\set{\literal{P}, \literal{p_b}}$-option directly ends in $\gamemoveblank \attackerpos[\eta]{\literal{q_1}, \varnothing}\gamemoveblank\gamemoveblank\defenderpos{\literal{q_1}, \varnothing}\ngamemoveblank$, as neither $\literal{P}$ nor $\literal{p_b}$ allow immediate $\step{\literal{a}}$-steps.
   These moves cost $(1,1,1,0,0,1,0,0)$ and correspond to the distinguishing formula $\hmleps\hmlands\set{\hmlobs{\literal a}, \hmleps\hmlobs{\literal b}}$.
 - *Stable simulation* allows stable conjunction moves:
   $\attackerpos[\epsilon]{\literal{q_{ab}}, \set{\literal{P}, \literal{p_a}, \literal{p_b}}}
-  \gamemove{\zerovec} \defenderpos[s]{\literal{q_{ab}}, \set{\cancel{\literal{P}}, \literal{p_a}, \literal{p_b}}}$.
+  \gamemove{\;\zerovec\;} \defenderpos[s]{\literal{q_{ab}}, \set{\cancel{\literal{P}}, \literal{p_a}, \literal{p_b}}}$.
   After this, $\literal{q_{ab}}$ can out-maneuver $\literal{p_a}$ through positive conjunct $\literal b$-observation,
   and  $\literal{p_b}$ through positive conjunct $\literal a$-observation.
   The moves need $(1,0,1,1,0,1,0,1)$ energy and match the distinguishing formula $\hmleps\hmlands\set{\hmlneg\hmlobs{\tau}, \hmleps\hmlobs{\literal a}, \hmleps\hmlobs{\literal{b}}}$.
@@ -768,7 +768,6 @@ Collectively, these moves reach $\bigo{\relsize{\step{}} \cdot 3^{\relsize{\stat
 The maximal out-degree for attacker delayed positions of $\bigo{\relsize{\step{}} \cdot 2^{\relsize{\states}}}$ dominates that of other positions, in particular, of defender conjunction, stable conjunction, and branching positions with $\bigo{\relsize{\states}}$ outgoing options.
 
 This amounts to $o_{\gamemoveblank_\nabla}$ in $\bigo{\relsize{\step{}} \cdot 2^{\relsize{\states}}}$ and to $\relsize{G_{\nabla}}$ in $\bigo{\relsize{\step{}} \cdot 3^{\relsize{\states}}}$.
-
 Inserting the parameters in the time bounds of @lem-declining-update-complexity yields:
 $$
 \begin{array}{rlccccccc}

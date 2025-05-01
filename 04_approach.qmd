@@ -1416,11 +1416,10 @@ The number of attacker positions is bounded by $\relsize{\states}^2$.
 These positions can initiate up to $\relsize{\states} \cdot \relsize{\step{}}$ simulation challenges, leading to a similarly-bounded number of defender positions, which again can be left by $\relsize{\states} \cdot \relsize{\step{}}$ moves.
 
 In total, this amounts to $o_{\gamemoveblank_\notionname{B}^🗲}$ in $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ and to $\relsize{G_\notionname{B}^🗲}$ in $\bigo{\relsize{\states}^2}$.
-
 Inserting the parameters in the time bounds of @lem-declining-update-complexity yields:
 $$
 \begin{array}{rlccccccc}
-    & O( & o_{\gamemoveblank_\notionname{B}^🗲} & \cdot & \relsize{G_\notionname{B}^🗲}^{2 \cdot d} & \cdot & (\smash{d}^2 + \relsize{G_\notionname{B}^🗲}^{d-1} \cdot d) & ) \\
+    & O( & o_{\gamemoveblank_\notionname{B}^🗲} & \cdot & \relsize{G_\notionname{B}^{\smash{🗲}}}^{2 \cdot d} & \cdot & (\smash{d}^2 + \relsize{G_\notionname{B}^{\smash{🗲}}}^{d-1} \cdot d) & ) \\
   = & O( & (\relsize{\states} \cdot \relsize{\step{}}) & \cdot & (\relsize{\states}^2)^{2 \cdot 3} & \cdot & (3^2 + (\relsize{\states}^2)^{3-1} \cdot 3) & ) \\
   = & O( & (\relsize{\states} \cdot \relsize{\step{}}) & \cdot & \relsize{\states}^{12} & \cdot & \relsize{\states}^4 & )\\
   = & O( & \relsize{\states}^{17} \cdot \relsize{\step{}} & ).

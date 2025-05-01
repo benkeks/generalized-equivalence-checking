@@ -1039,11 +1039,11 @@ Each game is derived from the clever spectroscopy game, with pruning and with ca
 The game size is defined as the sum of positions and moves, $\relsize{\game} = \relsize{G} + \relsize{\gamemoveblank}$.
 Red parts symbolize bigger game graphs.
 
-:::: {#fig-instance-games-strong-ltbt-spectrum fig-pos="tp"}
+:::: {#fig-instance-games-strong-ltbt-spectrum fig-pos="t"}
 
 ```tikz
 \begin{adjustbox}{max width=\textwidth}
-  \begin{tikzpicture}[auto,node distance=2.5cm,align=center]
+  \begin{tikzpicture}[auto,node distance=2cm,align=center]
     \node[fill=purple!30!yellow!60] (B){
       $\relsize{\gamespectroscopyceq{\notionname{B}}} = 105$\\
       $\infty,\infty,\infty,\infty,\infty,\infty$};
@@ -1068,7 +1068,7 @@ Red parts symbolize bigger game graphs.
     \node[fill=purple!30!yellow!60] (IF)[below right of=R]{
       $\relsize{\gamespectroscopyceq{\notionname{IF}}} = 105$\\
       $\infty,1,0,0,\infty,1$};
-    \node[fill=purple!32!yellow!60] (S)[left of=FT, node distance=3.8cm]{
+    \node[fill=purple!32!yellow!60] (S)[left of=FT, node distance=3cm]{
       $\relsize{\gamespectroscopyceq{\notionname{1S}}} = 95$\\
       $\infty,\infty,\infty,\infty,0,0$};
     \node[fill=purple!32!yellow!60] (RV)[below left of=R]{

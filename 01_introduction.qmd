@@ -12,7 +12,7 @@ toc-title: "Chapter 1"
 Have you ever looked at two program descriptions and wondered *how equivalent they are*
 ---or, conversely: how they can be distinguished?
 
-I have run into this problem often, for instance when analyzing models of distributed algorithms or when devising examples for teaching.
+I have run into this problem often, for instance, when analyzing models of distributed algorithms or when devising examples for teaching.
 But obviously, the question already occurs every time one rewrites a program part and hopes for it to still do its job.
 
 ::: {#fig-ltbts2-paper .column-margin}
@@ -38,19 +38,20 @@ So many equivalences!
 But, how to find out for a given pair of processes which of the many equivalences apply?
 Over the years, I have learned that others, too, have run into this not-quite-straightforward problem:
 For instance, @nestmann1996decoding thinking about process algebra encodings and @bell2013certifiably verifying compiler optimizations.
+We share an itch.
 
-{{< paragraph_heading "The problem" >}} can abstractly be summarized as follows:
+{{< paragraph_heading "Our problem" >}} can abstractly be summarized as follows:
 
 \vspace*{-\medskipamount}
 > How does one conveniently decide for a pair of systems which notions from a spectrum of behavioral equivalences equate the two?
 \vspace*{-\medskipamount}
 
 The above question will be the *research question of this thesis*.
-We^[
+We <!--^[
     As you might have noticed, this text uses more personal pronouns than is common in much of computer science literature.
     Their meaning is the same as in a lecture:
     “I” = “The author”; “You” = “The audience”; “We” = “The asynchronous collective of author and readers,” or sometimes “The author together with coauthors.”
-] want to enable future researchers to tap into the wisdom of the linear-time–branching-time spectrum and to easily determine what equivalences fit their models.
+] --> want to enable future researchers to tap into the wisdom of the linear-time–branching-time spectrum and to easily determine what equivalences fit their models.
 
 ## Linear-Time–Branching-Time Spectroscopy {#sec-ltbt-spectroscopy-idea}
 
@@ -63,10 +64,10 @@ It includes numerous concepts we will define and discuss more deeply on our way 
 Many verification tasks can be understood along the lines of “how equivalent” two models are.
 The models can usually be expressed as labeled transition systems, that is, as graphs where nodes represent program *states* and edges represent *transitions* between them, labeled by *actions*.
 
-@fig-peterson-mutex replicates a standard example, known for instance from the textbook *Reactive Systems* [@ails2007reactiveSystems]:
+@fig-peterson-mutex replicates a standard example, known, for instance, from the textbook *Reactive Systems* [@ails2007reactiveSystems]:
 A graph specification of mutual exclusion $\literal{Mx}$ as two users $\literal A$ and $\literal B$ entering their critical section $\literal{ec_A} / \literal{ec_B}$ and leaving $\literal{lc_A} / \literal{lc_B}$ before the other may enter;
 and the transition system of Peterson's [-@peterson1981mythsMutex] mutual exclusion algorithm $\literal{Pe}$, with internal steps $\color{gray}\step{}$ due to the coordination that needs to happen.^[
-  To fit on the page, $\literal{Pe}$ is minimized by a behavioral equivalence, that will be important later on: stability-respecting branching bisimilarity.
+  To fit on the page, $\literal{Pe}$ is minimized by a behavioral equivalence that will be important later on: stability-respecting branching bisimilarity.
 ]
 For $\literal{Pe}$ to faithfully implement mutual exclusion, it should behave somewhat similarly to $\literal{Mx}$.
 
@@ -163,7 +164,8 @@ Are there notions relating $\literal{Pe}$ and $\literal{Mx}$ *besides* mutual we
 {{< paragraph_heading "State of the art." >}}
 For many of the existing behavioral preorders and equivalences, there are various algorithms and implementations to decide whether processes are equivalent [see @gl2022eqChecking for a survey].
 So, it would be an option to throw an array of algorithms on the transition systems of @exm-peterson-mutex.
-For instance, weak similarity, stable failures and contrasimilarity are neighbors in @fig-ltbts2-paper. CAAL [@aaehlow2015caal] could establish mutual weak similarity, mCRL2 [@groote2014mcrl2; @bgklnvww2019mcrl2tacas] would rule out stable-failure equivalence, and, for contrasimilarity, we would need to implement our own solution because there is no tool supporting it.
+For example, weak similarity, stable failures and contrasimilarity are neighbors in @fig-ltbts2-paper.
+CAAL [@aaehlow2015caal] could establish mutual weak similarity, mCRL2 [@groote2014mcrl2; @bgklnvww2019mcrl2tacas] would rule out stable-failure equivalence, and, for contrasimilarity, we would need to implement our own solution because there is no tool supporting it.
 Combining different tools and algorithms like this is tiresome and prone to subtle errors.
 It would be nice to treat the question in *just one* algorithm!
 

@@ -649,7 +649,7 @@ Using the six dimensions of @def-strong-spectrum, we can assign coordinates to a
 
 Coordinates with respect to the notions of @def-strong-spectrum for the common notions of behavioral equivalence and preorder in the strong linear-time–branching-time spectrum are given in @fig-strong-ltbt-spectrum.^[When writing vectors in labels and figures, we omit the parentheses $(\dots)$ for readability.]
 
-:::: {#fig-strong-ltbt-spectrum}
+:::: {#fig-strong-ltbt-spectrum fig-pos="t"}
 
 ```tikz
 \begin{tikzpicture}[auto,node distance=2.5cm,align=center]

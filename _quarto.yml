@@ -141,10 +141,10 @@ format:
     #keep-md: true
     #keep-tex: true
     geometry:
-    - left=3cm
+    - left=3.3cm
     - textwidth=11cm
-    - marginparsep=0.5cm
-    - marginparwidth=5.5cm
+    - marginparsep=0.4cm
+    - marginparwidth=5.4cm
     reference-location: margin
     include-in-header: style/preamble.tex
     #include-before-body:

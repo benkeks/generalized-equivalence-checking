@@ -25,7 +25,7 @@ The resulting spectroscopy algorithms are exponential for the $\complexityname{P
 We implement the spectroscopy procedure in the web tool {{< equivio >}}, which continues a tradition of concurrency workbenches.
 Using it, we can *check for dozens of equivalences* at once.
 We apply the spectroscopy approach to small *case studies from verification and translation of concurrent programs*.
-Core parts of the thesis are supported by an *Isabelle/HOL-formalization*.
+Core parts of the thesis are supported by an *Isabelle/HOL formalization*.
 :::
 
 :::{#summary-block-de}

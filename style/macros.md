@@ -12,7 +12,7 @@
 \providecommand{\ints}{\mathbb{Z}}
 \providecommand{\reals}{\mathbb{R}}
 \providecommand{\defiff}{\mathrel{:\!\iff}}
-\providecommand{\defeq}{\mathrel{:=}}
+\providecommand{\defeq}{\mathrel{≔}}
 \providecommand{\set}[1]{\{#1\}}
 \providecommand{\emptyword}{\texttt{()}}
 \providecommand{\identity}[1]{\mathrm{id}_{#1}}
@@ -104,7 +104,7 @@
 \lc{ Relations }
 
 \providecommand{\rel}[1]{\mathcal{#1}}
-\providecommand{\relsize}[1]{\smash{|#1|}}
+\providecommand{\relsize}[1]{\smash{|{#1}|}}
 \providecommand{\relqotient}[2]{#1_{/#2}}
 \providecommand{\relwidth}{\operatorname{wdh}}
 \providecommand{\relheight}{\operatorname{hgt}}

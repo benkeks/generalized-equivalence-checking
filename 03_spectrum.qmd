@@ -627,7 +627,7 @@ Traces, simulation, bisimulation and failures are covered as follows:
 3. The observation language $\observationsvar[\literal{strong}]{(\infty, \infty, \infty, \infty,  \infty, \infty)}$ matches $\hml$ in distinctiveness and thus characterizes bisimilarity.
 4. The observation language $\observationsvar[\literal{strong}]{(\infty, 1, 0, 0, 1, 1)}$ matches failure observations $\observations{F}$ of @def-failures-modal in distinctiveness.
 :::
-::: {.proof}
+::: proof
 - Claim (1) for traces is trivial.
 - Claim (2) for simulation is trivial, given flattening of conjunctions.
 - For claim (3) of bisimilarity,

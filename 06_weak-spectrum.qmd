@@ -106,7 +106,7 @@ For a transition system $\system=(\states,\actions,\step{})$ with an *internal a
 we call $\step{\tau}$-transitions “silent” and define the following special transition relations plus HML modalities, where $\actionsvis \defeq \actions \setminus \set{\tau}$ denotes “visible” actions:
 
 Internal transition relation
-: $p \stepweak p'$ iff $p \step{\tau}^* p'$, where $\step{\tau}^*$ is the reflexive transitive closure of silent steps.{{<isb inductive LTS LTS_Tau.silent_reachable>}}
+: $p \stepweak p'$ iff $p \mathrel{\smash{\step{\tau}}^*} p'$, where $\mathrel{\smash{\step{\tau}}^*}$ is the reflexive transitive closure of silent steps.{{<isb inductive LTS LTS_Tau.silent_reachable>}}
 : The *internal* modality $\hmleps \varphi$ has $p \in \semantics{\hmleps\varphi}$ iff there is $p' \in \semantics{\varphi}$ with $p \stepweak p'$.
 
 Soft transition relation

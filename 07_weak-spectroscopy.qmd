@@ -13,15 +13,15 @@ toc-title: "Chapter 7"
 ::::{#related-7 .column-margin}
 `\vspace{-2em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
-This chapter is based on @bj2024silentStepSpectroscopyExpress,
-its extended draft version @bj2025silentStepSpectroscopyJournal and
-its Isabelle/HOL formalization @bbhlmm2025weakSpectroscopyIsabelle.
+This chapter is based on “One energy game for the spectrum between branching bisimilarity and weak trace semantics.” [@bj2024silentStepSpectroscopyExpress],
+its extended draft version [@bj2025silentStepSpectroscopyJournal] and
+its Isabelle/HOL formalization [@bbhlmm2025weakSpectroscopyIsabelle].
 These publications make the contribution of characterizing the weak spectrum through a *weak spectroscopy* game.
 The present thesis is more detailed with respect to complexity and to handling of stable failure traces and related notions.
 ::::
 
-By applying the ideas, we have explored so far, we can derive a game for the weak spectrum of @sec-weak-spectrum.
-The key new idea here is how to encode $\hmleps$ in game moves:
+By applying the ideas we have explored so far, we can derive a game for the weak spectrum of @sec-weak-spectrum.
+The key new idea here is how to encode *internal activity* “$\hmleps \dots$” *in game moves*:
 
 ::: {#idea-weakening-game .callout-idea .callout-tip}
 #### Weakening the attacker
@@ -31,8 +31,8 @@ In the game, the places where $\hmleps$ appears in $\hmlsrbb$-formulas mean that
 
 The basic schematics of how the weak game solves the spectroscopy problem are exactly the same as for the strong spectroscopy in @fig-strong-spectroscopy-big-picture.
 
-What is different this time around is that we have a full Isabelle/HOL formalization of game correctness in @sec-weak-spectro-game, and that we can apply the algorithm to real case studies that involve internal behavior in @sec-tackling-case-studies.
-In @sec-weak-spectro-variants, we discuss how to use our method to check even more weak equivalences.  
+What is different this time around is that we have a full *Isabelle/HOL formalization* of game correctness in @sec-weak-spectro-game, and that we can apply the algorithm to real *case studies* that involve internal behavior in @sec-tackling-case-studies.
+In @sec-weak-spectro-variants, we discuss how to use our method to check even *more weak equivalences*.  
 
 ::::{.content-visible when-format="html" .column-margin}
 {{< contents related-7 >}}
@@ -40,7 +40,7 @@ In @sec-weak-spectro-variants, we discuss how to use our method to check even mo
 
 ## The Weak Spectroscopy Game {#sec-weak-spectro-game}
 
-On the next pages, we *upgrade the spectroscopy game* of @sec-stong-spectro-game to account for the weak spectrum.
+On the next pages, we *upgrade the spectroscopy game* of @sec-stong-spectro-game to account for the weak spectrum of @sec-weak-spectrum.
 
 ### The Game
 
@@ -137,7 +137,7 @@ consists of
 
 where $p, q \in \states$ and $Q, Q_\alpha \in \powerset{\states}$, and the following sixteen kinds of moves.{{<isb inductive Spectroscopy_Game LTS_Tau.spectroscopy_moves>}}
 
-Moves to allow internal behavior between observations:
+Moves to allow *internal behavior* “$\hmleps \dots$” between observations:
 $$
 \begin{array}{rrcll}
   \textit{delay}
@@ -151,7 +151,11 @@ $$
   & \gamemove{0,0,0,0,0,0,0,0}
   & \attackerpos[\varepsilon]{p',Q}
   & \text{if $p \step{\tau} p'$, $p \neq p'$,}
-  \\
+\end{array}
+$$
+moves to represent the *known $\hml$ constructs* “$\hmlobs{a}\dots$”, “$\hmlands \set{\dots}$”, and “$\hmlneg \dots$” in the now *two* contexts:
+$$
+\begin{array}{rrcll}
   \textit{observation}
   & \attackerpos[\varepsilon]{p,Q}
   & \gamemove{-1,0,0,0,0,0,0,0}
@@ -195,8 +199,7 @@ $$
   & \text{if $\set{p} \stepweak Q$ and $p \neq q$,}
 \end{array}
 $$
-moves to encode stable conjunctions $\hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue, \psi, \psi, ...}$:
-
+moves to encode *stable conjunctions* “$\hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue, \psi, \psi, ...}$”:
 $$
 \begin{array}{rrcll}
   \textit{stable conj.}\vphantom{I^{I^I}}
@@ -218,8 +221,7 @@ $$
 \end{array}
 $$
 :::
-and moves to encode branching conjunctions $\hmlands \set{\hmlsoft{\alpha}\varphi, \psi, \psi, ...}$:
-
+and moves to encode *branching conjunctions* “$\hmlands \set{\hmlsoft{\alpha}\varphi, \psi, \psi, ...}$”:
 $$
 \begin{array}{rrcll}
   \textit{branching conj.}\vphantom{I^{I^I}}
@@ -246,7 +248,6 @@ $$
   & \attackerpos{p,Q}.
 \end{array}
 $$
-
 Intuitively, the attacker is heavily weakened in the weak spectroscopy game due to the requirement to pass delay-moves in order to formulate observation attacks.
 Following @idea-weakening-game, these moves grow the right-hand-sets, which increases defender options.
 At the same time, there are several new tactical possibilities for the attacker that correspond to the special weak conjunctions, as can be seen in the following example.
@@ -284,7 +285,7 @@ $$
 \end{array}
 $$
 A similar sequence of moves works for weak failures.
-For weak simulation, we know that $\literal{P}$ is strongly simulated by $\literal{Q}$, which transfers to the weak game in the sense that we also can not find a weak simulation distinction in this direction. The attacker must pass through a negative-conjunct move to exploit that $\literal{P}$ resolves the choice more quickly than $\literal{Q}$.
+For weak simulation, we know that $\literal{P}$ is strongly simulated by $\literal{Q}$, which transfers to the weak game in the sense that we also cannot find a weak simulation distinction in this direction. The attacker must pass through a negative-conjunct move to exploit that $\literal{P}$ resolves the choice more quickly than $\literal{Q}$.
 
 <!--
 The weak failure $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}}$ discussed in @sec-abstraction-failures corresponds to the following game moves, needing budget $(1,0,1,0,0,0,1,1)$ for delay--procrastination--late conj.--conj.answer--negative conjunct:$$\attackerpos{\literal{P}, \set{\literal{Q}}} \gamemove{\;\zerovec\;}
@@ -308,7 +309,7 @@ However, other forms of abstracted simulation can be used to force the defender 
   \gamemove{\;\zerovec\;} \defenderpos[\eta]{\literal{q_{ab}}, \literal{a}, \literal{q_1}, \set{\literal{p_a}}, \set{\literal{P}, \literal{p_b}}}$.
   After this, $\literal{p_a}$ is discharged through a positive conjunct $\literal b$-observation, possible from $\literal{q_{ab}}$;
   and the $\set{\literal{P}, \literal{p_b}}$-option directly ends in $\gamemoveblank \attackerpos[\eta]{\literal{q_1}, \varnothing}\gamemoveblank\gamemoveblank\defenderpos{\literal{q_1}, \varnothing}\ngamemoveblank$, as neither $\literal{P}$ nor $\literal{p_b}$ allow immediate $\step{\literal{a}}$-steps.
-  These moves cost $(1,1,1,0,0,1,0,0)$ and correspond to the distinguishing formula $\hmleps\hmlands\set{\hmlobs{\literal a}, \hmleps\hmlobs{\literal b}}$.
+  These moves cost $(1,1,1,0,0,1,0,0)$ and correspond to the distinguishing formula $\hmleps\hmlands\set{\hmlsoft{\literal a}, \hmleps\hmlobs{\literal b}}$.
 - *Stable simulation* allows stable conjunction moves:
   $\attackerpos[\epsilon]{\literal{q_{ab}}, \set{\literal{P}, \literal{p_a}, \literal{p_b}}}
   \gamemove{\;\zerovec\;} \defenderpos[s]{\literal{q_{ab}}, \set{\cancel{\literal{P}}, \literal{p_a}, \literal{p_b}}}$.
@@ -316,7 +317,7 @@ However, other forms of abstracted simulation can be used to force the defender 
   and  $\literal{p_b}$ through positive conjunct $\literal a$-observation.
   The moves need $(1,0,1,1,0,1,0,1)$ energy and match the distinguishing formula $\hmleps\hmlands\set{\hmlneg\hmlobs{\tau}, \hmleps\hmlobs{\literal a}, \hmleps\hmlobs{\literal{b}}}$.
 
-In summary, the game moves show that $\literal{P}$ and $\literal{Q}$ are weakly similar, but all notions besides or above in the weak spectrum (@fig-weak-spectrum) cannot hold as weak failures, stable failures, $\eta$-simulation, and stable simulation can be disproven by attacker moves for at least one direction.
+In summary, the game moves show that $\literal{P}$ and $\literal{Q}$ are weakly similar, but no notion besides or above in the weak spectrum (@fig-weak-spectrum) can hold because weak failures, stable failures, $\eta$-simulation, and stable simulation can be disproven by attacker moves for at least one direction.
 This reasoning, of course, depends on the weak spectroscopy game being correct …
 :::
 
@@ -325,7 +326,7 @@ This reasoning, of course, depends on the weak spectroscopy game being correct �
 Establishing correctness now proceeds mostly as we are used to from @sec-correctness-poly-spectroscopy and -@sec-correctness-strong-spectroscopy.
 This subsection limits itself to citing the lemma heads and the inductive predicates used in the full proofs of @bj2025silentStepSpectroscopyJournal.
 
-The following facts moreover have been fully formalized in Isabelle/HOl, which will be the topic of the following @sec-isabelle-formalization.
+The following facts moreover have been fully formalized in Isabelle/HOL, which will be the topic of the following @sec-isabelle-formalization.
 
 ::: {#def-strategy-formulas-weak}
 #### Strategy formulas for $\gamespectroscopyw$
@@ -337,7 +338,7 @@ The set of *strategy formulas* for a game position $g$ and a budget $e$, $\strat
 $$
 \inferrule[delay]{
   \attackerpos{p,Q} \gamemove{u} \attackerpos[\varepsilon]{p,Q'} \quad
-  e' = \energyupdate(e, u) \in \attackerwins(\attackerpos[\varepsilon]{p,Q'}) \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{p,Q'}) \quad
   \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q'}, e')
 } {
   \hmleps\chi \in \stratweak(\attackerpos{p,Q}, e)
@@ -346,7 +347,7 @@ $$
 $$
 \inferrule[procrastination]{
   \attackerpos[\varepsilon]{p,Q} \gamemove{u} \attackerpos[\varepsilon]{p',Q} \quad
-  e' = \energyupdate(e, u) \in \attackerwins(\attackerpos[\varepsilon]{p',Q}) \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{p',Q}) \quad
   \chi \in \stratweak(\attackerpos[\varepsilon]{p',Q}, e')
 } {
   \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
@@ -355,7 +356,7 @@ $$
 $$
 \inferrule[observation]{
   \attackerpos[\varepsilon]{p,Q} \gamemove{u} \attackerpos{p',Q'} \quad
-  e' = \energyupdate(e, u) \in \attackerwins(\attackerpos{p',Q'}) \\
+  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos{p',Q'}) \\
   p \step{a} p' \quad
   Q \step{a} Q' \quad
   \varphi \in \stratweak(\attackerpos{p',Q'}, e')
@@ -366,7 +367,7 @@ $$
 $$
 \inferrule[immediate\, conj.]{
   \attackerpos{p,Q} \gamemove{u} \defenderpos{p,Q} \quad
-  e' = \energyupdate(e, u) \in \attackerwins(\defenderpos{p,Q}) \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos{p,Q}) \quad
   \varphi \in \stratweak(\defenderpos{p,Q}, e')
 } {
   \varphi \in \stratweak(\attackerpos{p,Q}, e)
@@ -375,7 +376,7 @@ $$
 $$
 \inferrule[late\, conj.]{
   \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos{p,Q} \quad
-  e' = \energyupdate(e, u) \in \attackerwins(\defenderpos{p,Q}) \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos{p,Q}) \quad
   \chi \in \stratweak(\defenderpos{p,Q}, e')
 } {
   \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
@@ -385,7 +386,7 @@ $$
 \inferrule[conj.\, answer]{
   \defenderpos{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \\
   \forall q \in Q \ldotp \;
-  e_q = \energyupdate(e, u_q) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
+  e_q = \energyupdate(u_q, e) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
   \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
 } {
   \hmlands\set{ \psi_q \mid q \in Q} \in \stratweak(\defenderpos{p,Q}, e)
@@ -394,7 +395,7 @@ $$
 $$
 \inferrule[positive\, conjunct]{
   \attackerpos[\land]{p,q} \gamemove{u} \attackerpos[\varepsilon]{p,Q'} \quad
-  e' = \energyupdate(e, u) \in \attackerwins(\attackerpos[\varepsilon]{p,Q'}) \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{p,Q'}) \quad
   \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q'}, e')
 } {
   \hmleps\chi \in \stratweak(\attackerpos[\land]{p,q}, e)
@@ -403,7 +404,7 @@ $$
 $$
 \inferrule[negative\, conjunct]{
   \attackerpos[\land]{p,q} \gamemove{u} \attackerpos[\varepsilon]{q,P'} \quad
-  e' = \energyupdate(e, u) \in \attackerwins(\attackerpos[\varepsilon]{q,P'}) \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{q,P'}) \quad
   \chi \in \stratweak(\attackerpos[\varepsilon]{q,P'}, e')
 } {
   \hmlneg \hmleps\chi \in \stratweak(\attackerpos[\land]{p,q}, e)
@@ -412,7 +413,7 @@ $$
 $$
 \inferrule[stable\, conj.]{
   \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos[s]{p,Q'} \quad
-  e' = \energyupdate(e, u) \in \attackerwins(\defenderpos[s]{p,Q'}) \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos[s]{p,Q'}) \quad
   \chi \in \stratweak(\defenderpos[s]{p,Q'}, e')
 } {
   \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
@@ -423,7 +424,7 @@ $$
   \defenderpos[s]{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \quad
   Q \neq \varnothing \\
   \forall q \in Q \ldotp \;
-  e_q = \energyupdate(e, u_q) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
+  e_q = \energyupdate(u_q, e) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
   \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
 } {
   \hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \set{ \psi_q \mid q \in Q }\right) \in \stratweak(\defenderpos[s]{p,Q}, e)
@@ -432,7 +433,7 @@ $$
 $$
 \inferrule[stable\, finishing]{
   \defenderpos[s]{p,\varnothing} \gamemove{u} \defenderpos{p,\varnothing} \quad
-  e' = \energyupdate(e, u) \in \attackerwins(\defenderpos{p,\varnothing})
+  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos{p,\varnothing})
 } {
   \hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue } \in \stratweak(\defenderpos[s]{p,Q}, e)
 }
@@ -440,7 +441,7 @@ $$
 $$
 \inferrule[branching\, conj.]{
   \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha} \quad
-  e' = \energyupdate(e, u) \in \attackerwins(\defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha}) \\
+  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha}) \\
   \chi \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha}, e')
 } {
   \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
@@ -449,11 +450,11 @@ $$
 $$
 \inferrule[branch.\, answer]{
   g_\mathrm{d} = \defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha} \gamemove{u_\alpha} \attackerpos[\eta]{p',Q'} \gamemove{u'_\alpha} \attackerpos{p',Q'} \\
-  e_\alpha = \energyupdate(\energyupdate(e, u_\alpha), u'_\alpha) \in \attackerwins(\attackerpos{p',Q'}) \quad
+  e_\alpha = \energyupdate(u'_\alpha, \energyupdate(u_\alpha, e)) \in \attackerwins(\attackerpos{p',Q'}) \quad
   \varphi_\alpha \in \stratweak(\attackerpos{p',Q'}, e_\alpha)\\
   \forall q \in Q \ldotp \;
   g_\mathrm{d} \gamemove{u_q} \attackerpos[\land]{p,q} \; \land \;
-  e_q = \energyupdate(e, u_q) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
+  e_q = \energyupdate(u_q, e) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
   \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
 } {
   \hmlands \left(\set{\hmlsoft{\alpha} \varphi_\alpha } \cup \set{ \psi_q \mid q \in Q }\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha}, e)
@@ -463,14 +464,15 @@ $$
 Strategy formulas for the weak spectroscopy.
 :::
 
-Attacker winning budgets can be translated into strategy formulas of matching price.
+Attacker winning budgets can be translated into strategy formulas of matching price, as illustrated in @exm-phil-weak-spectroscopy.
 
 ::: {#lem-weak-spectroscopy-game-formulas}
 #### Distinction formulatability
 
-If $e \in \attackerwins(\attackerpos{p,Q})$, then there is $\varphi \in \stratweak (\attackerpos{p,Q}, e)$ with $\expr[\literal{weak}](\varphi) \leq e$.{{<isb lemma Strategy_Formulas weak_spectroscopy_game.winning_budget_implies_strategy_formula>}}
+If $e \in \attackerwins^{\gamespectroscopyw}(\attackerpos{p,Q})$, then there is $\varphi \in \stratweak (\attackerpos{p,Q}, e)$ with $\expr[\literal{weak}](\varphi) \leq e$.{{<isb lemma Strategy_Formulas weak_spectroscopy_game.winning_budget_implies_strategy_formula>}}
 :::
 :::proof
+#### Approach
 
 By induction over game positions $g$ and energies $e$ according to the inductive characterization of attacker winning budgets @prp-winning-budget-rules and with respect to the following property:
 
@@ -493,7 +495,7 @@ Weak strategy formulas distinguish the left state from the set of states on the 
 :::{#def-distinguishes-set}
 #### Distinguishes from set
 
-We say a formula $\varphi$ distinguishes a state $p \in states$ from a set of states $Q \subseteq \states$ iff $p \in \semantics{\varphi}$ and $Q \cap \semantics{\varphi} = \varnothing$.
+We say a formula $\varphi$ distinguishes a state $p \in \states$ from a set of states $Q \subseteq \states$ iff $p \in \semantics{\varphi}$ and $Q \cap \semantics{\varphi} = \varnothing$.
 :::
 
 ::: {#lem-weak-spectroscopy-game-soundness}
@@ -503,6 +505,8 @@ If $\varphi \in \stratweak(\attackerpos{p,Q}, e)$,
 then $\varphi$ distinguishes $p$ from $Q$.{{<isb lemma Strategy_Formulas weak_spectroscopy_game.strategy_formulas_distinguish>}}
 :::
 :::proof
+#### Approach
+
 By induction over the derivation of $~\cdots \in \stratweak(g, e)$ according to @def-strategy-formulas-weak on the following inductive property:
 
 1. If $\varphi \in \stratweak(\attackerpos{p,Q}, e)$,
@@ -529,6 +533,8 @@ Distinguishing formulas certify the existence of equally cheap ways for the atta
 If $\varphi \in \hmlsrbb$ distinguishes $p$ from $Q$, then $\expr[\literal{weak}](\varphi) \in \attackerwins^{\gamespectroscopyw}(\attackerpos{p,Q})$.{{<isb lemma Distinction_Implies_Winning_Budgets weak_spectroscopy_game.distinction_implies_winning_budgets>}}
 :::
 :::proof
+#### Approach
+
 By mutual structural induction on $\varphi$, $\chi$, and $\psi$ with respect to the following claims:
 
 1. If $\varphi \in \hmlsrbb$ distinguishes $p$ from $Q \neq \varnothing$,
@@ -560,11 +566,11 @@ For all $N \in \notions^\literal{weak}$, $p \in \states$, $Q \in \powerset{\stat
 @bbhlmm2025weakSpectroscopyIsabelle formalize the correctness result for the weak spectroscopy game in the interactive proof assistant Isabelle/HOL. 
 The preceding definitions and facts have already linked to their respective Isabelle/HOL counterparts.
 This subsection is devoted to providing some insights into the formalization.^[
-  For questions on the Isabelle/Isar language, consult “The Isabelle/Isar Reference Manual” [@wenzel2025isabelleIsar].
+  For questions on the Isabelle/Isar language, consult *The Isabelle/Isar reference manual* [@wenzel2025isabelleIsar].
 ]
-We take a tour through roughly hundred of the most interesting lines of the 6500 line theory development.
+We take a tour through roughly a hundred of the most interesting lines of the 6500 line theory development.
 
-The weak spectroscopy game (@def-weak-spectroscopy-game) is modelled through a *parametric datatype* `('s, 'a) spectroscopy_position` for its positions and a *partial function* to determine the moves connecting them `spectroscopy_moves`.^[
+The weak spectroscopy game (@def-weak-spectroscopy-game) is modelled through a *parametric datatype* `('s, 'a) spectroscopy_position` for its positions and a *partial function* `spectroscopy_moves` to determine the moves connecting them.^[
   To be precise: “Partial function” here means that it returns `option`-values, which might either be `Some x` with an output or `None` otherwise.
   All functions in higher-order logic are *total*.
 ]
@@ -594,7 +600,8 @@ where
 ```
 
 The game itself is then built as a combination of the *locale* for transition systems with internal actions `LTS_Tau` (with a transition relation `step`)
-and an `energy_game`, instantiated with the moves, a predicate `spectroscopy_defender` singling out defender positions, and the $\leq$-relation on 8-dimensional energies.{{<isb locale Spectroscopy_Game weak_spectroscopy_game>}}
+and an `energy_game` locale.
+The latter is instantiated with the moves, a predicate `spectroscopy_defender` singling out defender positions, and the $\leq$-relation on 8-dimensional energies.{{<isb locale Spectroscopy_Game weak_spectroscopy_game>}}
 
 ```isabelle
 locale weak_spectroscopy_game =
@@ -660,7 +667,7 @@ proof (induction rule: attacker_wins.induct)
 
 There are superficial differences due to the different medium.
 For instance, note that the inductive predicate in the Isabelle theory has a seventh case for `Attacker_Branch` / $\attackerpos[\eta]{\dots}$ that does not exist in the “paper version” of @lem-weak-spectroscopy-game-formulas.
-This is more natural for the `case ... of ...` formulation in the formalization, but addresses a technicality that @bj2025silentStepSpectroscopyJournal handle in the proof body.
+This is more natural for the “`case ... of ...`” formulation in the formalization, and addresses a technicality that @bj2025silentStepSpectroscopyJournal handle in the proof body.
 
 The (mutual) induction on the formula structure to establish the distinctiveness of $\stratweak$-formulas of @lem-weak-spectroscopy-game-soundness begins:{{<isb lemma Strategy_Formulas weak_spectroscopy_game.strategy_formulas_distinguish>}}
 
@@ -698,7 +705,7 @@ proof (induction rule:
   [...]
 ```
 
-For the other direction, the following expresses @lem-weak-spectroscopy-game-completeness that attacks for formulas.{{<isb lemma Distinction_Implies_Winning_Budgets weak_spectroscopy_game.distinction_implies_winning_budgets>}}
+For the other direction, the following expresses distinction completeness (@lem-weak-spectroscopy-game-completeness) that attacks exist for formulas.{{<isb lemma Distinction_Implies_Winning_Budgets weak_spectroscopy_game.distinction_implies_winning_budgets>}}
 
 ```isabelle
 lemma distinction_implies_winning_budgets:
@@ -707,9 +714,9 @@ lemma distinction_implies_winning_budgets:
                        (Attacker_Immediate p Q)›
 ```
 
-The main theorem @thm-weak-spectroscopy-game-characterization is built by combining the previous facts and the upward-closedness of attacker winning budgets `win_a_upwards_closure`.
+The main theorem @thm-weak-spectroscopy-game-characterization combines the previous facts and the upward-closedness of attacker winning budgets `win_a_upwards_closure`.
 This is quite straightforward.
-I reproduce it here in full to provide some idea of what Isar proofs look like.{{<isb theorem Silent_Step_Spectroscopy weak_spectroscopy_game.spectroscopy_game_correctness>}}
+The following listing reproduces it in full to convey an idea of what Isar proofs look like.{{<isb theorem Silent_Step_Spectroscopy weak_spectroscopy_game.spectroscopy_game_correctness>}}
 
 ```isabelle
 theorem spectroscopy_game_correctness:
@@ -747,7 +754,7 @@ In retrospect, it is just a corollary of this formalized theorem.
 
 ### Complexity
 
-The complexity for spectroscopy using the weak game is quite comparable to the strong spectroscopy (@thm-strong-spectroscopy-complexity).
+The complexity of spectroscopy using the weak game is quite comparable to the strong spectroscopy (@thm-strong-spectroscopy-complexity).
 
 ::: {#thm-weak-spectroscopy-complexity}
 #### Weak spectroscopy complexity
@@ -756,11 +763,11 @@ Given a transition system $\system$,
 the spectroscopy problem for the $\notions^\literal{weak}$-spectrum can be solved by the game approach in exponential time and space with respect to the state space size $\relsize{\states}$.
 :::
 :::proof
-According to @thm-weak-spectroscopy-game-characterization, we can solve the spectroscopy problem for the $\notions^\literal{weak}$-spectrum by deciding the winning budgets of the weak spectroscopy game ${\gamespectroscopyw}^{\system}$ on $\system=(\states,\actions,\step{})$.
+According to @thm-weak-spectroscopy-game-characterization, we can solve the spectroscopy problem for the $\notions^\literal{weak}$-spectrum by deciding the winning budgets of the weak spectroscopy game $\gamespectroscopyw^{\system}$ on $\system=(\states,\actions,\step{})$.
 We instantiate the winning budget complexity of @lem-declining-update-complexity for the case $d=8$ with the size of $\gamespectroscopyw$ according to @def-weak-spectroscopy-game.
 
-The amount of attacker positions $\attackerpos{\dots}$ (and their delayed $\attackerpos[\varepsilon]{\dots}$ and branching $\attackerpos[\eta]{\dots}$ variants) is bounded by $\relsize{\states} \cdot 2^{\relsize{\states}}$.
-The number of conjunction moves and defender conjunction positions $\defenderpos{\dots}$ is bounded by $\relsize{\states} \cdot 2^{\relsize{\states}}$, also for the stable variant $\defenderpos[d]{\dots}$.
+The number of attacker positions $\attackerpos{\dots}$ (and their delayed $\attackerpos[\varepsilon]{\dots}$ and branching $\attackerpos[\eta]{\dots}$ variants) is bounded by $\bigo{\relsize{\states} \cdot 2^{\relsize{\states}}}$.
+The number of conjunction moves and defender conjunction positions $\defenderpos{\dots}$ is bounded by $\relsize{\states} \cdot 2^{\relsize{\states}}$, also for the stable variant $\defenderpos[s]{\dots}$.
 
 However, for the branching conjunction moves, we find a bound of $\bigo{\relsize{\step{}} \cdot 2^{\relsize{\states}}}$ per attacker delayed position (which is a slight over-approximation).
 Collectively, these moves reach $\bigo{\relsize{\step{}} \cdot 3^{\relsize{\states}}}$ defender branching positions $\defenderpos[\eta]{p, \alpha, p', Q \setminus Q_\alpha, Q_\alpha}$, due the three-coloring of states into $Q \setminus Q_\alpha$, $Q_\alpha$ and $\states \setminus Q$.
@@ -771,7 +778,7 @@ This amounts to $o_{\gamemoveblank_\nabla}$ in $\bigo{\relsize{\step{}} \cdot 2^
 Inserting the parameters in the time bounds of @lem-declining-update-complexity yields:
 $$
 \begin{array}{rlccccccc}
-    & O( & o_{\gamemoveblank} & \cdot & \relsize{G}^{2d} & \cdot & (d^2 + \relsize{G}^{d-1} \cdot d) & ) \\
+    & O( & o_{\gamemoveblank} & \cdot & \relsize{G}^{2 \cdot d} & \cdot & (\smash{d}^2 + \relsize{G}^{d-1} \cdot d) & ) \\
   = & O( & (\relsize{\step{}} \cdot 2^{\relsize{\states}}) & \cdot & (\relsize{\step{}} \cdot 3^{\relsize{\states}})^{2 \cdot 8} & \cdot & (8^2 + (\relsize{\step{}} \cdot 3^{\relsize{\states}})^{8-1} \cdot 8) & ) \\
   = & O( & \relsize{\step{}} \cdot 2^{\relsize{\states}} & \cdot & \relsize{\step{}}^{16} \cdot 3^{16\relsize{\states}} & \cdot & \relsize{\step{}}^7 \cdot 3^{7\relsize{\states}} & ) \\
   ⊆ & O( & \relsize{\step{}}^{24} & \cdot & 3^{24\relsize{\states}} & ).
@@ -783,9 +790,9 @@ For space complexity, we arrive at $\bigo{ \relsize{\step{}}^8 \cdot 3^{8\relsiz
 The exponential out-degree is due to branching conjunction moves.
 That these would need exponentially many outgoing moves seems off:
 These moves are for $\eta$- and branching bisimilarity,
-which are known to be at the less expensive (sub-cubic @gjkw2017branching) end of equivalence problems in the spectrum.
-De Frutos Escrig et al.'s -@ekw2017gamesBisimAbstraction branching bisimulation game is polynomially-sized.
-Thus, a derived reachability game of the weak spectroscopy game for branching bisimilarity in the spirit of @sec-deriving-eq-games should too be polynomial in size if we apply clever optimizations.
+which are known to be at the less expensive end of equivalence problems in the spectrum [sub-cubic by @gjkw2017branching].
+Frutos Escrig et al.'s -@ekw2017gamesBisimAbstraction branching bisimulation game is polynomially-sized.
+Thus, a derived reachability game of the weak spectroscopy game for branching bisimilarity in the spirit of @sec-deriving-eq-games should, too, be polynomial in size if we apply clever optimizations.
 @sec-optimized-branching-conj will later show how to simplify the spectroscopy game to achieve this reduction of size around branching conjunctions.
 
 ## Tackling Our Case Studies {#sec-tackling-case-studies}
@@ -795,36 +802,36 @@ For this project, we will use the {{<equivio>}} CCS dialect.
 
 ### Parallelizing Compilers {#sec-solution-parallelizing-compilation}
 
-In @exm-parallelizing-compilation, we have discussed the example of parallelizing compilation.
+In @exm-parallelizing-compilation, we have discussed the example of *parallelizing compilation*.
 @bell2013certifiably reports on the search for a fitting notion of equivalence to prove the equivalence of sequential and parallelized program, $\literal{P_{Seq}}$ and $\literal{P_{Para}}$.
 
 We model the computation of $\literal{A} / \literal{B}$ as a parallel process `Compute` that outputs one of the two options (`computeA`/`computeB`).
-In `PSeq`, th computation has to happen, before the visible output action `printOutput!` starts, followed by the printing of the computed value, `printA!` or `printB!`.
-In `PPara`, the `printOutput!` happens in parallel, and the two processes synchronize on `join` before continuing to print the computed value.
+In `P_Seq`, the computation has to happen before the visible output action `printOutput!` starts, followed by the printing of the computed value, `printA!` or `printB!`.
+In `P_Para`, the `printOutput!` happens in parallel, and the two processes synchronize on `join` before continuing to print the computed value.
 For both processes, the synchronizing actions, that is, `computeA`, `computeB`, and `join`, are restricted to internal use.
 
 ```ccs
 Compute = computeA!Compute + computeB!Compute
 
-PSeq = (
+P_Seq = (
     Compute 
   | computeA.printOutput!printA!
     + computeB.printOutput!printB!
 ) \ {computeA, computeB}
 
-PPara = (
+P_Para = (
     Compute
   | printOutput!join!
   | computeA.join.printA!
     + computeB.join.printB!
 ) \ {computeA, computeB, join}
 
-@compareSilent PPara, PSeq
+@compareSilent P_Para, P_Seq
 
 @snip "---- layout ----"
 
-PSeq(main, x=80, y=69)
-PPara(main, x=587, y=55)
+P_Seq(main, x=80, y=69)
+P_Para(main, x=587, y=55)
 "(Compute | 0 | 0) \ {computeA,computeB,join}"(x=505, y=382)
 "(Compute | 0 | printB!0) \ {computeA,computeB,join}"(x=588, y=323)
 "(Compute | 0) \ {computeA,computeB}"(x=179, y=366)
@@ -832,9 +839,9 @@ PPara(main, x=587, y=55)
 "(Compute | printB!0) \ {computeA,computeB}"(x=259, y=283)
 ```
 
-The statement `@compareSilent PPara, PSeq` invokes the weak spectroscopy on the pair of processes.
+The statement `@compareSilent P_Para, P_Seq` invokes the *weak spectroscopy* on the pair of processes.
 
-The spectroscopy reports `⟨ϵ⟩⟨printOutput!⟩⟨ϵ⟩⋀{⟨ϵ⟩⟨printA!⟩⊤,⟨ϵ⟩⟨printB!⟩⊤}` as a cheapest distinguishing formula of `PPara` from `PSeq`.
+As a cheapest distinguishing formula of `P_Para` from `P_Seq`, the spectroscopy reports `⟨ϵ⟩⟨printOutput!⟩⟨ϵ⟩⋀{⟨ϵ⟩⟨printA!⟩⊤,⟨ϵ⟩⟨printB!⟩⊤}`.
 This formula disproves weak simulation plus weak readiness and everything above in the weak spectrum.
 The minimality means that all other notions must hold.
 These are the equivalences of contrasimilarity and stable bisimilarity, and below.
@@ -844,7 +851,8 @@ Such a mechanized survey would certainly have facilitated the research behind @b
 
 ### $\tau$-Abstraction and Failures
 
-@sec-abstraction-failures has introduced a transition system with two states $\literal{P}_e$ and $\literal{P}_\ell$ that perform nondeterministic $\literal{op}$-step that only $\literal{P}_\ell$ can correct while $\literal{idle}$-ing.
+@sec-abstraction-failures has introduced a transition system with two states $\literal{P}_e$ and $\literal{P}_\ell$ that perform a nondeterministic $\literal{op}$-step.
+Only $\literal{P}_\ell$ can correct the choice while $\literal{idle}$-ing.
 Though both processes are weak-failure-equivalent, their variants $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ where $\literal{idle}$-steps are relabelled to $\tau$-steps are not.
 
 To reconstruct this result on {{<equivio>}}, we first have to translate the processes of @fig-idle-process-abstraction to CCS.
@@ -904,15 +912,16 @@ We can now use the derived equivalence checkers (along the lines of @sec-decidin
 ```
 
 How does this influence research in concurrency theory?
-@gfm2020congruenceOperator[Corollary 9] claims that weak failure equivalence would be a congruence for the hiding operator.
+@gfm2020congruenceOperator[Corollary 9] claim that weak failure equivalence would be a congruence for the hiding operator.
 In light of our finding, this cannot be right.^[
-  The bug in the otherwise intriguing paper @gfm2020congruenceOperator is that the modal logic of weak failures is not closed under adding of weak observation sequences at $\hmleps$-operators:
+  The bug in the otherwise intriguing paper [@gfm2020congruenceOperator] is that the modal logic of weak failures is not closed under adding of weak observation sequences at $\hmleps$-operators:
   $\hmleps\hmlobs{\literal{a}}\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}} \in \observations{WF}$, but
-  $\hmleps\hmlobs{\literal{a}}\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}\hmleps\hmlobs{\literal{a}}}$ is too strong for weak failure equivalence.
+  $\hmleps\hmlobs{\literal{a}}\hmleps\hmlands\set{\hmlneg\mathhl{\hmleps\hmlobs{\literal{a}}}\hmleps\hmlobs{\literal{a}}}$ is too strong for weak failure equivalence.
   Their requirement (ABS) together with the definition of $\mathcal{T}^{-1}_H$ would prescribe that the greatest logic to characterize weak failures contains both, for hiding to be a congruence.
+  Their Corollary 9 assumes in error that this kind of pumping were sound for weak failures.
 ]
 
-We can even go further, and decide all weak equivalences of our spectrum:
+We can go even further and decide *all* weak equivalences of our spectrum:
 
 ```ccs
 @nolink
@@ -938,21 +947,25 @@ In @sec-extending-to-other-eqs, we close with some hints how even more nuances i
 
 ### Optimizing Branching Conjunctions {#sec-optimized-branching-conj}
 
-@bj2025silentStepSpectroscopyJournal show how to reduce the out-degree of the weak spectroscopy game to be linear.
+@bj2025silentStepSpectroscopyJournal show how to reduce the out-degree $o_{\gamemoveblank}$ of the weak spectroscopy game to be linear.
 For this, we reformulate the branching conjunction part of the game to be closer to the operational @def-branching-bisim of branching bisimilarity.
 We can still solve the main spectroscopy problem, but lose some resolution about the number of nested conjunctions.
 
 If we read @def-branching-bisim directly as a game, it differs from the branching conjunction moves in
 @def-weak-spectroscopy-game, because the latter require the attacker to name as $Q_\alpha$ ex-ante which $q'$ to challenge directly and which ones only after the $\alpha$ step, and to have one continuation for the whole $Q_\alpha$ group.
 The *simplified* weak spectroscopy game $\gamespectroscopywsimple$ in @fig-weak-spec-game-simplified rephrases this part to match the operational characterization.
+(This might not be “simpler” conceptionally, but it will be for the algorithm.)
 
 :::{#fig-weak-spec-game-simplified fig-env='figure*' fig-pos='t'}
 
 ```tikz
 %%| image-class: lightbox
+\definecolor{etaColor}{cmyk}{0.8, 0, 0, 0.3}
 \begin{adjustbox}{max width=\linewidth, center}
   \begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm, rel/.style={dashed,font=\it},
-    posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
+    posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,black,fill=gray!5},
+    specialStyle/.style={draw=etaColor, fill=etaColor!3},
+    specialEdgeStyle/.style={draw=etaColor, text=etaColor}]
       \node[posStyle, initial, initial text={}]
         (Att){$\attackerpos{p,Q}$};
       \node[posStyle]
@@ -961,11 +974,11 @@ The *simplified* weak spectroscopy game $\gamespectroscopywsimple$ in @fig-weak-
         (Def) [below = 3.2cm of AttDelay] {$\defenderpos{p,Q}$};
       \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
         (DefStab) [above right = 1.2cm of Def] {$\defenderpos[s]{p,\{ q\!\in\!Q_\varepsilon \mid q \nostep{\tau} \}}$};
-      \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
+      \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,specialStyle]
         (DefBranch) [right = 1.5cm of AttDelay,yshift=-.7cm] {$\defenderpos[\eta]{p,\alpha,p',Q_\varepsilon}$};
-      \node[posStyle]
+      \node[posStyle, specialStyle]
         (AttBranchClause) [right=1.5cm of DefBranch] {$\attackerpos[\eta]{p,\alpha,p',q}$};
-      \node[posStyle]
+      \node[posStyle, specialStyle]
         (AttBranch) [above=1.2cm of AttBranchClause] {$\attackerpos[\eta]{p',Q'_\alpha}$};
       \node[posStyle]
         (AttConj) [below right = 1.2cm and .2cm of DefStab] {$\attackerpos[\land]{p,q}$};
@@ -996,8 +1009,8 @@ The *simplified* weak spectroscopy game $\gamespectroscopywsimple$ in @fig-weak-
           node[label={[label distance=0cm]-180:$\textcolor{gray}{\zerovec}$}] {$Q = Q_\varepsilon$} (Def)
         (AttDelay) edge
           node[pos=.87,label={[label distance=0.2cm]-177:$\textcolor{gray}{\zerovec}$}] {$p \nostep{\tau}$} (DefStab)
-        (AttDelay) edge
-          node[align=center,pos=0.3,label={[label distance=0.1cm]-100:$\textcolor{gray}{\zerovec}$}] {$p \stepsoft{\alpha} p'$\\$Q_\varepsilon \neq \varnothing$} (DefBranch)
+        (AttDelay) edge[specialEdgeStyle]
+          node[align=center,pos=0.3,label={[label distance=0.1cm]-100:$\textcolor{etaColor!50}{\zerovec}$}] {$p \stepsoft{\alpha} p'$\\$Q_\varepsilon \neq \varnothing$} (DefBranch)
         (Def) edge[bend right=17]
           node[pos=.85, label={[label distance=0.1cm]-100:$\textcolor{gray}{-\unitvec{3}}$}] {$q \in Q$} (AttConj)
         (DefStab) edge[bend right=10]
@@ -1009,20 +1022,20 @@ The *simplified* weak spectroscopy game $\gamespectroscopywsimple$ in @fig-weak-
         (AttConj) edge[bend right=15]
           node[above, label={270:$\textcolor{gray}{\updmin{1,7},0,0,0,0,0,0,-1}$}] {$p \neq q$} (AttSwap)
 
-        (DefBranch) edge
-          node[label={[label distance=0.1cm]270:$\textcolor{gray}{-\unitvec{2}-\unitvec{3}}$}] {$q \in Q_\varepsilon$} (AttBranchClause)
-        (AttBranchClause) edge
+        (DefBranch) edge[specialEdgeStyle]
+          node[label={[label distance=0.1cm]270:$\textcolor{etaColor!50}{-\unitvec{2}-\unitvec{3}}$}] {$q \in Q_\varepsilon$} (AttBranchClause)
+        (AttBranchClause) edge[specialEdgeStyle]
           node[pos=.55, align=right] {$\{q\} \stepsoft{\alpha} Q'_\alpha$ \\
-                                      $\textcolor{gray}{\updmin{1,6},0,0,0,0,0,0,0}$} (AttBranch)
-        (AttBranchClause) edge[bend left=5]
-          node[pos=.4, swap, align=center] {$\textcolor{gray}{\zerovec}$} (AttConj)
-        (AttBranch) edge[pos=.6]
+                                      $\textcolor{etaColor!50}{\updmin{1,6},0,0,0,0,0,0,0}$} (AttBranch)
+        (AttBranchClause) edge[specialEdgeStyle, bend left=5]
+          node[pos=.4, swap, align=center] {$\textcolor{etaColor!50}{\zerovec}$} (AttConj)
+        (AttBranch) edge[specialEdgeStyle, pos=.6]
           node[align=center, pos=0.4]{$Q'_\alpha \stepweak Q'$ \\
-                            $\textcolor{gray}{-\unitvec{1}-\unitvec{3}}$} (AttObs)
-        (AttBranch) edge[bend left=30, pos=.5]
-          node[label={0:$\textcolor{gray}{-\unitvec{1}-\unitvec{5}}$}]{$Q'_\alpha \neq \varnothing$} (DefContinue)
-        (AttBranch) edge[bend right=30, swap, pos=.6]
-          node[label={0:$\textcolor{gray}{-\unitvec{1}}$}]{$Q'_\alpha = \varnothing$} (DefContinue);
+                            $\textcolor{etaColor!50}{-\unitvec{1}-\unitvec{3}}$} (AttObs)
+        (AttBranch) edge[specialEdgeStyle, bend left=30, pos=.5]
+          node[label={0:$\textcolor{etaColor!50}{-\unitvec{1}-\unitvec{5}}$}]{$Q'_\alpha \neq \varnothing$} (DefContinue)
+        (AttBranch) edge[specialEdgeStyle, bend right=30, swap, pos=.6]
+          node[label={0:$\textcolor{etaColor!50}{-\unitvec{1}}$}]{$Q'_\alpha = \varnothing$} (DefContinue);
   \end{tikzpicture}
 \end{adjustbox}
 ```
@@ -1030,14 +1043,11 @@ The *simplified* weak spectroscopy game $\gamespectroscopywsimple$ in @fig-weak-
 Schematic *simplified* weak spectroscopy game $\gamespectroscopywsimple$.
 :::
 
-Note that the immediate branching accounting/finishing moves lead to defender conjunction positions,
-while the late branching accounting move skips it, but still charges for the conjunction by an additional energy update of $-\unitvec{3}$.
+Intuitively, the simplified game part encodes nested conjunctions of the form $\hmlands\set{ \hmlsoft{\alpha} \mathhl{\hmlands \Psi'}, \psi_1, \ldots}$ or the cheaper form $\hmlands\set{ \hmlsoft{\alpha} \mathhl{\hmleps \hmlands \Psi'}, \psi_1, \ldots}$.
+The $\Psi'$ are the formulas from after branching observation moves $\attackerpos[\eta]{p,\alpha,p',q} \gamemoveblank \attackerpos[\eta]{p', Q_\alpha'} \gamemoveblank \attackerpos{p', Q'}$, while the $\psi_i$ come from the resets $\attackerpos[\eta]{p,\alpha,p',q} \gamemoveblank \attackerpos[\wedge]{p,q}$.
 
-The simplified game part encodes nested conjunctions of the form $\hmlands\set{ \hmlsoft{\alpha} \mathhl{\hmlands \Psi'}, \psi_1, \ldots}$ or the cheaper form $\hmlands\set{ \hmlsoft{\alpha} \mathhl{\hmleps \hmlands \Psi'}, \psi_1, \ldots}$.
-The $\Psi'$ are the formulas from after branching observation moves, while the $\psi_i$ come from the resets.
-
-In @bj2025silentStepSpectroscopyJournal we discuss this game's strategy formulas in detail and prove its correctness, resulting in the following theorem.^[
-  Credit for the proof details goes to David Jansen.
+In @bj2025silentStepSpectroscopyJournal, we discuss this game's strategy formulas in detail and prove its correctness, resulting in the following theorem.^[
+  Credit for the proof details goes to Jansen.
 ]
 
 ::: {#thm-weak-spectroscopy-game-simplified-characterization}
@@ -1046,13 +1056,13 @@ In @bj2025silentStepSpectroscopyJournal we discuss this game's strategy formulas
 Let the simplified weak notions $\widehat{\notions}^\literal{weak}$ be the union of $\nats \times \set{ 0 } \times \nats^6$
 and $\nats \times \set{ \infty } \times \set{ 0, \infty} \times \nats \times \set{ 0, \infty} \times \nats^3$.
 Let simplified expressiveness prices be defined by rounding up the prices of @def-weak-spectrum:
-$\exprabst[\literal{weak}] = \min \set{ N \in \widehat{\notions}^\literal{weak} \mid N \geq \expr[\literal{weak}](\varphi) }$.
+$\exprabst[\literal{weak}] = \min \set{ N \in \widehat{\notions}^\literal{weak} \mid \expr[\literal{weak}](\varphi) \leq N }$.
 Then, on the simplified weak game $\gamespectroscopywsimple$ of @fig-weak-spec-game-simplified:
 
 For all $N \in \widehat{\notions}^\literal{weak}$, $p \in \states$, $Q \in \powerset{\states}$, the following are equivalent:
 
 - There exists a formula $\varphi \in \hmlsrbb$ with price $\exprabst[\literal{weak}](\varphi) \leq N$ that distinguishes $p$ from $Q$.
-- Attacker wins $\gamespectroscopywsimple^{\system}$ from $\attackerpos{p,Q}$ with $N$ (that is, $N \in \attackerwins^{\gamespectroscopywsimple^{\system}}(\attackerpos{p,Q})$).
+- Attacker wins $\gamespectroscopywsimple^{\system}$ from $\attackerpos{p,Q}$ with $N$.
 :::
 
 Complexity-wise, for the simplified game, $\gamespectroscopywsimple$,
@@ -1068,9 +1078,11 @@ $\bigo{\relsize{\step{}} \cdot
 $,
 and space complexity
 $\bigo{ \relsize{\step{}}^8 \cdot 2^{8 \relsize{\states}} }$.
-But these are much lower bounds than in the original game $\gamespectroscopyw$.
+But these are much lower bounds than in the original game $\gamespectroscopyw$,
+where we found $\bigo{ \relsize{\step{}}^{24} \cdot 3^{24\relsize{\states}} }$ for time and
+$\bigo{ \relsize{\step{}}^8 \cdot 3^{8\relsize{\states}}}$ for space.
 
-The practical difference is huge on transition systems with relevant branching-degree with respect to internal behavior such as the initial Peterson system of @fig-peterson-mutex:
+The practical difference is huge on transition systems exposing relevant branching-degree with respect to internal behavior such as the initial Peterson system of @fig-peterson-mutex:
 With the optimization, the tool solves it in fractions of a second, as reported in @tbl-weak-spectro-results.
 Without it, the exponential conjunctions lead to a game with 121,773 moves, taking 90 seconds.
 
@@ -1088,12 +1100,12 @@ $\bigo{ \relsize{\step{}} \cdot
 In the weak spectrum of @sec-weak-spectrum-quantities, we left out the notions of revivals, failure traces, and ready traces, we had included in the strong spectrum of @sec-strong-notions.
 Their stable variants are relevant to the CSP community [see @roscoe2009revivalsHierarchy].
 
-These notions need to differentiate heights between a deepest “revival” conjunct and other positive conjuncts.
+As discussed in @exm-failure-trace-distinguished, these notions need to differentiate between a deepest “revival” conjunct and other positive conjuncts.
 Thus, these equivalences need an additional dimension for $\expr$-measurements, and an even more sophisticated handling of conjunctions in the game.
 
 @fig-weak-spec-game-revivals illustrates how one could incorporate revivals into stable conjunctions, analogously to @sec-strong-spectroscopy.
 Note, that we now have two kinds of conjunct positions: for the stable non-revival context and for the other contexts.
-The maximal depth conjuncts is still managed by dimension 6.
+The maximal depth of conjuncts is still managed by dimension 6.
 But stable non-revival conjuncts receive a new dedicated dimension 7 to bound their depth.
 The previous dimensions 7 and 8 now come 8th and 9th.
 
@@ -1114,7 +1126,7 @@ The previous dimensions 7 and 8 now come 8th and 9th.
         (Def) [below = 2.2cm of AttDelay] {$\defenderpos{p,Q}$};
       \node[ellipse, draw=stabilityColor, fill=stabilityColor!3, inner sep=1ex, minimum size=1cm,minimum width=2cm]
         (DefStab) [above right = 2cm and .1 of AttDelay] {$\defenderpos[s]{p,Q_s \setminus Q_*, Q_*}$};
-      \node[ellipse, draw=etaColor, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=etaColor!3]
+      \node[dotted, cloud, cloud puffs=9,cloud puff arc=105, aspect=2, draw=etaColor, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=etaColor!3]
         (DefBranch) [below right = 1.1cm and 1.5cm of AttDelay] {$\dots$};
       \node[posStyle]
         (AttConj) [below right = 1.2cm and 0.1cm of DefBranch] {$\attackerpos[\land]{p,q}$};
@@ -1144,8 +1156,8 @@ The previous dimensions 7 and 8 now come 8th and 9th.
         (Att) edge[bend right=60]
           node[pos = .6, label={-130:$\textcolor{gray}{-\unitvec{5}}$}] {$Q \neq \varnothing$} (Def)
         (AttDelay) edge [out=155,in=115,looseness=4, pos=.6] node {$p \step{\tau} \ldots\; \textcolor{gray}{\zerovec}$} (AttDelay)
-        (AttDelay) edge[bend right=12]
-          node[pos=.42, align=center, label={[label distance=0.0cm]-60:$\textcolor{gray}{-\unitvec{1}}$}] {$p\step{a}p'$\\ $Q_\varepsilon \step{a} Q'$} (AttObs)
+        (AttDelay) edge[bend right=0]
+          node[pos=.5, align=center, label={[label distance=0.0cm]below:$\textcolor{gray}{-\unitvec{1}}$}] {$p\step{a}p'$\\ $Q_\varepsilon \step{a} Q'$} (AttObs)
         (AttDelay) edge
           node[pos =.3, label={[label distance=0cm]-180:$\textcolor{gray}{\zerovec}$}] {$Q = Q_\varepsilon$} (Def)
         (AttDelay.north) edge[draw=stabilityColor]
@@ -1175,7 +1187,7 @@ The previous dimensions 7 and 8 now come 8th and 9th.
         (AttConjStab) edge[bend left=10, draw=stabilityColor]
           node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{1,\textcolor{stabilityColor}{7}},0,0,0,0,0,0,0,0}$}] {} (AttContinueStab)
         (AttConjStab) edge[bend right=15, draw=stabilityColor]
-          node[above, label={270:$\textcolor{gray}{\updmin{1,8},0,0,0,0,0,0,0,-1}$}] {$p \neq q$} (AttSwapStab);
+          node[above, text=stabilityColor, label={270:$\textcolor{gray}{\updmin{1,8},0,0,0,0,0,0,0,-1}$}] {$p \neq q$} (AttSwapStab);
   \end{tikzpicture}
 \end{adjustbox}
 ```
@@ -1184,15 +1196,15 @@ Modifying stable conjunction moves to include revivals (brick red part).
 The branching bisimulation part is left out.
 :::
 
-In this game, stable revivals end up at $(\infty, 0, 0, 1, 0, 1, 0, 1, 1)$,
-stable failure traces at $(\infty, 0, 0, 1, 0, \infty, 0, 1, 1)$,
-and stable ready traces at $(\infty, 0, 0, 1, 0, \infty, 1, 1, 1)$,
+In this game, stable revivals end up at $(\infty, 0, 0, \mathhl{1}, 0, \mathhl{1}, \mathhl{0}, 1, 1)$,
+stable failure traces at $(\infty, 0, 0, 1, 0, \mathhl{\infty}, 0, 1, 1)$,
+and stable ready traces at $(\infty, 0, 0, 1, 0, \mathhl{\infty}, \mathhl{1}, 1, 1)$,
 analogously to their strong counterparts in @fig-strong-ltbt-spectrum.
 
 Of course, one could again use the “look-ahead trick” of @sec-clever-strong-spectro to reduce the number of partitions to consider.
 
 In fact, the implementation on {{<equivio>}} does employ this formulation, thereby actually using a 9-dimensional game with richer stable conjunctions.
-Although this thesis remains short on providing a theorem for the game that contains the stable revival move, tests in the tool (and the theorems for the strong spectrum) justify some confidence for the correctness of variant in @fig-weak-spec-game-revivals.
+Although this thesis remains short on providing a theorem for the game that contains the stable revival move, tests in the tool (and the theorems for the strong spectrum) suggest correctness of the variant in @fig-weak-spec-game-revivals.
 
 ### Extending to Other Equivalences {#sec-extending-to-other-eqs}
 
@@ -1200,27 +1212,27 @@ At this point, we have covered most interesting parts of strong and weak spectru
 But there are still more notions one could reach for.
 
 {{< paragraph_heading "Divergence and completed observations." >}}
-Logic and game, as we have presented them, are blind to divergence and to completed observations.
+Logic and game, as we have presented them, are blind to *divergence* and *completed observations*.
 Van Glabbeek -@glabbeek1993ltbt uses additional modalities:
 $\Delta$ for divergence with $\semantics{\Delta} \defeq \{p \mid p \step{\tau}^\omega\}$;
-$0$&nbsp;for completed observations with $\semantics{0} \defeq \set{p \mid \forall a. \nostep{a} }$
+$0$&nbsp;for completed observations with $\semantics{0} \defeq \set{p \mid \forall \alpha \in \actions. \nostep{\alpha} }$
 (and $\lambda \defeq 0 \lor \Delta$).
 
 @bj2024silentStepSpectroscopyExpress decide against including these modalities in the game.
-At least on finite-state systems, they may be understood to be special action observations, as follows.
-In this view, divergence and completion are something to be modelled (or added through pre-processing) into a system $\system$ before turning to our game of equivalence questions on $\system'$.
+At least on finite-state systems, they may be understood to be *special action observations*.
+Divergence and completion can be added through pre-processing into a system $\system$ before turning to our game of equivalence questions on $\system'$.
 
 For $0$, the transformation from $\system$ to $\system'$ is obvious:
-Add a $p \step{\checkmark} \bot$ to the transition system for each $p \in \states$ where $p \nostep{a}$ for every $a \in \actions \setminus \set{\tau}$ (with $\checkmark$ and $\bot$ fresh).
+Add a $p \step{\checkmark} \bot$ to the transition system for each $p \in \states$ where $p \nostep{a}$ for every $a \in \actionsvis$ (with $\checkmark$ and $\bot$ fresh).
 Then $\semantics{\hmlobs{\checkmark}\hmltrue}^{\smash{\system'}} = \semantics{0}^{\smash{\system}}$.
 
-For finite-state systems, divergence can be addressed by an argument from @gjkw2017branching.
-Add a state $\bot$, an action $\delta \notin \actions$ and transitions $p \step{\delta} \bot$ to the transition system for each $p \in \states$ that lives on a $\tau$-cycle $p \step{\tau}^+ p$.
+For divergence on finite-state systems, one may use an argument from @gjkw2017branching:
+Add a state $\bot$, an action $\delta \notin \actions$ and transitions $p \step{\delta} \bot$ to the transition system for each $p \in \states$ that lives on a $\tau$-cycle $p \mathrel{\smash{\step{\tau}}^+} p$.
 Then $\semantics{\hmleps\hmlobs{\delta}\hmltrue}^{\smash{\system'}} = \semantics{\Delta}^{\smash{\system}}$.
-@fokkinkGL19DivCong3 define a unary *diverges-while* operator $\Delta \varphi$ to characterize divergence-preserving branching bisimilarity; this operator is then naturally expressed as branching conjunction $\hmleps\hmlands\{\hmlobs{\delta}\hmltrue, \varphi\}$.
+@fokkinkGL19DivCong3 define a unary *diverges-while* operator $\Delta \varphi$ to characterize divergence-preserving branching bisimilarity; this operator is then naturally expressed as branching conjunction $\hmleps\hmlands\set{\hmlsoft{\delta}\hmltrue, \varphi}$.
 
 For infinite systems, divergence is more tricky.
-Just like infinite traces, it depends on the possibility of characterizing infinite-duration attacks.^[And not just unbounded attacks as we support them now.]
+Just like infinite traces, it depends on the possibility of characterizing infinite-duration attacks.^[And not just unbounded attack strategies as we support them now.]
 On the game level, for infinite plays to be winnable by the attacker, the game must have a parity-game winning condition:
 The attacker wins a subgame about divergence-distinction if they can make infinitely much $\tau$-progress, but the defender cannot. 
 Such a richer game model is the route taken by @ekw2017gamesBisimAbstraction to characterize various divergence-aware bisimilarities.
@@ -1233,10 +1245,10 @@ Otherwise, weak bisimulation formulas have no $\hmlobs{\tau}$-parts (see @fig-we
 This thesis is not going deeper into congruences.
 But let us note that, clearly, the weak spectroscopy game could be extended by some prefix to enable such special observations for the attacker at the beginning if rootedness is desired.
 
-{{< paragraph_heading "Coupled simulation" >}}
+{{< paragraph_heading "Coupled simulation." >}}
 As mentioned in @sec-weak-spectrum-discussion, we have glimpsed over coupled similarity.
 It can be thought of as the syntactic combination of weak similarity and contrasimilarity in the sense that each weak conjunction must either contain purely positive *or* purely negative conjuncts, as outlined in @bm2024contrasimilarityInfComp.
-This possibility does not align nicely with our game formulation because it means that the attacker has to dedicate a conjunction no positivity or negativity before entering, and not make up their mind on the fly whether $q \in Q$ are addressed positively or negatively.
+This possibility does not align nicely with our game formulation because it means that the attacker has to dedicate a conjunction to positivity or negativity before entering, and not make up their mind on the fly whether $q \in Q$ are addressed positively or negatively.
 If desired, this could be treated by a new dimension in modal conjunctions and game positions.
 Who urgently needs to compute coupled similarity relations, may otherwise fall back to the coupled simulation game by @bn2019coupledsimTacas.
 
@@ -1249,15 +1261,15 @@ With the weak spectroscopy game, @bj2024silentStepSpectroscopyExpress provide th
 
 Previously, there have only been partial characterizations of individual equivalences:
 @ekw2017gamesBisimAbstraction treat the diamond of weak, delay, $\eta$ and branching bisimilarity.
-@bnp2020coupledsim30 and @bm2021contrasimilarity cover the area of coupled notions and contrasimilarity.
+@bnp2020coupledsim30 and Bisping & Montanari [-@bm2021contrasimilarity; -@bm2024contrasimilarityInfComp] cover the area of coupled notions and contrasimilarity.
 @tan2002evidence describes subset-construction variants of the bisimulation game for weak trace equivalence and stable failure equivalence.
-With the weak spectroscopy game, we have departed from the individual equivalence games in order to achieve genericity,
+With the weak spectroscopy game, we have moved beyond such individual equivalence games in order to achieve genericity,
 covering both linear-time and branching-time as well as stable and unstable notions.
 
 In principle, this chapter only executes @idea-modal-first to translate modal constructions to game moves appearing in $\hmlsrbb$, which follows @idea-weak-hml.
 The important trick is to weaken the attacker according to @idea-weakening-game,
 but this departs from prior approaches in weakened games and involves many technicalities.
-Therefore, it is relieving to have the Isabelle-formalization of @sec-isabelle-formalization by @bbhlmm2025weakSpectroscopyIsabelle to verify the construction.
+Therefore, it is relieving to have the Isabelle formalization of @sec-isabelle-formalization by @bbhlmm2025weakSpectroscopyIsabelle to verify the construction.
 
 {{< paragraph_heading "Analyzing systems." >}}
 The mini case studies of @sec-tackling-case-studies show how the spectroscopy automates away the tedious kind of work of finding out the precise relationship between transformed processes that went, for instance, into @bell2013certifiably.
@@ -1267,7 +1279,7 @@ Similar searches for weak bisimilarities have happened around @parrow1992 and @n
 
 Concise distinguishing formulas can be interesting diagnostic information to compare models.
 Like @mg2024minDepthDistBranchBisim, we find minimal-depth distinguishing formulas for branching bisimilarity without until, but we solve the problem for all weak notions at once.
-@hmy2023whenPrivacyFails report how inequivalence with respect to stronger modal logics can reveal privacy vulnerabilities in ePassports, which have been overlooked in a purely trace-based view.
+@hmy2023whenPrivacyFails report how inequivalence with respect to more distinctive modal logics can reveal privacy vulnerabilities in ePassports, which have been overlooked in a purely trace-based view.
 
 For a full understanding of a system's relationship to its specification, it is often helpful to pinpoint exactly how difficult it would be for an attacker to tell the two apart.
 In the next chapter, we will return to the initial @exm-peterson-mutex of Peterson's mutex and explain how the prototype implementation of the weak spectroscopy algorithm handles it.

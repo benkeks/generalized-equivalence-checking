@@ -10,9 +10,9 @@ toc-title: "Chapter 6"
 :::
 
 ::::{#related-6 .column-margin}
-`\vspace{-2em}`{=latex}
+`\vspace{-1em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
-This chapter is based on parts of @bj2025silentStepSpectroscopyJournal and @bm2024contrasimilarityInfComp.
+This chapter is based on parts of the draft “Deciding all behavioral equivalences at once II: The silent-step spectrum” [@bj2025silentStepSpectroscopyJournal] and of “Characterizing contrasimilarity through games, modal logic, and complexity” [@bm2024contrasimilarityInfComp].
 For a fuller presentation of the spectrum of weak equivalences itself, @glabbeek1993ltbt is the authoritative work.
 A gentler introduction to key concepts is provided by @sangiorgi2012.
 ::::
@@ -22,17 +22,17 @@ Therefore, it matters that we can lift our approach to also account for such equ
 
 This chapter serves as a *second round of preliminaries* and context needed for the spectrum of *weak equivalences*.
 Some things are more complicated in the weak spectrum.
-For instance, we will be discussing eight weak forms of bisimilarity.
+For instance, we will be discussing *eight* weak forms of bisimilarity.
 
 At its heart, this chapter aims to find a modal spectrum characterization, where HML grammar and pricing are designed in such a way that we can apply the spectroscopy approach in the following @sec-weak-spectorscopy.
-The *north pole of the weak spectrum* will be the logic of stability-respecting branching bisimilarity.
+The *top element of the weak spectrum* will be the logic of *stability-respecting branching bisimilarity*.
 
-This is where the thesis arrives at “The Linear Time–Branching Time Spectrum&nbsp;II: The Semantics of Sequential Systems with Silent Moves” [@glabbeek1993ltbt], already featured in @fig-ltbts2-paper of the introduction.
+This is where the thesis arrives at “The linear time–branching time spectrum&nbsp;II: The semantics of sequential systems with silent moves” [@glabbeek1993ltbt], already featured in @fig-ltbts2-paper of the introduction.
 We will reframe a big chunk of it to fit our modal framework in @fig-weak-spectrum.
-In particular, we try to be much more restricted in the use of special modalities than the presentation in @glabbeek1993ltbt.
+In particular, we try to be much more restricted in the use of special modalities than the presentation of @glabbeek1993ltbt.
 
 ::: {#idea-weak-hml .callout-idea .callout-tip}
-#### Taking a subset to weaken HML
+#### Taking a sublogic to weaken HML
 
 We can use a subset of Hennessy--Milner logic to characterize most interesting weak equivalences.
 :::
@@ -60,11 +60,11 @@ Equivalences with this feature are called *weak*, alluding to the fact that they
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.5cm,
     rel/.style={dashed,blue}]
-  \node[state] (tta){$\ccsprefix{\tau}\ccsprefix{\tau}\literal{a}$};
+  \node[state] (tta){$\!\ccsprefix{\tau\!}\ccsprefix{\tau\!}\literal{a}\!$};
   \node[state, below of=tta] (ta){$\ccsprefix{\tau}\literal{a}$};
   \node[state, below of=ta] (a){$\literal{a}$};
   \node[state, node distance=2.5cm, below of=a] (Null){$\ccsnull$};
-  \node[state, right of=tta] (tat){$\ccsprefix{\tau}\ccsprefix{\literal{a}}\tau$};
+  \node[state, right of=tta] (tat){$\!\ccsprefix{\tau\!}\ccsprefix{\literal{a}}\tau\!$};
   \node[state, below of=tat] (at){$\ccsprefix{\literal{a}}\tau$};
   \node[state, node distance=2.5cm, below of=at] (t){$\tau$};
   \path[->]
@@ -89,7 +89,7 @@ Equivalences with this feature are called *weak*, alluding to the fact that they
 \end{tikzpicture}
 ```
 
-Processes we would like to equate in weak equivalences.
+Processes we would like to equate in weak equivalences (blue groups).
 :::
 
 The basic principle is that weak equivalences should maintain that some internal behavior happening before or after a visible action does not make a difference from the point of view of an observer.
@@ -102,7 +102,7 @@ To help us with our abstractions of weak activity, we use some additional notati
 :::{#def-transition-systems-with-silent-steps}
 #### Transition systems with internal activity
 
-For transition systems $\system=(\states,\actions,\step{})$ with an *internal action* $\tau \in \actions$,
+For a transition system $\system=(\states,\actions,\step{})$ with an *internal action* $\tau \in \actions$,
 we call $\step{\tau}$-transitions “silent” and define the following special transition relations plus HML modalities, where $\actionsvis \defeq \actions \setminus \set{\tau}$ denotes “visible” actions:
 
 Internal transition relation
@@ -123,7 +123,7 @@ Stable state
 Divergent state
 : A state $p$ is called *divergent* iff it allows an infinite sequence of $\tau$-transitions, $p \step{\tau}^\omega$.
 
-Again, we implicitly lift the relations to sets of states, that is for instance, $P \stepweak P'$ (with $P, P' \subseteq \states$) iff $P' = \set{ p' \in \states \mid \exists p \in P \ldotp p \stepweak p'}$.
+Again, we implicitly lift the relations to sets of states, that is, for instance, $P \stepweak P'$ (with $P, P' \subseteq \states$) iff $P' = \set{ p' \in \states \mid \exists p \in P \ldotp p \stepweak p'}$.
 :::
 
 In upcoming definitions and facts, we use the convention that $\alpha$ continues to stand for elements of $\actions$, while $a$ comes from $\actionsvis = \actions \setminus \set{\tau}$.
@@ -145,7 +145,7 @@ In @fig-simple-weak-eq, the state $\ccsprefix{\tau}\ccsprefix{\tau}\literal{a}$ 
   $\literal{a} \stepsoft{\literal{a}} \ccsnull$ just as
   $\literal{a} \step{\literal{a}} \ccsnull$.
 
-$\literal{a}$, $\ccsprefix{\tau}\literal{a}$ and $\ccsnull$ are stable.
+$\literal{a}$, $\ccsprefix{\literal{a}}\tau$ and $\ccsnull$ are stable.
 No state is divergent.
 :::
 
@@ -160,7 +160,7 @@ Also, $\semantics{\hmlsoft{\tau}\varphi} = \semantics{\bigvee\set{\varphi, \hmlo
 On the other hand, note that our infinitary HML cannot express proper divergence $p \step{\tau}^\omega$ on infinitary systems.
 This would demand an “observation of infinite depth.”
 This clashes with the well-foundedness, which is implied by the recursive grammar of @def-hml.
-On finite systems, however, the possibility of unbounded $\tau$-trees and infinite $\tau$-chains coincides, and divergence can be captured modally by $\hmland{n}{\nats} \hmlobs{\tau}^n$.
+On systems with finite branching degree, however, the possibility of unbounded $\tau$-trees and infinite $\tau$-chains coincides, and divergence can be captured modally by $\hmland{n}{\nats} \hmlobs{\tau}^n$.
 :::
 
 ### Weak Traces and Weak Bisimulation
@@ -172,7 +172,7 @@ Allow internal $\stepweak$-behavior in between.
 #### Weak traces, preorder, and equivalence
 
 The set of *weak traces* of a state $\wtraces{p} \subseteq \actionsvis^*$ is defined as $\vec w \in \wtraces{p}$ iff there is $p'$ such that $p \stepweakword{\vec w} p'$.{{<isb abbreviation LTS LTS_Tau.weak_traces>}}^[
-  The Isabelle theory has a slightly different definition that also allows $\tau$s in the trace words, which do not necessary stand for proper $\step{\tau}$-steps.
+  The Isabelle theory has a slightly different definition that also allows $\tau$s in the trace words, which do not necessarily stand for proper $\step{\tau}$-steps.
 ]
 
 Two states are *weakly trace-preordered*, $p \bpreord{WT} q$, if $\wtraces{p} ⊆ \wtraces{q}$.{{<isb definition LTS LTS_Tau.weakly_trace_preordered>}}
@@ -190,11 +190,11 @@ A relation, $\rel R ⊆ \states × \states$, is called a *weak simulation* if, f
 - if $p \step a p'$ with $a ∈ \actionsvis$, there is a $q'$ with $q \stepweak\step{a}\stepweak q'$ and $(p', q') ∈ \rel R$; and
 - if $p \step \tau p'$, there is a $q'$ with $q \stepweak q'$ and $(p', q') ∈ \rel R$.
 
-Weak simulation preorder, weak simulation equivalence and weak bisimilarity analogously to @def-bisimilarity:
+Weak simulation preorder, weak simulation equivalence and weak bisimilarity follow analogously to @def-bisimilarity:
 
 - $p$ is *weakly simulated by* $q$, $p \bpreord{WS} q$, iff there is a weak simulation $\rel R$ with $(p, q) ∈ \rel R$.
 - $p$ is *weakly similar* to $q$, $p \beq{WS} q$, iff $p \bpreord{WS} q$ and $q \bpreord{WS} p$.
-- $p$ is *weakly bisimilar* to $q$, $p \beq{WB} q$, iff there is a *symmetric* weak simulation $\rel R$ (i.e. $\rel R = \inverse{\rel R}$) with $(p, q) ∈ \rel R$.
+- $p$ is *weakly bisimilar* to $q$, $p \beq{\observations{WB}} q$, iff there is a *symmetric* weak simulation $\rel R$ (i.e. $\rel R = \inverse{\rel R}$) with $(p, q) ∈ \rel R$.
 :::
 
 All three weak equivalences maintain that the small example processes of the introduction to @sec-weak-equivalences-in-general are equal.
@@ -209,9 +209,9 @@ In @exm-phil-sim, we have observed that the two processes are not (strongly) sim
 Due to the weakening, however, there is a weak simulation for this direction, namely:
 $\set{(\literal{Q}, \literal{P}), (\literal{q_{ab}}, \literal{P}), (\literal{q_1}, \literal{p_1}), (\literal{q_2}, \literal{p_2})}$.
 Therefore, $\literal P \beq{WS} \literal Q$!
-A mutual weak simulation $R_{\literal{PQ}}$ to justify this is drawn in dashed blue in @fig-ts-determinism-repeated.
+A mutual weak simulation $\rel{R}_{\literal{PQ}}$ to justify this is drawn in dashed blue in @fig-ts-determinism-repeated.
 
-::::{#fig-ts-determinism-repeated}
+::::{#fig-ts-determinism-repeated fig-pos="h"}
 ```tikz
 \begin{tikzpicture}[->,auto,node distance=2cm,
     rel/.style={dashed,blue}]
@@ -252,9 +252,10 @@ A mutual weak simulation $R_{\literal{PQ}}$ to justify this is drawn in dashed b
 A mutual weak simulation on the original philosopher example.
 ::::
 
+\noindent
 However, $\literal P$ and $\literal Q$ are not weakly bisimilar.
 The reason is that the left process can weakly $\stepweak$-transition to a position where $\literal{b}$ is impossible, even if we would allow for some more internal $\stepweak$-behavior in between.
-In HML, this difference could be expressed by $\hmleps \hmlneg \hmleps \hmlobs{\literal{b}}$.
+In HML, this difference could be expressed by $\hmleps \hmlneg \hmleps \hmlobs{\literal{b}}$---we will turn to modal characterizations soon.
 :::
 
 ::: {#def-abstraction-notion}
@@ -297,7 +298,7 @@ The name already alludes to $\hmlsrbb$ as a whole characterizing *stability-resp
 ::: {#def-stability-respecting}
 #### Stability
 
-We call a $\rel R$ *stability-respecting* iff,
+We call a relation $\rel R$ *stability-respecting* iff,
 for each $(p,q) \in \rel R$ with $p \nostep{\tau}$,
 there is some $q'$ with $q \stepweak q' \nostep{\tau}$ and $(p, q') \in \rel R$.{{<isb definition LTS LTS_Tau.stability_respecting>}}
 :::
@@ -308,7 +309,7 @@ there is some $q'$ with $q \stepweak q' \nostep{\tau}$ and $(p, q') \in \rel R$.
 A symmetric relation $\rel{R}$ is a *branching bisimulation*
 if, for all $(p,q) \in \rel R$, a step $p \step{\alpha} p'$ implies
 (1) $\alpha = \tau$ and $(p', q) \in \rel R$,
-or (2) $q \stepweak q' \step{\alpha} q''$ for some $q', q''$ with $(p, q') \in \rel R$ and $(p', q'') \in \rel R$.{{<isb definition Branching_Bisimilarity LTS_Tau.branching_simulation>}}
+or (2) $q \stepweak q' \step{\alpha} q''$ for some $q'$ and $q''$ with $(p, q') \in \rel R$ and $(p', q'') \in \rel R$.{{<isb definition Branching_Bisimilarity LTS_Tau.branching_simulation>}}
 
 If there is a stability-respecting branching bisimulation $\rel R_{BB^{sr}}$ with $(p_0, q_0) \in \rel R_{BB^{sr}}$, then $p_0$ and $q_0$ are *stability-respecting branching bisimilar*.
 :::
@@ -332,29 +333,29 @@ But branching bisimilarity is more distinctive than weak bisimilarity:
 #### The strength of branching
 
 Compare $\literal{P_{ab}} \defeq \literal{a} \ccschoice \ccsprefix{\tau} \literal{b} \ccschoice \literal{b}$
-and a subgraph-variant $\literal{P_{a\tau b}} \defeq \literal{a} \ccschoice \ccsprefix{\tau} \literal{b}$, where the $\literal{b}$ is *only* possible after committing to its branch.
+and a subgraph-variant $\literal{P}_{\literal{a}\tau\literal{b}} \defeq \literal{a} \ccschoice \ccsprefix{\tau} \literal{b}$, where the $\literal{b}$ is *only* possible after committing to its branch.
 The processes are not branching bisimilar as
 $\hmleps\hmlands\set{\hmlsoft{\literal{b}}, \hmleps\hmlobs{\literal{a}}}$ distinguishes them.
 Intuitively, the formula expresses that, right at the moment when $\literal{b}$ can happen, $\literal{a}$ is still (weakly) possible.
 
 But the processes are weakly bisimilar, as weak bisimilarity does not care about branching due to $\tau$-steps that can also be achieved by visible actions.
-A formal argument would be that $\identity{\states} \cup \set{(\literal{P_{ab}}, \literal{P_{a\tau b}}), (\literal{P_{a\tau b}}, \literal{P_{ab}})}$ is a symmetric weak simulation.
+A formal argument would be that $\identity{\states} \cup \set{(\literal{P_{ab}}, \literal{P}_{\literal{a}\tau\literal{b}}), (\literal{P}_{\literal{a}\tau\literal{b}}, \literal{P_{ab}})}$ is a symmetric weak simulation.
 :::
 
 ::: {#rem-equivalence-indeed}
 #### An equivalence indeed
 
-It is a popular anecdote among those who know branching bisimilarity that the proof of its transitivity “assumed” originally does not exist.
-Six years after branching bisimilarity's inception, @bastern1996branchingBisimEqIndeed closes the gap by a proof that is surprisingly complex.
+It is a popular anecdote among those who know branching bisimilarity that the simple proof of its transitivity “assumed” originally does not exist.
+Six years after branching bisimilarity's inception, “Branching bisimilarity is an equivalence indeed!” by @bastern1996branchingBisimEqIndeed closed the gap with a proof that is surprisingly complex.
 
 In our setting, the transitivity is an *immediate corollary* of having a modal characterization (@thm-srbb-characterization).{{<isb lemma Branching_Bisimilarity LTS_Tau.sr_branching_bisimulated_transitive>}}
 This is one of the perks of modal characterizations, indeed (cf. @sec-perks-modal-characterizations).
 :::
 
-## Case Studies—and the Need for Other Equivalences {#sec-case-stduies-other-eqs}
+## Case Studies—and the Need for Other Weak Equivalences {#sec-case-stduies-other-eqs}
 
 In the world of weak equivalences, many things are a little more complicated than in the strong spectrum.
-We have already observed, that bisimulation equivalence can be abstracted to branching bisimulation *and* weak bisimulation.
+We have already observed that bisimulation equivalence can be abstracted to branching bisimulation *and* weak bisimulation.
 
 In this section, we use two minimal case study examples to see how one can arrive at even more abstractions of bisimulation and of failure equivalence.
 
@@ -366,13 +367,13 @@ Most of computer speed up in the last two decades has been due to parallelizatio
 Compilers will usually drift and parallelize sequential commands of a program.
 The claim behind such optimizations is that the communication behavior of the program stays the same.^[
   In other regards, the program obviously differs.
-  It is the intention to change performance!
+  It is the *intention* to change aspects such as performance!
 ]
-So naturally, the program and the optimized program should be equivalent with respect to some notion of equivalence.
+So, naturally, the original program and the optimized program should be equivalent with respect to some notion of equivalence.
 
 @bell2014loopParallelizingTransformations ventures to prove that certain parallelizations of loops during compilation are sound.
 This runs into the problem that weak bisimilarity is too strong for this use case.
-The following example (adapted from @bell2013certifiably) shows why.
+The following example [adapted from @bell2013certifiably] shows why.
 
 :::{#exm-parallelizing-compilation}
 #### Parallelized execution
@@ -394,13 +395,13 @@ Consider the following sequential program $\literal{P_{Seq}}$, which computes `x
       edge[swap] node {$\tau$} (p1)
       edge node {$\tau$} (p2)
     (p1)
-      edge[swap, thick] node {$\literal{ao}$} (p3)
+      edge[swap, thick] node {$\literal{printO}$} (p3)
     (p2)
-      edge[thick] node {$\literal{ao}$} (p4)
+      edge[thick] node {$\literal{printO}$} (p4)
     (p3)
-      edge[thick, swap] node {$\literal{A}$} (p5)
+      edge[thick, swap] node {$\literal{printA}$} (p5)
     (p4)
-      edge[thick] node {$\literal{B}$} (p5);
+      edge[thick] node {$\literal{printB}$} (p5);
 \end{tikzpicture}
 ```
 ```tikz
@@ -418,11 +419,11 @@ Consider the following sequential program $\literal{P_{Seq}}$, which computes `x
     (PPara)
       edge[swap] node {$\tau$} (p1)
       edge node {$\tau$} (p2)
-      edge[thick] node {$\literal{ao}$} (p23)
+      edge[thick] node {$\literal{printO}$} (p23)
     (p1)
-      edge[swap, thick] node {$\literal{ao}$} (p3)
+      edge[swap, thick] node {$\literal{printO}$} (p3)
     (p2)
-      edge[thick] node {$\literal{ao}$} (p4)
+      edge[thick] node {$\literal{printO}$} (p4)
     (p23)
       edge[swap] node {$\tau$} (p3)
       edge node {$\tau$} (p4)
@@ -431,9 +432,9 @@ Consider the following sequential program $\literal{P_{Seq}}$, which computes `x
     (p4)
       edge node {$\tau$} (p41)
     (p31)
-      edge[thick, swap] node {$\literal{A}$} (p5)
+      edge[thick, swap] node {$\literal{printA}$} (p5)
     (p41)
-      edge[thick] node {$\literal{B}$} (p5);
+      edge[thick] node {$\literal{printB}$} (p5);
 \end{tikzpicture}
 ```
 
@@ -446,7 +447,7 @@ print("output:")
 print(x)
 ```
 
-A parallelization would find that the rendering of the header `output:` is independent of the computation of `x` and can thus be parallelized to $\literal{P_{Para}}$:
+A parallelization would find that the rendering of the header “`output:`” is independent of the computation of `x` and can thus be parallelized to $\literal{P_{Para}}$:
 
 ```ruby
 x = compute_A_or_B() || print("output:")
@@ -459,15 +460,15 @@ In real-world programming languages, this would happen through spawning and join
 @fig-parallelized-ts shows the transition systems of the two programs.
 The $\tau$-steps mark internal computation or synchronization.
 In particular, `compute_A_or_B` turns into a $\tau$-step.
-The action $\literal{ao}$ stands for `print("output:")` announcing the coming output, and $\literal{A}$ and $\literal{B}$ are the values of `x` that are actually produced by `print(x)`.
+The action $\literal{printO}$ stands for `print("output:")` announcing the coming output, and $\literal{printA}$ and $\literal{printB}$ are the values of `x` that are actually produced by `print(x)`.
 
 Clearly, $\literal{P_{Seq}}$ and $\literal{P_{Para}}$ have the same weak traces.
 But they do not weakly simulate each other:
-$\literal{P_{Para}}$ can perform a $\step{\literal{ao}}$-transition, immediately after which $\literal{A}$ and $\literal{B}$ are weakly possible at $\literal{p_{ab}}$.
+$\literal{P_{Para}}$ can perform a $\step{\literal{printO}}$-transition, immediately after which $\literal{printA}$ and $\literal{printB}$ are weakly possible at $\literal{p_{ab}}$.
 The sequential $\literal{P_{Seq}}$ has no such states.
 :::
 
-@bell2013certifiably proposes “eventual bisimilarity” as a new bisimulation-like notion to equate $\literal{P_{Seq}}$ and $\literal{P_{Para}}$.
+@bell2013certifiably proposes “eventual bisimilarity” as a one-off bisimulation-like notion to equate $\literal{P_{Seq}}$ and $\literal{P_{Para}}$.
 In @bm2024contrasimilarityInfComp, we discuss how two more standard notions from the original spectrum neatly equate the processes:
 Stable bisimilarity and contrasimilarity.
 
@@ -477,13 +478,13 @@ Stable bisimilarity and contrasimilarity.
 A *stable bisimulation* is a relation $\rel R$ where,
 for all $(p,q) \in \rel R$ with $\vec w \in \actionsvis$ and $p \stepweakword{\vec w} p'$,
 there is a $q'$ with $q \stepweakword{\vec w} q'$,
-and, in case $p'$ is stable, moreover $(q', p') \in \rel R \cap \inverse{\rel R}$.
+and, in case $p'$ is stable, moreover $q' \nostep{\tau}$ and $(p', q') \in \rel R \cap \inverse{\rel R}$.
 The *stable bisimilarity* $\beq{SB}$ is defined as in @def-weak-bisimilarity.
 :::
 
 On the programs of @exm-parallelizing-compilation,
 there is a stable bisimulation, connecting $\literal{P_{Seq}}$ and $\literal{P_{Para}}$ as well as the stable states with matching positions.
-Intuitively, stable bisimilarity is allowed to “skip” intermediate that would break the bisimulation---such as $\literal{p_{ab}}$ in our example.
+Intuitively, stable bisimilarity is allowed to “skip” intermediate states that would break the bisimulation---such as $\literal{p_{ab}}$ in our example.
 
 As we argue in @bm2024contrasimilarityInfComp, stable bisimilarity, in many ways, is better understood not as a stable variant of bisimilarity, but of *contrasimilarity*: 
 
@@ -516,7 +517,7 @@ As we will establish in @sec-solution-parallelizing-compilation, contrasimilarit
 >
 > - for all $p'$ with $p \stepweakword{\vec w} p'$ and $p'$ is stable, there is $q'$ such that $q \stepweakword{\vec w} q'$ and $(p', q') \in \rel R$,
 >
-> and the converse on the actions [sic!] from $q$.
+> and the converse on the actions from $q$.
 
 Sangiorgi notes that the induced stable bisimilarity relation would not be transitive on transition systems with divergences.
 But the situation is even more severe!
@@ -542,9 +543,9 @@ Defined like this, stable bisimilarity would not even imply weak trace equivalen
 Consider the processes $\literal{A}$ and $\literal{B}$ in the margin.
 As all their non-empty word transitions end in instable states, the variant from @sangiorgi2012 ignores their differences altogether.
 
-Stable bisimilarity of @def-stablebisim, however, does not suffer from this defect, for it demands matching of all word transitions.
+“Our” stable bisimilarity of @def-stablebisim, however, does not suffer from this defect, for it demands matching of all word transitions.
 Our relational @def-stablebisim is informed by the upcoming modal characterizations of @sec-weak-spectrum-quantities (and of @glabbeek1993ltbt and @bm2024contrasimilarityInfComp).
-As discussed in @sec-perks-modal-characterizations it is trivial to ensure that modally characterized relations are transitive and refine trace preorder.
+As discussed in @sec-perks-modal-characterizations, it is trivial to ensure that modally characterized relations are transitive and refine trace preorder.
 Such are the perks of modal characterizations!
 :::
 
@@ -670,7 +671,7 @@ A pair of processes $\literal{P}_e$ and $\literal{P}_\ell$ together with version
 $\literal{P}_e$ and $\literal{P}_\ell$ allow the same weak failure and stable failure observations and are thus equivalent.
 For the abstracted variants, $\literal{P}^\tau_e$ is distinguished from $\literal{P}^\tau_\ell$ by the weak failure $\hmleps\hmlobs{\literal{op}}\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{b}}}$, as $\literal{b}$ becomes weakly impossible at $\literal{A}^\tau_e$ but not at $\literal{A}^\tau_\ell$.
 Due to the $\step{\tau}$-loops, this difference is not expressible as a stable failure.
-Consequently, the  $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ are stable-failure-equivalent.
+Consequently,  $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ are stable-failure-equivalent.
 :::
 
 The example highlights one way in which weak failures might be stronger than stable failures.
@@ -688,11 +689,11 @@ Weak failures will be located in the part below weak bisimilarity; stable failur
 
 In general, congruence properties are harder to obtain in the weak spectrum.
 A classic example would be weak bisimilarity, not forming a congruence with respect to the choice operator $\ccschoice$,
-because $\literal{a} \beq{WB} \ccsprefix{\tau}\literal{a}$ but not $\literal{a} \ccschoice \literal{b} \beq{WB} \ccsprefix{\tau}\literal{a} \ccschoice \literal{b}$.
-We will not go into the particularities around this and point to @sangiorgi2012 [§ 4.4] for how to obtain a congruence through “rooted” weak bisimilarity. 
+because $\literal{a} \beq{\observations{WB}} \ccsprefix{\tau}\literal{a}$, but $\literal{a} \ccschoice \literal{b} \nbeq{WB} \ccsprefix{\tau}\literal{a} \ccschoice \literal{b}$.
+We will not go into the particularities around this and point to @sangiorgi2012 [§ 4.4] for how to obtain a congruence through *rooted* weak bisimilarity. 
 :::
 
-## Expressing the Weak Spectrum with Quantities {#sec-weak-spectrum-quantities}
+## Expressing the Weak Spectrum by Quantities {#sec-weak-spectrum-quantities}
 
 We can capture the weak spectrum in a lattice of vectors like the strong one in @sec-spectrum.
 But we need a few more dimensions.
@@ -707,7 +708,7 @@ We adapt the notions of @sec-strong-notions for the weak spectrum to distinguish
 4. **New:** Nesting depth of *stable conjunctions* (that do enforce stability by a $\hmlneg \hmlobs{\tau} \hmltrue$-conjunct).
 5. Nesting depth of *immediate conjunctions* (that are not preceded by $\hmleps$).
 6. Maximal modal depth of *positive conjuncts* in conjunctions.^[
-  To simplify matters, we drop the two kinds of positive conjunct depths of @sec-strong-notions.
+  To simplify matters, we drop the distinction of two kinds of positive conjunct depths of @sec-strong-notions.
   @sec-covering-revivals will hint how to add stable revivals back in.]
 7. Maximal modal depth of *negative conjuncts* in conjunctions.
 8. Nesting depth of *negations*.
@@ -724,24 +725,24 @@ $$\notions^\literal{weak} ≔
 $$
 ordered by pointwise comparison of vector components.
 
-We capture the family of weak observation languages $\observationsvar[\literal{weak}]{N \in \notions^\literal{weak}}$ by providing an expressiveness price function $\expr[\literal{weak}] \colon \hmlsrbb \rightarrow \notions^\literal{weak}$ with $\observationsvar[\literal{weak}]{N} = \set{ \varphi \mid \expr[\literal{weak}](\varphi) \leq N}$.{{<isb fun Expressiveness_Price expressiveness_price>}}
+We capture the family of *weak observation languages* $\observationsvar[\literal{weak}]{N \in \notions^\literal{weak}}$ by providing an expressiveness price function $\expr[\literal{weak}] \colon \hmlsrbb \rightarrow \notions^\literal{weak}$ with $\observationsvar[\literal{weak}]{N} = \set{ \varphi \mid \expr[\literal{weak}](\varphi) \leq N}$.{{<isb fun Expressiveness_Price expressiveness_price>}}
 It is defined in mutual recursion with $\expr[\varepsilon]$ and $\expr[\wedge]$ as follows---if multiple rules apply, pick the first one:
 $$
 \begin{array}{rl}
   \expr[\literal{weak}]\left(\hmltrue\right) \defeq
-  \expr[\varepsilon]\left(\hmltrue\right) & \defeq
+  \expr[\varepsilon]\left(\hmltrue\right) & \hspace{-2mm} \defeq
   \zerovec
   \\
-  \textstyle\expr[\literal{weak}]\left(\hmleps\chi\right) & \defeq
+  \textstyle\expr[\literal{weak}]\left(\hmleps\chi\right) & \hspace{-2mm} \defeq
   \textstyle\expr[\varepsilon]\left(\chi\right)
   \\
-  \textstyle\expr[\literal{weak}]\left(\hmlands\Psi\right) & \defeq
+  \textstyle\expr[\literal{weak}]\left(\hmlands\Psi\right) & \hspace{-2mm} \defeq
   \unitvec{5} + \textstyle\expr[\varepsilon]\left(\hmlands \Psi\right)
   \\
-  \expr[\varepsilon]\left(\hmlobs{a}\varphi\right) & \defeq
+  \expr[\varepsilon]\left(\hmlobs{a}\varphi\right) & \hspace{-2mm} \defeq
   \unitvec{1} + \expr[\literal{weak}]\left(\varphi\right)
   \\
-  \textstyle\expr[\varepsilon]\left(\hmlands \Psi\right) & \defeq
+  \textstyle\expr[\varepsilon]\left(\hmlands \Psi\right) & \hspace{-2mm} \defeq
   \sup\;\set{ \expr[\wedge]\left(\psi\right) \mid \psi \in \Psi } +
   \begin{cases}
       \unitvec{4} & \text{if } \hmlneg\hmlobs{\tau}\hmltrue \in \Psi\\
@@ -749,18 +750,18 @@ $$
       \unitvec{3} & \text{otherwise}
   \end{cases}
   \\
-  \expr[\wedge]\left(\hmlneg\hmlobs{\tau}\hmltrue\right) & \defeq
+  \expr[\wedge]\left(\hmlneg\hmlobs{\tau}\hmltrue\right) & \hspace{-2mm} \defeq
   (0,0,0,0,0,0,0,1)
   \\
-  \expr[\wedge]\left(\hmlneg\varphi\right) & \defeq
+  \expr[\wedge]\left(\hmlneg\varphi\right) & \hspace{-2mm} \defeq
   \sup\;\set{ \unitvec{8} + \expr[\literal{weak}]\left(\varphi\right),\quad
       (0,0,0,0,0,0,\left(\expr[\literal{weak}]\left(\varphi\right)\right)_1,0) }
   \\
-  \expr[\wedge]\left(\hmlsoft{\alpha}\varphi\right) & \defeq
+  \expr[\wedge]\left(\hmlsoft{\alpha}\varphi\right) & \hspace{-2mm} \defeq
   \sup\;\set{ \unitvec{1} + \expr[\literal{weak}]\left(\varphi\right),\quad
       (0,0,0,0,0,1 + \left(\expr[\literal{weak}]\left(\varphi\right)\right)_1,0,0) }
   \\
-  \expr[\wedge]\left(\varphi\right) & \defeq
+  \expr[\wedge]\left(\varphi\right) & \hspace{-2mm} \defeq
   \sup\;\set{ \hphantom{\unitvec{8} + {}} \expr[\literal{weak}]\left(\varphi\right),\quad
       (0,0,0,0,0,\left(\expr[\literal{weak}]\left(\varphi\right)\right)_1,0,0) }
 \end{array}
@@ -769,7 +770,7 @@ $$
 
 ### Weak Spectrum {#sec-weak-spectrum-exposition}
 
-Using @def-weak-spectrum, we can give coordinates to the common notions of weak behavioral equivalences in @fig-weak-spectrum.
+Using @def-weak-spectrum, we can give coordinates to the common notions of weak behavioral equivalence in @fig-weak-spectrum.
 In this subsection, we take a deeper look into the observation languages characterized by the coordinates and argue for the correctness of exemplary cases.
 
 :::{#fig-weak-spectrum fig-env='figure*' fig-pos='t!'}
@@ -806,7 +807,7 @@ In this subsection, we take a deeper look into the observation languages charact
     \EqCoords{\infty,\infty,\infty,0,0,\infty,0,0}};
   \node (F)[below right of=R]{weak failure $\notionname{WF}$\\
     \EqCoords{\infty,0,1,0,0,0,1,1}};
-  \node (T)[below right of=F]{weak trace $\notionname{WT}$\\
+  \node (T)[below right of=F,node distance=2cm]{weak trace $\notionname{WT}$\\
     \EqCoords{\infty,0,0,0,0,0,0,0}};
   \node (E)[below of=T, node distance=1.2cm]{weak enabledness $\notionname{WE}$\\
     \EqCoords{1,0,0,0,0,0,0,0}};
@@ -893,7 +894,7 @@ For a word $\vec{w} = a_1 \dots a_n \in \actionsvis^*$, the formula $\hmleps\hml
 As $\wtraces{p} = \wtraces{q}$ for states $p$ and $q$ precisely if $\wtraces{p} \cap \actionsvis^* = \wtraces{q} \cap \actionsvis^*$, this completes the proof.
 :::
 
-The whole list of weak linear-time notions can be found in @fig-weak-grammars-linear.
+The whole list of logics for weak linear-time notions can be found in @fig-weak-grammars-linear.
 The interesting points are highlighted in $\textcolor{RoyalBlue}{\textrm{blue}}$.
 Productions that could be left out without affecting distinctiveness are set in $\textcolor{gray}{\textrm{gray}}$.
 
@@ -990,10 +991,11 @@ Productions that could be left out without affecting distinctiveness are set in 
 Grammars induced by coordinates for weak linear-time notions of equivalence.
 :::
 
+\indent
 The modal characterizations correspond to the ones one would expect, with some trivial ones appearing due to the language hierarchy approach.
 
 {{< paragraph_heading "Bisimulation-like notions." >}}
-The abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more interesting things happen.
+For the abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more interesting things happen.
 
 :::{#fig-weak-grammars-bisim-like fig-pos='tp'}
 
@@ -1025,7 +1027,7 @@ The abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more int
       \grammaror \hmlands \set{ \psi_\notionname{WB}, \psi_\notionname{WB}, \ldots } \\
     \psi_\notionname{WB} \grammardef &
       \grammarsp \hmlneg\hmleps\chi_\notionname{WB}
-      \grammaror \mathhl{\hmleps}\chi_\notionname{WB}\\
+      \grammaror \mathhl{\hmleps\chi_\notionname{WB}}\\
   \intertext{
     Delay bisimulation, $\notionname{DB}$ at $(\infty,0,\infty,0,\mathhl{\infty},\infty,\infty,\infty)$:
   }
@@ -1077,32 +1079,32 @@ The abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more int
       \grammarsp \hmlneg\mathdl{\hmleps}\chi_\notionname{SB}
       \grammaror \mathdl{\hmleps\chi_\notionname{SB}}\\
   \intertext{
-    Stability-respecting delay bisimulation, $\notionname{DB^s}$ at $(\infty,0,\infty,\mathhl{\infty},\infty,\infty,\infty,\infty)$:
+    Stability-respecting delay bisimulation, $\notionname{DB^{sr}}$ at $(\infty,0,\infty,\mathhl{\infty},\infty,\infty,\infty,\infty)$:
   }
-    \varphi_\notionname{DB^s} \grammardef &
-      \grammarsp \hmleps\chi_\notionname{DB^s}
-      \grammaror \mathhl{\hmlands \set{ \psi_\notionname{DB^s}, \psi_\notionname{DB^s}, \ldots }} \\
-    \chi_\notionname{DB^s} \grammardef &
-      \grammarsp \hmlobs{a}\varphi_\notionname{DB^s}
-      \grammaror \hmlands \set{ \psi_\notionname{DB^s}, \psi_\notionname{DB^s}, \ldots }
-      \grammaror \hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{DB^s}, \psi_\notionname{DB^s}, \ldots } \\
-    \psi_\notionname{DB^s} \grammardef &
-      \grammarsp \hmlneg\hmleps\chi_\notionname{DB^s}
-      \grammaror \hmleps\chi_\notionname{DB^s}\\
+    \varphi_\notionname{DB^{sr}} \grammardef &
+      \grammarsp \hmleps\chi_\notionname{DB^{sr}}
+      \grammaror \mathhl{\hmlands \set{ \psi_\notionname{DB^{sr}}, \psi_\notionname{DB^{sr}}, \ldots }} \\
+    \chi_\notionname{DB^{sr}} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_\notionname{DB^{sr}}
+      \grammaror \hmlands \set{ \psi_\notionname{DB^{sr}}, \psi_\notionname{DB^{sr}}, \ldots }
+      \grammaror \hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{DB^{sr}}, \psi_\notionname{DB^{sr}}, \ldots } \\
+    \psi_\notionname{DB^{sr}} \grammardef &
+      \grammarsp \hmlneg\hmleps\chi_\notionname{DB^{sr}}
+      \grammaror \hmleps\chi_\notionname{DB^{sr}}\\
   \intertext{
-    Stability-respecting branching bisim., $\notionname{BB^s}$ at $(\infty,\mathhl{\infty},\infty,\mathhl{\infty},\infty,\infty,\infty,\infty)$:
+    Stability-respecting branching bisim., $\notionname{BB^{sr}}$ at $(\infty,\mathhl{\infty},\infty,\mathhl{\infty},\infty,\infty,\infty,\infty)$:
   }
-    \varphi_{\notionname{BB^s}} \grammardef &
-      \grammarsp \hmleps\chi_{\notionname{BB^s}}
-      \grammaror \mathhl{\hmlands \set{ \psi_\notionname{BB^s}, \psi_\notionname{BB^s}, \ldots }} \\
-    \chi_{\notionname{BB^s}} \grammardef &
-      \grammarsp \hmlobs{a}\varphi_{\notionname{BB^s}}
-      \grammaror \hmlands \set{ \psi_{\notionname{BB^s}}, \psi_{\notionname{BB^s}}, \ldots }
-      \grammaror \hmlands \set{ \mathhl{\hmlsoft{\alpha}\varphi_{\notionname{BB^s}}}, \psi_{\notionname{BB^s}}, \psi_{\notionname{BB^s}}, \ldots } \\
-      & \hphantom{\grammarsp \hmlobs{a}\varphi_{\notionname{BB^s}}} \grammaror \hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{BB^s}, \psi_\notionname{BB^s}, \ldots } \\
-    \psi_{\notionname{BB^s}} \grammardef &
-      \grammarsp \hmlneg\hmleps\chi_{\notionname{BB^s}}
-      \grammaror \hmleps\chi_{\notionname{BB^s}}\\
+    \varphi_{\notionname{BB^{sr}}} \grammardef &
+      \grammarsp \hmleps\chi_{\notionname{BB^{sr}}}
+      \grammaror \mathhl{\hmlands \set{ \psi_\notionname{BB^{sr}}, \psi_\notionname{BB^{sr}}, \ldots }} \\
+    \chi_{\notionname{BB^{sr}}} \grammardef &
+      \grammarsp \hmlobs{a}\varphi_{\notionname{BB^{sr}}}
+      \grammaror \hmlands \set{ \psi_{\notionname{BB^{sr}}}, \psi_{\notionname{BB^{sr}}}, \ldots }
+      \grammaror \hmlands \set{ \mathhl{\hmlsoft{\alpha}\varphi_{\notionname{BB^{sr}}}}, \psi_{\notionname{BB^{sr}}}, \psi_{\notionname{BB^{sr}}}, \ldots } \\
+      & \hphantom{\grammarsp \hmlobs{a}\varphi_{\notionname{BB^{sr}}}} \grammaror \hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{BB^{sr}}, \psi_\notionname{BB^{sr}}, \ldots } \\
+    \psi_{\notionname{BB^{sr}}} \grammardef &
+      \grammarsp \hmlneg\hmleps\chi_{\notionname{BB^{sr}}}
+      \grammaror \hmleps\chi_{\notionname{BB^{sr}}}\\
   \end{align*}
 }
 ```
@@ -1132,9 +1134,9 @@ This does not add expressiveness as $\observations{WB'}$ has $\hmleps\hmlobs{\li
 For the other direction, there is a bigger difference due to $\observations{WB'}$ allowing more freedom in the placement of conjunction and negation.
 In particular, it permits top-level conjunctions and negated conjunctions without $\hmleps$ in between. But these features do not add distinctive power.
 $\observations{WB'}$ also allows top-level negation, and this adds distinctive power to the preorders, effectively turning them into equivalence relations.
-We do not enforce this and thus our $\mathord{\bpreord{WB}} \neq \mathord{\beq{WB}}$;
-for instance, $\ccsprefix{\tau} \literal{a} \bpreord{WB} \tau \ccschoice \ccsprefix{\tau} \literal{a}$, but $\tau \ccschoice \ccsprefix{\tau} \literal{a} \nbpreord{WB} \ccsprefix{\tau} \literal{a}$ due to $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}\hmltrue}$.
-However, as a distinction by $\hmlneg \varphi$ in one direction implies one by $\varphi$ in the other, we know that this difference is ironed out once we consider the equivalence $\beq{WB}$.
+We do not enforce this and thus our $\mathord{\bpreordvar{\observations{WB}}} \neq \mathord{\beq{\observations{WB}}}$;
+for instance, $\ccsprefix{\tau} \literal{a} \bpreordvar{\observations{WB}} \tau \ccschoice \ccsprefix{\tau} \literal{a}$, but $\tau \ccschoice \ccsprefix{\tau} \literal{a} \nbpreordvar{\observations{WB}} \ccsprefix{\tau} \literal{a}$ due to $\hmleps\hmlands\set{\hmlneg\hmleps\hmlobs{\literal{a}}\hmltrue}$.
+However, as a distinction by $\hmlneg \varphi$ in one direction implies one by $\varphi$ in the other, we know that this difference is ironed out once we consider the equivalence $\beq{\observations{WB}}$.
 :::
 
 Another point of interest is the relationship of weak bisimilarity, contrasimilarity and stable bisimilarity.
@@ -1144,8 +1146,8 @@ In the weak spectrum, these coordinates correspond to differing notions!
 The first of the two is exactly the coordinate of contrasimilarity.
 The other one describes observations that are equally expressive to stable bisimulation observations,
 because stabilized positive conjuncts can be normalized away by {{<isb theorem HML_SRBB LTS_Tau.srbb_stable_Neg_normalizable_set>}}
-$$\semantics{\hmleps\hmlands \set{\hmlneg\hmlobs{\tau}, \varphi_1, \hmlneg\varphi_2,\ldots }} =
-\semantics{\hmleps\hmlands \set{\hmlneg\hmlobs{\tau}, \hmlneg\hmleps\hmlands \set{\hmlneg\hmlobs{\tau}, \hmlneg\varphi_1}, \hmlneg\varphi_2,\ldots }}.$$
+$$\semantics{\hmleps\hmlands \set{\hmlneg\hmlobs{\tau}, \mathhl{\varphi_1}, \hmlneg\varphi_2,\ldots }} =
+\semantics{\hmleps\hmlands \set{\hmlneg\hmlobs{\tau}, \mathdl{\hmlneg\hmleps\hmlands \set{\hmlneg\hmlobs{\tau}, \hmlneg\mathhl{\varphi_1}}}, \hmlneg\varphi_2,\ldots }}.$$
 In this sense, contrasimulation and stable bisimilarity are sibling notions in the same manner as weak failures and stable failures of @sec-abstraction-failures.^[
   This is also the topic of @bm2024contrasimilarityInfComp [§ 7.3]
 ]
@@ -1241,7 +1243,7 @@ Grammars induced by coordinates for weak simulation-like notions of equivalence.
 #### Spurious conjuncts and minimality
 
 Several of our weak grammars allow bogus trivial conjuncts.
-The most severe case might be the trees of ultimately empty conjunctions of $\chi_\notionname{WU^x}$ for contrasimulation.
+The most severe case might be the trees of ultimately empty conjunctions of $\chi_\notionname{WU^x}$ for contrasimulation in @fig-weak-grammars-bisim-like.
 A natural impulse might be to somehow change the grammar to optimize these parts away, ensuring a nicer output of distinguishing formulas in the spectroscopy.
 
 But this optimization would be premature in our context!
@@ -1250,7 +1252,7 @@ Even more, the minimal winning budgets in the spectroscopy game will only ever l
 Therefore, optimizing away superfluous conjuncts in the grammars would itself be superfluous.
 
 On the other hand, shrinking the languages would call for additional contexts, that is, non-terminals in the grammar.
-But more non-terminals mean additional kinds of spectroscopy game positions and moves, thus making the spectroscopy game more complex for nothing.
+But more non-terminals mean additional kinds of spectroscopy game positions and moves, thus making the spectroscopy game more complex---for nothing.
 :::
 
 ## Discussion {#sec-weak-spectrum-discussion}
@@ -1267,7 +1269,9 @@ This adds to the rich body of work on *modal characterizations of branching bisi
 
 Our spectrum, however, leaves out some classical notions such as stable failure traces and coupled simulation, which would have called for even more dimensions in the already 8-dimensional pricing metric.^[
   Especially for coupled similarity, this gap is ironic, as my research into game characterizations of equivalences has been kicked off by an interest in decision procedures for coupled similarity in @bn2019coupledsimTacas and @bnp2020coupledsim30.
+  But it would just not have been economic to add a whole new dimension for this single darling of mine.
 ]
+We will return to the topic of how such notions could be included in @sec-covering-revivals and -@sec-extending-to-other-eqs.
 
 {{< paragraph_heading "What's next?" >}}
 Logic and pricing metric are designed in such a way that readers of preceding chapters might already be able to guess how they will translate to game moves for stable and branching conjunctions in the next chapter.

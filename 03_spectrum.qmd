@@ -889,10 +889,10 @@ These notions would need a different HML grammar, featuring exhaustive conjuncti
 #### Synonymous coordinates
 
 For many of the logics in @fig-strong-ltbt-spectrum, there are multiple coordinates that characterize the same logic.
-For instance, due to the second dimension (conjunctions) being set to $0$ for traces $\notionname{T}$, the higher dimensions do not matter and any coordinate $N = (\infty, 0, N_3, N_4, N_5, N_6)$ will lead to the same observation language $\observationsvar[\literal{strong}]{N} = \observations[\literal{strong}]{T}$.^[
-  Ruling out such equalities in the design of the lattice would be quite tedious.
-  Luckily, @def-spectrum only demands $N \leq M$ to imply $\observationsvar{N} \subseteq \observationsvar{M}$, and not the converse.
-]
+For instance, due to the second dimension (conjunctions) being set to $0$ for traces $\notionname{T}$, the higher dimensions do not matter and any coordinate $N = (\infty, 0, N_3, N_4, N_5, N_6)$ will lead to the same observation language $\observationsvar[\literal{strong}]{N} = \observations[\literal{strong}]{T}$.
+
+Ruling out such equalities in the design of the lattice would be quite tedious.
+Luckily, @def-spectrum only demands $N \leq M$ to imply $\observationsvar{N} \subseteq \observationsvar{M}$, and not the converse.
 
 Indeed, @fig-strong-ltbt-spectrum always selects the least coordinate to characterize a sublogic, in order for domination of coordinates in the figure and entailment between behavioral preorders to coincide.
 

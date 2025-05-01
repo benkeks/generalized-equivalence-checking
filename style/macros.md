@@ -114,6 +114,7 @@
 \providecommand{\bpreord}[1]{\preceq_\notionname{#1}}
 \providecommand{\nbpreord}[1]{\not\preceq_\notionname{#1}}
 \providecommand{\bpreordvar}[1]{\preceq_{#1}}
+\providecommand{\nbpreordvar}[1]{\not\preceq_{#1}}
 \providecommand{\beq}[1]{\sim_\mathrm{#1}}
 \providecommand{\nbeq}[1]{\nsim_\mathrm{#1}}
 \providecommand{\beqvar}[1]{\sim_{#1}}

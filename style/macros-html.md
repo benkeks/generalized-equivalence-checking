@@ -5,6 +5,7 @@
 
 <!-- KaTeX not support mathcolor -->
 \providecommand{\mathhl}[1]{{\color{RoyalBlue}#1}}
+\providecommand{\mathdl}[1]{{\color{Gray}#1}}
 
 \providecommand{\gamemove}[1]{\mathrel{\smash{›\!\!\frac{\scriptstyle{\;#1\;}}{}\!\!›}}}
 \providecommand{\ngamemove}[1]{\mathrel{\smash{{›/\!\!\!\!\frac{\scriptstyle{\;#1\;}}{\;}\!\!›}}}}

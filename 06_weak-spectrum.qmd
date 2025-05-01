@@ -419,7 +419,7 @@ Consider the following sequential program $\literal{P_{Seq}}$, which computes `x
     (PPara)
       edge[swap] node {$\tau$} (p1)
       edge node {$\tau$} (p2)
-      edge[thick] node {$\literal{printO}$} (p23)
+      edge[thick, swap, pos=.9] node {\scalebox{.9}[1.0]{$\literal{printO}$}} (p23)
     (p1)
       edge[swap, thick] node {$\literal{printO}$} (p3)
     (p2)

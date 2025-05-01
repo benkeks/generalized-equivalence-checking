@@ -1,8 +1,4 @@
 
-::: {.callout-warning}
-This is a work-in-progress document. Handle with care!
-:::
-
 ::: {.content-visible when-format="html"}
 {{< include style/macros-html.md >}}
 :::
@@ -22,7 +18,7 @@ The spectroscopy problem thus reduces to the problem of computing *minimal attac
 We provide an algorithm to compute such budgets on a wider class of *Galois energy games*.
 The resulting spectroscopy algorithms are exponential for the $\complexityname{PSPACE}$-hard spectrum of equivalence problems, but can be instantiated to polynomial-time solutions on the $\complexityname{P}$-easy part.
 
-We implement the spectroscopy procedure in the web tool {{< equivio >}}, which continues a tradition of concurrency workbenches.
+We implement the spectroscopy procedure in the web tool {{< equivio >}}, which continues a tradition of *concurrency workbenches*.
 Using it, we can *check for dozens of equivalences* at once.
 We apply the spectroscopy approach to small *case studies from verification and translation of concurrent programs*.
 Core parts of the thesis are supported by an *Isabelle/HOL formalization*.
@@ -84,7 +80,7 @@ Last year, the office was closed---together with the whole building---because of
 Unfortunately, that's not the only thing that's been going wrong, since.
 Crazy times!
 
-That this research project has still reached the stage of a (soon to be submitted) PhD thesis, is thanks to many great people (sorted by category, mostly in order of appearance).
+That this research project has still reached the stage of a PhD thesis, is thanks to many great people (sorted by category, mostly in order of appearance).
 
 - **Environment:**
   Uwe Nestmann and my colleagues at the Modelle und Theorie Verteilter Systeme group, especially my lovely office mates Edgar Arndt and Valeria Zahoransky.
@@ -114,7 +110,7 @@ That this research project has still reached the stage of a (soon to be submitte
   Gabriel Vogel,
   Sebastian Wolf,
   David Karcher,
-  David N. Jansen
+  David N. Jansen.
 
 ```{=latex}
 {

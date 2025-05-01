@@ -114,7 +114,7 @@ Soft transition relation
 : We accompany it by the *soft* observation modality $\hmlsoft{\alpha} \varphi$ with $p \in \semantics{\hmlsoft{\alpha}\varphi}$ iff there is $p' \in \semantics{\varphi}$ with $p \stepsoft{\alpha} p'$.
 
 Weak word steps
-: $p \stepweakword{\vec w} p'$ for $\vec w = (w_1 w_2 \dots w_n) \in \actionsvis^*$ iff there is a path $p_i \stepweak\step{w_i} p_{i+1}$ for $i < n$ with $p_0 = p$ and $p_n \stepweak p'$.
+: $p \stepweakword{\vec w} p'$ for $\vec w = (w_1 w_2 \dots w_n) \in \actionsvis^*$ iff there is a path with $p_i \stepweak\step{w_{i+1}} p_{i+1}$ for each $0 \leq i < n$ such that $p_0 = p$ and $p_n \stepweak p'$.
 
 Stable state
 : A state $p$ is called *stable* iff $p \nostep{\tau}$.{{<isb abbreviation LTS LTS_Tau.stable_state>}}
@@ -345,7 +345,7 @@ A formal argument would be that $\identity{\states} \cup \set{(\literal{P_{ab}},
 ::: {#rem-equivalence-indeed}
 #### An equivalence indeed
 
-It is a popular anecdote among those who know branching bisimilarity that the simple proof of its transitivity “assumed” originally does not exist.
+It is a popular anecdote among those who know branching bisimilarity that, originally, a trivial proof of transitivty was “assumed,” but turned out not to exist.
 Six years after branching bisimilarity's inception, “Branching bisimilarity is an equivalence indeed!” by @bastern1996branchingBisimEqIndeed closed the gap with a proof that is surprisingly complex.
 
 In our setting, the transitivity is an *immediate corollary* of having a modal characterization (@thm-srbb-characterization).{{<isb lemma Branching_Bisimilarity LTS_Tau.sr_branching_bisimulated_transitive>}}
@@ -1275,4 +1275,4 @@ We will return to the topic of how such notions could be included in @sec-coveri
 
 {{< paragraph_heading "What's next?" >}}
 Logic and pricing metric are designed in such a way that readers of preceding chapters might already be able to guess how they will translate to game moves for stable and branching conjunctions in the next chapter.
-Call this avenue for gamification yet another perk of modal characterizations---besides the benefits of built-in transitivity and consistency, we have noticed along the way of this chapter!
+Call this avenue for gamification yet another perk of modal characterizations---besides the benefits of built-in transitivity and consistency that we have noticed along the way of this chapter!

@@ -100,7 +100,7 @@ That this research project has still reached the stage of a (soon to be submitte
   David N. Jansen, who discovered and corrected crucial flaws in my ideas. 
   Caroline Lemke, who found out why “my” energy games are indeed decidable. 
   And many more marvelous students and collaborators (listed in @sec-artifacts-papers).
-- **Co-writing:** Schrippe, Baum, Alina, and Anna.
+- **Co-writing:** Schrippe, Baum, Alina, and Anna S0phia.
 - **Feedback** on parts of this thesis:
   Nadine Karsten,
   Caroline Lemke,
@@ -113,8 +113,8 @@ That this research project has still reached the stage of a (soon to be submitte
   Amelie Heindl,
   Gabriel Vogel,
   Sebastian Wolf,
-  David Karcher
-  (you might soon appear here, dearest test reader)
+  David Karcher,
+  David N. Jansen
 
 ```{=latex}
 {

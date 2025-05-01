@@ -1097,7 +1097,7 @@ $\bigo{ \relsize{\step{}} \cdot
 
 ### Covering Revivals and Decorated Traces {#sec-covering-revivals}
 
-In the weak spectrum of @sec-weak-spectrum-quantities, we left out the notions of revivals, failure traces, and ready traces, we had included in the strong spectrum of @sec-strong-notions.
+In the weak spectrum of @sec-weak-spectrum-quantities, we left out the notions of revivals, failure traces, and ready traces, which we had included in the strong spectrum of @sec-strong-notions.
 Their stable variants are relevant to the CSP community [see @roscoe2009revivalsHierarchy].
 
 As discussed in @exm-failure-trace-distinguished, these notions need to differentiate between a deepest “revival” conjunct and other positive conjuncts.

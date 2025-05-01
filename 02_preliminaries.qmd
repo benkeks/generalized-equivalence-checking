@@ -1170,7 +1170,7 @@ We induct on the structure of $φ$ with arbitrary $p$ and $q$.
   Accordingly, $\hmlneg φ' ∈ \observations{\floor{B}}$ distinguishes $p$ from $q$.\qedhere
 :::
 
-The smaller bisimulation logic $\observations{\floor{B}}$ will become important again later in @sec-bisim-game-hml.
+The smaller bisimulation logic $\observations{\floor{B}}$ will turn out to be closely related to the game characterization of bisimilarity in @sec-bisim-game-hml.
 
 ## Games {#sec-games}
 

@@ -746,7 +746,7 @@ Consider the cases of $φ ∈ \observationsvar[\literal{peasy}]{N}$ with $p ∈ 
   Therefore, $N - \unitvec{1} ∈ \attackerwins((α, p', q))$.
   As the attacker can move $[p, q] \gamemove{-\unitvec{1}} (α, p', q)$, this proves $N ∈ \attackerwins([p, q])$ by @prp-winning-budget-rules.
 - $φ = \hmlands Ψ$ one of the $ψ ∈ Ψ$ must be false for $q$.
-  As the grammar doesnot affect $N$ for $\psi$, we know $\hmlands\set{\psi} \in \observationsvar[\literal{peasy}]{N}$.
+  As the grammar does not affect $N$ for $\psi$, we know $\hmlands\set{\psi} \in \observationsvar[\literal{peasy}]{N}$.
   Consider the possible forms of $ψ$:
     - Case $ψ = \hmlobs{α}φ'$ with $φ' ∈ \observationsvar[\literal{peasy}]{N - \unitvec{1}}$.
       Then we can apply the same argument as in the case of $φ = \hmlobs{α}φ'$
@@ -1345,7 +1345,7 @@ For space complexity, we obtain:
 \end{align*}
 :::
 
-Because of the paramterization, we can easily see that some complexities go away if we use a more abstract energy lattice.
+Because of the parameterization, we can easily see that some complexities go away if we use a more abstract energy lattice.
 
 ::: {#def-flattened-energies}
 #### Flattened energies

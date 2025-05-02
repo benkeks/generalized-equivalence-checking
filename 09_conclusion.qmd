@@ -50,6 +50,7 @@ Hierarchy of abstraction from Hennessy--Milner theorem and strong bisimilarity t
 - We have started at the *level of individual equivalences* by revisiting the classical Hennessy–Milner theorem on the dualism of modal distinguishability and behavioral relatability for bisimilarity.
 - @sec-preliminaries has revealed how relations and modal formulas in the Hennessy–Milner theorem are just *certificates* for defender and attacker strategies in the bisimulation reachability game (@idea-games).
 - @sec-spectrum has taken us to the level of *spectra* of equivalence, following van Glabbeek's approach of a *hierarchy of Hennessy–Milner theorems* (@idea-modal-first, @idea-hierarchy).
+  The spectroscopy problem (@idea-spectroscopy-prob) emerges naturally.
 - On this level, @sec-approach has discovered that the bisimulation game just is an instance of the bisimulation *energy* game, which characterizes a small spectrum of $\complexityname{P}$-easy strong equivalences (@idea-energy-games).
   We can use it in algorithms thanks to our decision procedure for such *Galois energy games* (@idea-deciding-energy-games).
 - The bisimulation energy game then again is only a lower-dimensional sibling of the *strong spectroscopy game*, which characterizes the full strong spectrum in @sec-strong-spectroscopy by a subset construction (@idea-subset-construction).

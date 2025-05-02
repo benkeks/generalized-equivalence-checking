@@ -187,7 +187,7 @@ On the other hand, no failure from $\observations{F}$, distinguishes $\literal Q
 \end{tikzpicture}
 ```
 
-Eequivalence hierarchy including failures.
+Equivalence hierarchy including failures.
 ::::
 
 As a consequence, simulation preorder and failure preorder are *incomparable*, that is, neither one implies the other.

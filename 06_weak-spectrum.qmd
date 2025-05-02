@@ -345,7 +345,7 @@ A formal argument would be that $\identity{\states} \cup \set{(\literal{P_{ab}},
 ::: {#rem-equivalence-indeed}
 #### An equivalence indeed
 
-It is a popular anecdote among those who know branching bisimilarity that, originally, a trivial proof of transitivty was “assumed,” but turned out not to exist.
+It is a popular anecdote among those who know branching bisimilarity that, originally, a trivial proof of transitivity was “assumed,” but turned out not to exist.
 Six years after branching bisimilarity's inception, “Branching bisimilarity is an equivalence indeed!” by @bastern1996branchingBisimEqIndeed closed the gap with a proof that is surprisingly complex.
 
 In our setting, the transitivity is an *immediate corollary* of having a modal characterization (@thm-srbb-characterization).{{<isb lemma Branching_Bisimilarity LTS_Tau.sr_branching_bisimulated_transitive>}}

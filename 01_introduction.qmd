@@ -409,14 +409,14 @@ The following four publications (with me as main author) fuel the following chap
 - **“One energy game for the spectrum between branching bisimilarity and weak trace semantics”** [EXPRESS/SOS -@bj2024silentStepSpectroscopyExpress, with Jansen] adapts the *spectroscopy approach for the weak spectrum*.
   [Journal version: Preprint -@bj2025silentStepSpectroscopyJournal]
 
-{{<paragraph_heading "Prototype.">}}
+{{< paragraph_heading "Prototype." >}}
 The algorithms of this thesis have been validated through a *Scala prototype implementation*.
 Throughout the thesis, many examples come with listings of {{<equivio>}} input and a link to try it out in the browser.
 You have already seen one such example for Peterson's mutex in @sec-ltbt-spectroscopy-idea.
 @sec-equivio-usage explains the usage of {{<equivio>}}.
 The source is available openly on <https://github.com/benkeks/equivalence-fiddle>.
 
-{{<paragraph_heading "Isabelle formalization.">}}
+{{< paragraph_heading "Isabelle formalization." >}}
 In order to relieve the document of technical proofs, these are contained in machine-checkable *Isabelle/HOL theories*.
 
 - *“A weak spectroscopy game to characterize behavioral equivalences”* formalizes the core results of @sec-weak-spectrum and @sec-weak-spectorscopy: <https://equivio.github.io/silent-step-spectroscopy>.
@@ -424,7 +424,7 @@ In order to relieve the document of technical proofs, these are contained in mac
   Also, many theorems of earlier chapters can be understood to be supported by the formalization.
 - *“Equivalence spectrum formalization”* supplies proofs for the early chapters: <https://benkeks.github.io/ltbt-spectroscopy-isabelle/>.
 
-{{<paragraph_heading "Student theses.">}}
+{{< paragraph_heading "Student theses." >}}
 Some parts of this thesis strongly rely on student work that I have supervised, in particular, on the following theses:
 
 - @trzeciakiewicz2021ltbtBrowserGame: *“Linear-time--branching-time spectroscopy as an educational web browser game”* provides a computer game version of the spectroscopy procedure to be discussed in @sec-spectro-invaders.
@@ -434,14 +434,14 @@ Some parts of this thesis strongly rely on student work that I have supervised, 
 - @lemke2024multiweightedEnergyGames: “*A formal proof of decidability of multi-weighted declining energy games*” formalizes the *Galois energy games* of @sec-deciding-energy-games.
   Its Isabelle theory is archived on <https://github.com/crmrtz/galois-energy-games>.
 
-{{<paragraph_heading "Other publications.">}}
+{{< paragraph_heading "Other publications." >}}
 Only indirectly connected to this dissertation project are my prior publications in leading me to topics and techniques:
 
 - Bisping, Brodmann, Jungnickel, Rickmann, Seidler, Stüber, Wilhelm-Weidner, Peters, & Nestmann [ITP -@bbjrsswpn2016mechanicaProofFLP]: “Mechanical verification of a constructive proof for FLP.”
 - Bisping & Nestmann [TACAS -@bn2019coupledsimTacas]: “Computing Coupled Similarity.”
 - Bisping, Nestmann, & Peters [Acta Informatica -@bnp2020coupledsim30]: “Coupled similarity: The first 32 years.”
 
-{{<paragraph_heading "Other Bachelor theses.">}}
+{{< paragraph_heading "Other Bachelor theses." >}}
 During my dissertation project, I also supervised several other Bachelor theses, many of which played important roles in shaping the research.
 Although they do not appear directly on the following pages, I want to acknowledge the students' vital contributions to this research.
 
@@ -453,7 +453,7 @@ Although they do not appear directly on the following pages, I want to acknowled
 - @bulik2021interProcComm: *Statically analysing inter-process communication in elixir programs*
 - @montanari2021kontrasimSpiel: *Kontrasimulation als Spiel*
 - @pohlmann2021reactiveBisimStrong: *Reducing strong reactive bisimilarity to strong bisimilarity*
-- @england2021hmlSynthesis: *HML synthesis of bistinguished processes*
+- @england2021hmlSynthesis: *HML synthesis of distinguished processes*
 - @duong2022toolLTBTS: *Developing an educational tool for linear-time–bran{{<shy>}}ching-time spectroscopy*
 - @alshukairi2022reaktiveBisimReduktion: *Automatisierte Reduktion von reaktiver zu starker Bisimilarität*
 - @adler2022fehlertoleranteAlgorithmen: *Simulation fehlertoleranter Konsensalgorithmen in Hash.ai*
@@ -463,7 +463,7 @@ Although they do not appear directly on the following pages, I want to acknowled
 - @stoecker2024HOcalculiEqs: *Higher-order diadic µ-calculus---An efficient framework for checking process equivalences?*
 - @kurzan2024mcrl2Contrasim: *Implementierung eines Contrasimilarity-Checkers für mCRL2*
 
-{{<paragraph_heading "This thesis itself.">}}
+{{< paragraph_heading "This thesis itself." >}}
 This document itself is created using Quarto [-@allaire2025quarto].
 Its HTML version is deployed to <https://generalized-equivalence-checking.equiv.io/>.
 One can find its source on <https://github.com/benkeks/generalized-equivalence-checking/>.

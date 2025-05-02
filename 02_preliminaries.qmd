@@ -13,7 +13,7 @@ toc-title: "Chapter 2"
 `\vspace{-2em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
 This chapter is based on my introductory lectures and Isabelle-theory on behavioral equivalences, given in the Master course “Research at Work” at TU Berlin in Winter 2023/24.
-We pursue to be mostly compatible with the textbook *Reactive Systems* [@ails2007reactiveSystems].
+We pursue to be mostly compatible with the textbook *Reactive systems* [@ails2007reactiveSystems].
 ::::
 
 The core background of this thesis is the *trinity of characterizations for behavioral equivalences*: relational, modal, and game-theoretic.

@@ -10,19 +10,19 @@ toc-title: "Chapter 8"
 :::
 
 All the nice theory of preceding chapters also works *in practice*.
-This chapter revisits the core parts of this thesis by discussing how they tie together in a tool implementation.
+This chapter revisits the core parts of the thesis by discussing how they tie together in a tool implementation.
 
 The tool, {{< equivio >}}, will be presented in @sec-equivio.
-We demonstrate its use through the Peterson-mutex example.
+We demonstrate its use through the Peterson's mutex example.
 @sec-student-implementations shows that the game approach lends itself to many things:
 To explain equivalence notions in a computer game, to extend existing tools, and to parallelize equivalence checking through GPUs.
-In @sec-implementations-discussion, we compare our implementations to similar tools in the lineage of the “Concurrency Workbench.“
+In @sec-implementations-discussion, we compare our implementations to similar tools in the lineage of the “Concurrency Workbench.”
 
 ## Prototype: *equiv.io* {#sec-equivio}
 
-The “Linear-Time–Branching-Time Spectroscope” on {{<equivio>}} is a small web tool to check equivalence relations on CCS processes.
+The “Linear-time–branching-time spectroscope” on {{<equivio>}} is a small web tool to check equivalence and preorder relations on CCS processes.
 @fig-equivio-screenshot shows a screenshot.
-In this section, we will discuss its usage (@sec-equivio-usage), apply it to the Peterson example (@sec-equivio-peterson), and benchmark its backend (@sec-benchmarks).
+In this section, we will discuss its usage (@sec-equivio-usage), apply it to the Peterson example (@sec-equivio-peterson), examine the tool structure (@sec-equivio-structure), and benchmark its backend (@sec-benchmarks).
 
 ::: {#fig-equivio-screenshot}
 
@@ -34,13 +34,13 @@ Screenshot of {{< equivio >}}.
 ### Usage {#sec-equivio-usage}
 
 The standard workflow of {{<equivio>}} is to specify processes in CCS and then compare them with respect to equivalence spectra.
-This is mainly achieved by writing everything into the source editor on the left. 
+This is mainly achieved by writing text into the source editor on the left. 
 The specific order of definitions, queries, and declarations in the source generally makes no difference.
 
 {{< paragraph_heading "Process syntax." >}}
 CCS processes are written according to the grammar in @def-ccs, with the concrete syntax for subterms following @tbl-ccs-syntax.
 
-| Construct       | Tool syntax      | CCS                                   |
+| Construct       | Tool syntax      | $\ccs$                                |
 |-----------------|------------------|-----------------------|
 | Input prefix    | `a.P`            | $\ccsprefix{\literal a} P$            |
 | Output prefix   | `a!P`            | $\ccsprefix{\coaction{\literal a}} P$ |
@@ -51,34 +51,35 @@ CCS processes are written according to the grammar in @def-ccs, with the concret
 | Parallel        | `P1 | P2`        | $P_1 \ccspar P_2$                     |
 | Restriction     | `P \ {a1, a2}`   | $P \ccsrestrict \set{\literal{a_1}, \literal{a_2}}$ |
 
-: Concrete ASCII syntax for CCS terms {#tbl-ccs-syntax fig-pos='b'}
+: Concrete ASCII syntax for CCS terms {#tbl-ccs-syntax}
 
+\noindent
 Literals for actions and process names combine Latin letters, numbers, and underscores in the usual way.
 
 Top-level process definitions are written `X = P`, expressing that $\ccsasg(\literal{X}) \defeq P$ in the semantics (@def-ccs-semantics).
-The right-hand pane shows the resulting transition system.
+The right-hand pane shows the resulting transition system and output (cf. @fig-equivio-screenshot).
 
-The syntax tree can be clarified by parentheses `(...)`.
-Otherwise, the parser reads prefix `a._` with highest operator precedence, then restriction `_ \ {_}`, then choice `+` and parallel `|` at equal level.
+The syntax tree can be clarified by parentheses “`(...)`”.
+Otherwise, the parser reads prefix “`a._`” with highest operator precedence, then restriction “`_ \ {_}`”, then choice “`+`” and parallel “`|`” at equal level.
 In case of ambiguity, it assumes parenthesization from the right.
 
 {{< paragraph_heading "Equivalence queries." >}}
-Queries for the behavioral equivalences between states are formulated in the code as well and started by clicking on the arrows that pop up in the gutter.
+Queries for the behavioral equivalences between states are formulated in the source editor as well and are started by clicking on the arrows that pop up in the gutter.
 Output will appear right below the query in the editor.
 The standard queries are:
 
 - `@compare P1, P2` –
-  Perform a spectroscopy on `P1` and `P2` with respect to the strong spectrum using the game of @sec-strong-spectroscopy.
+  Perform a *spectroscopy* on `P1` and `P2` with respect to the *strong spectrum* using the game of @sec-strong-spectroscopy.
   The output will have four items, relative to the strong spectrum.
-  1. The strongest preorders to relate `P1` to `P2`;
-  2. Cheapest formulas to distinguish `P1` from `P2` (and the smallest observation language they are part of);
-  3. The list of finest equivalences to equate `P1` and `P2`.
-  4. A visualization of the result on the whole spectrum.
+  1. The *strongest preorders* to relate `P1` to `P2`;
+  2. *Cheapest formulas to distinguish* `P1` from `P2` (and the smallest observation language they are part of);
+  3. The list of *finest equivalences* to equate `P1` and `P2`.
+  4. A *visualization* of the result on the whole spectrum.
      Moreover, there will be a link to a <https://edotor.net/>-visualization of the game graph used to obtain the result.
   The naming of notions in the output follows @tbl-notion-names.
 
 - `@compareSilent P1, P2` – 
-  Perform a spectroscopy on `P1` and `P2` with respect to the weak spectrum, treating silent steps along the lines of @sec-weak-spectorscopy.
+  Perform a *spectroscopy* on `P1` and `P2` with respect to the *weak spectrum*, treating silent steps along the lines of @sec-weak-spectorscopy.
   The output is analogous to `@compare`.
 - `@check equivalence-name, P1, P2` –
   Checks for (mutual) preordering between `P1` and `P2` with respect to individual notion `equivalence-name`. 
@@ -114,7 +115,8 @@ The standard queries are:
 ```
 
 {{< paragraph_heading "Interacting with the output." >}}
-Each output item can be clicked, which displays the preorders, equivalences, and distinctions that have been found between states in the transition system view.
+Each output item can be clicked.
+The transition system view then displays the preorders, equivalences, and distinctions that have been found between states.
 
 States in the transition system may be dragged to change their position.
 The layout information is persisted in the source, as described in the next list.
@@ -123,7 +125,7 @@ The layout information is persisted in the source, as described in the next list
 The source can also contain layout information and prescribe some preprocessing for processes.
 
 - `P(main)` –
-  Highlight process `P` in transition system and prune other sub-processes (unless they are reached from `P`).
+  Highlight process `P` in the transition system and prune other sub-processes (unless they are reached from `P`).
   Multiple processes may be declared to be `main`.
 - `P(x=100, y=100)` –
   Annotate process `P` to be displayed at certain coordinates.
@@ -135,7 +137,9 @@ The source can also contain layout information and prescribe some preprocessing 
   Apply preprocessing to the transition system after translation of the CCS term (that is, before presentation and queries happen).
   This will affect the whole transition system, but tries to preserve processes that have been marked as `main`.
   The order of processing steps can make a difference.
-  - `weakness_saturated` – Exchange transition relation to weak transitions, that is, there will be a transition whenever the original system allows $\stepweak\stepsoft{\alpha}\stepweak$.
+  The supported methods are:
+  - `weakness_saturated` – Replace the transition relation to with *weak transitions*.
+    In effect, there will be a transition whenever the original system allows $\stepweak\stepsoft{\alpha}\stepweak$.
   - `tauloop_compressed_marked` – Collapse states on $\tau$-loops and mark them with a $\delta$.
     (This follows the thought of how to make equivalence queries divergence-respecting from @sec-extending-to-other-eqs.)
   - `bisim_minimized` – Merge states that are strongly bisimilar.
@@ -244,7 +248,7 @@ MxIC = tau.ecA.lcA.MxIC + tau.ecB.lcB.MxIC
 "lcB.Mx"(x=433, y=290)
 ```
 
-Can we come up with a process where two subprocesses run a protocol such that the overall system is somewhat equivalent to this specification?
+Can one come up with a process where two subprocesses run a protocol such that the overall system is somewhat equivalent to this specification?
 @peterson1981mythsMutex proposes a protocol that can be summarized by the following pseudocode:
 
 ```ruby
@@ -274,7 +278,7 @@ Assuming sufficiently consistent memory, the protocol works because each process
 The critical scenario of both processes entering *symmetrically* is resolved because the race condition on the `turn`-write will flip a coin in such situations.
 
 To express the shared-memory protocol in the message-passing paradigm of CCS, we must model the storage as processes that run in parallel with the main model.
-We do this as in @ails2007reactiveSystems:
+We do this as @ails2007reactiveSystems:
 In the following the process `ReadyAf` corresponds to `ready["A"] = false`, and `ReadyAt` to `ready["A"] = true`.
 The current state can be either read (`readyAf` / `readyAt`) or written (`setReadyAf` / `setReadyAt`).
 
@@ -293,7 +297,7 @@ TurnB = turnB!TurnB + setTurnA.TurnA + setTurnB.TurnB
 Each main process iterates through the phases 1, 2, and 3, corresponding to `PC = 1,2,3` in above pseudocode.
 In 1, they set their `ready` and yield the `turn`;
 in 2, they wait until they hear that the other's `ready` is false or that it is their `turn`;
-in 3, they enter and leave their critical section, unset their `ready`, and return to step 1.
+in 3, they enter and leave their critical section, unset their `ready`, and return to phase 1.
 
 ```ccs
 @nolink
@@ -324,7 +328,7 @@ Pe(main, x=900, y=340)
 Mx(main, x=120, y=220)
 ```
 
-We can further clarify the transition graph, we can minimize it with respect to stability-respecting branching bisimilarity, resulting in the transition system of @fig-peterson-mutex:
+To further clarify the transition graph, we can minimize it with respect to stability-respecting branching bisimilarity, resulting in the transition system of @fig-peterson-mutex:
 
 ```ccs
 @nolink
@@ -356,7 +360,7 @@ To get the full picture, we run a silent-step spectroscopy:
 
 This yields output (also to be seen in @fig-equivio-screenshot):
 
-```
+```markdown
 • Preordered by:
     eta-simulation
     stable-simulation
@@ -367,12 +371,15 @@ This yields output (also to be seen in @fig-equivio-screenshot):
     weak-simulation
 ```
 
-The weak failure `⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤}` can be understood to point out that `Pe` exceeds `Mx` in that
-we can reach a state where `ecB` is impossible with no visible action.
+The maintained notions can also be marked in an overlay on the weak spectrum, as shown in @fig-peterson-spectrum.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; … thinking about it, this behavior might be okay, for a mutual exclusion protocol, might it not?
+The weak failure `⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤}` can be understood to point out that `Pe` *exceeds* `Mx` in that
+it can reach a state without visible activity where `ecB` is impossible.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; … thinking about it, this behavior might be okay for a mutual exclusion protocol, might it not?
 Why should the outside observer need to be notified about the participating processes making up their minds?
-So, let us try another specification of mutual exclusion where we leave it as an *iterated internal choice* of the system which participant may enter the critical section:
+So, maybe, our specification `Mx` is too strict.
+Let us try another specification of mutual exclusion where we leave it as an *iterated internal choice* of the system which participant may enter the critical section:
 
 ```ccs
 @nolink
@@ -380,12 +387,14 @@ So, let us try another specification of mutual exclusion where we leave it as an
 
 MxIC(main, x=120, y=0)
 MxIC = tau.ecA.lcA.MxIC + tau.ecB.lcB.MxIC
+
+@compareSilent Pe, MxIC
 ```
 
 `Pe` aligns much better to the `MxIC`-specification!
-`@compareSilent Pe, MxIC` returns:
+“`@compareSilent Pe, MxIC`” returns:
 
-```
+```markdown
 • Preordered by:
     eta-simulation
     weak-ready-simulation
@@ -400,12 +409,12 @@ MxIC = tau.ecA.lcA.MxIC + tau.ecB.lcB.MxIC
     weak-ready-simulation
 ```
 
-That means implementation `Pe` and internal choice specification `MxIC` cannot be distinguished from each other by a readiness observation (subsuming failures), neither in stable nor weak semantics.
+The output means that implementation `Pe` and internal choice specification `MxIC` cannot be distinguished from each other by a readiness observation (subsuming failures), neither in stable nor weak semantics.
 Interestingly, in weak (that is, unstable) semantics the indistinguishability goes even further, up to weak ready simulation.
 
-The tool's visual output of the spectrum for `Pe` vs. `MxIC` (@fig-equivio-screenshot-spectrum) also sports a bigger blue region of equivalence than with the original specification, seen in @fig-peterson-spectrum.
+The tool's visual output of the spectrum for `Pe` vs. `MxIC` (@fig-equivio-screenshot-spectrum) also sports a bigger blue region of equivalence than with the original specification (cf. @fig-peterson-spectrum).
 
-::: {#fig-equivio-screenshot-spectrum}
+::: {#fig-equivio-screenshot-spectrum fig-pos="t"}
 
 ![](img/equivio-spectrum-alt.png){.lightbox}
 
@@ -424,11 +433,11 @@ In the pure CCS view, however, we cannot adequately treat more general fairness 
 
 This is what the spectroscopy has taught us:
 Peterson's mutual exclusion protocol is *more similar* to repeated internal choice (`MxIC`) than to the specification `Mx` from @ails2007reactiveSystems.
-However, the two are not bisimilar in any sense, since local progress from one iteration may influence the next.
+However, the two are not bisimilar in any sense, since, in `Pe`, local progress from one iteration may influence the next.
 
-### Program Structure
+### Program Structure {#sec-equivio-structure}
 
-The core of {{<equivio>}} aligns quite closely to the the spectroscopy framework outlined in @fig-strong-spectroscopy-big-picture.
+The core of {{<equivio>}} aligns quite closely to the spectroscopy framework outlined in @fig-strong-spectroscopy-big-picture.
 In this subsection, we take a quick look at how implementation and definitions in this thesis correlate.
 
 ::: {#fig-equivio-flow fig-pos='t' fig-env="figure*"}
@@ -478,20 +487,20 @@ Data transformation flow in equiv.io
 
 @fig-equivio-flow shows core transformations that happen in the process of analyzing the equivalences for a pair of processes:
 
-1. **Parsing:**
+1. **Parsing.**
     {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" ccs.Parser >}}
     transforms source into an abstract syntax tree object `ccs.Syntax.Definition`, along the lines of @def-ccs with the syntax of @sec-equivio-usage.
-2. **Interpretation:**
+2. **Interpretation.**
     {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" ccs.Interpreter >}}
     applies the operational semantics of @def-ccs-semantics^[
       There is a minor semantical difference:
-      The interpreter flattens process restriction in recursion.
+      The {{< equivio >}} interpreter flattens process restriction in recursion.
       This leads to processes like `P = a.P \ {b}` having a finite process graph instead of an infinite one
       [cf. @ails2007reactiveSystems, Exercise 2.9].
     ]
     to construct a {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" ts.WeakTransitionSystem >}}, which supports silent-step transitions of @sec-silent-transitions.
     Also the preprocessing of @sec-equivio-usage is applied, the soundness of which follows @lem-quotienting-spectro-game (and its analogues for the weak spectrum).
-3. **Spectroscopy:**
+3. **Spectroscopy.**
     The trait {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.SpectroscopyFramework >}}
     orchestrates the spectroscopy pipeline.
     Its abstract parts are instantiated by 
@@ -506,9 +515,9 @@ Data transformation flow in equiv.io
     2. The spectroscopy provides an {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.Spectrum >}} object which is used to interpret the game result in a hierarchy of {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.ObservationNotion >}}s to pick the strongest preorders to relate compared processes.
         The specifics of @sec-spectrum and @sec-weak-spectrum are implemented by {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.StrongObservationNotion >}} and
         {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.WeakObservationNotion >}}.
-    3. The spectroscopy implements a `buildHMLWitness`-method, constructing *strategy formulas* from attacker-won budgets as in @def-strategy-formulas-strong and @def-strategy-formulas-weak.
-4. **Validation (optional):**
-    If the user asks for it, `SpectroscopyFramework.decideAll` continues to construct cheapest distinguishing formulas for the query with `buildHMLWitness`.
+    3. The spectroscopy implements a `buildHMLWitness`-method, constructing *strategy formulas* from attacker-won budgets of $\stratstrong$ in @def-strategy-formulas-strong and $\stratweak$ in @def-strategy-formulas-weak.
+4. **Validation (optional).**
+    If the user demands, the procedure `SpectroscopyFramework.decideAll` continues to construct cheapest distinguishing formulas for the query with `buildHMLWitness`.
     - {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.Interpreter >}} checks that each formula is indeed true for one process and false for the other, applying the semantic HML game of @sec-hml-semantic-game.
       If the formula is not distinguishing, an exception is thrown.
     - `classifyFormula` on the specific `Spectrum` object determines the expressiveness prices of formulas (implemented as in @rem-explicit-expr and @def-weak-spectrum by the `formulaObsNotion` functions in {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.StrongObservationNotion >}} / {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.WeakObservationNotion >}}).
@@ -517,8 +526,8 @@ Data transformation flow in equiv.io
     Error reports would point to incorrectness of the specific spectroscopy, not to user mistakes.
     Thus, the validation does not affect the core decision procedure, but increases confidence that a specific output is sound.
 
-    If no formula construction is requested, `SpectroscopyFramework.decideAll` works on *flattened energies* (@def-flattened-energies), generally leading to better performance.
-5. **Presentation:**
+    If no formula construction is requested, the implementation in `SpectroscopyFramework.decideAll` works on *flattened energies* (@def-flattened-energies), generally leading to better performance.
+5. **Presentation.**
   `SpectroscopyFramework.decideAll` collects the finest preorders and coarsest distinctions, optionally together with their witness formulas in a `Spectroscopy.Result` object from
   {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.Spectroscopy >}}.
   This object helps front-end layers of the tool interpret the output as spectra, equivalences, and distinguishing formulas.
@@ -530,7 +539,7 @@ The core feature is to derive a reachability game {{<code_link "shared/src/main/
 
 Besides the core-flow, there are some small additional diagnostic features.
 For instance, {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.SpectroscopyFramework >}} can save the spectroscopy game graph and formulas in Graphviz-format using {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.GameGraphVisualizer >}}, comparable to @fig-bisim-sim-game-energies.
-The output of the same mechanism for {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.EquivalenceChecking >}} appears, for example, in the derived trace game of @fig-derived-trace-eq-game.
+The output of the same mechanism for {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.EquivalenceChecking >}} appears, for example, in the derived trace game of @fig-derived-trace-eq-game-true.
 
 :::{#rem-code-size}
 #### Line counting
@@ -560,6 +569,7 @@ Our algorithm and {{< equivio >}} are aimed at small transition systems that “
 But still, the backend can analyze the equivalence structure of moderately-sized real-world transition systems.
 In this subsection, we examine its performance on the VLTS (“very large transition systems”) benchmark suite @garavel2017vlts and on our recurring Peterson example.
 
+{{< paragraph_heading "Clever strong spectroscopy." >}}
 @tbl-strong-spectro-results reports the results of running the backend with the clever strong spectroscopy game $\gamespectroscopyclever$.
 This mostly matches the results already reported in @bisping2023equivalenceEnergyGames.^[
   The benchmarking code is contained in
@@ -734,16 +744,17 @@ From the output, we learn that the VLTS examples, in a way, lack diversity:
 Bisimilarity $\notionname{B}$ and trace equivalence $\notionname{T}$ coincide on the systems (third and penultimate column).
 
 Concerning the algorithm itself, the experiments reveal that the computation time grows mostly linearly with the size of the game move graph.
-On `vasy_18_73`, the implementation timed out after 500 seconds.
+On `vasy_18_73`, the implementation times out after 500 seconds.
 
 Of those terminating, the heavily nondeterministic `cwi_1_2` is the most expensive example.
 Almost all of its transitions are labeled by `i`, standing for internal activity $\tau$ in the VLTS suite.
-As many coarse notions must record the nondeterministic options, this blowup is to be expected.
+As many coarse notions must record the nondeterministic options, this blow-up is to be expected.
 If we compare to the best similarity algorithm by @rt2010efficientSimulation, they report their algorithm SA to tackle `cwi_1_2` single-handedly.
 Like our implementation, the prototype of SA of @rt2010efficientSimulation ran out of memory while determining similarity for `vasy_18_73`.
 This is in spite of SA theoretically having optimal complexity and similarity being less complex than trace equivalence, which we need to cover (cf. @sec-equivalence-complexities).
 The benchmarks in @rt2010efficientSimulation failed at `vasy_10_56`, and `vasy_25_25`, which might be due to 2010's tighter memory requirements (they used 2 GB of RAM) or the degree to which bisimilarity and enabledness in the models is exploited.
 
+{{< paragraph_heading "Simplified weak spectroscopy." >}}
 @tbl-weak-spectro-results lists analogous values for the weak spectroscopy game $\gamespectroscopywsimple$, in the simplified variant, but also containing revivals moves of @sec-covering-revivals.
 
 ::::{.content-visible when-format="html"}
@@ -751,11 +762,11 @@ The benchmarks in @rt2010efficientSimulation failed at `vasy_10_56`, and `vasy_2
 ::::
 
 The algorithmic setup is slightly changed for the weak setting:
-We work with the quotient system of *stability-respecting branching bisimilarity* and start at *weakly* enabledness-equivalent states.
+We work with the quotient system of *stability-respecting branching bisimilarity* and start at *weakly* enabledness-equivalent pairs.
 The last three columns give the output quotient sizes for weak enabledness $\notionname{WE}$, weak traces $\notionname{WT}$, and weak simulation $\notionname{1WS}$.
 
 The `peterson` example, after minimization, has exactly the 21 states shown in @fig-peterson-mutex.
-Its weak similarity quotient is smaller (16 states), which fits our observations that weak similarity equates more in this model than bisimilarity-like notions do.^[
+Its weak similarity quotient is smaller (16 states, cf. last column), which fits our observations that weak similarity equates more in this model than bisimilarity-like notions do.^[
   However, quotient systems need not be minimal for simulation-like and trace-like notions.
   For discussions on weak minimizations of Peterson's mutex, see @bouali1992weakBranchingBisimFCTOOL and @gw1996branchingBisim.
 ]
@@ -767,16 +778,16 @@ Only `vasy_8_24` differs between 170 states in $\quotient{\states}{\beq{BB^{sr}}
 
 The numbers align with the output of a different implementation in @bn2019coupledsimTacas, which is a good sign for the correctness of both programs.
 There, the same samples were analyzed with respect to coupled similarity, a weak notion close to contrasimilarity and weak similarity.
-Interestingly, the coupled simulation algorithm in @bn2019coupledsimTacas takes minutes for `vasy_25_25`, constructing a game with 126,000 moves.
+Interestingly, the coupled simulation implementation in @bn2019coupledsimTacas takes minutes for `vasy_25_25`, constructing a game with 126,000 moves.
 The trivial game of @tbl-weak-spectro-results suggests that this would not be necessary.
 
 In summary, the equivalences of our spectra mostly coincide on the considered VLTS samples.
-This suggests that the examples are based around models that avoid the expressive power finer branching-time notions.
+This suggests that the examples are based around models that avoid the expressive power of finer branching-time notions.
 
 ## Student Implementations {#sec-student-implementations}
 
 There exist three other implementations of the equivalence spectroscopy algorithm by students of mine.
-Each covers a different directions:
+Each covers a different direction:
 In @sec-spectro-invaders, we discuss *The Spectroscopy Invaders*, a computer-game version, which has an educational purpose.
 @sec-spectroscopy-caal presents an extension to an existing educational tool, the Concurrency Workbench Aalborg Edition.
 @sec-gpu-equiv closes by reporting on *gpuequiv*, a performance-centric shader-based implementation using the modern WebGPU standard.
@@ -789,9 +800,10 @@ Would it not be nice if one could *play* the spectroscopy game *as a game*?
 You can enjoy the game in the browser at <https://concurrency-theory.org/ltbt-game/>.
 
 A play of the game corresponds to naming a universal attack strategy in the strong spectroscopy game of @def-strong-spectroscopy-game, or, equivalently, to constructing a distinguishing formula.
-To reach maximal level scores, one has to play out a minimal formulas in the sense of our pricing.
-Under the hood, the TypeScript implementation uses Bisping et al.'s [-@bjn2022decidingAllBehavioralEqs] algorithm to compute the minimal budgets,
-although the game does not present the costs of moves to the player.
+To reach maximal level scores, one has to play out a minimal formula in the sense of our pricing.
+Under the hood, the TypeScript implementation uses Bisping et al.'s [-@bjn2022decidingAllBehavioralEqs] algorithm to compute the minimal budgets.
+The game does not present the costs of moves to the player,
+but they matter for the scores received at the end of a level.
 
 :::{#fig-spectro-invaders-screenshot-simple}
 
@@ -809,15 +821,15 @@ Screenshot of browser game “The Spectroscopy Invaders.”
 @fig-spectro-invaders-screenshot-simple gives a screenshot of the first level of the “Failure” world.^[
   In the online version of this thesis, it is actually a screen capture by Trzeciakiewicz, illustrating negation moves in the game tutorial.
 ]
-This level corresponds exactly to the classic @exm-ts if we match the orange transitions to $\tau$-steps, blue to $\literal{a}$, and yellow to $\literal{b}$.
+This level corresponds to the classic @exm-ts of $\literal{P}$ and $\literal{Q}$ if we match the orange transitions to $\tau$-steps, blue to $\literal{a}$, and yellow to $\literal{b}$.
 The metaphor on top of the game mechanics is that the human-controlled hero (left) has to outmaneuver a group of elves (right) that might split up on nondeterministic transitions.
 
 From @exm-spectroscopy-classic-ts, we know that the failure $\hmlobs{\tau}\hmlneg\hmlobs{\literal{a}}$ is a cheapest distinction of the left state from the right in this system,
 translated as $\hmlobs{\literal{orange}}\hmlneg\hmlobs{\literal{blue}}$.
 In the computer game, we would use this distinction as follows:
-First click on the state behind the left-most orange transition to *observe* it.
+First click on the state behind the middle orange transition to *observe* it.
 Then, click on the “negation” button ![](img/spectro-invaders-swap.png){width=1em} to swap sides of hero and elve.
-Depending where the elve has moved, defeat them by moving along the right-most blue / yellow edge.
+Defeat them by moving along the right blue edge.
 
 The handling of conjunctions is a little more involved.
 
@@ -850,20 +862,20 @@ Due to nested conjunctions, the game positions thus actually are sets of $\attac
 
 @trzeciakiewicz2021ltbtBrowserGame limits the scope to (strong) trace, failure, possible-future, simulation, and bisimulation equivalences,
 excluding notions like readiness, ready traces, and failure traces.
-This allows for slightly simpler game rules, in particular, without revival moves.
+The selection permits slightly simpler game rules---in particular, without revival moves.
 This allows to nicely showcase the core mechanics of @sec-strong-spectroscopy with a stricter correspondence to productions in the original HML of @def-hml.
 
 ### CAAL Extension {#sec-spectroscopy-caal}
 
-Would it not be nice if one could use the equivalence spectroscopy in existing tools?
+Would it not be nice if one could use the equivalence spectroscopy in *existing tools*?
 
-@ozegowski2023eqCAAL integrates the spectroscopy algorithm into *CAAL*, the “Concurrency Workbench Aalborg Edition” by @aaehlow2015caal.
+@ozegowski2023eqCAAL integrates the spectroscopy algorithm into *CAAL*, the “Concurrency Workbench Aalborg Edition” by Andersen et al. -@aaehlow2015caal.
 @strassnickOzegowski2024weakCAAL also add the weak spectroscopy game and possibilities to play the spectroscopy game in the tool.
 Their extended version of CAAL is live on <https://equivio.github.io/CAAL/>.
 
-The original CAAL (on <https://caal.cs.aau.dk/>) covers the curriculum of Reactive Systems [@ails2007reactiveSystems], including CCS processes, HML formulas and equivalence games.
+The original CAAL (on <https://caal.cs.aau.dk/>) covers the curriculum of *Reactive systems* [@ails2007reactiveSystems], including CCS processes, HML formulas and equivalence games.
 
-But CAAL originally only supports preorder/equivalence checking for six standard notions, namely for simulation, bisimulation, and traces, in their standard strong and weak variants.
+Originally, CAAL only supports preorder/equivalence checking for six standard notions, namely for simulation, bisimulation, and traces, in their standard strong and weak variants.
 Only simulation and bisimulation can be examined as games.
 
 Straßnick and Ozegowski's extended CAAL version supports 13 strong and 21 weak notions.
@@ -896,18 +908,18 @@ Technically, this is superior to the other three implementations of this chapter
 
 Historically, the WebGL standard for browser graphics processing has lacked compute shaders.
 This has made it difficult to access the computational power of graphics processing units from within web applications.
-With WebGPU/WGSL [@w3c2025wgsl], times are changing.
-@vogel2024energyGamesWebGPU makes this progress available to the spectroscopy approach.
+Times are changing with WebGPU/WGSL [@w3c2025wgsl].
+@vogel2024energyGamesWebGPU makes this technological progress available to the spectroscopy approach.
 
 Big parts of the game graph construction and the game solving are quite parallelizable.
 gpuequiv parallelizes the budget computation of @alg-deciding-energy-games.
 For instance, a whole batch of game positions on a `todo`-list can be processed simultaneously.
-The details are explained in @vogel2024energyGamesWebGPU.
+The details are explained by @vogel2024energyGamesWebGPU.
 
 gpuequiv's control code surrounding the shader invocations is written in Rust that can be compiled to native code and to WebAssembly.
 Therefore, gpuequiv can be compiled for both kinds of targets:
 Quick equivalence checking in the browser, and even quicker checking in a native application.
-@vogel2024energyGamesWebGPU reports 10⨯ speed-ups.
+@vogel2024energyGamesWebGPU reports 10⨯ speed-ups compared to @bisping2023equivalenceEnergyGames.
 However, the fast growth of game graphs remains a limiting factor as larger examples run into the size boundary of buffers to upload game moves.
 For `vasy_18_73`, @vogel2024energyGamesWebGPU also fails to complete the spectroscopy (like our experience in @sec-benchmarks):
 It constructs a game graph of 623,482,227 moves, but only 536,870,911 moves fit into the buffer with the employed data packing.
@@ -989,11 +1001,11 @@ Comparison of supported notions.
     But this is neither elaborated upon nor supported in the frontend.
   ]
 - **mCRL2** [@groote2014mcrl2], built around an ACP/CCS-like modelling language of the same name, supports a wide-range of notions with highly efficient implementations and a strong focus on branching bisimilarity.
-  On the notions it supports, it will generally be much faster than the spectroscopy-game algorithm.
+  On the notions it supports, it will generally be much faster than the spectroscopy game algorithm.
   The only notion that is exclusively supported by mCRL2 is coupled similarity, implemented by @le2020coupledSimMcrl2.
 - **CADP** [@garavel2013cadp] can check several notions on-the-fly, also in a highly optimized fashion.
   Its models are usually expressed in LOTOS or LNT, deriving from CSP.
-  It includes the special notions of safety- and $\tau^*.a$-equivalence, not present in @glabbeek1993ltbt.
+  It includes the special notions of safety- and $\tau^*\!.a$-equivalence, not present in van Glabbeek's spectrum [-@glabbeek1993ltbt].
 - **FDR4** [@grabr2014fdr] has “Failures Divergences Refinement” in its name, but also supports different linear-time refinement models for CSP.
   Branching-time notions are partially supported as minimizers.
 
@@ -1010,7 +1022,8 @@ But one can expect that its payoff would be meager, especially on the small $\se
 Experiments by @vogel2024energyGamesWebGPU suggest that the Pareto frontiers usually stay sufficiently small that adding the implementation complexity of @dr2000symbolicUpwardClosedSets seems uncalled for.
 
 A big limiting factor of our implementations is the storage of the game graph.
-To some extent, this can be battled by more symbolic representations as *binary-decision-diagrams* in the quite general checkers by @bulychev2011gameSimulation or @wimmer2011dissertation.
+To some extent, this can be battled by more symbolic representations as *binary-decision-diagrams*.
+@bulychev2011gameSimulation and @wimmer2011dissertation follow this route in quite versatile checkers.
 
 A more general solution for the memory limitations would be to forget parts that have been visited, and recompute them *by-need*.
 There are easy ways to profit from the community's advances in handling big spaces of possibilities.
@@ -1019,8 +1032,9 @@ Already @shr1995hornsatGames suggest a comparable approach, viewing games as SAT
 The energy aspect should be perfectly expressible for SMT/SAT solvers in linear integer arithmetic [cf. @chistikov2024linearIntegerArithmetic].
 
 {{< paragraph_heading "Alternative paths to generalized checkers." >}}
+In @sec-preliminaries-discussion, we hav already discussed the alternative paradigms of equivalence checking.
 The *equivalences-as-game-instances* approach seems to be the most fruitful when one wants to easily support a wide range of preorders and equivalences in a tool.
-By easy, we mean: without the need to implement individual algorithms for each of the notions.
+By “easy,” we mean: without the need to implement individual algorithms for each of the notions.
 @tan2002abstractEquivalenceGames takes a similar game approach for the Concurrency Workbench, as do @aha2015caal2games for CAAL.
 
 Another route to this goal of genericity might be the *equivalences-as-formulas* approach from @lange2014modelCheckingProcEqs.
@@ -1035,7 +1049,7 @@ We already hinted to this in @sec-preliminaries-discussion.
 @dmsw2019genericPartitionRefinement follow this route in their tool *CoPaR* (short for “Coalgebraic Partition Refiner”).
 This way, the support of new equivalences boils down to a few lines of defining new functors.
 The big advantage is that extensions---for instance, to quantitative behavioral distances---can also be achieved this way.
-The coalgebraic approach is related to the game approach and too can derive distinguishing formulas, as seen for instance in the tool T-BEG [@km2020nonBisimCoalgebraic].
+The coalgebraic approach is related to the game approach and, too, can derive distinguishing formulas, as seen for instance in the tool T-BEG [@km2020nonBisimCoalgebraic].
 However, encoding simulation-like preorders in category theory seems to be non-trivial if one compares the machinery of @rt2010efficientSimulation to the ease of just leaving out swap-moves in the bisimulation game.
 It is difficult to say whether it is conceptional boundaries or the coating in category-theory parlance that has hindered a wider adoption in tools.
 
@@ -1044,5 +1058,5 @@ Tools like *Sigref* [@whhsb2006sigref] support a broad range of bisimulation-lik
 The specifics of individual equivalences are expressed as *signatures* that prescribe how to refine equivalence classes in an iterative partition-refinement.
 Signature Refinement can easily be boosted by parallelization or symbolic BDD-encodings.
 
-Of course, all these theoretical approaches are linked at some level.
-Time for a conclusion.
+Of course, all these theoretical approaches are linked on some basic level, namely through the Hennessy–Milner theorem (@thm-hennessy-milner).
+We elaborate on this in the conclusion.

@@ -64,7 +64,7 @@ It includes numerous concepts we will define and discuss more deeply on our way 
 Many verification tasks can be understood along the lines of “how equivalent” two models are.
 The models can usually be expressed as labeled transition systems, that is, as graphs where nodes represent program *states* and edges represent *transitions* between them, labeled by *actions*.
 
-@fig-peterson-mutex replicates a standard example, known, for instance, from the textbook *Reactive Systems* [@ails2007reactiveSystems]:
+@fig-peterson-mutex replicates a standard example, known, for instance, from the textbook *Reactive systems* [@ails2007reactiveSystems]:
 A graph specification of mutual exclusion $\literal{Mx}$ as two users $\literal A$ and $\literal B$ entering their critical section $\literal{ec_A} / \literal{ec_B}$ and leaving $\literal{lc_A} / \literal{lc_B}$ before the other may enter;
 and the transition system of Peterson's [-@peterson1981mythsMutex] mutual exclusion algorithm $\literal{Pe}$, with internal steps $\color{gray}\step{}$ due to the coordination that needs to happen.^[
   To fit on the page, $\literal{Pe}$ is minimized by a behavioral equivalence that will be important later on: stability-respecting branching bisimilarity.

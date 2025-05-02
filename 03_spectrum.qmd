@@ -56,6 +56,7 @@ The more we mark as observable, the finer the resulting equivalence relations do
 
 As promised, we revisit the hierarchy between bisimilarity, similarity, and trace equivalence of @sec-hierarchy-equivalences, modally.
 So far, we have only looked into the characterization of bisimilarity through the whole of $\hml$ in @thm-hennessy-milner or through $\observations{\floor{B}}$ in @lem-game-formula-hml.
+From now on, we will be working with *hierarchies of Hennessy–Milner theorems*.
 
 ::: {#def-sim-trace-logics}
 #### Logics of simulation and traces

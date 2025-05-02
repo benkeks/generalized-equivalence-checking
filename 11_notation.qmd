@@ -20,10 +20,10 @@ toc-title: "Notation"
 | $\relsize{A}$           | Number of elements of $A$                                                  |
 | $\identity{A}$          | Identity relation on $A$                                                   |
 | $\powerset{A}$          | Power set of $A$                                                           |
-| $A^*$, $A^{\omega}$, $A^{\infty}$     | Language of finite / infinite / finite-or-infinite words over $A$                     |
+| $A^*$, $A^{\omega}$, $A^{\infty}$     | Language of finite / infinite / finite-or-infinite words over alphabet $A$                     |
 | $\inverse{\rel R}$      | Inverse relation of $\rel R$                                               |
 | $\domain(f)$            | Domain of where function $f$ is defined, $\bot$ counts as undefined (first appearing in @def-energy-game) 
-| $\nats$, $\natsext$     | Natural numbers / natural numbers extended by a $\infty$ as $\top$-element |
+| $\nats$, $\natsext$     | Natural numbers / natural numbers extended by a $\infty$ as top element |
 | $\defeq$                | Definitional equality; in the context of CCS, $\literal{X} \defeq P$ also means $\ccsasg(\literal{X}) \defeq P$ (@def-ccs-semantics); in the context of pseudocode, assignment of variables |
 
 ### Orders and Vectors {.unnumbered .unlisted}
@@ -37,6 +37,8 @@ toc-title: "Notation"
 | $\upset A$, $\downset A$ | Upward-closure / downward-closure of set $A$ in the context of a preorder $\leq$              |
 | $\unitvec{k}$          | Unit vector; component $k$ is 1, all others 0 (in the context of some dimensionality $d$)      |
 | $\zerovec$             | Vector of zeros (in the context of some dimensionality $d$); not to be confused with $\ccsnull$ as terminated $\ccs$ process in @def-ccs |
+
+\newpage
 
 ### Transition Systems {.unnumbered .unlisted}
 
@@ -62,13 +64,14 @@ toc-title: "Notation"
 |                     |                                                                                   |
 |--------------------------|----------------------------------------------------------------------------------------------|
 | $\bpreordvar{N}$, $\beqvar{N}$ | Behavioral preorder / equivalence with respect to notion $N$ (full names in @fig-strong-ltbt-spectrum and -@fig-weak-spectrum) |
-| $\beq{T}$, $\beq{S}$, $\beq{B}$ | Strong trace equivalence, similarity, bisimilarity (@def-trace-eq, -@def-bisimilarity) |
+| $\beq{T}$, $\beq{S}$, $\beq{B}$ | Strong trace equivalence, similarity, bisimilarity (@def-trace-eq and -@def-bisimilarity) |
 | $\bpreordvar{\observationsvar{}}$, $\beqvar{\observationsvar{}}$ | Behavioral preorder / equivalence derived from a sublogic $\observationsvar{}\subseteq \hml$ (@def-distinctions) |
 | $\observationsvar{N}$      | Observation logic for a notion $N \in \notions$ in the context of a spectrum (@def-spectrum) |
 | $\observations{\floor{B}}$ | Bisimulation observation logic (@def-game-formulas)                                         |
 | $\expr(\varphi)$         | Syntactic expressiveness price of $\varphi$ in the context of a spectrum (@def-expressiveness-price) |
-| “$\varphi$&nbsp;distinguishes”   | Formula true for state on left-hand side and not true for state(s) on right-hand side (@def-distinctions, -@def-distinguishes-set)  |
+| “$\varphi$&nbsp;distinguishes”   | Formula true for state on left-hand side and not true for state(s) on right-hand side (@def-distinctions and -@def-distinguishes-set)  |
 
+\newpage
 
 ### Games {.unnumbered .unlisted}
 
@@ -99,12 +102,14 @@ toc-title: "Notation"
 | $\gamespectroscopywsimple$ | Simplified weak spectroscopy game (@fig-weak-spec-game-simplified)                           |
 | $\strat_\notionname{B}$, $\stratstrong$, $\stratweak$ | Strategy formulas in the context of polynomial / strong / weak spectroscopy (@def-strategy-formulas-poly, -@def-strategy-formulas-strong, -@def-strategy-formulas-weak) |
 
+\newpage
+
 ### Complexity {.unnumbered .unlisted}
 
 \vspace{-2em}
 |                     |                                                                                   |
 |--------------------------|----------------------------------------------------------------------------------------------|
-| $\bigo{f}$                | Set of functions that grow to infinity at most as quickly as $f$                             |
+| $\bigo{f}$                | Set of functions that grow to infinity at most as quickly as function $f$                             |
 | $\complexityname{P}$, $\complexityname{NP}$, $\complexityname{PSPACE}$ | Complexity classes of deterministic polynomial time / nondeterministic polynomial time / polynomial space complexity |
 
 ### Recurring Examples {.unnumbered .unlisted}
@@ -114,4 +119,4 @@ toc-title: "Notation"
 |--------------------------|----------------------------------------------------------------------------------------------|
 | $\literal{P}$, $\literal{Q}$ | Two systems of philosophers, differing in their determinism (@exm-ts, -@exm-ccs, -@exm-deterministic-phil) |
 | $\literal{T}$              | Trolled philosophers with additional $\troll$-deadlock (@exm-bisim-sim)                      |
-| $\literal{Pe}$, $\literal{Mx}$ | Implementation of Peterson's mutual exclusion protocol and its specification (@exm-peterson-mutex), `Pe` and `Mx` for their expression in the tool (@sec-equivio-peterson) |
+| $\literal{Pe}$, $\literal{Mx}$ | Implementation of Peterson's mutual exclusion protocol and its specification (@exm-peterson-mutex), styled `Pe` and `Mx` for their expression in the tool (@sec-equivio-peterson) |

@@ -1017,9 +1017,9 @@ Among them, the shader version of @sec-gpu-equiv adds the highest level of imple
 But so far, we are not using the full toolbox of the computer-aided-verification community.
 
 For instance, the upward-closed sets of winning budgets could be handled more symbolically with the representation of @dr2000symbolicUpwardClosedSets.
-This might slightly increase how many Pareto frontiers can be kept in memory.
+This might slightly increase how many Pareto fronts can be kept in memory.
 But one can expect that its payoff would be meager, especially on the small $\set{0,1,\infty}^d$-lattices.
-Experiments by @vogel2024energyGamesWebGPU suggest that the Pareto frontiers usually stay sufficiently small that adding the implementation complexity of @dr2000symbolicUpwardClosedSets seems uncalled for.
+Experiments by @vogel2024energyGamesWebGPU suggest that the Pareto fronts usually stay sufficiently small that adding the implementation complexity of @dr2000symbolicUpwardClosedSets seems uncalled for.
 
 A big limiting factor of our implementations is the storage of the game graph.
 To some extent, this can be battled by more symbolic representations as *binary-decision-diagrams*.

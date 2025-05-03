@@ -151,20 +151,50 @@ How can the attacker win from $\literal{g_1}$?
 :::: {#fig-simple-energy-game}
 ```tikz
 \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
-  posStyle/.style={draw, inner sep=1mm, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},
-  defender/.style={ellipse, inner sep=0ex}]
+  posStyle/.style={draw, inner sep=1mm, minimum size=1cm, minimum width=1.5cm, anchor=center},
+  defender/.style={ellipse, inner sep=0ex},
+  defWins/.style={fill=blue!5},
+  attWins/.style={fill=red!5}]
 
-  \node[posStyle, initial, initial text={}]
+  \node[posStyle, initial, initial text={},
+    defWins,
+    path picture={
+      \fill[attWins] ([yshift=6mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+      \fill[attWins] ([xshift=6mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }
+  ]
     (Att_1){$\literal{g_1}$};
-  \node[posStyle]
-    (Att_2) [above right = .5cm and 1cm of Att_1] {$\literal{g_2}$};
-  \node[posStyle]
-    (Att_3) [below right = .5cm and 1cm of Att_1] {$\literal{g_3}$};
-  \node[posStyle, defender]
-    (Dfn_4) [right = 3.5cm of Att_1] {$\literal{g_4}$};
-  \node[posStyle]
-    (Att_5) [right = 3.5cm of Att_2] {$\literal{g_5}$};
-  \node[posStyle, defender]
+  \node[
+    posStyle,
+    defWins,
+    path picture={
+      \fill[attWins] ([yshift=6mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }
+  ] (Att_2) [above right = .5cm and 1cm of Att_1] {$\literal{g_2}$};
+  \node[
+    posStyle,
+    defWins,
+    path picture={
+      \fill[attWins] ([xshift=3mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }
+  ] (Att_3) [below right = .5cm and 1cm of Att_1] {$\literal{g_3}$};
+  \node[
+    posStyle,
+    defender,
+    defWins,
+    path picture={
+      \fill[attWins] ([xshift=3mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }
+  ] (Dfn_4) [right = 3.5cm of Att_1] {$\literal{g_4}$};
+  \node[
+    posStyle,
+    attWins,
+    defWins,
+    path picture={
+      \fill[attWins] ([yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }
+  ] (Att_5) [right = 3.5cm of Att_2] {$\literal{g_5}$};
+  \node[posStyle, defender, attWins]
     (Dfn_6) [right = 3.5cm of Att_3] {$\literal{g_6}$};
 
   \path
@@ -202,6 +232,7 @@ Moving to $\literal{g_4}$ directly, would be more expensive than the  $\literal{
 Starting with less energy means that the defender has an option of bankrupting the attacker at $\literal{g_4}$ (or before).
 
 Summing up our observations, $(0,2)$ and $(2,1)$ define a Pareto front of minimal budgets where the attacker wins from $\literal{g_1}$, as depicted in @fig-exm-pareto-front.
+The attacker and defender winning budgets of individual positions are also visualized by red and blue areas in @fig-simple-energy-game.
 
 ::::: {#fig-exm-pareto-front .column-margin}
 ```tikz
@@ -534,32 +565,47 @@ also exhibiting the cheapest formulas with regards to the polynomial spectrum th
 :::: {#fig-bisim-sim-game-energies fig-pos='t' fig-env="figure*"}
 ```tikz
 %%| image-class: lightbox
-
-\begin{adjustbox}{max width=\textwidth, center}
+\begin{adjustbox}{max width=.9\linewidth, center}
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
-    posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
+    posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, black, fill=blue!5},
     defender/.style={ellipse, inner sep=0ex},
-    defWins/.style={fill=blue!5}]
+    defWins/.style={fill=blue!5},
+    attWins/.style={fill=red!5}]
 
-    \node[posStyle, initial, initial text={}, label={[text=red]90:$\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}} \in \observationsvar[\literal{peasy}]{(2,2,2)}$}]
+    \node[posStyle, initial, initial text={}, label={[text=red]90:$\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}} \in \observationsvar[\literal{peasy}]{(2,2,2)}$},
+      path picture={
+        \fill[attWins] ([xshift=6mm, yshift=6mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+      }]
       (Att_Q_Qp){$[\literal{Q}, \literal{T}]$};
     \node[posStyle, label={[text=red]270:$\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{peasy}]{(2,1,1)}$}]
-      (Att_Qp_Q) [below = 2cm of Att_Q_Qp] {$[\literal{T}, \literal{Q}]$};
+      (Att_Qp_Q) [below = 2cm of Att_Q_Qp,
+      path picture={
+        \fill[attWins] ([xshift=6mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+      }] {$[\literal{T}, \literal{Q}]$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{ab}}, \literal{T})$};
     \node[dotted, cloud, cloud puffs=9,cloud puff arc=105, aspect=2, defWins, inner sep=.01cm, align=center]
       (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {defender\\ wins};
-    \node[posStyle, label={[text=red]95:$\hmlobs{\literal{a}}\hmltrue \in \observationsvar[\literal{peasy}]{(1,0,0)}$}]
+    \node[posStyle, label={[text=red]95:$\hmlobs{\literal{a}}\hmltrue \in \observationsvar[\literal{peasy}]{(1,0,0)}$},
+      path picture={
+        \fill[attWins] ([xshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+      }]
       (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \troll]$};
-    \node[posStyle, defender, above right = .1cm and 1.5cm of Att_qab_q3]
+    \node[posStyle, defender, attWins, above right = .1cm and 1.5cm of Att_qab_q3]
       (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \troll)$};
-    \node[posStyle, defender]
+    \node[posStyle, defender, attWins]
       (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
     \node[posStyle, defender, defWins]
       (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{t_{ab}}, \literal{Q})$};
-    \node[posStyle, defender]
+    \node[posStyle, defender,
+      path picture={
+        \fill[attWins] ([xshift=3mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+      }]
       (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
-    \node[posStyle, label={[text=red]270:$\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{peasy}]{(1,1,1)}$}]
+    \node[posStyle, label={[text=red]270:$\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{peasy}]{(1,1,1)}$},
+      path picture={
+        \fill[attWins] ([xshift=3mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+      }]
       (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{ab}}]$};
 
     \path[text=gray]
@@ -590,6 +636,7 @@ also exhibiting the cheapest formulas with regards to the polynomial spectrum th
 ```
 
 The bisimulation energy game of @exm-bisim-sim-energy-game with energy updates and implied formulas.
+Color of node backgrounds suggests the winning budgets of attacker (red) and defender (blue) in first and second dimension per position.
 ::::
 
 The attacker wins ${\game}^🗲_\notionname{B}$ from $[\literal{Q}, \literal{T}]$ if they start out with an energy budget of $(2,2,2)$ or above.
@@ -991,20 +1038,54 @@ The game graph, labeled by the minimal attacker winning energies we find, is rep
 ::: {#fig-simple-energy-game-wins fig-pos='t'}
 ```tikz
 \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
-  posStyle/.style={draw, inner sep=1mm, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},
-  defender/.style={ellipse, inner sep=0ex}]
+  posStyle/.style={draw, inner sep=1mm, minimum size=1cm, minimum width=1.5cm, anchor=center},
+  defender/.style={ellipse, inner sep=0ex},
+  defWins/.style={fill=blue!5},
+  attWins/.style={fill=red!5}]
 
-  \node[posStyle, initial, initial text={}, label={100:$(0,2),(2,1)$}]
+  \node[posStyle, initial, initial text={},
+    label={100:$(0,2),(2,1)$},
+    defWins,
+    path picture={
+      \fill[attWins] ([yshift=6mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+      \fill[attWins] ([xshift=6mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }
+  ]
     (Att_1){$\literal{g_1}$};
-  \node[posStyle, label={100:$(0,2)$}]
-    (Att_2) [above right = .5cm and 1cm of Att_1] {$\literal{g_2}$};
-  \node[posStyle, label={100:$(1,1)$}]
-    (Att_3) [below right = .5cm and 1cm of Att_1] {$\literal{g_3}$};
-  \node[posStyle, defender, label={10:$(1,1)$}]
-    (Dfn_4) [right = 3.5cm of Att_1] {$\literal{g_4}$};
-  \node[posStyle, label={100:$(0,1)$}]
-    (Att_5) [right = 3.5cm of Att_2] {$\literal{g_5}$};
-  \node[posStyle, defender, label={100:$(0,0)$}]
+  \node[
+    posStyle,
+    label={100:$(0,2)$},
+    defWins,
+    path picture={
+      \fill[attWins] ([yshift=6mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }
+  ] (Att_2) [above right = .5cm and 1cm of Att_1] {$\literal{g_2}$};
+  \node[
+    posStyle,
+    label={100:$(1,1)$},
+    defWins,
+    path picture={
+      \fill[attWins] ([xshift=3mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }
+  ] (Att_3) [below right = .5cm and 1cm of Att_1] {$\literal{g_3}$};
+  \node[
+    posStyle,
+    defender,
+    label={10:$(1,1)$},
+    defWins,
+    path picture={
+      \fill[attWins] ([xshift=3mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }
+  ] (Dfn_4) [right = 3.5cm of Att_1] {$\literal{g_4}$};
+  \node[
+    posStyle,
+    label={100:$(0,1)$},
+    defWins,
+    path picture={
+      \fill[attWins] ([yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }
+  ] (Att_5) [right = 3.5cm of Att_2] {$\literal{g_5}$};
+  \node[posStyle, defender, attWins, label={100:$(0,0)$}]
     (Dfn_6) [right = 3.5cm of Att_3] {$\literal{g_6}$};
 
   \path
@@ -1015,7 +1096,7 @@ The game graph, labeled by the minimal attacker winning energies we find, is rep
     (Att_2)
       edge[bend left = 10] node {$+2,-1$} (Dfn_4)
     (Att_3)
-      edge[bend right = 10, swap, pos=.45] node {$0,0$} (Dfn_4)
+      edge[bend right = 10, swap,  pos=.45] node {$0,0$} (Dfn_4)
     (Dfn_4)
       edge[bend left = 10] node {$0,0$} (Att_5)
       edge[bend right = 10, swap] node {$-1,0$} (Dfn_6)

@@ -36,7 +36,7 @@ Spectra of equivalence problems can be encoded as energy games.
 
 Energy games are games in which players have limited resources that can be used up or recharged during moves.
 Players running out of a resource lose the game.
-After introducing such games in @sec-energy-games, we will prove in @sec-characterzing-ptime-part that several core equivalences can be characterized through attacker energy budgets where the defender wins.
+After introducing such games in @sec-energy-games, we will prove in @sec-characterizing-ptime-part that several core equivalences can be characterized through attacker energy budgets where the defender wins.
 Energies in the game will correspond to notions in the spectrum.
 For this, we will add three-dimensional energies to the bisimulation game.
 
@@ -69,7 +69,7 @@ This approach is summarized in @fig-spectroscopy-poly-big-picture.
     (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Thm.~\ref{thm-bisim-energy-game-characterization}} (Preorders)
     (EnergyGame) edge[->, draw=Peach] node[label=270:{Problem~\ref{prob-energy-game-problem}}] {Algorithm~\ref{alg-deciding-games}} (AttackerWinningBudgets);
   \node[right=2mm of Preorders] (Chp3) {Chapter~\ref{sec-spectrum}};
-  \node[text=TealBlue, above right=4mm and 2mm of AttackerWinningBudgets] (Sec42) {Section~\ref{sec-characterzing-ptime-part}};
+  \node[text=TealBlue, above right=4mm and 2mm of AttackerWinningBudgets] (Sec42) {Section~\ref{sec-characterizing-ptime-part}};
   \node[text=Peach, right=2mm of AttackerWinningBudgets] (Sec43) {Section~\ref{sec-deciding-energy-games}};
 \end{tikzpicture}
 ```
@@ -87,7 +87,7 @@ Energy games extend games as discussed in @sec-games with resources of the playe
 We will focus on reachability games with an energy-bounded attacker.
 In most publications, energy games update vector-valued energy levels by vector addition or subtraction.
 We work with more general *monotonic energy games* (@sec-monotonic-energy-games) and then zoom in on *declining energy games* (@sec-declining-energy-games), which include updates that combine vector components by taking their minimum.
-The latter are exactly what we need for the subsequent @sec-characterzing-ptime-part.
+The latter are exactly what we need for the subsequent @sec-characterizing-ptime-part.
 
 ### Monotonic Energy Games {#sec-monotonic-energy-games}
 
@@ -190,7 +190,7 @@ Simple energy game of @exm-simple-energy-game.
 
 All attacker-won plays must end in $\literal{g_6}$ to get the defender stuck.
 
-For instance, the attacker cannot win from $\literal{g_0}$ with $(0,0)$.
+For instance, the attacker cannot win from $\literal{g_1}$ with $(0,0)$.
 All outgoing paths would lead to $⊥$-energy and thus to the defender winning, before the game can reach $\literal{g_6}$.
 
 But if the attacker starts with budget $(0,2)$, they can take the upper path to $\literal{g_4}$ with energy $(2,1)$, from where both defender options lead to the defender being stuck in $\literal{g_6}$.
@@ -392,7 +392,7 @@ In this model, energy levels can only decline.
 
 We will use our new energy games to characterize not just single behavioral equivalences, but *whole spectra* of them.
 
-## Characterizing the $\complexityname{P}$-easy Part of the Spectrum {#sec-characterzing-ptime-part}
+## Characterizing the $\complexityname{P}$-easy Part of the Spectrum {#sec-characterizing-ptime-part}
 
 As hinted at in @sec-equivalence-complexities, parts of the strong equivalence spectrum can be decided in polynomial time, whereas others require polynomial space (and thus effectively exponential time).
 Thanks to declining energy games, we can adapt the standard bisimulation game of @def-bisim-game to decide not just bisimulation, but *all polynomial-time-easy* equivalences of the strong spectrum *at once*.

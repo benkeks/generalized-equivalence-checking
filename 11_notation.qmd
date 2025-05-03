@@ -24,14 +24,14 @@ toc-title: "Notation"
 | $\inverse{\rel R}$      | Inverse relation of $\rel R$                                               |
 | $\domain(f)$            | Domain of where function $f$ is defined, $\bot$ counts as undefined (first appearing in @def-energy-game) 
 | $\nats$, $\natsext$     | Natural numbers / natural numbers extended by a $\infty$ as top element |
-| $\defeq$                | Definitional equality; in the context of CCS, $\literal{X} \defeq P$ also means $\ccsasg(\literal{X}) \defeq P$ (@def-ccs-semantics); in the context of pseudocode, assignment of variables |
+| $\defeq$                | Definitional equality; in the context of CCS, $\literal{X} \defeq P$ also means $\ccsasg(\literal{X}) \defeq P$ (@def-ccs-semantics); in the context of pseudocode, denotes variable assignment |
 
 ### Orders and Vectors {.unnumbered .unlisted}
 
 \vspace{-2em}
 |                   |                                                                                     |
 |--------------------------|----------------------------------------------------------------------------------------------|
-| $\leq$                 | less-or-equal-to, usually pointwise on vectors                                                |
+| $\leq$                 | less‑than‑or‑equal‑to, usually pointwise on vectors                                                |
 | $\Min(A)$, $\Max(A)$   | Set of minimal / maximal elements in $A$ in the context of a preorder $\leq$                   |
 | $\lub$ / $\sup$, $\glb$ / $\inf$ | Least upper bound / greatest lower bound in the context of a lattice (@def-lattice)          |
 | $\upset A$, $\downset A$ | Upward-closure / downward-closure of set $A$ in the context of a preorder $\leq$              |

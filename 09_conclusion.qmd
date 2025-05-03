@@ -23,7 +23,7 @@ So, indeed, there is such a thing as “linear-time--branching-time spectroscopy
 \begin{adjustbox}{max width=.9\linewidth}
   \begin{tikzpicture}[auto,node distance=2.5cm,
     algstep/.style={minimum width=3cm, minimum height=1.4cm, draw=gray, rectangle,align=center,rounded corners}]
-    \node[algstep, draw] (WeakSpectro) {Weak spectroscopy \\ Chapter \ref{sec-weak-spectorscopy}};
+    \node[algstep, draw] (WeakSpectro) {Weak spectroscopy \\ Chapter \ref{sec-weak-spectroscopy}};
     \node[algstep, draw, below of=WeakSpectro] (StrongSpectro) {Strong spectroscopy \\ Chapter \ref{sec-strong-spectroscopy}};
     \node[algstep, draw, left of=StrongSpectro, node distance=6cm, minimum width=4cm] (PolySpectro) {Polynomial spectroscopy \\ Chapter \ref{sec-approach}};
     \node[algstep, draw, below of=PolySpectro, minimum width=4cm] (BisimGame) {Bisimulation game \\ Chapter \ref{sec-preliminaries}};
@@ -57,7 +57,7 @@ Hierarchy of abstraction from Hennessy--Milner theorem and strong bisimilarity t
   We can still project it back all the way to the bisimulation game (@idea-instance-games).
 - With @sec-weak-spectrum, we have entered the level of van Glabbeek's [-@glabbeek1993ltbt] *weak spectrum*, where silent steps are abstracted,
   through a weakening of $\hml$ (@idea-weak-hml).
-- @sec-weak-spectorscopy has introduced the *weak spectroscopy game*, where the defender profits from internal transitions (@idea-weakening-game).
+- @sec-weak-spectroscopy has introduced the *weak spectroscopy game*, where the defender profits from internal transitions (@idea-weakening-game).
   Where there is no internal $\step{\tau}$-activity, the game could still serve as a strong spectroscopy game. 
 
 In much the same way as we understand equivalences in a hierarchy by folding away dimensions of distinctions, this thesis itself has followed a hierarchy of spectroscopies.
@@ -70,7 +70,7 @@ The Hennessy–Milner theorem *is a shadow* of the bisimulation game, which is a
 With the tool implementations of @sec-implementations, we have returned from the abstract realm of ideas back to a more material level.
 
 But in reality, there is not one single *ideal* hierarchy of abstraction.
-Our journey has crossed many routes by other researches and could have taken different paths.
+Our journey has crossed many routes by other researchers and could have taken different paths.
 Many interesting ones have been the topic of “Discussion” sections at the end of chapters.
 Let us close by looking at some ways one could go from here.
 
@@ -95,7 +95,7 @@ For some, it might be worthwhile to ask spectroscopy questions or to adapt our a
 
 - There are various *quantitative notions*, often understood in terms of *behavioral distances*.
   They could be included into our game model by allowing the defender a certain amount of “cheating.”
-  For instance, the $Q$-sets in game positions could be fuzzy, and some defender-budget defines how unlikely positions they can pick.
+  For instance, the $Q$-sets in game positions could be fuzzy, and some budget could define how unlikely positions the defender can pick.
 
   The (strong) quantitative spectrum of @fahrenberg2014quantitativeLTBTS already is phrased in terms of a game model.
   Combining it with our game would likely demand deeper changes to our game mechanics, because one has to remember traces (and not just current states) to compute the resulting distances in full generality.
@@ -104,13 +104,13 @@ For some, it might be worthwhile to ask spectroscopy questions or to adapt our a
   @ba2017bisimTraceApproximate, @bdh2020probabilisticSpectrum, and @sbkpq2024approximateProbabilisticBisimulations, also extending to silent-step notions.
   So, this might be the kind of quantitative equivalences where a connection to our approach works best.
 
-  Timed equivalences would face conceptional boundaries to decision procedures on finite models:
+  Timed equivalences would face conceptual boundaries to decision procedures on finite models:
   While bisimilarity is decidable, trace preordering is not [@cerans1993decidabilityTimedBisim].
 - *Barbed and other congruences* on $\pi$-calculi rely on some system of *contexts* in which to place processes.
   @Fournet2005 present a hierarchy for asynchronous name-passing calculi, on which one could base a spectroscopy.
   @valmari2020allWeakCongruencesBelowFairTesting even identifies a spectrum of *all* linear-time congruences for a sensible set of operators.
 
-  Conceptionally, it is clear that the selection of a distinguishing context could also happen as an attacker move.
+  Conceptually, it is clear that the selection of a distinguishing context could also happen as an attacker move.
   In practice, it might be hard to do this elegantly in a way where games remain finite for finite systems.
   Likely, the most feasible route leads through *conditional equivalences* [@hkks2020conditionalBisim].
 - Some kinds of bisimilarity are based on *special modalities*.
@@ -145,4 +145,4 @@ This thesis hopes to fit into this project with a “search engine” for equiva
 It shows how to quickly survey spectra of equivalence and how the approach can easily be implemented into tools.
 While pioneers of the field are retiring, parts of their wisdom thus can be materialized into new generations of software.
 
-… for concurrent computation will remain relevant, and so will questions on the equivalence of concurrent programs.
+After all, concurrent computation will remain relevant, and so will questions on the equivalence of concurrent programs.

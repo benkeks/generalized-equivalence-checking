@@ -18,7 +18,7 @@ We move beyond @bisping2023equivalenceEnergyGames by also deriving individual eq
 
 The energy game approach can, in fact, be leveraged to solve the spectroscopy problem for the *whole* of the strong equivalence spectrum.
 
-The core ingredient of this chapter is a richer energy game, we dub “spectroscopy game,” to be presented in @sec-stong-spectro-game.
+The core ingredient of this chapter is a richer energy game, we dub “spectroscopy game,” to be presented in @sec-strong-spectro-game.
 The bisimulation energy game of @sec-approach is not complex enough to capture all strong equivalences of @sec-spectrum.
 It is “too easy” for the attacker in the sense that they can use unbounded conjunctions to account for every transition the defender might choose after each observation.
 But the weaker notions of the spectrum heavily limit how many conjunctions may be used to name a distinction!
@@ -68,7 +68,7 @@ By instantiating the spectroscopy game with known initial energies and exploitin
     (AttackerWinningReachability.east) edge[->, draw=Peach, bend right=25] node {} (IndividualNotion)
     (AttackerWinningReachability.east) edge[->, draw=TealBlue, dashed, bend right=25] node {} (IndividualNotion);
   
-  \node[text=TealBlue, right=2mm of AttackerWinningBudgets, align=right] (Sec51) {Section \ref{sec-stong-spectro-game} \\ and \ref{sec-specific-spectro-games}};
+  \node[text=TealBlue, right=2mm of AttackerWinningBudgets, align=right] (Sec51) {Section \ref{sec-strong-spectro-game} \\ and \ref{sec-specific-spectro-games}};
   \node[text=Peach, right=2mm of AttackerWinningReachability] (Sec52) {Section \ref{sec-deciding-individual-eqs}};
 
   \node[below=3mm of AttackerWinningReachability] (Phantom) {};
@@ -82,7 +82,7 @@ How we apply the spectroscopy approach to the full strong spectrum.
 {{< contents related-5 >}}
 ::::
 
-## The Strong Spectroscopy Game {#sec-stong-spectro-game}
+## The Strong Spectroscopy Game {#sec-strong-spectro-game}
 
 In this section, we examine a game that does not “overlook” trace observations, as the *bisimulation energy game* (@def-bisim-energy-game) does.
 
@@ -158,7 +158,7 @@ Again, energies limit the syntactic expressiveness of the formulas.
 - The first dimension bounds for how many turns the attacker may challenge observations of actions.
 - The second dimension limits how often they may use conjunctions to resolve nondeterminism.
 - The third, fourth, and fifth dimensions limit how deeply observations may nest underneath a conjunction, for which they do not need to change themselves.
-  The third stands for one of the deepest positive conjuncts and the fourth for the other positive conjuncts; the fifths stands for negative conjuncts.
+  The third stands for one of the deepest positive conjuncts and the fourth for the other positive conjuncts; the fifth stands for negative conjuncts.
 - The last dimension limits how often the attacker may use negations to enforce symmetry by swapping sides.
 
 The moves of the following definition closely match productions in the grammar of observations for the strong spectrum of @def-strong-spectrum.

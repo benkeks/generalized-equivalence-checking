@@ -8,7 +8,7 @@
 We study the *spectroscopy problem* that asks which notions from a spectrum of behavioral equivalences relate a pair of states in a transition system.
 This allows a generalized handling of questions on *how equivalent two programs are*.
 
-In particular, we solve the spectroscopy problem for *finite-state systems* and a hierarchy of semantical models of how to understand nondeterminism and internal behavior in models of concurrent programs, known as the *weak linear-time–branching-time spectrum*, due to van Glabbeek.
+In particular, we solve the spectroscopy problem for *finite-state systems* and a hierarchy of semantic models for understanding nondeterminism and internal behavior in models of concurrent programs, known as the *weak linear-time–branching-time spectrum*, due to van Glabbeek.
 On our way there, we also treat the *strong spectrum* (without internal behavior) as well as applications of generalized equivalence checking in verification and concurrency theory.
 
 Our approach relies on a *quantitative understanding of spectra* in terms of how many syntactic features of Hennessy–Milner modal logic are used to characterize equivalences.
@@ -147,7 +147,7 @@ That this research project has still reached the stage of a PhD thesis, is thank
       %\draw[thick] (0,1.5) -- (0,6) -- (2,6) -- (2,3) -- (1,3) -- (1,1.5) -- cycle;
       %\node at (1,4.5) {\textbf{Weak} \\ \textbf{spectrum} \\ Chapter \ref{sec-weak-spectrum}};
 
-      %\draw[thick] (0,7.5) rectangle node {\textbf{Weak spectroscopy} \\ Chapter \ref{sec-weak-spectorscopy}} (12,6);
+      %\draw[thick] (0,7.5) rectangle node {\textbf{Weak spectroscopy} \\ Chapter \ref{sec-weak-spectroscopy}} (12,6);
     \end{tikzpicture}
   \end{adjustbox}
   \renewcommand{\partfigure}{\partfiguretwo}
@@ -177,7 +177,7 @@ That this research project has still reached the stage of a PhD thesis, is thank
       %\draw[thick] (0,1.5) -- (0,6) -- (2,6) -- (2,3) -- (1,3) -- (1,1.5) -- cycle;
       %\node at (1,4.5) {\textbf{Weak} \\ \textbf{spectrum} \\ Chapter \ref{sec-weak-spectrum}};
 
-      %\draw[thick] (0,7.5) rectangle node {\textbf{Weak spectroscopy} \\ Chapter \ref{sec-weak-spectorscopy}} (12,6);
+      %\draw[thick] (0,7.5) rectangle node {\textbf{Weak spectroscopy} \\ Chapter \ref{sec-weak-spectroscopy}} (12,6);
     \end{tikzpicture}
   \end{adjustbox}
   \renewcommand{\partfigure}{\partfigurethree}
@@ -207,7 +207,7 @@ That this research project has still reached the stage of a PhD thesis, is thank
       \draw[thick] (0,1.5) -- (0,6) -- (2,6) -- (2,3) -- (1,3) -- (1,1.5) -- cycle;
       \node at (1,4.5) {\textbf{Weak} \\ \textbf{spectrum} \\ Chapter \ref{sec-weak-spectrum}};
 
-      \draw[thick] (0,7.5) rectangle node {\textbf{Weak spectroscopy} \\ Chapter \ref{sec-weak-spectorscopy}} (12,6);
+      \draw[thick] (0,7.5) rectangle node {\textbf{Weak spectroscopy} \\ Chapter \ref{sec-weak-spectroscopy}} (12,6);
     \end{tikzpicture}
   \end{adjustbox}
   \renewcommand{\partfigure}{}

@@ -24,7 +24,7 @@ This chapter serves as a *second round of preliminaries* and context needed for 
 Some things are more complicated in the weak spectrum.
 For instance, we will be discussing *eight* weak forms of bisimilarity.
 
-At its heart, this chapter aims to find a modal spectrum characterization, where HML grammar and pricing are designed in such a way that we can apply the spectroscopy approach in the following @sec-weak-spectorscopy.
+At its heart, this chapter aims to find a modal spectrum characterization, where HML grammar and pricing are designed in such a way that we can apply the spectroscopy approach in the following @sec-weak-spectroscopy.
 The *top element of the weak spectrum* will be the logic of *stability-respecting branching bisimilarity*.
 
 This is where the thesis arrives at “The linear time–branching time spectrum&nbsp;II: The semantics of sequential systems with silent moves” [@glabbeek1993ltbt], already featured in @fig-ltbts2-paper of the introduction.
@@ -38,7 +38,7 @@ We can use a subset of Hennessy--Milner logic to characterize most interesting w
 :::
 
 @sec-weak-equivalences-in-general provides some preliminaries and defines the $\hml$ subset $\hmlsrbb$, which will correspond to the notion of stability-respecting branching bisimilarity.
-@sec-case-stduies-other-eqs illustrates the use of some of the weak notions through small case studies from compiler verification and concurrency theory.
+@sec-case-studies-other-eqs illustrates the use of some of the weak notions through small case studies from compiler verification and concurrency theory.
 In @sec-weak-spectrum-quantities, we unfold the hierarchy of modal characterizations for the weak spectrum.
 
 ::::{.content-visible when-format="html" .column-margin}
@@ -64,8 +64,8 @@ Equivalences with this feature are called *weak*, alluding to the fact that they
   \node[state, below of=tta] (ta){$\ccsprefix{\tau}\literal{a}$};
   \node[state, below of=ta] (a){$\literal{a}$};
   \node[state, node distance=2.5cm, below of=a] (Null){$\ccsnull$};
-  \node[state, right of=tta] (tat){$\!\ccsprefix{\tau\!}\ccsprefix{\literal{a}}\tau\!$};
-  \node[state, below of=tat] (at){$\ccsprefix{\literal{a}}\tau$};
+  \node[state, right of=tta] (tat){$\!\ccsprefix{\tau\!}\ccsprefix{\literal{a}} \tau\!$};
+  \node[state, below of=tat] (at){$\ccsprefix{\literal{a}} \tau$};
   \node[state, node distance=2.5cm, below of=at] (t){$\tau$};
   \path[->]
     (tta)
@@ -145,7 +145,7 @@ In @fig-simple-weak-eq, the state $\ccsprefix{\tau}\ccsprefix{\tau}\literal{a}$ 
   $\literal{a} \stepsoft{\literal{a}} \ccsnull$ just as
   $\literal{a} \step{\literal{a}} \ccsnull$.
 
-$\literal{a}$, $\ccsprefix{\literal{a}}\tau$ and $\ccsnull$ are stable.
+$\literal{a}$, $\ccsprefix{\literal{a}} \tau$ and $\ccsnull$ are stable.
 No state is divergent.
 :::
 
@@ -352,7 +352,7 @@ In our setting, the transitivity is an *immediate corollary* of having a modal c
 This is one of the perks of modal characterizations, indeed (cf. @sec-perks-modal-characterizations).
 :::
 
-## Case Studies—and the Need for Other Weak Equivalences {#sec-case-stduies-other-eqs}
+## Case Studies—and the Need for Other Weak Equivalences {#sec-case-studies-other-eqs}
 
 In the world of weak equivalences, many things are a little more complicated than in the strong spectrum.
 We have already observed that bisimulation equivalence can be abstracted to branching bisimulation *and* weak bisimulation.
@@ -1258,11 +1258,11 @@ But more non-terminals mean additional kinds of spectroscopy game positions and 
 ## Discussion {#sec-weak-spectrum-discussion}
 
 With this chapter, we have explored the space of weak behavioral equivalences in concurrency theory, focusing on their modal characterizations and relationships within the weak spectrum, following @glabbeek1993ltbt.
-This adds the preliminaries to consider their decision procedures in @sec-weak-spectorscopy.
+This adds the preliminaries to consider their decision procedures in @sec-weak-spectroscopy.
 
 {{< paragraph_heading "The power of weakness." >}}
 In examples, we have seen how weak equivalences handle internal nondeterminism due to communication in different ways.
-Practical scenarios, such as parallelizing compilers and process abstraction of @sec-case-stduies-other-eqs, reveal the possibilities and limitations of the different design decisions behind process equivalences.
+Practical scenarios, such as parallelizing compilers and process abstraction of @sec-case-studies-other-eqs, reveal the possibilities and limitations of the different design decisions behind process equivalences.
 
 Following @idea-weak-hml, our modal logic characterization through $\hmlsrbb$ captures a rich weak spectrum between stability-respecting branching bisimilarity and weak trace equivalence.
 This adds to the rich body of work on *modal characterizations of branching bisimilarity* by @nicolaVaandrager1995threeLogicsBB, @fokkinkGL19DivCong3, @geuvers2022, and @geuversGolov2023positiveBB.

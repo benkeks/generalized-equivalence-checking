@@ -13,7 +13,7 @@ toc-title: "Chapter 2"
 `\vspace{-2em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
 This chapter is based on my introductory lectures and Isabelle-theory on behavioral equivalences, given in the Master course “Research at Work” at TU Berlin in Winter 2023/24.
-We pursue to be mostly compatible with the textbook *Reactive systems* [@ails2007reactiveSystems].
+We aim to be mostly compatible with the textbook *Reactive systems* [@ails2007reactiveSystems].
 ::::
 
 The core background of this thesis is the *trinity of characterizations for behavioral equivalences*: relational, modal, and game-theoretic.
@@ -171,7 +171,7 @@ There are two things one might wonder about @exm-ts:
 ::: {#rem-tau}
 #### A note on $τ$
 
-The action $τ$ (the greek letter “tau”) will stand for *internal behavior* in later chapters and receive special treatment in @sec-weak-spectrum.
+The action $τ$ (the Greek letter “tau”) will stand for *internal behavior* in later chapters and receive special treatment in @sec-weak-spectrum.
 For the scope of this chapter and the following three, $τ$ is an action like every other.
 
 Generally, this thesis aims to be consistent with notation and naming in surrounding literature.
@@ -222,7 +222,7 @@ $$
 $$
 Intuitively, input action $c$ represents receiving and output action $\coaction c$ expresses sending on channel $c \in \ccschannels$.
 A pair of input and output can “react” in a communication situation and only become internal activity $τ$ in the view of the environment.
-In summary, CCS processes exhibit via the actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{c} \mid c ∈ \ccschannels } \cup \set{τ}$. 
+Taken together, CCS processes exhibit the actions $\ccsactions ≔ \ccschannels \cup \set{ \coaction{c} \mid c ∈ \ccschannels } \cup \set{τ}$. 
 
 Each part of the syntax tree must end in a $\ccsnull$-process or recursion.
 For brevity, we usually drop a terminal $\ccsnull$ when writing terms, e.g., just writing $\literal{ac}$ for $\ccsprefix{\literal{ac}} \ccsnull$.
@@ -517,7 +517,7 @@ $$
 (\ccsnull \ccspar \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}
 $$
 With $\literal{P}$, an analogous path is possible.
-But there, moreover, is a possibility of $\literal{A}$ obtaining the fork, which prevents $\literal{B}$ from eating.
+But there is, moreover, a possibility of $\literal{A}$ obtaining the fork, which prevents $\literal{B}$ from eating.
 There, the system can end up deadlocked with no lecture:
 $$
 (\literal{P} \ccspar \ccsprefix{\coaction{\literal{b}}}\ccsprefix{\coaction{\literal{lecture}}} \ccsnull) \ccsrestrict \set{\literal{a}, \literal{b}}
@@ -678,7 +678,7 @@ This adds another deadlock state to the transition system, seen in @fig-bisim-si
 Example with new deadlock.
 ::::
 
-To similarity, this change is invisible, that is $\literal Q \beq{S} \literal{T}$.
+With respect to similarity, this change is invisible, that is $\literal Q \beq{S} \literal{T}$.
 (Reason: The relation $\set{
   (\literal{Q}, \literal{T}),
   (\literal{T}, \literal{Q}),
@@ -1097,7 +1097,7 @@ We say that an $\actions$-observation language $\observationsvar{}$ is *less or 
 If the inclusion holds in both directions, $\observationsvar{}$ and $\observationsvar[\prime]{}$ are *equally expressive*.
 :::
 
-::: {#def-leq-distincitve}
+::: {#def-leq-distinctive}
 #### Preorder of distinctiveness
 We say that an $\actions$-observation language $\observationsvar{}$ is *less or equal in distinctiveness* to another $\observationsvar[\prime]{}$ iff, for any $\actions$-transition system and states $p$ and $q$, for each $φ ∈ \observationsvar{}$ that distinguishes $p$ from $q$, there is $φ' ∈ \observationsvar[\prime]{}$ that distinguishes $p$ from $q$.{{<isb definition LTS_Semantics lts_semantics.leq_distinctive>}}
 If the inclusion holds in both directions, $\observationsvar{}$ and $\observationsvar[\prime]{}$ are *equally distinctive*.

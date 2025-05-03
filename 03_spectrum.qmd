@@ -50,7 +50,7 @@ We can ask what notions of equivalence from a spectrum are the most fitting to r
 
 Let us begin to pick up the idea from @sec-perks-modal-characterizations that modal logics can nicely rank equivalences.
 The intuition is that $\hml$ sublogics capture what we consider to be *observable*.
-The more we mark as observable, the finer the resulting equivalence relations do become.
+The more we mark as observable, the finer the resulting equivalence relations become.
 
 ### Understanding the Equivalence Hierarchy through Modal Logics
 
@@ -519,7 +519,7 @@ Pricing formula $\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}$ wi
 \noindent
 If we reexamine the grammar of $\observations{F}$ in @def-failures-modal, we notice that the formulas it can produce almost match those of $\observationsvar[\literal{strong}]{(\infty,1,0,0,1,1)}$ of the strong spectrum in @def-strong-spectrum.
 The latter generates the $\varphi_\notionname{F}$-grammar in @fig-strong-grammars-linear.
-As @lem-spectrum-characterization will show, both languages are equally distinctive (@def-leq-distincitve).
+As @lem-spectrum-characterization will show, both languages are equally distinctive (@def-leq-distinctive).
 
 An example for the pricing of a more complex tree-like formula is given in @fig-formula-pricing-complex.
 
@@ -564,7 +564,7 @@ Pricing formula $\hmlobs{\tau}\hmlands\{\hmlobs{ec_A}\hmlobs{lc_A}\hmltrue, \hml
 ::: {#rem-explicit-expr}
 #### Explicit formula prices
 
-In my papers [@bjn2022decidingAllBehavioralEqs; @bisping2023equivalenceEnergyGames; @bj2024silentStepSpectroscopyExpress], the syntactic expressiveness price of formulas $\expr$ is explicitly defined,instead of using a family of grammars.
+In my papers [@bjn2022decidingAllBehavioralEqs; @bisping2023equivalenceEnergyGames; @bj2024silentStepSpectroscopyExpress], the syntactic expressiveness price of formulas $\expr$ is explicitly defined, instead of using a family of grammars.
 In this thesis, $\expr$ is indirectly defined through @def-expressiveness-price.
 
 The expressiveness price $\expr[\literal{strong}]$ of formulas in the strong spectrum (@def-strong-spectrum) can be recursively characterized as described in @bisping2023equivalenceEnergyGames (we will drop the “$\literal{strong}$” for readability):
@@ -1025,7 +1025,7 @@ For the “trolled philosophers” of @exm-bisim-sim, we have determined that th
 The first fact implies $\literal{Q} \bpreord{T} \literal{T}$.
 
 But what about other notions from the strong spectrum of @sec-full-spectrum?
-Besides similarity, there might well be incomparable or finer notions that too preorder $\literal{Q}$ to $\literal{T}$!
+Besides similarity, there might well be incomparable or finer notions that also preorder $\literal{Q}$ to $\literal{T}$!
 
 The solution to the spectroscopy problem on $\literal{Q}$ and $\literal{T}$ is
 $$\notions^{\literal{strong}}_{\literal{Q}, \literal{T}} = \set{N \in \notions^\literal{strong} \mid (2,2,0,0,2,2) \nleq N}.$$

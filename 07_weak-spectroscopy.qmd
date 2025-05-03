@@ -7,7 +7,7 @@ toc-title: "Chapter 7"
 {{< include style/macros.md >}}
 :::
 
-# Spectroscopy for the Weak Spectrum {#sec-weak-spectorscopy}
+# Spectroscopy for the Weak Spectrum {#sec-weak-spectroscopy}
 
 
 ::::{#related-7 .column-margin}
@@ -40,7 +40,7 @@ In @sec-weak-spectro-variants, we discuss how to use our method to check even *m
 
 ## The Weak Spectroscopy Game {#sec-weak-spectro-game}
 
-On the next pages, we *upgrade the spectroscopy game* of @sec-stong-spectro-game to account for the weak spectrum of @sec-weak-spectrum.
+On the next pages, we *upgrade the spectroscopy game* of @sec-strong-spectro-game to account for the weak spectrum of @sec-weak-spectrum.
 
 ### The Game
 
@@ -797,7 +797,7 @@ Thus, a derived reachability game of the weak spectroscopy game for branching bi
 
 ## Tackling Our Case Studies {#sec-tackling-case-studies}
 
-We now return to our examples from @sec-case-stduies-other-eqs, and see how the spectroscopy approach can handle the two, and thus support research in concurrency theory.
+We now return to our examples from @sec-case-studies-other-eqs, and see how the spectroscopy approach can handle the two, and thus support research in concurrency theory.
 For this project, we will use the {{<equivio>}} CCS dialect.
 
 ### Parallelizing Compilers {#sec-solution-parallelizing-compilation}

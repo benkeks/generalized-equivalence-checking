@@ -79,7 +79,7 @@ The standard queries are:
   The naming of notions in the output follows @tbl-notion-names.
 
 - `@compareSilent P1, P2` – 
-  Perform a *spectroscopy* on `P1` and `P2` with respect to the *weak spectrum*, treating silent steps along the lines of @sec-weak-spectorscopy.
+  Perform a *spectroscopy* on `P1` and `P2` with respect to the *weak spectrum*, treating silent steps along the lines of @sec-weak-spectroscopy.
   The output is analogous to `@compare`.
 - `@check equivalence-name, P1, P2` –
   Checks for (mutual) preordering between `P1` and `P2` with respect to individual notion `equivalence-name`. 
@@ -130,7 +130,7 @@ The source can also contain layout information and prescribe some preprocessing 
 - `P(x=100, y=100)` –
   Annotate process `P` to be displayed at certain coordinates.
 - `"0"(x=100, y=200)` –
-  The annotations may also refer to sub processes
+  The annotations may also refer to subprocesses
   The CCS expressions are wrapped in `"..."`.
   They must be verbatim the string representation the tool uses for the normalized process.
 - `@preprocessing method1, method2...` –
@@ -507,7 +507,7 @@ Data transformation flow in equiv.io
     {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.StrongSpectroscopy >}}
     and
     {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.WeakSpectroscopy >}}
-    for the respective spectroscopy variants of @sec-strong-spectroscopy and @sec-weak-spectorscopy.
+    for the respective spectroscopy variants of @sec-strong-spectroscopy and @sec-weak-spectroscopy.
     In particular, they facilitate the following steps in `SpectroscopyFramework.decideAll`:
     1. The spectroscopy defines a *spectroscopy game* (e.g. {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.StrongSpectroscopyGame >}}).
        The game must be a {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.EnergyGame >}}, inheriting a decision procedure along the lines of @alg-deciding-energy-games from trait {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.GameLazyDecision >}}.
@@ -1032,7 +1032,7 @@ Already @shr1995hornsatGames suggest a comparable approach, viewing games as SAT
 The energy aspect should be perfectly expressible for SMT/SAT solvers in linear integer arithmetic [cf. @chistikov2024linearIntegerArithmetic].
 
 {{< paragraph_heading "Alternative paths to generalized checkers." >}}
-In @sec-preliminaries-discussion, we hav already discussed the alternative paradigms of equivalence checking.
+In @sec-preliminaries-discussion, we have already discussed the alternative paradigms of equivalence checking.
 The *equivalences-as-game-instances* approach seems to be the most fruitful when one wants to easily support a wide range of preorders and equivalences in a tool.
 By “easy,” we mean: without the need to implement individual algorithms for each of the notions.
 @tan2002abstractEquivalenceGames takes a similar game approach for the Concurrency Workbench, as do @aha2015caal2games for CAAL.

@@ -9,8 +9,7 @@ toc-title: "Chapter 1"
 {{< include style/macros.md >}}
 :::
 
-Have you ever looked at two program descriptions and wondered *how equivalent they are*
----or, conversely: how they can be distinguished?
+Have you ever looked at two program descriptions and wondered *how equivalent they are*–or, conversely, how they can be distinguished?
 
 I have run into this problem often, for instance, when analyzing models of distributed algorithms or when devising examples for teaching.
 But obviously, the question already occurs every time one rewrites a program part and hopes for it to still do its job.
@@ -22,13 +21,13 @@ The linear-time–branching-time spectrum with silent moves as depicted in @glab
 (`Do not try to read this small figure! Its role here is that of a symbol.`{=latex} This thesis will use a simpler version in @fig-weak-spectrum.)
 :::
 
-The first time I formally faced the question has been when working as a student research assistant:
+The first time that I formally faced the question has been when working as a student research assistant:
 I was tasked with implementing a translation from the process algebra Timed CSP to Timed Automata.^[
     The aim was to bridge between the tools FDR2 and UPPAAL for Göthel's dissertation [-@goethel12mechanicalVerificationRTS].
     The previous work I was to base the translations on had serious flaws:
     One approach introduced spurious deadlocks to the model, the other was unable to handle nesting of choices and parallel composition.
     Clearly, we had to change the encoding!]
-… How to tell whether the translation would properly honor the semantics of the two formalisms?
+How to tell whether the translation would properly honor the semantics of the two formalisms?
 Did it translate CSP terms to automata *with the same meaning*?
 Even the definition of the question is tricky, as there are different notions of what counts as “same meaning” in the semantics of programs.
 
@@ -47,11 +46,7 @@ We share an itch.
 \vspace*{-\medskipamount}
 
 The above question will be the *research question of this thesis*.
-We <!--^[
-    As you might have noticed, this text uses more personal pronouns than is common in much of computer science literature.
-    Their meaning is the same as in a lecture:
-    “I” = “The author”; “You” = “The audience”; “We” = “The asynchronous collective of author and readers,” or sometimes “The author together with coauthors.”
-] --> want to enable future researchers to tap into the wisdom of the linear-time–branching-time spectrum and to easily determine what equivalences fit their models.
+We want to enable future researchers to tap into the wisdom of the linear-time–branching-time spectrum and to easily determine what equivalences fit their models.
 
 ## Linear-Time–Branching-Time Spectroscopy {#sec-ltbt-spectroscopy-idea}
 
@@ -306,8 +301,8 @@ So, we could reframe the question behind this thesis also:
 If there are “linear-time–branching time spectra,” does this mean that there also is some kind of “linear-time–branching-time *spectroscopy*”?
 :::
 
-{{< paragraph_heading "State of the art, primed." >}}
-This thesis answers the spectroscopy question positively, which is the key step to tackle our research question.
+{{< paragraph_heading "The difference that this thesis makes." >}}
+We answer the spectroscopy question positively, which is the key step to tackle our research question:
 One can compute what mix of (in-)distinguishabilities exists between a pair of finite-state processes,
 and this places the two on a spectrum of equivalences.
 We thus turn a set of *qualitative* equivalence problems into one *quantitative* problem of *how equivalent* two systems are.
@@ -334,7 +329,7 @@ More precisely, we make the following contributions, each coming with a “side 
   - Side quest: Deriving efficient *individual equivalence checkers*.
 - @sec-weak-spectrum recharts the *weak spectrum of equivalences accounting for silent steps* to fit our game approach.
   - Side quest: Case studies in concurrency theory research.
-- @sec-weak-spectorscopy adapts the game for the *weak spectrum of equivalences*.
+- @sec-weak-spectroscopy adapts the game for the *weak spectrum of equivalences*.
   - Side quest: Isabelle/HOL formalization.
 - @sec-implementations showcases four *implementations* to conveniently perform equivalence spectroscopies in web browsers and reports some benchmarking results.
   - Side quest: Analyzing Peterson's mutual exclusion protocol.
@@ -371,7 +366,7 @@ Recurring symbols can be looked up under [Notation](#sec-notation)`~on page~\pag
     \draw[thick] (0,1.5) -- (0,6) -- (2,6) -- (2,3) -- (1,3) -- (1,1.5) -- cycle;
     \node at (1,4.5) {\textbf{Weak} \\ \textbf{spectrum} \\ Chapter \ref{sec-weak-spectrum}};
 
-    \draw[thick] (0,7.5) rectangle node {\textbf{Weak spectroscopy} \\ Chapter \ref{sec-weak-spectorscopy}} (12,6);
+    \draw[thick] (0,7.5) rectangle node {\textbf{Weak spectroscopy} \\ Chapter \ref{sec-weak-spectroscopy}} (12,6);
   \end{tikzpicture}
 \end{adjustbox}
 ```
@@ -419,7 +414,7 @@ The source is available openly on <https://github.com/benkeks/equivalence-fiddle
 {{< paragraph_heading "Isabelle formalization." >}}
 In order to relieve the document of technical proofs, these are contained in machine-checkable *Isabelle/HOL theories*.
 
-- *“A weak spectroscopy game to characterize behavioral equivalences”* formalizes the core results of @sec-weak-spectrum and @sec-weak-spectorscopy: <https://equivio.github.io/silent-step-spectroscopy>.
+- *“A weak spectroscopy game to characterize behavioral equivalences”* formalizes the core results of @sec-weak-spectrum and @sec-weak-spectroscopy: <https://equivio.github.io/silent-step-spectroscopy>.
   The theory [@bbhlmm2025weakSpectroscopyIsabelle] has been developed together with TU Berlin students Lisa Annett Barthel, Leonard Moritz Hübner, Caroline Lemke, Karl Parvis Philipp Mattes, and Lenard Mollenkopf.
   Also, many theorems of earlier chapters can be understood to be supported by the formalization.
 - *“Equivalence spectrum formalization”* supplies proofs for the early chapters: <https://benkeks.github.io/ltbt-spectroscopy-isabelle/>.
@@ -460,7 +455,7 @@ Although they do not appear directly on the following pages, I want to acknowled
 - @sandt2022gameReactiveBisim: *A video game about reactive bisimilarity*
 - @loenne2023gameCounterfactuals: *An educational computer game about counterfactual truth conditions*
 - @hauschild2023nonlinearCounterfactuals: *Nonlinear counterfactuals in Isabelle/HOL*
-- @stoecker2024HOcalculiEqs: *Higher-order diadic µ-calculus---An efficient framework for checking process equivalences?*
+- @stoecker2024HOcalculiEqs: *Higher-order diadic µ-calculus–An efficient framework for checking process equivalences?*
 - @kurzan2024mcrl2Contrasim: *Implementierung eines Contrasimilarity-Checkers für mCRL2*
 
 {{< paragraph_heading "This thesis itself." >}}

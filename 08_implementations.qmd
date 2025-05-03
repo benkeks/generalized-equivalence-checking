@@ -414,7 +414,7 @@ Interestingly, in weak (that is, unstable) semantics the indistinguishability go
 
 The tool's visual output of the spectrum for `Pe` vs. `MxIC` (@fig-equivio-screenshot-spectrum) also sports a bigger blue region of equivalence than with the original specification (cf. @fig-peterson-spectrum).
 
-::: {#fig-equivio-screenshot-spectrum fig-pos="t"}
+::: {#fig-equivio-screenshot-spectrum fig-pos="t" fig-env="figure*"}
 
 ![](img/equivio-spectrum-alt.png){.lightbox}
 
@@ -572,7 +572,7 @@ In this subsection, we examine its performance on the VLTS (“very large transi
 {{< paragraph_heading "Clever strong spectroscopy." >}}
 @tbl-strong-spectro-results reports the results of running the backend with the clever strong spectroscopy game $\gamespectroscopyclever$.
 This mostly matches the results already reported in @bisping2023equivalenceEnergyGames.^[
-  The benchmarking code is contained in
+  The benchmarking code is contained in the class
   {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" tool.benchmark.VeryLargeTransitionSystems >}}.
 ]
 
@@ -805,7 +805,7 @@ Under the hood, the TypeScript implementation uses Bisping et al.'s [-@bjn2022de
 The game does not present the costs of moves to the player,
 but they matter for the scores received at the end of a level.
 
-:::{#fig-spectro-invaders-screenshot-simple}
+:::{#fig-spectro-invaders-screenshot-simple fig-pos="t!"}
 
 :::: {.content-visible when-format="html"}
 {{< video https://github.com/Marii19/the-spectroscopy-invaders/raw/refs/heads/main/public/assets/videos/negation_move.mp4 >}}
@@ -817,7 +817,6 @@ but they matter for the scores received at the end of a level.
 Screenshot of browser game “The Spectroscopy Invaders.”
 :::
 
-\noindent
 @fig-spectro-invaders-screenshot-simple gives a screenshot of the first level of the “Failure” world.^[
   In the online version of this thesis, it is actually a screen capture by Trzeciakiewicz, illustrating negation moves in the game tutorial.
 ]
@@ -883,14 +882,13 @@ Each of the notions can be decided individually, or in the context of a spectros
 For the strong notions, the game graph can be explored interactively.
 @fig-caal-screenshot shows the output of strong and weak spectroscopy on the classic @exm-ts, together with a generated distinguishing failure formula in the HML dialect of CAAL.
 
-:::{#fig-caal-screenshot fig-pos="th"}
+:::{#fig-caal-screenshot fig-pos="t!"}
 
 ![](img/caal-extension.png){.lightbox}
 
 Extended version of CAAL, performing a spectroscopy.
 :::
 
-\noindent
 For a usage guide, we refer to @strassnickOzegowski2024weakCAAL.
 
 At some points, Straßnick and Ozegowski's fork unfortunately has to remain partial with respect to features.

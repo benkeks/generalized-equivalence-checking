@@ -10,7 +10,7 @@ isb_types = {
 
 function isb_session(theory)
   strong_spectro_theories = {
-    Equivalence_Games = true, HML_Spectrum = true, Hennessy_Milner_Loigc = true,
+    Equivalence_Games = true, HML_Spectrum = true, Hennessy_Milner_Logic = true,
     LTS_Semantics = true, Labeled_Transition_Systems = true, Priced_HML = true,
     Priced_Spectrum = true, Strong_Equivalences = true, Weak_Equivalences = true
   }

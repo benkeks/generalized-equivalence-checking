@@ -101,7 +101,7 @@ A *transition system* $\system=(\states,\actions,\step{})$ consists of
 
 - $\states$, a set of *states,*
 - $\actions$, a set of *actions,* and
-- ${\step{}} ⊆ \states × \actions × \states$, a *transition relation*.{{<isb locale Labeled_Transition_Systems lts>}}
+- ${\step{}} ⊆ \states × \actions × \states$, a *transition relation*.
 
 We use infix notation for arrows, that is, $p \step{\alpha} p'$ stands for $(p, \alpha, p') \in {\step{}}$.
 We write $\derivatives{p, α}$ for the set of *derivative states* $\set{p' \mid p \step α p'}$

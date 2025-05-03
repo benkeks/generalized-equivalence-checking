@@ -1539,7 +1539,7 @@ The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\lite
 ::: {#fig-bisim-sim-game fig-pos='t' fig-env="figure*" .column-body-outset}
 ```tikz
 %%| image-class: lightbox
-\begin{adjustbox}{max width=.9\linewidth, center}
+\begin{adjustbox}{max width=\linewidth, center}
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
     defender/.style={ellipse, inner sep=0ex},
@@ -1699,7 +1699,7 @@ With this, ${\game}_\hml$ of @def-hml-game entails a model checking procedure fo
 
 @alg-deciding-games describes how to compute who wins a finite reachability game for each position in time linear to the size of the game graph $\bigo{\relsize{\gamemoveblank}}$.
 
-::: {#alg-deciding-games fig-pos="bth"}
+::: {#alg-deciding-games fig-pos="t"}
 
 $$
 \begin{array}{lr}

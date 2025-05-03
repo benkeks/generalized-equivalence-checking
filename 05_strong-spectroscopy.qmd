@@ -12,7 +12,7 @@ toc-title: "Chapter 5"
 ::::{#related-5 .column-margin}
 `\vspace{-2em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
-This chapter showcases the main result of my paper “Process Equivalence Problems as Energy Games” [@bisping2023equivalenceEnergyGames].
+This chapter showcases the main result of my paper “Process equivalence problems as energy games” [@bisping2023equivalenceEnergyGames].
 We move beyond @bisping2023equivalenceEnergyGames by also deriving individual equivalence games from our characterization and showing how these enable polynomial-time decision procedures for $\complexityname{P}$-easy notions.
 ::::
 
@@ -1042,7 +1042,7 @@ Red parts symbolize bigger game graphs.
 :::: {#fig-instance-games-strong-ltbt-spectrum fig-pos="t"}
 
 ```tikz
-\begin{adjustbox}{max width=\textwidth}
+%\begin{adjustbox}{max width=\textwidth}
   \begin{tikzpicture}[auto,node distance=2cm,align=center]
     \node[fill=purple!30!yellow!60] (B){
       $\relsize{\gamespectroscopyceq{\notionname{B}}} = 105$\\
@@ -1107,7 +1107,7 @@ Red parts symbolize bigger game graphs.
     (E) edge (U)
     ;
   \end{tikzpicture}
-\end{adjustbox}
+%\end{adjustbox}
 ```
 
 Instance game sizes of @exm-instance-game-sizes.

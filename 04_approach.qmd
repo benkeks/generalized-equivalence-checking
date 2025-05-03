@@ -12,7 +12,7 @@ toc-title: "Chapter 4"
 ::::{#related-4 .column-margin}
 `\vspace{-2em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
-This chapter revolves around the ideas conveyed by my talk “Deciding All Behavioral Equivalences at Once through Energy Games” at D-CON'25 (Augsburg, 2025-03),
+This chapter revolves around the ideas conveyed by my talk “Deciding all behavioral equivalences at once through energy games” at D-CON'25 (Augsburg, 2025-03),
 and by its predecessors given at LFCS University of Edinburgh (2023-03), Highlights'23 (Kassel, 2023-07), and ISCAS Beijing (2024-09).
 It can be thought of as the *core* of @bisping2023equivalenceEnergyGames, and also of this thesis itself.
 ::::
@@ -565,74 +565,72 @@ also exhibiting the cheapest formulas with regards to the polynomial spectrum th
 :::: {#fig-bisim-sim-game-energies fig-pos='t' fig-env="figure*"}
 ```tikz
 %%| image-class: lightbox
-\begin{adjustbox}{max width=.9\linewidth, center}
-  \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
-    posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, black, fill=blue!5},
-    defender/.style={ellipse, inner sep=0ex},
-    defWins/.style={fill=blue!5},
-    attWins/.style={fill=red!5}]
+\begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
+  posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, black, fill=blue!5},
+  defender/.style={ellipse, inner sep=0ex},
+  defWins/.style={fill=blue!5},
+  attWins/.style={fill=red!5}]
 
-    \node[posStyle, initial, initial text={}, label={[text=red]90:$\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}} \in \observationsvar[\literal{peasy}]{(2,2,2)}$},
-      path picture={
-        \fill[attWins] ([xshift=6mm, yshift=6mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
-      }]
-      (Att_Q_Qp){$[\literal{Q}, \literal{T}]$};
-    \node[posStyle, label={[text=red]270:$\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{peasy}]{(2,1,1)}$}]
-      (Att_Qp_Q) [below = 2cm of Att_Q_Qp,
-      path picture={
-        \fill[attWins] ([xshift=6mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
-      }] {$[\literal{T}, \literal{Q}]$};
-    \node[posStyle, defender, defWins]
-      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{ab}}, \literal{T})$};
-    \node[dotted, cloud, cloud puffs=9,cloud puff arc=105, aspect=2, defWins, inner sep=.01cm, align=center]
-      (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {defender\\ wins};
-    \node[posStyle, label={[text=red]95:$\hmlobs{\literal{a}}\hmltrue \in \observationsvar[\literal{peasy}]{(1,0,0)}$},
-      path picture={
-        \fill[attWins] ([xshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
-      }]
-      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \troll]$};
-    \node[posStyle, defender, attWins, above right = .1cm and 1.5cm of Att_qab_q3]
-      (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \troll)$};
-    \node[posStyle, defender, attWins]
-      (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
-    \node[posStyle, defender, defWins]
-      (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{t_{ab}}, \literal{Q})$};
-    \node[posStyle, defender,
-      path picture={
-        \fill[attWins] ([xshift=3mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
-      }]
-      (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
-    \node[posStyle, label={[text=red]270:$\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{peasy}]{(1,1,1)}$},
-      path picture={
-        \fill[attWins] ([xshift=3mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
-      }]
-      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{ab}}]$};
+  \node[posStyle, initial, initial text={}, label={[text=red]90:$\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}} \in \observationsvar[\literal{peasy}]{(2,2,2)}$},
+    path picture={
+      \fill[attWins] ([xshift=6mm, yshift=6mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }]
+    (Att_Q_Qp){$[\literal{Q}, \literal{T}]$};
+  \node[posStyle, label={[text=red]270:$\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{peasy}]{(2,1,1)}$}]
+    (Att_Qp_Q) [below = 2cm of Att_Q_Qp,
+    path picture={
+      \fill[attWins] ([xshift=6mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }] {$[\literal{T}, \literal{Q}]$};
+  \node[posStyle, defender, defWins]
+    (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{ab}}, \literal{T})$};
+  \node[dotted, cloud, cloud puffs=9,cloud puff arc=105, aspect=2, defWins, inner sep=.01cm, align=center]
+    (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {defender\\ wins};
+  \node[posStyle, label={[text=red]95:$\hmlobs{\literal{a}}\hmltrue \in \observationsvar[\literal{peasy}]{(1,0,0)}$},
+    path picture={
+      \fill[attWins] ([xshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }]
+    (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \troll]$};
+  \node[posStyle, defender, attWins, above right = .1cm and 1.5cm of Att_qab_q3]
+    (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \troll)$};
+  \node[posStyle, defender, attWins]
+    (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
+  \node[posStyle, defender, defWins]
+    (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{t_{ab}}, \literal{Q})$};
+  \node[posStyle, defender,
+    path picture={
+      \fill[attWins] ([xshift=3mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }]
+    (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
+  \node[posStyle, label={[text=red]270:$\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{peasy}]{(1,1,1)}$},
+    path picture={
+      \fill[attWins] ([xshift=3mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+    }]
+    (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{ab}}]$};
 
-    \path[text=gray]
-      (Att_Q_Qp)
-        edge[bend left = 10] node {$\updmin{1,2},0,-1$} (Att_Qp_Q)
-        edge node {$-1,0,0$} (Dfn_t_qab_Qp)
-      (Att_qab_q3)
-        edge[bend left = 65] node {$\updmin{1,2},0,-1$} (Att_q3_qab)
-      (Att_q3_qab)
-        edge[bend right = 60] node {} (Att_qab_q3)
-      (Dfn_t_qab_Qp)
-        edge node {0,0,0} (Att_qab_q3)
-        edge node {0,0,0} (Att_qab_qab)
-      (Att_Qp_Q)
-        edge[bend left = 10] node {$\updmin{1,2},0,-1$} (Att_Q_Qp)
-        edge node[swap] {$-1,0,0$} (Dfn_t_qab_Q)
-        edge node {$-1,0,0$} (Dfn_t_q3_Q)
-      (Dfn_t_qab_Q)
-        edge node[swap] {$0,0,0$} (Att_qab_qab)
-      (Dfn_t_q3_Q)
-        edge node {$0,0,0$} (Att_q3_qab)
-      (Att_qab_q3)
-        edge node {$-1,0,0$} (Dfn_a_q1_q3)
-        edge node {$-1,0,0$} (Dfn_b_q2_q3)
-    ;
-  \end{tikzpicture}
-\end{adjustbox}
+  \path[text=gray]
+    (Att_Q_Qp)
+      edge[bend left = 10] node {$\updmin{1,2},0,-1$} (Att_Qp_Q)
+      edge node {$-1,0,0$} (Dfn_t_qab_Qp)
+    (Att_qab_q3)
+      edge[bend left = 65] node {$\updmin{1,2},0,-1$} (Att_q3_qab)
+    (Att_q3_qab)
+      edge[bend right = 60] node {} (Att_qab_q3)
+    (Dfn_t_qab_Qp)
+      edge node {0,0,0} (Att_qab_q3)
+      edge node {0,0,0} (Att_qab_qab)
+    (Att_Qp_Q)
+      edge[bend left = 10] node {$\updmin{1,2},0,-1$} (Att_Q_Qp)
+      edge node[swap] {$-1,0,0$} (Dfn_t_qab_Q)
+      edge node {$-1,0,0$} (Dfn_t_q3_Q)
+    (Dfn_t_qab_Q)
+      edge node[swap] {$0,0,0$} (Att_qab_qab)
+    (Dfn_t_q3_Q)
+      edge node {$0,0,0$} (Att_q3_qab)
+    (Att_qab_q3)
+      edge node {$-1,0,0$} (Dfn_a_q1_q3)
+      edge node {$-1,0,0$} (Dfn_b_q2_q3)
+  ;
+\end{tikzpicture}
 ```
 
 The bisimulation energy game of @exm-bisim-sim-energy-game with energy updates and implied formulas.

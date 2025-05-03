@@ -31,8 +31,7 @@ Groups of equivalences can be defined and ranked in lattices of notions of obser
 :::
 
 In particular, @sec-ltbt-spectrum will introduce such a spectrum, forming a hierarchy of modal logics for the *strong spectrum*.
-
-From there, we will quickly run into the second core idea:
+From there, we quickly run into our core question:
 
 ::: {#idea-spectroscopy-prob .callout-idea .callout-tip}
 #### We have a spectroscopy problem

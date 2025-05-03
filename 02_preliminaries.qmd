@@ -231,6 +231,13 @@ We place parenthesis $(…)$ in terms where the syntax trees are otherwise ambig
 This convention means that $(P_1 \ccschoice P_2) \ccschoice P_3$ and $P_1 \ccschoice (P_2 \ccschoice P_3)$ are representations of the same term in our view.
 :::
 
+
+::::: {#fig-philosopher-pic .column-margin}
+![](img/philosophers.svg)
+
+Scenario of two philosophers needing a (second) fork to eat pasta.
+:::::
+
 ::::: {#fig-isolated-philosopher .column-margin}
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.7cm]
@@ -252,8 +259,9 @@ Philosopher $\literal{P_A}$, on their own.
 #### Concurrent philosophers
 
 Following tradition, we will express our examples in terms of philosophers who need forks to eat spaghetti.^[
+  The philosopher meme is due to Dijkstra and @hoare1985csp. 
   Of course, you can just as well read the examples to be about computer programs that race for resources.]
-Consider two philosophers $\literal{P_A}$ and $\literal{P_B}$ who want to grab a resource $\literal{fork}$, in order to eat, which we model as receiving communication.
+Consider two philosophers $\literal{P_A}$ and $\literal{P_B}$ (from @fig-philosopher-pic) who want to grab a resource $\literal{fork}$, in order to eat, which we model as receiving communication.
 We express $\literal{P_A}$ eating with $\literal{a}$ and $\literal{P_B}$ eating with $\literal{b}$.
 The philosopher processes read:
 $$
@@ -278,14 +286,9 @@ The formal relationship between process terms of $\ccs$ and their transition sys
 ::: {#def-ccs-semantics}
 #### CCS semantics
 
-Given an assignment of names to processes, $\ccsasg \colon \ccsnames → \ccs$, the operational semantics ${\step{}_\ccs} ⊆ \ccs × \ccsactions × \ccs$ is defined inductively by the inference rules:^[
-  Such rules are read like this:
-  “If we can derive the facts above the line, we may infer the relation below.”
-  $\mathrm{Pre}$, having no premises, serves as the only axiom of this inference system.
-  @fig-deriving-transition shows how to stack such rules to infer that a certain step is possible for a process.
-]
-
+Given an assignment of names to processes, $\ccsasg \colon \ccsnames → \ccs$, the operational semantics ${\step{}_\ccs} ⊆ \ccs × \ccsactions × \ccs$ is defined inductively by the inference rules:
 \vspace{-2em}
+
 :::: {.column-body-outset}
 $$
 \inferrule[Pre]{
@@ -348,7 +351,12 @@ $$
 ::::
 
 \noindent
-A process $P ∈ \ccs$ now denotes a node within the labeled transition system $(\ccs, \ccsactions, \step{}_\ccs)$.
+A process $P ∈ \ccs$ now denotes a node within the labeled transition system $(\ccs, \ccsactions, \step{}_\ccs)$.^[
+  Such rules are read like this:
+  “If we can derive the facts above the line, we may infer the relation below.”
+  $\mathrm{Pre}$, having no premises, serves as the only axiom of this inference system.
+  @fig-deriving-transition shows how to stack such rules to infer that a certain step is possible for a process.
+]
 :::
 
 So, when we were writing “$\literal{P_A} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$” above, this was actually to claim that we are talking about a CCS system where the value of $\ccsasg$ for the *process name* $\literal{P_A} \in \ccsnames$ is defined by $\ccsasg(\literal{P_A}) ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$.

@@ -69,7 +69,7 @@ toc-title: "Notation"
 | $\observationsvar{N}$      | Observation logic for a notion $N \in \notions$ in the context of a spectrum (@def-spectrum) |
 | $\observations{\floor{B}}$ | Bisimulation observation logic (@def-game-formulas)                                         |
 | $\expr(\varphi)$         | Syntactic expressiveness price of $\varphi$ in the context of a spectrum (@def-expressiveness-price) |
-| “$\varphi$&nbsp;distinguishes”   | Formula true for state on left-hand side and not true for state(s) on right-hand side (@def-distinctions and -@def-distinguishes-set)  |
+| “$\varphi$&nbsp;distinguishes”   | Formula $\varphi$ is true for state on left-hand side and not true for state(s) on right-hand side (@def-distinctions and -@def-distinguishes-set)  |
 
 \newpage
 

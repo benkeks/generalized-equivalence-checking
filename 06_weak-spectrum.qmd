@@ -60,13 +60,13 @@ Equivalences with this feature are called *weak*, alluding to the fact that they
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.5cm,
     rel/.style={dashed,blue}]
-  \node[state] (tta){$\!\ccsprefix{\tau\!}\ccsprefix{\tau\!}\literal{a}\!$};
-  \node[state, below of=tta] (ta){$\ccsprefix{\tau}\literal{a}$};
-  \node[state, below of=ta] (a){$\literal{a}$};
-  \node[state, node distance=2.5cm, below of=a] (Null){$\ccsnull$};
-  \node[state, right of=tta] (tat){$\!\ccsprefix{\tau\!}\ccsprefix{\literal{a}} \tau\!$};
-  \node[state, below of=tat] (at){$\ccsprefix{\literal{a}} \tau$};
-  \node[state, node distance=2.5cm, below of=at] (t){$\tau$};
+  \node[] (tta){$\!\ccsprefix{\tau\!}\ccsprefix{\tau\!}\literal{a}\!$};
+  \node[below of=tta] (ta){$\ccsprefix{\tau}\literal{a}$};
+  \node[below of=ta] (a){$\literal{a}$};
+  \node[node distance=2.5cm, below of=a] (Null){$\ccsnull$};
+  \node[right of=tta] (tat){$\!\ccsprefix{\tau\!}\ccsprefix{\literal{a}} \tau\!$};
+  \node[below of=tat] (at){$\ccsprefix{\literal{a}} \tau$};
+  \node[node distance=2.5cm, below of=at] (t){$\tau$};
   \path[->]
     (tta)
       edge node[swap] {$\tau$} (ta)
@@ -89,7 +89,7 @@ Equivalences with this feature are called *weak*, alluding to the fact that they
 \end{tikzpicture}
 ```
 
-Processes we would like to equate in weak equivalences (blue groups).
+Processes that we would like to equate in weak equivalences (blue groups).
 :::
 
 The basic principle is that weak equivalences should maintain that some internal behavior happening before or after a visible action does not make a difference from the point of view of an observer.
@@ -215,11 +215,11 @@ A mutual weak simulation $\rel{R}_{\literal{PQ}}$ to justify this is drawn in da
 ```tikz
 \begin{tikzpicture}[->,auto,node distance=2cm,
     rel/.style={dashed,blue}]
-  \node[state] (P){$\literal{P}$};
-  \node[state, below left of=P] (PA){$\literal{p_a}$};
-  \node[state, below right of=P] (PB){$\literal{p_b}$};
-  \node[state, below of=PA] (P1){$\literal{p_1}$};
-  \node[state, below of=PB] (P2){$\literal{p_2}$};
+  \node[] (P){$\literal{P}$};
+  \node[below left of=P] (PA){$\literal{p_a}$};
+  \node[below right of=P] (PB){$\literal{p_b}$};
+  \node[below of=PA] (P1){$\literal{p_1}$};
+  \node[below of=PB] (P2){$\literal{p_2}$};
   \path
     (P)
       edge node[swap] {$\tau$} (PA)
@@ -229,10 +229,10 @@ A mutual weak simulation $\rel{R}_{\literal{PQ}}$ to justify this is drawn in da
     (PB)
       edge node {$\literal{b}$} (P2);
 
-  \node[state, right=5cm of P] (Q){$\literal{Q}$};
-  \node[state, below of=Q] (QAB){$\literal{q_{ab}}$};
-  \node[state, below left of=QAB] (Q1){$\literal{q_1}$};
-  \node[state, below right of=QAB] (Q2){$\literal{q_2}$};
+  \node[right=5cm of P] (Q){$\literal{Q}$};
+  \node[below of=Q] (QAB){$\literal{q_{ab}}$};
+  \node[below left of=QAB] (Q1){$\literal{q_1}$};
+  \node[below right of=QAB] (Q2){$\literal{q_2}$};
   \path
     (Q)
       edge node {$\tau$} (QAB)

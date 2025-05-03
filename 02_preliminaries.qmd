@@ -128,11 +128,11 @@ Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \litera
 ::::{#fig-ts-determinism fig-pos=H}
 ```tikz
 \begin{tikzpicture}[->,auto,node distance=2cm]
-  \node[state] (P){$\literal{P}$};
-  \node[state, below left of=P] (PA){$\literal{p_a}$};
-  \node[state, below right of=P] (PB){$\literal{p_b}$};
-  \node[state, below of=PA] (P1){$\literal{p_1}$};
-  \node[state, below of=PB] (P2){$\literal{p_2}$};
+  \node[] (P){$\literal{P}$};
+  \node[below left of=P] (PA){$\literal{p_a}$};
+  \node[below right of=P] (PB){$\literal{p_b}$};
+  \node[below of=PA] (P1){$\literal{p_1}$};
+  \node[below of=PB] (P2){$\literal{p_2}$};
   \path
     (P)
       edge node[swap] {$\tau$} (PA)
@@ -142,10 +142,10 @@ Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \litera
     (PB)
       edge node {$\literal{b}$} (P2);
 
-  \node[state, right=5cm of P] (Q){$\literal{Q}$};
-  \node[state, below of=Q] (QAB){$\literal{q_{ab}}$};
-  \node[state, below left of=QAB] (Q1){$\literal{q_1}$};
-  \node[state, below right of=QAB] (Q2){$\literal{q_2}$};
+  \node[right=5cm of P] (Q){$\literal{Q}$};
+  \node[below of=Q] (QAB){$\literal{q_{ab}}$};
+  \node[below left of=QAB] (Q1){$\literal{q_1}$};
+  \node[below right of=QAB] (Q2){$\literal{q_2}$};
   \path
     (Q)
       edge node {$\tau$} (QAB)
@@ -234,9 +234,9 @@ This convention means that $(P_1 \ccschoice P_2) \ccschoice P_3$ and $P_1 \ccsch
 ::::: {#fig-isolated-philosopher .column-margin}
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.7cm]
-  \node[state] (Pa){$\literal{P_A}$};
-  \node[state, below of=Pa] (a){$\literal{a}$};
-  \node[state, below of=a] (Null){$\ccsnull$};
+  \node[] (Pa){$\literal{P_A}$};
+  \node[below of=Pa] (a){$\literal{a}$};
+  \node[below of=a] (Null){$\ccsnull$};
   \path[->]
     (Pa)
       edge node {$\literal{fork}$} (a)
@@ -661,10 +661,10 @@ This adds another deadlock state to the transition system, seen in @fig-bisim-si
 :::: {#fig-bisim-sim-ts .column-margin}
 ```tikz
 \begin{tikzpicture}[auto,node distance=2cm]
-  \node[state] (q0){$\literal{T}$};
-  \node[state, below left of=q0] (qAB){$\literal{t_{ab}}$};
-  \node[state, below left of=qAB] (q1){$\literal{t_{1}}$};
-  \node[state, below right of=qAB] (q2){$\literal{t_{2}}$};
+  \node[] (q0){$\literal{T}$};
+  \node[below left of=q0] (qAB){$\literal{t_{ab}}$};
+  \node[below left of=qAB] (q1){$\literal{t_{1}}$};
+  \node[below right of=qAB] (q2){$\literal{t_{2}}$};
   \node[below right of=q0] (q3){${\huge{\trollface}}$};
   \path[->]
     (q0)
@@ -710,8 +710,8 @@ Consider the transition system in @fig-iso-ts. $\literal{p_{even}} \beq{ISO} \li
 ::: {#fig-iso-ts .column-margin}
 ```tikz
 \begin{tikzpicture}[auto,node distance=2cm]
-  \node[state] (pEven){$\literal{p_{even}}$};
-  \node[state, below of=pEven] (pOdd){$\literal{p_{odd}}$};
+  \node[] (pEven){$\literal{p_{even}}$};
+  \node[below of=pEven] (pOdd){$\literal{p_{odd}}$};
   \path[->]
     (pEven)
       edge[swap, bend right=15] node {$\tau$} (pOdd)
@@ -880,8 +880,8 @@ We can thus merge them into one state $\smash{\troll}^\literal{m}$ as depicted i
 :::: {#fig-bisim-min-ts .column-margin}
 ```tikz
 \begin{tikzpicture}[auto,node distance=2cm]
-  \node[state] (q0){$\literal{T^m}$};
-  \node[state, below left of=q0] (qAB){$\literal{t^m_{ab}}$};
+  \node[] (q0){$\literal{T^m}$};
+  \node[below left of=q0] (qAB){$\literal{t^m_{ab}}$};
   \node[below right of=qAB] (q123){$\literal{\large{\trollface}^m}$};
   \path[->]
     (q0)

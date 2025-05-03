@@ -56,7 +56,7 @@ Hierarchy of abstraction from Hennessy--Milner theorem and strong bisimilarity t
 - The bisimulation energy game then again is only a lower-dimensional sibling of the *strong spectroscopy game*, which characterizes the full strong spectrum in @sec-strong-spectroscopy by a subset construction (@idea-subset-construction).
   We can still project it back all the way to the bisimulation game (@idea-instance-games).
 - With @sec-weak-spectrum, we have entered the level of van Glabbeek's [-@glabbeek1993ltbt] *weak spectrum*, where silent steps are abstracted,
-  through a weakening of $\hml$ (@idea-weak-hml).
+  through a weakening of HML (@idea-weak-hml).
 - @sec-weak-spectroscopy has introduced the *weak spectroscopy game*, where the defender profits from internal transitions (@idea-weakening-game).
   Where there is no internal $\step{\tau}$-activity, the game could still serve as a strong spectroscopy game. 
 

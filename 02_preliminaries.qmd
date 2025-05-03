@@ -419,7 +419,7 @@ $$
 }
 $$
 
-Deriving $\ccs$ transitions due to communication.
+Deriving CCS transitions due to communication.
 :::
 
 Therefore, after one step from $\literal{P}$, the (internal) $\literal{fork}$ has been consumed, and only one philosopher may eat.
@@ -1695,7 +1695,7 @@ In this sense, comparisons of programs and of numbers are … comparable.
 ### Deciding Reachability Games {#sec-deciding-reachability-games}
 
 All we need to turn a game characterization into a decision procedure is a way to decide which player wins a position.
-With this, ${\game}_\hml$ of @def-hml-game entails a model checking procedure for $\hml$ and ${\game}_{\notionname{B}}$ a bisimulation checking algorithm on finite-state systems.
+With this, ${\game}_\hml$ of @def-hml-game entails a model checking procedure for HML and ${\game}_{\notionname{B}}$ a bisimulation checking algorithm on finite-state systems.
 
 @alg-deciding-games describes how to compute who wins a finite reachability game for each position in time linear to the size of the game graph $\bigo{\relsize{\gamemoveblank}}$.
 

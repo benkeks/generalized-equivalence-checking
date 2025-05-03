@@ -152,7 +152,7 @@ No state is divergent.
 :::{#rem-expressiveness-weak-hml}
 #### Just notation
 
-Note that the notation for $\hml$ operators $\hmleps \dots$ and $\hmlsoft{\alpha}\dots$ introduced in @def-transition-systems-with-silent-steps does not affect the expressiveness of $\hml$.
+Note that the notation for $\hml$ operators $\hmleps \dots$ and $\hmlsoft{\alpha}\dots$ introduced in @def-transition-systems-with-silent-steps does not affect the expressiveness of HML.
 To see why, assume notation for disjunction $\bigvee_{i \in I} \psi_i \defeq \hmlneg\hmland{i}{I} \hmlneg\psi_i$, and for $n$-time application of an operator.
 Then, $\semantics{\hmleps\varphi} = \semantics{\bigvee_{n \in \nats} \hmlobs{\tau}^n \varphi}$.
 Also, $\semantics{\hmlsoft{\tau}\varphi} = \semantics{\bigvee\set{\varphi, \hmlobs{\tau}\varphi}}$ and $\semantics{\hmlsoft{a}\varphi} = \semantics{\hmlobs{a}\varphi}$.
@@ -269,7 +269,7 @@ But, as we will see in the next sections, there might be *multiple* abstractions
 
 ### HML of Stability-Respecting Branching Bisimilarity {#sec-hml-srbb}
 
-As noted in @rem-expressiveness-weak-hml, our $\hml$ notation for weak observations does not affect expressiveness---thus it still characterizes strong bisimilarity by @thm-hennessy-milner.
+As noted in @rem-expressiveness-weak-hml, our HML notation for weak observations does not affect expressiveness---thus it still characterizes strong bisimilarity by @thm-hennessy-milner.
 To characterize weak equivalences, we have to select appropriate subsets.
 We will use the following sublogic that, naturally, must be designed to correspond to the strongest weak notion we will be interested in.
 

@@ -750,7 +750,7 @@ Proof by induction on the inductive characterizations of attacker winning budget
       Consider the possible forms of $ψ$:
         - $ψ = \hmlobs{α}φ'$.
           By @def-strategy-formulas-poly of $\strat_\notionname{B}$, we obtain $\hmlneg\hmlobs{α}φ' ∈ \strat_\notionname{B}([p, q], e)$.
-          Because of the semantics of $\hml$, $\hmlneg\hmlobs{α}φ'$ must distinguish $p$ from $q$.
+          Because of the semantics of HML, $\hmlneg\hmlobs{α}φ'$ must distinguish $p$ from $q$.
           Also, $\hmlands\set{\hmlneg\hmlobs{α}φ'} ∈ \observationsvar[\literal{peasy}]{e}$, by the calculations of the grammar in @def-polynomial-strong-spectrum.
         - $ψ = \hmlneg\hmlobs{α}φ'$.
           This can only be in $\strat_\notionname{B}([q, p], e')$ due to $\hmlobs{α}φ'$ being in $\strat_\notionname{B}([p, q], \energyupdate((\updmin{1,2},0,-1), e'))$.
@@ -759,7 +759,7 @@ Proof by induction on the inductive characterizations of attacker winning budget
       with $p \step{α} p'$ and $e' = \energyupdate((-1,0,0), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
       By induction hypothesis on $(α, p', q)$, there is $\hmlands Ψ ∈ \strat_\notionname{B}((α, p', q), e')$ and $\hmlands Ψ ∈ \observationsvar[\literal{peasy}]{e'}$ with $p' ∈ \semantics{\hmlands Ψ}$ and $q \notin \semantics{\hmlobs{α}\hmlands Ψ}$.
       By @def-strategy-formulas-poly, we obtain $\hmlobs{α}\hmlands Ψ ∈ \strat_\notionname{B}([p, q], e)$.
-      Due to the semantics of $\hml$ and $p \step{α} p'$, $p ∈ \semantics{\hmlobs{α}\hmlands Ψ}$, thus distinguishing $p$ from $q$.
+      Due to the semantics of HML and $p \step{α} p'$, $p ∈ \semantics{\hmlobs{α}\hmlands Ψ}$, thus distinguishing $p$ from $q$.
       Also, $\hmlobs{α}\hmlands Ψ ∈ \observationsvar[\literal{peasy}]{e}$ as $\hmlands Ψ ∈ \observationsvar[\literal{peasy}]{e - \unitvec{1}}$.
 2. Assume $e ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
   This means that $e$ suffices for the attacker to win every move $(α, p', q) \gamemoveblank^🗲_\notionname{B} [p', q']$ with $q \step{α} q'$ that the defender might take, with $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$.

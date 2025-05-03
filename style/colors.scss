@@ -64,4 +64,10 @@ div.callout.callout-idea {
 
 div.callout.callout-problem {
   border-left-color: $secondary;
-} 
+}
+
+
+/* fix broken margin figures in tippy preview */
+.tippy-content .column-margin {
+  visibility: hidden;
+}

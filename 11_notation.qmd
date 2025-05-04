@@ -80,8 +80,8 @@ toc-title: "Notation"
 |--------------------------|----------------------------------------------------------------------------------------------|
 | $\gamemoveblank$           | Game move (@def-game)                                                                        |
 | $\gamemove{u}$             | Game move, labeled by an energy update (@def-energy-game)                                    |
-| ${\game}_\notionname{B}$   | Bisimulation game in the context of a transition system (@def-bisim-game)                    |
-| ${\game}_\notionname{B}^{🗲}$ | Bisimulation energy game (@def-bisim-energy-game)                                           |
+| $\gamebisim$   | Bisimulation game in the context of a transition system (@def-bisim-game)                    |
+| $\gamebisimen$ | Bisimulation energy game (@def-bisim-energy-game)                                           |
 | $\attackerwins$, $\defenderwins$ | Attacker / defender winning regions in the context of a reachability game (@def-winning-region), or winning budgets in an energy game (@def-winning-budgets) |
 | $\attackerwinsmin(g)$      | Minimal attacker winning budgets for position $g$ in an energy game (@def-winning-budgets), solution to @prob-energy-game-problem |
 | $\abstractupdate$, $\abstractupdateinv$ | Updates on energy games (@def-energy-game) and their undo-function in the algorithm for Galois energy games (@alg-deciding-energy-games) |

@@ -1163,7 +1163,7 @@ For bisimilarity, however, partition refinement outperforms the game approach.
 We could go a step further in the polynomially-sized derivatives of the spectroscopy game, and “bake together” the attacker main positions after observations with the following defender positions.
 This would (almost) arrive at the game structure of last chapter's bisimulation energy game!
 Conceptionally, the following relation emerges:
-The bisimulation game ${\game}_\notionname{B}$ of @sec-preliminaries *is a shadow of* the bisimulation energy game ${\game}_\notionname{B}^🗲$ of @sec-approach, which in turn *is a shadow of* the strong spectroscopy game $\gamespectroscopy$ of the present chapter.
+The bisimulation game $\gamebisim$ of @sec-preliminaries *is a shadow of* the bisimulation energy game $\gamebisimen$ of @sec-approach, which in turn *is a shadow of* the strong spectroscopy game $\gamespectroscopy$ of the present chapter.
 
 The dimensions of energy games allow us to encode different games *within* one game.
 This is analogous to stereoscopic pictures, decodable by 3D glasses (@fig-3d-glasses).

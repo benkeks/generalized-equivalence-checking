@@ -1441,7 +1441,7 @@ This approach has been popularized by @stirling1996modal.
 ::: {#def-bisim-game}
 #### Bisimulation game
 
-For a transition system $\system$, the *bisimulation game* ${\game}_\notionname{B}^{\system}$ is played on
+For a transition system $\system$, the *bisimulation game* $\gamebisim^{\system}$ is played on
 attack positions $G_\attacker ≔ \states × \states$ and defense positions $G_\defender ≔ \actions × \states × \states$ with the following moves:{{<isb locale Equivalence_Games bisim_game>}}
 
 - The attacker may *challenge simulation*
@@ -1477,7 +1477,7 @@ From dashed nodes, the game proceeds analogously to the initial attacker positio
 \end{tikzpicture}
 ```
 
-Game scheme of the bisimulation game ${\game}_\notionname{B}$ (@def-bisim-game).
+Game scheme of the bisimulation game $\gamebisim$ (@def-bisim-game).
 :::
 
 ::: {#exm-bisim-game}
@@ -1654,7 +1654,7 @@ Defender-won positions are tinted blue.
 ::: {#thm-bisim-game-characterization}
 #### Stirling's game characterization
 
-The defender wins the bisimulation game ${\game}_\notionname{B}^{\system}$ starting at attacker position $[p, q]$ precisely if $p \beq{B} q$.{{<isb theorem Equivalence_Games bisim_game.bisim_game_characterization>}}
+The defender wins the bisimulation game $\gamebisim^{\system}$ starting at attacker position $[p, q]$ precisely if $p \beq{B} q$.{{<isb theorem Equivalence_Games bisim_game.bisim_game_characterization>}}
 :::
 ::: proof
 Sketch for both directions:
@@ -1908,7 +1908,7 @@ We will refer to the property that attacker wins in a game represent distinguish
 ::: {#lem-attacks-imply-formulas}
 #### Distinction soundness
 
-Let $s$ be a positional winning strategy for the attacker on ${\game}_\notionname{B}$ from $[p,q]$.
+Let $s$ be a positional winning strategy for the attacker on $\gamebisim$ from $[p,q]$.
 Construct formulas recursively from game positions, ${φ}_{s}(g)$, as follows:
 $$
 φ_{s}([p,q]) ≔ \begin{cases}
@@ -1963,7 +1963,7 @@ By induction on the derivation of $φ ∈ \observations{\floor{B}}$ according to
 @lem-attacks-imply-formulas and @lem-formulas-imply-attack, together with the fact that $\observations{\floor{B}}$ and $\hml$ are equally distinctive (@lem-game-formula-hml), yield:
 
 ::: {#thm-game-formulas}
-The attacker wins ${\game}_\notionname{B}$ from $[p,q]$ precisely if there is a formula $φ ∈ \hml$ distinguishing $p$ from $q$.
+The attacker wins $\gamebisim$ from $[p,q]$ precisely if there is a formula $φ ∈ \hml$ distinguishing $p$ from $q$.
 :::
 
 With @thm-game-formulas, we have added the last arrow on the right side of @fig-equivalence-big-picture.

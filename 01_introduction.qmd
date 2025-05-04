@@ -320,13 +320,13 @@ At the core, this thesis presents an algorithm to *decide all behavioral equival
 More precisely, we make the following contributions, each coming with a “side quest:”
 
 - @sec-preliminaries lays some foundations and makes precise *how bisimulation games relate to grammars of distinguishing formulas* from Hennessy–Milner modal logic.
-  - Main result: Attacker strategies in the bisimulation game ${\game}_\notionname{B}$ correspond to distinguishing formulas in a subset $\observations{\floor{B}}$ of modal logic $\hml$ (@thm-game-formulas).
+  - Main result: Attacker strategies in the bisimulation game $\gamebisim$ correspond to distinguishing formulas in a subset $\observations{\floor{B}}$ of modal logic $\hml$ (@thm-game-formulas).
   - Side quest: Certifying algorithms to check equivalences.
 - @sec-spectrum shows *how to understand the strong linear-time--branching-time spectrum quantitatively* and formalizes the *spectroscopy problem*.
   - Main result: The spectroscopy problem (@prob-spectroscopy-problem) is $\complexityname{PSPACE}$-hard for the strong spectrum $\notions^\literal{strong}$.
   - Side quest: Equivalence checking as subtraction.
 - @sec-approach introduces the approach of *characterizing equivalence spectra through energy games* and *how to decide such games*.
-  - Main result: The preorder and equivalence problems in the $\complexityname{P}$-easy part of the strong spectrum $\notions^\literal{peasy}$ are characterized by an energy game version of the bisimulation game ${\game}_\notionname{B}^🗲$ (@thm-bisim-energy-game-characterization).
+  - Main result: The preorder and equivalence problems in the $\complexityname{P}$-easy part of the strong spectrum $\notions^\literal{peasy}$ are characterized by an energy game version of the bisimulation game ${\gamebisimen}$ (@thm-bisim-energy-game-characterization).
   - Side quest: Deciding Galois energy games (@prob-energy-game-problem).
 - @sec-strong-spectroscopy applies the approach to decide the whole strong spectrum through one *game for linear-time--branching-time spectroscopy*.
   - Main result: The strong spectroscopy game $\gamespectroscopy$ covers the strong spectrum $\notions^\literal{strong}$ (@thm-strong-spectroscopy-game-characterization) in exponential time.

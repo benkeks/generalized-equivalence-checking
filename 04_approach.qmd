@@ -61,7 +61,7 @@ This approach is summarized in @fig-spectroscopy-poly-big-picture.
   algstep/.style={minimum width=4.3cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
   \node[algstep, draw] (States) {States $p, q$ in \\ transition system $\system$};
   \node[algstep, draw, right of=States, node distance=8.1cm] (Preorders) {Polynomial notions that fit \\ to preorder $p$ to $q$};
-  \node[algstep, draw=TealBlue, below of=States, node distance=2.5cm] (EnergyGame) {Bisimulation \\ energy game ${\game}_\notionname{B}^{🗲\system}$};
+  \node[algstep, draw=TealBlue, below of=States, node distance=2.5cm] (EnergyGame) {Bisimulation \\ energy game $\gamebisimen[\system]$};
   \node[algstep, draw=Peach, below of=Preorders, node distance=2.5cm] (AttackerWinningBudgets) {Minimal attacker winning \\ budgets $\attackerwinsmin([p,q])$};
   \path
     (States) edge[->, dashed] node[label=270:{Problem~\ref{prob-spectroscopy-problem}}] {Spectroscopy problem} (Preorders)
@@ -499,9 +499,9 @@ The characterized language is strictly more expressive, as it contains conjuncti
 
 ### The Bisimulation *Energy* Game
 
-Let us upgrade the bisimulation game ${\game}_\notionname{B}$ of @def-bisim-game with energies.
-The claim is that the resulting game ${\game}_\notionname{B}^🗲$ will characterize all equivalences of the $\complexityname{P}$-easy strong spectrum in the sense that
-$p \bpreordvar{\observationsvar{N}} q$ for $N ∈ \notions^\literal{peasy}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ when the attacker starts from $[p, q]$ with budget $e = N$.
+Let us upgrade the bisimulation game $\gamebisim$ of @def-bisim-game with energies.
+The claim is that the resulting game $\gamebisimen$ will characterize all equivalences of the $\complexityname{P}$-easy strong spectrum in the sense that
+$p \bpreordvar{\observationsvar{N}} q$ for $N ∈ \notions^\literal{peasy}$ precisely if the defender wins $\gamebisimen$ when the attacker starts from $[p, q]$ with budget $e = N$.
 
 As we have seen in @sec-bisim-game-hml, the game moves match the distinctive power of productions in the $\observations{\floor{B}}$-grammar of @def-game-formulas.
 Consequently, we can *count* the use of HML constructs in the game.
@@ -515,7 +515,7 @@ We add the computations that happen in the grammar of @def-polynomial-strong-spe
 ::: {#def-bisim-energy-game}
 #### Bisimulation energy game
 
-For a transition system $\system$, the *bisimulation energy game* ${\game}_\notionname{B}^{🗲\system}$ is played on the same graph as the *bisimulation game* ${\game}_\notionname{B}^{\system}$ (of @def-bisim-game), but the moves are weighted by the following energy updates:
+For a transition system $\system$, the *bisimulation energy game* $\gamebisimen[\system]$ is played on the same graph as the *bisimulation game* $\gamebisim^{\system}$ (of @def-bisim-game), but the moves are weighted by the following energy updates:
 
 - Attacker simulation challenges count as an observation (using up the budget for modal depth):
   $$[p, q] \quad \gamemove{-1,0,0}^🗲_\notionname{B} \quad (α, p', q) \quad \text{if} \quad p \step{α} p'.$$
@@ -688,9 +688,9 @@ We show correspondence between notions and energies,
 $\notions \ni N = e \in \energies$.
 
 ::: {#def-strategy-formulas-poly}
-#### Strategy formulas for ${\game}_\notionname{B}^{🗲}$
+#### Strategy formulas for $\gamebisimen$
 
-The set of *strategy formulas* for a game position $g$ and a budget $e$, $\strat_\notionname{B}(g, e)$, in the context of a bisimulation energy game ${\game}_\notionname{B}^{🗲\system}$ is defined inductively by the following rules:
+The set of *strategy formulas* for a game position $g$ and a budget $e$, $\strat_\notionname{B}(g, e)$, in the context of a bisimulation energy game $\gamebisimen[\system]$ is defined inductively by the following rules:
 $$
 \inferrule[observation]{
   [p, q] \gamemove{-1,0,0}^🗲_\notionname{B} (α, p', q) \quad
@@ -721,7 +721,7 @@ $$
 $$
 :::
 
-Effectively, this definition generalizes the construction of distinguishing formulas on ${\game}_\notionname{B}$ we have introduced in @lem-attacks-imply-formulas.
+Effectively, this definition generalizes the construction of distinguishing formulas on $\gamebisim$ we have introduced in @lem-attacks-imply-formulas.
 So the formulas we encountered before also serve as examples of such strategy formulas.
 
 The general design principle for the construction of strategy formulas as in @def-strategy-formulas-poly is that each rule either corresponds to a kind of attacker move (observation/simulation, negation/swap) or a kind of defender position (conjunction).
@@ -810,10 +810,10 @@ Combining @lem-bisim-energy-game-soundness with @lem-bisim-energy-game-completen
 ::: {#thm-bisim-energy-game-characterization}
 #### $\notions^\literal{peasy}$-characterization
 
-$p \bpreordvar{\observationsvar{N}} q$ for $N ∈ \notions^\literal{peasy}$ precisely if the defender wins ${\game}_\notionname{B}^🗲$ from $[p, q]$ with budget $N$.
+$p \bpreordvar{\observationsvar{N}} q$ for $N ∈ \notions^\literal{peasy}$ precisely if the defender wins $\gamebisimen$ from $[p, q]$ with budget $N$.
 :::
 
-Thus, we have established that the bisimulation energy game ${\game}_\notionname{B}^🗲$ characterizes the equivalences of the $\complexityname{P}$-easy strong spectrum $\notions^\literal{peasy}$.
+Thus, we have established that the bisimulation energy game $\gamebisimen$ characterizes the equivalences of the $\complexityname{P}$-easy strong spectrum $\notions^\literal{peasy}$.
 This generalizes @thm-game-formulas through energy games.
 
 To exploit this property to decide equivalences and solve the spectroscopy problem algorithmically, we need one more ingredient:
@@ -1003,7 +1003,7 @@ $$
   \small  8 &  \quad \quad \quad \variable{new\_attacker\_win} ≔
             \Min( \set{\abstractupdateinv(\variable{g}, g')(\mathit{e'}) \mid  \\
      &  \quad \quad \quad \quad {\variable{g} \gamemoveblank g'} \land \mathit{e'} ∈ \variable{attacker\_win}[g']}) \\
-  \small  9 &  \quad \quad \kw{else \colon} \\
+  \small  9 &  \quad \quad \kw{else} \colon \\
   \small 10 &  \quad \quad \quad \variable{new\_attacker\_win} ≔ \set{\zerovec} \\
   \small 11 &  \quad \quad \quad \kw{for} \variable{g'} ∈ (\variable{g} \gamemoveblank \cdot) \colon \\
   \small 12 &  \quad \quad \quad \quad \variable{new\_attacker\_win} ≔
@@ -1488,8 +1488,8 @@ Given a transition system $\system$,
 the spectroscopy problem for the $\notions^\literal{peasy}$-spectrum can be solved in polynomial time with respect to the size of $\system$.
 :::
 :::proof
-@thm-bisim-energy-game-characterization has established that we can solve the spectroscopy problem for the $\notions^\literal{peasy}$-spectrum by deciding the winning budgets of the bisimulation energy game ${\game}_\notionname{B}^🗲$ on $\system=(\states,\actions,\step{})$.
-Thus, all that remains to be done is to instantiate the winning budget complexity of @lem-declining-update-complexity for the case $d=3$ with the size of ${\game}_\notionname{B}^🗲$ according to @def-bisim-energy-game.
+@thm-bisim-energy-game-characterization has established that we can solve the spectroscopy problem for the $\notions^\literal{peasy}$-spectrum by deciding the winning budgets of the bisimulation energy game $\gamebisimen$ on $\system=(\states,\actions,\step{})$.
+Thus, all that remains to be done is to instantiate the winning budget complexity of @lem-declining-update-complexity for the case $d=3$ with the size of $\gamebisimen$ according to @def-bisim-energy-game.
 
 The number of attacker positions is bounded by $\relsize{\states}^2$.
 These positions can initiate up to $\relsize{\states} \cdot \relsize{\step{}}$ simulation challenges, leading to a similarly-bounded number of defender positions, which again can be left by $\relsize{\states} \cdot \relsize{\step{}}$ moves.

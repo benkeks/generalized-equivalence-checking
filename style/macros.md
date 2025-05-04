@@ -97,7 +97,7 @@
 \providecommand{\difference}[2]{\Delta(#1,#2)}
 \providecommand{\literal}[1]{\mathsf{#1}}
 \providecommand{\variable}[1]{\mathtt{#1}}
-\providecommand{\kw}[1]{\operatorname{\mathbf{#1}}\;}
+\providecommand{\kw}[1]{\operatorname{\textbf{\textsf{#1}}}\;}
 \providecommand{\inferrule}[3][]{\mathrm{#1}\;\dfrac{\begin{matrix}#2\end{matrix}}{#3}\hphantom{\mathrm{#1}}}
 \providecommand{\inferruleapp}[3][]{\mathrm{#1}\;\dfrac{\begin{matrix}#2\end{matrix}}{#3}}
 
@@ -157,6 +157,8 @@
 
 \lc{ Spectroscopy }
 
+\providecommand{\gamebisim}{\mathcal{G}_{\notionname{B}}}
+\providecommand{\gamebisimen}[1][]{\mathcal{G}_{\notionname{B}}^{\smash{🗲 #1}}}
 \providecommand{\gamespectroscopy}{\mathcal{G}_{\triangle}}
 \providecommand{\gamespectroscopyeq}[1]{\mathcal{G}_{\triangle #1}}
 \providecommand{\gamespectroscopyclever}{\mathcal{G}_{\blacktriangle}}

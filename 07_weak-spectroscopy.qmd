@@ -11,7 +11,7 @@ toc-title: "Chapter 7"
 
 
 ::::{#related-7 .column-margin}
-`\vspace{-2em}`{=latex}
+`\vspace{-2.1em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
 This chapter is based on “One energy game for the spectrum between branching bisimilarity and weak trace semantics.” [@bj2024silentStepSpectroscopyExpress],
 its extended draft version [@bj2025silentStepSpectroscopyJournal] and
@@ -160,7 +160,7 @@ $$
   & \attackerpos[\varepsilon]{p,Q}
   & \gamemove{-1,0,0,0,0,0,0,0}
   & \attackerpos{p',Q'}
-  & \text{if $p \step{a} p'$, $Q \step{a} Q'$, $a \neq \tau$,}
+  & \text{if $p \step{a} p'\!$, $Q \step{a} Q'\!$, $a \neq \tau$,}
   \\
   \textit{finishing}
   & \attackerpos{p,\varnothing}
@@ -227,17 +227,17 @@ $$
   \textit{branching conj.}\vphantom{I^{I^I}}
   & \attackerpos[\varepsilon]{p,Q}
   & \gamemove{0,0,0,0,0,0,0,0}
-  & \defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}
-  & \text{if $p \stepsoft{\alpha} p'$, $Q_\alpha \subseteq Q$,}
+  & \defenderpos[\eta]{p,\alpha,p'\!,Q \setminus Q_\alpha,Q_\alpha}
+  & \text{if $p \stepsoft{\alpha} p'\!$, $Q_\alpha \subseteq Q$,}
   \\
   \textit{branch. answer}
-  & \defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha}
+  & \defenderpos[\eta]{p,\alpha,p'\!,Q,Q_\alpha}
   & \gamemove{0,-1,-1,0,0,0,0,0}
   & \attackerpos[\land]{p,q}
   & \text{if $q \in Q$,}
   \\
   \textit{branch. observation}
-  & \defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha}
+  & \defenderpos[\eta]{p,\alpha,p'\!,Q,Q_\alpha}
   & \gamemove{\updmin{1,6},-1,-1,0,0,0,0,0}
   & \attackerpos[\eta]{p',Q'}
   & \text{with $Q_\alpha \stepsoft{\alpha} Q'$,}

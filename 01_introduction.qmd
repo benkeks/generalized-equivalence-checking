@@ -269,7 +269,7 @@ which is to be understood as an interactive version of the linear-time--branchin
 
 ::: {#fig-peterson-spectrum fig-env="figure*"}
 
-![](img/peterson-spectrum.svg){.lightbox}
+![](img/peterson-spectrum.svg){.lightbox width=90%}
 
 Output of {{< equivio >}} about weak equivalences to relate $\literal{Pe}$ to $\literal{Mx}$ of @exm-peterson-mutex.
 Where notions are connected, the one at the top implies the one underneath.
@@ -306,7 +306,7 @@ We answer the spectroscopy question positively, which is the key step to tackle 
 One can compute what mix of (in-)distinguishabilities exists between a pair of finite-state processes,
 and this places the two on a spectrum of equivalences.
 We thus turn a set of *qualitative* equivalence problems into one *quantitative* problem of *how equivalent* two systems are.
-As we will see, this amounts to an abstract form of subtraction between programs, determining what kinds of differences an outside examiner might observe.
+This amounts to an abstract form of subtraction between programs, determining what kinds of differences an outside examiner might observe.
 Thereby *one* algorithm works for *all* of a spectrum.
 
 ## This Thesis

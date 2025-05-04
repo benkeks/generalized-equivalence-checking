@@ -10,7 +10,7 @@ toc-title: "Chapter 6"
 :::
 
 ::::{#related-6 .column-margin}
-`\vspace{-1em}`{=latex}
+`\vspace{-2.1em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
 This chapter is based on parts of the draft “Deciding all behavioral equivalences at once II: The silent-step spectrum” [@bj2025silentStepSpectroscopyJournal] and of “Characterizing contrasimilarity through games, modal logic, and complexity” [@bm2024contrasimilarityInfComp].
 For a fuller presentation of the spectrum of weak equivalences itself, @glabbeek1993ltbt is the authoritative work.

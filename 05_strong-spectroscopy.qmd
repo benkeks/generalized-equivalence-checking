@@ -10,7 +10,7 @@ toc-title: "Chapter 5"
 :::
 
 ::::{#related-5 .column-margin}
-`\vspace{-2em}`{=latex}
+`\vspace{-2.1em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
 This chapter showcases the main result of my paper “Process equivalence problems as energy games” [@bisping2023equivalenceEnergyGames].
 We move beyond @bisping2023equivalenceEnergyGames by also deriving individual equivalence games from our characterization and showing how these enable polynomial-time decision procedures for $\complexityname{P}$-easy notions.
@@ -131,8 +131,6 @@ Treating conjunctions more explicitly allows us to track the depth of positive c
   % \node[posStyle, dashed]
   %   (AttRevival) [below = 1cm of AttSwap] {$\attackerpos{p,Q_*}$};
 
-  \node (Ghost) [below = 1cm of AttSwap] {};
-
   \path
     (Att) edge[bend left=28]
       node[pos=.3, align=center, label={[label distance=0.0cm]-25:$\textcolor{gray}{\textcolor{obsColor}{-1},0,0,0,0,0}$}] {$p\step{\alpha}p^\prime$\\ $Q\step{\alpha}Q^\prime$} (AttObs)
@@ -147,7 +145,6 @@ Treating conjunctions more explicitly allows us to track the depth of positive c
     (Def) edge[bend left=10]
       node[align=center, label={[label distance=0.0cm]-30:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{mainPosColor}{3}},\textcolor{conjColor}{-1},0,0,0,0}$}] {$p' = p$\\$Q'=Q_* \neq \varnothing$} (AttObs);
 \end{tikzpicture}
-
 ```
 
 Schematic spectroscopy game $\gamespectroscopy$ of @def-strong-spectroscopy-game.

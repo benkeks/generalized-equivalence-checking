@@ -122,7 +122,8 @@ For some, it might be worthwhile to ask spectroscopy questions or to adapt our a
 
 {{< paragraph_heading "A modal-logical turn?" >}}
 This thesis has approached the rich body of work on equivalence and refinement through one unified lens of *finding differences* in behavior.
-These were expressed in *modal logics* (@idea-modal-first “Modal first!”), which comes with several perks.
+These were expressed in *modal logics* (@idea-modal-first “Modal first!”).
+The *perks of modal characterizations* have been a recurring topic of the thesis.
 
 In recent years, there seems to be a shift towards the “modal first” approach.
 The shift is visible in Geuvers and Golov's work on apartness [@geuversGolov2023positiveBB; @geuvers2022],

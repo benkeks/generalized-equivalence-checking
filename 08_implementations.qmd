@@ -532,9 +532,9 @@ Data transformation flow in equiv.io
   {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.Spectroscopy >}}.
   This object helps front-end layers of the tool interpret the output as spectra, equivalences, and distinguishing formulas.
 
-Another trait {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.EquivalenceChecking >}} follows the second path of @fig-strong-spectroscopy-big-picture to decide individual equivalences.
+Another trait {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.EquivalenceChecking >}} follows the second path of @fig-strong-spectroscopy-big-picture to decide individual equivalences through reachability games.
 We will not go into detail here.
-The core feature is to derive a reachability game {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.MaterializedEnergyGame >}} as in @def-derived-reachability-game.
+The core feature is to derive a game {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.MaterializedEnergyGame >}} as in @def-derived-reachability-game.
 {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.WinningRegionComputation >}} determines its winner according to @alg-deciding-games.
 
 Besides the core-flow, there are some small additional diagnostic features.

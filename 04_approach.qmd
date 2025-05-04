@@ -10,7 +10,7 @@ toc-title: "Chapter 4"
 :::
 
 ::::{#related-4 .column-margin}
-`\vspace{-2em}`{=latex}
+`\vspace{-2.1em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
 This chapter revolves around the ideas conveyed by my talk “Deciding all behavioral equivalences at once through energy games” at D-CON'25 (Augsburg, 2025-03),
 and by its predecessors given at LFCS University of Edinburgh (2023-03), Highlights'23 (Kassel, 2023-07), and ISCAS Beijing (2024-09).
@@ -48,7 +48,7 @@ The second core idea is how to compute these winning budgets for players:
 Attacker's winning budgets in energy reachability games can be computed by a generalized shortest paths algorithm.
 :::
 
-@sec-deciding-energy-games will provide an algorithm to solve a range of energy-game-like quantitative problems as long as the energy updates can be *undone* through a *Galois connection*, which is a generalization of invertibility on monotonic functions.
+@sec-deciding-energy-games provides an algorithm to solve a range of energy-game-like quantitative problems as long as the energy updates can be *undone* through a *Galois connection*---a generalization of invertibility on monotonic functions.
 
 By combining the two contributions, we arrive at a polynomial-time solution of the spectroscopy problem for the $\complexityname{P}$-easy slice of the strong spectrum.
 
@@ -1304,7 +1304,7 @@ Its undo-update according to @def-declining-upd-inv computes $\energyupdateinv((
     view = {-45}{90},]
     \addplot3[
       samples=6,
-      green!50!black,
+      TealBlue,
       thick,
       quiver = {
         u = {min(x,y+.02)-x},
@@ -1343,7 +1343,7 @@ Its undo-update according to @def-declining-upd-inv computes $\energyupdateinv((
   \end{axis}
 \end{tikzpicture}
 ```
-Effects of $\textcolor{DarkGreen}{\energyupdate((\updmin{1,2},-1), \cdot)}$ and their undoing via $\textcolor{DarkViolet}{\energyupdateinv((\updmin{1,2},-1), \cdot)}$.
+Effects of updates $\textcolor{TealBlue}{\energyupdate((\updmin{1,2},-1), \cdot)}$ and their undoing via $\textcolor{DarkViolet}{\energyupdateinv((\updmin{1,2},-1), \cdot)}$.
 ::::
 
 \noindent

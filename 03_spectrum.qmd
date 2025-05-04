@@ -1129,6 +1129,7 @@ $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsva
 
 The spectroscopy problem then is about computing some abstraction $\Delta_A$ such that
 $N \in \Delta_A(p,q)$ precisely if $\difference{p}{q} \cap \observationsvar{N} \neq \varnothing$.
+$\notions_{p,q}$ plays the role of $\Delta_A(p,q)$.
 
 ### Complexities {#sec-equivalence-complexities}
 

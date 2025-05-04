@@ -63,7 +63,7 @@ book:
       chapters:
         - 04_approach.qmd
         - 05_strong-spectroscopy.qmd
-    - part: "… Of Concurrent Programs"
+    - part: "… of Concurrent Programs"
       chapters:
         - 06_weak-spectrum.qmd
         - 07_weak-spectroscopy.qmd

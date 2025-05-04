@@ -60,8 +60,8 @@ Many verification tasks can be understood along the lines of “how equivalent�
 The models can usually be expressed as labeled transition systems, that is, as graphs where nodes represent program *states* and edges represent *transitions* between them, labeled by *actions*.
 
 @fig-peterson-mutex replicates a standard example, known, for instance, from the textbook *Reactive systems* [@ails2007reactiveSystems]:
-A graph specification of mutual exclusion $\literal{Mx}$ as two users $\literal A$ and $\literal B$ entering their critical section $\literal{ec_A} / \literal{ec_B}$ and leaving $\literal{lc_A} / \literal{lc_B}$ before the other may enter;
-and the transition system of Peterson's [-@peterson1981mythsMutex] mutual exclusion algorithm $\literal{Pe}$, with internal steps $\color{gray}\step{}$ due to the coordination that needs to happen.^[
+The left-hand side gives a graph specification of mutual exclusion $\literal{Mx}$ as two users $\literal A$ and $\literal B$ entering their critical section $\literal{ec_A} / \literal{ec_B}$ and leaving $\literal{lc_A} / \literal{lc_B}$ before the other may enter.
+The right-hand side shows the transition system of Peterson's mutual exclusion algorithm [-@peterson1981mythsMutex] starting in $\literal{Pe}$, with internal steps $\color{gray}\step{}$ due to the coordination that needs to happen.^[
   To fit on the page, $\literal{Pe}$ is minimized by a behavioral equivalence that will be important later on: stability-respecting branching bisimilarity.
 ]
 For $\literal{Pe}$ to faithfully implement mutual exclusion, it should behave somewhat similarly to $\literal{Mx}$.
@@ -159,15 +159,15 @@ Are there notions relating $\literal{Pe}$ and $\literal{Mx}$ *besides* mutual we
 {{< paragraph_heading "State of the art." >}}
 For many of the existing behavioral preorders and equivalences, there are various algorithms and implementations to decide whether processes are equivalent [see @gl2022eqChecking for a survey].
 So, it would be an option to throw an array of algorithms on the transition systems of @exm-peterson-mutex.
-For example, weak similarity, stable failures and contrasimilarity are neighbors in @fig-ltbts2-paper.
+For example, let us pick out stable failures and contrasimilarity, which are close to weak similarity in @fig-ltbts2-paper.
 CAAL [@aaehlow2015caal] could establish mutual weak similarity, mCRL2 [@groote2014mcrl2; @bgklnvww2019mcrl2tacas] would rule out stable-failure equivalence, and, for contrasimilarity, we would need to implement our own solution because there is no tool supporting it.
 Combining different tools and algorithms like this is tiresome and prone to subtle errors.
-It would be nice to treat the question in *just one* algorithm!
+It would be desirable to treat the question in *just one* algorithm!
 
 {{< paragraph_heading "Our offer." >}}
 This thesis describes how to *decide all equivalences* in one *uniform approach* based on *energy games*, which is *easily implemented in tools*.
 
-As we will discuss in more detail in @sec-equivio-peterson, our accompanying tool {{< equivio >}} answers the questions which equivalences apply for @exm-peterson-mutex in a small query.
+As we will discuss in more detail in @sec-equivio-peterson, our accompanying tool {{< equivio >}} answers the question which equivalences apply for @exm-peterson-mutex in a small query.
 Here is an excerpt:
 
 ```ccs
@@ -312,7 +312,7 @@ Thereby *one* algorithm works for *all* of a spectrum.
 ## This Thesis
 
 ::::{.content-visible when-format="pdf"}
-{{< contents fig-thesis-overview >}}
+{{< contents thesis-overview >}}
 ::::
 
 \noindent
@@ -320,25 +320,33 @@ At the core, this thesis presents an algorithm to *decide all behavioral equival
 More precisely, we make the following contributions, each coming with a “side quest:”
 
 - @sec-preliminaries lays some foundations and makes precise *how bisimulation games relate to grammars of distinguishing formulas* from Hennessy–Milner modal logic.
+  - Main result: Attacker strategies in the bisimulation game ${\game}_\notionname{B}$ correspond to distinguishing formulas in a subset $\observations{\floor{B}}$ of modal logic $\hml$ (@thm-game-formulas).
   - Side quest: Certifying algorithms to check equivalences.
 - @sec-spectrum shows *how to understand the strong linear-time--branching-time spectrum quantitatively* and formalizes the *spectroscopy problem*.
+  - Main result: The spectroscopy problem (@prob-spectroscopy-problem) is $\complexityname{PSPACE}$-hard for the strong spectrum $\notions^\literal{strong}$.
   - Side quest: Equivalence checking as subtraction.
 - @sec-approach introduces the approach of *characterizing equivalence spectra through energy games* and *how to decide such games*.
-  - Side quest: Galois energy games. 
+  - Main result: The preorder and equivalence problems in the $\complexityname{P}$-easy part of the strong spectrum $\notions^\literal{peasy}$ are characterized by an energy game version of the bisimulation game ${\game}_\notionname{B}^🗲$ (@thm-bisim-energy-game-characterization).
+  - Side quest: Deciding Galois energy games (@prob-energy-game-problem).
 - @sec-strong-spectroscopy applies the approach to decide the whole strong spectrum through one *game for linear-time--branching-time spectroscopy*.
+  - Main result: The strong spectroscopy game $\gamespectroscopy$ covers the strong spectrum $\notions^\literal{strong}$ (@thm-strong-spectroscopy-game-characterization) in exponential time.
   - Side quest: Deriving efficient *individual equivalence checkers*.
 - @sec-weak-spectrum recharts the *weak spectrum of equivalences accounting for silent steps* to fit our game approach.
+  - Main result: The Hennessy--Milner logic subset $\hmlsrbb$ characterizes stability-respecting branching bisimilarity (@thm-srbb-characterization), and its sublogics describe the weak spectrum $\notions^\literal{weak}$.
   - Side quest: Case studies in concurrency theory research.
 - @sec-weak-spectroscopy adapts the game for the *weak spectrum of equivalences*.
+  - Main result: The weak spectroscopy game $\gamespectroscopyw$ characterizes the weak spectrum $\notions^\literal{weak}$ (@thm-weak-spectroscopy-game-characterization).
   - Side quest: Isabelle/HOL formalization.
 - @sec-implementations showcases four *implementations* to conveniently perform equivalence spectroscopies in web browsers and reports some benchmarking results.
+  - Main result: Our approach is more general than what is usually found in tools and can compete with algorithms for simulation-like notions.
   - Side quest: Analyzing Peterson's mutual exclusion protocol.
 
 Each chapter ends with a discussion of its position in the context of the thesis and of related work.
 We close with a discussion of the wider picture in @sec-conclusion and how this thesis ascends through a *hierarchy of game characterizations*.
 Recurring symbols can be looked up under [Notation](#sec-notation)`~on page~\pageref{sec-notation}`{=latex}.
 
-:::{#fig-thesis-overview fig-pos="t"}
+:::{#thesis-overview}
+:::::{#fig-thesis-overview fig-pos="t"}
 
 ```tikz
 %%| image-class: lightbox
@@ -373,6 +381,7 @@ Recurring symbols can be looked up under [Notation](#sec-notation)`~on page~\pag
 
 The *theory stack* of this thesis.
 Chapters and ideas build upon those underneath.
+:::::
 :::
 
 @fig-thesis-overview gives an overview of how parts of this thesis build upon each other.
@@ -397,9 +406,9 @@ The following four publications (with me as main author) fuel the following chap
 
 - **“Deciding all behavioral equivalences at once: A game for linear-time–branching-time spectroscopy”** [LMCS -@bjn2022decidingAllBehavioralEqs, with Nestmann & Jansen] introduces the *spectroscopy problem* and the *core idea* to decide the whole strong spectrum using games that search trees of possible distinguishing formulas.
   [Conference version: TACAS -@bisping2021ltbtsTacas]
-- **“Process equivalence problems as energy games”** [CAV -@bisping2023equivalenceEnergyGames] makes a *big technical leap by using energy games*, removing the necessity for explicit formula construction.
+- **“Process equivalence problems as energy games”** [CAV -@bisping2023equivalenceEnergyGames] makes a *big technical leap by using energy games*, which removes the necessity for explicit formula construction.
   [Tech report: arXiv -@bisping2023equivalenceEnergyGamesReport]
-- **“Characterizing contrasimilarity through games, modal logic, and complexity”** [Information & Computation -@bm2024contrasimilarityInfComp, with Montanari] closes *gaps in the weak spectrum of equivalences* for games and their complexity and their link to modal logics.
+- **“Characterizing contrasimilarity through games, modal logic, and complexity”** [Information & Computation -@bm2024contrasimilarityInfComp, with Montanari] closes *gaps in the weak spectrum of equivalences* for complexity, games, and their links to modal logics.
   [Isabelle/HOL theory: AFP -@bm2023contrasimilarityAFP; Workshop version: EXPRESS/SOS -@bm2021contrasimilarity]
 - **“One energy game for the spectrum between branching bisimilarity and weak trace semantics”** [EXPRESS/SOS -@bj2024silentStepSpectroscopyExpress, with Jansen] adapts the *spectroscopy approach for the weak spectrum*.
   [Journal version: Preprint -@bj2025silentStepSpectroscopyJournal]
@@ -425,38 +434,39 @@ Some parts of this thesis strongly rely on student work that I have supervised, 
 - @trzeciakiewicz2021ltbtBrowserGame: *“Linear-time--branching-time spectroscopy as an educational web browser game”* provides a computer game version of the spectroscopy procedure to be discussed in @sec-spectro-invaders.
 - @ozegowski2023eqCAAL: *“Integration eines generischen Äquivalenzprüfers in CAAL”* extends the Concurrency Workbench Aalborg Edition with a spectroscopy feature, reported in @sec-spectroscopy-caal, extended by @strassnickOzegowski2024weakCAAL.
 - @mattes2024expressivePowerHML: *“Measuring expressive power of HML formulas in Isabelle/HOL”* proves the approach to modal characterization of @sec-ltbt-spectrum.
-- @vogel2024energyGamesWebGPU: *“Accelerating process equivalence energy games using Web{{<shy>}}GPU,”* topic of @sec-gpu-equiv, allows massive parallelization on the GPU of key parts of our algorithm.
+- @vogel2024energyGamesWebGPU: *“Accelerating process equivalence energy games using Web{{<shy>}}GPU,”* topic of @sec-gpu-equiv, allows massive parallelization of key parts of our algorithm on the GPU.
 - @lemke2024multiweightedEnergyGames: “*A formal proof of decidability of multi-weighted declining energy games*” formalizes the *Galois energy games* of @sec-deciding-energy-games.
   Its Isabelle theory is archived on <https://github.com/crmrtz/galois-energy-games>.
 
 {{< paragraph_heading "Other publications." >}}
-Only indirectly connected to this dissertation project are my prior publications in leading me to topics and techniques:
+My prior publications are only indirectly connected to this dissertation project.
+Still, they lead me to topics and techniques:
 
 - Bisping, Brodmann, Jungnickel, Rickmann, Seidler, Stüber, Wilhelm-Weidner, Peters, & Nestmann [ITP -@bbjrsswpn2016mechanicaProofFLP]: “Mechanical verification of a constructive proof for FLP.”
 - Bisping & Nestmann [TACAS -@bn2019coupledsimTacas]: “Computing Coupled Similarity.”
 - Bisping, Nestmann, & Peters [Acta Informatica -@bnp2020coupledsim30]: “Coupled similarity: The first 32 years.”
 
 {{< paragraph_heading "Other Bachelor theses." >}}
-During my dissertation project, I also supervised several other Bachelor theses, many of which played important roles in shaping the research.
+During my dissertation project, I have also supervised several other Bachelor theses, many of which played important roles in shaping the research.
 Although they do not appear directly on the following pages, I want to acknowledge the students' vital contributions to this research.
 
-- @peacock2020videoGameEquivalences: *Process equivalences as a video game*
-- @le2020coupledSimMcrl2: *Implementing coupled similarity as an automated checker for mCRL2*
-- @wrusch2020gameEquivalences: *Ein Computerspiel zum Erlernen von Verhaltensäquivalenzen*
-- @reichert2020visualizingCounterfactuals: *Visualising and model checking counterfactuals*
-- @wittig2020processJungle: *Charting the jungle of process calculi encodings*
-- @bulik2021interProcComm: *Statically analysing inter-process communication in elixir programs*
-- @montanari2021kontrasimSpiel: *Kontrasimulation als Spiel*
-- @pohlmann2021reactiveBisimStrong: *Reducing strong reactive bisimilarity to strong bisimilarity*
-- @england2021hmlSynthesis: *HML synthesis of distinguished processes*
-- @duong2022toolLTBTS: *Developing an educational tool for linear-time–bran{{<shy>}}ching-time spectroscopy*
-- @alshukairi2022reaktiveBisimReduktion: *Automatisierte Reduktion von reaktiver zu starker Bisimilarität*
-- @adler2022fehlertoleranteAlgorithmen: *Simulation fehlertoleranter Konsensalgorithmen in Hash.ai*
-- @sandt2022gameReactiveBisim: *A video game about reactive bisimilarity*
-- @loenne2023gameCounterfactuals: *An educational computer game about counterfactual truth conditions*
-- @hauschild2023nonlinearCounterfactuals: *Nonlinear counterfactuals in Isabelle/HOL*
-- @stoecker2024HOcalculiEqs: *Higher-order diadic µ-calculus–An efficient framework for checking process equivalences?*
-- @kurzan2024mcrl2Contrasim: *Implementierung eines Contrasimilarity-Checkers für mCRL2*
+- @peacock2020videoGameEquivalences: *Process equivalences as a video game.*
+- @le2020coupledSimMcrl2: *Implementing coupled similarity as an automated checker for mCRL2.*
+- @wrusch2020gameEquivalences: *Ein Computerspiel zum Erlernen von Verhaltensäquivalenzen.*
+- @reichert2020visualizingCounterfactuals: *Visualising and model checking counterfactuals.*
+- @wittig2020processJungle: *Charting the jungle of process calculi encodings.*
+- @bulik2021interProcComm: *Statically analysing inter-process communication in elixir programs.*
+- @montanari2021kontrasimSpiel: *Kontrasimulation als Spiel.*
+- @pohlmann2021reactiveBisimStrong: *Reducing strong reactive bisimilarity to strong bisimilarity.*
+- @england2021hmlSynthesis: *HML synthesis of distinguished processes.*
+- @duong2022toolLTBTS: *Developing an educational tool for linear-time–bran{{<shy>}}ching-time spectroscopy.*
+- @alshukairi2022reaktiveBisimReduktion: *Automatisierte Reduktion von reaktiver zu starker Bisimilarität.*
+- @adler2022fehlertoleranteAlgorithmen: *Simulation fehlertoleranter Konsensalgorithmen in Hash.ai.*
+- @sandt2022gameReactiveBisim: *A video game about reactive bisimilarity.*
+- @loenne2023gameCounterfactuals: *An educational computer game about counterfactual truth conditions.*
+- @hauschild2023nonlinearCounterfactuals: *Nonlinear counterfactuals in Isabelle/HOL.*
+- @stoecker2024HOcalculiEqs: *Higher-order diadic µ-calculus–An efficient framework for checking process equivalences?.*
+- @kurzan2024mcrl2Contrasim: *Implementierung eines Contrasimilarity-Checkers für mCRL2.*
 
 {{< paragraph_heading "This thesis itself." >}}
 This document itself is created using Quarto [-@allaire2025quarto].

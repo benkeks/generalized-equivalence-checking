@@ -58,8 +58,7 @@ Core-correlations for bisimilarity between relational definition, modal distingu
 :::
 
 A reader familiar with the contents of @fig-equivalence-big-picture might mostly skim through this chapter of preliminaries (although they are quite exciting!).
-
-The two core insights this chapter aims to seed for the upcoming chapters are:
+This chapter aims to seed two core insights for the upcoming chapters:
 
 ::: {#idea-games .callout-idea .callout-tip}
 #### It's all a game!
@@ -1678,6 +1677,8 @@ There also are several computer game implementations of bisimulation games.
 ![](img/peacock-bisim-video-game.png){.lightbox}
 
 Screenshot of [Peacock's bisimulation computer game](https://www.concurrency-theory.org/rvg-game/).
+(In the computer game, the colors are coded inversely to our presentation.
+The  blue character represents the attacker-controlled state.)
 ::::
 
 For instance, @peacock2020videoGameEquivalences implements a game about simulation and bisimulation as well as several weaker notions.

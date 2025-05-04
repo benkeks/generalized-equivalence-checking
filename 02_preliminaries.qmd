@@ -642,7 +642,7 @@ Let us quickly make this formal:
 \end{tikzpicture}
 ```
 
-Core hierarchy of equivalences.
+Core hierarchy of equivalences.  
 (Arrows mean implication.)
 ::::
 
@@ -691,8 +691,8 @@ This adds another deadlock state to the transition system, seen in @fig-bisim-si
 Example with new deadlock.
 ::::
 
-With respect to similarity, this change is invisible, that is $\literal Q \beq{S} \literal{T}$.
-(Reason: The relation $\set{
+With respect to similarity, this change is invisible, that is, $\literal Q \beq{S} \literal{T}$.
+(Formal argument: The relation $\set{
   (\literal{Q}, \literal{T}),
   (\literal{T}, \literal{Q}),
   (\literal{q_{ab}}, \literal{t_{ab}}),
@@ -703,7 +703,7 @@ With respect to similarity, this change is invisible, that is $\literal Q \beq{S
 \times \set{ \literal{q_1}, \literal{q_2}, \literal{t_1}, \literal{t_2}, \troll}$ is a simulation.)
 
 However, to bisimilarity, $\literal{T} \step{τ} \troll$ constitutes a difference.
-There cannot be a symmetric simulation handling this transition as $\literal{Q}$ has no deadlocked successors.
+There cannot be a *symmetric* simulation handling this transition as $\literal{Q}$ has no deadlocked successors.
 Thus $\literal Q \nbeq{B} \literal{T}$.
 :::
 
@@ -1018,11 +1018,15 @@ On the other hand, $\hmlobs{τ}\hmlands\set{\hmlobs{\literal a}, \hmlobs{\litera
 For instance, the sublogic $\set{\hmlobs{τ}\hmlobs{\literal a}, \hmlobs{τ}\hmlobs{\literal b}}$ preorders $\literal P$ and $\literal Q$ in both directions; so the two states are equivalent with respect to this logic.
 
 ::: {#prp-hml-eq}
+#### Transitivity for free
+
 Consider an arbitrary HML sublogic $\observationsvar{} ⊆ \hml$.
 Then, $\bpreordvar{\observationsvar{}}$ is a preorder, and $\beqvar{\observationsvar{}}$ an equivalence relation.{{<isb lemma LTS_Semantics lts.equivalent_equiv>}}
 :::
 
 ::: {#lem-hml-eq-sim}
+#### HML simulation
+
 Hennessy–Milner logic equivalence $\beqvar{\hml}$ is a simulation relation.{{<isb lemma HML_Spectrum lts.hml_equiv_sim>}}
 :::
 ::: proof
@@ -1034,7 +1038,7 @@ It must be true for $p$ and false for $q$, contradicting $p \beqvar{\hml} q$.
 :::
 
 ::: {#lem-hml-eq-bisim-invariant}
-#### HML bisimulation invariance
+#### Bisimulation invariance
 
 If $p ∈ \semantics{φ}$ and $p \beq{B} q$ then $q ∈ \semantics{φ}$.{{<isb lemma HML_Spectrum lts.hml_bisim_invariant>}}
 :::
@@ -2076,6 +2080,6 @@ We have observed that behavioral equivalences form hierarchies and that these hi
 
 We have also seen how to link game rules to productions in a language of potentially distinguishing formulas (@sec-bisim-game-hml).
 This departs from common textbook presentations that motivate the bisimulation game through the relational (coinductive) characterization [e.g. @sangiorgi2012].
-In later chapters, we will rather derive equivalence games from grammars of modal formulas (@idea-modal-first), to generalize the framework of @fig-game-algo-overview for whole spectra of equivalence.
+In later chapters, we will rather derive equivalence games from grammars of modal formulas (@idea-modal-first), to generalize the framework of @fig-game-algo-overview from bisimilarity to whole spectra of equivalence.
 
 But first, we have to make formal what we mean by *spectra of behavioral equivalence*.

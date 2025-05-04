@@ -455,7 +455,7 @@ Although they do not appear directly on the following pages, I want to acknowled
 - @wrusch2020gameEquivalences: *Ein Computerspiel zum Erlernen von Verhaltensäquivalenzen.*
 - @reichert2020visualizingCounterfactuals: *Visualising and model checking counterfactuals.*
 - @wittig2020processJungle: *Charting the jungle of process calculi encodings.*
-- @bulik2021interProcComm: *Statically analysing inter-process communication in elixir programs.*
+- @bulik2021interProcComm: *Statically analysing inter-process communication in Elixir programs.*
 - @montanari2021kontrasimSpiel: *Kontrasimulation als Spiel.*
 - @pohlmann2021reactiveBisimStrong: *Reducing strong reactive bisimilarity to strong bisimilarity.*
 - @england2021hmlSynthesis: *HML synthesis of distinguished processes.*

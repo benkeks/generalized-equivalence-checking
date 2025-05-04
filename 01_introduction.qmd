@@ -415,9 +415,9 @@ The following four publications (with me as main author) fuel the following chap
 
 {{< paragraph_heading "Prototype." >}}
 The algorithms of this thesis have been validated through a *Scala prototype implementation*.
-Throughout the thesis, many examples come with listings of {{<equivio>}} input and a link to try it out in the browser.
+Throughout the thesis, many examples come with listings of {{< equivio >}} input and a link to try it out in the browser.
 You have already seen one such example for Peterson's mutex in @sec-ltbt-spectroscopy-idea.
-@sec-equivio-usage explains the usage of {{<equivio>}}.
+@sec-equivio-usage explains the usage of {{< equivio >}}.
 The source is available openly on <https://github.com/benkeks/equivalence-fiddle>.
 
 {{< paragraph_heading "Isabelle formalization." >}}

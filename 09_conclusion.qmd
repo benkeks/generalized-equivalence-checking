@@ -143,7 +143,7 @@ As @garavel2023calculiWrong puts it:
 > Time has come for encyclopedic synthesis: reexamine / select / simplify / sort
 
 This thesis hopes to fit into this project with a “search engine” for equivalences.
-It shows how to quickly survey spectra of equivalence and how the approach can easily be implemented into tools.
+It shows how to quickly survey spectra of equivalence and how the approach can easily be implemented into tools to support generalized equivalence checking of concurrent programs.
 While pioneers of the field are retiring, parts of their wisdom thus can be materialized into new generations of software.
 
 After all, concurrent computation will remain relevant, and so will questions on the equivalence of concurrent programs.

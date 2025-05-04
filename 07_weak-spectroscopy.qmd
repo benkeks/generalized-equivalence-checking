@@ -9,7 +9,6 @@ toc-title: "Chapter 7"
 
 # Spectroscopy for the Weak Spectrum {#sec-weak-spectroscopy}
 
-
 ::::{#related-7 .column-margin}
 `\vspace{-2.1em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
@@ -798,7 +797,7 @@ Thus, a derived reachability game of the weak spectroscopy game for branching bi
 ## Tackling Our Case Studies {#sec-tackling-case-studies}
 
 We now return to our examples from @sec-case-studies-other-eqs, and see how the spectroscopy approach can handle the two, and thus support research in concurrency theory.
-For this project, we will use the {{<equivio>}} CCS dialect.
+For this project, we will use the {{< equivio >}} CCS dialect.
 
 ### Parallelizing Compilers {#sec-solution-parallelizing-compilation}
 
@@ -855,7 +854,7 @@ Such a mechanized survey would certainly have facilitated the research behind @b
 Only $\literal{P}_\ell$ can correct the choice while $\literal{idle}$-ing.
 Though both processes are weak-failure-equivalent, their variants $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ where $\literal{idle}$-steps are relabelled to $\tau$-steps are not.
 
-To reconstruct this result on {{<equivio>}}, we first have to translate the processes of @fig-idle-process-abstraction to CCS.
+To reconstruct this result on {{< equivio >}}, we first have to translate the processes of @fig-idle-process-abstraction to CCS.
 We express $\literal{P}_e$ and $\literal{P}_\ell$ as `P_e` and `P_t` through mutual recursion in the following model:
 
 ```ccs
@@ -940,7 +939,7 @@ This provides us with the general answer that notions can only be congruences fo
 
 At this point in the thesis, it hopefully has become quite apparent how our approach can be varied with respect to game moves and HML hierarchies in order to add more equivalences or to cut resolution.
 
-This section mainly presents two tricks that are used in the implementation of {{<equivio>}}:
+This section mainly presents two tricks that are used in the implementation of {{< equivio >}}:
 @sec-optimized-branching-conj shows how to get rid of the subset construction in branching conjunctions.
 @sec-covering-revivals presents a modification to add stable revivals, stable failure traces and stable ready traces as notions.
 In @sec-extending-to-other-eqs, we close with some hints how even more nuances in weak equivalences could be covered.
@@ -1205,7 +1204,7 @@ analogously to their strong counterparts in @fig-strong-ltbt-spectrum.
 
 Of course, one could again use the “look-ahead trick” of @sec-clever-strong-spectro to reduce the number of partitions to consider.
 
-In fact, the implementation on {{<equivio>}} does employ this formulation, thereby actually using a 9-dimensional game with richer stable conjunctions.
+In fact, the implementation on {{< equivio >}} does employ this formulation, thereby actually using a 9-dimensional game with richer stable conjunctions.
 Although this thesis remains short on providing a theorem for the game that contains the stable revival move, tests in the tool (and the theorems for the strong spectrum) suggest correctness of the variant in @fig-weak-spec-game-revivals.
 
 ### Extending to Other Equivalences {#sec-extending-to-other-eqs}

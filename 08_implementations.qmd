@@ -9,6 +9,13 @@ toc-title: "Chapter 8"
 {{< include style/macros.md >}}
 :::
 
+::::{#related-8 .column-margin}
+`\vspace{-2.1em}`{=latex}
+{{< paragraph_heading "Related publications." >}}
+Conference artifacts of {{< equivio >}} (reviewed by the artifact evaluation committees of TACAS'21 and CAV'23) are archived as *Linear-time–branching-time spectroscope* [@bisping2021ltbtsZenodo; @bisping2023ltbtsZenodo3].
+Some paragraphs of discussion in this chapter have already appeared in @bjn2022decidingAllBehavioralEqs and @bisping2023equivalenceEnergyGames.
+::::
+
 All the nice theory of preceding chapters also works *in practice*.
 This chapter revisits the core parts of the thesis by discussing how they tie together in a tool implementation.
 
@@ -18,9 +25,13 @@ We demonstrate its use through the Peterson's mutex example.
 To explain equivalence notions in a computer game, to extend existing tools, and to parallelize equivalence checking through GPUs.
 In @sec-implementations-discussion, we compare our implementations to similar tools in the lineage of the “Concurrency Workbench.”
 
+::::{.content-visible when-format="html" .column-margin}
+{{< contents related-8 >}}
+::::
+
 ## Prototype: *equiv.io* {#sec-equivio}
 
-The “Linear-time–branching-time spectroscope” on {{<equivio>}} is a small web tool to check equivalence and preorder relations on CCS processes.
+The “Linear-time–branching-time spectroscope” at {{< equivio >}} is a small web tool to check equivalence and preorder relations on CCS processes.
 @fig-equivio-screenshot shows a screenshot.
 In this section, we will discuss its usage (@sec-equivio-usage), apply it to the Peterson example (@sec-equivio-peterson), examine the tool structure (@sec-equivio-structure), and benchmark its backend (@sec-benchmarks).
 
@@ -33,7 +44,7 @@ Screenshot of {{< equivio >}}.
 
 ### Usage {#sec-equivio-usage}
 
-The standard workflow of {{<equivio>}} is to specify processes in CCS and then compare them with respect to equivalence spectra.
+The standard workflow of {{< equivio >}} is to specify processes in CCS and then compare them with respect to equivalence spectra.
 This is mainly achieved by writing text into the source editor on the left. 
 The specific order of definitions, queries, and declarations in the source generally makes no difference.
 
@@ -107,7 +118,7 @@ The standard queries are:
 | `2-nested-simulation`  | `2-nested-weak-simulation`           |                                          |
 | `bisimulation`         | `contrasimulation`<br> `weak-bisimulation`<br> `delay-bisimulation`<br> `eta-bisimulation`<br> `branching-bisimulation` | `stable-bisimulation`<br> `sr-delay-bisimulation`<br> `sr-branching-bisimulation` |
 
-: Names of supported notions in {{<equivio>}}. {#tbl-notion-names .column-body-outset}
+: Names of supported notions in {{< equivio >}}. {#tbl-notion-names .column-body-outset}
 
 ``` {=latex}
 }
@@ -138,7 +149,7 @@ The source can also contain layout information and prescribe some preprocessing 
   This will affect the whole transition system, but tries to preserve processes that have been marked as `main`.
   The order of processing steps can make a difference.
   The supported methods are:
-  - `weakness_saturated` – Replace the transition relation to with *weak transitions*.
+  - `weakness_saturated` – Replace the transition relation with *weak transitions*.
     In effect, there will be a transition whenever the original system allows $\stepweak\stepsoft{\alpha}\stepweak$.
   - `tauloop_compressed_marked` – Collapse states on $\tau$-loops and mark them with a $\delta$.
     (This follows the thought of how to make equivalence queries divergence-respecting from @sec-extending-to-other-eqs.)
@@ -147,7 +158,7 @@ The source can also contain layout information and prescribe some preprocessing 
 - `@comment "My comment"` –
   Any `@something`-tag without features can serve to add comments in the model.
 
-### Application to Peterson's Mutual Exclusion {#sec-equivio-peterson}
+### Application to Peterson's Mutual Exclusion Protocol {#sec-equivio-peterson}
 
 Let us go through the whole process of using the tool once to tackle the example of Peterson's mutual exclusion protocol, which has already been previewed in @exm-peterson-mutex.
 Thereby, we settle the question with respect to which equivalences the protocol correctly implements the specification of mutual exclusion.
@@ -437,7 +448,7 @@ However, the two are not bisimilar in any sense, since, in `Pe`, local progress 
 
 ### Program Structure {#sec-equivio-structure}
 
-The core of {{<equivio>}} aligns quite closely to the spectroscopy framework outlined in @fig-strong-spectroscopy-big-picture.
+The core of {{< equivio >}} aligns quite closely to the spectroscopy framework outlined in @fig-strong-spectroscopy-big-picture.
 In this subsection, we take a quick look at how implementation and definitions in this thesis correlate.
 
 ::: {#fig-equivio-flow fig-pos='t' fig-env="figure*"}
@@ -488,39 +499,39 @@ Data transformation flow in equiv.io
 @fig-equivio-flow shows core transformations that happen in the process of analyzing the equivalences for a pair of processes:
 
 1. **Parsing.**
-    {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" ccs.Parser >}}
+    {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" ccs.Parser >}}
     transforms source into an abstract syntax tree object `ccs.Syntax.Definition`, along the lines of @def-ccs with the syntax of @sec-equivio-usage.
 2. **Interpretation.**
-    {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" ccs.Interpreter >}}
+    {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" ccs.Interpreter >}}
     applies the operational semantics of @def-ccs-semantics^[
       There is a minor semantical difference:
       The {{< equivio >}} interpreter flattens process restriction in recursion.
       This leads to processes like `P = a.P \ {b}` having a finite process graph instead of an infinite one
       [cf. @ails2007reactiveSystems, Exercise 2.9].
     ]
-    to construct a {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" ts.WeakTransitionSystem >}}, which supports silent-step transitions of @sec-silent-transitions.
+    to construct a {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" ts.WeakTransitionSystem >}}, which supports silent-step transitions of @sec-silent-transitions.
     Also the preprocessing of @sec-equivio-usage is applied, the soundness of which follows @lem-quotienting-spectro-game (and its analogues for the weak spectrum).
 3. **Spectroscopy.**
-    The trait {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.SpectroscopyFramework >}}
+    The trait {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.SpectroscopyFramework >}}
     orchestrates the spectroscopy pipeline.
     Its abstract parts are instantiated by 
-    {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.StrongSpectroscopy >}}
+    {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.StrongSpectroscopy >}}
     and
-    {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.WeakSpectroscopy >}}
+    {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.WeakSpectroscopy >}}
     for the respective spectroscopy variants of @sec-strong-spectroscopy and @sec-weak-spectroscopy.
     In particular, they facilitate the following steps in `SpectroscopyFramework.decideAll`:
-    1. The spectroscopy defines a *spectroscopy game* (e.g. {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.StrongSpectroscopyGame >}}).
-       The game must be a {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.EnergyGame >}}, inheriting a decision procedure along the lines of @alg-deciding-energy-games from trait {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.GameLazyDecision >}}.
+    1. The spectroscopy defines a *spectroscopy game* (e.g. {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.StrongSpectroscopyGame >}}).
+       The game must be a {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.EnergyGame >}}, inheriting a decision procedure along the lines of @alg-deciding-energy-games from trait {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.GameLazyDecision >}}.
        This computation is invoked together with the game graph construction through `populateGame`.
-    2. The spectroscopy provides an {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.Spectrum >}} object which is used to interpret the game result in a hierarchy of {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.ObservationNotion >}}s to pick the strongest preorders to relate compared processes.
-        The specifics of @sec-spectrum and @sec-weak-spectrum are implemented by {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.StrongObservationNotion >}} and
-        {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.WeakObservationNotion >}}.
+    2. The spectroscopy provides an {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.Spectrum >}} object which is used to interpret the game result in a hierarchy of {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.ObservationNotion >}}s to pick the strongest preorders to relate compared processes.
+        The specifics of @sec-spectrum and @sec-weak-spectrum are implemented by {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.StrongObservationNotion >}} and
+        {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.WeakObservationNotion >}}.
     3. The spectroscopy implements a `buildHMLWitness`-method, constructing *strategy formulas* from attacker-won budgets of $\stratstrong$ in @def-strategy-formulas-strong and $\stratweak$ in @def-strategy-formulas-weak.
 4. **Validation (optional).**
     If the user demands, the procedure `SpectroscopyFramework.decideAll` continues to construct cheapest distinguishing formulas for the query with `buildHMLWitness`.
-    - {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.Interpreter >}} checks that each formula is indeed true for one process and false for the other, applying the semantic HML game of @sec-hml-semantic-game.
+    - {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.Interpreter >}} checks that each formula is indeed true for one process and false for the other, applying the semantic HML game of @sec-hml-semantic-game.
       If the formula is not distinguishing, an exception is thrown.
-    - `classifyFormula` on the specific `Spectrum` object determines the expressiveness prices of formulas (implemented as in @rem-explicit-expr and @def-weak-spectrum by the `formulaObsNotion` functions in {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.StrongObservationNotion >}} / {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.WeakObservationNotion >}}).
+    - `classifyFormula` on the specific `Spectrum` object determines the expressiveness prices of formulas (implemented as in @rem-explicit-expr and @def-weak-spectrum by the `formulaObsNotion` functions in {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.StrongObservationNotion >}} / {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.WeakObservationNotion >}}).
       If the formula price exceeds the budget predicted by the game or is unexpectedly cheap, this constitutes an error.
     
     Error reports would point to incorrectness of the specific spectroscopy, not to user mistakes.
@@ -529,17 +540,17 @@ Data transformation flow in equiv.io
     If no formula construction is requested, the implementation in `SpectroscopyFramework.decideAll` works on *flattened energies* (@def-flattened-energies), generally leading to better performance.
 5. **Presentation.**
   `SpectroscopyFramework.decideAll` collects the finest preorders and coarsest distinctions, optionally together with their witness formulas in a `Spectroscopy.Result` object from
-  {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.Spectroscopy >}}.
+  {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.Spectroscopy >}}.
   This object helps front-end layers of the tool interpret the output as spectra, equivalences, and distinguishing formulas.
 
-Another trait {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.EquivalenceChecking >}} follows the second path of @fig-strong-spectroscopy-big-picture to decide individual equivalences through reachability games.
+Another trait {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.EquivalenceChecking >}} follows the second path of @fig-strong-spectroscopy-big-picture to decide individual equivalences through reachability games.
 We will not go into detail here.
-The core feature is to derive a game {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.MaterializedEnergyGame >}} as in @def-derived-reachability-game.
-{{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.WinningRegionComputation >}} determines its winner according to @alg-deciding-games.
+The core feature is to derive a game {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.MaterializedEnergyGame >}} as in @def-derived-reachability-game.
+{{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.WinningRegionComputation >}} determines its winner according to @alg-deciding-games.
 
 Besides the core-flow, there are some small additional diagnostic features.
-For instance, {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.SpectroscopyFramework >}} can save the spectroscopy game graph and formulas in Graphviz-format using {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.GameGraphVisualizer >}}, comparable to @fig-bisim-sim-game-energies.
-The output of the same mechanism for {{<code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.EquivalenceChecking >}} appears, for example, in the derived trace game of @fig-derived-trace-eq-game-true.
+For instance, {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.SpectroscopyFramework >}} can save the spectroscopy game graph and formulas in Graphviz-format using {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.GameGraphVisualizer >}}, comparable to @fig-bisim-sim-game-energies.
+The output of the same mechanism for {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.EquivalenceChecking >}} appears, for example, in the derived trace game of @fig-derived-trace-eq-game-true.
 
 :::{#rem-code-size}
 #### Line counting
@@ -937,9 +948,9 @@ Due to the possibility to mark divergences, even more notions are available.
 A recent survey by @gl2022eqChecking lists hundreds of tools to check bisimilarity and related equivalences and preorders.
 Some of them can justify their output with distinguishing formulas (or traces), similar to our approach.
 Many specific tools address special equivalences, for instance for open, timed, or probabilistic systems, which we do not support.
-On the other hand, {{<equivio>}} might be the first tool to cover some of the more arcane notions of the weak spectrum [@glabbeek1993ltbt], such as $\eta$-similarity and stable bisimilarity.
+On the other hand, {{< equivio >}} might be the first tool to cover some of the more arcane notions of the weak spectrum [@glabbeek1993ltbt], such as $\eta$-similarity and stable bisimilarity.
 
-In @tbl-tool-comparison, we compare the supported notions of {{<equivio>}} to four current state-of-the-art tools.
+In @tbl-tool-comparison, we compare the supported notions of {{< equivio >}} to four current state-of-the-art tools.
 A tick ✔ stands for direct support, (✔) for support via preprocessing.
 
 ```{=latex}
@@ -1007,7 +1018,7 @@ Comparison of supported notions.
 - **FDR4** [@grabr2014fdr] has “Failures Divergences Refinement” in its name, but also supports different linear-time refinement models for CSP.
   Branching-time notions are partially supported as minimizers.
 
-Like the listed tools, {{<equivio>}} can be seen as following the tradition of the discontinued “Concurrency Workbench[es]” [@cps1990concurrencyWorkbench; @cs1996ncsuConcurrencyWorkbench].
+Like the listed tools, {{< equivio >}} can be seen as following the tradition of the discontinued “Concurrency Workbench[es]” [@cps1990concurrencyWorkbench; @cs1996ncsuConcurrencyWorkbench].
 
 {{< paragraph_heading "Other avenues for implementation." >}}
 The implementations of this chapter realize @alg-deciding-energy-games quite directly to decide energy games.

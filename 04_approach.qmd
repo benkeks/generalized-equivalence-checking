@@ -989,32 +989,32 @@ By $\zerovec$, we denote its minimal element.
 
 @alg-deciding-energy-games computes the minimal attacker winning budgets.
 
-::: {#alg-deciding-energy-games}
+::: {#alg-deciding-energy-games alg-pos="t"}
 
 $$
 \begin{array}{rl}
-  \small  1 &  \kw{def} \variable{compute\_winning\_budgets}(\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate), \abstractupdateinv) \colon \\
-  \small  2 &  \quad \variable{attacker\_win} ≔ [ g \mapsto \varnothing \mid g ∈ G ] \\
-  \small  3 &  \quad \variable{todo} ≔ \set{g ∈ G_\defender \mid g \ngamemoveblank} \\
-  \small  4 &  \quad \kw{while} \variable{todo} \neq \varnothing \colon \\
-  \small  5 &  \quad \quad \variable{g} ≔ \kw{some} \variable{todo} \\
-  \small  6 &  \quad \quad \variable{todo} ≔ \variable{todo} \setminus \set{\variable{g}} \\
-  \small  7 &  \quad \quad \kw{if} \variable{g} ∈ G_\attacker \colon \\
-  \small  8 &  \quad \quad \quad \variable{new\_attacker\_win} ≔
+  {\scriptstyle   1} &  \kw{def} \variable{compute\_winning\_budgets}(\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate), \abstractupdateinv) \colon \\
+  {\scriptstyle   2} &  \quad \variable{attacker\_win} ≔ [ g \mapsto \varnothing \mid g ∈ G ] \\
+  {\scriptstyle   3} &  \quad \variable{todo} ≔ \set{g ∈ G_\defender \mid g \ngamemoveblank} \\
+  {\scriptstyle   4} &  \quad \kw{while} \variable{todo} \neq \varnothing \colon \\
+  {\scriptstyle   5} &  \quad \quad \variable{g} ≔ \kw{some} \variable{todo} \\
+  {\scriptstyle   6} &  \quad \quad \variable{todo} ≔ \variable{todo} \setminus \set{\variable{g}} \\
+  {\scriptstyle   7} &  \quad \quad \kw{if} \variable{g} ∈ G_\attacker \colon \\
+  {\scriptstyle   8} &  \quad \quad \quad \variable{new\_attacker\_win} ≔
             \Min( \set{\abstractupdateinv(\variable{g}, g')(\mathit{e'}) \mid  \\
      &  \quad \quad \quad \quad {\variable{g} \gamemoveblank g'} \land \mathit{e'} ∈ \variable{attacker\_win}[g']}) \\
-  \small  9 &  \quad \quad \kw{else} \colon \\
-  \small 10 &  \quad \quad \quad \variable{new\_attacker\_win} ≔ \set{\zerovec} \\
-  \small 11 &  \quad \quad \quad \kw{for} \variable{g'} ∈ (\variable{g} \gamemoveblank \cdot) \colon \\
-  \small 12 &  \quad \quad \quad \quad \variable{new\_attacker\_win} ≔
+  {\scriptstyle   9} &  \quad \quad \kw{else} \colon \\
+  {\scriptstyle  10} &  \quad \quad \quad \variable{new\_attacker\_win} ≔ \set{\zerovec} \\
+  {\scriptstyle  11} &  \quad \quad \quad \kw{for} \variable{g'} ∈ (\variable{g} \gamemoveblank \cdot) \colon \\
+  {\scriptstyle  12} &  \quad \quad \quad \quad \variable{new\_attacker\_win} ≔
             \Min( \set{ \sup\set{e_\attacker, \abstractupdateinv(\variable{g}, \variable{g'})(\mathit{e'})} \mid \\
      &  \quad \quad \quad \qquad e_\attacker ∈ \variable{new\_attacker\_win} \land
             \mathit{e'} ∈ \variable{attacker\_win}[\variable{g'}]} ) \\
-  \small 13 &  \quad \quad \kw{if} \variable{new\_attacker\_win} \neq \variable{attacker\_win}[\variable{g}] \colon \\
-  \small 14 &  \quad \quad \quad \variable{attacker\_win}[\variable{g}] ≔ \variable{new\_attacker\_win} \\
-  \small 15 &  \quad \quad \quad \variable{todo} ≔ \variable{todo} ∪ (\cdot \gamemoveblank \variable{g}) \\
-  \small 16 &  \quad \attackerwinsmin ≔ \variable{attacker\_win} \\
-  \small 17 &  \quad \kw{return} \attackerwinsmin \\
+  {\scriptstyle  13} &  \quad \quad \kw{if} \variable{new\_attacker\_win} \neq \variable{attacker\_win}[\variable{g}] \colon \\
+  {\scriptstyle  14} &  \quad \quad \quad \variable{attacker\_win}[\variable{g}] ≔ \variable{new\_attacker\_win} \\
+  {\scriptstyle  15} &  \quad \quad \quad \variable{todo} ≔ \variable{todo} ∪ (\cdot \gamemoveblank \variable{g}) \\
+  {\scriptstyle  16} &  \quad \attackerwinsmin ≔ \variable{attacker\_win} \\
+  {\scriptstyle  17} &  \quad \kw{return} \attackerwinsmin \\
 \end{array}
 $$
 

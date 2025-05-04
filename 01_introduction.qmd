@@ -267,7 +267,7 @@ This query leads to the output in @fig-peterson-spectrum,^[
 ]
 which is to be understood as an interactive version of the linear-time--branching-time spectrum of @fig-ltbts2-paper.
 
-::: {#fig-peterson-spectrum}
+::: {#fig-peterson-spectrum fig-env="figure*"}
 
 ![](img/peterson-spectrum.svg){.lightbox}
 

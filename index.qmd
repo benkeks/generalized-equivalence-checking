@@ -66,12 +66,18 @@ TODO
 ### Dedication {.unnumbered .unlisted}
 :::
 
+\par\vspace*{4cm}
+
 > To the memory of **Mark** Alexander **Sibly**,
 > 
 > `\raggedleft`{=latex}
 > creator of the programming language in which I wrote my first concurrent program, and a profound influence on me `\\`{=latex} and so many others!
 
 \vfill
+\par
+
+\newpage
+\thispagestyle{empty}
 
 ### Acknowledgments {.unnumbered .unlisted}
 

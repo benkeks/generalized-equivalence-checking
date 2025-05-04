@@ -12,7 +12,7 @@ toc-title: "Chapter 2"
 ::::{#related-2 .column-margin}
 `\vspace{-2em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
-This chapter is based on my introductory lectures and Isabelle-theory on behavioral equivalences, given in the Master course “Research at Work” at TU Berlin in Winter 2023/24.
+This chapter is based on my introductory lectures and Isabelle/HOL theory on behavioral equivalences, given in the Master course “Research at Work” at TU Berlin in Winter 2023/24.
 We aim to be mostly compatible with the textbook *Reactive systems* [@ails2007reactiveSystems].
 ::::
 
@@ -66,6 +66,8 @@ Equivalence games are a versatile way to handle behavioral equivalences and obta
 The Hennessy--Milner theorem appears as a shadow of the determinacy of the bisimulation reachability game.
 :::
 
+We will move towards motivating the games through logics.
+
 ::: {#idea-modal-first .callout-idea .callout-tip}
 #### Modal first!
 
@@ -91,7 +93,7 @@ The area of *formal methods* tries to make models sufficiently precise that one,
 ### Labeled Transition Systems
 
 Labeled transition systems are the standard formalism to discretely express the state space of programs, algorithms, and more.
-One can think of them as nondeterministic finite automata where the finiteness constraint has been lifted.
+One can think of them as nondeterministic finite automata without finiteness constraint.
 
 ::: {#def-ts}
 #### Transition systems
@@ -164,8 +166,12 @@ The program of $\literal{Q}$, on the other hand, performs a $τ$-step and then o
 
 There are two things one might wonder about @exm-ts:
 
-1. Should one care about nondeterminism in programs? @sec-ccs shows how nondeterminism arises naturally in concurrent programs.
-2. Should one consider $\literal P$ and $\literal Q$ equivalent? This heavily depends. Section [-@sec-behavioral-eq] will introduce a notion of equivalence under which the two are equivalent and one under which they differ.
+1. Should one care about nondeterminism in programs?
+  @sec-ccs shows how nondeterminism arises naturally in concurrent programs.
+  And, of course, many specifications leave *undefind behavior*.
+2. Should one consider $\literal P$ and $\literal Q$ equivalent?
+  This heavily depends.
+  Section [-@sec-behavioral-eq] will introduce a notion of equivalence under which the two are equivalent and one under which they differ.
 
 ::: {#rem-tau}
 #### A note on $τ$
@@ -1708,30 +1714,30 @@ With this, ${\game}_\hml$ of @def-hml-game entails a model checking procedure fo
 
 @alg-deciding-games describes how to compute who wins a finite reachability game for each position in time linear to the size of the game graph $\bigo{\relsize{\gamemoveblank}}$.
 
-::: {#alg-deciding-games fig-pos="t"}
+::: {#alg-deciding-games alg-pos="t"}
 
 $$
-\begin{array}{lr}
-  \kw{def} \variable{compute\_winning\_region}(\game=(G,G_\defender,\gamemoveblank)) \colon & \\
-  \quad \variable{defender\_options} ≔
-    [g \mapsto n \mid g \in G_\defender \land n = \relsize{\set{g' \mid g \gamemoveblank g'}}] & \\
-  \quad \variable{attacker\_win} ≔ \varnothing & \\
-  \quad \variable{todo} ≔ \set{g\in G_\defender \mid \variable{defender\_options}[g]=0} & \\
-  \quad \kw{while} \variable{todo} \neq \varnothing \colon & \\
-  \quad \quad \variable{g} ≔ \kw{some} \variable{todo} & \\
-  \quad \quad \variable{todo} ≔ \variable{todo} \setminus \set{\variable{g}} & \\
-  \quad \quad \kw{if} \variable{g} \notin \variable{attacker\_win} \colon & \\
+\begin{array}{rl}
+  {\scriptstyle  1} & \kw{def} \variable{compute\_winning\_region}(\game=(G,G_\defender,\gamemoveblank)) \colon \\
+  {\scriptstyle  2} & \quad \variable{defender\_options} ≔
+    [g \mapsto n \mid g \in G_\defender \land n = \relsize{\set{g' \mid g \gamemoveblank g'}}] \\
+  {\scriptstyle  3} & \quad \variable{attacker\_win} ≔ \varnothing \\
+  {\scriptstyle  4} & \quad \variable{todo} ≔ \set{g\in G_\defender \mid \variable{defender\_options}[g]=0} \\
+  {\scriptstyle  5} & \quad \kw{while} \variable{todo} \neq \varnothing \colon \\
+  {\scriptstyle  6} & \quad \quad \variable{g} ≔ \kw{some} \variable{todo} \\
+  {\scriptstyle  7} & \quad \quad \variable{todo} ≔ \variable{todo} \setminus \set{\variable{g}} \\
+  {\scriptstyle  8} & \quad \quad \kw{if} \variable{g} \notin \variable{attacker\_win} \colon \\
   % note: the if should not be necessary for sets.
-  \quad \quad \quad \variable{attacker\_win} ≔ \variable{attacker\_win} \cup \set{\variable{g}} & \\
-  \quad \quad \quad \kw{for} \variable{g_{p}} \in (\cdot \gamemoveblank \variable{g}) \colon & \\
-  \quad \quad \quad \quad \kw{if} \variable{g_{p}} \in G_\attacker \colon & \\
-  \quad \quad \quad \quad \quad \variable{todo} ≔ \variable{todo} \cup \set{\variable{g_{p}}} & \\
-  \quad \quad \quad \quad \kw{else} \colon & \\
-  \quad \quad \quad \quad \quad \variable{defender\_options}[\variable{g_{p}}]≔\variable{defender\_options}[\variable{g_{p}}]-1 & \\
-  \quad \quad \quad \quad \quad \kw{if} \variable{defender\_options}[\variable{g_{p}}]=0 \colon & \\
-  \quad \quad \quad \quad \quad \quad \variable{todo} ≔ \variable{todo} \cup \set{\variable{g_{p}}} & \\
-  \quad \attackerwins ≔ \variable{attacker\_win} & \\
-  \quad \kw{return} \attackerwins & \\
+  {\scriptstyle  9} & \quad \quad \quad \variable{attacker\_win} ≔ \variable{attacker\_win} \cup \set{\variable{g}} \\
+  {\scriptstyle 10} & \quad \quad \quad \kw{for} \variable{g_{p}} \in (\cdot \gamemoveblank \variable{g}) \colon \\
+  {\scriptstyle 11} & \quad \quad \quad \quad \kw{if} \variable{g_{p}} \in G_\attacker \colon \\
+  {\scriptstyle 12} & \quad \quad \quad \quad \quad \variable{todo} ≔ \variable{todo} \cup \set{\variable{g_{p}}} \\
+  {\scriptstyle 13} & \quad \quad \quad \quad \kw{else} \colon \\
+  {\scriptstyle 14} & \quad \quad \quad \quad \quad \variable{defender\_options}[\variable{g_{p}}]≔\variable{defender\_options}[\variable{g_{p}}]-1 \\
+  {\scriptstyle 15} & \quad \quad \quad \quad \quad \kw{if} \variable{defender\_options}[\variable{g_{p}}]=0 \colon \\
+  {\scriptstyle 16} & \quad \quad \quad \quad \quad \quad \variable{todo} ≔ \variable{todo} \cup \set{\variable{g_{p}}} \\
+  {\scriptstyle 17} & \quad \attackerwins ≔ \variable{attacker\_win} \\
+  {\scriptstyle 18} & \quad \kw{return} \attackerwins
 \end{array}
 $$
 

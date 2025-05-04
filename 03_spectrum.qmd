@@ -216,6 +216,8 @@ A *lattice* is a partially ordered set $(B, \leq)$, where there are greatest low
   We say $\inf$-complete or $\sup$-complete if only one of the two is true.
 - We call a totally ordered subset $B' \subseteq B$ a *chain*.
 - Dually, some $B' \subseteq B$ with no two elements $b_1, b_2 \in B'$ such that $b_1 \leq b_2$ is called an *anti-chain*.
+- The *upward closure* ${\upset\! B'}$ of a $B' \subseteq B$ is defined as $\set{b \in B \mid \exists b' \in B' \ldotp b' \leq b}$.
+  Analogously, the *downward closure* is given by ${\downset\! B'} \defeq \set{b \in B \mid \exists b' \in B' \ldotp b \leq b'}$.
 :::
 
 ::: {#fig-set-lattice .column-margin}
@@ -832,7 +834,6 @@ Grammars induced by coordinates for strong branching-time notions of equivalence
 \indent
 For the rest of the thesis, we will take the equivalences as defined by the coordinates as canonical.
 But, of course, it is natural to ask whether the equivalences thus defined correspond to previous definitions in this thesis and the literature.
-
 @lem-spectrum-characterization already establishes that the coordinates of traces, simulation, failures, and bisimulation match the common definitions.
 
 @mattes2024expressivePowerHML proves in Isabelle/HOL that our coordinate system spectrum matches the distinctiveness of the modal characterizations by @glabbeek2001ltbtsiReport.^[
@@ -866,8 +867,8 @@ which would undermine the *trace-likeness* of the observation.
 :::
 
 @exm-failure-trace-distinguished shows how it pays off that the spectrum grammar (@def-strong-spectrum) has a more lenient pricing for one of the positive conjuncts.
-We will sometimes refer to the deep positive conjunct of a conjunction as the *revival*, because revivals equivalence [@rrs2007responsivenessRevivals] is the first notion of equivalence with this feature.
-It also matters for ready traces, as can be seen by the ready trace formula in @fig-formula-pricing-complex.
+We will refer to the deep positive conjunct of a conjunction as the *revival*, because revivals equivalence [@rrs2007responsivenessRevivals] is the minimal notion with this feature.
+It also matters for ready traces, as seen in the ready trace formula of @fig-formula-pricing-complex.
 
 ### Any Questions?
 
@@ -1086,8 +1087,7 @@ $\notions^{\literal{strong}}_{\literal{Q}, \literal{T}} =
 
 Technically, it is convenient to not compute $\notions_{p,q}$ directly.
 Rather we aim to construct the *Pareto front* of minimal notions that do not hold, $\Min(\notions \setminus \notions_{p,q})$.
-The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as complement of the upward closure $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$
-(where ${\upset\! B} ≔ \set{b \mid \exists b' \in B \ldotp b' \leq b}$ is the upwards closure for $B$ subset of some partially ordered set).
+The Pareto front serves as a unique representation, from which $\notions_{p,q}$ can be constructed as complement of the upward closure $\notions \setminus \upset \Min(\notions \setminus \notions_{p,q})$.
 Pareto fronts form *anti-chains* and appear naturally in optimization problems.
 
 All spectra we are concerned with are well-quasi ordered, which means that each $\Min(\notions \setminus \notions_{p,q})$ must be finite in size [@kruskal1972wqo] and thus “more handy” than the full sets $\notions_{p,q}$ or $\notions \setminus \notions_{p,q}$.
@@ -1130,6 +1130,9 @@ $$p \bpreordvar{\observationsvar{}} q ⟺ \difference{p}{q} \cap \observationsva
 The spectroscopy problem then is about computing some abstraction $\Delta_A$ such that
 $N \in \Delta_A(p,q)$ precisely if $\difference{p}{q} \cap \observationsvar{N} \neq \varnothing$.
 $\notions_{p,q}$ plays the role of $\Delta_A(p,q)$.
+
+This falls in line with our observations about the $\leq$-game on numbers in @exm-less-eq-game and (bi-)simulation games.
+Comparison is inherently linked to subtraction.
 
 ### Complexities {#sec-equivalence-complexities}
 

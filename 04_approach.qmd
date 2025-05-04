@@ -690,11 +690,14 @@ $\notions \ni N = e \in \energies$.
 ::: {#def-strategy-formulas-poly}
 #### Strategy formulas for $\gamebisimen$
 
-The set of *strategy formulas* for a game position $g$ and a budget $e$, $\strat_\notionname{B}(g, e)$, in the context of a bisimulation energy game $\gamebisimen[\system]$ is defined inductively by the following rules:
+The set of *strategy formulas* for a game position $g$ and a budget $e$, $\strat_\notionname{B}(g, e)$, in the context of a bisimulation energy game $\gamebisimen[\system]$ is defined inductively by the rules in @fig-strategy-formulas-poly.
+:::
+
+::: {#fig-strategy-formulas-poly fig-pos="t" fig-env="figure*"}
 $$
 \inferrule[observation]{
   [p, q] \gamemove{-1,0,0}^🗲_\notionname{B} (α, p', q) \quad
-  e' = \energyupdate((-1,0,0), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q)) \quad
+  e' = \energyupdate((-1,0,0), e) ∈ \attackerwins^{\gamebisimen}((α, p', q)) \quad
   φ ∈ \strat_\notionname{B}((α, p', q), e')
 }{
   (\hmlobs{α} φ) ∈ \strat_\notionname{B}([p, q], e)
@@ -704,7 +707,7 @@ $$
 \inferrule[conjunction]{
   \forall q' ∈ \derivatives{q, α} \ldotp \quad
   (α, p', q) \gamemove{0,0,0}^🗲_\notionname{B} [p', q'] \; \land \;
-  e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q']) \; \land \;
+  e ∈ \attackerwins^{\gamebisimen}([p', q']) \; \land \;
   ψ_{q'} ∈ \strat_\notionname{B}([p', q'], e)
 }{
   (\hmland{q'}{\derivatives{q, α}} ψ_{q'}) ∈ \strat_\notionname{B}((α, p', q), e)
@@ -713,39 +716,42 @@ $$
 $$
 \inferrule[negation]{
   [p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p] \quad
-  e' = \energyupdate((\updmin{1,2},0,-1), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}([q, p]) \quad
+  e' = \energyupdate((\updmin{1,2},0,-1), e) ∈ \attackerwins^{\gamebisimen}([q, p]) \quad
   \hmlobs{α} φ ∈ \strat_\notionname{B}([q, p], e')
 }{
   (\hmlneg  \hmlobs{α} φ) ∈ \strat_\notionname{B}([p, q], e)
 }
 $$
+
+Rules to derive cheap distinguishing formulas from attacker winning budgets.
 :::
 
+\noindent
 Effectively, this definition generalizes the construction of distinguishing formulas on $\gamebisim$ we have introduced in @lem-attacks-imply-formulas.
-So the formulas we encountered before also serve as examples of such strategy formulas.
+Therefore, the formulas we encountered before also serve as examples of such strategy formulas.
 
 The general design principle for the construction of strategy formulas as in @def-strategy-formulas-poly is that each rule either corresponds to a kind of attacker move (observation/simulation, negation/swap) or a kind of defender position (conjunction).
 
 ::: {#lem-bisim-energy-game-soundness}
 #### Distinction soundness
 
-If $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
+If $e ∈ \attackerwins^{\gamebisimen}([p, q])$,
 then there is $φ ∈ \strat_\notionname{B}([p, q], e)$ with $φ ∈ \observationsvar[\literal{peasy}]{e}$, $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$.
 :::
 ::: proof
 We prove the following (more general) property by induction.
 
-1. If $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$,
+1. If $e ∈ \attackerwins^{\gamebisimen}([p, q])$,
 then there is $ψ ∈ \strat_\notionname{B}([p, q], e)$ of form $ψ = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{ψ} ∈ \observationsvar[\literal{peasy}]{e}$, $p ∈ \semantics{ψ}$ and $q \notin \semantics{ψ}$.
-2. If $e ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$,
+2. If $e ∈ \attackerwins^{\gamebisimen}((α, p', q))$,
 then there is $φ ∈ \strat_\notionname{B}((α, p', q), e)$ of form $φ = \hmlands Ψ$ with $φ ∈ \observationsvar[\literal{peasy}]{e}$, $p' ∈ \semantics{φ}$ and $q \notin \semantics{\hmlobs{α}φ}$.
 
 Proof by induction on the inductive characterizations of attacker winning budgets (@prp-winning-budget-rules).
 
-1. Assume $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
+1. Assume $e ∈ \attackerwins^{\gamebisimen}([p, q])$.
   This must be due to one of the following moves:
     - Case $[p, q] \gamemoveblank^🗲_\notionname{B} [q, p]$  
-      with $e' = \energyupdate((\updmin{1,2},0,-1), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}([q, p])$.
+      with $e' = \energyupdate((\updmin{1,2},0,-1), e) ∈ \attackerwins([q, p])$.
       By induction hypothesis on $[q, p]$, there is $ψ ∈ \strat_\notionname{B}([q, p], e')$ with $\hmlands\set{ψ} ∈ \observationsvar[\literal{peasy}]{e'}$, $q ∈ \semantics{ψ}$ and $p \notin \semantics{ψ}$.
       Consider the possible forms of $ψ$:
         - $ψ = \hmlobs{α}φ'$.
@@ -756,13 +762,13 @@ Proof by induction on the inductive characterizations of attacker winning budget
           This can only be in $\strat_\notionname{B}([q, p], e')$ due to $\hmlobs{α}φ'$ being in $\strat_\notionname{B}([p, q], \energyupdate((\updmin{1,2},0,-1), e'))$.
           Clearly, $\hmlobs{α}φ'$ must distinguish $p$ from $q$ and $\hmlands\set{\hmlobs{α}φ'} ∈ \observationsvar[\literal{peasy}]{e}$.
     - Case $[p, q] \gamemoveblank^🗲_\notionname{B} (α, p', q)$  
-      with $p \step{α} p'$ and $e' = \energyupdate((-1,0,0), e) ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
+      with $p \step{α} p'$ and $e' = \energyupdate((-1,0,0), e) ∈ \attackerwins((α, p', q))$.
       By induction hypothesis on $(α, p', q)$, there is $\hmlands Ψ ∈ \strat_\notionname{B}((α, p', q), e')$ and $\hmlands Ψ ∈ \observationsvar[\literal{peasy}]{e'}$ with $p' ∈ \semantics{\hmlands Ψ}$ and $q \notin \semantics{\hmlobs{α}\hmlands Ψ}$.
       By @def-strategy-formulas-poly, we obtain $\hmlobs{α}\hmlands Ψ ∈ \strat_\notionname{B}([p, q], e)$.
       Due to the semantics of HML and $p \step{α} p'$, $p ∈ \semantics{\hmlobs{α}\hmlands Ψ}$, thus distinguishing $p$ from $q$.
       Also, $\hmlobs{α}\hmlands Ψ ∈ \observationsvar[\literal{peasy}]{e}$ as $\hmlands Ψ ∈ \observationsvar[\literal{peasy}]{e - \unitvec{1}}$.
-2. Assume $e ∈ \attackerwins^{\game_\notionname{B}^🗲}((α, p', q))$.
-  This means that $e$ suffices for the attacker to win every move $(α, p', q) \gamemoveblank^🗲_\notionname{B} [p', q']$ with $q \step{α} q'$ that the defender might take, with $e ∈ \attackerwins^{\game_\notionname{B}^🗲}([p', q'])$.
+2. Assume $e ∈ \attackerwins^{\gamebisimen}((α, p', q))$.
+  This means that $e$ suffices for the attacker to win every move $(α, p', q) \gamemoveblank^🗲_\notionname{B} [p', q']$ with $q \step{α} q'$ that the defender might take, with $e ∈ \attackerwins([p', q'])$.
   For each $q'$, we employ the induction hypothesis to obtain $ψ_{q'} ∈ \strat_\notionname{B}([p', q'], e)$ of form $ψ_{q'} = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{ψ_{q'}} ∈ \observationsvar[\literal{peasy}]{e}$, $p' ∈ \semantics{ψ_{q'}}$ and $q' \notin \semantics{ψ_{q'}}$.
   By @def-strategy-formulas-poly, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'}) ∈ \strat_\notionname{B}((α, p', q), e)$.
   By the $\hml$ semantics, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'})$ must be true for $p'$, and also taking the semantics of observation, $\hmlobs{α}(\hmland{q'}{\derivatives{q, α}} ψ_{q'})$ false for $q$.
@@ -776,7 +782,7 @@ Now let us link back.
 #### Distinction completeness
 
 If there is $φ ∈ \observationsvar[\literal{peasy}]{N}$ with $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$,
-then $N ∈ \attackerwins^{\game_\notionname{B}^🗲}([p, q])$.
+then $N ∈ \attackerwins^{\gamebisimen}([p, q])$.
 :::
 ::: proof
 By induction on the grammar of $\observationsvar[\literal{peasy}]{N}$.
@@ -1189,7 +1195,7 @@ Combination (dashed red) of successor Pareto fronts (black) to take the union at
   Unless the attacker at least arrives with energy $\sup\set{(0,1), (1,0)} = (1,1)$, the defender has a way of winning.
   Effectively, this amounts to intersecting attacker winning budgets of possible successor positions.
 5. For $\literal{g_1} ∈ G_\attacker$, it suffices to know a winning budget for one successor.
-   So we determine as a preliminary winning budget $\abstractupdateinv((-2, -1))((1,1)) = (3,2)$.
+   Therefore, we can determine as a preliminary winning budget $\abstractupdateinv((-2, -1))((1,1)) = (3,2)$.
 6. $\literal{g_2} ∈ G_\attacker$ also derives its winning budget from $(1,1)$.
   But $(1,1) - (2,-1) = (-1,2)$ would be outside the possible energy levels the attacker could carry here and is thus $\sup$-ed into $\nats^2$, yielding new win $(0,2)$.
 7. $\literal{g_3} ∈ G_\attacker$ just propagates $(1,1)$ from $\literal{g_4}$.
@@ -1469,16 +1475,16 @@ We have gathered enough material to prove that the spectroscopy problem for the 
 
 As outlined in @sec-spectro-problem, we consider the spectroscopy problem for $p$ and $q$ solved when we can compute $\Min(\notions \setminus \notions_{p,q})$.
 More specifically, according to @thm-bisim-energy-game-characterization, the defender-won energies answer the spectroscopy question of @prob-spectroscopy-problem:
-$$\notions^\literal{peasy}_{p,q} = \defenderwins^{\game_\notionname{B}^🗲}([p,q]).$$
+$$\notions^\literal{peasy}_{p,q} = \defenderwins^{\gamebisimen}([p,q]).$$
 By the determinacy of winning budgets (@prp-winning-budget-determinacy),
 $$
-\notions^\literal{peasy} \setminus \notions^\literal{peasy}_{p,q} = \attackerwins^{\game_\notionname{B}^🗲}([p,q])
+\notions^\literal{peasy} \setminus \notions^\literal{peasy}_{p,q} = \attackerwins^{\gamebisimen}([p,q])
 $$
 and thus
 $$
-\Min(\notions^\literal{peasy} \setminus \notions^\literal{peasy}_{p,q}) = \attackerwins^{\min\game_\notionname{B}^🗲}([p,q]).
+\Min(\notions^\literal{peasy} \setminus \notions^\literal{peasy}_{p,q}) = \attackerwins^{\min\gamebisimen}([p,q]).
 $$
-Thereby, @prob-spectroscopy-problem for $\notions^\literal{peasy}$ on a transition system reduces to @prob-energy-game-problem on the corresponding bisimulation energy game $\game_\notionname{B}^🗲$.
+Thereby, @prob-spectroscopy-problem for $\notions^\literal{peasy}$ on a transition system reduces to @prob-energy-game-problem on the corresponding bisimulation energy game $\gamebisimen$.
 The latter is answered by @alg-deciding-energy-games.
 
 ::: {#thm-bisim-energy-game-complexity}

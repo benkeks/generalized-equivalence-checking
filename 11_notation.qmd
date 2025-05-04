@@ -34,7 +34,7 @@ toc-title: "Notation"
 | $\leq$                 | less‑than‑or‑equal‑to, usually pointwise on vectors                                                |
 | $\Min(A)$, $\Max(A)$   | Set of minimal / maximal elements in $A$ in the context of a preorder $\leq$                   |
 | $\lub$ / $\sup$, $\glb$ / $\inf$ | Least upper bound / greatest lower bound in the context of a lattice (@def-lattice)          |
-| $\upset A$, $\downset A$ | Upward-closure / downward-closure of set $A$ in the context of a preorder $\leq$              |
+| $\upset A$, $\downset A$ | Upward-closure / downward-closure of set $A$ in the context of a preorder $\leq$ (@def-lattice) |
 | $\unitvec{k}$          | Unit vector; component $k$ is 1, all others 0 (in the context of some dimensionality $d$)      |
 | $\zerovec$             | Vector of zeros (in the context of some dimensionality $d$); not to be confused with $\ccsnull$ as terminated $\ccs$ process in @def-ccs |
 

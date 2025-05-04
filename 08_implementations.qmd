@@ -832,7 +832,7 @@ Defeat them by moving along the right blue edge.
 
 The handling of conjunctions is a little more involved.
 
-:::{#fig-spectro-invaders-screenshot}
+:::{#fig-spectro-invaders-screenshot fig-pos="t"}
 
 ![](img/spectro-invaders-1.png){.lightbox}
 

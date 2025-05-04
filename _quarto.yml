@@ -67,7 +67,7 @@ book:
       chapters:
         - 06_weak-spectrum.qmd
         - 07_weak-spectroscopy.qmd
-    - part: "… And Beyond"
+    - part: "… and Beyond"
       chapters:
         - 08_implementations.qmd
         - 09_conclusion.qmd

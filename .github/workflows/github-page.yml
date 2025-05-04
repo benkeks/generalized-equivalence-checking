@@ -68,6 +68,9 @@ jobs:
             cancel
             patchcmd
             siunitx
+            marginfix
+            stfloats
+            hyphenat
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2

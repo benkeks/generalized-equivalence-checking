@@ -1164,8 +1164,8 @@ They usually employ partition refinement [e.g. @valmari2009bisimMin], deriving f
           $\complexityname{PSPACE}$,
         }
     ]
-    \addplot+ [smooth] coordinates {(ID,0) (GI,4) (B,2) (S,3) (T,5) (E,1) (U,0)};
-    \draw[draw=gray] (axis cs:{[normalized]1.9},-0.1) rectangle (axis cs:{[normalized]6.1},5.1);
+    \addplot+ [smooth, thick, TealBlue, mark options={fill=TealBlue}] coordinates {(ID,0) (GI,4) (B,2) (S,3) (T,5) (E,1) (U,0)};
+    \draw[draw=DarkViolet] (axis cs:{[normalized]1.9},-0.1) rectangle (axis cs:{[normalized]6.1},5.1);
   \end{axis}
 \end{tikzpicture}
 ```

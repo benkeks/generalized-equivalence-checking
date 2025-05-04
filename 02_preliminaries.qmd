@@ -39,22 +39,22 @@ Simultaneously, the approach is *opinionated*, focusing on Milner's tradition of
   \node[below of=Bisim, text=TealBlue, rotate=270, label={[align=center]270:Def.~\ref{def-bisimilarity}}] (Biff) {$:\!\!\iff$};
   \node[below of=NotBisim, gray, rotate=270] (NBiff) {$\iff$};
   \node[algstep, draw=TealBlue, below of=Biff] (Rel) {There is bisimulation $\rel{R}$\\such that $(p,q) \in \rel{R}$};
-  \node[algstep, draw=Fuchsia, below of=NBiff] (Distinction) {Some $\varphi \in \hml$\\distinguishes $p$ from $q$};
+  \node[algstep, draw=DarkViolet, below of=NBiff] (Distinction) {Some $\varphi \in \hml$\\distinguishes $p$ from $q$};
   \node[below of=Rel, text=Peach, rotate=270, label={[align=right]270:Stirling's\\characterization}, label={[align=left]90:Thm.~\ref{thm-bisim-game-characterization}}] (Siff) {$\iff$};
   \node[below of=Distinction, text=Peach, rotate=270, label=90:{Thm.~\ref{thm-game-formulas}}] (Giff) {$\iff$};
   \node[algstep, draw=Peach, below of=Siff] (DefenderWins) {Defender wins bisimulation\\game from $[p,q]$};
   \node[algstep, draw=Peach, below of=Giff] (AttackerWins) {Attacker wins bisimulation\\game from $[p,q]$};
   \path
     (Bisim) edge[draw=TealBlue] node[label=below:{Def.~\ref{def-bisimilarity}}] {XOR} (NotBisim)
-    (Rel) edge[draw=Fuchsia] node[label={[align=center]below:Hennessy--Milner\\Thm.~\ref{thm-hennessy-milner}}] {XOR} (Distinction)
+    (Rel) edge[draw=DarkViolet] node[label={[align=center]below:Hennessy--Milner\\Thm.~\ref{thm-hennessy-milner}}] {XOR} (Distinction)
     (DefenderWins) edge[draw=Peach] node[label={[align=center]below:Determinacy\\of games}] {XOR} (AttackerWins);
   \node[text=TealBlue, right=2mm of NotBisim] (Sec22) {Section \ref{sec-behavioral-eq}};
-  \node[text=Fuchsia, right=2mm of Distinction] (Sec23) {Section \ref{sec-hml}};
+  \node[text=DarkViolet, right=2mm of Distinction] (Sec23) {Section \ref{sec-hml}};
   \node[text=Peach, right=2mm of AttackerWins] (Sec24) {Section \ref{sec-games}};
 \end{tikzpicture}
 ```
 
-Core-correlations for bisimilarity between relational definition, modal distinguishability, and equivalence game.
+Core correlations for bisimilarity between relational definition, modal distinguishability, and equivalence game.
 :::
 
 A reader familiar with the contents of @fig-equivalence-big-picture might mostly skim through this chapter of preliminaries (although they are quite exciting!).

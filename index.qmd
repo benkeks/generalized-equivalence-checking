@@ -27,7 +27,28 @@ Core parts of the thesis are supported by an *Isabelle/HOL formalization*.
 :::
 
 :::{#summary-block-de}
-TODO
+Wir befassen uns mit dem *Spektroskopie-Problem*.
+Dieses fragt, welche Verhaltensgleichheiten eines Spektrums Zustände in einem Transitionssystem in Beziehung setzen.
+Damit wird es möglich, die Frage, *wie äquivalent zwei Programme sind*, allgemein zu handhaben.
+
+Als *Hauptergebnis* lösen wir das Spektroskopie-Problem für Systeme mit endlichem Zustandsraum und eine Hierarchie semantischer Modelle, die als „Schwaches Linearzeit–Verzweigungszeit-Spektrum“ nach van Glabbeek bekannt ist.
+Dieses Spektrum ergibt sich aus verschiedenen Wegen, Nichtdeterminismus und internes Verhalten in Modellen nebenläufiger Programme zu fassen.
+Wir behandeln auch das „Starke Spektrum“ (ohne internes Verhalten) sowie diverse Anwendungsfälle generalisierter Äquivalenzprüfung in Verifikation und Nebenläufigkeitstheorie. 
+
+Unser *Ansatz* ruht auf einem *quantitativen Verständnis von Spektren* darin, wie viele syntaktische Möglichkeiten in Hennessy–Milner-Modallogik zur Charakterisierung verwendet werden. 
+
+Der *zentrale Trick* zur Lösung des Spektroskopie-Problems ist, zu zeigen, wie Gleichheitsspektren durch *Spektroskopie-Spiele* abgedeckt werden.
+In diesen begrenzen Energiebudgets die Möglichkeiten eines Angreifers, der Unterschiede zwischen Zuständen ausdrücken möchte.
+Optimale Angriffsstrategien korrespondieren zu *unterscheidenden Formeln*, die minimale syntaktische Möglichkeiten nutzen.
+Das Spektroskopie-Problem reduziert sich damit auf die Berechnung *minimaler Budgets*, mit denen der Angreifer in Spektroskopie-Spielen gewinnt.
+Hierzu liefern wir einen Algorithmus, mit dem sich solche Budgets für eine größere Klasse von *Galois-Energie-Spielen* ermitteln lassen.
+Die sich ergebenden Spektroskopie-Algorithmen sind exponentiell für das $\complexityname{PSPACE}$-harte Spektrum von Gleichheitsproblemen, aber lassen sich zu polynomiellen Lösungen für den $\complexityname{P}$-einfachen Teil instanziieren.
+
+Mit dem Ziel der *Anwendbarkeit* implementieren wir die Spektroskopie im Web-Tool {{< equivio >}}.
+Dieses Programm folgt einer Tradition von *Concurrency-Workbenches*.
+Mit ihm lassen sich *dutzende Gleichheiten auf einmal prüfen*.
+Wir wenden den Spektroskopie-Ansatz in kleinen Fallbeispielen aus Verifikation und Übersetzung nebenläufiger Programme an.
+Zentrale Teile der Arbeit werden durch eine *Isabelle/HOL-Formalisierung* gestützt.
 :::
 
 ::::{.content-visible when-format="pdf"}

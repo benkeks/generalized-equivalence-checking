@@ -11,8 +11,8 @@ toc-title: "Chapter 1"
 
 Have you ever looked at two program descriptions and wondered *how equivalent they are*–or, conversely, how they can be distinguished?
 
-I have run into this problem often, for instance, when analyzing models of distributed algorithms or when devising examples for teaching.
-But obviously, the question already occurs every time one rewrites a program part and hopes for it to still do its job.
+In concurrency theory, one runs into this problem often, for instance, when analyzing models of distributed algorithms or when devising examples for teaching.
+More mundanely, the question occurs every time one rewrites a program part and hopes for it to still do its job.
 
 ::: {#fig-ltbts2-paper .column-margin}
 ![](img/ltbts2.png){.lightbox}
@@ -21,9 +21,8 @@ The linear-time–branching-time spectrum with silent moves as depicted in @glab
 (`Do not try to read this small figure! Its role here is that of a symbol.`{=latex} This thesis will use a simpler version in @fig-weak-spectrum.)
 :::
 
-The first time that I formally faced the question has been when working as a student research assistant:
-I was tasked with implementing a translation from the process algebra Timed CSP to Timed Automata.^[
-    The aim was to bridge between the tools FDR2 and UPPAAL for Göthel's dissertation [-@goethel12mechanicalVerificationRTS].
+My first formal encounter with the question of behavioral equivalence came when I was implementing a translation from the process algebra Timed CSP to Timed Automata.^[
+    My job as student research assistant was to bridge between the tools FDR2 and UPPAAL for @goethel12mechanicalVerificationRTS.
     The previous work I was to base the translations on had serious flaws:
     One approach introduced spurious deadlocks to the model, the other was unable to handle nesting of choices and parallel composition.
     Clearly, we had to change the encoding!]
@@ -31,11 +30,11 @@ How to tell whether the translation would properly honor the semantics of the tw
 Did it translate CSP terms to automata *with the same meaning*?
 Even the definition of the question is tricky, as there are different notions of what counts as “same meaning” in the semantics of programs.
 
-I then took my very first look into seminal work on the landscape of process equivalences, the “linear-time–branching-time spectrum” by van Glabbeek [-@glabbeek1990ltbt1; -@glabbeek1993ltbt; -@glabbeek2001ltbtsiReport with a combined 2500 citations on Google Scholar].
+I then took my very first look into seminal work on the landscape of process equivalences: the “linear-time–branching-time spectrum” by van Glabbeek [-@glabbeek1990ltbt1; -@glabbeek1993ltbt; -@glabbeek2001ltbtsiReport with a combined 2500 citations on Google Scholar].
 A central figure, reproduced in @fig-ltbts2-paper, mesmerized me.
 So many equivalences!
 But, how to find out for a given pair of processes which of the many equivalences apply?
-Over the years, I have learned that others, too, have run into this not-quite-straightforward problem:
+Over the years, I have learned that others, too, have run into the not-quite-straightforward question which equivalences hold:
 For instance, @nestmann1996decoding thinking about process algebra encodings and @bell2013certifiably verifying compiler optimizations.
 We share an itch.
 
@@ -160,7 +159,9 @@ Are there notions relating $\literal{Pe}$ and $\literal{Mx}$ *besides* mutual we
 For many of the existing behavioral preorders and equivalences, there are various algorithms and implementations to decide whether processes are equivalent [see @gl2022eqChecking for a survey].
 So, it would be an option to throw an array of algorithms on the transition systems of @exm-peterson-mutex.
 For example, let us pick out stable failures and contrasimilarity, which are close to weak similarity in @fig-ltbts2-paper.
-CAAL [@aaehlow2015caal] could establish mutual weak similarity, mCRL2 [@groote2014mcrl2; @bgklnvww2019mcrl2tacas] would rule out stable-failure equivalence, and, for contrasimilarity, we would need to implement our own solution because there is no tool supporting it.
+CAAL [@aaehlow2015caal] could establish mutual weak similarity, but does not support the other notions.
+mCRL2 [@groote2014mcrl2; @bgklnvww2019mcrl2tacas] would rule out stable-failure equivalence.
+But for contrasimilarity, we would need to implement our own solution because there is no tool supporting it.
 Combining different tools and algorithms like this is tiresome and prone to subtle errors.
 It would be desirable to treat the question in *just one* algorithm!
 
@@ -342,7 +343,7 @@ More precisely, we make the following contributions, each coming with a “side 
   - Side quest: Analyzing Peterson's mutual exclusion protocol.
 
 Each chapter ends with a discussion of its position in the context of the thesis and of related work.
-We close with a discussion of the wider picture in @sec-conclusion and recapitulate how this thesis ascends through a *hierarchy of game characterizations*.
+@sec-conclusion recapitulates how the thesis ascends through a *hierarchy of game characterizations* and considers the wider picture.
 Recurring symbols can be looked up under [Notation](#sec-notation)`~on page~\pageref{sec-notation}`{=latex}.
 
 :::{#thesis-overview}
@@ -390,14 +391,14 @@ An example of how to read the figure:
 It builds on a part of the modal characterization for the strong spectrum in @sec-spectrum and on game theory from @sec-preliminaries, which is adapted through energy games.
 
 {{< paragraph_heading "Not this thesis." >}}
-We limit ourselves to the *strong spectrum* [@glabbeek1990ltbt1] and the *weak spectrum* [@glabbeek1993ltbt].
-For instance, this excludes questions around value-passing and open/late/early bisimilarities and barbed congruences on the $\pi$-calculus [cf. @sangiorgi1996bisimPi].
+We limit ourselves to the relevant parts of the *strong spectrum* [@glabbeek1990ltbt1] and the *weak spectrum* [@glabbeek1993ltbt].
+For instance, this excludes questions around value-passing, open/late/early bisimilarities, and barbed congruences on the $\pi$-calculus [cf. @sangiorgi1996bisimPi].
 Also, we do not consider timed or probabilistic equivalences [cf. @bdh2020probabilisticSpectrum], nor behavioral distances [@fahrenberg2014quantitativeLTBTS].
 Neither do we aim to re-survey behavioral equivalences in encyclopedic detail, which means that several notions will be covered without a detailed discussion of their features and merits.
 
 ## Artifacts and Papers {#sec-artifacts-papers}
 
-This thesis ties together the work of several publications in a coherent presentation.
+This thesis ties together the work of several publications.
 It is written to be understandable on its own.
 For details, we typically refer to the original publications or to other artifacts for implementation and machine-checked proofs.
 
@@ -426,7 +427,7 @@ In order to relieve the document of technical proofs, these are contained in mac
 - *“A weak spectroscopy game to characterize behavioral equivalences”* formalizes the core results of @sec-weak-spectrum and @sec-weak-spectroscopy: <https://equivio.github.io/silent-step-spectroscopy>.
   The theory [@bbhlmm2025weakSpectroscopyIsabelle] has been developed together with TU Berlin students Lisa Annett Barthel, Leonard Moritz Hübner, Caroline Lemke, Karl Parvis Philipp Mattes, and Lenard Mollenkopf.
   Also, many theorems of earlier chapters can be understood to be supported by the formalization.
-- *“Equivalence spectrum formalization”* supplies proofs for the early chapters: <https://benkeks.github.io/ltbt-spectroscopy-isabelle/>.
+- *“Equivalence spectrum formalization”* supplies proofs for @sec-preliminaries and @sec-spectrum: <https://benkeks.github.io/ltbt-spectroscopy-isabelle/>.
 
 {{< paragraph_heading "Student theses." >}}
 Some parts of this thesis strongly rely on student work that I have supervised, in particular, on the following theses:
@@ -472,3 +473,6 @@ Although they do not appear directly on the following pages, I want to acknowled
 This document itself is created using Quarto [-@allaire2025quarto].
 Its HTML version is deployed to <https://generalized-equivalence-checking.equiv.io/>.
 One can find its source on <https://github.com/benkeks/generalized-equivalence-checking/>.
+
+And of course, one can just continue reading it right here.
+In @sec-preliminaries, we will dive into the formal description of equivalence and difference in program behavior, and start building a game framework that lets us solve *our* problem of generalized equivalence checking in one shot.

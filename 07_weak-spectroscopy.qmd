@@ -1279,14 +1279,14 @@ Similar searches for weak bisimilarities have happened around @parrow1992 and @n
 ]
 
 Concise distinguishing formulas can be interesting diagnostic information to compare models.
-Like @mg2024minDepthDistBranchBisim, we find minimal-depth distinguishing formulas for branching bisimilarity without until, but we solve the problem for all weak notions at once.
+Like @mg2024minDepthDistBranchBisim, we find minimal-depth distinguishing formulas for branching bisimilarity without the need for a special *until* operator, but we solve the problem for *all* weak notions at once.
 @hmy2023whenPrivacyFails report how inequivalence with respect to more distinctive modal logics can reveal privacy vulnerabilities in ePassports, which have been overlooked in a purely trace-based view.
-
 For a full understanding of a system's relationship to its specification, it is often helpful to pinpoint exactly how difficult it would be for an attacker to tell the two apart.
-In the next chapter, we will return to the initial @exm-peterson-mutex of Peterson's mutex and explain how the prototype implementation of the weak spectroscopy algorithm handles it.
 
 {{< paragraph_heading "To be continued." >}}
 Some applications would demand more specialized modal logics.
-As outlined in @sec-extending-to-other-eqs, matching adaptions in game or semantic model are usually straightforward thanks to the clear connection of productions in the modal grammar and mechanics in the spectroscopy game.
+As outlined in @sec-extending-to-other-eqs, matching adaptions in game and semantic model are usually straightforward thanks to the clear connection of productions in the modal grammar and mechanics in the spectroscopy game.
 
-So much for the theory.
+But we have assembled enough theory to perform generalized equivalence checking on common models of concurrent systems.
+Time to move beyond theory!
+In the next chapter, we will return to the initial @exm-peterson-mutex of Peterson's mutex and explain how the prototype implementation of the weak spectroscopy algorithm handles it.

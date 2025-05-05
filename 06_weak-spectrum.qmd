@@ -361,7 +361,7 @@ In this section, we use two minimal case study examples to see how one can arriv
 
 Next chapter's @sec-tackling-case-studies will pick up on the examples to test that the spectroscopy algorithm can indeed simplify a researcher's life.
 
-### Parallelizing Compiler---and Contrasimulation
+### Parallelizing Compilers---and Contrasimulation
 
 Most of computer speed up in the last two decades has been due to parallelization of computation.
 Compilers will usually drift and parallelize sequential commands of a program.

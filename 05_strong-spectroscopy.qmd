@@ -598,7 +598,9 @@ We can use @lem-strong-spectroscopy-game-soundness and @lem-strong-spectroscopy-
 Both tricks of pruning “symmetric” parts (@lem-symmetric-positions-defender) and pre-minimization by bisimilarity (@lem-quotienting-spectro-game) make an effective difference for the applicability of the spectroscopy approach:
 
 {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" tool.benchmark.Sizemark >}}
-uses a small example system from @bisping2023equivalenceEnergyGames modelling Peterson's mutual exclusion algorithm.
+uses a small example system from @bisping2023equivalenceEnergyGames modelling Peterson's mutual exclusion algorithm.^[
+  The reported numbers are produced by `sbt "shared/run sizemark --strong-game"`.
+]
 The system has only $\relsize{\states} = 20$ states, but a lot of nondeterminism due to saturation with internal behavior.
 
 :::: {#fig-minimization-lattice .column-margin}
@@ -1031,7 +1033,9 @@ Inserting our bounds in @prp-reachability-game-complexity, we obtain time and sp
 #### Measurements of derived games
 
 Let us examine how the instance game sizes behave on the games of @exm-spectroscopy-equivalence-checking!
-@fig-instance-games-strong-ltbt-spectrum maps out the sizes of game instantiations for the preorders of the strong spectrum as in @fig-strong-ltbt-spectrum.
+@fig-instance-games-strong-ltbt-spectrum maps out the sizes of game instantiations for the preorders of the strong spectrum as in @fig-strong-ltbt-spectrum.^[
+  The reported numbers are produced via `sbt "shared/run eqchecks --strong-game"` for the pair `L50/R50` by {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" tool.benchmark.LTBTSEquivalenceChecks >}}.
+]
 Each game is derived from the clever spectroscopy game, with pruning and with capped nondeterminism where possible; to enable equivalence checks, the games combine the parts under $\attackerpos{\literal{ABCACB}, \set{\literal{ABC}}}$ and under $\attackerpos{\literal{ABC}, \set{\literal{ABCACB}}}$.
 The game size is defined as the sum of positions and moves, $\relsize{\game} = \relsize{G} + \relsize{\gamemoveblank}$.
 Red parts symbolize bigger game graphs.

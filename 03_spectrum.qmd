@@ -158,7 +158,7 @@ $$
 :::
 
 Clearly, this encompasses what we may observe via traces,
-but is something that we cannot observe using simulation.
+but is something that we cannot observe using simulation observations.
 We consider $\bpreord{F}$ given by $\bpreordvar{\observations{F}}$.
 
 The distinguishing failure $(\tau, \set{\literal{a}})$ can be expressed as $\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observations{F}$ in HML.
@@ -524,7 +524,7 @@ As @lem-spectrum-characterization will show, both languages are equally distinct
 
 An example for the pricing of a more complex tree-like formula is given in @fig-formula-pricing-complex.
 
-::: {#fig-formula-pricing-complex}
+::: {#fig-formula-pricing-complex fig-pos="t"}
 ```tikz
 
 \begin{tikzpicture}

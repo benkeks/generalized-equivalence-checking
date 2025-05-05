@@ -554,10 +554,10 @@ By mutual structural induction on $\varphi$, $\chi$, and $\psi$ with respect to 
 ::: {#thm-weak-spectroscopy-game-characterization}
 #### $\notions^\literal{weak}$-characterization
 
-For all $N \in \notions^\literal{weak}$, $p \in \states$, $Q \in \powerset{\states}$, the following are equivalent:{{<isb theorem Silent_Step_Spectroscopy weak_spectroscopy_game.spectroscopy_game_correctness>}}
+For all $N \in \notions^\literal{weak}$, $p \in \states$, $Q \in \powerset{\states}\!$, the following are equivalent:{{<isb theorem Silent_Step_Spectroscopy weak_spectroscopy_game.spectroscopy_game_correctness>}}
 
 - There exists a formula $\varphi \in \hmlsrbb$ with price $\expr[\literal{weak}](\varphi) \leq N$ that distinguishes $p$ from $Q$.
-- Attacker wins $\gamespectroscopyw^{\system}$ from $\attackerpos{p,Q}$ with $N$ (that is, $N \in \attackerwins^{\gamespectroscopyw^{\system}}(\attackerpos{p,Q})$).
+- Attacker wins $\gamespectroscopyw^{\system}$ from $\attackerpos{p,Q}$ with energy $N$.
 :::
 
 ### Isabelle/HOL Formalization {#sec-isabelle-formalization}
@@ -1045,7 +1045,6 @@ Schematic *simplified* weak spectroscopy game $\gamespectroscopywsimple$ with ad
 
 Intuitively, the simplified game part encodes nested conjunctions of the form $\hmlands\set{ \hmlsoft{\alpha} \mathhl{\hmlands \Psi'}, \psi_1, \ldots}$ or the cheaper form $\hmlands\set{ \hmlsoft{\alpha} \mathhl{\hmleps \hmlands \Psi'}, \psi_1, \ldots}$.
 The $\Psi'$ are the formulas from after branching observation moves $\attackerpos[\eta]{p,\alpha,p',q} \gamemoveblank \attackerpos[\eta]{p', Q_\alpha'} \gamemoveblank \attackerpos{p', Q'}$, while the $\psi_i$ come from the resets $\attackerpos[\eta]{p,\alpha,p',q} \gamemoveblank \attackerpos[\wedge]{p,q}$.
-
 In @bj2025silentStepSpectroscopyJournal, we discuss this game's strategy formulas in detail and prove its correctness, resulting in the following theorem.^[
   Credit for the proof details goes to Jansen.
 ]
@@ -1062,7 +1061,7 @@ Then, on the simplified weak game $\gamespectroscopywsimple$ of @fig-weak-spec-g
 For all $N \in \widehat{\notions}^\literal{weak}$, $p \in \states$, $Q \in \powerset{\states}$, the following are equivalent:
 
 - There exists a formula $\varphi \in \hmlsrbb$ with price $\exprabst[\literal{weak}](\varphi) \leq N$ that distinguishes $p$ from $Q$.
-- Attacker wins $\gamespectroscopywsimple^{\system}$ from $\attackerpos{p,Q}$ with $N$.
+- Attacker wins $\gamespectroscopywsimple^{\system}$ from $\attackerpos{p,Q}$ with energy $N$.
 :::
 
 Complexity-wise, for the simplified game, $\gamespectroscopywsimple$,
@@ -1201,7 +1200,6 @@ In this game, stable revivals end up at $(\infty, 0, 0, \mathhl{1}, 0, \mathhl{1
 stable failure traces at $(\infty, 0, 0, 1, 0, \mathhl{\infty}, 0, 1, 1)$,
 and stable ready traces at $(\infty, 0, 0, 1, 0, \mathhl{\infty}, \mathhl{1}, 1, 1)$,
 analogously to their strong counterparts in @fig-strong-ltbt-spectrum.
-
 Of course, one could again use the “look-ahead trick” of @sec-clever-strong-spectro to reduce the number of partitions to consider.
 
 In fact, the implementation on {{< equivio >}} does employ this formulation, thereby actually using a 9-dimensional game with richer stable conjunctions.
@@ -1288,5 +1286,5 @@ Some applications would demand more specialized modal logics.
 As outlined in @sec-extending-to-other-eqs, matching adaptions in game and semantic model are usually straightforward thanks to the clear connection of productions in the modal grammar and mechanics in the spectroscopy game.
 
 But we have assembled enough theory to perform generalized equivalence checking on common models of concurrent systems.
-Time to move beyond theory!
+Time for Part IV to move beyond theory!
 In the next chapter, we will return to the initial @exm-peterson-mutex of Peterson's mutex and explain how the prototype implementation of the weak spectroscopy algorithm handles it.

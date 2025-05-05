@@ -41,7 +41,7 @@ In @sec-deciding-individual-eqs, we discuss how to get rid of the blow-up where 
 By instantiating the spectroscopy game with known initial energies and exploiting the supply of conjunction moves, we can derive efficient decision procedures for individual equivalences.
 :::
 
-@fig-strong-spectroscopy-big-picture gives an overview of the two routes to decide equivalences collectively and individually we will explore.
+@fig-strong-spectroscopy-big-picture gives an overview of the two routes to decide equivalences collectively and individually that we will explore.
 
 ::: {#fig-strong-spectroscopy-big-picture fig-pos="t" fig-env="figure*"}
 ```tikz
@@ -287,7 +287,7 @@ Now, the defender has two options.
   \end{array}
   $$
 
-To win in both cases, the attacker must start with a budget of at least $(3,1,2,0,1,1)$.
+To win in both cases, the attacker must start with an energy budget of at least $(3,1,2,0,1,1)$.
 
 The game also allows an alternative through nested negations that the attacker wins at $(3,2,0,0,2,2)$, but this is not interesting for specific equivalences below bisimilarity.
 :::
@@ -509,6 +509,8 @@ The conference paper results apply to the present presentation *mutatis mutandis
 However, we will achieve better complexity results in the next section, thanks to @lemke2024multiweightedEnergyGames.
 :::
 
+\bigskip
+
 ### Complexity
 
 As expected, the bigger spectroscopy game leads to exponential runtimes.
@@ -681,7 +683,7 @@ For an efficient implementation, it is desirable to not do that.
 
 Given the spectrum we are interested in, we can drastically limit the sensible attacker moves to four options by a little lookahead into the enabled actions $\initials{q}$ of $q \in Q$ and $\initials{p}$.
 
-In the following, we will focus on the sub-spectrum $\widehat{\notions}^\literal{strong} \subseteq \set{0, 1, \infty}^6 \subseteq \notions^\literal{strong}$, where dimensions 3, 4, and 5 of modal depth for positive and negative conjuncts can only appear in certain combinations.
+In the following, we will focus on the lower-resolution sub-spectrum $\widehat{\notions}^\literal{strong} \subseteq \set{0, 1, \infty}^6 \subseteq \notions^\literal{strong}$, where dimensions 3, 4, and 5 of modal depth for revivals, positive and negative conjuncts can only appear in certain combinations.
 
 ::: {#def-simpler-strong-spectrum}
 #### Simpler strong spectrum
@@ -720,7 +722,7 @@ The usage of $\initials{\cdot}$ is comparable to a small look-ahead into the pos
 ::: {#thm-clever-strong-spectroscopy-correctness}
 #### Correctness of cleverness
 
-For $e \in \widehat{\notions}^\literal{strong}$, the attacker wins $\gamespectroscopyclever$ from $\attackerpos{p_0,Q_0}$ with $e$ precisely if they win $\gamespectroscopy$ from $\attackerpos{p_0,Q_0}$ with $e$.^[
+For $N \in \widehat{\notions}^\literal{strong}$, the attacker wins $\gamespectroscopyclever$ from $\attackerpos{p_0,Q_0}$ with energy $N$ precisely if they win $\gamespectroscopy$ from $\attackerpos{p_0,Q_0}$ with energy $N$.^[
   Proof in Theorem 2 of @bisping2023equivalenceEnergyGamesReport.
 ]
 :::
@@ -1154,6 +1156,8 @@ With respect to @bjn2022decidingAllBehavioralEqs, the presentation in this chapt
   With the present formulation [from @bisping2023equivalenceEnergyGames], we can achieve constant degree, using the cleverness of @sec-clever-strong-spectro.
 3. On a pure reachability game, one cannot easily instantiate to select the subgraphs for individual equivalences as in @sec-deciding-individual-eqs.
 
+\vspace*{-\medskipamount}
+
 {{< paragraph_heading "Back to many games." >}}
 The point of *deriving equivalence games from the energy game* (@idea-instance-games) connects the one-energy-game approach back to the hierarchy-of-games approach of prior publications.
 With @sec-deciding-individual-eqs, the present chapter has moved beyond the scope of @bisping2023equivalenceEnergyGames.
@@ -1177,7 +1181,7 @@ The author, discussing 3D energy games with participants of D-CON'25.
 :::
 
 {{< paragraph_heading "What's next?" >}}
-Continuing the trajectory of shadows, *the next part of the thesis* will abstract further what we have been doing.
+Continuing the trajectory of shadows, Part III of the thesis will abstract further what we have been doing.
 The strong spectrum of equivalences is usually too strong for the analysis of concurrent systems.
 Therefore, we will extend our approach to the *weak spectrum* of equivalences, accounting for the nuances of silent $\tau$-steps.
 This is of double relevance:

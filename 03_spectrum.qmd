@@ -22,7 +22,7 @@ We will now take a deeper dive into the question how groups of behavioral equiva
 For the following chapters, we will focus on the main “linear-time--branching-time spectrum” for the semantics of concrete processes treated by @glabbeek1990ltbt1, the so-called “strong spectrum.”
 However, we will order the equivalences using the approach of parameterized *notions of observability* from the later “weak spectrum” by @glabbeek1993ltbt.
 
-The first core idea of this chapter is:
+@sec-obs-hierarchies provides the background on observability hierarchies, which motivate the chapter's first core idea:
 
 ::: {#idea-hierarchy .callout-idea .callout-tip}
 #### Notions of observability bring order
@@ -186,7 +186,7 @@ On the other hand, no failure from $\observations{F}$, distinguishes $\literal Q
 \end{tikzpicture}
 ```
 
-Equivalence hierarchy including failures.
+Equivalence hierarchy including failure equivalence.
 ::::
 
 As a consequence, simulation preorder and failure preorder are *incomparable*, that is, neither one implies the other.
@@ -400,6 +400,8 @@ It matches the diamond of @fig-failure-hierarchy, but this time, the hierarchy i
 \end{tikzpicture}
 ```
 Hierarchy of simple notions of equivalence.
+(From now on, there are no arrows of implication:
+The lines stand for $\leq$ or $\subseteq$ relationships in the lattice!)
 ::::
 :::
 
@@ -479,19 +481,20 @@ The smallest notion to cover the failure formula of @sec-incomparabilities would
 $$\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue} \in \observationsvar[\literal{strong}]{(2,1,0,0,1,1)}.$$
 This is because the formula has two levels of modal observations, where the inner one is negated.
 The negation is wrapped in a conjunction with no positive conjuncts.
-A visualization for how $\expr[\literal{strong}](\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}) = (2,1,0,0,1,1)$ (according to @def-expressiveness-price) comes together is given in the upcoming @fig-formula-pricing.
+A visualization for how $\expr[\literal{strong}](\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}) = (2,1,0,0,1,1)$ (according to @def-expressiveness-price) comes together is given in @fig-formula-pricing.
 Formally, the reason is that the following derivation is optimal:
 $$
 \begin{array}{rcl}
 \varphi^{(2,1,0,0,1,1)} & \leadsto & \hmlobs{τ}\varphi^{(1,1,0,0,1,1)} \\
                         & \leadsto & \hmlobs{τ}\hmlands\set{\psi^{(1,0,0,0,1,1)}} \\
+                        & \leadsto & \hmlobs{τ}\hmlands\set{\hmlneg\varphi^{(1,0,0,0,1,0)}} \\
                         & \leadsto & \hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\varphi^{(0,0,0,0,1,0)}} \\
                         & \leadsto & \hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}.
 \end{array}
 $$
 :::
 
-::: {#fig-formula-pricing}
+::: {#fig-formula-pricing fig-pos="b"}
 ```tikz
 \begin{tikzpicture}
   \node(Obs1) {$\hmlobs\tau$};
@@ -514,7 +517,7 @@ $$
 \end{tikzpicture}
 ```
 
-Pricing formula $\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}$ with syntactic expressiveness $(2,1,0,0,1,1)$.
+Pricing formula $\hmlobs{τ}\hmlands\set{\hmlneg\hmlobs{\literal a}\hmltrue}$ with syntactic expressiveness of $(2,1,0,0,1,1)$.
 :::
 
 \noindent
@@ -944,6 +947,8 @@ similarity and bisimilarity with unbounded (infinitary) branching and trace-like
 Notions in @fig-strong-ltbt-spectrum correspond precisely to those without superscripts in the infinitary linear-time–branching-time spectrum of @glabbeek2001ltbtsiReport [Figure 9].
 :::
 
+\bigskip
+
 ### Non-Intersectionality
 
 The strong spectrum of @def-strong-ltbt-spectrum is much richer than the diamond spectrum from @exm-simple-spectrum.
@@ -1103,6 +1108,8 @@ The spectrum as formulated in @def-strong-spectrum contains infinitely many noti
 This would be a problem in a naive solution to @prob-spectroscopy-problem that relies on deciding equivalences individually, but will be no problem for us.
 Where we, however, assume finiteness for algorithms, is in the state-space size of $\system$.
 :::
+
+\bigskip
 
 ### Spectroscopy as Abstract Subtraction {#sec-abstract-subtraction}
 

@@ -125,6 +125,8 @@ The standard queries are:
 \end{table*}
 ```
 
+\vspace*{-\medskipamount}
+
 {{< paragraph_heading "Interacting with the output." >}}
 Each output item can be clicked.
 The transition system view then displays the preorders, equivalences, and distinctions that have been found between states.
@@ -574,6 +576,8 @@ These ensure that the algorithms (with and without optimizations) return the exp
 This provides some confidence that not too much is going astray on the way between our correctness theorems and optimized implementation.
 :::
 
+\bigskip
+
 ### Benchmarks {#sec-benchmarks}
 
 Our algorithm and {{< equivio >}} are aimed at small transition systems that “fit onto one screen.”
@@ -583,8 +587,9 @@ In this subsection, we examine its performance on the VLTS (“very large transi
 {{< paragraph_heading "Clever strong spectroscopy." >}}
 @tbl-strong-spectro-results reports the results of running the backend with the clever strong spectroscopy game $\gamespectroscopyclever$.
 This mostly matches the results already reported in @bisping2023equivalenceEnergyGames.^[
-  The benchmarking code is contained in the class
+  The benchmarking is in the class
   {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" tool.benchmark.VeryLargeTransitionSystems >}}.
+  It can be started via `sbt "shared/run benchmark --strong-game --reduced-sizes --include-hard"`.
 ]
 
 ```{=latex}
@@ -793,7 +798,7 @@ Interestingly, the coupled simulation implementation in @bn2019coupledsimTacas t
 The trivial game of @tbl-weak-spectro-results suggests that this would not be necessary.
 
 In summary, the equivalences of our spectra mostly coincide on the considered VLTS samples.
-This suggests that the examples are based around models that avoid the expressive power of finer branching-time notions.
+This indicates that the examples are based around models that avoid the expressive power of finer branching-time notions.
 
 ## Student Implementations {#sec-student-implementations}
 
@@ -930,7 +935,7 @@ Therefore, gpuequiv can be compiled for both kinds of targets:
 Quick equivalence checking in the browser, and even quicker checking in a native application.
 @vogel2024energyGamesWebGPU reports 10⨯ speed-ups compared to @bisping2023equivalenceEnergyGames.
 However, the fast growth of game graphs remains a limiting factor as larger examples run into the size boundary of buffers to upload game moves.
-For `vasy_18_73`, @vogel2024energyGamesWebGPU also fails to complete the spectroscopy (like our experience in @sec-benchmarks):
+For the system `vasy_18_73`, @vogel2024energyGamesWebGPU also fails to complete the spectroscopy (like our experience in @sec-benchmarks):
 It constructs a game graph of 623,482,227 moves, but only 536,870,911 moves fit into the buffer with the employed data packing.
 
 At the time of writing, another Bachelor project is underway to add a frontend and support for the *weak* spectroscopy game to gpuequiv.
@@ -942,7 +947,7 @@ In this chapter, we have surveyed the four existing implementations of the spect
 We focused on {{< equivio >}}, which closely aligns with this thesis.
 We have seen how the tool easily answers questions such as “How equivalent is Peterson's algorithm to the specification of mutual exclusion.”
 {{< equivio >}} can check behavioral preorders and equivalences for more than 38 notions of strong and weak spectrum.
-Due to the possibility to mark divergences, even more notions are available.
+Due to the possibility to mark divergences, even more notions are available via preprocessing.
 
 {{< paragraph_heading "Other tools." >}}
 A recent survey by @gl2022eqChecking lists hundreds of tools to check bisimilarity and related equivalences and preorders.
@@ -1046,7 +1051,7 @@ The *equivalences-as-game-instances* approach seems to be the most fruitful when
 By “easy,” we mean: without the need to implement individual algorithms for each of the notions.
 @tan2002abstractEquivalenceGames takes a similar game approach for the Concurrency Workbench, as do @aha2015caal2games for CAAL.
 
-Another route to this goal of genericity might be the *equivalences-as-formulas* approach from @lange2014modelCheckingProcEqs.
+Another route to this goal of genericity might be the approach of *equivalences-as-formulas* from @lange2014modelCheckingProcEqs.
 The idea there is to use a *diadic higher-order $\mu$-calculus* where one can talk about relations between states.
 Thereby, the rules of how to preorder states can be expressed as formulas.
 One only needs to implement the model-checking for formulas once, and new notions could be added by only adding new formulas.

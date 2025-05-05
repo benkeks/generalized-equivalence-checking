@@ -163,6 +163,8 @@ This clashes with the well-foundedness, which is implied by the recursive gramma
 On systems with finite branching degree, however, the possibility of unbounded $\tau$-trees and infinite $\tau$-chains coincides, and divergence can be captured modally by $\hmland{n}{\nats} \hmlobs{\tau}^n$.
 :::
 
+\bigskip
+
 ### Weak Traces and Weak Bisimulation
 
 It is quite straightforward how to lift traces from the strong setting of @def-traces and @def-trace-eq to the weak setting:
@@ -351,6 +353,8 @@ Six years after branching bisimilarity's inception, “Branching bisimilarity is
 In our setting, the transitivity is an *immediate corollary* of having a modal characterization (@thm-srbb-characterization).{{<isb lemma Branching_Bisimilarity LTS_Tau.sr_branching_bisimulated_transitive>}}
 This is one of the perks of modal characterizations, indeed (cf. @sec-perks-modal-characterizations).
 :::
+
+\bigskip
 
 ## Case Studies—and the Need for Other Weak Equivalences {#sec-case-studies-other-eqs}
 
@@ -549,6 +553,8 @@ As discussed in @sec-perks-modal-characterizations, it is trivial to ensure that
 Such are the perks of modal characterizations!
 :::
 
+\bigskip
+
 ### Abstraction as Congruence---and Stable Failures {#sec-abstraction-failures}
 
 For trace-like equivalences, there commonly appear two kinds of abstractions in the literature:
@@ -693,6 +699,8 @@ because $\literal{a} \beq{\observations{WB}} \ccsprefix{\tau}\literal{a}$, but $
 We will not go into the particularities around this and point to @sangiorgi2012 [§ 4.4] for how to obtain a congruence through *rooted* weak bisimilarity. 
 :::
 
+\bigskip
+
 ## Expressing the Weak Spectrum by Quantities {#sec-weak-spectrum-quantities}
 
 We can capture the weak spectrum in a lattice of vectors like the strong one in @sec-spectrum.
@@ -773,7 +781,7 @@ $$
 Using @def-weak-spectrum, we can give coordinates to the common notions of weak behavioral equivalence in @fig-weak-spectrum.
 In this subsection, we take a deeper look into the observation languages characterized by the coordinates and argue for the correctness of exemplary cases.
 
-:::{#fig-weak-spectrum fig-env='figure*' fig-pos='t!'}
+:::{#fig-weak-spectrum fig-env='figure*' fig-pos='tp'}
 
 ```tikz
 %%| image-class: lightbox
@@ -1254,6 +1262,8 @@ Therefore, optimizing away superfluous conjuncts in the grammars would itself be
 On the other hand, shrinking the languages would call for additional contexts, that is, non-terminals in the grammar.
 But more non-terminals mean additional kinds of spectroscopy game positions and moves, thus making the spectroscopy game more complex---for nothing.
 :::
+
+\bigskip
 
 ## Discussion {#sec-weak-spectrum-discussion}
 

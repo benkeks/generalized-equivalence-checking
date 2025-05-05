@@ -19,6 +19,7 @@ We aim to be mostly compatible with the textbook *Reactive systems* [@ails2007re
 The core background of this thesis is the *trinity of characterizations for behavioral equivalences*: relational, modal, and game-theoretic.
 
 This chapter takes a tour into the field of formalisms used to model programs and communicating systems, which are accompanied by many notions for behavioral equivalence and refinement to relate or distinguish their models.
+As core formalisms we will introduce transition systems and the Calculus of Communicating Systems (CCS) in @sec-programs.
 
 The tour is *agnostic*, building on the basic formalism of *labeled transition systems* and standard equivalences such as *trace equivalence* and *bisimilarity*.
 Simultaneously, the approach is *opinionated*, focusing on Milner's tradition of concurrency theory with a strong pull towards *game characterizations*.
@@ -186,6 +187,8 @@ After all, everything this thesis is about is simple, in a sense.-->
 For the internal action, the whole field has converged to $τ$ in italics---so, we will run with this.
 Otherwise, we follow the convention to write literals and constant names in $\textsf{sans-serif}$ and variables in $\textit{italics}$.
 :::
+
+\bigskip
 
 ### Calculus of Communicating Systems {#sec-ccs}
 
@@ -876,6 +879,7 @@ But do not worry---although our research question is a consequence of the possib
 -->
 :::
 
+\bigskip
 
 ### Quotient Systems and Minimizations
 
@@ -1079,10 +1083,12 @@ The implicit assumption is that the cardinality of index sets $I$ can match that
 The original proof by @hm1980hml uses binary conjunction ($\varphi_1 \land \varphi_2$) and thus can only express finitary conjunctions.
 :::
 
+\bigskip
+
 ### The Perks of Modal Characterizations {#sec-perks-modal-characterizations}
 
 There is merit in also characterizing other equivalences through sublogics $\observationsvar{} \subseteq \hml$.
-There are four immediate big advantages to modal characterization:
+Modal characterizations have four immediate big advantages:
 
 Modal characterizations lead to *proper preorders and equivalences by design* due to @prp-hml-eq.
 That is, if a behavioral preorder (or equivalence) is defined through modal logics, there is no need of proving transitivity and reflexivity (and symmetry).
@@ -1658,7 +1664,7 @@ The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\lite
 
 Bisimulation game on non-bisimilar states $\literal{Q}$ and $\literal{T}$ of @exm-bisim-sim-game.
 Moves are labeled by their justification.
-Defender-won positions are tinted blue.
+Defender-won positions are tinted blue, attacker-won ones red.
 :::
 
 ::: {#thm-bisim-game-characterization}
@@ -1710,6 +1716,8 @@ We can compare numbers $n \leq m$ by comparing programs $\literal{N}_{n} \bpreor
 
 In this sense, comparisons of programs and of numbers are … comparable.
 :::
+
+\bigskip
 
 ### Deciding Reachability Games {#sec-deciding-reachability-games}
 
@@ -1918,7 +1926,7 @@ We will refer to the property that attacker wins in a game represent distinguish
 ::: {#lem-attacks-imply-formulas}
 #### Distinction soundness
 
-Let $s$ be a positional winning strategy for the attacker on $\gamebisim$ from $[p,q]$.
+Let function $s$ be a positional winning strategy for the attacker on $\gamebisim$ from $[p,q]$.
 Construct formulas recursively from game positions, ${φ}_{s}(g)$, as follows:
 $$
 φ_{s}([p,q]) ≔ \begin{cases}

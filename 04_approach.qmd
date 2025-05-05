@@ -1264,6 +1264,7 @@ For declining energy games, it is reasonable to assume $s_{\abstractenergies} \i
 ]
 :::
 
+\medskip
 ### Solving Declining Energy Games
 
 The preceding two subsections have established facts that we now only need to instantiate to declining energy games.
@@ -1539,6 +1540,7 @@ and where all updates constitute one-dimensional $\nats$-subtraction.
 Then, $e \in \attackerwinsmin(g)$ iff $e$ is the length of a shortest path from $g$ to some defender position (where negative $(-n)$-updates stand for what is usually written as a positive edge weight $n$ for graphs).
 In this instance, @alg-deciding-energy-games behaves like the well-known Bellman--Ford algorithm for shortest paths.
 :::
+\vspace*{-\medskipamount}
 
 {{< paragraph_heading "What's new?" >}}
 @alg-deciding-energy-games contains relevant generalizations and practical improvements compared to the one originally used in @bisping2023equivalenceEnergyGames.

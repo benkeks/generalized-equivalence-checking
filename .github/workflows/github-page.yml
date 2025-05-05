@@ -77,7 +77,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          version: 1.7.20
+          version: 1.7.29
           # To install LaTeX to build PDF book 
           tinytex: false
           # version: SPECIFIC-QUARTO-VERSION-HERE

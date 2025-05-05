@@ -12,14 +12,7 @@ toc-title: "Chapter 1"
 Have you ever looked at two program descriptions and wondered *how equivalent they are*–or, conversely, how they can be distinguished?
 
 In concurrency theory, one runs into this problem often, for instance, when analyzing models of distributed algorithms or when devising examples for teaching.
-More mundanely, the question occurs every time one rewrites a program part and hopes for it to still do its job.
-
-::: {#fig-ltbts2-paper .column-margin}
-![](img/ltbts2.png){.lightbox}
-
-The linear-time–branching-time spectrum with silent moves as depicted in @glabbeek1993ltbt.
-(`Do not try to read this small figure! Its role here is that of a symbol.`{=latex} This thesis will use a simpler version in @fig-weak-spectrum.)
-:::
+More mundanely, the question occurs every time that someone rewrites a program part and hopes for it to still do its job.
 
 My first formal encounter with the question of behavioral equivalence came when I was implementing a translation from the process algebra Timed CSP to Timed Automata.^[
     My job as student research assistant was to bridge between the tools FDR2 and UPPAAL for @goethel12mechanicalVerificationRTS.
@@ -29,6 +22,13 @@ My first formal encounter with the question of behavioral equivalence came when 
 How to tell whether the translation would properly honor the semantics of the two formalisms?
 Did it translate CSP terms to automata *with the same meaning*?
 Even the definition of the question is tricky, as there are different notions of what counts as “same meaning” in the semantics of programs.
+
+::: {#fig-ltbts2-paper .column-margin}
+![](img/ltbts2.png){.lightbox}
+
+The linear-time–branching-time spectrum with silent moves as depicted in @glabbeek1993ltbt.
+(`Do not try to read this small figure! Its role here is that of a symbol.`{=latex}This thesis will use a simpler version in @fig-weak-spectrum.)
+:::
 
 I then took my very first look into seminal work on the landscape of process equivalences: the “linear-time–branching-time spectrum” by van Glabbeek [-@glabbeek1990ltbt1; -@glabbeek1993ltbt; -@glabbeek2001ltbtsiReport with a combined 2500 citations on Google Scholar].
 A central figure, reproduced in @fig-ltbts2-paper, mesmerized me.
@@ -308,7 +308,7 @@ One can compute what mix of (in-)distinguishabilities exists between a pair of f
 and this places the two on a spectrum of equivalences.
 We thus turn a set of *qualitative* equivalence problems into one *quantitative* problem of *how equivalent* two systems are.
 This amounts to an abstract form of subtraction between programs, determining what kinds of differences an outside examiner might observe.
-Thereby *one* algorithm works for *all* of a spectrum.
+Thereby, *one* algorithm works for *all* of a spectrum.
 
 ## This Thesis
 
@@ -405,15 +405,16 @@ For details, we typically refer to the original publications or to other artifac
 {{< paragraph_heading "Publications." >}}
 The following four publications (with me as main author) fuel the following chapters:
 
-- **“Deciding all behavioral equivalences at once: A game for linear-time–branching-time spectroscopy”** [LMCS -@bjn2022decidingAllBehavioralEqs, with Nestmann & Jansen] introduces the *spectroscopy problem* and the *core idea* to decide the whole strong spectrum using games that search trees of possible distinguishing formulas.
+- “Deciding all behavioral equivalences at once: A game for linear-time–branching-time spectroscopy” [LMCS -@bjn2022decidingAllBehavioralEqs, with Nestmann & Jansen] introduces the *spectroscopy problem* and the *core idea* to decide the whole strong spectrum using games that search trees of possible distinguishing formulas.
   [Conference version: TACAS -@bisping2021ltbtsTacas]
-- **“Process equivalence problems as energy games”** [CAV -@bisping2023equivalenceEnergyGames] makes a *big technical leap by using energy games*, which removes the necessity for explicit formula construction.
+- “Process equivalence problems as energy games” [CAV -@bisping2023equivalenceEnergyGames] makes a *big technical leap by using energy games*, which removes the necessity for explicit formula construction.
   [Tech report: arXiv -@bisping2023equivalenceEnergyGamesReport]
-- **“Characterizing contrasimilarity through games, modal logic, and complexity”** [Information & Computation -@bm2024contrasimilarityInfComp, with Montanari] closes *gaps in the weak spectrum of equivalences* for complexity, games, and their links to modal logics.
+- “Characterizing contrasimilarity through games, modal logic, and complexity” [Information & Computation -@bm2024contrasimilarityInfComp, with Montanari] closes *gaps in the weak spectrum of equivalences* for complexity, games, and their links to modal logics.
   [Isabelle/HOL theory: AFP -@bm2023contrasimilarityAFP; Workshop version: EXPRESS/SOS -@bm2021contrasimilarity]
-- **“One energy game for the spectrum between branching bisimilarity and weak trace semantics”** [EXPRESS/SOS -@bj2024silentStepSpectroscopyExpress, with Jansen] adapts the *spectroscopy approach for the weak spectrum*.
+- “One energy game for the spectrum between branching bisimilarity and weak trace semantics” [EXPRESS/SOS -@bj2024silentStepSpectroscopyExpress, with Jansen] adapts the *spectroscopy approach for the weak spectrum*.
   [Journal version: Preprint -@bj2025silentStepSpectroscopyJournal]
 
+\vspace*{-\medskipamount}
 {{< paragraph_heading "Prototype." >}}
 The algorithms of this thesis have been validated through a *Scala prototype implementation*.
 Throughout the thesis, many examples come with listings of {{< equivio >}} input and a link to try it out in the browser.
@@ -425,10 +426,11 @@ The source is available openly on <https://github.com/benkeks/equivalence-fiddle
 In order to relieve the document of technical proofs, these are contained in machine-checkable *Isabelle/HOL theories*.
 
 - *“A weak spectroscopy game to characterize behavioral equivalences”* formalizes the core results of @sec-weak-spectrum and @sec-weak-spectroscopy: <https://equivio.github.io/silent-step-spectroscopy>.
-  The theory [@bbhlmm2025weakSpectroscopyIsabelle] has been developed together with TU Berlin students Lisa Annett Barthel, Leonard Moritz Hübner, Caroline Lemke, Karl Parvis Philipp Mattes, and Lenard Mollenkopf.
+  The theory [@bbhlmm2025weakSpectroscopyIsabelle] has been developed together with TU Berlin students Barthel, Hübner, Lemke, Mattes, and Mollenkopf.
   Also, many theorems of earlier chapters can be understood to be supported by the formalization.
 - *“Equivalence spectrum formalization”* supplies proofs for @sec-preliminaries and @sec-spectrum: <https://benkeks.github.io/ltbt-spectroscopy-isabelle/>.
 
+\vspace*{-\medskipamount}
 {{< paragraph_heading "Student theses." >}}
 Some parts of this thesis strongly rely on student work that I have supervised, in particular, on the following theses:
 
@@ -439,36 +441,39 @@ Some parts of this thesis strongly rely on student work that I have supervised, 
 - @lemke2024multiweightedEnergyGames: “*A formal proof of decidability of multi-weighted declining energy games*” formalizes the *Galois energy games* of @sec-deciding-energy-games.
   Its Isabelle theory is archived on <https://github.com/crmrtz/galois-energy-games>.
 
+\vspace*{-\medskipamount}
 {{< paragraph_heading "Other publications." >}}
-My prior publications are only indirectly connected to this dissertation project.
+My prior publications are only indirectly connected to this PhD thesis.
 Still, they lead me to topics and techniques:
 
-- Bisping, Brodmann, Jungnickel, Rickmann, Seidler, Stüber, Wilhelm-Weidner, Peters, & Nestmann [ITP -@bbjrsswpn2016mechanicaProofFLP]: “Mechanical verification of a constructive proof for FLP.”
+- Bisping, Brodmann, Jungnickel, Rickmann, Seidler, Stüber, Wilhelm-Weidner, Peters, Nestmann [ITP -@bbjrsswpn2016mechanicaProofFLP]: “Mechanical verification of a constructive proof for FLP.”
 - Bisping & Nestmann [TACAS -@bn2019coupledsimTacas]: “Computing Coupled Similarity.”
-- Bisping, Nestmann, & Peters [Acta Informatica -@bnp2020coupledsim30]: “Coupled similarity: The first 32 years.”
+- Bisping, Nestmann, Peters [Acta Informatica -@bnp2020coupledsim30]: “Coupled similarity: The first 32 years.”
 
-{{< paragraph_heading "Other Bachelor theses." >}}
-During my dissertation project, I have also supervised several other Bachelor theses, many of which played important roles in shaping the research.
-Although they do not appear directly on the following pages, I want to acknowledge the students' vital contributions to this research.
+\vspace*{-\medskipamount}
+{{< paragraph_heading "Other student theses." >}}
+During this research project, I have also supervised several other Bachelor theses, many of which played important roles in shaping the research.
+Although most of them do not appear directly on the following pages, I want to acknowledge the students' vital contributions to this research.
 
-- @peacock2020videoGameEquivalences: *Process equivalences as a video game.*
-- @le2020coupledSimMcrl2: *Implementing coupled similarity as an automated checker for mCRL2.*
-- @wrusch2020gameEquivalences: *Ein Computerspiel zum Erlernen von Verhaltensäquivalenzen.*
-- @reichert2020visualizingCounterfactuals: *Visualising and model checking counterfactuals.*
-- @wittig2020processJungle: *Charting the jungle of process calculi encodings.*
-- @bulik2021interProcComm: *Statically analysing inter-process communication in Elixir programs.*
-- @montanari2021kontrasimSpiel: *Kontrasimulation als Spiel.*
-- @pohlmann2021reactiveBisimStrong: *Reducing strong reactive bisimilarity to strong bisimilarity.*
-- @england2021hmlSynthesis: *HML synthesis of distinguished processes.*
-- @duong2022toolLTBTS: *Developing an educational tool for linear-time–bran{{<shy>}}ching-time spectroscopy.*
-- @alshukairi2022reaktiveBisimReduktion: *Automatisierte Reduktion von reaktiver zu starker Bisimilarität.*
-- @adler2022fehlertoleranteAlgorithmen: *Simulation fehlertoleranter Konsensalgorithmen in Hash.ai.*
-- @sandt2022gameReactiveBisim: *A video game about reactive bisimilarity.*
-- @loenne2023gameCounterfactuals: *An educational computer game about counterfactual truth conditions.*
-- @hauschild2023nonlinearCounterfactuals: *Nonlinear counterfactuals in Isabelle/HOL.*
-- @stoecker2024HOcalculiEqs: *Higher-order diadic µ-calculus–An efficient framework for checking process equivalences?.*
-- @kurzan2024mcrl2Contrasim: *Implementierung eines Contrasimilarity-Checkers für mCRL2.*
+- @peacock2020videoGameEquivalences: *“Process equivalences as a video game.”*
+- @le2020coupledSimMcrl2: *“Implementing coupled similarity as an automated checker for mCRL2.”*
+- @wrusch2020gameEquivalences: *“Ein Computerspiel zum Erlernen von Verhaltensäquivalenzen.”*
+- @reichert2020visualizingCounterfactuals: *“Visualising and model checking counterfactuals.”*
+- @wittig2020processJungle: *“Charting the jungle of process calculi encodings.”*
+- @bulik2021interProcComm: *“Statically analysing inter-process communication in Elixir programs.”*
+- @montanari2021kontrasimSpiel: *“Kontrasimulation als Spiel.”*
+- @pohlmann2021reactiveBisimStrong: *“Reducing strong reactive bisimilarity to strong bisimilarity.”*
+- @england2021hmlSynthesis: *“HML synthesis of distinguished processes.”*
+- @duong2022toolLTBTS: *“Developing an educational tool for linear-time–bran{{<shy>}}ching-time spectroscopy.”*
+- @alshukairi2022reaktiveBisimReduktion: *“Automatisierte Reduktion von reaktiver zu starker Bisimilarität.”*
+- @adler2022fehlertoleranteAlgorithmen: *“Simulation fehlertoleranter Konsensalgorithmen in Hash.ai.”*
+- @sandt2022gameReactiveBisim: *“A video game about reactive bisimilarity.”*
+- @loenne2023gameCounterfactuals: *“An educational computer game about counterfactual truth conditions.”*
+- @hauschild2023nonlinearCounterfactuals: *“Nonlinear counterfactuals in Isabelle/HOL.”*
+- @stoecker2024HOcalculiEqs: *“Higher-order diadic µ-calculus–An efficient framework for checking process equivalences?”*
+- @kurzan2024mcrl2Contrasim: *“Implementierung eines Contrasimilarity-Checkers für mCRL2.”*
 
+\vspace*{-\medskipamount}
 {{< paragraph_heading "This thesis itself." >}}
 This document itself is created using Quarto [-@allaire2025quarto].
 Its HTML version is deployed to <https://generalized-equivalence-checking.equiv.io/>.

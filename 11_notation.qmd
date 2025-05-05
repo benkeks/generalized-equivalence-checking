@@ -23,7 +23,7 @@ toc-title: "Notation"
 | $A^*$, $A^{\omega}$, $A^{\infty}$     | Language of finite / infinite / finite-or-infinite words over alphabet $A$                     |
 | $\inverse{\rel R}$      | Inverse relation of $\rel R$                                               |
 | $\domain(f)$            | Domain of where function $f$ is defined, $\bot$ counts as undefined (first appearing in @def-energy-game) 
-| $\nats$, $\natsext$     | Natural numbers / natural numbers extended by a $\infty$ as top element |
+| $\nats$, $\natsext$     | Natural numbers / natural numbers extended by $\infty$ as top element |
 | $\defeq$                | Definitional equality; in the context of CCS, $\literal{X} \defeq P$ also means $\ccsasg(\literal{X}) \defeq P$ (@def-ccs-semantics); in the context of pseudocode, denotes variable assignment |
 
 ### Orders and Vectors {.unnumbered .unlisted}
@@ -53,7 +53,7 @@ toc-title: "Notation"
 | $\derivatives{p, \alpha}$  | $\alpha$-derivatives of $p$ (@def-ts)                                                        |
 | $\initials{p}$             | Enabled actions of $p$ (@def-ts)                                                            |
 | $\hmlobs{\alpha}$          | Modality of observing an $\alpha$-step (@def-hml)                                            |
-| $\hmlsoft{\alpha}$          | Modality of observing an $\tau$-soft $\alpha$-step ([@def-transition-systems-with-silent-steps] and [-@def-hml-srbb]) |
+| $\hmlsoft{\alpha}$          | Modality of observing a $\tau$-soft $\alpha$-step ([@def-transition-systems-with-silent-steps] and [-@def-hml-srbb]) |
 | $\hmleps$                  | Modality of allowing internal behavior ([@def-transition-systems-with-silent-steps] and [-@def-hml-srbb]) |
 | $\semantics{\varphi}$      | Set of states that fulfill $\varphi$ (@def-hml-semantics)                                    |
 | $\quotient{\system}{\sim}$ | Quotient system on equivalence classes $\eqclass{\cdot}_{\sim}$ (@def-quotient-ts)           |

@@ -82,6 +82,10 @@ Zentrale Teile der Arbeit werden durch eine *Isabelle/HOL-Formalisierung* gestü
 
 ::::
 
+---
+
+<div style="text-align: center; font-size:2em;"><a href="https://generalized-equivalence-checking.equiv.io/Generalized-Equivalence-Checking-of-Concurrent-Programs.pdf"><i class="bi bi-file-pdf"></i> View PDF </a></div>
+
 ----
 
 ### Dedication {.unnumbered .unlisted}

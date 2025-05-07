@@ -47,6 +47,11 @@ footer.footer{
   max-width: 100vw;
 }
 
+.sidebar-title::before {
+  content: "△";
+  font-size: 1.5em;
+}
+
 .callout-idea.callout-style-default > div.callout-header {
   background-color: lighten(desaturate($primary, 20%), 15%);
   color: white;

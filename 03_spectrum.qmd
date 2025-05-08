@@ -330,7 +330,6 @@ The *zero vector* $(0,…,0)$ is denoted by $\zerovec$.
 Van Glabbeek's two papers on the “linear-time--branching-time spectrum” [-@glabbeek1990ltbt1 ;-@glabbeek1993ltbt] show how all common equivalences can be understood to form a lattice of sublanguages of $\hml$ (and a variant of $\hml$ for equivalences with silent steps).
 His hierarchy of equivalences derives from a hierarchy of *notions of observability*.^[
   In particular, the weak spectrum [@glabbeek1993ltbt] makes this concept of notions really formal.
-
   Also, we usually implicitly refer to the full version of the strong spectrum [@glabbeek2001ltbtsiReport].
 ]
 We will introduce a similar construction: at first, in a generic form, then for the strong spectrum of @glabbeek1990ltbt1.

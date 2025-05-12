@@ -437,7 +437,7 @@ Spectrum output in {{< equivio >}}.
 The main aspect that creates the differences between `Pe` and `MxIC` is that the implementation can decide that `B` will be the next entering the critical section next, even before `A` has left. 
 In above output, this is mirrored by the impossible-future formula `⟨ϵ⟩⟨ecA⟩⟨ϵ⟩⋀{¬⟨ϵ⟩⟨lcA⟩⟨ϵ⟩⟨ecA⟩⊤}`.
 
-We can find this scenario already in the pseudo code.
+We can find this scenario already in the pseudocode.
 It happens when both processes are in `PC = 2` and `B` has set `turn = A`.
 Then, `A` may enter its critical section but has to yield to `B` before it can re-enter.
 So, this constitutes a proper difference between Peterson's protocol and a pure iterated internal choice.

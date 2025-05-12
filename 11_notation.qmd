@@ -24,7 +24,7 @@ toc-title: "Notation"
 | $\inverse{\rel R}$      | Inverse relation of $\rel R$                                               |
 | $\domain(f)$            | Domain of where function $f$ is defined, $\bot$ counts as undefined (first appearing in @def-energy-game) 
 | $\nats$, $\natsext$     | Natural numbers / natural numbers extended by $\infty$ as top element |
-| $\defeq$                | Definitional equality; in the context of CCS, $\literal{X} \defeq P$ also means $\ccsasg(\literal{X}) \defeq P$ (@def-ccs-semantics); in the context of pseudocode, denotes variable assignment |
+| $\defeq$                | Definitional equality; in the context of CCS, $\literal{X} \defeq P$ also means $\ccsasg(\literal{X}) \defeq P$ (@def-ccs-semantics); in the context of algorithms, denotes variable assignment |
 
 ### Orders and Vectors {.unnumbered .unlisted}
 

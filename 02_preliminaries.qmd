@@ -1222,7 +1222,7 @@ A *reachability game* $\game = (G, G_\defender, \gamemoveblank)$ is played on a 
 We call the paths ${g_0}{g_1} … ∈ G^{\infty}$ with ${g_{i} \gamemoveblank g_{i+1}}$ *plays* of $\game$ from $g_0$,
 where $G^{\infty}$ stands for finite and infinite words over $G$.
 The defender *wins* infinite plays.
-If a finite play $g_{0}\dots g_{n}\!\ngamemoveblank$ is stuck, the stuck player loses: The defender wins if $g_{n} ∈ G_\attacker$, and the attacker wins if $g_{n}∈ G_\defender$.
+If a finite play $g_{0}\dots g_{n}\!\ngamemoveblank$ is stuck, the stuck player loses: The defender wins the play if $g_{n} ∈ G_\attacker$, and the attacker wins if $g_{n}∈ G_\defender$.
 :::
 
 Usually, games are nondeterministic, that is, players have choices how a play proceeds at their positions.
@@ -1238,7 +1238,7 @@ A play ${g_0}{g_1} … ∈ G^{\infty}$ is consistent with an attacker strategy $
 *Defender strategies* are defined analogously, $s_\defender \colon G^*G_\defender \to G$.
 
 If $s$ ensures a player to win, $s$ is called a *winning strategy* for this player.
-The player with a winning strategy from $g_{0}$ is said to *win* $\game$ from $g_{0}$.
+The player with a winning strategy from $g_{0}$ is said to *win* game $\game$ from $g_{0}$.
 
 Usually, we will focus on positional strategies, that is, strategies that only depend on the most recent position, which we will type $s_\attacker \colon G_\attacker \to G$ (or $s_\defender \colon G_\defender \to G$, respectively).
 :::

@@ -67,7 +67,7 @@ This approach is summarized in @fig-spectroscopy-poly-big-picture.
     (States) edge[->, dashed] node[label=270:{Problem~\ref{prob-spectroscopy-problem}}] {Spectroscopy problem} (Preorders)
     (States) edge[->, draw=TealBlue] node {Def.~\ref{def-bisim-energy-game}} (EnergyGame)
     (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Thm.~\ref{thm-bisim-energy-game-characterization}} (Preorders)
-    (EnergyGame) edge[->, draw=Peach] node[label=270:{Problem~\ref{prob-energy-game-problem}}] {Algorithm~\ref{alg-deciding-games}} (AttackerWinningBudgets);
+    (EnergyGame) edge[->, draw=Peach] node[label=270:{Problem~\ref{prob-energy-game-problem}}] {Algorithm~\ref{algo-deciding-games}} (AttackerWinningBudgets);
   \node[right=2mm of Preorders] (Chp3) {Chapter~\ref{sec-spectrum}};
   \node[text=TealBlue, above right=4mm and 2mm of AttackerWinningBudgets] (Sec42) {Section~\ref{sec-characterizing-ptime-part}};
   \node[text=Peach, right=2mm of AttackerWinningBudgets] (Sec43) {Section~\ref{sec-deciding-energy-games}};
@@ -842,7 +842,7 @@ Output
 :::
 
 We will show how to solve the problem for energy games with updates that can be undone in a certain sense.
-To this end, we will adapt the idea of backpropagating how the defender loses in reachability games from @alg-deciding-games.
+To this end, we will adapt the idea of backpropagating how the defender loses in reachability games from @algo-deciding-games.
 
 The change is that we have to propagate not just attacker wins, but Pareto fronts of attacker-winning energy levels.
 For this, we have to “invert” the energy update functions.
@@ -993,9 +993,9 @@ That means, we assume that there is a Galois connection $(\abstractupdateinv(m),
 Following @lemke2024multiweightedEnergyGames, we assume that the energy system $(\abstractenergies, \leq)$ is a well-founded bounded $\sup$-semi-lattice.
 By $\zerovec$, we denote its minimal element.
 
-@alg-deciding-energy-games computes the minimal attacker winning budgets.
+@algo-deciding-energy-games computes the minimal attacker winning budgets.
 
-::: {#alg-deciding-energy-games alg-pos="t"}
+::: {#algo-deciding-energy-games algo-pos="t"}
 
 $$
 \begin{array}{rl}
@@ -1027,7 +1027,7 @@ $$
 Algorithm determining the minimal attacker winning budgets $\attackerwinsmin$ of an energy game $\game^🗲$ with undo functions $\abstractupdateinv$.
 :::
 
-The algorithm can be understood as a generalization of @alg-deciding-games, but as positions might need to be revisited more than once, we have to depart from the option counting trick.
+The algorithm can be understood as a generalization of @algo-deciding-games, but as positions might need to be revisited more than once, we have to depart from the option counting trick.
 Whenever we learn about a new minimal energy for the attacker to win, we schedule a position to be (re-)visited.
 The chain reaction starts at defender positions with no outgoing moves (lines 3 and 10).
 
@@ -1036,7 +1036,7 @@ We illustrate the algorithm by running it on the simple energy game of @exm-simp
 :::: {#exm-simple-energy-game-execution}
 #### Deciding the simple energy game
 
-Let us execute @alg-deciding-energy-games on the simple $\nats^2$-game of @exm-simple-energy-game.
+Let us execute @algo-deciding-energy-games on the simple $\nats^2$-game of @exm-simple-energy-game.
 The game graph, labeled by the minimal attacker winning energies we find, is reproduced in @fig-simple-energy-game-wins.
 
 ::: {#fig-simple-energy-game-wins fig-pos='t'}
@@ -1218,17 +1218,17 @@ Combination (dashed red) of successor Pareto fronts (black) to take the union at
 Assume energies form a well-founded bounded $\sup$-semi-lattice $(\abstractenergies, \leq)$.
 Given a finite-state energy game $\game^🗲=(G,G_\defender,\gamemoveblank, \abstractupdate)$
 with computable undo function $\abstractupdateinv(m)(e') = \min \set{e \mid e' \leq \abstractupdate(m)(e)}$ for all moves,
-@alg-deciding-energy-games computes the Pareto front of minimal attacker winning budgets, solving 
+@algo-deciding-energy-games computes the Pareto front of minimal attacker winning budgets, solving 
 the *energy game winner problem* (@prob-energy-game-problem).
 :::
 :::proof
-@alg-deciding-energy-games is a work-list variant of a fixed-point iteration computing the least fixed point of attacker winning budgets $\attackerwins$ according to the inductive characterization of @prp-winning-budget-rules.
+@algo-deciding-energy-games is a work-list variant of a fixed-point iteration computing the least fixed point of attacker winning budgets $\attackerwins$ according to the inductive characterization of @prp-winning-budget-rules.
 
 The “least” here refers to the size of the $\attackerwins$-sets characterized by the $\attackerwinsmin$-Pareto front.
 
 A detailed proof, employing Kleene's fixed point theorem, can be found in @lemke2024multiweightedEnergyGames.
-Theorem 5 of @lemke2024multiweightedEnergyGames refers to a variant of @alg-deciding-energy-games, where *all* game positions are updated *simultaneously* in each iteration, which aligns more directly with the underlying functor.
-As is common for graph algorithms, @alg-deciding-energy-games with updates of single vertices whose neighborhood has changed computes the same result and, usually, in a more efficient manner.
+Theorem 5 of @lemke2024multiweightedEnergyGames refers to a variant of @algo-deciding-energy-games, where *all* game positions are updated *simultaneously* in each iteration, which aligns more directly with the underlying functor.
+As is common for graph algorithms, @algo-deciding-energy-games with updates of single vertices whose neighborhood has changed computes the same result and, usually, in a more efficient manner.
 :::
 
 ### Complexity
@@ -1250,7 +1250,7 @@ Consider the following parameters of an energy game problem on $\game^🗲=(G,G_
 - $e_{\game}$, the highest energy that can be achieved by applying permutations of $\abstractupdateinv(\cdot)(\cdot)$ to $\zerovec$ for $\relsize{G}-1$ times.
 - $o_{\gamemoveblank}$, the out-degree of the game graph $\;{\gamemoveblank}$.
 
-Then, @alg-deciding-energy-games computes the minimal attacker winning budgets in
+Then, @algo-deciding-energy-games computes the minimal attacker winning budgets in
 $$
 \bigo{ (\relsize{G}^2 + \relsize{\downset \set{e_{\game}}}) \cdot \relsize{G} \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.
 $$
@@ -1396,7 +1396,7 @@ As $\energyupdate(u, \cdot)$ is monotonic, all that needs to be shown according 
 ::: {#lem-declining-update-complexity}
 #### Declining complexity
 
-@alg-deciding-energy-games solves the energy game problem on a $d$-dimensional *declining* energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
+@algo-deciding-energy-games solves the energy game problem on a $d$-dimensional *declining* energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
 $$
 \bigo{o_{\gamemoveblank} \cdot \relsize{G}^{2 \cdot d} \cdot (\smash{d}^2 + \relsize{G}^{d-1} \cdot d)}
 $$
@@ -1451,14 +1451,14 @@ $$
 $$
 :::
 
-@alg-deciding-energy-games can still be used to solve the flattened version of the problem by adapting $\energyupdateinv$ to represent all components above 1 by $\infty$.
+@algo-deciding-energy-games can still be used to solve the flattened version of the problem by adapting $\energyupdateinv$ to represent all components above 1 by $\infty$.
 Effectively, this decouples the size of Pareto fronts from the game size.
 In this instance, @lem-declining-update-complexity becomes:
 
 ::: {#lem-declining-update-complexity-flattened}
 #### Flattened complexity
 
-@alg-deciding-energy-games solves the *flattened* energy game problem on a $d$-dimensional declining energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
+@algo-deciding-energy-games solves the *flattened* energy game problem on a $d$-dimensional declining energy game $\game^🗲=(G,G_\defender,\gamemoveblank, w)$ in time
 $$
 \bigo{ o_{\gamemoveblank} \cdot \relsize{G}^{2 \cdot d} \cdot (\smash{d}^2 + 3^{d-1} \cdot d) }
 $$
@@ -1486,7 +1486,7 @@ $$
 \Min(\notions^\literal{peasy} \setminus \notions^\literal{peasy}_{p,q}) = \attackerwins^{\min\gamebisimen}([p,q]).
 $$
 Thereby, @prob-spectroscopy-problem for $\notions^\literal{peasy}$ on a transition system reduces to @prob-energy-game-problem on the corresponding bisimulation energy game $\gamebisimen$.
-The latter is answered by @alg-deciding-energy-games.
+The latter is answered by @algo-deciding-energy-games.
 
 ::: {#thm-bisim-energy-game-complexity}
 #### Overall complexity
@@ -1527,7 +1527,7 @@ For instance, @hs1996complexityEquivalences use reachability games to establish 
 The focus on the attacker in the bisimulation game is highly analogous to @geuversJacobs2021apartness championing *apartness* as the dual of bisimilarity to work with equivalences.
 As @kw2024allAGame show, apartness proofs and attacker strategies correspond.
 
-To compute the Pareto fronts, we use a fixed point algorithm (@idea-deciding-energy-games, @alg-deciding-energy-games).
+To compute the Pareto fronts, we use a fixed point algorithm (@idea-deciding-energy-games, @algo-deciding-energy-games).
 It can be thought of as a generalization of well-known ways to compute shortest distances in graphs [@mohri2002semiringShortest].
 
 :::{#rem-shortest-paths}
@@ -1538,12 +1538,12 @@ The energy game problem of this chapter can be seen as a *generalization of the 
 To see how, consider energy games on $(\nats, \leq)$ where only deadlock positions belong to the defender
 and where all updates constitute one-dimensional $\nats$-subtraction.
 Then, $e \in \attackerwinsmin(g)$ iff $e$ is the length of a shortest path from $g$ to some defender position (where negative $(-n)$-updates stand for what is usually written as a positive edge weight $n$ for graphs).
-In this instance, @alg-deciding-energy-games behaves like the well-known Bellman--Ford algorithm for shortest paths.
+In this instance, @algo-deciding-energy-games behaves like the well-known Bellman--Ford algorithm for shortest paths.
 :::
 \vspace*{-\medskipamount}
 
 {{< paragraph_heading "What's new?" >}}
-@alg-deciding-energy-games contains relevant generalizations and practical improvements compared to the one originally used in @bisping2023equivalenceEnergyGames.
+@algo-deciding-energy-games contains relevant generalizations and practical improvements compared to the one originally used in @bisping2023equivalenceEnergyGames.
 Most importantly, the declining energy version loses a dimension of exponentiality.
 For the polynomial equivalences, we arrive at a reasonably polynomial complexity for the spectroscopy instantiation, including reasonable space complexity for a flattened energy lattice.
 Thanks to Lemke's work @lemke2024multiweightedEnergyGames, we have a thorough Isabelle/HOL formalization.

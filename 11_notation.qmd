@@ -84,7 +84,7 @@ toc-title: "Notation"
 | $\gamebisimen$ | Bisimulation energy game (@def-bisim-energy-game)                                           |
 | $\attackerwins$, $\defenderwins$ | Attacker / defender winning regions in the context of a reachability game (@def-winning-region), or winning budgets in an energy game (@def-winning-budgets) |
 | $\attackerwinsmin(g)$      | Minimal attacker winning budgets for position $g$ in an energy game (@def-winning-budgets), solution to @prob-energy-game-problem |
-| $\abstractupdate$, $\abstractupdateinv$ | Updates on energy games (@def-energy-game) and their undo-function in the algorithm for Galois energy games (@alg-deciding-energy-games) |
+| $\abstractupdate$, $\abstractupdateinv$ | Updates on energy games (@def-energy-game) and their undo-function in the algorithm for Galois energy games (@algo-deciding-energy-games) |
 | $\energies$                | Energy levels on declining energy games in the context of a dimensionality $d$ (@def-energy-updates) |
 | $\energyupdate$, $\energyupdateinv$ | Updates on declining energy games (@def-energy-updates) and their undo-version (@def-declining-upd-inv) |
 | $\mathtt{min}_{A}$         | A special kind of update component in declining energy games (@def-energy-updates)           |

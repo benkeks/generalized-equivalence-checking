@@ -1724,9 +1724,9 @@ In this sense, comparisons of programs and of numbers are … comparable.
 All we need to turn a game characterization into a decision procedure is a way to decide which player wins a position.
 With this, ${\game}_\hml$ of @def-hml-game entails a model checking procedure for HML and ${\game}_{\notionname{B}}$ a bisimulation checking algorithm on finite-state systems.
 
-@alg-deciding-games describes how to compute who wins a finite reachability game for each position in time linear to the size of the game graph $\bigo{\relsize{\gamemoveblank}}$.
+@algo-deciding-games describes how to compute who wins a finite reachability game for each position in time linear to the size of the game graph $\bigo{\relsize{\gamemoveblank}}$.
 
-::: {#alg-deciding-games alg-pos="t"}
+::: {#algo-deciding-games algo-pos="t"}
 
 $$
 \begin{array}{rl}
@@ -1768,7 +1768,7 @@ If the count of a predecessor position hits 0, the defender also loses from ther
 
 Once we run out of $\variable{todo}$ positions, we know that the attacker has winning strategies exactly for each position we have visited.
 
-The following @tbl-game-example-execution lists how @alg-deciding-games computes the winning region $\attackerwins = \set{[\literal{2a}], (\literal{3})}$ of the simple choice game of @exm-formula-game.
+The following @tbl-game-example-execution lists how @algo-deciding-games computes the winning region $\attackerwins = \set{[\literal{2a}], (\literal{3})}$ of the simple choice game of @exm-formula-game.
 
 
 ```{=latex}
@@ -1794,7 +1794,7 @@ The following @tbl-game-example-execution lists how @alg-deciding-games computes
 \noindent
 As this game corresponds to the HML game by @exm-formula-game-cont, the computation that the defender wins $(\literal{1})$ checks that $\hmlobs{τ}\hmlneg\hmlobs{\literal a}\hmltrue$ is true for state $\literal P$ of @exm-hml.
 
-The inner loop of @alg-deciding-games clearly can run at most $\relsize{\gamemoveblank}$-many times.
+The inner loop of @algo-deciding-games clearly can run at most $\relsize{\gamemoveblank}$-many times.
 Using sufficiently clever data structures, the algorithm hence shows:
 
 ::: {#prp-reachability-game-complexity}
@@ -2026,12 +2026,12 @@ In constructing the relationships of @fig-equivalence-big-picture for bisimilari
   \path
     (TS) edge[->, swap] node {Def.~\ref{def-bisim-game}} (BisimGame)
     (TS) edge[->, dashed] node {Bisimilar?} (Output)
-    (BisimGame) edge[->] node {Alg.~\ref{alg-deciding-games}} (WinningRegion)
+    (BisimGame) edge[->] node {Alg.~\ref{algo-deciding-games}} (WinningRegion)
     (WinningRegion) edge[->, swap] node {$[p,q] \in \defenderwins^{{\game}^{\system}_{\notionname{B}}}$} (Decision)
     (Decision) edge[->] node {Yes: Thm.~\ref{thm-bisim-game-characterization}\vphantom{p}} (Relation)
     (Decision) edge[->, swap] node {No: Lem.~\ref{lem-attacks-imply-formulas}\vphantom{p}} (Formula)
     (Relation) edge[->] node[align=right] {Check relation fulfills \\ bisimulation Def.~\ref{def-bisimilarity}\vphantom{p}} (Yes)
-    (Formula) edge[->, swap] node[align=left] {Check distinction using \\ HML game Def~\ref{def-hml-game} + Alg.~\ref{alg-deciding-games}\vphantom{p}} (No);
+    (Formula) edge[->, swap] node[align=left] {Check distinction using \\ HML game Def~\ref{def-hml-game} + Alg.~\ref{algo-deciding-games}\vphantom{p}} (No);
   \draw
     (Output.south) |- (Yes.east)
     (Output.south) |- (No.west);
@@ -2057,7 +2057,7 @@ There are alternative frameworks for deciding behavioral equivalences that this 
   Simulation-like behavioral equivalences and preorders can be expressed as greatest fixed points of monotonic functions [@ails2007reactiveSystems § 4.3].
   Fixed-point iteration computes such relations on finite-state transition systems by initially assuming all states are related and iteratively removing pairs that violate the (bi-)simulation condition.
   This process continues until no such pairs remain.
-  In effect, a chain reaction happens analogous to the one that @alg-deciding-games performs on the bisimulation game.
+  In effect, a chain reaction happens analogous to the one that @algo-deciding-games performs on the bisimulation game.
   Compared to the game approach, fixed-point iteration usually is slower as it lacks knowledge about logical connections between pairs in the candidate relation.
 - **Partition refinement.**
   The fastest algorithms for bisimilarity use partition refinement [@paigetarjan1987partitionrefinement].

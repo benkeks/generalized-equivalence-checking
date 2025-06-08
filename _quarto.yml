@@ -19,7 +19,7 @@ crossref:
   custom:
     - kind: float
       reference-prefix: Algorithm
-      key: alg
+      key: algo
       latex-env: algorithm
     - kind: float
       reference-prefix: Idea

@@ -523,7 +523,7 @@ Data transformation flow in equiv.io
     for the respective spectroscopy variants of @sec-strong-spectroscopy and @sec-weak-spectroscopy.
     In particular, they facilitate the following steps in `SpectroscopyFramework.decideAll`:
     1. The spectroscopy defines a *spectroscopy game* (e.g. {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.StrongSpectroscopyGame >}}).
-       The game must be a {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.EnergyGame >}}, inheriting a decision procedure along the lines of @alg-deciding-energy-games from trait {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.GameLazyDecision >}}.
+       The game must be a {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.EnergyGame >}}, inheriting a decision procedure along the lines of @algo-deciding-energy-games from trait {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.GameLazyDecision >}}.
        This computation is invoked together with the game graph construction through `populateGame`.
     2. The spectroscopy provides an {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.Spectrum >}} object which is used to interpret the game result in a hierarchy of {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.ObservationNotion >}}s to pick the strongest preorders to relate compared processes.
         The specifics of @sec-spectrum and @sec-weak-spectrum are implemented by {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.StrongObservationNotion >}} and
@@ -548,7 +548,7 @@ Data transformation flow in equiv.io
 Another trait {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.EquivalenceChecking >}} follows the second path of @fig-strong-spectroscopy-big-picture to decide individual equivalences through reachability games.
 We will not go into detail here.
 The core feature is to derive a game {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.MaterializedEnergyGame >}} as in @def-derived-reachability-game.
-{{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.WinningRegionComputation >}} determines its winner according to @alg-deciding-games.
+{{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.WinningRegionComputation >}} determines its winner according to @algo-deciding-games.
 
 Besides the core-flow, there are some small additional diagnostic features.
 For instance, {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.SpectroscopyFramework >}} can save the spectroscopy game graph and formulas in Graphviz-format using {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.GameGraphVisualizer >}}, comparable to @fig-bisim-sim-game-energies.
@@ -926,7 +926,7 @@ Times are changing with WebGPU/WGSL [@w3c2025wgsl].
 @vogel2024energyGamesWebGPU makes this technological progress available to the spectroscopy approach.
 
 Big parts of the game graph construction and the game solving are quite parallelizable.
-gpuequiv parallelizes the budget computation of @alg-deciding-energy-games.
+gpuequiv parallelizes the budget computation of @algo-deciding-energy-games.
 For instance, a whole batch of game positions on a `todo`-list can be processed simultaneously.
 The details are explained by @vogel2024energyGamesWebGPU.
 
@@ -1026,7 +1026,7 @@ Comparison of supported notions.
 Like the listed tools, {{< equivio >}} can be seen as following the tradition of the discontinued “Concurrency Workbench[es]” [@cps1990concurrencyWorkbench; @cs1996ncsuConcurrencyWorkbench].
 
 {{< paragraph_heading "Other avenues for implementation." >}}
-The implementations of this chapter realize @alg-deciding-energy-games quite directly to decide energy games.
+The implementations of this chapter realize @algo-deciding-energy-games quite directly to decide energy games.
 Among them, the shader version of @sec-gpu-equiv adds the highest level of implementation cleverness with respect to packing of data and parallelization of computation.
 But so far, we are not using the full toolbox of the computer-aided-verification community.
 

@@ -58,13 +58,13 @@ By instantiating the spectroscopy game with known initial energies and exploitin
     (States) edge[->, dashed] node {Spectroscopy problem} (Preorders)
     (States) edge[->, draw=TealBlue] node {Definition~\ref{def-strong-spectroscopy-game}} (EnergyGame)
     (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Theorem~\ref{thm-strong-spectroscopy-game-characterization}} (Preorders)
-    (EnergyGame) edge[->, draw=TealBlue] node {Algorithm~\ref{alg-deciding-energy-games}} (AttackerWinningBudgets);
+    (EnergyGame) edge[->, draw=TealBlue] node {Algorithm~\ref{algo-deciding-energy-games}} (AttackerWinningBudgets);
   
   \path
     (States) edge[->, dashed, bend left=20] node {$N$-preorder problem} (IndividualNotion)
     (Preorders) edge[->, gray] node {} (IndividualNotion)
     (EnergyGame) edge[->, draw=Peach] node {Definition~\ref{def-derived-eq-game}} (ReachabilityGame)
-    (ReachabilityGame) edge[->, draw=Peach] node {Algorithm \ref{alg-deciding-games}} (AttackerWinningReachability)
+    (ReachabilityGame) edge[->, draw=Peach] node {Algorithm \ref{algo-deciding-games}} (AttackerWinningReachability)
     (AttackerWinningReachability.east) edge[->, draw=Peach, bend right=25] node {} (IndividualNotion)
     (AttackerWinningReachability.east) edge[->, draw=TealBlue, dashed, bend right=25] node {} (IndividualNotion);
   
@@ -822,7 +822,7 @@ As we have seen, the strong spectroscopy characterizes the spectroscopy problem 
 This section is about the feasibility to decide individual preorders using the spectroscopy game.
 
 The core idea behind @sec-deriving-eq-games is to *derive a reachability game* according to @def-derived-reachability-game, starting with an energy level from the strong spectrum, @def-strong-ltbt-spectrum.
-Then, @alg-deciding-games can be employed to decide player winning regions of the game and thus the equivalence.
+Then, @algo-deciding-games can be employed to decide player winning regions of the game and thus the equivalence.
 
 Of course, in this situation, one wants to avoid complexities that are part of the spectroscopy game only to capture other equivalences.
 @sec-regaining-polynomiality will *regain polynomiality* for the $\complexityname{P}$-easy portion of equivalence problems.
@@ -859,7 +859,7 @@ As the proof steps work in both directions, this completes the proof.
 
 The same reasoning works with the clever game version $\gamespectroscopyclever$, restricted to the $\widehat{\notions}^\literal{strong}$-spectrum used in @thm-clever-strong-spectroscopy-correctness.
 
-Using @alg-deciding-games, our results entail decision procedures for each individual equivalence of the strong spectrum.
+Using @algo-deciding-games, our results entail decision procedures for each individual equivalence of the strong spectrum.
 Of course, it makes sense for algorithms to employ the clever game and pruning.
 
 ::: {#exm-spectroscopy-equivalence-checking}

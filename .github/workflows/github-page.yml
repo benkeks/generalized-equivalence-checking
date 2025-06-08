@@ -45,12 +45,12 @@ jobs:
             xcolor
             luatex85
             luacolor
+            substr
             lua-ul
             pdftexcmds
             standalone
             mathtools
             amsmath
-            amsthm
             amsfonts
             stmaryrd
             mathpartir

@@ -42,8 +42,10 @@ jobs:
             scheme-basic
             collection-xetex
             xcolor
+            luatex85
             luacolor
             lua-ul
+            pdftexcmds
             standalone
             mathtools
             amsmath

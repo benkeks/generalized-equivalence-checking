@@ -116,7 +116,7 @@ format:
   pdf:
     documentclass: book
     classoption: [twoside]
-    pdf-engine: xelatex
+    pdf-engine: lualatex
     from: markdown-latex_macros
     mainfont: Linux Libertine O
     monofont: IsabelleDejaVuSansMono
@@ -167,7 +167,7 @@ diagram:
     _cache_diagrams
   engine:
     tikz:
-      execpath: xelatex
+      execpath: lualatex
       header-includes:
         - '\input{PROJECT/style/preamble-general.tex}'
         - '\usepackage{xr}'

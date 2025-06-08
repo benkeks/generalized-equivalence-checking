@@ -40,7 +40,8 @@ jobs:
         with:
           packages: |
             scheme-basic
-            collection-xetex
+            latex-bin
+            collection-luatex
             xcolor
             luatex85
             luacolor

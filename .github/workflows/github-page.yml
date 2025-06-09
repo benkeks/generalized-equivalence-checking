@@ -40,17 +40,12 @@ jobs:
         with:
           packages: |
             scheme-basic
-            latex-bin
-            collection-luatex
+            collection-xetex
             xcolor
-            luatex85
-            luacolor
-            substr
-            lua-ul
-            pdftexcmds
             standalone
             mathtools
             amsmath
+            amsthm
             amsfonts
             stmaryrd
             mathpartir
@@ -74,6 +69,7 @@ jobs:
             patchcmd
             siunitx
             marginfix
+            stfloats
             hyphenat
 
       - name: Set up Quarto

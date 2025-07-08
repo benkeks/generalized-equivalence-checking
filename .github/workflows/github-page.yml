@@ -45,7 +45,6 @@ jobs:
             standalone
             mathtools
             amsmath
-            amsthm
             amsfonts
             stmaryrd
             mathpartir
@@ -69,7 +68,6 @@ jobs:
             patchcmd
             siunitx
             marginfix
-            stfloats
             hyphenat
 
       - name: Set up Quarto

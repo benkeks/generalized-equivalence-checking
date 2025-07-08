@@ -809,7 +809,7 @@ Consider the cases of $φ ∈ \observationsvar[\literal{peasy}]{N}$ with $p ∈ 
       \qedhere
 :::
 
-The cruicial trick here has been that one does not need all conjuncts of a conjunction to establish a distinction and that focusing on parts can be done without leaving $\observationsvar{N}$.
+The crucial trick here has been that one does not need all conjuncts of a conjunction to establish a distinction and that focusing on parts can be done without leaving $\observationsvar{N}$.
 
 Combining @lem-bisim-energy-game-soundness with @lem-bisim-energy-game-completeness, and taking the defender perspective, we immediately get:
 

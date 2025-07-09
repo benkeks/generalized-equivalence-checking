@@ -86,6 +86,13 @@ Zentrale Teile der Arbeit werden durch eine *Isabelle/HOL-Formalisierung* gestü
 
 <div style="text-align: center; font-size:2em;"><a href="https://generalized-equivalence-checking.equiv.io/Generalized-Equivalence-Checking-of-Concurrent-Programs.pdf"><i class="bi bi-file-pdf"></i> View PDF </a></div>
 
+---
+
+### Thesis Defense 2025-07-28
+
+Join my **thesis defense** on **2025-07-28**, 10:30–12:00, in room BEL 301 ([Villa Bell @ TU Berlin](https://www.ec2-big-nse.de/directions-1/directions-to-villa-bell)).
+Afterwards, there will be lunch and more talks. (Details will follow.)
+
 ----
 
 ### Dedication {.unnumbered .unlisted}

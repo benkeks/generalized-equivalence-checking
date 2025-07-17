@@ -92,10 +92,10 @@ Zentrale Teile der Arbeit werden durch eine *Isabelle/HOL-Formalisierung* gestü
 
 Join my **thesis defense** on Monday, **2025-07-28**!
 
-- 10:30–12:30 Defense @ BEL 301 (in [Villa Bell @ TU Berlin](https://www.ec2-big-nse.de/directions-1/directions-to-villa-bell), doors open 10:00)
+- 10:30–12:30 Defense [Benjamin Bisping](https://bbisping.de): *“Generalized equivalence checking of concurrent programs”* @ BEL 301 (in [Villa Bell @ TU Berlin](https://www.ec2-big-nse.de/directions-1/directions-to-villa-bell), doors open 10:00)
 - 13:00–14:30 Lunch @ Café A
-- 15:00–15:45 [Jan Friso Groote](https://www.tue.nl/en/research/researchers/jan-friso-groote): A new state-based algorithm for branching bisimulation @ EN 644
-- 16:00–16:45 [Rob van Glabbeek](https://theory.stanford.edu/~rvg/): Mutual Exclusion: verification and impossibilities @ EN 644
+- 15:00–15:45 [Jan Friso Groote](https://www.tue.nl/en/research/researchers/jan-friso-groote): *“About the complexity of (branching) bisimulation, lowerbounds and algorithms”* @ EN 644
+- 16:00–16:45 [Rob van Glabbeek](https://theory.stanford.edu/~rvg/): *“Mutual Exclusion: verification and impossibilities”* @ EN 644
 - (Maybe grab a drink in the evening for those who've got time.)
 
 ----

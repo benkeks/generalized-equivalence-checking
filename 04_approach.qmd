@@ -964,7 +964,7 @@ then $f^{-1}$ and $f$ must form a Galois connection.
 :::proof
 Because of injectivity and monotonicity, $f$ and $f^{-1}$, must be (strictly) monotonic.
 Together with the definition of function inversion, we can reason
-$$f^{-1}(c) \leq_A a \implies f(f^{-1}(c)) \leq_A f(a) \implies c \leq_C f(a)$$
+$$f^{-1}(c) \leq_A a \implies f(f^{-1}(c)) \leq_C f(a) \implies c \leq_C f(a)$$
 and
 $$c \leq_C f(a) \implies f^{-1}(c) \leq_A f^{-1}(f(a)) \implies f^{-1}(c) \leq_A a.\qedhere$$
 :::

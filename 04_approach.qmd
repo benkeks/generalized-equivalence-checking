@@ -45,7 +45,7 @@ The second core idea is how to compute these winning budgets for players:
 ::: {#idea-deciding-energy-games .callout-idea .callout-tip}
 #### Computing cheapest wins
 
-Attacker's winning budgets in energy reachability games can be computed by a generalized shortest paths algorithm.
+Attacker's winning budgets in energy reachability games can be computed by a generalized shortest paths algorithm using Galois connections.
 :::
 
 @sec-deciding-energy-games provides an algorithm to solve a range of energy-game-like quantitative problems as long as the energy updates can be *undone* through a *Galois connection*---a generalization of invertibility on monotonic functions.

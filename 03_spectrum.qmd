@@ -215,7 +215,7 @@ A *lattice* is a partially ordered set $(B, \leq)$, where there are greatest low
 - If a lattice $(B, \leq)$ not only allows infima and suprema for pairs but for any set $B' \subseteq B$, it is called *complete*.
   We say $\inf$-complete or $\sup$-complete if only one of the two is true.
 - We call a totally ordered subset $B' \subseteq B$ a *chain*.
-- Dually, some $B' \subseteq B$ with no two elements $b_1, b_2 \in B'$ such that $b_1 \leq b_2$ is called an *anti-chain*.
+- Dually, some $B' \subseteq B$ with no two distinct elements $b_1, b_2 \in B'$ such that $b_1 \leq b_2$ is called an *anti-chain*.
 - The *upward closure* ${\upset\! B'}$ of a $B' \subseteq B$ is defined as $\set{b \in B \mid \exists b' \in B' \ldotp b' \leq b}$.
   Analogously, the *downward closure* is given by ${\downset\! B'} \defeq \set{b \in B \mid \exists b' \in B' \ldotp b \leq b'}$.
 :::
@@ -327,8 +327,8 @@ The *zero vector* $(0,…,0)$ is denoted by $\zerovec$.
 
 ## The Linear-Time–Branching-Time Spectrum {#sec-ltbt-spectrum}
 
-Van Glabbeek's two papers on the “linear-time--branching-time spectrum” [-@glabbeek1990ltbt1 ;-@glabbeek1993ltbt] show how all common equivalences can be understood to form a lattice of sublanguages of $\hml$ (and a variant of $\hml$ for equivalences with silent steps).
-His hierarchy of equivalences derives from a hierarchy of *notions of observability*.^[
+Van Glabbeek's two papers on the “linear-time--branching-time spectrum” [-@glabbeek1990ltbt1 ;-@glabbeek1993ltbt] show how all common equivalences can be understood to form a hierarchy of sublanguages of $\hml$ (and a variant of $\hml$ for equivalences with silent steps).
+His hierarchy of equivalences derives from a lattice of *notions of observability*.^[
   In particular, the weak spectrum [@glabbeek1993ltbt] makes this concept of notions really formal.
   Also, we usually implicitly refer to the full version of the strong spectrum [@glabbeek2001ltbtsiReport].
 ]
@@ -702,7 +702,7 @@ Hierarchy of common equivalences/preorders ordered by observability coordinates.
 The coordinates of @def-strong-ltbt-spectrum define a hierarchy of modal languages.
 @fig-strong-grammars-linear and @fig-strong-grammars-branching list the grammars that are described through the coordinates in interplay with @def-strong-spectrum.
 The defining aspects of each grammar are marked in $\textcolor{RoyalBlue}{\textrm{blue}}$.
-The conjunction productions with “$\dots$” are to be read in the sense that they allow arbitrary many conjuncts; in particular, empty and infinitary conjunctions are possible.
+The conjunction productions with “$\dots$” are to be read in the sense that they allow arbitrarily many conjuncts; in particular, empty and infinitary conjunctions are possible.
 If a non-terminal appears only once in the conjunction production, at most one such subformula is allowed.
 
 :::{#fig-strong-grammars-linear fig-pos='t!'}
@@ -1181,7 +1181,7 @@ They usually employ partition refinement [e.g. @valmari2009bisimMin], deriving f
 Bisimilarity's complexity valley.
 :::
 
-For coarser simulation-like equivalences, the best known algorithms need $\bigo{\relsize{\step{}} \relsize{\states}}$ time [@rt2010efficientSimulation].^[Or $\bigo{\relsize{\step{}} \relsize{\smash{\relqotient{S}{\beq{S}}}}}$ to name the bound as @rt2010efficientSimulation present it.]
+For coarser simulation-like equivalences, the best known algorithms need $\bigo{\relsize{\step{}} \relsize{\states}}$ time [@rt2010efficientSimulation].^[Or $\bigo{\relsize{\step{}} \relsize{\smash{\relqotient{\states}{\beq{S}}}}}$ to name the bound as @rt2010efficientSimulation present it.]
 
 The finer graph-isomorphism equivalence (@def-graph-isomorphism) again is harder with the best known solution [@babai2016graphIsomorphismQuasiPoly] in quasi-polynomial time $2^{\bigo{(\log n)^3}}$.
 

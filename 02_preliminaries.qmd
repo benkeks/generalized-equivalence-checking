@@ -967,7 +967,7 @@ $$
 
 We also write conjunctions as sets $\hmlands \set{φ_1, φ_2…}$.
 The empty conjunction $\hmlands \varnothing$ is denoted by $\hmltrue$ and serves as the nil-element of HML syntax trees.
-We also usually omit them when writing down formulas, e.g., shortening $\hmlobs{\literal a}\hmlobs{\literal b}\hmltrue$ to $\hmlobs{\literal a}\hmlobs{\literal b}$, which says that one may observe $\literal{a}$ and then $\literal{b}$.
+We also usually omit $\hmltrue$ when writing down formulas, e.g., shortening $\hmlobs{\literal a}\hmlobs{\literal b}\hmltrue$ to $\hmlobs{\literal a}\hmlobs{\literal b}$, which says that one may observe $\literal{a}$ and then $\literal{b}$.
 
 We will assume a form of associativity through the *convention that conjunctions are flat* in the sense that they do not immediately contain other conjunctions.
 Accordingly, we consider $\hmlands \set{ \hmlobs{\literal a}, \hmlands \set{\hmlobs{\literal{b}}} }$ and $\hmlands \set{ \hmlobs{\literal a}, \hmlands \set{\hmlobs{\literal{b}}}, \hmltrue}$ just as different representatives of the flattened formula $\hmlands \set{\hmlobs{\literal a}, \hmlobs{\literal{b}}}$, stating that one may observe $\literal{a}$ *and* one may observe $\literal{b}$.

@@ -714,8 +714,8 @@ We adapt the notions of @sec-strong-notions for the weak spectrum to distinguish
 2. **New:** Nesting depth of *branching conjunctions* (with one $\hmlsoft{\alpha}$-observation conjunct, not starting with $\hmleps$).
 3. **New:** Nesting depth of *unstable conjunctions* (that do not enforce stability by a $\hmlneg \hmlobs{\tau} \hmltrue$-conjunct).
 4. **New:** Nesting depth of *stable conjunctions* (that do enforce stability by a $\hmlneg \hmlobs{\tau} \hmltrue$-conjunct).
-5. Nesting depth of *immediate conjunctions* (that are not preceded by $\hmleps$).
-6. Maximal modal depth of *positive conjuncts* in conjunctions.^[
+5. **Modified:** Nesting depth of *immediate conjunctions* (that are not preceded by $\hmleps$).
+6. **Modified:** Maximal modal depth of *positive conjuncts* in conjunctions.^[
   To simplify matters, we drop the distinction of two kinds of positive conjunct depths of @sec-strong-notions.
   @sec-covering-revivals will hint how to add stable revivals back in.]
 7. Maximal modal depth of *negative conjuncts* in conjunctions.

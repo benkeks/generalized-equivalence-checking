@@ -1546,7 +1546,7 @@ In this instance, @algo-deciding-energy-games behaves like the well-known Bellma
 @algo-deciding-energy-games contains relevant generalizations and practical improvements compared to the one originally used in @bisping2023equivalenceEnergyGames.
 Most importantly, the declining energy version loses a dimension of exponentiality.
 For the polynomial equivalences, we arrive at a reasonably polynomial complexity for the spectroscopy instantiation, including reasonable space complexity for a flattened energy lattice.
-Thanks to Lemke's work @lemke2024multiweightedEnergyGames, we have a thorough Isabelle/HOL formalization.
+Thanks to Lemke's work [-@lemke2024multiweightedEnergyGames], we have a thorough Isabelle/HOL formalization.
 
 {{< paragraph_heading "What's next?" >}}
 At this point, we have, in principle, *answered our main research question*

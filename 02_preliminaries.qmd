@@ -77,7 +77,7 @@ Productions in grammars of potential distinguishing formulas translate to game r
 :::
 
 Both points might seem non-standard to those more accustomed to relational or denotational definitions of behavioral equivalences.
-To provide them with a bridge, we will start with relational and denotational definitions---but once we have crossed this bridge, we will stay in the realm of games and logics.
+To provide them with a bridge, our presentation will start with relational and denotational definitions---but once we have crossed this bridge, we will stay in the realm of games and logics, putting these first.
 
 ::::{.content-visible when-format="html" .column-margin}
 {{< contents related-2 >}}
@@ -415,10 +415,10 @@ $$
       \stepnosmash{τ}_\ccs
       \ccsnull \ccspar \literal a \ccspar \literal{P_B}
     }
-    \,
+    \hspace{-1em}
     \begin{matrix}
       \vphantom{\stepnosmash{\coaction{\literal{fork}}}_\ccs}\\
-      τ \notin \set{\literal{fork}}
+      τ \notin \set{\literal{fork}, \coaction{\literal{fork}}}
     \end{matrix}
   }{
     ( \coaction{\literal{fork}} \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
@@ -576,6 +576,7 @@ Simulation preorder, simulation equivalence and bisimilarity are defined as foll
 We also call a symmetric simulation *bisimulation* for short.^[
   Other authors use a weaker definition, namely, that $\rel R$ is a bisimulation if $\rel{R}$ and $\inverse{\rel{R}}$ are simulations.
   Both definitions lead to the characterization of the same notion of bisimilarity.
+  The symmetric version works better for our purpose of establishing a nice link to logics and games.
 ]
 Canceled symbols of relations refer to their negations, for instance, $p \nbpreord{S} q$ iff there is *no* simulation $\rel R$ with $(p, q) ∈ \rel R$.
 
@@ -619,7 +620,7 @@ The simulation preorder $\bpreord{S}$ is indeed a preorder{{<isb lemma Strong_Eq
 :::
 -->
 
-@exm-phil-sim shows that similarity and bisimilarity do not imply trace equivalence.
+@exm-phil-sim shows that similarity and bisimilarity are not implied by trace equivalence.
 Still, the notions are connected.
 
 ### Equivalence Hierarchies {#sec-hierarchy-equivalences}
@@ -1076,7 +1077,7 @@ Bisimilarity and HML equivalence coincide, that is, $p \beq{B} q$ precisely if $
 #### Infinitary conjunctions
 
 In the standard presentation of the Hennessy–Milner theorem, image finiteness of the transition system is assumed.
-This means that $\derivatives{p, α}$ is finite for every $p ∈ \states$.
+This means that $\derivatives{p, α}$ is finite for every $p ∈ \states$ and $α \in \actions$.
 The amount of outgoing transitions matters precisely in the construction of $φ_α$ in the proof of @lem-hml-eq-sim.
 But as our definition of $\hml$ (@def-hml) allows infinite conjunctions $\hmland{i}{I} …$, we do not need an assumption here.
 The implicit assumption is that the cardinality of index sets $I$ can match that of $\derivatives{p, α}$.
@@ -1987,9 +1988,9 @@ The attacker wins $\gamebisim$ from $[p,q]$ precisely if there is a formula $φ 
 With @thm-game-formulas, we have added the last arrow on the right side of @fig-equivalence-big-picture.
 
 Of course, @thm-game-formulas could also be arrived at by gluing together the Hennessy–Milner theorem on bisimulation (@thm-hennessy-milner) and Stirling's bisimulation game characterization (@thm-bisim-game-characterization), modulo the determinacy of games.
-But @thm-game-formulas transports a deeper insight:
+But @thm-game-formulas transports the following deeper insight:
 
-The bisimulation game actually is a game of an attacker assembling a distinguishing formula from $\observations{\floor{B}}$.
+The bisimulation game actually is a *game of an attacker assembling a distinguishing formula* from $\observations{\floor{B}}$.
 The game rules for attacker moves follow the grammar of $\observations{\floor{B}}$.
 But parts of the HML semantics are baked into the game:
 Intuitively, the attacker must propose formulas that are true-by-construction for the left-hand state.

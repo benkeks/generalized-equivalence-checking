@@ -20,7 +20,7 @@ All the nice theory of preceding chapters also works *in practice*.
 This chapter revisits the core parts of the thesis by discussing how they tie together in a tool implementation.
 
 The tool, {{< equivio >}}, will be presented in @sec-equivio.
-We demonstrate its use through the Peterson's mutex example.
+We demonstrate its use through the example of Peterson's mutex.
 @sec-student-implementations shows that the game approach lends itself to many things:
 To explain equivalence notions in a computer game, to extend existing tools, and to parallelize equivalence checking through GPUs.
 In @sec-implementations-discussion, we compare our implementations to similar tools in the lineage of the “Concurrency Workbench.”
@@ -287,7 +287,7 @@ process("A", otherId = "B") || process("B", otherId = "A")
 The two processes share three variables:
 `ready["A"]` expresses whether process `A` is ready to enter its critical section; `ready["B"]` the same for `B`.
 In `turn`, *both* processes try to write whose turn it is to enter, `A` or `B`.
-Assuming sufficiently consistent memory, the protocol works because each process will only enter the critical section if no other process is waiting or if it has been yielded the turn (by the other process).
+Assuming an atomic memory model [cf. @vgls2025justVerificationMutex], the protocol works because each process will only enter the critical section if no other process is waiting or if it has been yielded the turn (by the other process).
 The critical scenario of both processes entering *symmetrically* is resolved because the race condition on the `turn`-write will flip a coin in such situations.
 
 To express the shared-memory protocol in the message-passing paradigm of CCS, we must model the storage as processes that run in parallel with the main model.

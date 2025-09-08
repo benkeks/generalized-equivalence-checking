@@ -279,7 +279,7 @@ Where notions are connected, the one at the top implies the one underneath.
 \noindent
 The big blue circle ![](img/equivio-eq.svg){width=0.9em} in @fig-peterson-spectrum indicates that weak simulation indeed is the most specific equivalence to equate $\literal{Pe}$ and $\literal{Mx}$.
 Lines mean that the notion at the top implies the one below.
-Blue half-circles ![](img/equivio-preord.svg){width=0.9em} indicate preordering in only from blue ot red side.
+Blue half-circles ![](img/equivio-preord.svg){width=0.9em} indicate preordering in only from blue to red side.
 For instance, $\literal{Pe}$ is *preordered* to $\literal{Mx}$ with respect to two more specific notions, namely $\eta$-*simulation* and *stable simulation* (and notions below).
 Intuitively, this means that $\literal{Pe}$ *implements* $\literal{Mx}$ more faithfully than pure weak similarity would demand.
 Red triangles ![](img/equivio-dist.svg){width=0.9em} mark distinctions.

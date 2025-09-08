@@ -1139,7 +1139,7 @@ $\notions_{p,q}$ plays the role of $\Delta_A(p,q)$.
 
 This falls in line with our observations about the $\leq$-game on numbers in @exm-less-eq-game and (bi-)simulation games.
 Comparison is inherently linked to subtraction.
-Some thing $A$ is less or equal to some $B$ if nothing is left after we take everything that makes up $B$ away from $A$.
+Some object $A$ is less or equal to some $B$ if nothing is left after we take everything that makes up $B$ away from $A$.
 
 ### Complexities {#sec-equivalence-complexities}
 

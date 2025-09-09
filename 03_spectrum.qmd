@@ -124,7 +124,7 @@ This phenomenon of *orthogonal dimensions* also occurs for behavioral equivalenc
 
 Participants of ETAPS'22 discussing the spectrum of smartphone sizes.
 (Which is dominated by Hermanns's phone, at the bottom of the picture.)  
-(Photo: ETAPS Association)
+(Photo: Jan Křetínský)
 :::
 
 A well-known and natural notion of equivalence is that of *failure equivalence*.

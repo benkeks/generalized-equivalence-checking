@@ -682,7 +682,7 @@ We now prove that the bisimulation energy game indeed characterizes the equivale
 The section's proofs give the blueprint for proofs of stronger results for more general games in upcoming chapters.
 
 The approach is to generalize the connection between winning attacks and distinguishing formulas in the  bisimulation game.
-We have already explored this connection of strategies and logic in @lem-attacks-imply-formulas and @lem-formulas-imply-attack and now extend it to energies and spectrum.
+We have already explored this connection of strategies and logic in @lem-attacks-imply-formulas and @lem-formulas-imply-attack and now extend it to energies and spectra.
 One can say that the following is an “energized” version of @sec-bisim-game-hml.
 We show correspondence between notions and energies,
 $\notions \ni N = e \in \energies$.
@@ -842,7 +842,7 @@ Output
 :::
 
 We will show how to solve the problem for energy games with updates that can be undone in a certain sense.
-To this end, we will adapt the idea of backpropagating how the defender loses in reachability games from @algo-deciding-games.
+To this end, we adapt the idea of backpropagating how the defender loses in reachability games from @algo-deciding-games.
 
 The change is that we have to propagate not just attacker wins, but Pareto fronts of attacker-winning energy levels.
 For this, we have to “invert” the energy update functions.

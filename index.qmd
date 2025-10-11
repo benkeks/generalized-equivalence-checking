@@ -157,7 +157,8 @@ That this research project has still reached the stage of a PhD thesis, is thank
   Gabriel Vogel,
   Sebastian Wolf,
   David Karcher,
-  David N. Jansen.
+  David N. Jansen,
+  Jan Friso Groote.
 
 ```{=latex}
 {

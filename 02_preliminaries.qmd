@@ -2056,12 +2056,12 @@ There are alternative frameworks for deciding behavioral equivalences that this 
 
 - **Fixed-point iteration.**
   Simulation-like behavioral equivalences and preorders can be expressed as greatest fixed points of monotonic functions [@ails2007reactiveSystems § 4.3].
-  Fixed-point iteration computes such relations on finite-state transition systems by initially assuming all states are related and iteratively removing pairs that violate the (bi-)simulation condition.
+  Fixed-point iteration computes such relations on finite-state transition systems by initially assuming that all states are related and iteratively removing pairs that locally violate the (bi-)simulation condition.
   This process continues until no such pairs remain.
   In effect, a chain reaction happens analogous to the one that @algo-deciding-games performs on the bisimulation game.
   Compared to the game approach, fixed-point iteration usually is slower as it lacks knowledge about logical connections between pairs in the candidate relation.
 - **Partition refinement.**
-  The fastest algorithms for bisimilarity use partition refinement [@paigetarjan1987partitionrefinement].
+  The fastest algorithms for bisimilarity on transition systems use partition refinement [@paigetarjan1987partitionrefinement].
   Partitions represent equivalence relations as colorings on graphs, which is linear in the state space $\relsize{\states}$ (opposed to quadratic combinations for pairs in relations for fixed points and attacker positions for games).
   Intuitively, parts of the partitions are split up repeatedly, leading to a similar iterative refinement as in the general fixed-point approach.
   The splits are also informed by modal distinctions as explicated by @cleaveland1991explainingBisimInequiv.

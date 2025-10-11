@@ -917,7 +917,7 @@ Some kinds of depth-bounded families, however, are common in the literature to a
 
 - $k$-step bisimilarity: $(k,\infty,\infty,\infty,\infty,\infty)$ is a depth-$k$ approximation of bisimilarity that sometimes appears in its fixed point characterizations, for instance in @ails2007reactiveSystems [§ 4.3].
 - $k$-stratified bisimilarity: $(\infty,k,\infty,\infty,\infty,\infty)$ would be what @milner1989comcon[§ 10.4] calls “stratification of bisimilarity,” also appearing as “$(k+1)$-nested trace equivalence” in @afgi2004nestedSemantics.
-- $k$-nested similarity: $(\infty,\infty,\infty,\infty,\infty,k-1)$ for $k>1$ defines a spectrum of modal quantifier alternation depth between similarity and bisimilarity.
+- $k$-nested similarity: $(\infty,\infty,\infty,\infty,\infty,k-1)$ for $k>1$ defines a spectrum of modal quantifier alternation depth between similarity and bisimilarity [@grooteVaandrager1992tyfttyxt].
 :::
 
 ::: {#rem-dimensions}
@@ -1152,7 +1152,7 @@ The rule of thumb is that trace-like equivalences are $\complexityname{PSPACE}$-
 
 Bisimilarity finds itself in a *valley* of tractability,
 if we look at a cross section through the equivalence spectrum as in @fig-complexity-slope.
-The best known bisimilarity algorithms for finite-state transition systems take $\bigo{\relsize{\step{}} \log \relsize{\states}}$ time.
+The best known sequential bisimilarity algorithms for finite-state transition systems take $\bigo{\relsize{\step{}} \log \relsize{\states}}$ time.
 They usually employ partition refinement [e.g. @valmari2009bisimMin], deriving from @paigetarjan1987partitionrefinement.
 
 ::: {#fig-complexity-slope}

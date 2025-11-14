@@ -1,0 +1,21 @@
+project:
+  output-dir: _book-foc
+  execute-dir: project
+
+format:
+  pdf:
+    documentclass: book
+    classoption: [10pt, pagesize, twoside]
+    colorlinks: true # must be set in order for quarto to load dvipsnames in xcolor for book class ....
+    papersize: a5
+    keep-tex: true
+    linestretch: 1.0
+    geometry:
+    - left=1.2cm
+    - top=1.8cm
+    - bottom=1.8cm
+    - textwidth=12.2cm
+#    - marginparsep=0.2cm
+#    - marginparwidth=4.4cm
+    reference-location: block
+    include-in-header: style/preamble-foc.tex

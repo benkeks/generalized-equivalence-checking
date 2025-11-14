@@ -1,0 +1,23 @@
+\input{style/preamble-general.tex}
+\input{style/preamble-font.tex}
+\input{style/preamble-layout.tex}
+
+\flushbottom
+
+\setlength{\marginparwidth}{0pt}
+
+% move marginnotes to footnote area
+\renewcommand\marginnote[1]{
+    \begingroup
+    \renewcommand\thefootnote{}\footnote{#1}
+    \addtocounter{footnote}{-1}
+    \endgroup
+}
+
+\renewenvironment{marginfigure}{
+    \begin{figure}
+    %    \begin{adjustbox}{max width=.8\textwidth}
+}{
+    %    \end{adjustbox}
+    \end{figure}
+}

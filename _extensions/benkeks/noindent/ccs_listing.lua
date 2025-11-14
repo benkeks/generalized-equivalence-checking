@@ -22,7 +22,7 @@ function CodeBlock(block)
   end
 
   local prevent_link = block.text:find("@nolink")
-  if prevent_link then
+  if prevent_link or quarto.project.profile:find("foc") then
     block.text = block.text:gsub("@nolink", ""):gsub("^%s+", "")
     return block
   else

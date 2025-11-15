@@ -12,9 +12,9 @@ format:
     linestretch: 1.0
     geometry:
     - left=1.2cm
+    - right=1.2cm
     - top=1.8cm
     - bottom=1.8cm
-    - textwidth=12.2cm
 #    - marginparsep=0.2cm
 #    - marginparwidth=4.4cm
     reference-location: block

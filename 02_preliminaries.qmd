@@ -241,7 +241,16 @@ This convention means that $(P_1 \ccschoice P_2) \ccschoice P_3$ and $P_1 \ccsch
 
 
 ::::: {#fig-philosopher-pic .column-margin}
+
+```{=latex}
+\begin{adjustbox}{max width=.5\textwidth}
+```
+
 ![](img/philosophers.svg)
+
+```{=latex}
+\end{adjustbox}
+```
 
 Scenario of two philosophers needing a (second) fork to eat pasta.
 :::::
@@ -375,6 +384,11 @@ Feel free to go ahead and check that the transitions of @exm-ts indeed match tho
 For instance, the transition $\literal P \step{τ} \literal{p_a}$ in the CCS system of @exm-ts would be justified by the derivation in @fig-deriving-transition with $\literal{p_a} = ( \ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}$.
 
 ::: {#fig-deriving-transition fig-pos="t" fig-env="figure*"}
+
+```{=latex}
+\begin{adjustbox}{max width=\linewidth, center, varwidth=16.5cm}
+```
+
 $$
 \inferruleapp[Rec]{
   \hspace{-2em}
@@ -434,6 +448,10 @@ $$
   \literal P \stepnosmash{τ}_\ccs ( \ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
 }
 $$
+
+```{=latex}
+\end{adjustbox}
+```
 
 Deriving CCS transitions due to communication.
 :::

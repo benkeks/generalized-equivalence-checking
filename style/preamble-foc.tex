@@ -5,6 +5,10 @@
 \flushbottom
 
 \setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt}
+
+\DeclareCaptionStyle{widefigure}{font=normalsize, margin=0cm}
+\DeclareCaptionStyle{widetable}{font=normalsize, margin=0cm}
 
 % move marginnotes to footnote area
 \renewcommand\marginnote[1]{
@@ -12,10 +16,11 @@
     \renewcommand\thefootnote{}\footnote{#1}
     \addtocounter{footnote}{-1}
     \endgroup
+    \noindent
 }
 
 \renewenvironment{marginfigure}{
-    \begin{figure}
+    \begin{figure}[thbp]
     %    \begin{adjustbox}{max width=.8\textwidth}
 }{
     %    \end{adjustbox}

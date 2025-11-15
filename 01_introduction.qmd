@@ -24,7 +24,15 @@ Did it translate CSP terms to automata *with the same meaning*?
 Even the definition of the question is tricky, as there are different notions of what counts as “same meaning” in the semantics of programs.
 
 ::: {#fig-ltbts2-paper .column-margin}
+```{=latex}
+\begin{adjustbox}{max width=.9\textwidth}
+```
+
 ![](img/ltbts2.png){.lightbox}
+
+```{=latex}
+\end{adjustbox}
+```
 
 The linear-time–branching-time spectrum with silent moves as depicted in @glabbeek1993ltbt.
 (`Do not try to read this small figure! Its role here is that of a symbol.`{=latex}This thesis will use a simpler version in @fig-weak-spectrum.)
@@ -66,6 +74,10 @@ The right-hand side shows the transition system of Peterson's mutual exclusion a
 For $\literal{Pe}$ to faithfully implement mutual exclusion, it should behave somewhat similarly to $\literal{Mx}$.
 
 ::::{#fig-peterson-mutex fig-pos="ht"}
+```{=latex}
+\begin{adjustbox}{max width=\textwidth, center}
+```
+
 ```tikz
 \begin{tikzpicture}[scale=.9, transform shape,->,auto,node distance=1.7cm, rel/.style={dashed,font=\it, blue},
     ext/.style={line width=1pt},
@@ -137,6 +149,10 @@ For $\literal{Pe}$ to faithfully implement mutual exclusion, it should behave so
   (M2) edge [bend right=15, swap] node {$\literal{lc_B}$} (M0)
   ;
 \end{tikzpicture}
+```
+
+```{=latex}
+\end{adjustbox}
 ```
 
 A specification of mutual exclusion $\literal{Mx}$, and Peterson's protocol $\literal{Pe}$, minimized with respect to stability-respecting branching bisimilarity.

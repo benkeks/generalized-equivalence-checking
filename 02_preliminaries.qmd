@@ -16,6 +16,7 @@ This chapter is based on my introductory lectures and Isabelle/HOL theory on beh
 We aim to be mostly compatible with the textbook *Reactive systems* [@ails2007reactiveSystems].
 ::::
 
+\noindent
 The core background of this thesis is the *trinity of characterizations for behavioral equivalences*: relational, modal, and game-theoretic.
 
 This chapter takes a tour into the field of formalisms used to model programs and communicating systems, which are accompanied by many notions for behavioral equivalence and refinement to relate or distinguish their models.
@@ -33,26 +34,28 @@ Simultaneously, the approach is *opinionated*, focusing on Milner's tradition of
 
 ::: {#fig-equivalence-big-picture fig-env="figure*"}
 ```tikz
-\begin{tikzpicture}[auto,node distance=1.1cm,
-  algstep/.style={minimum width=4.5cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
-  \node[algstep, draw=TealBlue] (Bisim) {$p \beq{B} q$\\ $p$ and $q$ are bisimilar};
-  \node[algstep, draw=TealBlue, right of=Bisim, node distance=7.5cm] (NotBisim) {$p \nbeq{B} q$ \\ $p$ and $q$ are not bisimilar};
-  \node[below of=Bisim, text=TealBlue, rotate=270, label={[align=center]270:Def.~\ref{def-bisimilarity}}] (Biff) {$:\!\!\iff$};
-  \node[below of=NotBisim, gray, rotate=270] (NBiff) {$\iff$};
-  \node[algstep, draw=TealBlue, below of=Biff] (Rel) {There is bisimulation $\rel{R}$\\such that $(p,q) \in \rel{R}$};
-  \node[algstep, draw=DarkViolet, below of=NBiff] (Distinction) {Some $\varphi \in \hml$\\distinguishes $p$ from $q$};
-  \node[below of=Rel, text=Peach, rotate=270, label={[align=right]270:Stirling's\\characterization}, label={[align=left]90:Thm.~\ref{thm-bisim-game-characterization}}] (Siff) {$\iff$};
-  \node[below of=Distinction, text=Peach, rotate=270, label=90:{Thm.~\ref{thm-game-formulas}}] (Giff) {$\iff$};
-  \node[algstep, draw=Peach, below of=Siff] (DefenderWins) {Defender wins bisimulation\\game from $[p,q]$};
-  \node[algstep, draw=Peach, below of=Giff] (AttackerWins) {Attacker wins bisimulation\\game from $[p,q]$};
-  \path
-    (Bisim) edge[draw=TealBlue] node[label=below:{Def.~\ref{def-bisimilarity}}] {XOR} (NotBisim)
-    (Rel) edge[draw=DarkViolet] node[label={[align=center]below:Hennessy--Milner\\Thm.~\ref{thm-hennessy-milner}}] {XOR} (Distinction)
-    (DefenderWins) edge[draw=Peach] node[label={[align=center]below:Determinacy\\of games}] {XOR} (AttackerWins);
-  \node[text=TealBlue, right=2mm of NotBisim] (Sec22) {Section \ref{sec-behavioral-eq}};
-  \node[text=DarkViolet, right=2mm of Distinction] (Sec23) {Section \ref{sec-hml}};
-  \node[text=Peach, right=2mm of AttackerWins] (Sec24) {Section \ref{sec-games}};
-\end{tikzpicture}
+\begin{adjustbox}{max width=\textwidth, center}
+  \begin{tikzpicture}[auto,node distance=1.05cm,
+    algstep/.style={minimum width=4.4cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
+    \node[algstep, draw=TealBlue] (Bisim) {$p \beq{B} q$\\ $p$ and $q$ are bisimilar};
+    \node[algstep, draw=TealBlue, right of=Bisim, node distance=7.4cm] (NotBisim) {$p \nbeq{B} q$ \\ $p$ and $q$ are not bisimilar};
+    \node[below of=Bisim, text=TealBlue, rotate=270, label={[align=center]270:Def.~\ref{def-bisimilarity}}] (Biff) {$:\!\!\iff$};
+    \node[below of=NotBisim, gray, rotate=270] (NBiff) {$\iff$};
+    \node[algstep, draw=TealBlue, below of=Biff] (Rel) {There is bisimulation $\rel{R}$\\such that $(p,q) \in \rel{R}$};
+    \node[algstep, draw=DarkViolet, below of=NBiff] (Distinction) {Some $\varphi \in \hml$\\distinguishes $p$ from $q$};
+    \node[below of=Rel, text=Peach, rotate=270, label={[align=right]270:Stirling's\\characterization}, label={[align=left]90:Thm.~\ref{thm-bisim-game-characterization}}] (Siff) {$\iff$};
+    \node[below of=Distinction, text=Peach, rotate=270, label=90:{Thm.~\ref{thm-game-formulas}}] (Giff) {$\iff$};
+    \node[algstep, draw=Peach, below of=Siff] (DefenderWins) {Defender wins bisimulation\\game from $[p,q]$};
+    \node[algstep, draw=Peach, below of=Giff] (AttackerWins) {Attacker wins bisimulation\\game from $[p,q]$};
+    \path
+      (Bisim) edge[draw=TealBlue] node[label=below:{Def.~\ref{def-bisimilarity}}] {XOR} (NotBisim)
+      (Rel) edge[draw=DarkViolet] node[label={[align=center]below:Hennessy--Milner\\Thm.~\ref{thm-hennessy-milner}}] {XOR} (Distinction)
+      (DefenderWins) edge[draw=Peach] node[label={[align=center]below:Determinacy\\of games}] {XOR} (AttackerWins);
+    \node[text=TealBlue, right=2mm of NotBisim] (Sec22) {Section \ref{sec-behavioral-eq}};
+    \node[text=DarkViolet, right=2mm of Distinction] (Sec23) {Section \ref{sec-hml}};
+    \node[text=Peach, right=2mm of AttackerWins] (Sec24) {Section \ref{sec-games}};
+  \end{tikzpicture}
+\end{adjustbox}
 ```
 
 Core correlations for bisimilarity between relational definition, modal distinguishability, and equivalence game.
@@ -125,7 +128,7 @@ Tom Henzinger employing @exm-ts during CAV'23 to stress that “games are everyw
 ::: {#exm-ts}
 #### A classic example
 
-Consider the transition system $\system_\literal{PQ} = (\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}, \set{\literal a, \literal b, τ}, \step{}_\literal{PQ})$ given by the following graph:
+Let us consider the labeled transition system $\system_\literal{PQ} = (\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}, \set{\literal a, \literal b, τ}, \step{}_\literal{PQ})$ given by the following graph:
 
 ::::{#fig-ts-determinism fig-pos=H}
 ```tikz
@@ -256,6 +259,23 @@ Scenario of two philosophers needing a (second) fork to eat pasta.
 :::::
 
 ::::: {#fig-isolated-philosopher .column-margin}
+
+::::::: {.content-visible when-profile="foc"}
+```tikz
+\begin{tikzpicture}[auto,node distance=1.7cm]
+  \node[] (Pa){$\literal{P_A}$};
+  \node[right of=Pa] (a){$\literal{a}$};
+  \node[right of=a] (Null){$\ccsnull$};
+  \path[->]
+    (Pa)
+      edge node {$\literal{fork}$} (a)
+    (a)
+      edge node {$\literal{a}$} (Null);
+\end{tikzpicture}
+```
+:::::::
+
+::::::: {.content-visible unless-profile="foc"}
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.7cm]
   \node[] (Pa){$\literal{P_A}$};
@@ -268,8 +288,9 @@ Scenario of two philosophers needing a (second) fork to eat pasta.
       edge node {$\literal{a}$} (Null);
 \end{tikzpicture}
 ```
+:::::::
 
-Philosopher $\literal{P_A}$, on their own.
+Philosopher $\literal{P_A}$'s behavior on their own.
 :::::
 
 ::: {#exm-ccs}
@@ -303,10 +324,14 @@ The formal relationship between process terms of $\ccs$ and their transition sys
 ::: {#def-ccs-semantics}
 #### CCS semantics
 
-Given an assignment of names to processes, $\ccsasg \colon \ccsnames → \ccs$, the operational semantics ${\step{}_\ccs} ⊆ \ccs × \ccsactions × \ccs$ is defined inductively by the inference rules:
-\vspace{-2em}
+Given an assignment of names to processes, $\ccsasg \colon \ccsnames → \ccs$, the operational semantics ${\step{}_\ccs} ⊆ \ccs × \ccsactions × \ccs$ is defined inductively by the inference rules of @fig-ccs-rules.^[
+  Such rules are read like this:
+  “If we can derive the facts above the line, we may infer the relation below.”
+  Rule $\mathrm{Pre}$, having no premises, serves as the only axiom of this inference system.
+  @fig-deriving-transition shows how to stack such rules to infer that a certain step is possible for a process.
+]
 
-:::: {.column-body-outset}
+:::: {#fig-ccs-rules .column-body-outset}
 $$
 \inferrule[Pre]{
 }{
@@ -365,15 +390,11 @@ $$
   P \ccsrestrict A \step{α}_\ccs P' \ccsrestrict A
 }
 $$
+
+Inference rules defining $\step{}_\ccs$.
 ::::
 
-\noindent
-A process $P ∈ \ccs$ now denotes a node within the labeled transition system $(\ccs, \ccsactions, \step{}_\ccs)$.^[
-  Such rules are read like this:
-  “If we can derive the facts above the line, we may infer the relation below.”
-  Rule $\mathrm{Pre}$, having no premises, serves as the only axiom of this inference system.
-  @fig-deriving-transition shows how to stack such rules to infer that a certain step is possible for a process.
-]
+A process $P ∈ \ccs$ now denotes a state within system $(\ccs, \ccsactions, \step{}_\ccs)$.
 :::
 
 So, when we were writing “$\literal{P_A} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$” above, this was actually to claim that we are talking about a CCS system where the value of $\ccsasg$ for the *process name* $\literal{P_A} \in \ccsnames$ is defined by $\ccsasg(\literal{P_A}) ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$.
@@ -463,7 +484,7 @@ Nondeterminism as in $\literal P$ of @exm-ts can be understood as a natural phen
 The model leaves unspecified which of two processes will consume an internal resource and, to the outsider, it is transparent which one took the resource until they communicate.
 There are other ways how nondeterminism plays a crucial role in models, for instance, as consequence of abstraction or of parts that are left open in specifications.
 
-The second process $\literal Q$ of @exm-ts can be understood as a *deterministic* sibling of $\literal P$.
+The second process $\literal Q$ of @exm-ts can be understood as a *deterministic* sibling of&nbsp;$\literal P$.
 
 ::: {#exm-deterministic-phil}
 #### Deterministic philosophers
@@ -1287,8 +1308,30 @@ In @fig-game-ex, the winning regions are marked with blue for the defender and r
 
 :::: {#fig-game-ex .column-margin}
 
+::::::: {.content-visible when-profile="foc"}
 ```tikz
-\begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm, 
+\begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
+    posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},
+    defender/.style={ellipse, inner sep=0ex},
+    defWins/.style={fill=blue!5},
+    attWins/.style={fill=red!5}]
+  \node[posStyle, defender, defWins] (p1){$(\literal{1})$};
+  \node[posStyle, above right of=p1, attWins] (p2a){$[\literal{2a}]$};
+  \node[posStyle, below right of=p1, defWins] (p2b){$[\literal{2b}]$};
+  \node[posStyle, defender, right of=p2a, attWins] (p3){$(\literal{3})$};
+  \path[>->]
+    (p1)
+      edge node {} (p2a)
+      edge node {} (p2b)
+    (p2a)
+      edge node {} (p3);
+\end{tikzpicture}
+```
+:::::::
+
+::::::: {.content-visible unless-profile="foc"}
+```tikz
+\begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},
     defender/.style={ellipse, inner sep=0ex},
     defWins/.style={fill=blue!5},
@@ -1305,6 +1348,8 @@ In @fig-game-ex, the winning regions are marked with blue for the defender and r
       edge node {} (p3);
 \end{tikzpicture}
 ```
+:::::::
+
 A simple game.
 ::::
 :::
@@ -1361,6 +1406,34 @@ $$
 An excerpt of the game graph below $[3,1]$ and $[1,2]$ is shown in @fig-leq-game.
 
 ::::{#fig-leq-game .column-margin}
+
+::::::: {.content-visible when-profile="foc"}
+```tikz
+\begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm, 
+    posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},
+    defender/.style={ellipse, inner sep=0ex},
+    defWins/.style={fill=blue!5},
+    attWins/.style={fill=red!5}]
+  \node[posStyle, defender, attWins] (d10){$(1,0)$};
+  \node[posStyle, attWins, left of=d10] (a20){$[2,0]$};
+  \node[posStyle, defender, attWins, left of=a20] (d21){$(2,1)$};
+  \node[posStyle, attWins, left of=d21] (a31){$[3,1]$};
+
+  \node[posStyle, defWins, below of=d10] (a01){$[0,1]$};
+  \node[posStyle, defender, defWins, left of=a01] (d02){$(0,2)$};
+  \node[posStyle, defWins, left of=d02] (a12){$[1,2]$};
+
+  \path[>->]
+    (a31) edge node {} (d21)
+    (d21) edge node {} (a20)
+    (a20) edge node {} (d10)
+    (a12) edge node {} (d02)
+    (d02) edge node {} (a01);
+\end{tikzpicture}
+```
+:::::::
+
+::::::: {.content-visible unless-profile="foc"}
 ```tikz
 \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm, 
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},
@@ -1384,6 +1457,8 @@ An excerpt of the game graph below $[3,1]$ and $[1,2]$ is shown in @fig-leq-game
     (d02) edge node {} (a01);
 \end{tikzpicture}
 ```
+:::::::
+
 A part of $\game_{\literal{leq}}$.
 ::::
 
@@ -1880,6 +1955,7 @@ We will call such formulas “strategy formulas.”
 ::: {#fig-bisim-sim-game-formulas fig-pos='t' fig-env="figure*"}
 ```tikz
 %%| image-class: lightbox
+\begin{adjustbox}{max width=\textwidth, center}
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
     defender/.style={ellipse, inner sep=0ex},
@@ -1931,6 +2007,7 @@ We will call such formulas “strategy formulas.”
         edge node {} (Dfn_b_q2_q3)
     ;
   \end{tikzpicture}
+\end{adjustbox}
 ```
 
 The bisimulation game of @exm-bisim-sim-game-formulas with attacker formulas.
@@ -2031,30 +2108,33 @@ In constructing the relationships of @fig-equivalence-big-picture for bisimilari
 
 ::: {#fig-game-algo-overview fig-pos='t' fig-env="figure*"}
 ```tikz
-\begin{tikzpicture}[auto,node distance=2.7cm,
-  algstep/.style={minimum width=2.5cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
-  \node[algstep] (TS) {$p$ and $q$ in\\ system $\system$};
-  \node[algstep, below of=TS, node distance=7.8cm] (BisimGame) {Bisimulation \\ game ${{\game}^{\system}_{\notionname{B}}}$};
-  \node[algstep, right of=BisimGame, node distance=7cm] (WinningRegion) {Winning regions\\$\attackerwins^{{\game}^{\system}_{\notionname{B}}}$ and $\defenderwins^{{\game}^{\system}_{\notionname{B}}}$};
-  \node[draw, diamond, above of=WinningRegion, node distance=2cm, minimum width=.8cm, minimum height=.8cm] (Decision) {};
-  \node[algstep, above left of=Decision] (Relation) {Bisimulation \\ relation $\rel{R}_s$};
-  \node[algstep, above right of=Decision] (Formula) {Distinguishing \\ formula $\varphi_s$};
-  \node[algstep, above of=WinningRegion, node distance=7.8cm] (Output) {Yes / No};
-  \node[above of=Relation, node distance=2.5cm] (Yes) {Certifiably yes $✔$};
-  \node[above of=Formula, node distance=2.5cm] (No) {$✗$ Certifiably no};
-  \path
-    (TS) edge[->, swap] node {Def.~\ref{def-bisim-game}} (BisimGame)
-    (TS) edge[->, dashed] node {Bisimilar?} (Output)
-    (BisimGame) edge[->] node {Alg.~\ref{algo-deciding-games}} (WinningRegion)
-    (WinningRegion) edge[->, swap] node {$[p,q] \in \defenderwins^{{\game}^{\system}_{\notionname{B}}}$} (Decision)
-    (Decision) edge[->] node {Yes: Thm.~\ref{thm-bisim-game-characterization}\vphantom{p}} (Relation)
-    (Decision) edge[->, swap] node {No: Lem.~\ref{lem-attacks-imply-formulas}\vphantom{p}} (Formula)
-    (Relation) edge[->] node[align=right] {Check relation fulfills \\ bisimulation Def.~\ref{def-bisimilarity}\vphantom{p}} (Yes)
-    (Formula) edge[->, swap] node[align=left] {Check distinction using \\ HML game Def~\ref{def-hml-game} + Alg.~\ref{algo-deciding-games}\vphantom{p}} (No);
-  \draw
-    (Output.south) |- (Yes.east)
-    (Output.south) |- (No.west);
-\end{tikzpicture}
+
+\begin{adjustbox}{max width=\textwidth, center}
+  \begin{tikzpicture}[auto,node distance=2.7cm,
+    algstep/.style={minimum width=2.5cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
+    \node[algstep] (TS) {$p$ and $q$ in\\ system $\system$};
+    \node[algstep, below of=TS, node distance=7.8cm] (BisimGame) {Bisimulation \\ game ${{\game}^{\system}_{\notionname{B}}}$};
+    \node[algstep, right of=BisimGame, node distance=5cm] (WinningRegion) {Winning regions\\$\attackerwins^{{\game}^{\system}_{\notionname{B}}}$ and $\defenderwins^{{\game}^{\system}_{\notionname{B}}}$};
+    \node[draw, diamond, above of=WinningRegion, node distance=2cm, minimum width=.8cm, minimum height=.8cm] (Decision) {};
+    \node[algstep, above left of=Decision] (Relation) {Bisimulation \\ relation $\rel{R}_s$};
+    \node[algstep, above right of=Decision] (Formula) {Distinguishing \\ formula $\varphi_s$};
+    \node[algstep, above of=WinningRegion, node distance=7.8cm] (Output) {Yes / No};
+    \node[above of=Relation, node distance=2.5cm] (Yes) {Certifiably yes $✔$};
+    \node[above of=Formula, node distance=2.5cm] (No) {$✗$ Certifiably no};
+    \path
+      (TS) edge[->, swap] node {Def.~\ref{def-bisim-game}} (BisimGame)
+      (TS) edge[->, dashed] node {Bisimilar?} (Output)
+      (BisimGame) edge[->] node {Alg.~\ref{algo-deciding-games}} (WinningRegion)
+      (WinningRegion) edge[->, swap] node {$[p,q] \in \defenderwins^{{\game}^{\system}_{\notionname{B}}}$} (Decision)
+      (Decision) edge[->] node {Yes: Thm.~\ref{thm-bisim-game-characterization}\vphantom{p}} (Relation)
+      (Decision) edge[->, swap] node {No: Lem.~\ref{lem-attacks-imply-formulas}\vphantom{p}} (Formula)
+      (Relation) edge[->] node[align=right] {Check relation fulfills \\ bisimulation Def.~\ref{def-bisimilarity}\vphantom{p}} (Yes)
+      (Formula) edge[->, swap] node[align=left] {Check distinction using \\ HML game Def~\ref{def-hml-game} + Alg.~\ref{algo-deciding-games}\vphantom{p}} (No);
+    \draw
+      (Output.south) |- (Yes.east)
+      (Output.south) |- (No.west);
+  \end{tikzpicture}
+\end{adjustbox}
 ```
 
 Checking bisimilarity and providing certificates.

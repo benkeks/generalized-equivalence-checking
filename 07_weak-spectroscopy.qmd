@@ -14,7 +14,7 @@ toc-title: "Chapter 7"
 {{< paragraph_heading "Related publications." >}}
 This chapter is based on “One energy game for the spectrum between branching bisimilarity and weak trace semantics.” [@bj2024silentStepSpectroscopyExpress],
 its extended draft version [@bj2025silentStepSpectroscopyJournal] and
-its Isabelle/HOL formalization [@bbhlmm2025weakSpectroscopyIsabelle].
+its Isabelle/HOL formalization [@bhlmmb2025weakSpectroscopyIsabelle].
 These publications make the contribution of characterizing the weak spectrum through a *weak spectroscopy* game.
 The present thesis is more detailed with respect to complexity and to handling of stable failure traces and related notions.
 ::::
@@ -562,7 +562,7 @@ For all $N \in \notions^\literal{weak}$, $p \in \states$, $Q \in \powerset{\stat
 
 ### Isabelle/HOL Formalization {#sec-isabelle-formalization}
 
-@bbhlmm2025weakSpectroscopyIsabelle formalize the correctness result for the weak spectroscopy game in the interactive proof assistant Isabelle/HOL. 
+@bhlmmb2025weakSpectroscopyIsabelle formalize the correctness result for the weak spectroscopy game in the interactive proof assistant Isabelle/HOL. 
 The preceding definitions and facts have already linked to their respective Isabelle/HOL counterparts.
 This subsection is devoted to providing some insights into the formalization.^[
   For questions on the Isabelle/Isar language, consult *The Isabelle/Isar reference manual* [@wenzel2025isabelleIsar].
@@ -1268,7 +1268,7 @@ covering both linear-time and branching-time as well as stable and unstable noti
 In principle, this chapter only executes @idea-modal-first to translate modal constructions to game moves appearing in $\hmlsrbb$, which follows @idea-weak-hml.
 The important trick is to weaken the attacker according to @idea-weakening-game,
 but this departs from prior approaches in weakened games and involves many technicalities.
-Therefore, it is relieving to have the Isabelle formalization of @sec-isabelle-formalization by @bbhlmm2025weakSpectroscopyIsabelle to verify the construction.
+Therefore, it is relieving to have the Isabelle formalization of @sec-isabelle-formalization by @bhlmmb2025weakSpectroscopyIsabelle to verify the construction.
 
 {{< paragraph_heading "Analyzing systems." >}}
 The mini case studies of @sec-tackling-case-studies show how the spectroscopy automates away the tedious kind of work of finding out the precise relationship between transformed processes that went, for instance, into @bell2013certifiably.

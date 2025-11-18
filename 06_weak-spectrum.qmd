@@ -1121,7 +1121,7 @@ Grammars induced by coordinates for weak bisimulation-like notions of equivalenc
 :::
 
 @bj2025silentStepSpectroscopyJournal [§ 3.3] prove in detail, for each of our abstractions of bisimilarity, that it corresponds to its respective relational characterization.
-The Isabelle theory [@bbhlmm2025weakSpectroscopyIsabelle] features theorems for
+The Isabelle theory [@bhlmmb2025weakSpectroscopyIsabelle] features theorems for
 $\eta$-bisimilarity{{<isb theorem Eta_Bisimilarity LTS_Tau.eta_bisim_coordinate>}} and for
 stability-respecting branching bisimilarity{{<isb theorem Branching_Bisimilarity LTS_Tau.sr_branching_bisim_coordinate>}}.
 

@@ -506,7 +506,7 @@ With this, the attacker wins $\attackerpos{p, \varnothing} \gamemove{\;\zerovec\
 Also, @bisping2023equivalenceEnergyGames defines the spectrum coordinates by giving the $\expr$ function instead of an $\observationsvar{N \in \notions}$ hierarchy.
 
 The conference paper results apply to the present presentation *mutatis mutandis*.
-However, we will achieve better complexity results in the next section, thanks to @lemke2024multiweightedEnergyGames.
+However, we will achieve better complexity results in the next section, thanks to @lb2025galoisEnergyGames.
 :::
 
 \bigskip

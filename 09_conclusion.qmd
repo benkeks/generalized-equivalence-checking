@@ -82,9 +82,8 @@ There are some classical points to extend research around this thesis. For insta
   But so far, it does not cover revivals and thus failure-trace-like notions.
   The proofs in @bisping2023equivalenceEnergyGamesReport give some confidence that the construction is correct, but an Isabelle/HOL formalization would be even nicer.
 - More Galois energy games:
-  There exist some interesting questions around the theory of Galois energy games of @sec-approach and their generalizability to more game variants.^[
-    Lemke and Bisping are already writing a paper on this.
-  ]
+  There exist some interesting questions around the theory of Galois energy games of @sec-approach and their generalizability to more game variants.
+  @lb2025galoisEnergyGames begin work in this direction.
 - More tool support:
   Proliferation of spectroscopy features to more tools beyond @sec-implementations would be great.
   Our existing open source implementations can hopefully serve as good starting points.
@@ -140,7 +139,8 @@ Concurrency theory as a field has entered a stage where the initial explosion of
 A wave of Festschriften has been appearing.
 As @garavel2023calculiWrong puts it:
 
-> Time has come for encyclopedic synthesis: reexamine / select / simplify / sort
+> Time has come for encyclopedic synthesis:  
+> reexamine / select / simplify / sort
 
 This thesis hopes to fit into this project with a “search engine” for equivalences.
 It shows how to quickly survey spectra of equivalence and how the approach can easily be implemented into tools to support generalized equivalence checking of concurrent programs.

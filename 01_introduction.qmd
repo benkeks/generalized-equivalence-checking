@@ -35,7 +35,7 @@ Even the definition of the question is tricky, as there are different notions of
 ```
 
 The linear-time–branching-time spectrum with silent moves as depicted in @glabbeek1993ltbt.
-(`Do not try to read this small figure! Its role here is that of a symbol.`{=latex}This thesis will use a simpler version in @fig-weak-spectrum.)
+(`Do not try to read this small figure! Its role here is that of a symbol.`{=latex} This thesis will use a simpler version in @fig-weak-spectrum.)
 :::
 
 I then took my very first look into seminal work on the landscape of process equivalences: the “linear-time–branching-time spectrum” by van Glabbeek [-@glabbeek1990ltbt1; -@glabbeek1993ltbt; -@glabbeek2001ltbtsiReport with a combined 2500 citations on Google Scholar].
@@ -419,16 +419,17 @@ It is written to be understandable on its own.
 For details, we typically refer to the original publications or to other artifacts for implementation and machine-checked proofs.
 
 {{< paragraph_heading "Publications." >}}
-The following four publications (with me as main author) fuel the following chapters:
+The following five publications fuel the thesis:
 
 - “Deciding all behavioral equivalences at once: A game for linear-time–branching-time spectroscopy” [LMCS -@bjn2022decidingAllBehavioralEqs, with Nestmann & Jansen] introduces the *spectroscopy problem* and the *core idea* to decide the whole strong spectrum using games that search trees of possible distinguishing formulas.
   [Conference version: TACAS -@bisping2021ltbtsTacas]
 - “Process equivalence problems as energy games” [CAV -@bisping2023equivalenceEnergyGames] makes a *big technical leap by using energy games*, which removes the necessity for explicit formula construction.
   [Tech report: arXiv -@bisping2023equivalenceEnergyGamesReport]
+- “Galois Energy Games: To Solve All Kinds of Quantitative Reachability Problems” [CONCUR -@lb2025galoisEnergyGames, with Lemke] generalizes and formalizes the decision procedure of my energy game model. [Lemke's Isabelle/HOL theory: AFP -@lemke2025afpGaloisEnergyGames]
 - “Characterizing contrasimilarity through games, modal logic, and complexity” [Information & Computation -@bm2024contrasimilarityInfComp, with Montanari] closes *gaps in the weak spectrum of equivalences* for complexity, games, and their links to modal logics.
   [Isabelle/HOL theory: AFP -@bm2023contrasimilarityAFP; Workshop version: EXPRESS/SOS -@bm2021contrasimilarity]
 - “One energy game for the spectrum between branching bisimilarity and weak trace semantics” [EXPRESS/SOS -@bj2024silentStepSpectroscopyExpress, with Jansen] adapts the *spectroscopy approach for the weak spectrum*.
-  [Journal version: Preprint -@bj2025silentStepSpectroscopyJournal]
+  [Journal version: Preprint -@bj2025silentStepSpectroscopyJournal; Isabelle/HOL theory: AFP -@bhlmmb2025weakSpectroscopyIsabelle]
 
 \vspace*{-\medskipamount}
 {{< paragraph_heading "Prototype." >}}
@@ -441,8 +442,8 @@ The source is available openly on <https://github.com/benkeks/equivalence-fiddle
 {{< paragraph_heading "Isabelle formalization." >}}
 In order to relieve the document of technical proofs, these are contained in machine-checkable *Isabelle/HOL theories*.
 
-- *“A weak spectroscopy game to characterize behavioral equivalences”* formalizes the core results of @sec-weak-spectrum and @sec-weak-spectroscopy: <https://equivio.github.io/silent-step-spectroscopy>.
-  The theory [@bbhlmm2025weakSpectroscopyIsabelle] has been developed together with TU Berlin students Barthel, Hübner, Lemke, Mattes, and Mollenkopf.
+- *“The weak spectroscopy game to characterize behavioral equivalences”* formalizes the core results of @sec-weak-spectrum and @sec-weak-spectroscopy: <https://equivio.github.io/silent-step-spectroscopy>.
+  The theory [@bhlmmb2025weakSpectroscopyIsabelle] has been developed together with TU Berlin students Barthel, Hübner, Lemke, Mattes, and Mollenkopf.
   Also, many theorems of earlier chapters can be understood to be supported by the formalization.
 - *“Equivalence spectrum formalization”* supplies proofs for @sec-preliminaries and @sec-spectrum: <https://benkeks.github.io/ltbt-spectroscopy-isabelle/>.
 
@@ -455,7 +456,6 @@ Some parts of this thesis strongly rely on student work that I have supervised, 
 - @mattes2024expressivePowerHML: *“Measuring expressive power of HML formulas in Isabelle/HOL”* proves the approach to modal characterization of @sec-ltbt-spectrum.
 - @vogel2024energyGamesWebGPU: *“Accelerating process equivalence energy games using Web{{<shy>}}GPU,”* topic of @sec-gpu-equiv, allows massive parallelization of key parts of our algorithm on the GPU.
 - @lemke2024multiweightedEnergyGames: “*A formal proof of decidability of multi-weighted declining energy games*” formalizes the *Galois energy games* of @sec-deciding-energy-games.
-  Its Isabelle theory is archived on <https://github.com/crmrtz/galois-energy-games>.
 
 \vspace*{-\medskipamount}
 {{< paragraph_heading "Other publications." >}}
@@ -488,6 +488,8 @@ Although most of them do not appear directly on the following pages, I want to a
 - @hauschild2023nonlinearCounterfactuals: *“Nonlinear counterfactuals in Isabelle/HOL.”*
 - @stoecker2024HOcalculiEqs: *“Higher-order diadic µ-calculus–An efficient framework for checking process equivalences?”*
 - @kurzan2024mcrl2Contrasim: *“Implementierung eines Contrasimilarity-Checkers für mCRL2.”*
+- @watermann2025webAppProcessEquivalence: *“User-friendly web application for high-performance process equivalence checking.”*
+- @lifante2025legalReasoningIsabelle: *“Automating legal reasoning in Isabelle/HOL: An embedding of logics for legal dynamics.”*
 
 \vspace*{-\medskipamount}
 {{< paragraph_heading "This thesis itself." >}}

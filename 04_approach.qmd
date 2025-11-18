@@ -15,6 +15,7 @@ toc-title: "Chapter 4"
 This chapter revolves around the ideas conveyed by my talk “Deciding all behavioral equivalences at once through energy games” at D-CON'25 (Augsburg, 2025-03),
 and by its predecessors given at LFCS University of Edinburgh (2023-03), Highlights'23 (Kassel, 2023-07), and ISCAS Beijing (2024-09).
 It can be thought of as the *core* of @bisping2023equivalenceEnergyGames, and also of this thesis itself.
+The theory on energy games with Galois connections has been published in @lb2025galoisEnergyGames.
 ::::
 
 Time to get real.
@@ -265,7 +266,7 @@ More formally, the winning budgets are characterized by the following two propos
 #### Upward closure of attacker budgets
 
 Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game}$ are pointwise upward-closed, that is, ${\upset \attackerwins^{\game}(g)} = \attackerwins^{\game}(g)$ for all positions $g \in G$.^[
-  This is formalized as Lemma 3.2 in @lemke2024multiweightedEnergyGames.
+  See Lemma 10 in @lb2025galoisEnergyGames.
 ]
 :::
 
@@ -273,7 +274,7 @@ Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game
 #### Winning budget determinacy
 
 Given an energy game $\game$, attacker budgets at a position $g$ are attacker-winning if they are not defender-winning, and vice-versa:^[
-  This is formalized as Corollary 3.1 in @lemke2024multiweightedEnergyGames.
+  This is formalized as Corollary 3.1 in @lemke2024multiweightedEnergyGames / Lemma 7 in @lb2025galoisEnergyGames.
 ]
 $$\attackerwins^{\game}(g) = \abstractenergies \setminus \defenderwins^{\game}(g)$$
 $$\defenderwins^{\game}(g) = \abstractenergies \setminus \attackerwins^{\game}(g)$$
@@ -283,7 +284,7 @@ $$\defenderwins^{\game}(g) = \abstractenergies \setminus \attackerwins^{\game}(g
 #### Inductive budgets
 
 Given an energy game $\game$, the attacker winning budgets $\attackerwins^{\game}$ are characterized inductively by the following rules:^[
-  Proved as Theorem 3 in @lemke2024multiweightedEnergyGames.
+  Proved as Lemma 11 in @lb2025galoisEnergyGames.
 ]
 $$
 \dfrac{
@@ -312,7 +313,7 @@ Defender's wins on the other hand would dually be a *coinductive concept* becaus
   Therefore, coinduction is only mentioned in side remarks and is not required to understand what is going on.
 ]
 
-The proofs in @lemke2024multiweightedEnergyGames partially rely on the fact that one can derive reachability games from energy games, by inlining the energies and having the attacker stuck at exhausted energies.
+The proofs in @lemke2024multiweightedEnergyGames and @lb2025galoisEnergyGames partially rely on the fact that one can derive reachability games from energy games, by inlining the energies and having the attacker stuck at exhausted energies.
 
 ::: {#def-derived-reachability-game}
 #### Derived reachability game
@@ -1226,8 +1227,8 @@ the *energy game winner problem* (@prob-energy-game-problem).
 
 The “least” here refers to the size of the $\attackerwins$-sets characterized by the $\attackerwinsmin$-Pareto front.
 
-A detailed proof, employing Kleene's fixed point theorem, can be found in @lemke2024multiweightedEnergyGames.
-Theorem 5 of @lemke2024multiweightedEnergyGames refers to a variant of @algo-deciding-energy-games, where *all* game positions are updated *simultaneously* in each iteration, which aligns more directly with the underlying functor.
+A detailed proof, employing Kleene's fixed point theorem, can be found in @lb2025galoisEnergyGames.
+Theorem 15 of @lb2025galoisEnergyGames refers to a variant of @algo-deciding-energy-games, where *all* game positions are updated *simultaneously* in each iteration, which aligns more directly with the underlying functor.
 As is common for graph algorithms, @algo-deciding-energy-games with updates of single vertices whose neighborhood has changed computes the same result and, usually, in a more efficient manner.
 :::
 
@@ -1252,7 +1253,7 @@ Consider the following parameters of an energy game problem on $\game^🗲=(G,G_
 
 Then, @algo-deciding-energy-games computes the minimal attacker winning budgets in
 $$
-\bigo{ (\relsize{G} + \relsize{\downset \set{e_{\game}}}) \cdot \relsize{G} \cdot o_{\gamemoveblank} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.
+\bigo{ \relsize{G}^2 \cdot o_{\gamemoveblank} \cdot \relsize{\downset \set{e_{\game}}} \cdot (\relwidth_{\abstractenergies}(e_{\game}))^2 \cdot (t_{\abstractupdateinv} + t_{\sup} + \relwidth_{\abstractenergies}(e_{\game}) \cdot t_\leq) }.
 $$
 If $\abstractupdate$ is declining, then the following suffices:
 $$
@@ -1260,7 +1261,7 @@ $$
 $$
 In both cases, the algorithm needs $\bigo{\relsize{G} \cdot \relwidth_{\abstractenergies}(e_{\game}) \cdot s_{\abstractenergies}}$ space to store the Pareto fronts, where $s_{\abstractenergies}$ bounds the space needed per energy.
 For declining energy games, it is reasonable to assume $s_{\abstractenergies} \in \bigo{d}$.^[
-  As in @thm-energy-game-correctness, we refer to @lemke2024multiweightedEnergyGames for a very detailed proof, where the corresponding fact is proved as Theorem&nbsp;7.
+  As in @thm-energy-game-correctness, we refer to @lb2025galoisEnergyGames for a detailed proof, where the corresponding fact is proved as Theorem&nbsp;28.
 ]
 :::
 
@@ -1546,7 +1547,8 @@ In this instance, @algo-deciding-energy-games behaves like the well-known Bellma
 @algo-deciding-energy-games contains relevant generalizations and practical improvements compared to the one originally used in @bisping2023equivalenceEnergyGames.
 Most importantly, the declining energy version loses a dimension of exponentiality.
 For the polynomial equivalences, we arrive at a reasonably polynomial complexity for the spectroscopy instantiation, including reasonable space complexity for a flattened energy lattice.
-Thanks to Lemke's work [-@lemke2024multiweightedEnergyGames], we have a thorough Isabelle/HOL formalization.
+Thanks to Lemke's work [-@lemke2024multiweightedEnergyGames], we have a thorough Isabelle/HOL formalization [@lemke2025afpGaloisEnergyGames].
+The progress is discussed by @lb2025galoisEnergyGames.
 
 {{< paragraph_heading "What's next?" >}}
 At this point, we have, in principle, *answered our main research question*

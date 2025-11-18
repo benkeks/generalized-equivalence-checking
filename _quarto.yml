@@ -79,7 +79,9 @@ csl: lib/apa.csl
 #csl: iso690-author-date-en
 citation:
   type: thesis
-  genre: Doctoral dissertation
+  genre: PhD thesis
+  doi: "10.14279/depositonce-24813"
+  publisher: "Technische Universität Berlin"
 
 format:
   html:

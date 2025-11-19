@@ -119,7 +119,7 @@ We will take the formulation that Henzinger used at CAV'23 as seen in @fig-henzi
 
 ::: {#fig-henzinger .column-margin}
 
-![](img/henzinger.jpg){.lightbox}
+{{< pic "img/henzinger.jpg" >}}
 
 Tom Henzinger employing @exm-ts during CAV'23 to stress that “games are everywhere.”
 (Incidentally, this chapter follows a similar mission.)
@@ -245,15 +245,7 @@ This convention means that $(P_1 \ccschoice P_2) \ccschoice P_3$ and $P_1 \ccsch
 
 ::::: {#fig-philosopher-pic .column-margin}
 
-```{=latex}
-\begin{adjustbox}{max width=.5\textwidth}
-```
-
-![](img/philosophers.svg)
-
-```{=latex}
-\end{adjustbox}
-```
+{{< pic "img/philosophers.svg" "50%" >}}
 
 Scenario of two philosophers needing a (second) fork to eat pasta.
 :::::
@@ -460,7 +452,7 @@ $$
     \stepnosmash{τ}_\ccs
     ( \ccsnull \ccspar \literal a \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
   }
-  \,
+  \hspace{-1em}
   \begin{matrix}
     \vphantom{\stepnosmash{\coaction{\literal{fork}}}_\ccs}\\
     \ccsasg(\literal P) = ( \coaction{\literal{fork}} \ccspar \literal{P_A} \ccspar \literal{P_B} ) \ccsrestrict \set{\literal{fork}}
@@ -1596,7 +1588,7 @@ The bisimulation game on this system is given by @fig-bisim-game-even-odd:
 
 :::: {#fig-bisim-game-even-odd fig-pos="ht"}
   ```tikz
-  \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=4cm,
+  \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=3cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
     defender/.style={ellipse, inner sep=0ex},
     defWins/.style={fill=blue!5},
@@ -1613,10 +1605,10 @@ The bisimulation game on this system is given by @fig-bisim-game-even-odd:
 
     \path
       (Att_EO)
-        edge[bend left = 10] node {swap} (Att_OE)
+        edge[bend left = 10, pos=.3] node {swap} (Att_OE)
         edge[bend right = 10, swap] node {challenge} (Dfn_tOO)
       (Att_OE)
-        edge[bend left = 10] node {swap} (Att_EO)
+        edge[bend left = 10, pos=.3] node {swap} (Att_EO)
         edge[bend right = 10, swap] node {challenge} (Dfn_tEE)
       (Dfn_tOO)
         edge[bend right = 10, swap] node {answer\vphantom{lg}} (Att_OE)
@@ -1656,7 +1648,7 @@ The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\lite
 ::: {#fig-bisim-sim-game fig-pos='t' fig-env="figure*" .column-body-outset}
 ```tikz
 %%| image-class: lightbox
-\begin{adjustbox}{max width=\linewidth, center}
+\begin{adjustbox}{trim=0.5cm 0cm, max width=\linewidth, center}
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
     defender/.style={ellipse, inner sep=0ex},
@@ -1784,7 +1776,8 @@ One of the big advantages of game characterizations is that they provide a way t
 There also are several computer game implementations of bisimulation games.
 
 :::: {#fig-peacock-game .column-margin}
-![](img/peacock-bisim-video-game.png){.lightbox}
+
+{{< pic "img/peacock-bisim-video-game.png" >}}
 
 Screenshot of [Peacock's bisimulation computer game](https://www.concurrency-theory.org/rvg-game/).
 (In the computer game, the colors are coded inversely to our presentation.

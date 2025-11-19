@@ -24,15 +24,8 @@ Did it translate CSP terms to automata *with the same meaning*?
 Even the definition of the question is tricky, as there are different notions of what counts as “same meaning” in the semantics of programs.
 
 ::: {#fig-ltbts2-paper .column-margin}
-```{=latex}
-\begin{adjustbox}{max width=.9\textwidth}
-```
 
-![](img/ltbts2.png){.lightbox}
-
-```{=latex}
-\end{adjustbox}
-```
+{{< pic "img/ltbts2.png" >}}
 
 The linear-time–branching-time spectrum with silent moves as depicted in @glabbeek1993ltbt.
 (`Do not try to read this small figure! Its role here is that of a symbol.`{=latex} This thesis will use a simpler version in @fig-weak-spectrum.)

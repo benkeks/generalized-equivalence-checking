@@ -17,6 +17,7 @@ For a fuller presentation of the spectrum of weak equivalences itself, @glabbeek
 A gentler introduction to key concepts is provided by @sangiorgi2012.
 ::::
 
+\noindent
 Virtually all *applications* of concurrency theory use *weak* behavioral equivalences, which can equate systems in spite of differing internal activity.
 Therefore, it matters that we can lift our approach to also account for such equivalences.
 
@@ -386,6 +387,8 @@ Consider the following sequential program $\literal{P_{Seq}}$, which computes `x
 
 ::::{#fig-parallelized-ts .column-margin}
 
+:::::{.content-visible unless-profile="foc"}
+
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.5cm]
   \node[] (PSeq){$\literal{P_{Seq}}$};
@@ -441,6 +444,61 @@ Consider the following sequential program $\literal{P_{Seq}}$, which computes `x
       edge[thick] node {$\literal{printB}$} (p5);
 \end{tikzpicture}
 ```
+:::::
+:::::{.content-visible when-profile="foc"}
+
+\begin{tikzpicture}[auto,node distance=1.5cm]
+  \node[] (PSeq){$\literal{P_{Seq}}$};
+  \node[below left of=PSeq] (p1){$\circ$};
+  \node[below right of=PSeq] (p2){$\circ$};
+  \node[below of=p1] (p3){$\literal{p_a}$};
+  \node[below of=p2] (p4){$\literal{p_b}$};
+  \node[below right of=p3] (p5){$\circ$};
+  \path[->]
+    (PSeq)
+      edge[swap] node {$\tau$} (p1)
+      edge node {$\tau$} (p2)
+    (p1)
+      edge[swap, thick] node {$\literal{printO}$} (p3)
+    (p2)
+      edge[thick] node {$\literal{printO}$} (p4)
+    (p3)
+      edge[thick, swap] node {$\literal{printA}$} (p5)
+    (p4)
+      edge[thick] node {$\literal{printB}$} (p5);
+
+  \node[right of=PSeq, node distance=5cm] (PPara){$\literal{P_{Para}}$};
+  \node[below left of=PPara] (pp1){$\circ$};
+  \node[below right of=PPara] (pp2){$\circ$};
+  \node[below of=PPara] (pp23){$\literal{p_{ab}}$};
+  \node[below of=pp1] (pp3){$\circ\vphantom{\literal{p_a}}$};
+  \node[below of=pp2] (pp4){$\circ\vphantom{\literal{p_a}}$};
+  \node[below of=pp3, node distance=1cm] (pp31){$\circ$};
+  \node[below of=pp4, node distance=1cm] (pp41){$\circ$};
+  \node[below right of=pp31] (pp5){$\circ$};
+  \path[->]
+    (PPara)
+      edge[swap] node {$\tau$} (pp1)
+      edge node {$\tau$} (pp2)
+      edge[thick, swap, pos=.9] node {\scalebox{.9}[1.0]{$\literal{printO}$}} (pp23)
+    (pp1)
+      edge[swap, thick] node {$\literal{printO}$} (pp3)
+    (pp2)
+      edge[thick] node {$\literal{printO}$} (pp4)
+    (pp23)
+      edge[swap] node {$\tau$} (pp3)
+      edge node {$\tau$} (pp4)
+    (pp3)
+      edge[swap] node {$\tau$} (pp31)
+    (pp4)
+      edge node {$\tau$} (pp41)
+    (pp31)
+      edge[thick, swap] node {$\literal{printA}$} (pp5)
+    (pp41)
+      edge[thick] node {$\literal{printB}$} (pp5);
+\end{tikzpicture}
+
+:::::
 
 Transition systems representing $\literal{P_{Seq}}$ and $\literal{P_{Para}}$.
 ::::
@@ -526,7 +584,7 @@ As we will establish in @sec-solution-parallelizing-compilation, contrasimilarit
 Sangiorgi notes that the induced stable bisimilarity relation would not be transitive on transition systems with divergences.
 But the situation is even more severe!
 
-::::{.column-margin}
+::::{#fig-divergence-problem .column-margin}
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.5cm]
   \node[] (A){$\literal{A}$};
@@ -541,10 +599,12 @@ But the situation is even more severe!
       edge [loop below] node {$\tau$} ();
 \end{tikzpicture}
 ```
+
+All transitions lead to divergence.
 ::::
 
 Defined like this, stable bisimilarity would not even imply weak trace equivalence.
-Consider the processes $\literal{A}$ and $\literal{B}$ in the margin.
+Consider the processes $\literal{A}$ and $\literal{B}$ in @fig-divergence-problem.
 As all their non-empty word transitions end in instable states, the variant from @sangiorgi2012 ignores their differences altogether.
 
 “Our” stable bisimilarity of @def-stablebisim, however, does not suffer from this defect, for it demands matching of all word transitions.
@@ -737,7 +797,9 @@ We capture the family of *weak observation languages* $\observationsvar[\literal
 It is defined in mutual recursion with $\expr[\varepsilon]$ and $\expr[\wedge]$ as follows---if multiple rules apply, pick the first one:
 $$
 \begin{array}{rl}
-  \expr[\literal{weak}]\left(\hmltrue\right) \defeq
+  \expr[\literal{weak}]\left(\hmltrue\right) & \hspace{-2mm} \defeq
+  \zerovec
+  \\
   \expr[\varepsilon]\left(\hmltrue\right) & \hspace{-2mm} \defeq
   \zerovec
   \\
@@ -786,97 +848,99 @@ In this subsection, we take a deeper look into the observation languages charact
 ```tikz
 %%| image-class: lightbox
 \newcommand*{\EqCoords}[1]{\textcolor{gray}{\small $#1$}}
-\begin{tikzpicture}[auto,node distance=2.5cm,align=center]
-  \node (BBs){stability-respecting branching bisim $\notionname{BB^{sr}}$\\
-    \EqCoords{\infty,\infty,\infty,\infty,\infty,\infty,\infty,\infty}};
-  \node (BB)[below left of=BBs]{branching bisim $\notionname{BB}$\\
-    \EqCoords{\infty,\infty,\infty,0,\infty,\infty,\infty,\infty}};
-  \node (eB)[xshift=-5mm, below left of=BB]{$\eta$-bisim $\eta\notionname{B}$\\
-    \EqCoords{\infty,\infty,\infty,0,0,\infty,\infty,\infty}};
-  \node (DB)[below right of=BB]{delay bisim $\notionname{DB}$\\
-    \EqCoords{\infty,0,\infty,0,\infty,\infty,\infty,\infty}};
-  \node (B)[below left of=DB]{weak bisim $\notionname{WB}$\\
-    \EqCoords{\infty,0,\infty,0,0,\infty,\infty,\infty}};
-  \node (S2)[below left of=B]{$2$-nested weak sim $\notionname{2WS}$\\
-    \EqCoords{\infty,0,\infty,0,0,\infty,\infty,1}};
-  \node (C)[below right of=B]{contrasim $\notionname{C}$\\
-    \EqCoords{\infty,0,\infty,0,0,0,\infty,\infty}};
-  \node (RS)[below left of=S2]{weak\\ ready sim $\notionname{WRS}$\\
-    \EqCoords{\infty,0,\infty,0,0,\infty,1,1}};
-  \node (R)[below right of=RS]{weak\\ readiness $\notionname{WR}$\\
-    \EqCoords{\infty,0,1,0,0,1,1,1}};
-  \node (PF)[above right of=R]{weak\\ possible future $\notionname{WPF}$\\
-    \EqCoords{\infty,0,1,0,0,\infty,\infty,1}};
-  \node (IF)[below right of=PF]{weak\\ impossible future $\notionname{WIF}$\\
-    \EqCoords{\infty,0,1,0,0,0,\infty,1}};
-  \node (S)[below left of=RS]{weak sim $\notionname{1WS}$\\
-    \EqCoords{\infty,0,\infty,0,0,\infty,0,0}};
-  \node (eS)[above left of=RS]{$\eta$-sim $\eta\notionname{S}$\\
-    \EqCoords{\infty,\infty,\infty,0,0,\infty,0,0}};
-  \node (F)[below right of=R]{weak failure $\notionname{WF}$\\
-    \EqCoords{\infty,0,1,0,0,0,1,1}};
-  \node (T)[below right of=F,node distance=2cm]{weak trace $\notionname{WT}$\\
-    \EqCoords{\infty,0,0,0,0,0,0,0}};
-  \node (E)[below of=T, node distance=1.2cm]{weak enabledness $\notionname{WE}$\\
-    \EqCoords{1,0,0,0,0,0,0,0}};
-  \node (U)[below of=E, node distance=1.2cm]{weak universal $\notionname{WU}$\\
-    \EqCoords{0,0,0,0,0,0,0,0}};
-  
-  \node (DBs)[xshift=12mm, above right of=DB, node distance=1.75cm]{s.-r.\ delay bisim $\notionname{DB^{sr}}$\\
-    \EqCoords{\infty,0,\infty,\infty,\infty,\infty,\infty,\infty}};
-  \node (SB)[below right of=DBs, node distance=3cm]{stable bisim $\notionname{SB}$\\
-    \EqCoords{\infty,0,0,\infty,0,\infty,\infty,\infty}};
-  \node (RSs)[below left of=SB]{stable\\ ready sim $\notionname{WRS^s}$\\
-    \EqCoords{\infty,0,0,\infty,0,\infty,1,1}};
-  \node (Rs)[below right of=RSs]{stable readiness $\notionname{WR^s}$\\
-    \EqCoords{\infty,0,0,1,0,1,1,1}};
-  \node (IFs)[below right of=SB]{stable\\ imposs.\ fut.\ $\notionname{WIF^s}$\\
-    \EqCoords{\infty,0,0,1,0,0,\infty,1}};
-  \node (Fs)[below right of=Rs]{stable failures $\notionname{WF^s}$\\
-    \EqCoords{\infty,0,0,1,0,0,1,1}};
-  \node (SS)[below left of=Rs]{stable sim $\notionname{SS}$\\
-    \EqCoords{\infty,0,0,\infty,0,\infty,0,1}};
-  %
-  \path
-  (BBs) edge (BB)
-  (BB) edge ([xshift=10mm]eB.north)
-  (BB) edge (DB)
-  ([xshift=10mm]eB.south) edge (B)
-  (eB.south) edge (eS)
-  (DB) edge (B)
-  (B) edge (S2)
-  (B) edge (C)
-  (C) edge (IF)
-  (S2) edge (RS)
-  (S2) edge (PF)
-  (RS) edge (S)
-  (RS) edge (R)
-  (PF) edge (R)
-  (PF) edge (IF)
-  (eS) edge (S)
-  (S) edge ([xshift=-20mm]T.west)
-  ([xshift=-20mm]T.west) edge (T.west)
-  (IF) edge (F)
-  (R) edge (F)
-  (F) edge (T)
-  (T) edge (E)
-  (E) edge (U)
-  ;
-  \path
-  (BBs) edge (DBs)
-  ([xshift=-4mm]DBs.south) edge ([xshift=-9mm,yshift=-5mm]DBs.south)
-  (DBs) edge (SB)
-  (SB) edge (RSs)
-  (SB) edge (IFs)
-  (RSs) edge (Rs)
-  (RSs) edge (SS)
-  (Rs) edge (Fs)
-  (IFs) edge (Fs)
-  (Fs) edge ([xshift=15mm]T.east)
-  ([xshift=15mm]T.east) edge (T.east)
-  (SS.south) edge (T.north)
-  ;
-\end{tikzpicture}
+\begin{adjustbox}{center,trim=1cm 0cm, max width=1.05\textwidth}
+  \begin{tikzpicture}[auto,node distance=2.5cm,align=center]
+    \node (BBs){stability-respecting branching bisim $\notionname{BB^{sr}}$\\
+      \EqCoords{\infty,\infty,\infty,\infty,\infty,\infty,\infty,\infty}};
+    \node (BB)[below left of=BBs]{branching bisim $\notionname{BB}$\\
+      \EqCoords{\infty,\infty,\infty,0,\infty,\infty,\infty,\infty}};
+    \node (eB)[xshift=-5mm, below left of=BB]{$\eta$-bisim $\eta\notionname{B}$\\
+      \EqCoords{\infty,\infty,\infty,0,0,\infty,\infty,\infty}};
+    \node (DB)[below right of=BB]{delay bisim $\notionname{DB}$\\
+      \EqCoords{\infty,0,\infty,0,\infty,\infty,\infty,\infty}};
+    \node (B)[below left of=DB]{weak bisim $\notionname{WB}$\\
+      \EqCoords{\infty,0,\infty,0,0,\infty,\infty,\infty}};
+    \node (S2)[below left of=B]{$2$-nested weak sim $\notionname{2WS}$\\
+      \EqCoords{\infty,0,\infty,0,0,\infty,\infty,1}};
+    \node (C)[below right of=B]{contrasim $\notionname{C}$\\
+      \EqCoords{\infty,0,\infty,0,0,0,\infty,\infty}};
+    \node (RS)[below left of=S2]{weak\\ ready sim $\notionname{WRS}$\\
+      \EqCoords{\infty,0,\infty,0,0,\infty,1,1}};
+    \node (R)[below right of=RS]{weak\\ readiness $\notionname{WR}$\\
+      \EqCoords{\infty,0,1,0,0,1,1,1}};
+    \node (PF)[above right of=R]{weak\\ possible future $\notionname{WPF}$\\
+      \EqCoords{\infty,0,1,0,0,\infty,\infty,1}};
+    \node (IF)[below right of=PF]{weak\\ impossible future $\notionname{WIF}$\\
+      \EqCoords{\infty,0,1,0,0,0,\infty,1}};
+    \node (S)[below left of=RS]{weak sim $\notionname{1WS}$\\
+      \EqCoords{\infty,0,\infty,0,0,\infty,0,0}};
+    \node (eS)[above left of=RS]{$\eta$-sim $\eta\notionname{S}$\\
+      \EqCoords{\infty,\infty,\infty,0,0,\infty,0,0}};
+    \node (F)[below right of=R]{weak failure $\notionname{WF}$\\
+      \EqCoords{\infty,0,1,0,0,0,1,1}};
+    \node (T)[below right of=F,node distance=2cm]{weak trace $\notionname{WT}$\\
+      \EqCoords{\infty,0,0,0,0,0,0,0}};
+    \node (E)[below of=T, node distance=1.2cm]{weak enabledness $\notionname{WE}$\\
+      \EqCoords{1,0,0,0,0,0,0,0}};
+    \node (U)[below of=E, node distance=1.2cm]{weak universal $\notionname{WU}$\\
+      \EqCoords{0,0,0,0,0,0,0,0}};
+    
+    \node (DBs)[xshift=12mm, above right of=DB, node distance=1.75cm]{s.-r.\ delay bisim $\notionname{DB^{sr}}$\\
+      \EqCoords{\infty,0,\infty,\infty,\infty,\infty,\infty,\infty}};
+    \node (SB)[below right of=DBs, node distance=3cm]{stable bisim $\notionname{SB}$\\
+      \EqCoords{\infty,0,0,\infty,0,\infty,\infty,\infty}};
+    \node (RSs)[below left of=SB]{stable\\ ready sim $\notionname{WRS^s}$\\
+      \EqCoords{\infty,0,0,\infty,0,\infty,1,1}};
+    \node (Rs)[below right of=RSs]{stable readiness $\notionname{WR^s}$\\
+      \EqCoords{\infty,0,0,1,0,1,1,1}};
+    \node (IFs)[below right of=SB]{stable\\ imposs.\ fut.\ $\notionname{WIF^s}$\\
+      \EqCoords{\infty,0,0,1,0,0,\infty,1}};
+    \node (Fs)[below right of=Rs]{stable failures $\notionname{WF^s}$\\
+      \EqCoords{\infty,0,0,1,0,0,1,1}};
+    \node (SS)[below left of=Rs]{stable sim $\notionname{SS}$\\
+      \EqCoords{\infty,0,0,\infty,0,\infty,0,1}};
+    %
+    \path
+    (BBs) edge (BB)
+    (BB) edge ([xshift=10mm]eB.north)
+    (BB) edge (DB)
+    ([xshift=10mm]eB.south) edge (B)
+    (eB.south) edge (eS)
+    (DB) edge (B)
+    (B) edge (S2)
+    (B) edge (C)
+    (C) edge (IF)
+    (S2) edge (RS)
+    (S2) edge (PF)
+    (RS) edge (S)
+    (RS) edge (R)
+    (PF) edge (R)
+    (PF) edge (IF)
+    (eS) edge (S)
+    (S) edge ([xshift=-20mm]T.west)
+    ([xshift=-20mm]T.west) edge (T.west)
+    (IF) edge (F)
+    (R) edge (F)
+    (F) edge (T)
+    (T) edge (E)
+    (E) edge (U)
+    ;
+    \path
+    (BBs) edge (DBs)
+    ([xshift=-4mm]DBs.south) edge ([xshift=-9mm,yshift=-5mm]DBs.south)
+    (DBs) edge (SB)
+    (SB) edge (RSs)
+    (SB) edge (IFs)
+    (RSs) edge (Rs)
+    (RSs) edge (SS)
+    (Rs) edge (Fs)
+    (IFs) edge (Fs)
+    (Fs) edge ([xshift=15mm]T.east)
+    ([xshift=15mm]T.east) edge (T.east)
+    (SS.south) edge (T.north)
+    ;
+  \end{tikzpicture}
+\end{adjustbox}
 ```
 
 Hierarchy of weak behavioral equivalences/preorders, by equivalence notion coordinates.

@@ -16,6 +16,7 @@ This chapter showcases the main result of my paper “Process equivalence proble
 We move beyond @bisping2023equivalenceEnergyGames by also deriving individual equivalence games from our characterization and showing how these enable polynomial-time decision procedures for $\complexityname{P}$-easy notions.
 ::::
 
+\noindent
 The energy game approach can, in fact, be leveraged to solve the spectroscopy problem for the *whole* of the strong equivalence spectrum.
 
 The core ingredient of this chapter is a richer energy game, we dub “spectroscopy game,” to be presented in @sec-strong-spectro-game.
@@ -45,34 +46,36 @@ By instantiating the spectroscopy game with known initial energies and exploitin
 
 ::: {#fig-strong-spectroscopy-big-picture fig-pos="t" fig-env="figure*"}
 ```tikz
-\begin{tikzpicture}[auto,node distance=1.1cm,
-  algstep/.style={minimum width=4.3cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
-  \node[algstep, draw] (States) {States $p, q$ in \\ transition system $\system$};
-  \node[algstep, draw, right of=States, node distance=8.1cm] (Preorders) {Strong notions that \\ fit to preorder $p$ to $q$};
-  \node[algstep, draw, right of=Preorders, node distance=5cm] (IndividualNotion) {Does notion $N$\\ preorder $p$ to $q$?};
-  \node[algstep, draw=TealBlue, below of=States, node distance=2.5cm] (EnergyGame) {Strong spectroscopy \\ energy game $\gamespectroscopy^{\system}$};
-  \node[algstep, draw=Peach, below of=EnergyGame, node distance=2.5cm] (ReachabilityGame) {Derived reachability \\ game $\mathsf{Reach}(\gamespectroscopy^{\system}, N)$};
-  \node[algstep, draw=TealBlue, below of=Preorders, node distance=2.5cm] (AttackerWinningBudgets) {Minimal attacker winning \\ budgets $\attackerwinsmin(\attackerpos{p,\set{q}})$};
-  \node[algstep, draw=Peach, below of=AttackerWinningBudgets, node distance=2.5cm] (AttackerWinningReachability) {Defender winning region\\ $(\attackerpos{p,\set{q}}, N) \in \defenderwins$};
-  \path
-    (States) edge[->, dashed] node {Spectroscopy problem} (Preorders)
-    (States) edge[->, draw=TealBlue] node {Definition~\ref{def-strong-spectroscopy-game}} (EnergyGame)
-    (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Theorem~\ref{thm-strong-spectroscopy-game-characterization}} (Preorders)
-    (EnergyGame) edge[->, draw=TealBlue] node {Algorithm~\ref{algo-deciding-energy-games}} (AttackerWinningBudgets);
-  
-  \path
-    (States) edge[->, dashed, bend left=20] node {$N$-preorder problem} (IndividualNotion)
-    (Preorders) edge[->, gray] node {} (IndividualNotion)
-    (EnergyGame) edge[->, draw=Peach] node {Definition~\ref{def-derived-eq-game}} (ReachabilityGame)
-    (ReachabilityGame) edge[->, draw=Peach] node {Algorithm \ref{algo-deciding-games}} (AttackerWinningReachability)
-    (AttackerWinningReachability.east) edge[->, draw=Peach, bend right=25] node {} (IndividualNotion)
-    (AttackerWinningReachability.east) edge[->, draw=TealBlue, dashed, bend right=25] node {} (IndividualNotion);
-  
-  \node[text=TealBlue, right=2mm of AttackerWinningBudgets, align=right] (Sec51) {Section \ref{sec-strong-spectro-game} \\ and \ref{sec-specific-spectro-games}};
-  \node[text=Peach, right=2mm of AttackerWinningReachability] (Sec52) {Section \ref{sec-deciding-individual-eqs}};
+\begin{adjustbox}{max width=\linewidth, center}
+  \begin{tikzpicture}[auto,node distance=1.1cm,
+    algstep/.style={minimum width=4cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
+    \node[algstep, draw] (States) {States $p, q$ in \\ transition system $\system$};
+    \node[algstep, draw, right of=States, node distance=7.5cm] (Preorders) {Strong notions that \\ fit to preorder $p$ to $q$};
+    \node[algstep, draw, right of=Preorders, node distance=5cm] (IndividualNotion) {Does notion $N$\\ preorder $p$ to $q$?};
+    \node[algstep, draw=TealBlue, below of=States, node distance=2.5cm] (EnergyGame) {Strong spectroscopy \\ energy game $\gamespectroscopy^{\system}$};
+    \node[algstep, draw=Peach, below of=EnergyGame, node distance=2.5cm] (ReachabilityGame) {Derived reachability \\ game $\mathsf{Reach}(\gamespectroscopy^{\system}, N)$};
+    \node[algstep, draw=TealBlue, below of=Preorders, node distance=2.5cm] (AttackerWinningBudgets) {Minimal attacker winning \\ budgets $\attackerwinsmin(\attackerpos{p,\set{q}})$};
+    \node[algstep, draw=Peach, below of=AttackerWinningBudgets, node distance=2.5cm] (AttackerWinningReachability) {Defender winning region\\ $(\attackerpos{p,\set{q}}, N) \in \defenderwins$};
+    \path
+      (States) edge[->, dashed] node {Spectroscopy problem} (Preorders)
+      (States) edge[->, draw=TealBlue] node {Definition~\ref{def-strong-spectroscopy-game}} (EnergyGame)
+      (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Theorem~\ref{thm-strong-spectroscopy-game-characterization}} (Preorders)
+      (EnergyGame) edge[->, draw=TealBlue] node {Algorithm~\ref{algo-deciding-energy-games}} (AttackerWinningBudgets);
+    
+    \path
+      (States) edge[->, dashed, bend left=20] node {$N$-preorder problem} (IndividualNotion)
+      (Preorders) edge[->, gray] node {} (IndividualNotion)
+      (EnergyGame) edge[->, draw=Peach] node {Definition~\ref{def-derived-eq-game}} (ReachabilityGame)
+      (ReachabilityGame) edge[->, draw=Peach] node {Algorithm \ref{algo-deciding-games}} (AttackerWinningReachability)
+      (AttackerWinningReachability.east) edge[->, draw=Peach, bend right=25] node {} (IndividualNotion)
+      (AttackerWinningReachability.east) edge[->, draw=TealBlue, dashed, bend right=25] node {} (IndividualNotion);
+    
+    \node[text=TealBlue, right=2mm of AttackerWinningBudgets, align=right] (Sec51) {Section \ref{sec-strong-spectro-game} \\ and \ref{sec-specific-spectro-games}};
+    \node[text=Peach, right=2mm of AttackerWinningReachability] (Sec52) {Section \ref{sec-deciding-individual-eqs}};
 
-  \node[below=3mm of AttackerWinningReachability] (Phantom) {};
-\end{tikzpicture}
+    \node[below=3mm of AttackerWinningReachability] (Phantom) {};
+  \end{tikzpicture}
+\end{adjustbox}
 ```
 
 How we apply the spectroscopy approach to the full strong spectrum.
@@ -113,38 +116,40 @@ Treating conjunctions more explicitly allows us to track the depth of positive c
 ::: {#fig-strong-spectroscopy-game fig-pos="t" fig-env="figure*"}
 
 ```tikz
-\begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm,
-    rel/.style={dashed,font=\it},
-    posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
-  \node[posStyle, initial, initial text={}]
-    (Att){$\attackerpos{p,Q}$};
-  \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
-    (Def) [right = 2.2cm of Att] {$\defenderpos{p,Q \setminus Q_*,Q_*}$};
-  \node[posStyle]
-    (AttConj) [below right = 1.2cm and 3cm of Att] {$\attackerpos[\land]{p,q}$};
-  \node[posStyle, dashed]
-    (AttSwap) [right = 3cm of AttConj] {$\attackerpos{q,\{p\}}$};
-  \node[posStyle, dashed]
-    (AttContinue) [above = 1cm of AttSwap] {$\attackerpos{p,\{q\}}$};
-  \node[posStyle, dashed]
-    (AttObs) [above = 1cm of AttContinue] {$\attackerpos{p^\prime,Q^\prime}$};
-  % \node[posStyle, dashed]
-  %   (AttRevival) [below = 1cm of AttSwap] {$\attackerpos{p,Q_*}$};
+\begin{adjustbox}{max width=\linewidth, center}
+  \begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm,
+      rel/.style={dashed,font=\it},
+      posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
+    \node[posStyle, initial, initial text={}]
+      (Att){$\attackerpos{p,Q}$};
+    \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
+      (Def) [right = 2.2cm of Att] {$\defenderpos{p,Q \setminus Q_*,Q_*}$};
+    \node[posStyle]
+      (AttConj) [below right = 1.2cm and 3cm of Att] {$\attackerpos[\land]{p,q}$};
+    \node[posStyle, dashed]
+      (AttSwap) [right = 3cm of AttConj] {$\attackerpos{q,\{p\}}$};
+    \node[posStyle, dashed]
+      (AttContinue) [above = 1cm of AttSwap] {$\attackerpos{p,\{q\}}$};
+    \node[posStyle, dashed]
+      (AttObs) [above = 1cm of AttContinue] {$\attackerpos{p^\prime,Q^\prime}$};
+    % \node[posStyle, dashed]
+    %   (AttRevival) [below = 1cm of AttSwap] {$\attackerpos{p,Q_*}$};
 
-  \path
-    (Att) edge[bend left=28]
-      node[pos=.3, align=center, label={[label distance=0.0cm]-25:$\textcolor{gray}{\textcolor{obsColor}{-1},0,0,0,0,0}$}] {$p\step{\alpha}p^\prime$\\ $Q\step{\alpha}Q^\prime$} (AttObs)
-    (Att) edge
-      node[label={[label distance=0cm]-90:$\textcolor{gray}{0,0,0,0,0,0}$}] {$Q_* \subseteq Q$} (Def)
-    (Def) edge[bend left=15]
-      node[align=right, swap, pos=.1] {$q \in Q \setminus Q_*$\\$\textcolor{gray}{0,\textcolor{conjColor}{-1},0,\updmin{\textcolor{mainPosColor}{3},\textcolor{otherPosColor}{4}},0,0}$} (AttConj)
-    (AttConj) edge[bend left=10]
-      node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{otherPosColor}{4}},0,0,0,0,0}$}] {} (AttContinue)
-    (AttConj) edge[bend right=15]
-      node[align=center, label={[label distance=0.0cm]-90:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{negObsColor}{5}},0,0,0,0,\textcolor{negsColor}{-1}}$}] {$p \neq q$} (AttSwap)
-    (Def) edge[bend left=10]
-      node[align=center, label={[label distance=0.0cm]-30:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{mainPosColor}{3}},\textcolor{conjColor}{-1},0,0,0,0}$}] {$p' = p$\\$Q'=Q_* \neq \varnothing$} (AttObs);
-\end{tikzpicture}
+    \path
+      (Att) edge[bend left=28]
+        node[pos=.3, align=center, label={[label distance=0.0cm]-25:$\textcolor{gray}{\textcolor{obsColor}{-1},0,0,0,0,0}$}] {$p\step{\alpha}p^\prime$\\ $Q\step{\alpha}Q^\prime$} (AttObs)
+      (Att) edge
+        node[label={[label distance=0cm]-90:$\textcolor{gray}{0,0,0,0,0,0}$}] {$Q_* \subseteq Q$} (Def)
+      (Def) edge[bend left=15]
+        node[align=right, swap, pos=.1] {$q \in Q \setminus Q_*$\\$\textcolor{gray}{0,\textcolor{conjColor}{-1},0,\updmin{\textcolor{mainPosColor}{3},\textcolor{otherPosColor}{4}},0,0}$} (AttConj)
+      (AttConj) edge[bend left=10]
+        node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{otherPosColor}{4}},0,0,0,0,0}$}] {} (AttContinue)
+      (AttConj) edge[bend right=15]
+        node[align=center, label={[label distance=0.0cm]-90:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{negObsColor}{5}},0,0,0,0,\textcolor{negsColor}{-1}}$}] {$p \neq q$} (AttSwap)
+      (Def) edge[bend left=10]
+        node[align=center, label={[label distance=0.0cm]-30:$\textcolor{gray}{\updmin{\textcolor{obsColor}{1},\textcolor{mainPosColor}{3}},\textcolor{conjColor}{-1},0,0,0,0}$}] {$p' = p$\\$Q'=Q_* \neq \varnothing$} (AttObs);
+  \end{tikzpicture}
+\end{adjustbox}
 ```
 
 Schematic spectroscopy game $\gamespectroscopy$ of @def-strong-spectroscopy-game.
@@ -200,13 +205,13 @@ $$
   & \attackerpos[\land]{p,q}
   & \text{if $q \in Q$,}
   \\
-  \textit{positive conjunct}
+  \textit{pos.~conjunct}
   & \attackerpos[\land]{p,q}
   & \gamemove{\updmin{1,4},0,0,0,0,0}
   & \attackerpos{p,\{q\}},
   & \text{and}
   \\
-  \textit{negative conjunct}
+  \textit{neg.~conjunct}
   & \attackerpos[\land]{p,q}
   & \gamemove{\updmin{1,5},0,0,0,0,-1}
   & \attackerpos{q,\{p\}}
@@ -245,7 +250,7 @@ Let us think back to @exm-failure-trace-distinguished, that is, to $\literal{Q'}
 $\literal{T'_{\tau a a}} ≔ \literal{Q'} \ccschoice \ccsprefix{\tau}\ccsprefix{\literal a} \literal a$, and
 $\literal{T'_{\tau a}} ≔ \literal{Q'} \ccschoice \ccsprefix{\tau}\literal a$, where $\literal{T'_{\tau a a}}$ is distinguished from $\literal{T'_{\tau a}}$ by the failure-trace observation $\hmlobs{\tau} \hmlands\set{\hmlobs{\literal a}\hmlobs{\literal{a}}, \hmlneg \hmlobs{\literal b}} \in \observationsvar[\literal{strong}]{(3,1,2,0,1,1)} \subseteq \observations[\literal{strong}]{\literal{FT}}$.
 
-To point out a similar distinction in the spectroscopy game, the attacker moves via $\step{\tau}$:
+To point out a similar distinction in the spectroscopy game, the attacker moves via $\step{\tau}$ as follows:
 $$
 \begin{array}{rcl}
   \attackerpos{\literal{T'_{\tau a a}}, \set{\literal{T'_{\tau a}}}}
@@ -392,7 +397,7 @@ $$
 $$
 \inferrule[conjunction]{
   \attackerpos{p,Q} \gamemove{\;\zerovec\;} \defenderpos{p, Q', Q_*} \quad
-  e ∈ \attackerwins^{\gamespectroscopy}(\defenderpos{p, Q', Q_*}) \quad
+  e ∈ \attackerwins^{\gamespectroscopy}(\defenderpos{p, Q', Q_*}) \\
   φ ∈ \stratstrong(\defenderpos{p, Q', Q_*}, e)
  }{
   φ ∈ \stratstrong(\attackerpos{p, Q}, e)
@@ -405,7 +410,7 @@ $$
     \defenderpos{p, Q, \varnothing} \gamemove{u_q} \attackerpos[\wedge]{p, q}
     \; \land \;
     e_q = \energyupdate(u_q, e) ∈ \attackerwins^{\gamespectroscopy}(\attackerpos[\wedge]{p, q})
-    \; \land \;
+    \\ \land \;
     \psi_q ∈ \stratstrong(\attackerpos[\wedge]{p, q}, e_q)
   \end{matrix}
 }{
@@ -419,7 +424,7 @@ $$
     \defenderpos{p, Q, Q_*} \gamemove{u_q} \attackerpos[\wedge]{p, q}
     \; \land \;
     e_q = \energyupdate(u_q, e) ∈ \attackerwins^{\gamespectroscopy}(\attackerpos[\wedge]{p, q})
-    \; \land \;
+    \\ \land \;
     \psi_q ∈ \stratstrong(\attackerpos[\wedge]{p, q}, e_q)
     \\
     \defenderpos{p, Q, Q_*} \gamemove{u_*} \attackerpos{p, Q_*} \quad
@@ -608,7 +613,7 @@ The system has only $\relsize{\states} = 20$ states, but a lot of nondeterminism
 :::: {#fig-minimization-lattice .column-margin}
 
 ```tikz
-\begin{adjustbox}{max width=\textwidth}
+%\begin{adjustbox}{max width=\linewidth, center, keepaspectratio}
   \begin{tikzpicture}[auto,node distance=3cm,align=right]
     \node (B13){
       $\gamespectroscopy$ \\
@@ -641,7 +646,7 @@ The system has only $\relsize{\states} = 20$ states, but a lot of nondeterminism
     (B3)
       edge (Bnil);
   \end{tikzpicture}
-\end{adjustbox}
+%\end{adjustbox}
 ```
 
 Example sizes of a spectroscopy game with and without pruning on Peterson's mutex system.
@@ -758,7 +763,7 @@ Let us see how the “clever game” adds up with the pruning effects on the Pet
 :::: {#fig-minimization-lattice-clever .column-margin}
 
 ```tikz
-\begin{adjustbox}{max width=\textwidth}
+%\begin{adjustbox}{max width=\linewidth, center, keepaspectratio}
   \begin{tikzpicture}[auto,node distance=3cm,align=right]
     \node (B13){
       $\gamespectroscopyclever$ \\
@@ -791,7 +796,7 @@ Let us see how the “clever game” adds up with the pruning effects on the Pet
     (B3)
       edge (Bnil);
   \end{tikzpicture}
-\end{adjustbox}
+%\end{adjustbox}
 ```
 
 Sizes of *clever* spectroscopy games with and without pruning on Peterson's mutex system.
@@ -1174,7 +1179,8 @@ The dimensions of energy games allow us to encode different games *within* one g
 This is analogous to stereoscopic pictures, decodable by 3D glasses (@fig-3d-glasses).
 
 :::{#fig-3d-glasses .column-margin}
-![](img/3d-games-dcon25.jpg){.lightbox}
+
+{{< pic img/3d-games-dcon25.jpg >}}
 
 The author, discussing 3D energy games with participants of D-CON'25.  
 (Photo: Nadine Karsten)

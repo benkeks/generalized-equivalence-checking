@@ -18,6 +18,7 @@ It can be thought of as the *core* of @bisping2023equivalenceEnergyGames, and al
 The theory on energy games with Galois connections has been published in @lb2025galoisEnergyGames.
 ::::
 
+\noindent
 Time to get real.
 This chapter will demonstrate my core approach by solving the spectroscopy problem in an *easy* instance.
 
@@ -58,21 +59,23 @@ This approach is summarized in @fig-spectroscopy-poly-big-picture.
 
 ::: {#fig-spectroscopy-poly-big-picture fig-pos="t" fig-env="figure*"}
 ```tikz
-\begin{tikzpicture}[auto,node distance=1.1cm,
-  algstep/.style={minimum width=4.3cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
-  \node[algstep, draw] (States) {States $p, q$ in \\ transition system $\system$};
-  \node[algstep, draw, right of=States, node distance=8.1cm] (Preorders) {Polynomial notions that fit \\ to preorder $p$ to $q$};
-  \node[algstep, draw=TealBlue, below of=States, node distance=2.5cm] (EnergyGame) {Bisimulation \\ energy game $\gamebisimen[\system]$};
-  \node[algstep, draw=Peach, below of=Preorders, node distance=2.5cm] (AttackerWinningBudgets) {Minimal attacker winning \\ budgets $\attackerwinsmin([p,q])$};
-  \path
-    (States) edge[->, dashed] node[label=270:{Problem~\ref{prob-spectroscopy-problem}}] {Spectroscopy problem} (Preorders)
-    (States) edge[->, draw=TealBlue] node {Def.~\ref{def-bisim-energy-game}} (EnergyGame)
-    (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Thm.~\ref{thm-bisim-energy-game-characterization}} (Preorders)
-    (EnergyGame) edge[->, draw=Peach] node[label=270:{Problem~\ref{prob-energy-game-problem}}] {Algorithm~\ref{algo-deciding-games}} (AttackerWinningBudgets);
-  \node[right=2mm of Preorders] (Chp3) {Chapter~\ref{sec-spectrum}};
-  \node[text=TealBlue, above right=4mm and 2mm of AttackerWinningBudgets] (Sec42) {Section~\ref{sec-characterizing-ptime-part}};
-  \node[text=Peach, right=2mm of AttackerWinningBudgets] (Sec43) {Section~\ref{sec-deciding-energy-games}};
-\end{tikzpicture}
+\begin{adjustbox}{max width=\linewidth, center}
+  \begin{tikzpicture}[auto,node distance=1.1cm,
+    algstep/.style={minimum width=4.25cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
+    \node[algstep, draw] (States) {States $p, q$ in \\ transition system $\system$};
+    \node[algstep, draw, right of=States, node distance=8cm] (Preorders) {Polynomial notions that fit \\ to preorder $p$ to $q$};
+    \node[algstep, draw=TealBlue, below of=States, node distance=2.5cm] (EnergyGame) {Bisimulation \\ energy game $\gamebisimen[\system]$};
+    \node[algstep, draw=Peach, below of=Preorders, node distance=2.5cm] (AttackerWinningBudgets) {Minimal attacker winning \\ budgets $\attackerwinsmin([p,q])$};
+    \path
+      (States) edge[->, dashed] node[label=270:{Problem~\ref{prob-spectroscopy-problem}}] {Spectroscopy problem} (Preorders)
+      (States) edge[->, draw=TealBlue] node {Def.~\ref{def-bisim-energy-game}} (EnergyGame)
+      (AttackerWinningBudgets) edge[->, draw=TealBlue] node[label={[align=center]right:XOR}] {Thm.~\ref{thm-bisim-energy-game-characterization}} (Preorders)
+      (EnergyGame) edge[->, draw=Peach] node[label=270:{Problem~\ref{prob-energy-game-problem}}] {Algorithm~\ref{algo-deciding-games}} (AttackerWinningBudgets);
+    \node[right=2mm of Preorders] (Chp3) {Chapter~\ref{sec-spectrum}};
+    \node[text=TealBlue, above right=4mm and 2mm of AttackerWinningBudgets] (Sec42) {Section~\ref{sec-characterizing-ptime-part}};
+    \node[text=Peach, right=2mm of AttackerWinningBudgets] (Sec43) {Section~\ref{sec-deciding-energy-games}};
+  \end{tikzpicture}
+\end{adjustbox}
 ```
 
 How we will employ energy games to solve the spectroscopy problem on an easy spectrum.
@@ -383,7 +386,8 @@ Updates that would cause any component to become negative yield $\bot$.
 :::
 
 :::{#fig-bisping-cav23 .column-margin}
-![](img/bisping-counting-cav23.jpg){.lightbox}
+
+{{< pic "img/bisping-counting-cav23.jpg" >}}
 
 The author, illustrating multi-dim{{< shy >}}ensional energy updates on declining games to the audience of CAV'23.  
 (Photo: Fei Bian)
@@ -566,72 +570,75 @@ also exhibiting the cheapest formulas with regards to the polynomial spectrum th
 :::: {#fig-bisim-sim-game-energies fig-pos='t' fig-env="figure*"}
 ```tikz
 %%| image-class: lightbox
-\begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
-  posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, black, fill=blue!5},
-  defender/.style={ellipse, inner sep=0ex},
-  defWins/.style={fill=blue!5},
-  attWins/.style={fill=red!5}]
 
-  \node[posStyle, initial, initial text={}, label={[text=red]90:$\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}} \in \observationsvar[\literal{peasy}]{(2,2,2)}$},
-    path picture={
-      \fill[attWins] ([xshift=6mm, yshift=6mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
-    }]
-    (Att_Q_Qp){$[\literal{Q}, \literal{T}]$};
-  \node[posStyle, label={[text=red]270:$\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{peasy}]{(2,1,1)}$}]
-    (Att_Qp_Q) [below = 2cm of Att_Q_Qp,
-    path picture={
-      \fill[attWins] ([xshift=6mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
-    }] {$[\literal{T}, \literal{Q}]$};
-  \node[posStyle, defender, defWins]
-    (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{ab}}, \literal{T})$};
-  \node[dotted, cloud, cloud puffs=9,cloud puff arc=105, aspect=2, defWins, inner sep=.01cm, align=center]
-    (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {defender\\ wins};
-  \node[posStyle, label={[text=red]95:$\hmlobs{\literal{a}}\hmltrue \in \observationsvar[\literal{peasy}]{(1,0,0)}$},
-    path picture={
-      \fill[attWins] ([xshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
-    }]
-    (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \troll]$};
-  \node[posStyle, defender, attWins, above right = .1cm and 1.5cm of Att_qab_q3]
-    (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \troll)$};
-  \node[posStyle, defender, attWins]
-    (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
-  \node[posStyle, defender, defWins]
-    (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{t_{ab}}, \literal{Q})$};
-  \node[posStyle, defender,
-    path picture={
-      \fill[attWins] ([xshift=3mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
-    }]
-    (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
-  \node[posStyle, label={[text=red]270:$\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{peasy}]{(1,1,1)}$},
-    path picture={
-      \fill[attWins] ([xshift=3mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
-    }]
-    (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{ab}}]$};
+\begin{adjustbox}{max width=\textwidth, center}
+  \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
+    posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, black, fill=blue!5},
+    defender/.style={ellipse, inner sep=0ex},
+    defWins/.style={fill=blue!5},
+    attWins/.style={fill=red!5}]
 
-  \path[text=gray]
-    (Att_Q_Qp)
-      edge[bend left = 10] node {$\updmin{1,2},0,-1$} (Att_Qp_Q)
-      edge node {$-1,0,0$} (Dfn_t_qab_Qp)
-    (Att_qab_q3)
-      edge[bend left = 65] node {$\updmin{1,2},0,-1$} (Att_q3_qab)
-    (Att_q3_qab)
-      edge[bend right = 60] node {} (Att_qab_q3)
-    (Dfn_t_qab_Qp)
-      edge node {0,0,0} (Att_qab_q3)
-      edge node {0,0,0} (Att_qab_qab)
-    (Att_Qp_Q)
-      edge[bend left = 10] node {$\updmin{1,2},0,-1$} (Att_Q_Qp)
-      edge node[swap] {$-1,0,0$} (Dfn_t_qab_Q)
-      edge node {$-1,0,0$} (Dfn_t_q3_Q)
-    (Dfn_t_qab_Q)
-      edge node[swap] {$0,0,0$} (Att_qab_qab)
-    (Dfn_t_q3_Q)
-      edge node {$0,0,0$} (Att_q3_qab)
-    (Att_qab_q3)
-      edge node {$-1,0,0$} (Dfn_a_q1_q3)
-      edge node {$-1,0,0$} (Dfn_b_q2_q3)
-  ;
-\end{tikzpicture}
+    \node[posStyle, initial, initial text={}, label={[text=red]90:$\hmlands\set{\hmlneg\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue}} \in \observationsvar[\literal{peasy}]{(2,2,2)}$},
+      path picture={
+        \fill[attWins] ([xshift=6mm, yshift=6mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+      }]
+      (Att_Q_Qp){$[\literal{Q}, \literal{T}]$};
+    \node[posStyle, label={[text=red]270:$\hmlobs{\tau}\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{peasy}]{(2,1,1)}$}]
+      (Att_Qp_Q) [below = 2cm of Att_Q_Qp,
+      path picture={
+        \fill[attWins] ([xshift=6mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+      }] {$[\literal{T}, \literal{Q}]$};
+    \node[posStyle, defender, defWins]
+      (Dfn_t_qab_Qp) [right = 1.5cm of Att_Q_Qp] {$(\tau, \literal{q_{ab}}, \literal{T})$};
+    \node[dotted, cloud, cloud puffs=9,cloud puff arc=105, aspect=2, defWins, inner sep=.01cm, align=center]
+      (Att_qab_qab) [below right = .1cm and 1.5cm of Dfn_t_qab_Qp] {defender\\ wins};
+    \node[posStyle, label={[text=red]95:$\hmlobs{\literal{a}}\hmltrue \in \observationsvar[\literal{peasy}]{(1,0,0)}$},
+      path picture={
+        \fill[attWins] ([xshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+      }]
+      (Att_qab_q3) [above right = .1cm and 1.5cm of Dfn_t_qab_Qp] {$[\literal{q_{ab}}, \troll]$};
+    \node[posStyle, defender, attWins, above right = .1cm and 1.5cm of Att_qab_q3]
+      (Dfn_a_q1_q3) {$(\literal{a}, \literal{q_1}, \troll)$};
+    \node[posStyle, defender, attWins]
+      (Dfn_b_q2_q3) [below right = .1cm and 1.5cm of Att_qab_q3] {$(\literal{b}, \literal{q_2}, \troll)$};
+    \node[posStyle, defender, defWins]
+      (Dfn_t_qab_Q) [below = 1cm of Dfn_t_qab_Qp] {$(\tau, \literal{t_{ab}}, \literal{Q})$};
+    \node[posStyle, defender,
+      path picture={
+        \fill[attWins] ([xshift=3mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+      }]
+      (Dfn_t_q3_Q) [below = 1cm of Dfn_t_qab_Q] {$(\tau, \troll, \literal{Q})$};
+    \node[posStyle, label={[text=red]270:$\hmlands\set{\hmlneg\hmlobs{\literal{a}}\hmltrue} \in \observationsvar[\literal{peasy}]{(1,1,1)}$},
+      path picture={
+        \fill[attWins] ([xshift=3mm, yshift=3mm]path picture bounding box.south west) rectangle (path picture bounding box.north east);
+      }]
+      (Att_q3_qab) [below = 1cm of Att_qab_qab] {$[\troll, \literal{q_{ab}}]$};
+
+    \path[text=gray]
+      (Att_Q_Qp)
+        edge[bend left = 10] node {$\updmin{1,2},0,-1$} (Att_Qp_Q)
+        edge node {$-1,0,0$} (Dfn_t_qab_Qp)
+      (Att_qab_q3)
+        edge[bend left = 65] node {$\updmin{1,2},0,-1$} (Att_q3_qab)
+      (Att_q3_qab)
+        edge[bend right = 60] node {} (Att_qab_q3)
+      (Dfn_t_qab_Qp)
+        edge node {0,0,0} (Att_qab_q3)
+        edge node {0,0,0} (Att_qab_qab)
+      (Att_Qp_Q)
+        edge[bend left = 10] node {$\updmin{1,2},0,-1$} (Att_Q_Qp)
+        edge node[swap] {$-1,0,0$} (Dfn_t_qab_Q)
+        edge node {$-1,0,0$} (Dfn_t_q3_Q)
+      (Dfn_t_qab_Q)
+        edge node[swap] {$0,0,0$} (Att_qab_qab)
+      (Dfn_t_q3_Q)
+        edge node {$0,0,0$} (Att_q3_qab)
+      (Att_qab_q3)
+        edge node {$-1,0,0$} (Dfn_a_q1_q3)
+        edge node {$-1,0,0$} (Dfn_b_q2_q3)
+    ;
+  \end{tikzpicture}
+\end{adjustbox}
 ```
 
 The bisimulation energy game of @exm-bisim-sim-energy-game with energy updates and implied formulas.
@@ -647,7 +654,7 @@ The bound implies that the budgets, $(\infty,1,1)$ and $(\infty,0,0)$ are won by
 :::: {#fig-exm-bisim-sim-pareto-front .column-margin}
 ```tikz
 \begin{tikzpicture}[]
-  \begin{scope}[rotate=45, scale=1]
+  \begin{scope}[rotate=45, scale=.8]
     \draw[help lines] (0,0) grid (3.5,3.5);
     \draw[dotted] (2,2) -- (3.5,3.5);
     %\draw[white, pattern=horizontal lines, pattern color=red] (3.5,5.2) -- (3.5,3.5) -- (5.2,3.5) -- (5.2, 5.2) -- (3.5,5.2);
@@ -661,7 +668,7 @@ The bound implies that the budgets, $(\infty,1,1)$ and $(\infty,0,0)$ are won by
   \end{scope}
 \end{tikzpicture}
 ```
-Attacker's 3D Pareto front for $[\literal{Q}, \literal{T}]$ of the example bisimulation energy game.
+Attacker's 3D Pareto front for $[\literal{Q}, \literal{T}]$ of the example bisimulation energy game bounds the space above $(2,2,2)$.
 ::::
 
 On the game side, this tells us that the attacker needs at least two simulation moves (after swaps) and two swaps to tell $\literal{Q}$ apart from $\literal{T}$.
@@ -698,7 +705,7 @@ The set of *strategy formulas* for a game position $g$ and a budget $e$, $\strat
 $$
 \inferrule[observation]{
   [p, q] \gamemove{-1,0,0}^🗲_\notionname{B} (α, p', q) \quad
-  e' = \energyupdate((-1,0,0), e) ∈ \attackerwins^{\gamebisimen}((α, p', q)) \quad
+  e' = \energyupdate((-1,0,0), e) ∈ \attackerwins^{\gamebisimen}((α, p', q)) \\
   φ ∈ \strat_\notionname{B}((α, p', q), e')
 }{
   (\hmlobs{α} φ) ∈ \strat_\notionname{B}([p, q], e)
@@ -708,7 +715,7 @@ $$
 \inferrule[conjunction]{
   \forall q' ∈ \derivatives{q, α} \ldotp \quad
   (α, p', q) \gamemove{0,0,0}^🗲_\notionname{B} [p', q'] \; \land \;
-  e ∈ \attackerwins^{\gamebisimen}([p', q']) \; \land \;
+  e ∈ \attackerwins^{\gamebisimen}([p', q']) \\ \quad \land \;
   ψ_{q'} ∈ \strat_\notionname{B}([p', q'], e)
 }{
   (\hmland{q'}{\derivatives{q, α}} ψ_{q'}) ∈ \strat_\notionname{B}((α, p', q), e)
@@ -717,14 +724,14 @@ $$
 $$
 \inferrule[negation]{
   [p, q] \gamemove{\updmin{1,2},0,-1}^🗲_\notionname{B} [q, p] \quad
-  e' = \energyupdate((\updmin{1,2},0,-1), e) ∈ \attackerwins^{\gamebisimen}([q, p]) \quad
+  e' = \energyupdate((\updmin{1,2},0,-1), e) ∈ \attackerwins^{\gamebisimen}([q, p]) \\
   \hmlobs{α} φ ∈ \strat_\notionname{B}([q, p], e')
 }{
   (\hmlneg  \hmlobs{α} φ) ∈ \strat_\notionname{B}([p, q], e)
 }
 $$
 
-Rules to derive cheap distinguishing formulas from attacker winning budgets.
+Rules to derive distinguishing formulas from attacker winning budgets.
 :::
 
 \noindent
@@ -871,7 +878,9 @@ $$
 An illustration of the connection property can be seen in @fig-galois-connection.
 <!--(The illustration also illuminates why the $α$-function is often referred to as “lower adjoint“ and $\gamma$ as “upper adjoint” of a Galois connection.)-->
 
-::: {#fig-galois-connection .column-margin}
+::: {.content-visible unless-profile="foc"}
+
+:::: {#fig-galois-connection .column-margin }
 ```tikz
 \begin{tikzpicture}[auto, node distance = 1cm, minimum width=.8cm]
   \node (c) {$c$};
@@ -891,21 +900,40 @@ An illustration of the connection property can be seen in @fig-galois-connection
 \end{tikzpicture}
 ```
 Visualization of Galois connections according to @def-galois-connection.
+::::
 :::
 
-::: {#exm-galois-abstraction-reals}
-#### $\nats$ as abstraction for $\reals$
+:::: {.content-visible when-profile="foc"}
 
-Intervals of positive real numbers can be abstracted into natural numbers, as illustrated by @fig-galois-abstraction-reals. More formally:
+<!-- the code needs to be copied as Quarto's contents shortcode does not manage to move the margin figures... -->
 
-Adopt the non-negative reals $\reals^{\geq 0}$ as concrete domain and the natural numbers $\nats$ as abstract domain.
-Then, as function $α_{\reals} \colon \reals^{\geq 0} \to \nats$ take flooring, $x \mapsto \floor{x}$,
-and for the other direction, the identity $\identity{\nats}$, $n \mapsto n$.
-Clearly, $\floor{x} \leq n \iff x \leq n$.
-Therefore, $α_{\reals}$ and $\identity{\nats}$ form a Galois connection.
-:::
+::::: {layout="[6,-0.5,6]" layout-valign="bottom"}
 
-::: {#fig-galois-abstraction-reals .column-margin}
+:::::: {#fig-galois-connection}
+```tikz
+\begin{tikzpicture}[auto, node distance = 1cm, minimum width=.8cm]
+  \node (c) {$c$};
+  \node (cleq) [above of=c, rotate=90] {$\leq$};
+  \node (agamma) [above of=cleq] {$\gamma(a)$};
+  \node (C) [above of=agamma] {$C$};
+  \node (cabs) [right of=c, node distance=3cm] {$α(c)$};
+  \node (aleq) [above of=cabs, rotate=90] {$\leq$};
+  \node (a) [above of=aleq] {$a$};
+  \node (A) [above of=a] {$A$};
+  \node (iff) [right of=cleq, node distance=1.5cm, rotate=-45] {$\iff$};
+  \path[->]
+    (c) edge[bend right=10, swap] node {$α$} (cabs)
+    (a) edge[bend right=10, swap] node {$\gamma$} (agamma);
+  \draw (cleq) ellipse (1cm and 1.7cm);
+  \draw (aleq) ellipse (1cm and 1.7cm);
+\end{tikzpicture}
+```
+Visualization of Galois connections according to @def-galois-connection.
+\vspace{\baselineskip}
+<!--TODO: fix valign-->
+::::::
+
+:::::: {#fig-galois-abstraction-reals}
 ```tikz
 \begin{tikzpicture}[]
   \draw[draw=red, thick] (-.25,0) -- ++(.5,0);
@@ -937,6 +965,57 @@ Therefore, $α_{\reals}$ and $\identity{\nats}$ form a Galois connection.
 \end{tikzpicture}
 ```
 Illustration of the Galois connection of @exm-galois-abstraction-reals between $\reals^{\geq 0}$ and $\nats$ using $\floor{\cdot}$-function, whose mapping is illustrated by the gray triangles.
+::::::
+:::::
+::::
+
+::: {#exm-galois-abstraction-reals}
+#### $\nats$ as abstraction for $\reals$
+
+Intervals of positive real numbers can be abstracted into natural numbers, as illustrated by @fig-galois-abstraction-reals. More formally:
+
+Adopt the non-negative reals $\reals^{\geq 0}$ as concrete domain and the natural numbers $\nats$ as abstract domain.
+Then, as function $α_{\reals} \colon \reals^{\geq 0} \to \nats$ take flooring, $x \mapsto \floor{x}$,
+and for the other direction, the identity $\identity{\nats}$, $n \mapsto n$.
+Clearly, $\floor{x} \leq n \iff x \leq n$.
+Therefore, $α_{\reals}$ and $\identity{\nats}$ form a Galois connection.
+:::
+
+
+::: {.content-visible unless-profile="foc"}
+:::: {#fig-galois-abstraction-reals .column-margin}
+```tikz
+\begin{tikzpicture}[]
+  \draw[draw=red, thick] (-.25,0) -- ++(.5,0);
+  \draw[draw=red, thick] (-.25,1) -- ++(.5,0);
+  \draw[draw=red, thick] (-.25,2) -- ++(.5,0);
+  \draw[draw=red, thick] (-.25,3) -- ++(.5,0);
+  \draw[draw=blue, thick] (1.75,0) -- ++(.5,0);
+  \draw[draw=blue, thick] (1.75,1) -- ++(.5,0);
+  \draw[draw=blue, thick] (1.75,2) -- ++(.5,0);
+  \draw[draw=blue, thick] (1.75,3) -- ++(.5,0);
+
+  \draw[draw=black] (-.125,0) rectangle ++(.25,1);
+  \draw[draw=black] (-.125,1) rectangle ++(.25,1);
+  \draw[draw=black] (-.125,2) rectangle ++(.25,1);
+  \draw[draw=gray] (0,0) -- ++(2,0) -- ++(-2,1);
+  \draw[draw=gray] (0,1) -- ++(2,0) -- ++(-2,1);
+  \draw[draw=gray] (0,2) -- ++(2,0) -- ++(-2,1);
+  \draw[] (0,3.6) node {$\vdots$};
+  \draw[] (2,3.6) node {$\vdots$};
+
+  \draw[] (0,-.5) node {$\reals^{\geq 0}$};
+  \draw[] (2,-.5) node {$\nats$};
+
+  \path[->, dotted]
+    (2,0) edge[bend right=15] (0,0)
+    (2,1) edge[bend right=15] (0,1)
+    (2,2) edge[bend right=15] (0,2)
+    (2,3) edge[bend right=15] (0,3);
+\end{tikzpicture}
+```
+Illustration of the Galois connection of @exm-galois-abstraction-reals between $\reals^{\geq 0}$ and $\nats$ using $\floor{\cdot}$-function, whose mapping is illustrated by the gray triangles.
+::::
 :::
 
 Many monotonic functions naturally induce a Galois-connected abstraction function through $\min$.
@@ -1146,6 +1225,7 @@ We list the steps of the computation in @tbl-simple-energy-game-execution, and e
 }
 ```
 
+::::{.content-visible unless-profile="foc"}
 ::: {#fig-game-defender-intersection .column-margin}
 ```tikz
 \begin{tikzpicture}[]
@@ -1182,6 +1262,7 @@ Combination (dashed red) of successor Pareto fronts (black) to intersect at defe
 
 Combination (dashed red) of successor Pareto fronts (black) to take the union at attacker position $\literal{g_1}$ in step 8.
 :::
+::::
 
 0. The algorithm begins with $\literal{g_6}$ in the $\variable{todo}$-set as this is the only position where the defender is stuck.
 1. Updating the defender node $\literal{g_6} ∈ G_\defender$, we set its minimal attacker-winning budget to $\zerovec$.
@@ -1206,12 +1287,53 @@ Combination (dashed red) of successor Pareto fronts (black) to take the union at
   As $\variable{todo}$ is empty, the algorithm terminates.
 ::::
 
-::::{.content-visible when-format="pdf"}
-{{< contents fig-game-defender-intersection >}}
+:::: {.content-visible when-profile="foc"}
+
+<!-- the code needs to be copied as Quarto's contents shortcode does not manage to move the margin figures... -->
+
+::::: {layout="[6,-0.5,6]" layout-valign="bottom"}
+
+:::::: {#fig-game-defender-intersection}
+```tikz
+\begin{tikzpicture}[]
+  \begin{scope}[rotate=45, scale=1]
+    \draw[help lines] (0,0) grid (3.5,3.5);
+    \draw[opacity=0.9, thick, text opacity=.8] (0,3.7) -- (0,1) node[below left] {$\literal{g_5}: (0,1)$} -- (3.7,1);
+    \draw[opacity=0.9, thick, text opacity=.8] (1,3.7) -- (1,0) node[below right] {$(1,0)$} -- (3.7,0);
+    \path[thick, violet, opacity=0.9, ->] (0,0) edge node[left=-.1] {$\mathit{upd}^{\circlearrowleft}$} (1,0);
+    \node[label=270:{$\literal{g_6}: (0,0)$}] at (0,0) {};
+    \draw[thick, red, dashed, opacity=0.9, text opacity=.8, shift={(-.05,-.05)}] (1,3.7) -- (1,1) node[above=.5] {$(1,1)$} -- (3.7,1);
+  \end{scope}
+\end{tikzpicture}
+```
+
+Combination (dashed red) of successor Pareto fronts (black) to intersect at defender position $\literal{g_4}$ in step 4.
+::::::
+
+:::::: {#fig-game-attacker-combination}
+```tikz
+\begin{tikzpicture}[]
+  \begin{scope}[rotate=45, scale=1]
+    \draw[help lines] (0,0) grid (3.5,3.5);
+    \draw[opacity=0.9, thick, text opacity=.8] (0,3.7) -- (0,2) node[below left] {$\literal{g_2}$} -- (3.7,2);
+    \draw[opacity=0.9, thick, text opacity=.8] (2,3.7) -- (2,1) node[below right] {} -- (3.7,1);
+    \draw[opacity=0.9, thick, text opacity=.8] (3,3.7) -- (3,2) node[below right] {$(3,2)$} -- (3.7,2);
+    \path[thick, violet, opacity=0.9, ->] (1,1) edge node[left=-.1] {$\mathit{upd}^{\circlearrowleft}$} (2,1);
+    \path[thick, violet, opacity=0.9, ->, bend right=30] (1,1) edge node {} (3,2);
+    \node [label=270:{$\literal{g_3},\literal{g_4}: (1,1)$}] at (1,1) {};
+    %\draw[thick, red, dashed, opacity=0.9, text opacity=.8] (1,3.7) -- (1,1) node[above=.5] {$(1,1)$} -- (3.7,1);
+    \draw[thick, red, dashed, opacity=0.9, text opacity=.8, shift={(-.05,-.05)}] (0,3.7) -- (0,2) node[above=.3] {$(0,2)$} -- (2,2) -- (2,1) node[below right] {$(2,1)$} -- (3.7,1);
+    \node[label=270:{$\phantom{\literal{g_6}: (0,0)}$}] at (0,0) {};
+  \end{scope}
+\end{tikzpicture}
+```
+
+Combination (dashed red) of successor Pareto fronts (black) to take the union at attacker position $\literal{g_1}$ in step 8.
+::::::
+:::::
 ::::
-::::{.content-visible when-format="pdf"}
-{{< contents fig-game-attacker-combination >}}
-::::
+
+
 
 ::: {#thm-energy-game-correctness}
 #### Correctness
@@ -1345,7 +1467,7 @@ Its undo-update according to @def-declining-upd-inv computes $\energyupdateinv((
   \end{axis}
 \end{tikzpicture}
 ```
-Effects of updates $\textcolor{TealBlue}{\energyupdate((\updmin{1,2},-1), \cdot)}$ and their undoing via $\textcolor{DarkViolet}{\energyupdateinv((\updmin{1,2},-1), \cdot)}$.
+Effects of updates $\textcolor{TealBlue}{\energyupdate((\updmin{1,2},-1), \cdot)}$ and of their undoing via $\textcolor{DarkViolet}{\energyupdateinv((\updmin{1,2},-1), \cdot)}$.
 ::::
 
 \noindent

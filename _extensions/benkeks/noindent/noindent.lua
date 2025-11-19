@@ -124,3 +124,13 @@ function paragraph_heading(args)
     }
   end
 end
+
+function pic(args)
+  img = args[1]
+  width = args[2] or "90%"
+  if quarto.project.profile:find("foc") then
+    return pandoc.Image("", img, "", {width = width, class = "lightbox"})
+  else
+    return pandoc.Image("", img, "", {class = "lightbox"})
+  end
+end

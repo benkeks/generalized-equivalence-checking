@@ -1647,7 +1647,7 @@ The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\lite
 ::: {#fig-bisim-sim-game fig-pos='t' fig-env="figure*" .column-body-outset}
 ```tikz
 %%| image-class: lightbox
-\begin{adjustbox}{trim=0.5cm 0cm, max width=\linewidth, center}
+\begin{adjustbox}{trim=1cm 0cm, max width=\linewidth, center}
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
     defender/.style={ellipse, inner sep=0ex},
@@ -2101,7 +2101,7 @@ In constructing the relationships of @fig-equivalence-big-picture for bisimilari
 ::: {#fig-game-algo-overview fig-pos='t' fig-env="figure*"}
 ```tikz
 
-\begin{adjustbox}{max width=\textwidth, center}
+%\begin{adjustbox}{max width=\textwidth, center}
   \begin{tikzpicture}[auto,node distance=2.7cm,
     algstep/.style={minimum width=2.5cm, minimum height=1.2cm, draw=gray, rectangle,align=center,rounded corners}]
     \node[algstep] (TS) {$p$ and $q$ in\\ system $\system$};
@@ -2120,13 +2120,13 @@ In constructing the relationships of @fig-equivalence-big-picture for bisimilari
       (WinningRegion) edge[->, swap] node {$[p,q] \in \defenderwins^{{\game}^{\system}_{\notionname{B}}}$} (Decision)
       (Decision) edge[->] node {Yes: Thm.~\ref{thm-bisim-game-characterization}\vphantom{p}} (Relation)
       (Decision) edge[->, swap] node {No: Lem.~\ref{lem-attacks-imply-formulas}\vphantom{p}} (Formula)
-      (Relation) edge[->] node[align=right] {Check relation fulfills \\ bisimulation Def.~\ref{def-bisimilarity}\vphantom{p}} (Yes)
-      (Formula) edge[->, swap] node[align=left] {Check distinction using \\ HML game Def~\ref{def-hml-game} + Alg.~\ref{algo-deciding-games}\vphantom{p}} (No);
+      (Relation) edge[->] node[align=right] {Check relation \\ fulfills bisimulation \\ Def.~\ref{def-bisimilarity}\vphantom{p}} (Yes)
+      (Formula) edge[->, swap] node[align=left] {Check distinction \\ using HML game \\ Def~\ref{def-hml-game} + Alg.~\ref{algo-deciding-games}\vphantom{p}} (No);
     \draw
       (Output.south) |- (Yes.east)
       (Output.south) |- (No.west);
   \end{tikzpicture}
-\end{adjustbox}
+%\end{adjustbox}
 ```
 
 Checking bisimilarity and providing certificates.

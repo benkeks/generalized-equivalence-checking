@@ -99,11 +99,11 @@ The standard queries are:
 ```{=latex}
 % fix to make the table float in spite of Pandoc's hardcoded longtable usage...
 \begin{table*}[b!]
-\parbox{15cm}{
+\parbox{\textwidth}{
 ```
 
-| Strong variant       | Weak variants                      | Stable / stability-respecting variants   |
-|:---------------------|:-----------------------------------|:-----------------------------------------|
+| Strong variant       | Weak variants                      | Stable/stability-resp.&nbsp;variants   |
+|:-----------------------|:------------------------------|:---------------------------------|
 | `enabledness`          | `weak-enabledness`                   |                                          |
 | `trace`                | `weak-trace`                         |                                          |
 | `failure`              | `weak-failure`                       | `stable-failure`                         |
@@ -597,12 +597,12 @@ This mostly matches the results already reported in @bisping2023equivalenceEnerg
 \afterpage{\clearpage
 \begin{table*}[b!]
 \begin{center}
-\parbox{15cm}{
+\parbox{\textwidth}{
 ```
 ```{python}
 #| label: tbl-strong-spectro-results
 #| tbl-cap: Runtime and results of strong spectroscopy on VLTS examples.
-#| tbl-colwidths: [19,10,12,17,12,10,10,13]
+#| tbl-colwidths: [16,10,12,15,12,10,10,13]
 #| echo: false
 
 
@@ -672,7 +672,7 @@ d.Markdown(table)
 ```{python}
 #| label: tbl-weak-spectro-results
 #| tbl-cap: Runtime and results of weak spectroscopy on VLTS examples.
-#| tbl-colwidths: [19,10,12,17,12,10,10,13]
+#| tbl-colwidths: [16,10,12,15,12,10,10,13]
 #| echo: false
 
 import pandas as pd

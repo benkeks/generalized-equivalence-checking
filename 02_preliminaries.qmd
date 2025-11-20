@@ -16,7 +16,6 @@ This chapter is based on my introductory lectures and Isabelle/HOL theory on beh
 We aim to be mostly compatible with the textbook *Reactive systems* [@ails2007reactiveSystems].
 ::::
 
-\noindent
 The core background of this thesis is the *trinity of characterizations for behavioral equivalences*: relational, modal, and game-theoretic.
 
 This chapter takes a tour into the field of formalisms used to model programs and communicating systems, which are accompanied by many notions for behavioral equivalence and refinement to relate or distinguish their models.

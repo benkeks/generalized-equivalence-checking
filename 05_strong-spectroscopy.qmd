@@ -16,7 +16,6 @@ This chapter showcases the main result of my paper “Process equivalence proble
 We move beyond @bisping2023equivalenceEnergyGames by also deriving individual equivalence games from our characterization and showing how these enable polynomial-time decision procedures for $\complexityname{P}$-easy notions.
 ::::
 
-\noindent
 The energy game approach can, in fact, be leveraged to solve the spectroscopy problem for the *whole* of the strong equivalence spectrum.
 
 The core ingredient of this chapter is a richer energy game, we dub “spectroscopy game,” to be presented in @sec-strong-spectro-game.

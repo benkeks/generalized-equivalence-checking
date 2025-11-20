@@ -10,17 +10,21 @@
 \DeclareCaptionStyle{widefigure}{font=normalsize, margin=0cm}
 \DeclareCaptionStyle{widetable}{font=normalsize, margin=0cm}
 
+\setlength{\tabcolsep}{4pt}
+
+\makeatletter
 % move marginnotes to footnote area
 \renewcommand\marginnote[1]{
     \begingroup
     \renewcommand\thefootnote{}\footnote{#1}
     \addtocounter{footnote}{-1}
     \endgroup
-    \noindent
+    \@afterindentfalse\@afterheading
 }
+\makeatother
 
 \renewenvironment{marginfigure}{
-    \begin{figure}[thbp]
+    \begin{figure}[tbp]
     %    \begin{adjustbox}{max width=.8\textwidth}
 }{
     %    \end{adjustbox}

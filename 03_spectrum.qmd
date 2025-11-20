@@ -17,7 +17,6 @@ The used hierarchy itself derives from @bjn2022decidingAllBehavioralEqs.
 The alignment to the authoritative work by @glabbeek1990ltbt1 has been formalized by @mattes2024expressivePowerHML.
 ::::
 
-\noindent
 We will now take a deeper dive into the question how groups of behavioral equivalences and preorders can be ranked in equivalence spectra.
 
 For the following chapters, we will focus on the main “linear-time--branching-time spectrum” for the semantics of concrete processes treated by @glabbeek1990ltbt1, the so-called “strong spectrum.”
@@ -712,24 +711,24 @@ If a non-terminal appears only once in the conjunction production, at most one s
 ```tikz
 \parbox{12cm}{
   \begin{align*}
-  \intertext{
+  \shortintertext{
     Universal, $\notionname{U}$ at $(0,0,0,0,0,0)$:
   }
     \varphi_\notionname{U} \grammardef &
       \grammarsp \hmltrue \\
-  \intertext{
+  \shortintertext{
     Enabledness, $\notionname{E}$ at $(\mathhl{1},0,0,0,0,0)$:
   }
     \varphi_\notionname{E} \grammardef &
       \grammarsp \mathhl{\hmlobs{α}\varphi_\notionname{U}}
       \grammaror \mathdl{\varphi_\notionname{U}} \\
-  \intertext{
+  \shortintertext{
     Traces, $\notionname{T}$ at $(\mathhl{\infty},0,0,0,0,0)$:
   }
     \varphi_\notionname{T} \grammardef &
       \grammarsp \hmlobs{α}\mathhl{\varphi_\notionname{T}}
       \grammaror \varphi_\notionname{U} \\
-  \intertext{
+  \shortintertext{
     Failures, $\notionname{F}$ at $(\infty,\mathhl{1},0,0,\mathhl{1},\mathhl{1})$:
   }
     \varphi_\notionname{F} \grammardef &
@@ -738,13 +737,13 @@ If a non-terminal appears only once in the conjunction production, at most one s
     \psi_\notionname{F} \grammardef &
       \grammarsp \mathhl{\hmlneg\varphi_\notionname{E}}
       \grammaror \mathdl{\hmltrue} \\ 
-  \intertext{
+  \shortintertext{
     Revivals, $\notionname{RV}$ at $(\infty,1,\mathhl{1},0,1,1)$:
   }
     \varphi_\notionname{RV} \grammardef &
       \grammarsp \hmlobs{α}\varphi_\notionname{RV}
       \grammaror \hmlands \set{ \mathhl{\varphi_\notionname{E}}, \psi_\notionname{F}, \psi_\notionname{F}, \ldots } \\
-  \intertext{
+  \shortintertext{
     Readiness, $\notionname{R}$ at $(\infty,1,1,\mathhl{1},1,1)$:
   }
     \varphi_\notionname{R} \grammardef &
@@ -753,13 +752,13 @@ If a non-terminal appears only once in the conjunction production, at most one s
     \psi_\notionname{R} \grammardef &
       \grammarsp \mathhl{\varphi_\notionname{E}}
       \grammaror \psi_\notionname{F} \\
-  \intertext{
+  \shortintertext{
     Failure trace, $\notionname{FT}$ at $(\infty,1,\mathhl{\infty},0,1,1)$:
   }
     \varphi_\notionname{FT} \grammardef &
       \grammarsp \hmlobs{α}\varphi_\notionname{FT}
       \grammaror \hmlands \set{ \mathhl{\varphi_\notionname{FT}}, \psi_\notionname{F}, \psi_\notionname{F}, \ldots } \\
-  \intertext{
+  \shortintertext{
     Ready trace, $\notionname{RT}$ at $(\infty,1,\infty,\mathhl{1},1,1)$:
   }
     \varphi_\notionname{RT} \grammardef &
@@ -777,7 +776,7 @@ Grammars induced by coordinates for strong linear-time notions of equivalence.
 ```tikz
 \parbox{12cm}{
   \begin{align*}
-  \intertext{
+  \shortintertext{
     Impossible futures, $\notionname{IF}$ at $(\infty,1,0,0,\mathhl{\infty},1)$:
   }
     \varphi_\notionname{IF} \grammardef &
@@ -786,7 +785,7 @@ Grammars induced by coordinates for strong linear-time notions of equivalence.
     \psi_\notionname{IF} \grammardef &
       \grammarsp \mathhl{\hmlneg\varphi_\notionname{T}}
       \grammaror \mathdl{\hmltrue} \\
-  \intertext{
+  \shortintertext{
     Possible futures, $\notionname{PF}$ at $(\infty,1,\mathhl{\infty},\mathhl{\infty},\infty,1)$:
   }
     \varphi_\notionname{PF} \grammardef &
@@ -795,13 +794,13 @@ Grammars induced by coordinates for strong linear-time notions of equivalence.
     \psi_\notionname{PF} \grammardef &
       \grammarsp \mathhl{\varphi_\notionname{T}}
       \grammaror \psi_\notionname{IF} \\
-  \intertext{
+  \shortintertext{
     Simulation, $\notionname{1S}$ at $(\infty,\mathhl{\infty},\mathhl{\infty},\mathhl{\infty},0,0)$:
   }
     \varphi_\notionname{1S} \grammardef &
       \grammarsp \hmlobs{α}\varphi_\notionname{1S}
       \grammaror \mathhl{\hmlands \set{ \varphi_\notionname{1S}, \varphi_\notionname{1S}, \ldots }} \\
-  \intertext{
+  \shortintertext{
     Ready simulation, $\notionname{RS}$ at $(\infty,\infty,\infty,\infty,\mathhl{1},\mathhl{1})$:
   }
     \varphi_\notionname{RS} \grammardef &
@@ -810,7 +809,7 @@ Grammars induced by coordinates for strong linear-time notions of equivalence.
     \psi_\notionname{RS} \grammardef &
       \grammarsp \mathhl{\psi_\notionname{F}}
       \grammaror \varphi_\notionname{RS} \\
-  \intertext{
+  \shortintertext{
     2-nested simulation, $\notionname{2S}$ at $(\infty,\infty,\infty,\infty,\mathhl{\infty},1)$:
   }
     \varphi_\notionname{2S} \grammardef &
@@ -819,7 +818,7 @@ Grammars induced by coordinates for strong linear-time notions of equivalence.
     \psi_\notionname{2S} \grammardef &
       \grammarsp \mathhl{\hmlneg\varphi_\notionname{1S}}
       \grammaror \varphi_\notionname{2S} \\
-  \intertext{
+  \shortintertext{
     Bisimulation, $\notionname{B}$ at $(\infty,\infty,\infty,\infty,\infty,\mathhl{\infty})$:
   }
     \varphi_\notionname{B} \grammardef &
@@ -1158,7 +1157,7 @@ if we look at a cross section through the equivalence spectrum as in @fig-comple
 The best known sequential bisimilarity algorithms for finite-state transition systems take $\bigo{\relsize{\step{}} \log \relsize{\states}}$ time.
 They usually employ partition refinement [e.g. @valmari2009bisimMin], deriving from @paigetarjan1987partitionrefinement.
 
-::: {#fig-complexity-slope}
+::: {#fig-complexity-slope fig-pos="t"}
 ```tikz
 \begin{tikzpicture}[]
   \begin{axis}[

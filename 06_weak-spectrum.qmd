@@ -17,7 +17,6 @@ For a fuller presentation of the spectrum of weak equivalences itself, @glabbeek
 A gentler introduction to key concepts is provided by @sangiorgi2012.
 ::::
 
-\noindent
 Virtually all *applications* of concurrency theory use *weak* behavioral equivalences, which can equate systems in spite of differing internal activity.
 Therefore, it matters that we can lift our approach to also account for such equivalences.
 
@@ -59,15 +58,15 @@ Equivalences with this feature are called *weak*, alluding to the fact that they
 
 :::{#fig-simple-weak-eq .column-margin}
 ```tikz
-\begin{tikzpicture}[auto,node distance=1.5cm,
+\begin{tikzpicture}[auto,node distance=1.4cm,
     rel/.style={dashed,blue}]
   \node[] (tta){$\!\ccsprefix{\tau\!}\ccsprefix{\tau\!}\literal{a}\!$};
   \node[below of=tta] (ta){$\ccsprefix{\tau}\literal{a}$};
   \node[below of=ta] (a){$\literal{a}$};
-  \node[node distance=2.5cm, below of=a] (Null){$\ccsnull$};
+  \node[node distance=2.25cm, below of=a] (Null){$\ccsnull$};
   \node[right of=tta] (tat){$\!\ccsprefix{\tau\!}\ccsprefix{\literal{a}} \tau\!$};
   \node[below of=tat] (at){$\ccsprefix{\literal{a}} \tau$};
-  \node[node distance=2.5cm, below of=at] (t){$\tau$};
+  \node[node distance=2.25cm, below of=at] (t){$\tau$};
   \path[->]
     (tta)
       edge node[swap] {$\tau$} (ta)
@@ -82,9 +81,9 @@ Equivalences with this feature are called *weak*, alluding to the fact that they
     (t)
       edge node {$\tau$} (Null);
   \begin{pgfonlayer}{bg}
-    \draw[blue, double, dotted, double distance=16mm, cap=round]
+    \draw[blue, double, dotted, double distance=14mm, cap=round]
       (tta.center)--(tat.center)--(at.center)--(a.center)--(ta.center)--(tta.center);
-    \draw[blue, double, dotted, double distance=16mm, cap=round]
+    \draw[blue, double, dotted, double distance=14mm, cap=round]
       (Null.center)--(t.center);
   \end{pgfonlayer}
 \end{tikzpicture}
@@ -666,7 +665,7 @@ $\literal{P}_\ell$ does the same but can change the choice while idling.
 $\literal{P}^\tau_e$ and $\literal{P}^\tau_\ell$ are variants of the two obtained by renaming $\literal{idle}$ into $\tau$-actions.
 Many process algebras have an operator to perform such an *abstraction* of a process, for instance, `hide` in mCRL2 [@groote2014mcrl2] or hiding “$\setminus$” in CSP [@hoare1985csp].
 
-::::{#fig-idle-process-abstraction}
+::::{#fig-idle-process-abstraction fig-pos="t"}
 
 ```tikz
 \begin{adjustbox}{scale=1.0, center}
@@ -975,25 +974,25 @@ Productions that could be left out without affecting distinctiveness are set in 
 ```tikz
 \parbox{12cm}{
   \begin{align*}
-  \intertext{
+  \shortintertext{
     Weak universal, $\notionname{WU}$ at $(0,0,0,0,0,0,0,0)$:
   }
     \varphi_\notionname{WU} \grammardef &
       \grammarsp \hmltrue
       \grammaror \mathdl{\hmleps\hmltrue} \\
-  \intertext{
+  \shortintertext{
     Weak enabledness, $\notionname{WE}$ at $(\mathhl{1},0,0,0,0,0,0,0)$:
   }
     \varphi_\notionname{WE} \grammardef &
       \grammarsp \mathhl{\hmleps\hmlobs{a}\varphi_\notionname{WU}}
       \grammaror \mathdl{\varphi_\notionname{WU}} \\
-  \intertext{
+  \shortintertext{
     Weak traces, $\notionname{WT}$ at $(\mathhl{\infty},0,0,0,0,0,0,0)$:
   }
     \varphi_\notionname{WT} \grammardef &
       \grammarsp \hmleps\hmlobs{a}\mathhl{\varphi_\notionname{WT}}
       \grammaror \varphi_\notionname{WU} \\
-  \intertext{
+  \shortintertext{
     Weak failures, $\notionname{WF}$ at $(\infty,0,\mathhl{1},0,0,0,\mathhl{1},\mathhl{1})$:
   }
     \varphi_\notionname{WF} \grammardef &
@@ -1004,14 +1003,14 @@ Productions that could be left out without affecting distinctiveness are set in 
       \grammarsp \mathhl{\hmlneg\hmleps\hmlobs{a}\varphi_\notionname{WU}}
       \grammaror \mathdl{\hmlneg\hmleps\hmltrue}
       \grammaror \mathdl{\hmleps\hmltrue}\\
-  \intertext{
+  \shortintertext{
     Stable failures, $\notionname{WF^s}$ at $(\infty,0,\mathhl{0},\mathhl{1},0,0,1,1)$:
   }
     \varphi_\notionname{WF^s} \grammardef &
       \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WF^s}
       \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{WF}, \psi_\notionname{WF}, \ldots }
       \grammaror \varphi_\notionname{WU} \\
-  \intertext{
+  \shortintertext{
     Weak readiness, $\notionname{WR}$ at $(\infty,0,1,0,0,\mathhl{1},1,1)$:
   }
     \varphi_\notionname{WR} \grammardef &
@@ -1021,14 +1020,14 @@ Productions that could be left out without affecting distinctiveness are set in 
     \psi_\notionname{WR} \grammardef &
       \grammarsp \mathhl{\hmleps\hmlobs{a}\varphi_\notionname{WU}}
       \grammaror \psi_\notionname{WF} \\
-  \intertext{
+  \shortintertext{
     Stable readiness, $\notionname{WR^s}$ at $(\infty,0,\mathhl{0},\mathhl{1},0,1,1,1)$:
   }
     \varphi_\notionname{WR^s} \grammardef &
       \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WR^s}
       \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{WR}, \psi_\notionname{WR}, \ldots }
       \grammaror \varphi_\notionname{WU} \\
-  \intertext{
+  \shortintertext{
     Weak impossible futures, $\notionname{WIF}$ at $(\infty,0,1,0,0,0,\mathhl{\infty},1)$:
   }
     \varphi_\notionname{WIF} \grammardef &
@@ -1039,14 +1038,14 @@ Productions that could be left out without affecting distinctiveness are set in 
       \grammarsp \mathhl{\hmlneg\hmleps\hmlobs{a}\varphi_\notionname{WT}}
       \grammaror \mathdl{\hmlneg\hmleps\hmltrue}
       \grammaror \mathdl{\hmleps\hmltrue}
-  \intertext{
+  \shortintertext{
     Stable impossible futures, $\notionname{WIF^s}$ at $(\infty,0,\mathhl{0},\mathhl{1},0,0,\infty,1)$:
   }
     \varphi_\notionname{WIF^s} \grammardef &
       \grammarsp \hmleps\hmlobs{a}\varphi_\notionname{WIF^s}
       \grammaror \hmleps\hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{WIF}, \psi_\notionname{WIF}, \ldots }
       \grammaror \varphi_\notionname{WU} \\
-  \intertext{
+  \shortintertext{
     Weak possible futures, $\notionname{WPF}$ at $(\infty,0,1,0,0,\mathhl{\infty},\infty,1)$:
   }
     \varphi_\notionname{WPF} \grammardef &
@@ -1074,7 +1073,7 @@ For the abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more
 ```tikz
 \parbox{12cm}{
   \begin{align*}
-  \intertext{
+  \shortintertext{
     Contrasimulation, $\notionname{C}$ at $(\infty,0,\infty,0,0,0,\mathhl{\infty},\mathhl{\infty})$:
   }
     \varphi_\notionname{C} \grammardef &
@@ -1082,13 +1081,13 @@ For the abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more
       \grammaror \mathdl{\varphi_\notionname{WU}} \\
     \chi_\notionname{C} \grammardef &
       \grammarsp \hmlobs{a}\varphi_\notionname{C}
-      \grammaror \hmlands \set{ \psi_\notionname{C}, \psi_\notionname{C}, \ldots } \\
-    \psi_\notionname{C} \grammardef &
+      \grammaror \hmlands \set{ \psi_\notionname{C}, \psi_\notionname{C}, \ldots } \qquad
+    \psi_\notionname{C} \, \grammardef
       \grammarsp \mathhl{\hmlneg\hmleps}\chi_\notionname{C}
       \grammaror \mathdl{\hmleps\chi_\notionname{WU^x}} \\
-    \chi_\notionname{WU^x} \grammardef &
+    \mathdl{\chi_\notionname{WU^x}} \grammardef &
       \grammarsp \mathdl{\hmlands\set{\hmleps\chi_\notionname{WU^x}, \hmlneg\hmleps\chi_\notionname{WU^x}, \ldots}} \\
-  \intertext{
+  \shortintertext{
     Weak bisimulation, $\notionname{WB}$ at $(\infty,0,\infty,0,0,\mathhl{\infty},\infty,\infty)$:
   }
     \varphi_\notionname{WB} \grammardef &
@@ -1096,11 +1095,11 @@ For the abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more
       \grammaror \mathdl{\varphi_\notionname{WU}} \\
     \chi_\notionname{WB} \grammardef &
       \grammarsp \hmlobs{a}\varphi_\notionname{WB}
-      \grammaror \hmlands \set{ \psi_\notionname{WB}, \psi_\notionname{WB}, \ldots } \\
-    \psi_\notionname{WB} \grammardef &
+      \grammaror \hmlands \set{ \psi_\notionname{WB}, \psi_\notionname{WB}, \ldots } \qquad
+    \psi_\notionname{WB} \, \grammardef
       \grammarsp \hmlneg\hmleps\chi_\notionname{WB}
       \grammaror \mathhl{\hmleps\chi_\notionname{WB}}\\
-  \intertext{
+  \shortintertext{
     Delay bisimulation, $\notionname{DB}$ at $(\infty,0,\infty,0,\mathhl{\infty},\infty,\infty,\infty)$:
   }
     \varphi_\notionname{DB} \grammardef &
@@ -1108,11 +1107,11 @@ For the abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more
       \grammaror \mathhl{\hmlands \set{ \psi_\notionname{DB}, \psi_\notionname{DB}, \ldots }} \\
     \chi_\notionname{DB} \grammardef &
       \grammarsp \hmlobs{a}\varphi_\notionname{DB}
-      \grammaror \hmlands \set{ \psi_\notionname{DB}, \psi_\notionname{DB}, \ldots } \\
-    \psi_\notionname{DB} \grammardef &
+      \grammaror \hmlands \set{ \psi_\notionname{DB}, \psi_\notionname{DB}, \ldots } \qquad
+    \psi_\notionname{DB} \, \grammardef
       \grammarsp \hmlneg\hmleps\chi_\notionname{DB}
       \grammaror \hmleps\chi_\notionname{DB}\\
-  \intertext{
+  \shortintertext{
     $\eta$-bisimulation, $\eta\notionname{B}$ at $(\infty,\mathhl{\infty},\infty,0,0,\infty,\infty,\infty)$:
   }
     \varphi_{\eta\notionname{B}} \grammardef &
@@ -1125,7 +1124,7 @@ For the abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more
     \psi_{\eta\notionname{B}} \grammardef &
       \grammarsp \hmlneg\hmleps\chi_{\eta\notionname{B}}
       \grammaror \hmleps\chi_{\eta\notionname{B}}\\
-  \intertext{
+  \shortintertext{
     Branching bisimulation, $\notionname{BB}$ at $(\infty,\mathhl{\infty},\infty,0,\mathhl{\infty},\infty,\infty,\infty)$:
   }
     \varphi_{\notionname{BB}} \grammardef &
@@ -1138,7 +1137,7 @@ For the abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more
     \psi_{\notionname{BB}} \grammardef &
       \grammarsp \hmlneg\hmleps\chi_{\notionname{BB}}
       \grammaror \hmleps\chi_{\notionname{BB}}\\
-  \intertext{
+  \shortintertext{
     Stable bisimulation, $\notionname{SB}$ at $(\infty,0,0,\mathhl{\infty},0,0,\infty,\infty)$:
   }
     \varphi_\notionname{SB} \grammardef &
@@ -1146,11 +1145,11 @@ For the abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more
       \grammaror \varphi_\notionname{WU} \\
     \chi_\notionname{SB} \grammardef &
       \grammarsp \hmlobs{a}\varphi_\notionname{SB}
-      \grammaror \hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{SB}, \psi_\notionname{SB}, \ldots } \\
-    \psi_\notionname{SB} \grammardef &
+      \grammaror \hmlands \set{ \mathhl{\hmlneg\hmlobs{\tau}\hmltrue}, \psi_\notionname{SB}, \psi_\notionname{SB}, \ldots } \quad
+    \psi_\notionname{SB} \, \grammardef
       \grammarsp \hmlneg\mathdl{\hmleps}\chi_\notionname{SB}
       \grammaror \mathdl{\hmleps\chi_\notionname{SB}}\\
-  \intertext{
+  \shortintertext{
     Stability-respecting delay bisimulation, $\notionname{DB^{sr}}$ at $(\infty,0,\infty,\mathhl{\infty},\infty,\infty,\infty,\infty)$:
   }
     \varphi_\notionname{DB^{sr}} \grammardef &
@@ -1163,7 +1162,7 @@ For the abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more
     \psi_\notionname{DB^{sr}} \grammardef &
       \grammarsp \hmlneg\hmleps\chi_\notionname{DB^{sr}}
       \grammaror \hmleps\chi_\notionname{DB^{sr}}\\
-  \intertext{
+  \shortintertext{
     Stability-respecting branching bisim., $\notionname{BB^{sr}}$ at $(\infty,\mathhl{\infty},\infty,\mathhl{\infty},\infty,\infty,\infty,\infty)$:
   }
     \varphi_{\notionname{BB^{sr}}} \grammardef &
@@ -1181,7 +1180,7 @@ For the abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more
 }
 ```
 
-Grammars induced by coordinates for weak bisimulation-like notions of equivalence.
+Grammars induced by coordinates for weak bisimulation-like notions.
 :::
 
 @bj2025silentStepSpectroscopyJournal [§ 3.3] prove in detail, for each of our abstractions of bisimilarity, that it corresponds to its respective relational characterization.
@@ -1234,7 +1233,7 @@ At this point, they are not particularly interesting.
 ```tikz
 \parbox{12cm}{
   \begin{align*}
-  \intertext{
+  \shortintertext{
     Weak simulation, $\notionname{1WS}$ at $(\infty,0,\mathhl{\infty},0,0,\mathhl{\infty},0,0)$:
   }
     \varphi_\notionname{1WS} \grammardef &
@@ -1244,7 +1243,7 @@ At this point, they are not particularly interesting.
     \psi_\notionname{1WS} \grammardef &
       \grammarsp \mathhl{\hmleps\hmlobs{a}\varphi_\notionname{1WS}}
       \grammaror \mathdl{\hmleps\hmlands \set{ \psi_\notionname{1WS}, \psi_\notionname{1WS}, \ldots }}\\
-  \intertext{
+  \shortintertext{
     Weak ready simulation, $\notionname{WRS}$ at $(\infty,0,\infty,0,0,\infty,\mathhl{1},\mathhl{1})$:
   }
     \varphi_\notionname{WRS} \grammardef &
@@ -1259,7 +1258,7 @@ At this point, they are not particularly interesting.
     \varphi_\notionname{WU^*} \grammardef &
       \grammarsp \hmltrue
       \grammaror \mathdl{\hmleps\hmlands\set{\varphi_\notionname{WU^*}, \varphi_\notionname{WU^*}, \ldots}} \\
-  \intertext{
+  \shortintertext{
     2-nested weak simulation, $\notionname{2WS}$ at $(\infty,0,\infty,0,0,\infty,\mathhl{\infty},1)$:
   }
     \varphi_\notionname{2WS} \grammardef &
@@ -1270,7 +1269,7 @@ At this point, they are not particularly interesting.
       \grammarsp \mathhl{\hmlneg\psi_\notionname{1WS}}
       \grammaror \hmleps\hmlobs{a}\varphi_\notionname{2WS}
       \grammaror \mathdl{\hmleps\hmlands \set{ \psi_\notionname{2WS}, \psi_\notionname{2WS}, \ldots }} \\
-  \intertext{
+  \shortintertext{
     $\eta$-simulation, $\eta\notionname{S}$ at $(\infty,\mathhl{\infty},\infty,0,0,\infty,0,0)$:
   }
     \varphi_{\eta\notionname{S}} \grammardef &
@@ -1280,7 +1279,7 @@ At this point, they are not particularly interesting.
       \grammarsp \hmleps\hmlobs{a}\varphi_{\eta\notionname{S}}
       \grammaror \hmleps\hmlands \set{ \mathhl{\hmlsoft{\alpha}\varphi_{\eta\notionname{S}}}, \psi_{\eta\notionname{S}}, \psi_{\eta\notionname{S}}, \ldots }
       \grammaror \hmleps\hmlands \set{ \psi_{\eta\notionname{S}}, \psi_{\eta\notionname{S}}, \ldots }\\
-  \intertext{
+  \shortintertext{
     Stable simulation, $\notionname{SS}$ at $(\infty,0,0,\mathhl{\infty},0,\infty,0,\mathhl{1})$:
   }
     \varphi_\notionname{SS} \grammardef &
@@ -1291,7 +1290,7 @@ At this point, they are not particularly interesting.
       \grammarsp \mathdl{\hmleps}\hmlobs{a}\varphi_\notionname{SS}
       \grammaror \mathdl{\hmleps\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue, \psi_\notionname{SS}, \psi_\notionname{SS}, \ldots }}
       \grammaror \mathdl{\hmlneg \varphi_\notionname{WU}}\\
-  \intertext{
+  \shortintertext{
     Stable ready simulation, $\notionname{WRS^s}$ at $(\infty,0,0,\mathhl{\infty},0,\infty,\mathhl{1},1)$:
   }
     \varphi_\notionname{WRS^s} \grammardef &

@@ -20,7 +20,7 @@ So, indeed, there is such a thing as “linear-time--branching-time spectroscopy
 
 ::: {#fig-conclusion-big-picture fig-env="figure*" fig-pos="bt"}
 ```tikz
-\begin{adjustbox}{max width=.9\linewidth}
+\begin{adjustbox}{max width=\textwidth, trim=0.5cm 0cm}
   \begin{tikzpicture}[auto,node distance=2.5cm,
     algstep/.style={minimum width=3cm, minimum height=1.4cm, draw=gray, rectangle,align=center,rounded corners}]
     \node[algstep, draw] (WeakSpectro) {Weak spectroscopy \\ Chapter \ref{sec-weak-spectroscopy}};

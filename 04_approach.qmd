@@ -18,7 +18,6 @@ It can be thought of as the *core* of @bisping2023equivalenceEnergyGames, and al
 The theory on energy games with Galois connections has been published in @lb2025galoisEnergyGames.
 ::::
 
-\noindent
 Time to get real.
 This chapter will demonstrate my core approach by solving the spectroscopy problem in an *easy* instance.
 
@@ -778,9 +777,9 @@ Proof by induction on the inductive characterizations of attacker winning budget
 2. Assume $e ∈ \attackerwins^{\gamebisimen}((α, p', q))$.
   This means that $e$ suffices for the attacker to win every move $(α, p', q) \gamemoveblank^🗲_\notionname{B} [p', q']$ with $q \step{α} q'$ that the defender might take, with $e ∈ \attackerwins([p', q'])$.
   For each $q'$, we employ the induction hypothesis to obtain $ψ_{q'} ∈ \strat_\notionname{B}([p', q'], e)$ of form $ψ_{q'} = \hmlobs{α}φ'$ or $\hmlneg\hmlobs{α}φ'$ with $\hmlands\set{ψ_{q'}} ∈ \observationsvar[\literal{peasy}]{e}$, $p' ∈ \semantics{ψ_{q'}}$ and $q' \notin \semantics{ψ_{q'}}$.
-  By @def-strategy-formulas-poly, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'}) ∈ \strat_\notionname{B}((α, p', q), e)$.
-  By the $\hml$ semantics, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'})$ must be true for $p'$, and also taking the semantics of observation, $\hmlobs{α}(\hmland{q'}{\derivatives{q, α}} ψ_{q'})$ false for $q$.
-  Moreover, $(\hmland{q'}{\derivatives{q, α}} ψ_{q'}) ∈ \observationsvar[\literal{peasy}]{e}$ by the grammar.\qedhere 
+  By @def-strategy-formulas-poly, $(\smash{\hmland{q'}{\derivatives{q, α}}} ψ_{q'}) ∈ \strat_\notionname{B}((α, p', q), e)$.
+  By the $\hml$ semantics, $(\smash{\hmland{q'}{\derivatives{q, α}}} ψ_{q'})$ must be true for $p'$, and also taking the semantics of observation, $\hmlobs{α}(\smash{\hmland{q'}{\derivatives{q, α}}} ψ_{q'})$ false for $q$.
+  Moreover, $(\smash{\hmland{q'}{\derivatives{q, α}}} ψ_{q'}) ∈ \observationsvar[\literal{peasy}]{e}$ by the grammar.\qedhere 
 :::
 
 We have thus established how to connect from energies to notions through formulas.

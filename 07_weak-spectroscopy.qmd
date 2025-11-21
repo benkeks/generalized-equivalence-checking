@@ -46,71 +46,73 @@ On the next pages, we *upgrade the spectroscopy game* of @sec-strong-spectro-gam
 The weak spectroscopy game, in many respects, is just like the spectroscopy games we have already discussed:
 The attacker, trying to distinguish states, has different paths that move closely along the productions of the $\hmlsrbb$-grammar (@def-hml-srbb).
 But this time, there are *four* different kinds of non-empty conjunctions!
-This makes the following schematic depiction in @fig-weak-spectroscopy-game-schematic already look quite entangled.
+This makes the schematic depiction in @fig-weak-spectroscopy-game-schematic already look quite entangled.
 
 :::{#fig-weak-spectroscopy-game-schematic fig-env='figure*' fig-pos='t'}
 ```tikz
 %%| image-class: lightbox
-\begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm, rel/.style={dashed,font=\it},
-  posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
-  \node[posStyle, initial, initial text={}]
-    (Att){$\attackerpos{p,Q}$};
-  \node[posStyle]
-    (AttDelay) [right = 1.6cm of Att] {$\attackerpos[\varepsilon]{p,Q_\varepsilon}$};
-  \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
-    (Def) [below = 2.2cm of AttDelay] {$\defenderpos{p,Q}$};
-  \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
-    (DefStab) [above right = 1.2cm of Def] {$\defenderpos[s]{p,\set{ q\!\in\!Q_\varepsilon \mid q \nostep{\tau} }}$};
-  \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
-    (DefBranch) [right = 3.3cm of AttDelay] {$\defenderpos[\eta]{p,\alpha,p',Q_\varepsilon \setminus Q_\alpha, Q_\alpha}$};
-  \node[posStyle]
-    (AttBranch) [above=.9cm of DefBranch] {$\attackerpos[\eta]{p',Q'}$};
-  \node[posStyle]
-    (AttConj) [below right = 1.2cm and .2cm of DefStab] {$\attackerpos[\land]{p,q}$};
-  \node[posStyle, dashed, dash pattern={on 1.055045263157895mm off 0.993586315789474mm}, dash phase=0.405943684210525mm]
-    (AttSwap) [right = 2cm of AttConj] {$\attackerpos[\varepsilon]{q,\set{p' \mid p \stepweak p'}}$};
-  \node[posStyle, dashed, dash pattern={on 1.051033684210526mm off 0.989808421052632mm}, dash phase=0.423411578947368mm]
-    (AttContinue) [above = 1.5cm of AttSwap] {$\attackerpos[\varepsilon]{p,\set{q' \mid q \stepweak q'}}$};
-  \node[posStyle, dashed, dash pattern={on 1.03mm off 0.97mm}, dash phase=0.515mm]
-    (AttObs) [right = 2cm of AttBranch] {$\attackerpos{p^\prime,Q^\prime}$};
-  % draw the bottom left corner nicely:
-  \draw[-] (AttSwap.south west) ++(0.2pt,0.2pt) ++(0.07,0) -- ++(-0.07,0) -- ++(0,0.05);
-  \draw[-] (AttContinue.south west) ++(0.2pt,0.2pt) ++(0.07,0) -- ++(-0.07,0) -- ++(0,0.05);
-  \draw[-] (AttObs.south west) ++(0.2pt,0.2pt) ++(0.07,0) -- ++(-0.07,0) -- ++(0,0.05);
+\begin{adjustbox}{trim=1cm 0cm, max width=\linewidth, center}
+  \begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm, rel/.style={dashed,font=\it},
+    posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
+    \node[posStyle, initial, initial text={}]
+      (Att){$\attackerpos{p,Q}$};
+    \node[posStyle]
+      (AttDelay) [right = 1.6cm of Att] {$\attackerpos[\varepsilon]{p,Q_\varepsilon}$};
+    \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
+      (Def) [below = 2.2cm of AttDelay] {$\defenderpos{p,Q}$};
+    \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
+      (DefStab) [above right = 1.2cm of Def] {$\defenderpos[s]{p,\set{ q\!\in\!Q_\varepsilon \mid q \nostep{\tau} }}$};
+    \node[ellipse, draw, inner sep=1ex, minimum size=1cm,minimum width=2cm,fill=gray!5]
+      (DefBranch) [right = 3.3cm of AttDelay] {$\defenderpos[\eta]{p,\alpha,p',Q_\varepsilon \setminus Q_\alpha, Q_\alpha}$};
+    \node[posStyle]
+      (AttBranch) [above=.9cm of DefBranch] {$\attackerpos[\eta]{p',Q'}$};
+    \node[posStyle]
+      (AttConj) [below right = 1.2cm and .2cm of DefStab] {$\attackerpos[\land]{p,q}$};
+    \node[posStyle, dashed, dash pattern={on 1.055045263157895mm off 0.993586315789474mm}, dash phase=0.405943684210525mm]
+      (AttSwap) [right = 2cm of AttConj] {$\attackerpos[\varepsilon]{q,\set{p' \mid p \stepweak p'}}$};
+    \node[posStyle, dashed, dash pattern={on 1.051033684210526mm off 0.989808421052632mm}, dash phase=0.423411578947368mm]
+      (AttContinue) [above = 1.5cm of AttSwap] {$\attackerpos[\varepsilon]{p,\set{q' \mid q \stepweak q'}}$};
+    \node[posStyle, dashed, dash pattern={on 1.03mm off 0.97mm}, dash phase=0.515mm]
+      (AttObs) [right = 2cm of AttBranch] {$\attackerpos{p^\prime,Q^\prime}$};
+    % draw the bottom left corner nicely:
+    \draw[-] (AttSwap.south west) ++(0.2pt,0.2pt) ++(0.07,0) -- ++(-0.07,0) -- ++(0,0.05);
+    \draw[-] (AttContinue.south west) ++(0.2pt,0.2pt) ++(0.07,0) -- ++(-0.07,0) -- ++(0,0.05);
+    \draw[-] (AttObs.south west) ++(0.2pt,0.2pt) ++(0.07,0) -- ++(-0.07,0) -- ++(0,0.05);
 
-  \path
-    (Att) edge
-      node[label={-90:$\textcolor{gray}{\zerovec}$}] {$Q \stepweak Q_\varepsilon$} (AttDelay)
-    (Att) edge[bend right=15]
-      node[pos = .4, label={-150:$\textcolor{gray}{\zerovec}$}] {$Q = \varnothing$} (Def)
-    (Att) edge[bend right=60]
-      node[pos = .6, label={-130:$\textcolor{gray}{-\unitvec{5}}$}] {$Q \neq \varnothing$} (Def)
-    (AttDelay) edge [out=155,in=115,looseness=4, pos=.6] node {$p \step{\tau} \ldots\; \textcolor{gray}{\zerovec}$} (AttDelay)
-    (AttDelay.north) edge[bend left=28]
-      node[pos=.3, align=center, label={[label distance=0.0cm]-30:$\textcolor{gray}{-\unitvec{1}}$}] {$p\step{a}p'$\\ $Q_\varepsilon \step{a} Q'$} (AttObs)
-    (AttDelay) edge
-      node[pos =.3, label={[label distance=0cm]-180:$\textcolor{gray}{\zerovec}$}] {$Q = Q_\varepsilon$} (Def)
-    (AttDelay) edge
-      node[pos=.7,label={[label distance=0.2cm]-175:$\textcolor{gray}{\zerovec}$}] {$p \nostep{\tau}$} (DefStab)
-    (AttDelay) edge
-      node[pos=.65,align=center,label={[label distance=0cm]-90:$\textcolor{gray}{\zerovec}$}] {$p \stepsoft{\alpha} p'$\\$Q_\alpha \subseteq Q_\varepsilon$} (DefBranch)
-    (Def) edge[bend right=17]
-      node[pos=.85, label={[label distance=0.1cm]-100:$\textcolor{gray}{-\unitvec{3}}$}] {$q \in Q$} (AttConj)
-    (DefStab) edge[bend right=10]
-      node[align=right, pos=.85, label={[label distance=0.3cm]-170:$\textcolor{gray}{-\unitvec{4}}$}] {\mbox{}\hspace*{-1.5em}$q \in Q_\varepsilon$\\[2pt]\mbox{}\hspace*{-1.5em}$q \nostep{\tau}$} (AttConj)
-    (DefStab) edge[bend left=10]
-      node[align=right, pos=.2, label={[label distance=0.3cm]165:$\textcolor{gray}{-\unitvec{4}-\unitvec{8}}$}] {\mbox{}\hspace*{-3em}$\varnothing = Q = \mbox{}$\\[2pt]\mbox{}\hspace*{-3em}$\set{ q\!\in\!Q_\varepsilon \mid q \nostep{\tau} }\;$} (Def)
-    (AttConj) edge[bend left=10]
-      node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{1,6},0,0,0,0,0,0,0}$}] {} (AttContinue)
-    (AttConj) edge[bend right=15]
-      node[above, label={270:$\textcolor{gray}{\updmin{1,7},0,0,0,0,0,0,-1}$}] {$p \neq q$} (AttSwap)
-    (DefBranch) edge
-      node[pos=.42, label={[label distance=0.1cm]-0:$\textcolor{gray}{\updmin{1,6},-1,-1,0,0,0,0,0}$}] {$Q_\alpha\! \stepsoft{\alpha} Q'$} (AttBranch)
-    (AttBranch) edge
-      node[below]{$\textcolor{gray}{-\unitvec{1}}$} (AttObs)
-    (DefBranch) edge[bend left=5]
-      node[pos=.07, align=center, label={[label distance=0.05cm]-180:$\textcolor{gray}{-\unitvec{2}-\unitvec{3}}$}] {$q \in Q_\varepsilon \setminus Q_\alpha$} (AttConj);
-\end{tikzpicture}
+    \path
+      (Att) edge
+        node[label={-90:$\textcolor{gray}{\zerovec}$}] {$Q \stepweak Q_\varepsilon$} (AttDelay)
+      (Att) edge[bend right=15]
+        node[pos = .4, label={-150:$\textcolor{gray}{\zerovec}$}] {$Q = \varnothing$} (Def)
+      (Att) edge[bend right=60]
+        node[pos = .6, label={-130:$\textcolor{gray}{-\unitvec{5}}$}] {$Q \neq \varnothing$} (Def)
+      (AttDelay) edge [out=155,in=115,looseness=4, pos=.6] node {$p \step{\tau} \ldots\; \textcolor{gray}{\zerovec}$} (AttDelay)
+      (AttDelay.north) edge[bend left=28]
+        node[pos=.3, align=center, label={[label distance=0.0cm]-30:$\textcolor{gray}{-\unitvec{1}}$}] {$p\step{a}p'$\\ $Q_\varepsilon \step{a} Q'$} (AttObs)
+      (AttDelay) edge
+        node[pos =.3, label={[label distance=0cm]-180:$\textcolor{gray}{\zerovec}$}] {$Q = Q_\varepsilon$} (Def)
+      (AttDelay) edge
+        node[pos=.7,label={[label distance=0.2cm]-175:$\textcolor{gray}{\zerovec}$}] {$p \nostep{\tau}$} (DefStab)
+      (AttDelay) edge
+        node[pos=.65,align=center,label={[label distance=0cm]-90:$\textcolor{gray}{\zerovec}$}] {$p \stepsoft{\alpha} p'$\\$Q_\alpha \subseteq Q_\varepsilon$} (DefBranch)
+      (Def) edge[bend right=17]
+        node[pos=.85, label={[label distance=0.1cm]-100:$\textcolor{gray}{-\unitvec{3}}$}] {$q \in Q$} (AttConj)
+      (DefStab) edge[bend right=10]
+        node[align=right, pos=.85, label={[label distance=0.3cm]-170:$\textcolor{gray}{-\unitvec{4}}$}] {\mbox{}\hspace*{-1.5em}$q \in Q_\varepsilon$\\[2pt]\mbox{}\hspace*{-1.5em}$q \nostep{\tau}$} (AttConj)
+      (DefStab) edge[bend left=10]
+        node[align=right, pos=.2, label={[label distance=0.3cm]165:$\textcolor{gray}{-\unitvec{4}-\unitvec{8}}$}] {\mbox{}\hspace*{-3em}$\varnothing = Q = \mbox{}$\\[2pt]\mbox{}\hspace*{-3em}$\set{ q\!\in\!Q_\varepsilon \mid q \nostep{\tau} }\;$} (Def)
+      (AttConj) edge[bend left=10]
+        node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{1,6},0,0,0,0,0,0,0}$}] {} (AttContinue)
+      (AttConj) edge[bend right=15]
+        node[above, label={270:$\textcolor{gray}{\updmin{1,7},0,0,0,0,0,0,-1}$}] {$p \neq q$} (AttSwap)
+      (DefBranch) edge
+        node[pos=.42, label={[label distance=0.1cm]-0:$\textcolor{gray}{\updmin{1,6},-1,-1,0,0,0,0,0}$}] {$Q_\alpha\! \stepsoft{\alpha} Q'$} (AttBranch)
+      (AttBranch) edge
+        node[below]{$\textcolor{gray}{-\unitvec{1}}$} (AttObs)
+      (DefBranch) edge[bend left=5]
+        node[pos=.07, align=center, label={[label distance=0.05cm]-180:$\textcolor{gray}{-\unitvec{2}-\unitvec{3}}$}] {$q \in Q_\varepsilon \setminus Q_\alpha$} (AttConj);
+  \end{tikzpicture}
+\end{adjustbox}
 ```
 
 Schematic weak spectroscopy game of @def-weak-spectroscopy-game.
@@ -135,6 +137,8 @@ consists of
 - **new:** *defender branching positions* $\defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha} \in G_\defender$,
 
 where $p, q \in \states$ and $Q, Q_\alpha \in \powerset{\states}$, and the following sixteen kinds of moves.{{<isb inductive Spectroscopy_Game LTS_Tau.spectroscopy_moves>}}
+
+::::{.content-visible unless-profile="foc"}
 
 Moves to allow *internal behavior* “$\hmleps \dots$” between observations:
 $$
@@ -219,7 +223,6 @@ $$
   & \defenderpos{p,\varnothing},
 \end{array}
 $$
-:::
 and moves to encode *branching conjunctions* “$\hmlands \set{\hmlsoft{\alpha}\varphi, \psi, \psi, ...}$”:
 $$
 \begin{array}{rrcll}
@@ -247,6 +250,123 @@ $$
   & \attackerpos{p,Q}.
 \end{array}
 $$
+::::
+
+::::{.content-visible when-profile="foc"}
+
+Moves to allow *internal behavior* “$\hmleps \dots$” between observations:
+$$
+\begin{array}{rrcll}
+  \textit{delay}
+  & \attackerpos{p,Q}
+  & \gamemove{0,0,0,0,0,0,0,0}
+  & \attackerpos[\varepsilon]{p,Q'}
+  & \text{if $Q \stepweak Q'$,}
+  \\
+  \textit{procrastination}
+  & \attackerpos[\varepsilon]{p,Q}
+  & \gamemove{0,0,0,0,0,0,0,0}
+  & \attackerpos[\varepsilon]{p',Q}
+  & \text{if $p \step{\tau} p'$, $p \neq p'$,}
+\end{array}
+$$
+moves to represent the *known $\hml$ constructs* “$\hmlobs{a}\dots$”, “$\hmlands \set{\dots}$”, and “$\hmlneg \dots$” in the now *two* contexts:
+$$
+\begin{array}{rrcll}
+  \textit{observation}
+  & \attackerpos[\varepsilon]{p,Q}
+  & \gamemove{-1,0,0,0,0,0,0,0}
+  & \attackerpos{p',Q'}
+  & \text{if $p \step{a} p'\!$, $Q \step{a} Q'\!$, $a \neq \tau$,}
+  \\
+  \textit{finishing}
+  & \attackerpos{p,\varnothing}
+  & \gamemove{0,0,0,0,0,0,0,0}
+  & \defenderpos{p,\varnothing},
+  &
+  \\
+  \textit{immediate conj.}
+  & \attackerpos{p,Q}
+  & \gamemove{0,0,0,0,-1,0,0,0}
+  & \defenderpos{p,Q}
+  & \text{if $Q \neq \varnothing$,}
+  \\
+  \textit{late conj.}
+  & \attackerpos[\varepsilon]{p,Q}
+  & \gamemove{0,0,0,0,0,0,0,0}
+  & \defenderpos{p,Q},
+  &
+  \\
+  \textit{conj. answer}
+  & \defenderpos{p,Q}
+  & \gamemove{0,0,-1,0,0,0,0,0}
+  & \attackerpos[\land]{p,q}
+  & \text{if $q \in Q$,}
+  \\
+  \textit{positive conjunct}
+  & \attackerpos[\land]{p,q}
+  & \gamemove{\updmin{1,6},0,0,0,0,0,0,0}
+  & \attackerpos[\varepsilon]{p,Q}
+  & \text{if $\set{q} \stepweak Q$,}
+  \\
+  \textit{negative conjunct}
+  & \attackerpos[\land]{p,q}
+  & \gamemove{\updmin{1,7},0,0,0,0,0,0,-1}
+  & \attackerpos[\varepsilon]{q,Q}
+  & \text{if $\set{p} \stepweak Q$ and $p \neq q$,}
+\end{array}
+$$
+moves to encode *stable conjunctions* “$\hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue, \psi, \psi, ...}$”:
+$$
+\begin{array}{rrcll}
+  \textit{stable conj.}\vphantom{I^{I^I}}
+  & \attackerpos[\varepsilon]{p,Q}
+  & \gamemove{0,0,0,0,0,0,0,0}
+  & \defenderpos[s]{p,Q'}
+  & \text{if } Q' = \set{ q \in Q \mid q \nostep{\tau}}, p \nostep{\tau},
+  \\
+  \textit{stable conj. answer}
+  & \defenderpos[s]{p,Q}
+  & \gamemove{0,0,0,-1,0,0,0,0}
+  & \attackerpos[\land]{p,q}
+  & \text{if $q \in Q$,}
+  \\
+  \textit{stable finishing}
+  & \defenderpos[s]{p,\varnothing}
+  & \gamemove{0,0,0,-1,0,0,0,-1}
+  & \defenderpos{p,\varnothing},
+\end{array}
+$$
+and moves to encode *branching conjunctions* “$\hmlands \set{\hmlsoft{\alpha}\varphi, \psi, \psi, ...}$”:
+$$
+\begin{array}{rrcl}
+  \textit{branching conj.}\vphantom{I^{I^I}}
+  & \attackerpos[\varepsilon]{p,Q}
+  & \gamemove{0,0,0,0,0,0,0,0}
+  & \defenderpos[\eta]{p,\alpha,p'\!,Q \setminus Q_\alpha,Q_\alpha}
+  \\ & & &  \text{if $p \stepsoft{\alpha} p'\!$, $Q_\alpha \subseteq Q$,}
+  \\
+  \textit{branch. answer}
+  & \defenderpos[\eta]{p,\alpha,p'\!,Q,Q_\alpha}
+  & \gamemove{0,-1,-1,0,0,0,0,0}
+  & \attackerpos[\land]{p,q}
+  \\ & & & \text{if $q \in Q$,}
+  \\
+  \textit{branch. observation}
+  & \defenderpos[\eta]{p,\alpha,p'\!,Q,Q_\alpha}
+  & \gamemove{\updmin{1,6},-1,-1,0,0,0,0,0}
+  & \attackerpos[\eta]{p',Q'}
+  \\ & & & \text{with $Q_\alpha \stepsoft{\alpha} Q'$,}
+  \\
+  \textit{branch. accounting}
+  & \attackerpos[\eta]{p,Q}
+  & \gamemove{-1,0,0,0,0,0,0,0}
+  & \attackerpos{p,Q}.
+\end{array}
+$$
+::::
+:::
+
 Intuitively, the attacker is heavily weakened in the weak spectroscopy game due to the requirement to pass delay-moves in order to formulate observation attacks.
 Following @idea-weakening-game, these moves grow the right-hand-sets, which increases defender options.
 At the same time, there are several new tactical possibilities for the attacker that correspond to the special weak conjunctions, as can be seen in the following example.
@@ -326,6 +446,8 @@ Establishing correctness now proceeds mostly as we are used to from @sec-correct
 This subsection limits itself to citing the lemma heads and the inductive predicates used in the full proofs of @bj2025silentStepSpectroscopyJournal.
 
 The following facts moreover have been fully formalized in Isabelle/HOL, which will be the topic of the following @sec-isabelle-formalization.
+
+:::: {.content-visible unless-profile="foc"}
 
 ::: {#def-strategy-formulas-weak}
 #### Strategy formulas for $\gamespectroscopyw$
@@ -462,6 +584,153 @@ $$
 
 Strategy formulas for the weak spectroscopy.
 :::
+
+::::
+
+:::: {.content-visible when-profile="foc"}
+
+::: {#def-strategy-formulas-weak}
+#### Strategy formulas for $\gamespectroscopyw$
+
+The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas and @fig-weak-spectroscopy-strategy-formulas-cont.{{<isb inductive Strategy_Formulas weak_spectroscopy_game.strategy_formula>}}
+:::
+
+:::{#fig-weak-spectroscopy-strategy-formulas .column-body-outset fig-pos='t' fig-env="figure*"}
+$$
+\inferrule[delay]{
+  \attackerpos{p,Q} \gamemove{u} \attackerpos[\varepsilon]{p,Q'} \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{p,Q'}) \quad
+  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q'}, e')
+} {
+  \hmleps\chi \in \stratweak(\attackerpos{p,Q}, e)
+}
+$$
+$$
+\inferrule[procrastination]{
+  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \attackerpos[\varepsilon]{p',Q} \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{p',Q}) \\
+  \chi \in \stratweak(\attackerpos[\varepsilon]{p',Q}, e')
+} {
+  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
+}
+$$
+$$
+\inferrule[observation]{
+  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \attackerpos{p',Q'} \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos{p',Q'}) \\
+  p \step{a} p' \quad
+  Q \step{a} Q' \quad
+  \varphi \in \stratweak(\attackerpos{p',Q'}, e')
+} {
+  \hmlobs{a}\varphi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
+}
+$$
+$$
+\inferrule[immediate\, conj.]{
+  \attackerpos{p,Q} \gamemove{u} \defenderpos{p,Q} \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos{p,Q}) \\
+  \varphi \in \stratweak(\defenderpos{p,Q}, e')
+} {
+  \varphi \in \stratweak(\attackerpos{p,Q}, e)
+}
+$$
+$$
+\inferrule[late\, conj.]{
+  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos{p,Q} \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos{p,Q}) \\
+  \chi \in \stratweak(\defenderpos{p,Q}, e')
+} {
+  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
+}
+$$
+$$
+\inferrule[conj.\, answer]{
+  \defenderpos{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \\
+  \forall q \in Q \ldotp \;
+  e_q = \energyupdate(u_q, e) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
+  \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
+} {
+  \hmlands\set{ \psi_q \mid q \in Q} \in \stratweak(\defenderpos{p,Q}, e)
+}
+$$
+$$
+\inferrule[positive\, conjunct]{
+  \attackerpos[\land]{p,q} \gamemove{u} \attackerpos[\varepsilon]{p,Q'} \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{p,Q'}) \\
+  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q'}, e')
+} {
+  \hmleps\chi \in \stratweak(\attackerpos[\land]{p,q}, e)
+}
+$$
+$$
+\inferrule[negative\, conjunct]{
+  \attackerpos[\land]{p,q} \gamemove{u} \attackerpos[\varepsilon]{q,P'} \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{q,P'}) \\
+  \chi \in \stratweak(\attackerpos[\varepsilon]{q,P'}, e')
+} {
+  \hmlneg \hmleps\chi \in \stratweak(\attackerpos[\land]{p,q}, e)
+}
+$$
+
+Strategy formulas for the weak spectroscopy (continues in @fig-weak-spectroscopy-strategy-formulas-cont).
+:::
+
+:::{#fig-weak-spectroscopy-strategy-formulas-cont .column-body-outset fig-pos='t' fig-env="figure*"}
+$$
+\inferrule[stable\, conj.]{
+  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos[s]{p,Q'} \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos[s]{p,Q'}) \\
+  \chi \in \stratweak(\defenderpos[s]{p,Q'}, e')
+} {
+  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
+}
+$$
+$$
+\inferrule[stable\, conj.\, answer]{
+  \defenderpos[s]{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \quad
+  Q \neq \varnothing \\
+  \forall q \in Q \ldotp \;
+  e_q = \energyupdate(u_q, e) \in \attackerwins(\attackerpos[\land]{p,q}) \\ \; \land \;
+  \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
+} {
+  \hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \set{ \psi_q \mid q \in Q }\right) \in \stratweak(\defenderpos[s]{p,Q}, e)
+}
+$$
+$$
+\inferrule[stable\, finishing]{
+  \defenderpos[s]{p,\varnothing} \gamemove{u} \defenderpos{p,\varnothing} \quad
+  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos{p,\varnothing})
+} {
+  \hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue } \in \stratweak(\defenderpos[s]{p,Q}, e)
+}
+$$
+$$
+\inferrule[branching\, conj.]{
+  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha} \\
+  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha}) \\
+  \chi \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha}, e')
+} {
+  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
+}
+$$
+$$
+\inferrule[branch.\, answer]{
+  g_\mathrm{d} = \defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha} \gamemove{u_\alpha} \attackerpos[\eta]{p',Q'} \gamemove{u'_\alpha} \attackerpos{p',Q'} \\
+  e_\alpha = \energyupdate(u'_\alpha, \energyupdate(u_\alpha, e)) \in \attackerwins(\attackerpos{p',Q'}) \\
+  \varphi_\alpha \in \stratweak(\attackerpos{p',Q'}, e_\alpha)\\
+  \forall q \in Q \ldotp \;
+  g_\mathrm{d} \gamemove{u_q} \attackerpos[\land]{p,q} \; \land \;
+  e_q = \energyupdate(u_q, e) \in \attackerwins(\attackerpos[\land]{p,q}) \\ \; \land \;
+  \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
+} {
+  \hmlands \left(\set{\hmlsoft{\alpha} \varphi_\alpha } \cup \set{ \psi_q \mid q \in Q }\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha}, e)
+}
+$$
+
+Strategy formulas for the weak spectroscopy (cont.).
+:::
+
+::::
 
 Attacker winning budgets can be translated into strategy formulas of matching price, as illustrated in @exm-phil-weak-spectroscopy.
 
@@ -961,7 +1230,7 @@ The *simplified* weak spectroscopy game $\gamespectroscopywsimple$ in @fig-weak-
 %%| image-class: lightbox
 %\definecolor{etaColor}{cmyk}{0.8, 0, 0, 0.3}
 \colorlet{etaColor}{TealBlue}
-\begin{adjustbox}{max width=\linewidth, center}
+\begin{adjustbox}{trim=1cm 0cm, max width=\linewidth, center}
   \begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm, rel/.style={dashed,font=\it},
     posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,black,fill=gray!5},
     specialStyle/.style={draw=etaColor, fill=etaColor!3},
@@ -1115,7 +1384,7 @@ The previous dimensions 7 and 8 now come 8th and 9th.
 \definecolor{etaColor}{RGB}{100,100,100}%{cmyk}{0.8, 0, 0, 0.3}
 %\definecolor{stabilityColor}{cmyk}{0, 0.7, 0.7, 0.4}
 \colorlet{stabilityColor}{TealBlue}
-\begin{adjustbox}{max width=\linewidth, center}
+\begin{adjustbox}{trim=1cm 0cm, max width=\linewidth, center}
   \begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm, rel/.style={dashed,font=\it},
     posStyle/.style={draw, inner sep=1ex,minimum size=1cm,minimum width=2cm,anchor=center,draw,black,fill=gray!5}]
       \node[posStyle, initial, initial text={}]

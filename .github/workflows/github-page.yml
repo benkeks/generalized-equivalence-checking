@@ -72,6 +72,10 @@ jobs:
             marginfix
             hyphenat
             substr
+            pdfx
+            colorprofiles
+            xmpincl
+            footmisc
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2

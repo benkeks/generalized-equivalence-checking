@@ -906,9 +906,13 @@ Visualization of Galois connections according to @def-galois-connection.
 
 <!-- the code needs to be copied as Quarto's contents shortcode does not manage to move the margin figures... -->
 
-::::: {layout="[6,-0.5,6]" layout-valign="bottom"}
+```{=latex}
+\begin{figure}[t]
 
-:::::: {#fig-galois-connection}
+\begin{minipage}[b]{0.48\textwidth}
+```
+
+:::::: {#fig-galois-connection fig-pos="H"}
 ```tikz
 \begin{tikzpicture}[auto, node distance = 1cm, minimum width=.8cm]
   \node (c) {$c$};
@@ -920,6 +924,7 @@ Visualization of Galois connections according to @def-galois-connection.
   \node (a) [above of=aleq] {$a$};
   \node (A) [above of=a] {$A$};
   \node (iff) [right of=cleq, node distance=1.5cm, rotate=-45] {$\iff$};
+  \node (Phantom) [below of=c, node distance=1cm] {$$};
   \path[->]
     (c) edge[bend right=10, swap] node {$α$} (cabs)
     (a) edge[bend right=10, swap] node {$\gamma$} (agamma);
@@ -928,11 +933,16 @@ Visualization of Galois connections according to @def-galois-connection.
 \end{tikzpicture}
 ```
 Visualization of Galois connections according to @def-galois-connection.
-\vspace{\baselineskip}
-<!--TODO: fix valign-->
+\vspace{2\baselineskip}
 ::::::
 
-:::::: {#fig-galois-abstraction-reals}
+```{=latex}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.48\textwidth}
+```
+
+:::::: {#fig-galois-abstraction-reals  fig-pos="H"}
 ```tikz
 \begin{tikzpicture}[]
   \draw[draw=red, thick] (-.25,0) -- ++(.5,0);
@@ -965,7 +975,12 @@ Visualization of Galois connections according to @def-galois-connection.
 ```
 Illustration of the Galois connection of @exm-galois-abstraction-reals between $\reals^{\geq 0}$ and $\nats$ using $\floor{\cdot}$-function, whose mapping is illustrated by the gray triangles.
 ::::::
-:::::
+
+```{=latex}
+\end{minipage}
+\end{figure}
+```
+
 ::::
 
 ::: {#exm-galois-abstraction-reals}
@@ -1411,7 +1426,7 @@ Its undo-update according to @def-declining-upd-inv computes $\energyupdateinv((
 
 @fig-update-vectors shows how updates and undo-updates transform 2D-coordinates.
 
-::::{#fig-update-vectors}
+::::{#fig-update-vectors fig-pos="t"}
 ```tikz
 \begin{tikzpicture}[scale=0.75]
   \begin{axis}[
@@ -1466,7 +1481,7 @@ Its undo-update according to @def-declining-upd-inv computes $\energyupdateinv((
   \end{axis}
 \end{tikzpicture}
 ```
-Effects of updates $\textcolor{TealBlue}{\energyupdate((\updmin{1,2},-1), \cdot)}$ and of their undoing via $\textcolor{DarkViolet}{\energyupdateinv((\updmin{1,2},-1), \cdot)}$.
+Effects of updates $\textcolor{TealBlue}{\energyupdate((\updmin{1,2},-1), \cdot)}$ to coordinates and of their undoing via $\textcolor{DarkViolet}{\energyupdateinv((\updmin{1,2},-1), \cdot)}$.
 ::::
 
 \noindent

@@ -2,7 +2,14 @@
 \input{style/preamble-font.tex}
 \input{style/preamble-layout.tex}
 
-\flushbottom
+\usepackage[a-2b]{pdfx}
+\usepackage[bottom]{footmisc}
+
+%\flushbottom
+
+%\fnbelowfloat
+
+\renewcommand{\floatpagefraction}{.55}
 
 \setlength{\marginparwidth}{0pt}
 \setlength{\marginparsep}{0pt}
@@ -25,8 +32,6 @@
 
 \renewenvironment{marginfigure}{
     \begin{figure}[tbp]
-    %    \begin{adjustbox}{max width=.8\textwidth}
 }{
-    %    \end{adjustbox}
     \end{figure}
 }

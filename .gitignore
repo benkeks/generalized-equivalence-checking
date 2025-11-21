@@ -9,6 +9,7 @@ _project
 site_libs
 _diagrams
 _cache_diagrams
+_latex-output
 
 *.html
 tmp_*

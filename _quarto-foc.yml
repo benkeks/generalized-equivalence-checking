@@ -9,6 +9,7 @@ format:
     colorlinks: true # must be set in order for quarto to load dvipsnames in xcolor for book class ....
     papersize: a5
     keep-tex: true
+    latex-output-dir: _latex-output
     linestretch: 1.0
     geometry:
     - left=1.2cm

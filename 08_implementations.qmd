@@ -29,18 +29,24 @@ In @sec-implementations-discussion, we compare our implementations to similar to
 {{< contents related-8 >}}
 ::::
 
+{{< contents wrapper-fig-equivio-screenshot >}}
+
 ## Prototype: *equiv.io* {#sec-equivio}
 
 The “Linear-time–branching-time spectroscope” at {{< equivio >}} is a small web tool to check equivalence and preorder relations on CCS processes.
 @fig-equivio-screenshot shows a screenshot.
 In this section, we will discuss its usage (@sec-equivio-usage), apply it to the Peterson example (@sec-equivio-peterson), examine the tool structure (@sec-equivio-structure), and benchmark its backend (@sec-benchmarks).
 
-::: {#fig-equivio-screenshot}
+:::: {#wrapper-fig-equivio-screenshot}
+
+::: {#fig-equivio-screenshot fig-pos="b"}
 
 ![](img/equivio-peterson.png){.lightbox}
 
 Screenshot of {{< equivio >}}.
 :::
+
+::::
 
 ### Usage {#sec-equivio-usage}
 

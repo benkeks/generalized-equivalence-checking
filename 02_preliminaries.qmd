@@ -1556,7 +1556,7 @@ attack positions $G_\attacker ≔ \states × \states$ and defense positions $G_\
 A schematic depiction of the game rules can be seen in @fig-game-scheme.
 From dashed nodes, the game proceeds analogously to the initial attacker position.
 
-::: {#fig-game-scheme fig-pos='t'}
+::: {#fig-game-scheme fig-pos='tp'}
 
 ```tikz
 \begin{tikzpicture}[>->,shorten <=1pt,shorten >=0.5pt,auto,node distance=2cm, rel/.style={dashed,font=\it},
@@ -1585,7 +1585,7 @@ Game scheme of the bisimulation game $\gamebisim$ (@def-bisim-game).
 Consider $\literal{p_{even}} \beq{B} \literal{p_{odd}}$ of @exm-graph-isomorphism.
 The bisimulation game on this system is given by @fig-bisim-game-even-odd:
 
-:::: {#fig-bisim-game-even-odd fig-pos="ht"}
+:::: {#fig-bisim-game-even-odd fig-pos="tp"}
   ```tikz
   \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=3cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=2.25cm, anchor=center, draw, black, fill=gray!5},
@@ -1620,7 +1620,6 @@ The bisimulation game on this system is given by @fig-bisim-game-even-odd:
   Moves are annotated with the game rules from which they derive.
 ::::
 
-\noindent
 Clearly, there is no way for the attacker to get the defender stuck.
 Whatever strategy the attacker chooses, the game will go on forever, leading to a win for the defender.
 That it is always safe for the defender to *answer* with moves to $[\literal{p_{even}}, \literal{p_{odd}}]$ and $[\literal{p_{odd}}, \literal{p_{even}}]$ corresponds to $\rel R ≔ \set{(\literal{p_{even}}, \literal{p_{odd}}), (\literal{p_{odd}}, \literal{p_{even}})}$ being a bisimulation.
@@ -1644,7 +1643,7 @@ Along this sequence of positions, the defender never has a choice and is stuck i
 The attacker exploits, that $\literal{T}$ can reach an early deadlock via $\literal{T} \step{\tau} \troll$.
 :::
 
-::: {#fig-bisim-sim-game fig-pos='t' fig-env="figure*" .column-body-outset}
+::: {#fig-bisim-sim-game fig-pos='tp' fig-env="figure*" .column-body-outset}
 ```tikz
 %%| image-class: lightbox
 \begin{adjustbox}{trim=1cm 0cm, max width=\linewidth, center}

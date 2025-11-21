@@ -22,9 +22,19 @@ function CodeBlock(block)
   end
 
   local prevent_link = block.text:find("@nolink")
-  if prevent_link or quarto.project.profile:find("foc") then
+  if prevent_link then
     block.text = block.text:gsub("@nolink", ""):gsub("^%s+", "")
     return block
+  elseif quarto.project.profile:find("foc") and quarto.doc.isFormat('pdf') then
+    return
+      pandoc.Blocks {
+        pandoc.RawBlock(
+          "latex",
+          "\\vspace{.9\\baselineskip}\\protect\\tabto*{-.3cm}\\makebox[0cm]{\\href{https://equiv.io/\\#code=" ..
+            encoded_snippet .. "}{$\\scriptstyle\\triangle$}}\\tabto*{\\TabPrevPos}\\vspace{-1.9\\baselineskip}"
+        ),
+        block,
+      }
   else
     return
       pandoc.Blocks {

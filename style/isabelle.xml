@@ -5,6 +5,7 @@
     <list name="outer_keywords">
       <item>theory</item>
       <item>locale</item>
+      <item>sublocale</item>
       <item>interpretation</item>
       <item>context</item>
       <item>datatype</item>

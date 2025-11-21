@@ -136,7 +136,7 @@ consists of
 - **new:** *defender stable conjunction positions* $\defenderpos[s]{p,Q} \in G_\defender$,
 - **new:** *defender branching positions* $\defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha} \in G_\defender$,
 
-where $p, q \in \states$ and $Q, Q_\alpha \in \powerset{\states}$, and the following sixteen kinds of moves.{{<isb inductive Spectroscopy_Game LTS_Tau.spectroscopy_moves>}}
+where $p, q \in \states$ and $Q, Q_\alpha \in \powerset{\states}$, and the following sixteen kinds of moves.{{<isb inductive Spectroscopy_Game lts_tau.spectroscopy_moves>}}
 
 ::::{.content-visible unless-profile="foc"}
 
@@ -452,7 +452,7 @@ The following facts moreover have been fully formalized in Isabelle/HOL, which w
 ::: {#def-strategy-formulas-weak}
 #### Strategy formulas for $\gamespectroscopyw$
 
-The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas.{{<isb inductive Strategy_Formulas weak_spectroscopy_game.strategy_formula>}}
+The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas.{{<isb inductive Strategy_Formulas lts_tau.strategy_formula>}}
 :::
 
 :::{#fig-weak-spectroscopy-strategy-formulas .column-body-outset fig-pos='p' fig-env="figure*"}
@@ -592,7 +592,7 @@ Strategy formulas for the weak spectroscopy.
 ::: {#def-strategy-formulas-weak}
 #### Strategy formulas for $\gamespectroscopyw$
 
-The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas and @fig-weak-spectroscopy-strategy-formulas-cont.{{<isb inductive Strategy_Formulas weak_spectroscopy_game.strategy_formula>}}
+The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas and @fig-weak-spectroscopy-strategy-formulas-cont.{{<isb inductive Strategy_Formulas lts_tau.strategy_formula>}}
 :::
 
 :::{#fig-weak-spectroscopy-strategy-formulas .column-body-outset fig-pos='t' fig-env="figure*"}
@@ -737,7 +737,7 @@ Attacker winning budgets can be translated into strategy formulas of matching pr
 ::: {#lem-weak-spectroscopy-game-formulas}
 #### Distinction formulatability
 
-If $e \in \attackerwins^{\gamespectroscopyw}(\attackerpos{p,Q})$, then there is $\varphi \in \stratweak (\attackerpos{p,Q}, e)$ with $\expr[\literal{weak}](\varphi) \leq e$.{{<isb lemma Strategy_Formulas weak_spectroscopy_game.winning_budget_implies_strategy_formula>}}
+If $e \in \attackerwins^{\gamespectroscopyw}(\attackerpos{p,Q})$, then there is $\varphi \in \stratweak (\attackerpos{p,Q}, e)$ with $\expr[\literal{weak}](\varphi) \leq e$.{{<isb lemma Strategy_Formulas lts_tau.winning_budget_implies_strategy_formula>}}
 :::
 :::proof
 #### Approach
@@ -770,7 +770,7 @@ We say a formula $\varphi$ distinguishes a state $p \in \states$ from a set of s
 #### Distinction soundness
 
 If $\varphi \in \stratweak(\attackerpos{p,Q}, e)$,
-then $\varphi$ distinguishes $p$ from $Q$.{{<isb lemma Strategy_Formulas weak_spectroscopy_game.strategy_formulas_distinguish>}}
+then $\varphi$ distinguishes $p$ from $Q$.{{<isb lemma Strategy_Formulas lts_tau.strategy_formulas_distinguish>}}
 :::
 :::proof
 #### Approach
@@ -798,7 +798,7 @@ Distinguishing formulas certify the existence of equally cheap ways for the atta
 ::: {#lem-weak-spectroscopy-game-completeness}
 #### Distinction completeness
 
-If $\varphi \in \hmlsrbb$ distinguishes $p$ from $Q$, then $\expr[\literal{weak}](\varphi) \in \attackerwins^{\gamespectroscopyw}(\attackerpos{p,Q})$.{{<isb lemma Distinction_Implies_Winning_Budgets weak_spectroscopy_game.distinction_implies_winning_budgets>}}
+If $\varphi \in \hmlsrbb$ distinguishes $p$ from $Q$, then $\expr[\literal{weak}](\varphi) \in \attackerwins^{\gamespectroscopyw}(\attackerpos{p,Q})$.{{<isb lemma Distinction_Implies_Winning_Budgets lts_tau.distinction_implies_winning_budgets>}}
 :::
 :::proof
 #### Approach
@@ -823,7 +823,7 @@ By mutual structural induction on $\varphi$, $\chi$, and $\psi$ with respect to 
 ::: {#thm-weak-spectroscopy-game-characterization}
 #### $\notions^\literal{weak}$-characterization
 
-For all $N \in \notions^\literal{weak}$, $p \in \states$, $Q \in \powerset{\states}\!$, the following are equivalent:{{<isb theorem Silent_Step_Spectroscopy weak_spectroscopy_game.spectroscopy_game_correctness>}}
+For all $N \in \notions^\literal{weak}$, $p \in \states$, $Q \in \powerset{\states}\!$, the following are equivalent:{{<isb theorem Silent_Step_Spectroscopy lts_tau.spectroscopy_game_correctness>}}
 
 - There exists a formula $\varphi \in \hmlsrbb$ with price $\expr[\literal{weak}](\varphi) \leq N$ that distinguishes $p$ from $Q$.
 - Attacker wins $\gamespectroscopyw^{\system}$ from $\attackerpos{p,Q}$ with energy $N$.
@@ -857,7 +857,7 @@ datatype ('s, 'a) spectroscopy_position =
     (defender_states: ‹'s set›)
     (defender_branch_states: ‹'s set›)
 
-fun spectroscopy_moves (in LTS_Tau) ::
+fun spectroscopy_moves (in lts_tau) ::
   ‹('s, 'a) spectroscopy_position ⇒ ('s, 'a) spectroscopy_position
     ⇒ energy update option›
 where
@@ -867,22 +867,19 @@ where
 | [...]
 ```
 
-The game itself is then built as a combination of the *locale* for transition systems with internal actions `LTS_Tau` (with a transition relation `step`)
-and an `energy_game` locale.
-The latter is instantiated with the moves, a predicate `spectroscopy_defender` singling out defender positions, and the $\leq$-relation on 8-dimensional energies.{{<isb locale Spectroscopy_Game weak_spectroscopy_game>}}
+The game itself is then built within the *locale* for transition systems with internal actions `lts_tau` (with a transition relation `step`)
+using an `energy_game` locale.
+The latter is instantiated with the moves, a predicate `spectroscopy_defender` singling out defender positions, and the $\leq$-relation on 8-dimensional energies.
 
 ```isabelle
-locale weak_spectroscopy_game =
-  LTS_Tau step τ
-  + energy_game ‹spectroscopy_moves› ‹spectroscopy_defender› ‹(≤)›
-  for step :: ‹'s ⇒ 'a ⇒ 's ⇒ bool› (‹_ ↦_ _› [70, 70, 70] 80)
-    and  τ :: 'a
+sublocale weak_spectroscopy_game:
+  energy_game ‹spectroscopy_moves› ‹spectroscopy_defender› ‹(≤)›
 ```
 
 Within the locale, we can establish our correctness results.
 
 The strategy formulas $\stratweak$ appear as three mutually *inductive predicates*,
-because the grammar of $\hmlsrbb$ (@def-hml-srbb) is implemented as three mutually recursive data types (one per non-terminal).{{<isb inductive Strategy_Formulas weak_spectroscopy_game.strategy_formula>}}
+because the grammar of $\hmlsrbb$ (@def-hml-srbb) is implemented as three mutually recursive data types (one per non-terminal).{{<isb inductive Strategy_Formulas lts_tau.strategy_formula>}}
 
 ```isabelle
 inductive
@@ -904,7 +901,7 @@ where
 ```
 
 We then reproduce the induction of @lem-weak-spectroscopy-game-formulas on attacker winning budgets in the following lemma.
-For this, the theory uses the inductive characterization of $\attackerwins$ in @prp-winning-budget-rules as definition for `attacker_wins`.{{<isb lemma Strategy_Formulas weak_spectroscopy_game.winning_budget_implies_strategy_formula>}}
+For this, the theory uses the inductive characterization of $\attackerwins$ in @prp-winning-budget-rules as definition for `attacker_wins`.{{<isb lemma Strategy_Formulas lts_tau.winning_budget_implies_strategy_formula>}}
 
 ```isabelle
 lemma winning_budget_implies_strategy_formula:
@@ -937,7 +934,7 @@ There are superficial differences due to the different medium.
 For instance, note that the inductive predicate in the Isabelle theory has a seventh case for `Attacker_Branch` / $\attackerpos[\eta]{\dots}$ that does not exist in the “paper version” of @lem-weak-spectroscopy-game-formulas.
 This is more natural for the “`case ... of ...`” formulation in the formalization, and addresses a technicality that @bj2025silentStepSpectroscopyJournal handle in the proof body.
 
-The (mutual) induction on the formula structure to establish the distinctiveness of $\stratweak$-formulas of @lem-weak-spectroscopy-game-soundness begins:{{<isb lemma Strategy_Formulas weak_spectroscopy_game.strategy_formulas_distinguish>}}
+The (mutual) induction on the formula structure to establish the distinctiveness of $\stratweak$-formulas of @lem-weak-spectroscopy-game-soundness begins:{{<isb lemma Strategy_Formulas lts_tau.strategy_formulas_distinguish>}}
 
 ```isabelle
 lemma strategy_formulas_distinguish:
@@ -973,7 +970,7 @@ proof (induction rule:
   [...]
 ```
 
-For the other direction, the following expresses distinction completeness (@lem-weak-spectroscopy-game-completeness) that attacks exist for formulas.{{<isb lemma Distinction_Implies_Winning_Budgets weak_spectroscopy_game.distinction_implies_winning_budgets>}}
+For the other direction, the following expresses distinction completeness (@lem-weak-spectroscopy-game-completeness) that attacks exist for formulas.{{<isb lemma Distinction_Implies_Winning_Budgets lts_tau.distinction_implies_winning_budgets>}}
 
 ```isabelle
 lemma distinction_implies_winning_budgets:
@@ -984,7 +981,7 @@ lemma distinction_implies_winning_budgets:
 
 The main theorem @thm-weak-spectroscopy-game-characterization combines the previous facts and the upward-closedness of attacker winning budgets `win_a_upwards_closure`.
 This is quite straightforward.
-The following listing reproduces it in full to convey an idea of what Isar proofs look like.{{<isb theorem Silent_Step_Spectroscopy weak_spectroscopy_game.spectroscopy_game_correctness>}}
+The following listing reproduces it in full to convey an idea of what Isar proofs look like.{{<isb theorem Silent_Step_Spectroscopy lts_tau.spectroscopy_game_correctness>}}
 
 ```isabelle
 theorem spectroscopy_game_correctness:

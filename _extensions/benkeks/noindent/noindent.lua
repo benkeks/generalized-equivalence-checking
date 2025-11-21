@@ -15,9 +15,9 @@ function isb_session(theory)
     Priced_Spectrum = true, Strong_Equivalences = true, Weak_Equivalences = true
   }
   if strong_spectro_theories[theory] then
-    return "https://benkeks.github.io/ltbt-spectroscopy-isabelle/AFP/Lineartime_Branchingtime_Spectrum_I/"
+    return "https://proofs.equiv.io/AFP/Lineartime_Branchingtime_Spectrum_I/"
   else
-    return "https://equivio.github.io/silent-step-spectroscopy/AFP/Weak_Spectroscopy/"
+    return "https://proofs.equiv.io/AFP/Weak_Spectroscopy/"
   end
 end
 

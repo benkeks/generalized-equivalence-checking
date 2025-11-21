@@ -273,7 +273,7 @@ MxIC = tau.ecA.lcA.MxIC + tau.ecB.lcB.MxIC
 
 This query leads to the output in @fig-peterson-spectrum,^[
   This thesis often provides snippets for models on {{< equivio >}}.
-  You can examine and modify the example models by clicking on the links reading `Interactive model on equiv.io`.
+  You can examine and modify the example models by clicking on the [links reading `Interactive model on equiv.io`]{.content-visible unless-profile="foc"}[triangles $\scriptsize\triangle$ next to the listings]{.content-visible when-profile="foc"}.
 ]
 which is to be understood as an interactive version of the linear-time--branching-time spectrum of @fig-ltbts2-paper.
 
@@ -360,7 +360,7 @@ Recurring symbols can be looked up under [Notation](#sec-notation)`~on page~\pag
 
 ```tikz
 %%| image-class: lightbox
-\begin{adjustbox}{max width=\textwidth, center}
+%\begin{adjustbox}{max width=\textwidth, center}
   \begin{tikzpicture}[rounded corners = 5, outer sep=1mm]
   \tikzstyle{every node}=[font=\normalsize, align=center]
     %\draw[help lines] (0,0) grid (12,7.5);
@@ -386,7 +386,7 @@ Recurring symbols can be looked up under [Notation](#sec-notation)`~on page~\pag
 
     \draw[thick] (0,7.5) rectangle node {\textbf{Weak spectroscopy} \\ Chapter \ref{sec-weak-spectroscopy}} (12,6);
   \end{tikzpicture}
-\end{adjustbox}
+%\end{adjustbox}
 ```
 
 The *theory stack* of this thesis.
@@ -433,12 +433,13 @@ You have already seen one such example for Peterson's mutex in @sec-ltbt-spectro
 The source is available openly on <https://github.com/benkeks/equivalence-fiddle>.
 
 {{< paragraph_heading "Isabelle formalization." >}}
-In order to relieve the document of technical proofs, these are contained in machine-checkable *Isabelle/HOL theories*.
+In order to relieve the document of technical proofs, these are contained in machine-checkable *Isabelle/HOL theories* archived on <https://proofs.equiv.io/>.
+They are split into two formalizations:
 
-- *“The weak spectroscopy game to characterize behavioral equivalences”* formalizes the core results of @sec-weak-spectrum and @sec-weak-spectroscopy: <https://equivio.github.io/silent-step-spectroscopy>.
+- *“The weak spectroscopy game to characterize behavioral equivalences”* formalizes the core results of @sec-weak-spectrum and @sec-weak-spectroscopy: <https://proofs.equiv.io/AFP/Weak_Spectroscopy/>.
   The theory [@bhlmmb2025weakSpectroscopyIsabelle] has been developed together with TU Berlin students Barthel, Hübner, Lemke, Mattes, and Mollenkopf.
   Also, many theorems of earlier chapters can be understood to be supported by the formalization.
-- *“Equivalence spectrum formalization”* supplies proofs for @sec-preliminaries and @sec-spectrum: <https://benkeks.github.io/ltbt-spectroscopy-isabelle/>.
+- *“Equivalence spectrum formalization”* supplies proofs for @sec-preliminaries and @sec-spectrum: <https://proofs.equiv.io/AFP/Lineartime_Branchingtime_Spectrum_I/>.
 
 \vspace*{-\medskipamount}
 {{< paragraph_heading "Student theses." >}}

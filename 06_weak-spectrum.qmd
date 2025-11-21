@@ -106,18 +106,18 @@ For a transition system $\system=(\states,\actions,\step{})$ with an *internal a
 we call $\step{\tau}$-transitions “silent” and define the following special transition relations plus HML modalities, where $\actionsvis \defeq \actions \setminus \set{\tau}$ denotes “visible” actions:
 
 Internal transition relation
-: $p \stepweak p'$ iff $p \mathrel{\smash{\step{\tau}}^*} p'$, where $\mathrel{\smash{\step{\tau}}^*}$ is the reflexive transitive closure of silent steps.{{<isb inductive LTS LTS_Tau.silent_reachable>}}
+: $p \stepweak p'$ iff $p \mathrel{\smash{\step{\tau}}^*} p'$, where $\mathrel{\smash{\step{\tau}}^*}$ is the reflexive transitive closure of silent steps.{{<isb inductive LTS lts_tau.silent_reachable>}}
 : The *internal* modality $\hmleps \varphi$ has $p \in \semantics{\hmleps\varphi}$ iff there is $p' \in \semantics{\varphi}$ with $p \stepweak p'$.
 
 Soft transition relation
-: $p \stepsoft{\alpha} p'$ iff $p \step{\alpha} p'$, or if $\alpha = \tau$ and $p = p'$.{{<isb abbreviation LTS LTS_Tau.soft_step>}}
+: $p \stepsoft{\alpha} p'$ iff $p \step{\alpha} p'$, or if $\alpha = \tau$ and $p = p'$.{{<isb abbreviation LTS lts_tau.soft_step>}}
 : We accompany it by the *soft* observation modality $\hmlsoft{\alpha} \varphi$ with $p \in \semantics{\hmlsoft{\alpha}\varphi}$ iff there is $p' \in \semantics{\varphi}$ with $p \stepsoft{\alpha} p'$.
 
 Weak word steps
 : $p \stepweakword{\vec w} p'$ for $\vec w = (w_1 w_2 \dots w_n) \in \actionsvis^*$ iff there is a path with $p_i \stepweak\step{w_{i+1}} p_{i+1}$ for each $0 \leq i < n$ such that $p_0 = p$ and $p_n \stepweak p'$.
 
 Stable state
-: A state $p$ is called *stable* iff $p \nostep{\tau}$.{{<isb abbreviation LTS LTS_Tau.stable_state>}}
+: A state $p$ is called *stable* iff $p \nostep{\tau}$.{{<isb abbreviation LTS lts_tau.stable_state>}}
 : In HML, we can use $\hmlneg\hmlobs{\tau}\hmltrue$ to express stabilization.
 
 Divergent state
@@ -173,11 +173,11 @@ Allow internal $\stepweak$-behavior in between.
 ::: {#def-weak-traces}
 #### Weak traces, preorder, and equivalence
 
-The set of *weak traces* of a state $\wtraces{p} \subseteq \actionsvis^*$ is defined as $\vec w \in \wtraces{p}$ iff there is $p'$ such that $p \stepweakword{\vec w} p'$.{{<isb abbreviation LTS LTS_Tau.weak_traces>}}^[
+The set of *weak traces* of a state $\wtraces{p} \subseteq \actionsvis^*$ is defined as $\vec w \in \wtraces{p}$ iff there is $p'$ such that $p \stepweakword{\vec w} p'$.{{<isb abbreviation LTS lts_tau.weak_traces>}}^[
   The Isabelle theory has a slightly different definition that also allows $\tau$s in the trace words, which do not necessarily stand for proper $\step{\tau}$-steps.
 ]
 
-Two states are *weakly trace-preordered*, $p \bpreord{WT} q$, if $\wtraces{p} ⊆ \wtraces{q}$.{{<isb definition LTS LTS_Tau.weakly_trace_preordered>}}
+Two states are *weakly trace-preordered*, $p \bpreord{WT} q$, if $\wtraces{p} ⊆ \wtraces{q}$.{{<isb definition LTS lts_tau.weakly_trace_preordered>}}
 As before, if both directions are maintained, the states are called *weakly trace-equivalent*, $p \beq{WT} q$.
 :::
 
@@ -302,7 +302,7 @@ The name already alludes to $\hmlsrbb$ as a whole characterizing *stability-resp
 
 We call a relation $\rel R$ *stability-respecting* iff,
 for each $(p,q) \in \rel R$ with $p \nostep{\tau}$,
-there is some $q'$ with $q \stepweak q' \nostep{\tau}$ and $(p, q') \in \rel R$.{{<isb definition LTS LTS_Tau.stability_respecting>}}
+there is some $q'$ with $q \stepweak q' \nostep{\tau}$ and $(p, q') \in \rel R$.{{<isb definition LTS lts_tau.stability_respecting>}}
 :::
 
 ::: {#def-branching-bisim}
@@ -311,7 +311,7 @@ there is some $q'$ with $q \stepweak q' \nostep{\tau}$ and $(p, q') \in \rel R$.
 A symmetric relation $\rel{R}$ is a *branching bisimulation*
 if, for all $(p,q) \in \rel R$, a step $p \step{\alpha} p'$ implies
 (1) $\alpha = \tau$ and $(p', q) \in \rel R$,
-or (2) $q \stepweak q' \step{\alpha} q''$ for some $q'$ and $q''$ with $(p, q') \in \rel R$ and $(p', q'') \in \rel R$.{{<isb definition Branching_Bisimilarity LTS_Tau.branching_simulation>}}
+or (2) $q \stepweak q' \step{\alpha} q''$ for some $q'$ and $q''$ with $(p, q') \in \rel R$ and $(p', q'') \in \rel R$.{{<isb definition Branching_Bisimilarity lts_tau.branching_simulation>}}
 
 If there is a stability-respecting branching bisimulation $\rel R_{BB^{sr}}$ with $(p_0, q_0) \in \rel R_{BB^{sr}}$, then $p_0$ and $q_0$ are *stability-respecting branching bisimilar*.
 :::
@@ -323,7 +323,7 @@ The power of @def-hml-srbb to distinguish mirrors exactly the power of @def-bran
 
 $\hmlsrbb$ characterizes stability-respecting branching bisimilarity, that is,
 there is a stability-respecting branching bisimulation $\rel R$ with $(p,q) \in \rel R$
-precisely if there is no formula $\varphi \in \hmlsrbb$ with $p \in \semantics{\varphi}$ and $q \notin \semantics{\varphi}$.{{<isb lemma Branching_Bisimilarity LTS_Tau.sr_branching_bisim_is_hmlsrbb>}}
+precisely if there is no formula $\varphi \in \hmlsrbb$ with $p \in \semantics{\varphi}$ and $q \notin \semantics{\varphi}$.{{<isb lemma Branching_Bisimilarity lts_tau.sr_branching_bisim_is_hmlsrbb>}}
 :::
 
 The paper proof in @bj2025silentStepSpectroscopyJournal proceeds quite similarly to other Hennessy–Milner theorems, as showcased in @thm-hennessy-milner.
@@ -350,7 +350,7 @@ A formal argument would be that $\identity{\states} \cup \set{(\literal{P_{ab}},
 It is a popular anecdote among those who know branching bisimilarity that, originally, a trivial proof of transitivity was “assumed,” but turned out not to exist.
 Six years after branching bisimilarity's inception, “Branching bisimilarity is an equivalence indeed!” by @bastern1996branchingBisimEqIndeed closed the gap with a proof that is surprisingly complex.
 
-In our setting, the transitivity is an *immediate corollary* of having a modal characterization (@thm-srbb-characterization).{{<isb lemma Branching_Bisimilarity LTS_Tau.sr_branching_bisimulated_transitive>}}
+In our setting, the transitivity is an *immediate corollary* of having a modal characterization (@thm-srbb-characterization).{{<isb lemma Branching_Bisimilarity lts_tau.sr_branching_bisimulated_transitive>}}
 This is one of the perks of modal characterizations, indeed (cf. @sec-perks-modal-characterizations).
 :::
 
@@ -958,7 +958,7 @@ The subset $\observations[\literal{weak}]{WT} = \observationsvar[\literal{weak}]
               \grammaror \hmltrue
               \qquad \text{with $a \in \actionsvis$.}
 \end{align*}
-There is a formula $\varphi \in \observations[\literal{weak}]{WT}$ distinguishing $p$ from $q$ precisely if $p$ is *not* weakly trace-preordered to $q$.{{<isb lemma Weak_Traces LTS_Tau.trace_equals_trace_to_formula>}}
+There is a formula $\varphi \in \observations[\literal{weak}]{WT}$ distinguishing $p$ from $q$ precisely if $p$ is *not* weakly trace-preordered to $q$.{{<isb lemma Weak_Traces lts_tau.trace_equals_trace_to_formula>}}
 :::
 :::proof
 For a word $\vec{w} = a_1 \dots a_n \in \actionsvis^*$, the formula $\hmleps\hmlobs{a_1}\dots\hmleps\hmlobs{a_n}\hmleps\hmltrue \in \observations[\literal{weak}]{WT}$ is true for a state $p$ precisely if there is a $p'$ such that $p \stepweakword{\vec{w}} p'$, that is, if $\vec{w} \in \wtraces{p}$.
@@ -1185,8 +1185,8 @@ Grammars induced by coordinates for weak bisimulation-like notions.
 
 @bj2025silentStepSpectroscopyJournal [§ 3.3] prove in detail, for each of our abstractions of bisimilarity, that it corresponds to its respective relational characterization.
 The Isabelle theory [@bhlmmb2025weakSpectroscopyIsabelle] features theorems for
-$\eta$-bisimilarity{{<isb theorem Eta_Bisimilarity LTS_Tau.eta_bisim_coordinate>}} and for
-stability-respecting branching bisimilarity{{<isb theorem Branching_Bisimilarity LTS_Tau.sr_branching_bisim_coordinate>}}.
+$\eta$-bisimilarity{{<isb theorem Eta_Bisimilarity lts_tau.eta_bisim_coordinate>}} and for
+stability-respecting branching bisimilarity{{<isb theorem Branching_Bisimilarity lts_tau.sr_branching_bisim_coordinate>}}.
 
 The first interesting feature of the weak hierarchy is an effect of some languages not enforcing top-level negation as observed in @bj2024silentStepSpectroscopyExpress [Ex. 2.5].
 
@@ -1216,7 +1216,7 @@ Translating this coordinate to the weak spectrum, we hit $(\infty, 0, \infty, 0,
 In the weak spectrum, these coordinates correspond to differing notions!
 The first of the two is exactly the coordinate of contrasimilarity.
 The other one describes observations that are equally expressive to stable bisimulation observations,
-because stabilized positive conjuncts can be normalized away by {{<isb theorem HML_SRBB LTS_Tau.srbb_stable_Neg_normalizable_set>}}
+because stabilized positive conjuncts can be normalized away by {{<isb theorem HML_SRBB lts_tau.srbb_stable_Neg_normalizable_set>}}
 $$\semantics{\hmleps\hmlands \set{\hmlneg\hmlobs{\tau}, \mathhl{\varphi_1}, \hmlneg\varphi_2,\ldots }} =
 \semantics{\hmleps\hmlands \set{\hmlneg\hmlobs{\tau}, \mathdl{\hmlneg\hmleps\hmlands \set{\hmlneg\hmlobs{\tau}, \hmlneg\mathhl{\varphi_1}}}, \hmlneg\varphi_2,\ldots }}.$$
 In this sense, contrasimulation and stable bisimilarity are sibling notions in the same manner as weak failures and stable failures of @sec-abstraction-failures.^[
@@ -1308,7 +1308,7 @@ At this point, they are not particularly interesting.
 Grammars induced by coordinates for weak simulation-like notions of equivalence.
 :::
 
-@bj2025silentStepSpectroscopyJournal contains proofs that the observation languages for weak simulation and $\eta$-simulation correspond to their relational definitions (@def-weak-bisimilarity).{{<isb theorem Eta_Bisimilarity LTS_Tau.eta_sim_coordinate>}}
+@bj2025silentStepSpectroscopyJournal contains proofs that the observation languages for weak simulation and $\eta$-simulation correspond to their relational definitions (@def-weak-bisimilarity).{{<isb theorem Eta_Bisimilarity lts_tau.eta_sim_coordinate>}}
 
 :::{#rem-spurious-conjuncts}
 #### Spurious conjuncts and minimality

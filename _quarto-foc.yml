@@ -11,6 +11,9 @@ format:
     keep-tex: true
     latex-output-dir: _latex-output
     linestretch: 1.0
+    pdf-engine: lualatex
+    template-partials:
+      - style/passoptions.latex
     geometry:
     - left=1.2cm
     - right=1.2cm

@@ -2,7 +2,21 @@
 \input{style/preamble-font.tex}
 \input{style/preamble-layout.tex}
 
-\usepackage[a-2b]{pdfx}
+% --- DepositOnce suggested header ---
+\usepackage[a-2a,mathxmp]{pdfx}
+%\hypersetup{hidelinks}
+
+\begin{filecontents*}[overwrite]{\jobname.xmpdata}
+    \Title{Generalized Equivalence Checking of Concurrent Programs}
+    \Author{Benjamin Bisping}
+ 
+\end{filecontents*}
+%    \Language{en-US}
+%     \Subject{Computer Science, Formal Methods, Program Verification}
+%     \Keywords{Equivalence Checking, Concurrent Programs, Formal Methods, Program Verification, Galois Connections}
+
+% --- End DepositOnce suggested header ---
+
 \usepackage[bottom]{footmisc}
 
 %\flushbottom

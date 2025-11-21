@@ -265,7 +265,7 @@ A *lattice* is a partially ordered set $(B, \leq)$, where there are greatest low
 ```
 
 Lattice of subsets from @exm-set-lattice.
-Solid lines stand for inclusion from bottom to top, transitive lines are left out. 
+Solid lines stand for inclusion from bottom to top, transitive lines are left out.
 :::
 
 ::: {#exm-set-lattice}

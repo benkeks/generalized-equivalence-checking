@@ -651,7 +651,7 @@ The simulation preorder $\bpreord{S}$ is indeed a preorder{{<isb lemma Strong_Eq
 -->
 
 @exm-phil-sim shows that similarity and bisimilarity are not implied by trace equivalence.
-Still, the notions are connected.
+Still, the notions are connected, which is commonly referred to as bisimilarity being “stronger” than trace equivalence.
 
 ### Equivalence Hierarchies {#sec-hierarchy-equivalences}
 
@@ -696,16 +696,7 @@ If $p \bpreord{S} q$, then $p \bpreord{T} q$.{{<isb lemma Strong_Equivalences lt
 We also have seen with @exm-phil-sim that this hierarchy of implications (visualized in @fig-core-hierarchy) is strict between trace and simulation preorder in the sense that there exist $p,q$ with $p \bpreord{T} q$ but not $p \bpreord{S} q$.
 The hierarchy also is strict between similarity and bisimilarity as the following example shows.
 
-::: {#exm-bisim-sim}
-#### Trolled philosophers
-
-Let us extend $\literal{Q}$ of @exm-deterministic-phil to include a troll process (highlighted in blue) that might consume the $\literal{fork}$ and then do nothing:
-$$
-\literal {T} ≔ (\coaction{\literal{fork}} \ccspar \mathhl{\literal{fork}} \ccspar \ccsprefix{\literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
-$$
-This adds another deadlock state to the transition system, seen in @fig-bisim-sim-ts.
-
-:::: {#fig-bisim-sim-ts .column-margin}
+::::{#wrapper-fig-bisim-sim-ts}
 ```tikz
 \begin{tikzpicture}[auto,node distance=2cm]
   \node[] (q0){$\literal{T}$};
@@ -722,7 +713,37 @@ This adds another deadlock state to the transition system, seen in @fig-bisim-si
       edge node {$\literal{b}$} (q2);
 \end{tikzpicture}
 ```
+::::
+
+:::: {#wrapper-fig-iso-ts}
+```tikz
+\begin{tikzpicture}[auto,node distance=2cm]
+  \node[] (pEven){$\literal{p_{even}}$};
+  \node[below of=pEven] (pOdd){$\literal{p_{odd}}$};
+  \path[->]
+    (pEven)
+      edge[swap, bend right=15] node {$\tau$} (pOdd)
+    (pOdd)
+      edge[swap, bend right=15] node {$\tau$} (pEven);
+\end{tikzpicture}
+```
+::::
+
+::: {#exm-bisim-sim}
+#### Trolled philosophers
+
+Let us extend $\literal{Q}$ of @exm-deterministic-phil to include a troll process (highlighted in blue) that might consume the $\literal{fork}$ and then do nothing:
+$$
+\literal {T} ≔ (\coaction{\literal{fork}} \ccspar \mathhl{\literal{fork}} \ccspar \ccsprefix{\literal{fork}} ( \literal{a} \ccschoice \literal{b} )) \ccsrestrict \set{\literal{fork}}.
+$$
+This adds another deadlock state to the transition system, seen in @fig-bisim-sim-ts.
+
+:::: {.content-visible unless-profile="foc"}
+::::: {#fig-bisim-sim-ts .column-margin}
+{{< contents wrapper-fig-bisim-sim-ts >}}
+
 Example with new deadlock.
+:::::
 ::::
 
 With respect to similarity, this change is invisible, that is, $\literal Q \beq{S} \literal{T}$.
@@ -741,6 +762,37 @@ There cannot be a *symmetric* simulation handling this transition as $\literal{Q
 Thus $\literal Q \nbeq{B} \literal{T}$.
 :::
 
+::: {.content-visible when-profile="foc"}
+```{=latex}
+\begin{figure}[t]
+
+\begin{minipage}[b]{0.48\textwidth}
+```
+
+:::: {#fig-bisim-sim-ts fig-pos="H"}
+{{< contents wrapper-fig-bisim-sim-ts >}}
+
+Variant of $\literal{Q}$ with a new deadlock.
+::::
+
+```{=latex}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.48\textwidth}
+```
+
+:::: {#fig-iso-ts fig-pos="H"}
+{{< contents wrapper-fig-iso-ts >}}
+
+Transition system with an isomorphic cycle.
+::::
+
+```{=latex}
+\end{minipage}
+\end{figure}
+```
+:::
+
 The equivalences we have discussed so far could also be understood as abstractions of an even finer equivalence, namely graph isomorphism:
 
 ::: {#def-graph-isomorphism}
@@ -751,25 +803,18 @@ A bijective function $f \colon \states \to \states$ is called a *graph isomorphi
 Two states $p$ and $q$ are considered *graph-isomorphism-equivalent*, $p \beq{ISO} q$, iff there is a graph isomorphism $f$ with $f(p) = q$.{{<isb definition Strong_Equivalences lts.is_isomorphic_to>}}
 :::
 
-:::: {#exm-graph-isomorphism}
+::: {#exm-graph-isomorphism}
 Consider the transition system in @fig-iso-ts. $\literal{p_{even}} \beq{ISO} \literal{p_{odd}}$ because $f ≔ \set{\literal{p_{even}} \mapsto \literal{p_{odd}}, \literal{p_{odd}} \mapsto \literal{p_{even}}}$ is a graph isomorphism.
 
-::: {#fig-iso-ts .column-margin}
-```tikz
-\begin{tikzpicture}[auto,node distance=2cm]
-  \node[] (pEven){$\literal{p_{even}}$};
-  \node[below of=pEven] (pOdd){$\literal{p_{odd}}$};
-  \path[->]
-    (pEven)
-      edge[swap, bend right=15] node {$\tau$} (pOdd)
-    (pOdd)
-      edge[swap, bend right=15] node {$\tau$} (pEven);
-\end{tikzpicture}
-```
+:::: {.content-visible unless-profile="foc"}
+::::: {#fig-iso-ts .column-margin fig-pos="H"}
+{{< contents wrapper-fig-iso-ts >}}
 
 Transition system with an isomorphic cycle.
-:::
+:::::
 ::::
+
+:::
 
 ::: {#lem-iso-impl-bisim}
 The relation $\beq{ISO}$ is itself a symmetric simulation and thus $p \beq{ISO} q$ implies $p \beq{B} q$.{{<isb lemma Strong_Equivalences lts.iso_implies_bisim>}}
@@ -1001,7 +1046,7 @@ The empty conjunction $\hmlands \varnothing$ is denoted by $\hmltrue$ and serves
 We also usually omit $\hmltrue$ when writing down formulas, e.g., shortening $\hmlobs{\literal a}\hmlobs{\literal b}\hmltrue$ to $\hmlobs{\literal a}\hmlobs{\literal b}$, which says that one may observe $\literal{a}$ and then $\literal{b}$.
 
 We will assume a form of associativity through the *convention that conjunctions are flat* in the sense that they do not immediately contain other conjunctions.
-Accordingly, we consider $\hmlands \set{ \hmlobs{\literal a}, \hmlands \set{\hmlobs{\literal{b}}} }$ and $\hmlands \set{ \hmlobs{\literal a}, \hmlands \set{\hmlobs{\literal{b}}}, \hmltrue}$ just as different representatives of the flattened formula $\hmlands \set{\hmlobs{\literal a}, \hmlobs{\literal{b}}}$, stating that one may observe $\literal{a}$ *and* one may observe $\literal{b}$.
+Thus, we consider $\hmlands \set{ \hmlobs{\literal a}, \hmlands \set{\hmlobs{\literal{b}}} }$ and $\hmlands \set{ \hmlobs{\literal a}, \hmlands \set{\hmlobs{\literal{b}}}, \hmltrue}$ just as different representatives of the flattened formula $\hmlands \set{\hmlobs{\literal a}, \hmlobs{\literal{b}}}$, stating that one may observe $\literal{a}$ *and* one may observe $\literal{b}$.
 
 We do not restrict the size of index sets in conjunctions.
 In particular, infinitary conjunctions are allowed, as we will discuss in @rem-image-finiteness.
@@ -1771,13 +1816,25 @@ Sketch for both directions:
 #### Playing equivalence games
 
 One of the big advantages of game characterizations is that they provide a way to discuss equivalence and inequivalence interactively among humans.
-There also are several computer game implementations of bisimulation games.
+An example of such a situation can be seen in @fig-defense-game.
+
+:::: {#fig-defense-game .column-margin}
+
+{{< pic "img/defense-game.jpg" >}}
+
+The author, playing the bisimulation game on @exm-ts during his PhD defense.
+The attacker (red puppet) was controlled by van Glabbeek and beat the defender (blue puppet), briefly confusing Groote as to whether this meant that the PhD defense has already failed at this point.
+Luckily, it was not.
+{{< photo_credits "Hanna Wesner" >}}
+::::
+
+If you want to try it at home, there also are several computer game implementations of bisimulation games.
 
 :::: {#fig-peacock-game .column-margin}
 
 {{< pic "img/peacock-bisim-video-game.png" >}}
 
-Screenshot of [Peacock's bisimulation computer game](https://www.concurrency-theory.org/rvg-game/).
+Screenshot of [Peacock's bisimulation computer game](https://games.equiv.io/play/rvg-game).
 (In the computer game, the colors are coded inversely to our presentation.
 The  blue character represents the attacker-controlled state.)
 ::::
@@ -1785,7 +1842,7 @@ The  blue character represents the attacker-controlled state.)
 For instance, @peacock2020videoGameEquivalences implements a game about simulation and bisimulation as well as several weaker notions.
 The human plays the attacker trying to point out the inequivalence of systems according to the rules of @def-bisim-game.
 @fig-peacock-game shows a screenshot of said game.
-It can be played on <https://www.concurrency-theory.org/rvg-game/>.
+It can be played on <https://games.equiv.io/play/rvg-game/>.
 :::
 
 ::: {#rem-leq-bisim-game}

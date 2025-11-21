@@ -134,3 +134,23 @@ function pic(args)
     return pandoc.Image("", img, "", {class = "lightbox"})
   end
 end
+
+function photo_credits(args)
+  author = args[1]
+  if quarto.doc.isFormat('pdf')  then
+    return pandoc.Inlines {
+      pandoc.LineBreak(),
+      pandoc.RawInline("latex", "\\textcolor{gray}{\\footnotesize{Photo: " .. author .. "}}")
+    }
+  else
+    return pandoc.Inlines {
+      pandoc.LineBreak(),
+      pandoc.Span(
+        pandoc.Inlines {
+          pandoc.Str("Photo: " .. author)
+        },
+        {style = "color: gray; font-size: small;"}
+      )
+    }
+  end
+end

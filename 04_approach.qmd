@@ -151,7 +151,7 @@ $$e \mapsto
 $$
 How can the attacker win from $\literal{g_1}$?
 
-:::: {#fig-simple-energy-game}
+:::: {#fig-simple-energy-game fig-pos="tbp"}
 ```tikz
 \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
   posStyle/.style={draw, inner sep=1mm, minimum size=1cm, minimum width=1.5cm, anchor=center},
@@ -386,10 +386,10 @@ Updates that would cause any component to become negative yield $\bot$.
 
 :::{#fig-bisping-cav23 .column-margin}
 
-{{< pic "img/bisping-counting-cav23.jpg" >}}
+{{< pic "img/bisping-counting-cav23.jpg" "70%" >}}
 
-The author, illustrating multi-dim{{< shy >}}ensional energy updates on declining games to the audience of CAV'23.  
-(Photo: Fei Bian)
+The author, illustrating multi-dim{{< shy >}}ensional energy updates on declining games to the audience of CAV'23.
+{{< photo_credits "Fei Bian" >}}
 :::
 
 ::: {#exm-energy-update}

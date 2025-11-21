@@ -654,18 +654,18 @@ $$
 }
 $$
 $$
-\inferrule[positive\, conjunct]{
+\inferrule[pos.\, conj.]{
   \attackerpos[\land]{p,q} \gamemove{u} \attackerpos[\varepsilon]{p,Q'} \quad
-  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{p,Q'}) \\
+  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{p,Q'}) \quad
   \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q'}, e')
 } {
   \hmleps\chi \in \stratweak(\attackerpos[\land]{p,q}, e)
 }
 $$
 $$
-\inferrule[negative\, conjunct]{
+\inferrule[neg. \, conj.]{
   \attackerpos[\land]{p,q} \gamemove{u} \attackerpos[\varepsilon]{q,P'} \quad
-  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{q,P'}) \\
+  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{q,P'}) \quad
   \chi \in \stratweak(\attackerpos[\varepsilon]{q,P'}, e')
 } {
   \hmlneg \hmleps\chi \in \stratweak(\attackerpos[\land]{p,q}, e)

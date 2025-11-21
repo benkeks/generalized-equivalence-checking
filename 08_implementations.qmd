@@ -536,7 +536,7 @@ Data transformation flow in equiv.io
         {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.WeakObservationNotion >}}.
     3. The spectroscopy implements a `buildHMLWitness`-method, constructing *strategy formulas* from attacker-won budgets of $\stratstrong$ in @def-strategy-formulas-strong and $\stratweak$ in @def-strategy-formulas-weak.
 4. **Validation (optional).**
-    If the user demands, the procedure `SpectroscopyFramework.decideAll` continues to construct cheapest distinguishing formulas for the query with `buildHMLWitness`.
+    If the user demands, `SpectroscopyFramework.decideAll` continues to construct cheapest distinguishing formulas for the query with `buildHMLWitness`.
     - {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.Interpreter >}} checks that each formula is indeed true for one process and false for the other, applying the semantic HML game of @sec-hml-semantic-game.
       If the formula is not distinguishing, an exception is thrown.
     - `classifyFormula` on the specific `Spectrum` object determines the expressiveness prices of formulas (implemented as in @rem-explicit-expr and @def-weak-spectrum by the `formulaObsNotion` functions in {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.StrongObservationNotion >}} / {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.WeakObservationNotion >}}).
@@ -545,7 +545,7 @@ Data transformation flow in equiv.io
     Error reports would point to incorrectness of the specific spectroscopy, not to user mistakes.
     Thus, the validation does not affect the core decision procedure, but increases confidence that a specific output is sound.
 
-    If no formula construction is requested, the implementation in `SpectroscopyFramework.decideAll` works on *flattened energies* (@def-flattened-energies), generally leading to better performance.
+    If no formula construction is requested, `SpectroscopyFramework.decideAll` works on *flattened energies* (@def-flattened-energies), generally leading to better performance.
 5. **Presentation.**
   `SpectroscopyFramework.decideAll` collects the finest preorders and coarsest distinctions, optionally together with their witness formulas in a `Spectroscopy.Result` object from
   {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.Spectroscopy >}}.
@@ -819,7 +819,7 @@ In @sec-spectro-invaders, we discuss *The Spectroscopy Invaders*, a computer-gam
 Would it not be nice if one could *play* the spectroscopy game *as a game*?
 
 @trzeciakiewicz2021ltbtBrowserGame develops the computer game “The Spectroscopy Invaders” where one plays the attacker in the spectroscopy game.
-You can enjoy the game in the browser at <https://concurrency-theory.org/ltbt-game/>.
+You can enjoy the game in the browser at <https://games.equiv.io/play/ltbt-game/>.
 
 A play of the game corresponds to naming a universal attack strategy in the strong spectroscopy game of @def-strong-spectroscopy-game, or, equivalently, to constructing a distinguishing formula.
 To reach maximal level scores, one has to play out a minimal formula in the sense of our pricing.

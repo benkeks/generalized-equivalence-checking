@@ -1181,8 +1181,8 @@ This is analogous to stereoscopic pictures, decodable by 3D glasses (@fig-3d-gla
 
 {{< pic img/3d-games-dcon25.jpg >}}
 
-The author, discussing 3D energy games with participants of D-CON'25.  
-(Photo: Nadine Karsten)
+The author, discussing 3D energy games with participants of D-CON'25.
+{{< photo_credits "Nadine Karsten" >}}
 :::
 
 {{< paragraph_heading "What's next?" >}}

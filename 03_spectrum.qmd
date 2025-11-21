@@ -124,8 +124,8 @@ This phenomenon of *orthogonal dimensions* also occurs for behavioral equivalenc
 {{< pic "img/hermanns-hartmanns-spectrum.jpg" >}}
 
 Participants of ETAPS'22 discussing the spectrum of smartphone sizes.
-(Which is dominated by Hermanns's phone, at the bottom of the picture.)  
-(Photo: Jan Křetínský)
+(Which is dominated by Hermanns's phone, at the bottom of the picture.)
+{{< photo_credits "Jan Křetínský" >}}
 :::
 
 A well-known and natural notion of equivalence is that of *failure equivalence*.
@@ -221,7 +221,7 @@ A *lattice* is a partially ordered set $(B, \leq)$, where there are greatest low
   Analogously, the *downward closure* is given by ${\downset\! B'} \defeq \set{b \in B \mid \exists b' \in B' \ldotp b \leq b'}$.
 :::
 
-::: {#fig-set-lattice .column-margin}
+::: {#wrapper-fig-set-lattice}
 
 ```tikz
 \begin{tikzpicture}[auto,node distance=2cm,align=center]
@@ -263,9 +263,47 @@ A *lattice* is a partially ordered set $(B, \leq)$, where there are greatest low
     (B2) edge (B3);
 \end{tikzpicture}
 ```
+:::
+
+::: {.content-visible unless-profile="foc"}
+:::: {#fig-set-lattice .column-margin}
+{{< contents wrapper-fig-set-lattice >}}
 
 Lattice of subsets from @exm-set-lattice.
 Solid lines stand for inclusion from bottom to top, transitive lines are left out.
+::::
+:::
+
+::: {.content-visible when-profile="foc"}
+```{=latex}
+\begin{figure}[t]
+
+\begin{minipage}[b]{0.48\textwidth}
+```
+
+:::: {#fig-set-lattice fig-pos="H"}
+{{< contents wrapper-fig-set-lattice >}}
+
+Lattice of subsets from @exm-set-lattice.
+Solid lines stand for inclusion from bottom to top, transitive lines are left out.
+::::
+
+```{=latex}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.48\textwidth}
+```
+
+:::: {#fig-nat-lattice fig-pos="H"}
+{{< contents wrapper-fig-nat-lattice >}}
+
+Visualization of the infinitary grid of $\nats^2$ (and in gray, $\natsext^2$) in @exm-nat-lattice.
+::::
+
+```{=latex}
+\end{minipage}
+\end{figure}
+```
 :::
 
 ::: {#exm-set-lattice}
@@ -284,7 +322,7 @@ The set $\set{\set{1}, \set{2}, \set{3}}$ forms a (maximal) anti-chain (the node
 Their respective subsets are chains / anti-chains as well.
 :::
 
-::: {#fig-nat-lattice .column-margin}
+::: {#wrapper-fig-nat-lattice}
 ```tikz
 \begin{tikzpicture}[]
   \begin{scope}[rotate=45, scale=.85]
@@ -305,8 +343,15 @@ Their respective subsets are chains / anti-chains as well.
   \end{scope}
 \end{tikzpicture}
 ```
+:::
+
+::: {.content-visible unless-profile="foc"}
+:::: {#fig-nat-lattice .column-margin}
+
+{{< contents wrapper-fig-set-lattice >}}
 
 Visualization of the infinitary grid of $\nats^2$ (and in gray, $\natsext^2$) in @exm-nat-lattice.
+::::
 :::
 
 ::: {#exm-nat-lattice}
@@ -494,7 +539,7 @@ $$
 $$
 :::
 
-::: {#fig-formula-pricing fig-pos="b"}
+::: {#fig-formula-pricing fig-pos="tb"}
 ```tikz
 \begin{tikzpicture}
   \node(Obs1) {$\hmlobs\tau$};
@@ -1005,7 +1050,7 @@ Given that the equivalence hierarchies are commonly referred to as *spectra*, it
 
 :::{#fig-prism .column-margin}
 
-{{< pic "img/prism.jpg" "80%" >}}
+{{< pic "img/prism.jpg" "70%" >}}
 
 A prism revealing the spectrum of sun light.
 :::
@@ -1043,7 +1088,7 @@ A minimal formula to distinguish $\literal{Q}$ from $\literal{T}$ with coordinat
 
 Because the coordinate of $2$-nested simulation, $\notionname{2S} = (\infty,\infty,\infty,\infty,\infty,1)$ is not above $(2,2,0,0,2,2)$, we arrive at $\literal{Q} \bpreord{2S} \literal{T}$, which implies *all* preorders of @fig-strong-ltbt-spectrum except for bisimilarity.
 
-:::: {#fig-spectroscopy-front fig-pos='th'}
+:::: {#fig-spectroscopy-front fig-pos='t'}
 
 ```tikz
 \begin{tikzpicture}[]

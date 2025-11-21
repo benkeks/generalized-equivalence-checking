@@ -14,6 +14,7 @@ format:
     pdf-engine: lualatex
     template-partials:
       - style/passoptions.latex
+    include-after-body: style/foc-list.tex
     geometry:
     - left=1.2cm
     - right=1.2cm

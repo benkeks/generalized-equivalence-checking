@@ -1,0 +1,68 @@
+\thispagestyle{empty}
+\footnotesize
+\noindent Schriftenreihe \textbf{Foundations of Computing}\\
+Hrsg.: Prof.\ Dr.\ Stephan Kreutzer, Prof.\ Dr.\ Uwe Nestmann, Prof.\ Dr.\ Rolf Niedermeier 
+
+\medskip
+
+\noindent 
+ISSN 2199-5249 (print)\\
+ISSN 2199-5257 (online)
+
+\noindent \rule{\textwidth}{.65pt}
+
+\bigskip
+
+
+% Define a macro for formatted items
+\newcommand{\focitem}[5]{%
+  \item \textbf{#1:~#2}%
+  \ifx&#3&%
+  \else%
+    ~#3%
+  \fi%
+  .\ - #4.%
+  \ifx&#5&%
+  \else%
+    \\ \url{#5}%
+  \fi%
+  \\
+}
+
+\newcommand{\twodigits}[1]{% 
+  \ifnum#1<10 0\fi
+  \number#1
+}
+
+\noindent
+\begin{multicols*}{2}
+\begin{enumerate}[leftmargin=0.5cm,label=\textbf{\protect\twodigits{\theenumi}}:]
+  \focitem{Bevern, René van}{Fixed-Parameter Linear-Time Algorithms for NP-hard Graph and Hypergraph Problems Arising in Industrial Applications}{}{2014}{https://doi.org/10.14279/depositonce-4131}
+  \focitem{Nichterlein, André}{Degree-Constrained Editing of Small-Degree Graphs}{}{2015}{}
+  \focitem{Bredereck, Robert}{Multivariate Complexity Analysis of Team Management Problems}{}{2015}{}
+  \focitem{Talmon, Nimrod}{Algorithmic Aspects of Manipulation and Anonymization in Social Choice and Social Networks}{}{2016}{}
+  \focitem{Siebertz, Sebastian}{Nowhere Dense Classes of Graphs}{Characterisations and Algorithmic Meta-Theorems}{2016}{}
+  \focitem{Chen, Jiehua}{Exploiting Structure in Computationally Hard Voting Problems}{}{2016}{}
+  \focitem{Arbach, Youssef}{On the Foundations of dynamic coalitions}{Modeling changes and evolution of workflows in healthcare scenarios}{2016}{}
+  \focitem{Sorge, Manuel}{Be sparse! Be dense! Be robust!}{Elements of parameterized algorithmics}{2017}{}
+  \focitem{Dittmann, Christoph}{Parity games, separations, and the modal $\mu$-calculus}{}{2017}{}
+  \focitem{Karcher, David S.}{Event Structures with Higher-Order Dynamics}{}{2019}{}
+  \focitem{Jungnickel, Tim}{On the Feasibility of MultiLeader Replication in the Early Tiers}{}{2018}{}
+  \focitem{Froese, Vincent}{Fine-grained complexity analysis of some combinatorial data science problems}{}{2018}{}
+  \focitem{Molter, Hendrik}{Classic graph problems made temporal}{A parameterized complexity analysis}{2020}{}
+  \focitem{Bentert, Matthias}{Elements of Dynamic and 2-SAT Programming}{Paths, Trees, and Cuts}{2021}{}
+  \focitem{Kaczmarczyk, Andrzej}{Algorithmic Aspects of Resource Allocation and Multiwinner Voting}{Theory and Experiments}{2021}{}
+  \focitem{Wiederrecht, Sebastian}{Matching minors in bipartite graphs}{}{2022}{}
+  \focitem{Hatzel, Meike}{Dualities in graphs and digraphs}{}{2023}{}
+  \focitem{Böhmer, Niclas}{Application-Oriented Collective Decision Making}{Experimental Toolbox and Dynamic Environments}{2023}{}
+\end{enumerate}
+\end{multicols*}
+\thispagestyle{empty}
+\clearpage 
+\cleardoublepage
+\thispagestyle{empty}
+\clearpage 
+\thispagestyle{empty}
+
+% \includepdf{backcover} 
+% \bookmark[page=150,level=0]{Backcover}

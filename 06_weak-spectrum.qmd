@@ -273,7 +273,7 @@ But, as we will see in the next sections, there might be *multiple* abstractions
 
 As noted in @rem-expressiveness-weak-hml, our HML notation for weak observations does not affect expressiveness---thus it still characterizes strong bisimilarity by @thm-hennessy-milner.
 To characterize weak equivalences, we have to select appropriate subsets.
-We will use the following sublogic that, naturally, must be designed to correspond to the strongest weak notion we will be interested in.
+We will use the following sublogic that, naturally, must be designed to correspond to the strongest weak notion we are interested in.
 
 :::{#def-hml-srbb}
 #### Branching Hennessy--Milner logic
@@ -781,7 +781,7 @@ We adapt the notions of @sec-strong-notions for the weak spectrum to distinguish
 8. Nesting depth of *negations*.
 
 To formalize our weak spectrum, we need to fix the observation languages $\observationsvar[\literal{weak}]{N}$.
-This time, we will do this by directly providing an expressiveness pricing metric.
+This time, we do this by directly providing an expressiveness pricing metric.
 
 ::: {#def-weak-spectrum}
 #### Weak notions

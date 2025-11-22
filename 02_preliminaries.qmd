@@ -19,7 +19,7 @@ We aim to be mostly compatible with the textbook *Reactive systems* [@ails2007re
 The core background of this thesis is the *trinity of characterizations for behavioral equivalences*: relational, modal, and game-theoretic.
 
 This chapter takes a tour into the field of formalisms used to model programs and communicating systems, which are accompanied by many notions for behavioral equivalence and refinement to relate or distinguish their models.
-As core formalisms we will introduce transition systems and the Calculus of Communicating Systems (CCS) in @sec-programs.
+As core formalisms we use transition systems and the Calculus of Communicating Systems (CCS) in @sec-programs.
 
 The tour is *agnostic*, building on the basic formalism of *labeled transition systems* and standard equivalences such as *trace equivalence* and *bisimilarity*.
 Simultaneously, the approach is *opinionated*, focusing on Milner's tradition of concurrency theory with a strong pull towards *game characterizations*.
@@ -79,7 +79,7 @@ Productions in grammars of potential distinguishing formulas translate to game r
 :::
 
 Both points might seem non-standard to those more accustomed to relational or denotational definitions of behavioral equivalences.
-To provide them with a bridge, our presentation will start with relational and denotational definitions---but once we have crossed this bridge, we will stay in the realm of games and logics, putting these first.
+To provide them with a bridge, our presentation starts with relational and denotational definitions---but once we have crossed this bridge, we will stay in the realm of games and logics, putting these first.
 
 ::::{.content-visible when-format="html" .column-margin}
 {{< contents related-2 >}}
@@ -127,11 +127,11 @@ Tom Henzinger employing @exm-ts during CAV'23 to stress that “games are everyw
 ::: {#exm-ts}
 #### A classic example
 
-Let us consider the labeled transition system $\system_\literal{PQ} = (\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}, \set{\literal a, \literal b, τ}, \step{}_\literal{PQ})$ given by the following graph:
+Let us consider the labeled transition system $\system_\literal{PQ} = (\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}, \set{\literal a, \literal b, τ}, \step{}_\literal{PQ})$ given by the graph in @fig-ts-determinism.
 
-::::{#fig-ts-determinism fig-pos=H}
+::::{#fig-ts-determinism fig-pos="tbp"}
 ```tikz
-\begin{tikzpicture}[->,auto,node distance=2cm]
+\begin{tikzpicture}[->,auto,node distance=1.9 cm]
   \node[] (P){$\literal{P}$};
   \node[below left of=P] (PA){$\literal{p_a}$};
   \node[below right of=P] (PB){$\literal{p_b}$};
@@ -162,7 +162,6 @@ Let us consider the labeled transition system $\system_\literal{PQ} = (\set{\lit
 Example system $\system_\literal{PQ}$.
 ::::
 
-\noindent
 The program described by the transitions from $\literal{P}$ chooses nondeterministically during a $τ$-step between two options and then offers only *either* $\literal a$ *or* $\literal b$.
 The program of $\literal{Q}$, on the other hand, performs a $τ$-step and then offers the choice between options $\literal a$ and $\literal b$ to the environment.
 :::
@@ -287,7 +286,7 @@ Philosopher $\literal{P_A}$'s behavior on their own.
 ::: {#exm-ccs}
 #### Concurrent philosophers
 
-Following tradition, we will express our examples in terms of philosophers who need forks to eat spaghetti.^[
+Following tradition, we express our examples in terms of philosophers who need forks to eat spaghetti.^[
   The philosopher meme is due to Dijkstra and @hoare1985csp. 
   Of course, you can just as well read the examples to be about computer programs that race for resources.]
 Consider two philosophers $\literal{P_A}$ and $\literal{P_B}$ (from @fig-philosopher-pic) who want to grab a resource $\literal{fork}$, in order to eat, which we model as receiving communication.
@@ -1045,7 +1044,7 @@ We also write conjunctions as sets $\hmlands \set{φ_1, φ_2…}$.
 The empty conjunction $\hmlands \varnothing$ is denoted by $\hmltrue$ and serves as the nil-element of HML syntax trees.
 We also usually omit $\hmltrue$ when writing down formulas, e.g., shortening $\hmlobs{\literal a}\hmlobs{\literal b}\hmltrue$ to $\hmlobs{\literal a}\hmlobs{\literal b}$, which says that one may observe $\literal{a}$ and then $\literal{b}$.
 
-We will assume a form of associativity through the *convention that conjunctions are flat* in the sense that they do not immediately contain other conjunctions.
+We assume a form of associativity through the *convention that conjunctions are flat* in the sense that they do not immediately contain other conjunctions.
 Thus, we consider $\hmlands \set{ \hmlobs{\literal a}, \hmlands \set{\hmlobs{\literal{b}}} }$ and $\hmlands \set{ \hmlobs{\literal a}, \hmlands \set{\hmlobs{\literal{b}}}, \hmltrue}$ just as different representatives of the flattened formula $\hmlands \set{\hmlobs{\literal a}, \hmlobs{\literal{b}}}$, stating that one may observe $\literal{a}$ *and* one may observe $\literal{b}$.
 
 We do not restrict the size of index sets in conjunctions.
@@ -1505,7 +1504,7 @@ The defender wins $\game_\literal{leq}$ from $[n, m]$ precisely if $n \leq m$.
 The game is *boring* because the players do not ever have any choices.
 They just count down their way through the natural numbers until they hit $[0, m - n]$ if $n \leq m$, or $(n - m - 1, 0)$ otherwise.
 
-$\game_\literal{leq}$ is quite archetypical for the preorder and equivalence games we will use in the following pages.
+$\game_\literal{leq}$ is quite archetypical for the preorder and equivalence games that we use in the following pages.
 But do not worry, the following games will demand the players to make choices.
 :::
 
@@ -1979,7 +1978,7 @@ The proper bisimulation game of @def-bisim-game, on the other hand, is *finite f
 Therefore, it induces decision procedures by the reasoning of @sec-deciding-reachability-games.
 
 We will now argue that the *bisimulation game actually is a variant of the naive game*, where (1) the attacker names their formula *gradually*, and (2) the formulas stem from $\observations{\floor{B}} \subseteq \hml$ of @def-game-formulas.
-To this end, we will show that attacker's winning strategies imply distinguishing formulas, and that a distinguishing formula from $\observations{\floor{B}}$ certifies the existence of winning attacker strategies.
+To this end, we are going to show that attacker's winning strategies imply distinguishing formulas, and that a distinguishing formula from $\observations{\floor{B}}$ certifies the existence of winning attacker strategies.
 
 ::: {#exm-bisim-sim-game-formulas}
 #### Formulating attacks
@@ -2065,7 +2064,7 @@ The bisimulation game of @exm-bisim-sim-game-formulas with attacker formulas.
 More generally, the following lemmas explain the construction of distinguishing formulas from attacker strategies, and back.
 They are a blueprint of game characterization proofs throughout the thesis.
 
-We will refer to the property that attacker wins in a game represent distinguishing formulas as “distinction soundness” of a game.
+We refer to the property that attacker wins in a game represent distinguishing formulas as “distinction soundness” of a game.
 
 ::: {#lem-attacks-imply-formulas}
 #### Distinction soundness

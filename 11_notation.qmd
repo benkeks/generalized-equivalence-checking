@@ -10,6 +10,7 @@ toc-title: "Notation"
 :::
 
 \renewcommand*{\arraystretch}{1.2}
+\setstretch{1.0}
 
 ### Basics {.unnumbered .unlisted}
 

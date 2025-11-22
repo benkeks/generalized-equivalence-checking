@@ -16,7 +16,7 @@ More mundanely, the question occurs every time that someone rewrites a program p
 
 My first formal encounter with the question of behavioral equivalence came when I was implementing a translation from the process algebra Timed CSP to Timed Automata.^[
     My job as student research assistant was to bridge between the tools FDR2 and UPPAAL for @goethel12mechanicalVerificationRTS.
-    The previous work I was to base the translations on had serious flaws:
+    The previous work had serious flaws:
     One approach introduced spurious deadlocks to the model, the other was unable to handle nesting of choices and parallel composition.
     Clearly, we had to change the encoding!]
 How to tell whether the translation would properly honor the semantics of the two formalisms?
@@ -45,13 +45,13 @@ We share an itch.
 > How does one conveniently decide for a pair of systems which notions from a spectrum of behavioral equivalences equate the two?
 \vspace*{-\medskipamount}
 
-The above question will be the *research question of this thesis*.
+The above question serves as the *research question of this thesis*.
 We want to enable future researchers to tap into the wisdom of the linear-time–branching-time spectrum and to easily determine what equivalences fit their models.
 
 ## Linear-Time–Branching-Time Spectroscopy {#sec-ltbt-spectroscopy-idea}
 
 To illustrate the problem, let us look at an example that we will be able to solve via tool support at the end of the thesis in @sec-equivio-peterson.
-It includes numerous concepts we will define and discuss more deeply on our way there.
+It includes numerous concepts that we are going to define and discuss more deeply on our way there.
 
 :::{#exm-peterson-mutex}
 #### Verifying Peterson's mutual exclusion
@@ -66,7 +66,7 @@ The right-hand side shows the transition system of Peterson's mutual exclusion a
 ]
 For $\literal{Pe}$ to faithfully implement mutual exclusion, it should behave somewhat similarly to $\literal{Mx}$.
 
-::::{#fig-peterson-mutex fig-pos="ht"}
+::::{#fig-peterson-mutex fig-pos="tbp"}
 ```{=latex}
 \begin{adjustbox}{max width=\textwidth, center}
 ```
@@ -151,8 +151,7 @@ For $\literal{Pe}$ to faithfully implement mutual exclusion, it should behave so
 A specification of mutual exclusion $\literal{Mx}$, and Peterson's protocol $\literal{Pe}$, minimized with respect to stability-respecting branching bisimilarity.
 ::::
 
-\noindent
-In @sec-equivio-peterson, we will see how the transitions of $\literal{Pe}$ derive from pseudocode and formal model.
+In @sec-equivio-peterson, we will regard how the transitions of $\literal{Pe}$ derive from pseudocode and formal model.
 
 Semantics in concurrent models must treat nondeterminism and internal steps in some way.
 As we will see throughout this thesis, setting the degree to which nondeterminism counts induces equivalence notions with subtle differences.
@@ -285,7 +284,6 @@ Output of {{< equivio >}} about weak equivalences to relate $\literal{Pe}$ to $\
 Where notions are connected, the one at the top implies the one underneath.
 :::
 
-\noindent
 The big blue circle ![](img/equivio-eq.svg){width=0.9em} in @fig-peterson-spectrum indicates that weak simulation indeed is the most specific equivalence to equate $\literal{Pe}$ and $\literal{Mx}$.
 Lines mean that the notion at the top implies the one below.
 Blue half-circles ![](img/equivio-preord.svg){width=0.9em} indicate preordering in only from blue to red side.
@@ -403,7 +401,7 @@ It builds on a part of the modal characterization for the strong spectrum in @se
 We limit ourselves to the relevant parts of the *strong spectrum* [@glabbeek1990ltbt1] and the *weak spectrum* [@glabbeek1993ltbt].
 For instance, this excludes questions around value-passing, open/late/early bisimilarities, and barbed congruences on the $\pi$-calculus [cf. @sangiorgi1996bisimPi].
 Also, we do not consider timed or probabilistic equivalences [cf. @bdh2020probabilisticSpectrum], nor behavioral distances [@fahrenberg2014quantitativeLTBTS].
-Neither do we aim to re-survey behavioral equivalences in encyclopedic detail, which means that several notions will be covered without a detailed discussion of their features and merits.
+Neither do we aim to re-survey behavioral equivalences in encyclopedic detail, which means that several notions are covered without a detailed discussion of their features and merits.
 
 ## Artifacts and Papers {#sec-artifacts-papers}
 
@@ -434,12 +432,12 @@ The source is available openly on <https://github.com/benkeks/equivalence-fiddle
 
 {{< paragraph_heading "Isabelle formalization." >}}
 In order to relieve the document of technical proofs, these are contained in machine-checkable *Isabelle/HOL theories* archived on <https://proofs.equiv.io/>.
-They are split into two formalizations:
+They are split into two Isabelle sessions:
 
 - *“The weak spectroscopy game to characterize behavioral equivalences”* formalizes the core results of @sec-weak-spectrum and @sec-weak-spectroscopy: <https://proofs.equiv.io/AFP/Weak_Spectroscopy/>.
-  The theory [@bhlmmb2025weakSpectroscopyIsabelle] has been developed together with TU Berlin students Barthel, Hübner, Lemke, Mattes, and Mollenkopf.
+  The theory [@bhlmmb2025weakSpectroscopyIsabelle] is archived in the *Archive of Formal Proofs* and has been developed together with TU Berlin students Barthel, Hübner, Lemke, Mattes, and Mollenkopf.
   Also, many theorems of earlier chapters can be understood to be supported by the formalization.
-- *“Equivalence spectrum formalization”* supplies proofs for @sec-preliminaries and @sec-spectrum: <https://proofs.equiv.io/AFP/Lineartime_Branchingtime_Spectrum_I/>.
+- Supplementatry proofs to support @sec-preliminaries and @sec-spectrum are sorted under: <https://proofs.equiv.io/AFP/Lineartime_Branchingtime_Spectrum_I/>.
 
 \vspace*{-\medskipamount}
 {{< paragraph_heading "Student theses." >}}
@@ -457,7 +455,7 @@ My prior publications are only indirectly connected to this PhD thesis.
 Still, they lead me to topics and techniques:
 
 - Bisping, Brodmann, Jungnickel, Rickmann, Seidler, Stüber, Wilhelm-Weidner, Peters, Nestmann [ITP -@bbjrsswpn2016mechanicaProofFLP]: “Mechanical verification of a constructive proof for FLP.”
-- Bisping & Nestmann [TACAS -@bn2019coupledsimTacas]: “Computing Coupled Similarity.”
+- Bisping & Nestmann [TACAS -@bn2019coupledsimTacas]: “Computing coupled similarity.”
 - Bisping, Nestmann, Peters [Acta Informatica -@bnp2020coupledsim30]: “Coupled similarity: The first 32 years.”
 
 \vspace*{-\medskipamount}

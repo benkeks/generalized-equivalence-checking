@@ -10,7 +10,7 @@ format:
     papersize: a5
     keep-tex: true
     latex-output-dir: _latex-output
-    linestretch: 1.0
+    linestretch: 1.09
     pdf-engine: lualatex
     template-partials:
       - style/passoptions.latex
@@ -19,7 +19,7 @@ format:
     - left=1.2cm
     - right=1.2cm
     - top=1.8cm
-    - bottom=1.8cm
+    - bottom=1.6cm
 #    - marginparsep=0.2cm
 #    - marginparwidth=4.4cm
     reference-location: block

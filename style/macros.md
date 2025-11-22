@@ -19,7 +19,7 @@
 \providecommand{\domain}{\operatorname{\mathrm{dom}}}
 \providecommand{\lub}{\sqcup}
 \providecommand{\glb}{\sqcap}
-\providecommand{\floor}[1]{\lfloor #1 \rfloor}
+\providecommand{\floor}[1]{\smash{\lfloor #1 \rfloor}}
 \providecommand{\Min}{\operatorname{\mathrm{Min}}}
 \providecommand{\Max}{\operatorname{\mathrm{Max}}}
 \providecommand{\upset}{{}\uparrow}
@@ -120,8 +120,8 @@
 \providecommand{\beqvar}[1]{\sim_{#1}}
 \providecommand{\notions}{\mathbf{N}}
 \providecommand{\notionname}[1]{\mathrm{#1}}
-\providecommand{\observations}[2][]{\mathcal{O}^{#1}_{\notionname{#2}}}
-\providecommand{\observationsvar}[2][]{\mathcal{O}^{#1}_{#2}}
+\providecommand{\observations}[2][]{\smash{\mathcal{O}^{#1}_{\notionname{#2}}}}
+\providecommand{\observationsvar}[2][]{\smash{\mathcal{O}^{#1}_{#2}}}
 \providecommand{\expr}[1][]{\mathsf{expr}^{#1}}
 \providecommand{\exprabst}[1][]{\widehat{\mathsf{expr}}^{#1}}
 

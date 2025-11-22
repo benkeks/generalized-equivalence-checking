@@ -1021,7 +1021,7 @@ Comparison of supported notions.
     But this is neither elaborated upon nor supported in the frontend.
   ]
 - **mCRL2** [@groote2014mcrl2], built around an ACP/CCS-like modelling language of the same name, supports a wide-range of notions with highly efficient implementations and a strong focus on branching bisimilarity.
-  On the notions it supports, it will generally be much faster than the spectroscopy game algorithm.
+  On the notions that it supports, it will generally be much faster than the spectroscopy game algorithm.
   The only notion that is exclusively supported by mCRL2 is coupled similarity, implemented by @le2020coupledSimMcrl2.
 - **CADP** [@garavel2013cadp] can check several notions on-the-fly, also in a highly optimized fashion.
   Its models are usually expressed in LOTOS or LNT, deriving from CSP.

@@ -37,7 +37,7 @@ Spectra of equivalence problems can be encoded as energy games.
 
 Energy games are games in which players have limited resources that can be used up or recharged during moves.
 Players running out of a resource lose the game.
-After introducing such games in @sec-energy-games, we will prove in @sec-characterizing-ptime-part that several core equivalences can be characterized through attacker energy budgets where the defender wins.
+After introducing such games in @sec-energy-games, we prove in @sec-characterizing-ptime-part that several core equivalences can be characterized through attacker energy budgets where the defender wins.
 Energies in the game will correspond to notions in the spectrum.
 For this, we will add three-dimensional energies to the bisimulation game.
 
@@ -362,7 +362,7 @@ We deviate in two important points from other work on energy games:
 
 ### Declining Energy Games {#sec-declining-energy-games}
 
-We now turn to a special kind of energy games [introduced by @bisping2023equivalenceEnergyGames] with vector-valued energy levels where updates will never increase energy levels in any component.
+We now turn to a special kind of energy games [introduced by @bisping2023equivalenceEnergyGames] with vector-valued energy levels where updates never increase energy levels in any component.
 A $d$-dimensional *declining energy game* is played on energy vectors:
 
 ::: {#def-energy-updates}
@@ -1043,7 +1043,7 @@ The following are equivalent:
 ]
 :::
 
-We will refer to functions derived like $α$ in @lem-galois-inversion as “undo” functions.
+We refer to functions derived like $α$ in @lem-galois-inversion as “undo” functions.
 We understand them to generalize inverse functions of those monotonic functions where $\min \set{a \mid c \leq_C \gamma(a)}$ is defined for any $c$.
 This intuition can also be expressed more formally as the following proposition:
 

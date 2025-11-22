@@ -20,7 +20,7 @@ The alignment to the authoritative work by @glabbeek1990ltbt1 has been formalize
 We will now take a deeper dive into the question how groups of behavioral equivalences and preorders can be ranked in equivalence spectra.
 
 For the following chapters, we will focus on the main “linear-time--branching-time spectrum” for the semantics of concrete processes treated by @glabbeek1990ltbt1, the so-called “strong spectrum.”
-However, we will order the equivalences using the approach of parameterized *notions of observability* from the later “weak spectrum” by @glabbeek1993ltbt.
+However, we order the equivalences using the approach of parameterized *notions of observability* from the later “weak spectrum” by @glabbeek1993ltbt.
 
 @sec-obs-hierarchies provides the background on observability hierarchies, which motivate the chapter's first core idea:
 
@@ -89,7 +89,7 @@ $p \bpreord{S} q$ precisely if $p \bpreordvar{\observations{S}} q$.{{<isb theore
 :::
 
 {{<noindent>}} Clearly, $\observations{T} \subset \observations{S} \subset \hml$.
-So, @prp-difference-contraposition that sublogics will equate at least as much as their parent logic, yields another way of establishing the entailment hierarchy between bisimilarity, similarity, and trace equivalence of @sec-hierarchy-equivalences.^[Taking the two preceding lemmas together with @thm-hennessy-milner for $\beq{B}$ and $\hml$.]
+So, @prp-difference-contraposition that sublogics equate at least as much as their parent logic, yields another way of establishing the entailment hierarchy between bisimilarity, similarity, and trace equivalence of @sec-hierarchy-equivalences.^[Taking the two preceding lemmas together with @thm-hennessy-milner for $\beq{B}$ and $\hml$.]
 
 In the modal realm, equivalences become naturally comparable.
 Contrast this with preceding definitions that live in different worlds:
@@ -121,7 +121,7 @@ This phenomenon of *orthogonal dimensions* also occurs for behavioral equivalenc
 
 :::{#fig-hermanns-hartmanns-smartphone-spectrum .column-margin}
 
-{{< pic "img/hermanns-hartmanns-spectrum.jpg" >}}
+{{< pic "img/hermanns-hartmanns-spectrum.jpg" "80%" >}}
 
 Participants of ETAPS'22 discussing the spectrum of smartphone sizes.
 (Which is dominated by Hermanns's phone, at the bottom of the picture.)
@@ -658,7 +658,7 @@ $\begin{array}{rl}
 
 \noindent
 Note that there is a minor divergence from @bisping2023equivalenceEnergyGames in that the present thesis prices $\expr(\hmltrue)$ at $\zerovec$ instead of $\unitvec{2}$.
-This change is done to align the pricing to the one we will need for the weak spectrum in later chapters.
+This change is done to align the pricing to the one that we need for the weak spectrum in later chapters.
 
 Clearly, the explicit pricing of formulas is more versatile for the implementation direction we are aiming at.
 The grammar view, on the other hand, is particularly nice to see how our $\hml$ sublanguages will align to games.
@@ -888,7 +888,7 @@ But, of course, it is natural to ask whether the equivalences thus defined corre
   To be precise, @mattes2024expressivePowerHML works with the version of the spectrum from @bisping2023equivalenceEnergyGames.
   The only real difference is that, there, $\hmltrue$ is priced at $1$ conjunction, while the present spectrum prices it at $\zerovec$, cf. @rem-explicit-expr.
 ]
-This entails a lot of fine print, which we will not reproduce here.
+This entails a lot of fine print, which we do not reproduce here.
 
 The grammars already contain a trick to handle *equivalences of decorated traces*, which we should discuss as it will be mirrored in game rules later on:
 The idea behind *failure traces* is that one observes a trace of actions and *at each step* a set of actions that are *disabled*.

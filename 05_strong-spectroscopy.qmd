@@ -560,7 +560,7 @@ We can exploit properties of the equivalences to focus on simpler variants of th
 3. With more specific equivalences in mind, we can also focus on subgraphs of the spectroscopy game $\gamespectroscopy$ in order to obtain better bounds.
 
 @sec-pruning-logic will first discuss how parts of the game graph can be pruned thanks to properties of bisimilarity.
-Then, we will use all listed tricks in the “clever” strong spectroscopy game in @sec-clever-strong-spectro.
+Then, we use all listed tricks in the “clever” strong spectroscopy game in @sec-clever-strong-spectro.
 In the subsequent @sec-deciding-individual-eqs, we will take the last point to the extreme by instantiating the spectroscopy game down to only decide single equivalences.
 
 ### Pruning with Logic {#sec-pruning-logic}
@@ -687,7 +687,7 @@ For an efficient implementation, it is desirable to not do that.
 
 Given the spectrum we are interested in, we can drastically limit the sensible attacker moves to four options by a little lookahead into the enabled actions $\initials{q}$ of $q \in Q$ and $\initials{p}$.
 
-In the following, we will focus on the lower-resolution sub-spectrum $\widehat{\notions}^\literal{strong} \subseteq \set{0, 1, \infty}^6 \subseteq \notions^\literal{strong}$, where dimensions 3, 4, and 5 of modal depth for revivals, positive and negative conjuncts can only appear in certain combinations.
+In the following, we focus on the lower-resolution sub-spectrum $\widehat{\notions}^\literal{strong} \subseteq \set{0, 1, \infty}^6 \subseteq \notions^\literal{strong}$, where dimensions 3, 4, and 5 of modal depth for revivals, positive and negative conjuncts can only appear in certain combinations.
 
 ::: {#def-simpler-strong-spectrum}
 #### Simpler strong spectrum
@@ -1031,7 +1031,7 @@ Inserting our bounds in @prp-reachability-game-complexity, we obtain time and sp
   This is with the understanding that one can ignore storage space for the positions:
   One can use pointers to $Q'$-sets in the attacker and defender positions, and not store them verbatim.
   This saves the bound as there can only be $\relsize{\step{}}$ such sets of size $\relsize{Q'} > 1$.
-  So, overall, these sets also will take up $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ space.
+  So, overall, these sets also take up $\bigo{\relsize{\states} \cdot \relsize{\step{}}}$ space.
 ]
 :::
 

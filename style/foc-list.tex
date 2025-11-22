@@ -13,25 +13,26 @@ ISSN 2199-5257 (online)
 
 \bigskip
 
-
+\makeatletter
 % Define a macro for formatted items
 \newcommand{\focitem}[5]{%
-  \item \textbf{#1:~#2}%
-  \ifx&#3&%
+  \item \textbf{#1:~#2\@addpunct{.}}%
+  \ifx\empty#3%
   \else%
     ~#3%
   \fi%
-  .\ #4.%
-  \ifx&#5&%
+  \@addpunct{.}\ #4\@addpunct{.}%
+  \ifx\empty#5%
   \else%
     \\ doi:~\href{http://doi.org/#5}{#5}%
   \fi%
 }
-
 \newcommand{\twodigits}[1]{% 
   \ifnum#1<10 0\fi
   \number#1
 }
+\makeatother
+
 
 \noindent
 \begin{multicols*}{2}

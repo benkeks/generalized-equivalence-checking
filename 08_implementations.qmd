@@ -23,7 +23,7 @@ The tool, {{< equivio >}}, will be presented in @sec-equivio.
 We demonstrate its use through the example of Peterson's mutex.
 @sec-student-implementations shows that the game approach lends itself to many things:
 To explain equivalence notions in a computer game, to extend existing tools, and to parallelize equivalence checking through GPUs.
-In @sec-implementations-discussion, we compare our implementations to similar tools in the lineage of the “Concurrency Workbench.”
+In @sec-implementations-discussion, we compare our implementations to similar tools in the lineage of the “Concurrency Workbench” [@cps1990concurrencyWorkbench].
 
 ::::{.content-visible when-format="html" .column-margin}
 {{< contents related-8 >}}

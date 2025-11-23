@@ -423,13 +423,13 @@ But this fails to be a distinction in the weak game as the defender can just sta
 
 However, other forms of abstracted simulation can be used to force the defender out of $\literal{P}$ without negations:
 
-- *$\eta$-simulation* allows branching conjunction moves:
+- *$\eta$-simulation* features branching conjunction moves:
   $\attackerpos[\epsilon]{\literal{q_{ab}}, \set{\literal{P}, \literal{p_a}, \literal{p_b}}}
   \gamemove{\;\zerovec\;} \defenderpos[\eta]{\literal{q_{ab}}, \literal{a}, \literal{q_1}, \set{\literal{p_a}}, \set{\literal{P}, \literal{p_b}}}$.
   After this, $\literal{p_a}$ is discharged through a positive conjunct $\literal b$-observation, possible from $\literal{q_{ab}}$;
   and the $\set{\literal{P}, \literal{p_b}}$-option directly ends in $\gamemoveblank \attackerpos[\eta]{\literal{q_1}, \varnothing}\gamemoveblank\gamemoveblank\defenderpos{\literal{q_1}, \varnothing}\ngamemoveblank$, as neither $\literal{P}$ nor $\literal{p_b}$ allow immediate $\step{\literal{a}}$-steps.
   These moves cost $(1,1,1,0,0,1,0,0)$ and correspond to the distinguishing formula $\hmleps\hmlands\set{\hmlsoft{\literal a}, \hmleps\hmlobs{\literal b}}$.
-- *Stable simulation* allows stable conjunction moves:
+- *Stable simulation* allows for stable conjunction moves:
   $\attackerpos[\epsilon]{\literal{q_{ab}}, \set{\literal{P}, \literal{p_a}, \literal{p_b}}}
   \gamemove{\;\zerovec\;} \defenderpos[s]{\literal{q_{ab}}, \set{\cancel{\literal{P}}, \literal{p_a}, \literal{p_b}}}$.
   After this, $\literal{q_{ab}}$ can out-maneuver $\literal{p_a}$ through positive conjunct $\literal b$-observation,
@@ -755,7 +755,7 @@ By induction over game positions $g$ and energies $e$ according to the inductive
 5. If $e \in \attackerwins(\defenderpos[s]{p,Q})$,
   then there is $\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right) \in \stratweak(\defenderpos[s]{p,Q}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \Psi\right)) \leq e$;
 6. If $e \in \attackerwins(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha})$,
-  then there is $\hmlands \left(\set{\hmlsoft{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlsoft{\alpha}\varphi' } \cup \Psi\right)) \leq e$. \qedhere
+  then there is a $\hmlands \left(\set{\hmlsoft{\alpha}\varphi' } \cup \Psi\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q \setminus Q_\alpha,Q_\alpha}, e)$ with $\expr[\varepsilon](\hmlands \left(\set{\hmlsoft{\alpha}\varphi' } \cup \Psi\right)) \leq e$. \qedhere
 :::
 
 Weak strategy formulas distinguish the left state from the set of states on the right, where we lift @def-distinctions to sets as follows:
@@ -895,17 +895,17 @@ where
   delay: ‹strategy_formula (Attacker_Immediate p Q) e (Internal χ)›
   if ‹∃Q'. spectroscopy_moves
         (Attacker_Immediate p Q) (Attacker_Delayed p Q') = id_up
-      ∧ attacker_wins e (Attacker_Delayed p Q')
+      ∧ spectro_att_wins e (Attacker_Delayed p Q')
       ∧ strategy_formula_inner (Attacker_Delayed p Q') e χ›
 | [...]
 ```
 
 We then reproduce the induction of @lem-weak-spectroscopy-game-formulas on attacker winning budgets in the following lemma.
-For this, the theory uses the inductive characterization of $\attackerwins$ in @prp-winning-budget-rules as definition for `attacker_wins`.{{<isb lemma Strategy_Formulas lts_tau.winning_budget_implies_strategy_formula>}}
+For this, the theory uses the inductive characterization of $\attackerwins$ in @prp-winning-budget-rules as definition for `spectro_att_wins`.{{<isb lemma Strategy_Formulas lts_tau.winning_budget_implies_strategy_formula>}}
 
 ```isabelle
 lemma winning_budget_implies_strategy_formula:
-  assumes ‹attacker_wins e g›
+  assumes ‹spectro_att_wins e g›
   shows
     ‹case g of
         Attacker_Immediate p Q ⇒
@@ -926,7 +926,7 @@ lemma winning_budget_implies_strategy_formula:
               (Attacker_Immediate p Q) (e - E 1 0 0 0 0 0 0 0) φ
           ∧ expressiveness_price φ ≤ e - E 1 0 0 0 0 0 0 0›
   using assms
-proof (induction rule: attacker_wins.induct)
+proof (induction rule: weak_spectroscopy_game.attacker_wins.induct)
   [...]
 ```
 
@@ -975,8 +975,8 @@ For the other direction, the following expresses distinction completeness (@lem-
 ```isabelle
 lemma distinction_implies_winning_budgets:
   assumes ‹distinguishes_from φ p Q›
-  shows ‹attacker_wins (expressiveness_price φ)
-                       (Attacker_Immediate p Q)›
+  shows ‹spectro_att_wins (expressiveness_price φ)
+                          (Attacker_Immediate p Q)›
 ```
 
 The main theorem @thm-weak-spectroscopy-game-characterization combines the previous facts and the upward-closedness of attacker winning budgets `win_a_upwards_closure`.
@@ -987,7 +987,7 @@ The following listing reproduces it in full to convey an idea of what Isar proof
 theorem spectroscopy_game_correctness:
   shows
     ‹(∃φ. distinguishes_from φ p Q ∧ expressiveness_price φ ≤ e)
-    ⟷ attacker_wins e (Attacker_Immediate p Q)›
+    ⟷ spectro_att_wins e (Attacker_Immediate p Q)›
 proof
   assume
     ‹∃φ. distinguishes_from φ p Q ∧ expressiveness_price φ ≤ e›
@@ -995,12 +995,12 @@ proof
     ‹distinguishes_from φ p Q› ‹expressiveness_price φ ≤ e›
     by blast
   from distinction_implies_winning_budgets φ_spec(1) have
-    ‹attacker_wins
+    ‹spectro_att_wins
       (expressiveness_price φ) (Attacker_Immediate p Q)› .
-  thus ‹attacker_wins e (Attacker_Immediate p Q)›
+  thus ‹spectro_att_wins e (Attacker_Immediate p Q)›
     using win_a_upwards_closure φ_spec(2) by simp
 next
-  assume ‹attacker_wins e (Attacker_Immediate p Q)›
+  assume ‹spectro_att_wins e (Attacker_Immediate p Q)›
   with winning_budget_implies_strategy_formula have
     ‹∃φ. strategy_formula (Attacker_Immediate p Q) e φ
        ∧ expressiveness_price φ ≤ e›
@@ -1122,6 +1122,10 @@ Though both processes are weak-failure-equivalent, their variants $\literal{P}^\
 
 To reconstruct this result on {{< equivio >}}, we first have to translate the processes of @fig-idle-process-abstraction to CCS.
 We express $\literal{P}_e$ and $\literal{P}_\ell$ as `P_e` and `P_t` through mutual recursion in the following model:
+
+:::{.content-visible when-profile="foc"}
+\pagebreak
+:::
 
 ```ccs
 Ae = idle.Ae + a

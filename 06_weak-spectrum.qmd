@@ -177,7 +177,7 @@ The set of *weak traces* of a state $\wtraces{p} \subseteq \actionsvis^*$ is def
   The Isabelle theory has a slightly different definition that also allows $\tau$s in the trace words, which do not necessarily stand for proper $\step{\tau}$-steps.
 ]
 
-Two states are *weakly trace-preordered*, $p \bpreord{WT} q$, if $\wtraces{p} ⊆ \wtraces{q}$.{{<isb definition LTS lts_tau.weakly_trace_preordered>}}
+Two states are *weakly trace-preordered*, $p \bpreord{WT} q$, precisely if $\wtraces{p} ⊆ \wtraces{q}$.{{<isb definition LTS lts_tau.weakly_trace_preordered>}}
 As before, if both directions are maintained, the states are called *weakly trace-equivalent*, $p \beq{WT} q$.
 :::
 
@@ -1057,9 +1057,10 @@ Productions that could be left out without affecting distinctiveness are set in 
       \grammaror \psi_\notionname{WIF} \\
   \end{align*}
 }
+\vspace{-1em}
 ```
 
-Grammars induced by coordinates for weak linear-time notions of equivalence.
+Grammars induced by coordinates for weak linear-time notions.
 :::
 
 \indent
@@ -1178,6 +1179,7 @@ For the abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more
       \grammaror \hmleps\chi_{\notionname{BB^{sr}}}\\
   \end{align*}
 }
+\vspace{-1em}
 ```
 
 Grammars induced by coordinates for weak bisimulation-like notions.
@@ -1303,9 +1305,10 @@ At this point, they are not particularly interesting.
       \grammaror \mathdl{\hmleps\hmlands \set{ \hmlneg\hmlobs{\tau}\hmltrue, \psi_\notionname{WRS^s}, \psi_\notionname{WRS^s}, \ldots }} \\
   \end{align*}
 }
+\vspace{-1em}
 ```
 
-Grammars induced by coordinates for weak simulation-like notions of equivalence.
+Grammars induced by coordinates for weak simulation-like notions.
 :::
 
 @bj2025silentStepSpectroscopyJournal contains proofs that the observation languages for weak simulation and $\eta$-simulation correspond to their relational definitions (@def-weak-bisimilarity).{{<isb theorem Eta_Bisimilarity lts_tau.eta_sim_coordinate>}}

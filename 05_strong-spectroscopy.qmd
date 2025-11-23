@@ -478,7 +478,7 @@ There are two minor definitional nuances between the presentation here and there
 #### Distinction soundness
 
 If $e ∈ \attackerwins^{\gamespectroscopy}(\attackerpos{p, Q})$,
-then there is $φ ∈ \stratstrong(\attackerpos{p, Q}, e)$ with $φ ∈ \observationsvar[\literal{strong}]{e}$, $p ∈ \semantics{φ}$ and $Q \cap \semantics{φ} = \varnothing$.^[
+then there is a formula $φ ∈ \stratstrong(\attackerpos{p, Q}, e)$ with $φ ∈ \observationsvar[\literal{strong}]{e}$, $p ∈ \semantics{φ}$ and $Q \cap \semantics{φ} = \varnothing$.^[
   Proof in Lemma 2, 3, and 4 of @bisping2023equivalenceEnergyGamesReport.
 ]
 :::
@@ -586,7 +586,7 @@ For the game graph, this means that we do not need to consider any outgoing move
 They will not lead to attacker wins anyway.
 All game graph parts that are only reached through such positions can be disregarded.
 
-Another important trick to reduce game size is to first apply bisimulation-minimization to the transition system and then solely construct the spectroscopy game for the minimized system, $\gamespectroscopy^{\quotient{\system}{\beq{B}}}$.
+Another important trick to reduce game size is to first apply bisimulation minimization to the transition system and then solely construct the spectroscopy game for the minimized system, $\gamespectroscopy^{\quotient{\system}{\beq{B}}}$.
 This approach is sound by the following lemma.
 
 ::: {#lem-quotienting-spectro-game}

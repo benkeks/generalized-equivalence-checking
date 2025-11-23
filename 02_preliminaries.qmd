@@ -320,8 +320,9 @@ Given an assignment of names to processes, $\ccsasg \colon \ccsnames → \ccs$, 
   Rule $\mathrm{Pre}$, having no premises, serves as the only axiom of this inference system.
   @fig-deriving-transition shows how to stack such rules to infer that a certain step is possible for a process.
 ]
+A process $P ∈ \ccs$ now denotes a state within system $(\ccs, \ccsactions, \step{}_\ccs)$.
 
-:::: {#fig-ccs-rules .column-body-outset}
+:::: {#fig-ccs-rules .column-body-outset fig-pos="tbp"}
 $$
 \inferrule[Pre]{
 }{
@@ -383,8 +384,6 @@ $$
 
 Inference rules defining $\step{}_\ccs$.
 ::::
-
-A process $P ∈ \ccs$ now denotes a state within system $(\ccs, \ccsactions, \step{}_\ccs)$.
 :::
 
 So, when we were writing “$\literal{P_A} ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$” above, this was actually to claim that we are talking about a CCS system where the value of $\ccsasg$ for the *process name* $\literal{P_A} \in \ccsnames$ is defined by $\ccsasg(\literal{P_A}) ≔ \ccsprefix{\literal{fork}} \ccsprefix{\literal a} \ccsnull$.
@@ -397,7 +396,7 @@ For instance, the transition $\literal P \step{τ} \literal{p_a}$ in the CCS sys
 ::: {#fig-deriving-transition fig-pos="t" fig-env="figure*"}
 
 ```{=latex}
-\begin{adjustbox}{max width=\linewidth, center, varwidth=16.5cm}
+\begin{adjustbox}{max width=\linewidth, trim=0.5cm 0cm, center, varwidth=16.5cm}
 ```
 
 $$
@@ -615,10 +614,11 @@ Canceled symbols of relations refer to their negations, for instance, $p \nbpreo
 The following relations are simulations on the system of @exm-ts:
 
 - the empty relation $\rel R_\varnothing ≔ \varnothing$;
-- the identity relation $\rel R_\mathrm{id} ≔ \identity{\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}} = \set{(\literal P, \literal P),\allowbreak (\literal{p_a}, \literal{p_a}),\allowbreak (\literal{p_b}, \literal{p_b}), (\literal{p_1}, \literal{p_1}),\allowbreak (\literal{p_2}, \literal{p_2}), (\literal Q, \literal Q), (\literal{q_{ab}}, \literal{q_{ab}}), \allowbreak(\literal{q_1}, \literal{q_1}), (\literal{q_2}, \literal{q_2})}$;
+- the identity relation $\rel R_\mathrm{id} ≔ \identity{\set{\literal P, \literal{p_a}, \literal{p_b}, \literal{p_1}, \literal{p_2}, \literal Q, \literal{q_{ab}}, \literal{q_1}, \literal{q_2}}} = \set{(\literal P, \literal P),\allowbreak (\literal{p_a}, \literal{p_a}),\allowbreak (\literal{p_b}, \literal{p_b}),\allowbreak (\literal{p_1}, \literal{p_1}),\allowbreak (\literal{p_2}, \literal{p_2}),\allowbreak (\literal Q, \literal Q),\allowbreak (\literal{q_{ab}}, \literal{q_{ab}}), \allowbreak(\literal{q_1}, \literal{q_1}), (\literal{q_2}, \literal{q_2})}$;
 - the universal relation between all terminal states  
-  $\rel R_\mathrm{term} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} \times \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}}$,
-- more generally, the relation from terminal states to all other states: $\rel R_\mathrm{up} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} × \states$;
+  $\rel R_\mathrm{term} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} \times \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}}$;
+- more generally, the relation from terminal states to all other states:  
+  $\rel R_\mathrm{up} ≔ \set{\literal{p_1}, \literal{p_2}, \literal{q_1}, \literal{q_2}} × \states$;
 - a minimal simulation for $\literal P$ and $\literal Q$:  
   $\rel R_\literal{PQ} ≔ \set{(\literal{P}, \literal{Q}), (\literal{p_a}, \literal{q_{ab}}), (\literal{p_b}, \literal{q_{ab}}), (\literal{p_1}, \literal{q_1}), (\literal{p_2}, \literal{q_2})}$;
 - and the combination of the above $\rel R_\mathrm{big} ≔ \rel R_\mathrm{id} ∪ \rel R_\mathrm{term} ∪ \rel R_\mathrm{up} ∪ \rel R_\literal{PQ}$.
@@ -684,7 +684,7 @@ The relation $\beq{B}$ is itself a symmetric simulation.{{<isb lemma Strong_Equi
 :::
 
 ::: {#cor-bisim-impl-sim}
-If $p \beq{B} q$, then $p \beq{S} q$.{{<isb lemma Strong_Equivalences lts.bisim_bisim>}}
+If $p \beq{B} q$, then $p \beq{S} q$.{{<isb lemma Strong_Equivalences lts.bisim_implies_sim>}}
 :::
 
 ::: {#lem-sim-impl-traces}
@@ -1085,10 +1085,10 @@ That two states are bisimilar precisely if they cannot be told apart using HML f
 ::: {#def-distinctions}
 #### Distinctions and equivalences
 
-We say that formula $φ ∈ \hml$ *distinguishes* state $p$ *from* state $q$ if $p ∈ \semantics{φ}$ but $q \notin \semantics{φ}$.{{<isb abbreviation LTS_Semantics lts.distinguishes>}}
+We say that formula $φ ∈ \hml$ *distinguishes* state $p$ *from* state $q$ if $p ∈ \semantics{φ}$ but $q \notin \semantics{φ}$.{{<isb abbreviation LTS_Semantics lts_semantics.distinguishes>}}
 
-We say a sublogic $\observationsvar{} ⊆ \hml$ *preorders* state $p$ to $q$, $p \bpreordvar{\observationsvar{}} q$, if no $φ ∈ \observationsvar{}$ distinguishes $p$ from $q$.{{<isb definition LTS_Semantics lts.preordered>}}
-If the preordering goes in both directions, we say that $p$ and $q$ are *equivalent* with respect to sublogic $\observationsvar{}$, written $p \beqvar{\observationsvar{}} q$.{{<isb definition LTS_Semantics lts.equivalent>}}
+We say a sublogic $\observationsvar{} ⊆ \hml$ *preorders* state $p$ to $q$, $p \bpreordvar{\observationsvar{}} q$, if no $φ ∈ \observationsvar{}$ distinguishes $p$ from $q$.{{<isb definition LTS_Semantics lts_semantics.preordered>}}
+If the preordering goes in both directions, we say that $p$ and $q$ are *equivalent* with respect to sublogic $\observationsvar{}$, written $p \beqvar{\observationsvar{}} q$.{{<isb definition LTS_Semantics lts_semantics.equivalent>}}
 :::
 
 By this account, $\hmlobs{τ}\hmlneg\hmlobs{\literal a}$ of @exm-hml distinguishes $\literal P$ from $\literal Q$.
@@ -1100,7 +1100,7 @@ For instance, the sublogic $\set{\hmlobs{τ}\hmlobs{\literal a}, \hmlobs{τ}\hml
 #### Transitivity for free
 
 Consider an arbitrary HML sublogic $\observationsvar{} ⊆ \hml$.
-Then, $\bpreordvar{\observationsvar{}}$ is a preorder, and $\beqvar{\observationsvar{}}$ an equivalence relation.{{<isb lemma LTS_Semantics lts.equivalent_equiv>}}
+Then, $\bpreordvar{\observationsvar{}}$ is a preorder, and $\beqvar{\observationsvar{}}$ an equivalence relation.{{<isb lemma LTS_Semantics lts_semantics.equivalent_equiv>}}
 :::
 
 ::: {#lem-hml-eq-sim}

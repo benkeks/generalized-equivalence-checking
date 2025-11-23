@@ -62,6 +62,11 @@ end
 
 
 function isb(args)
+  session = isb_session(args[2])
+  if args[2] == "LTS" then
+    -- hack because the name appears in both sessions...
+    args[2] = "Labeled_Transition_Systems"
+  end
   qualified_name = args[2] .. "." .. args[3]
   type = isb_types[args[1]] or "fact"
   if quarto.doc.isFormat('pdf')  then
@@ -80,7 +85,7 @@ function isb(args)
         pandoc.Str(" " .. tostring(args[1])),
         pandoc.RawInline("latex", "~"),
         pandoc.Link(qualified_name_breakable,
-          isb_session(args[2]) ..
+          session ..
           args[2] .. ".html#" .. qualified_name .. "|" .. type)
       }
     }
@@ -90,7 +95,7 @@ function isb(args)
         pandoc.Image("isb", "img/isabelle.png", "Formalized in Isabelle", {height = "0.9em"}),
         pandoc.Str(" " ..  tostring(args[1] .. " ")),
         pandoc.Link(qualified_name,
-          isb_session(args[2]) ..
+          session ..
           args[2] .. ".html#" .. qualified_name .. "|" .. type)
       }
     }

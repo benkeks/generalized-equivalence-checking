@@ -528,7 +528,7 @@ Data transformation flow in equiv.io
     {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.WeakSpectroscopy >}}
     for the respective spectroscopy variants of @sec-strong-spectroscopy and @sec-weak-spectroscopy.
     In particular, they facilitate the following steps in `SpectroscopyFramework.decideAll`:
-    1. The spectroscopy defines a *spectroscopy game* (e.g. {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.StrongSpectroscopyGame >}}).
+    1. The spectroscopy implementation defines a *spectroscopy game* (e.g. {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.StrongSpectroscopyGame >}}).
        The game must be a {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.EnergyGame >}}, inheriting a decision procedure along the lines of @algo-deciding-energy-games from trait {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" game.GameLazyDecision >}}.
        This computation is invoked together with the game graph construction through `populateGame`.
     2. The spectroscopy provides an {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.Spectrum >}} object which is used to interpret the game result in a hierarchy of {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" hml.ObservationNotion >}}s to pick the strongest preorders to relate compared processes.
@@ -545,7 +545,7 @@ Data transformation flow in equiv.io
     Error reports would point to incorrectness of the specific spectroscopy, not to user mistakes.
     Thus, the validation does not affect the core decision procedure, but increases confidence that a specific output is sound.
 
-    If no formula construction is requested, `SpectroscopyFramework.decideAll` works on *flattened energies* (@def-flattened-energies), generally leading to better performance.
+    If no formula construction is requested, `SpectroscopyFramework.decideAll` works on *flattened energies* (@def-flattened-energies), which generally leads to better performance.
 5. **Presentation.**
   `SpectroscopyFramework.decideAll` collects the finest preorders and coarsest distinctions, optionally together with their witness formulas in a `Spectroscopy.Result` object from
   {{< code_link "shared/src/main/scala-2.12/io/equiv/eqfiddle" spectroscopy.Spectroscopy >}}.
@@ -1073,7 +1073,7 @@ The coalgebraic approach is related to the game approach and, too, can derive di
 However, encoding simulation-like preorders in category theory seems to be non-trivial if one compares the machinery of @rt2010efficientSimulation to the ease of just leaving out swap-moves in the bisimulation game.
 It is difficult to say whether it is conceptional boundaries or the coating in category-theory parlance that has hindered a wider adoption in tools.
 
-A light-weight variant of the functor-approach is offered by *equivalences-as-signatures*.
+A light-weight variant of the functor-approach is offered by the paradigm *equivalences-as-signatures*.
 Tools like *Sigref* [@whhsb2006sigref] support a broad range of bisimulation-like equivalences.
 The specifics of individual equivalences are expressed as *signatures* that prescribe how to refine equivalence classes in an iterative partition-refinement.
 Signature Refinement can easily be boosted by parallelization or symbolic BDD-encodings.

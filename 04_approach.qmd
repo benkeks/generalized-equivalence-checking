@@ -743,7 +743,7 @@ The general design principle for the construction of strategy formulas as in @de
 #### Distinction soundness
 
 If $e ∈ \attackerwins^{\gamebisimen}([p, q])$,
-then there is $φ ∈ \strat_\notionname{B}([p, q], e)$ with $φ ∈ \observationsvar[\literal{peasy}]{e}$, $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$.
+then there is a formula $φ ∈ \strat_\notionname{B}([p, q], e)$ with $φ ∈ \observationsvar[\literal{peasy}]{e}$, $p ∈ \semantics{φ}$ and $q \notin \semantics{φ}$.
 :::
 ::: proof
 We prove the following (more general) property by induction.
@@ -1081,8 +1081,8 @@ $$
 
 ### The Algorithm
 
-To implement a *backpropagation* algorithm, we have to assume that we know a function that undoes energy updates, $\abstractupdateinv \colon (\gamemoveblank) \to \abstractenergies \to \abstractenergies$ with $\abstractupdateinv(m)(e') = \min \set{e \mid e' \leq \abstractupdate(m)(e)}$.
-That means, we assume that there is a Galois connection $(\abstractupdateinv(m), \abstractupdate(m))$ between energies $\abstractenergies$ and the domain of updates $\set{e ∈ \abstractenergies \mid \abstractupdate(m)(e) \neq \bot}$ for each $m \in {\gamemoveblank}$.
+To implement a *backpropagation* algorithm, we have to assume that we know a function that *undoes* energy updates, $\abstractupdateinv \colon (\gamemoveblank) \to \abstractenergies \to \abstractenergies$ such that $\abstractupdateinv(m)(e') = \min \set{e \mid e' \leq \abstractupdate(m)(e)}$.
+That means, we assume that there is a Galois connection $(\abstractupdateinv(m), \abstractupdate(m))$ for each $m \in {\gamemoveblank}$ between energies $\abstractenergies$ and the domain of updates $\set{e ∈ \abstractenergies \mid \abstractupdate(m)(e) \neq \bot}$.
 
 Following @lemke2024multiweightedEnergyGames, we assume that the energy system $(\abstractenergies, \leq)$ is a well-founded bounded $\sup$-semi-lattice.
 By $\zerovec$, we denote its minimal element.

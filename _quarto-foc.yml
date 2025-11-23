@@ -16,6 +16,7 @@ format:
       - style-foc/passoptions.latex
       - style-foc/before-body.tex
     include-after-body: style-foc/foc-list.tex
+    latex-clean: false
     geometry:
     - left=1.2cm
     - right=1.2cm

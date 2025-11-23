@@ -1,4 +1,4 @@
-%\DocumentMetadata{pdfstandard=A-2b}
+%\DocumentMetadata{pdfstandard=A-2b, tagging=on}
 %\pdfminorversion=7
 \directlua{pdf.setminorversion(3)}
 % Options for packages loaded elsewhere

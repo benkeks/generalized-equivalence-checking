@@ -13,8 +13,9 @@ format:
     linestretch: 1.09
     pdf-engine: lualatex
     template-partials:
-      - style/passoptions.latex
-    include-after-body: style/foc-list.tex
+      - style-foc/passoptions.latex
+      - style-foc/before-body.tex
+    include-after-body: style-foc/foc-list.tex
     geometry:
     - left=1.2cm
     - right=1.2cm
@@ -23,4 +24,4 @@ format:
 #    - marginparsep=0.2cm
 #    - marginparwidth=4.4cm
     reference-location: block
-    include-in-header: style/preamble-foc.tex
+    include-in-header: style-foc/preamble-foc.tex

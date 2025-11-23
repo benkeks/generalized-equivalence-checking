@@ -329,8 +329,8 @@ Starting `@compare` (on {{< equivio >}}) triggers a spectroscopy along the lines
 • Preordered by:
     simulation
 • Left-right-distinguished by:
-    ⟨τ⟩⋀{¬⟨b⟩⊤} (failure)
-    ⟨τ⟩⋀{¬⟨a⟩⊤} (failure)
+    ⟨τ⟩Λ{¬⟨b⟩⊤} (failure)
+    ⟨τ⟩Λ{¬⟨a⟩⊤} (failure)
 • Equated by:
     trace
 ```
@@ -338,10 +338,10 @@ Starting `@compare` (on {{< equivio >}}) triggers a spectroscopy along the lines
 That `P` is simulated by `Q` matches our finding from @exm-phil-sim.
 Internally this is established by building the spectroscopy game and computing that $\attackerwinsmin(\attackerpos{\literal{P}, \set{\literal{Q}}}) = \set{(2,1,0,0,1,1)}$.
 
-That no equivalence besides or above simulation can hold, is justified to the user by the failure `⟨τ⟩⋀{¬⟨a⟩⊤}`, which we also discussed in @sec-incomparabilities.
+That no equivalence besides or above simulation can hold, is justified to the user by the failure `⟨τ⟩Λ{¬⟨a⟩⊤}`, which we also discussed in @sec-incomparabilities.
 In the upcoming @sec-correctness-strong-spectroscopy, we will also give the rules that the tool uses to construct this witness in $\stratstrong$.
 
-Invoking `@compare Q, P` for the other direction, {{< equivio >}} reports `⟨τ⟩⋀{⟨b⟩⊤,⟨a⟩⊤}` as a distinguishing formula disproving simulation (as we have found in @exm-hml).
+Invoking `@compare Q, P` for the other direction, {{< equivio >}} reports `⟨τ⟩Λ{⟨b⟩⊤,⟨a⟩⊤}` as a distinguishing formula disproving simulation (as we have found in @exm-hml).
 :::
 
 The spectroscopy game still is a bisimulation game in the following sense.

@@ -384,15 +384,15 @@ This yields output (also to be seen in @fig-equivio-screenshot):
     eta-simulation
     stable-simulation
 • Left-right-distinguished by:
-    ⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecA⟩⊤,¬⟨τ⟩⊤} (stable-failure)
-    ⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤} (weak-failure)
+    ⟨ϵ⟩Λ{¬⟨ϵ⟩⟨ecA⟩⊤,¬⟨τ⟩⊤} (stable-failure)
+    ⟨ϵ⟩Λ{¬⟨ϵ⟩⟨ecB⟩⊤} (weak-failure)
 • Equated by:
     weak-simulation
 ```
 
 The maintained notions can also be marked in an overlay on the weak spectrum, as shown in @fig-peterson-spectrum.
 
-The weak failure `⟨ϵ⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤}` can be understood to point out that `Pe` *exceeds* `Mx` in that
+The weak failure `⟨ϵ⟩Λ{¬⟨ϵ⟩⟨ecB⟩⊤}` can be understood to point out that `Pe` *exceeds* `Mx` in that
 it can reach a state without visible activity where `ecB` is impossible.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; … thinking about it, this behavior might be okay for a mutual exclusion protocol, might it not?
@@ -419,9 +419,9 @@ MxIC = tau.ecA.lcA.MxIC + tau.ecB.lcB.MxIC
     weak-ready-simulation
     s-ready-simulation
 • Left-right-distinguished by:
-    ⟨ϵ⟩⟨ecA⟩⟨ϵ⟩⋀{¬⟨ϵ⟩⟨lcA⟩⟨ϵ⟩⟨ecA⟩⊤,¬⟨τ⟩⊤} (s-impossible-future)
-    ⟨ϵ⟩⟨ecB⟩⟨ϵ⟩⟨lcB⟩⋀{¬⟨ϵ⟩⟨ecB⟩⊤} (delay-bisimulation)
-    ⟨ϵ⟩⟨ecA⟩⟨ϵ⟩⋀{¬⟨ϵ⟩⟨lcA⟩⟨ϵ⟩⟨ecA⟩⊤} (weak-impossible-future)
+    ⟨ϵ⟩⟨ecA⟩⟨ϵ⟩Λ{¬⟨ϵ⟩⟨lcA⟩⟨ϵ⟩⟨ecA⟩⊤,¬⟨τ⟩⊤} (s-impossible-future)
+    ⟨ϵ⟩⟨ecB⟩⟨ϵ⟩⟨lcB⟩Λ{¬⟨ϵ⟩⟨ecB⟩⊤} (delay-bisimulation)
+    ⟨ϵ⟩⟨ecA⟩⟨ϵ⟩Λ{¬⟨ϵ⟩⟨lcA⟩⟨ϵ⟩⟨ecA⟩⊤} (weak-impossible-future)
 • Equated by:
     stable-readiness
     eta-simulation
@@ -441,7 +441,7 @@ Spectrum output in {{< equivio >}}.
 :::
 
 The main aspect that creates the differences between `Pe` and `MxIC` is that the implementation can decide that `B` will be the next entering the critical section next, even before `A` has left. 
-In above output, this is mirrored by the impossible-future formula `⟨ϵ⟩⟨ecA⟩⟨ϵ⟩⋀{¬⟨ϵ⟩⟨lcA⟩⟨ϵ⟩⟨ecA⟩⊤}`.
+In above output, this is mirrored by the impossible-future formula `⟨ϵ⟩⟨ecA⟩⟨ϵ⟩Λ{¬⟨ϵ⟩⟨lcA⟩⟨ϵ⟩⟨ecA⟩⊤}`.
 
 We can find this scenario already in the pseudocode.
 It happens when both processes are in `PC = 2` and `B` has set `turn = A`.

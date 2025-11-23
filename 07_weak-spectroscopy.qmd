@@ -1106,7 +1106,7 @@ P_Para(main, x=587, y=55)
 
 The statement `@compareSilent P_Para, P_Seq` invokes the *weak spectroscopy* on the pair of processes.
 
-As a cheapest distinguishing formula of `P_Para` from `P_Seq`, the spectroscopy reports `⟨ϵ⟩⟨printOutput!⟩⟨ϵ⟩⋀{⟨ϵ⟩⟨printA!⟩⊤,⟨ϵ⟩⟨printB!⟩⊤}`.
+As a cheapest distinguishing formula of `P_Para` from `P_Seq`, the spectroscopy reports `⟨ϵ⟩⟨printOutput!⟩⟨ϵ⟩Λ{⟨ϵ⟩⟨printA!⟩⊤,⟨ϵ⟩⟨printB!⟩⊤}`.
 This formula disproves weak simulation plus weak readiness and everything above in the weak spectrum.
 The minimality means that all other notions must hold.
 These are the equivalences of contrasimilarity and stable bisimilarity, and below.

@@ -11,7 +11,7 @@ format:
     keep-tex: true
     latex-output-dir: _latex-output
     linestretch: 1.09
-    pdf-engine: lualatex
+    pdf-engine: lualatex # xelatex
     template-partials:
       - style-foc/passoptions.latex
       - style-foc/before-body.tex

@@ -82,6 +82,7 @@ citation:
   genre: PhD thesis
   doi: "10.14279/depositonce-24813"
   publisher: "Technische Universität Berlin"
+lang: en
 
 format:
   html:
@@ -121,14 +122,16 @@ format:
     pdf-engine: xelatex
     from: markdown-latex_macros
     mainfont: Linux Libertine O
-    monofont: IsabelleDejaVuSansMono
-    monofontoptions:
-    - Path=./lib/isabelle-font/ttf/
-    - Extension=.ttf
-    - UprightFont = *-Regular
-    - BoldFont=*-Bold
-    - ItalicFont=*-Oblique
-    - BoldItalicFont=*-BoldOblique
+    monofont: DejaVu Sans Mono # IsabelleDejaVuSansMono
+    # monofontoptions:
+    # - Path=./lib/isabelle-font/ttf/
+    # - Extension=.ttf
+    # - UprightFont=*-Regular
+    # - BoldFont=*-Bold
+    # - ItalicFont=*-Oblique
+    # - BoldItalicFont=*-BoldOblique
+    # - Language=Default
+    # - Ligatures=CommonOff
     mathfont: NewCMMath-Regular.otf
     mathfontoptions:
     - Path=./lib/newcomputermodern-font/

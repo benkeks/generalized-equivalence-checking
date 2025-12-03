@@ -4,7 +4,8 @@
 \input{style/preamble-font.tex}
 \input{style/preamble-layout.tex}
 
-\usepackage[a-2a,mathxmp]{pdfx}
+\usepackage[a-2a]{pdfx}
+\usepackage{hyperxmp}
 %\hypersetup{hidelinks}
 %\usepackage{tagpdf}
 
@@ -13,35 +14,52 @@
 %\setdefaultlanguage{english}
 \defaultfontfeatures{Language=English}
 
+\hypersetup{
+    pdftitle={Generalized Equivalence Checking of Concurrent Programs},
+    pdfauthor={Benjamin Bisping},
+    pdfsubject={Decide how equivalent processes are through energy games
+        that cover the linear-time–branching-time spectrum of behavioral equivalences.},
+    pdfkeywords={Equivalence Checking, Concurrency Theory, Bisimulation,
+        Trace Equivalence, Game Characterizations, Modal Logics,
+        Program Verification, Process Algebra, Computer Science},
+    pdfcreator={LaTeX with pdfx package},
+    pdfproducer={LuaLaTeX},
+    pdflicenseurl={http://creativecommons.org/licenses/by/4.0},
+    pdfcopyright={CC-BY 4.0 Benjamin Bisping},
+    pdfurl={https://generalized-equivalence-checking.equiv.io/},
+    pdflang={en},
+    bookmarks=true,bookmarksopen=true,bookmarksopenlevel=0
+}
+
 \usepackage{tabto}
 \usepackage[final]{pdfpages}
 
 \usepackage{enumitem}
 \usepackage{multicol}
 
-\begin{filecontents*}[overwrite]{\jobname.xmpdata}
-    \Title{Generalized Equivalence Checking of Concurrent Programs}
-    \Author{Benjamin Bisping}
-    \Language{en-US}
-    \Subject{
-        Decide how equivalent processes are through energy games
-        that cover the linear-time–branching-time spectrum of behavioral equivalences.
-    }
-    \Keywords{
-        Equivalence Checking \sep
-        Concurrency Theory \sep
-        Bisimulation \sep
-        Trace Equivalence \sep
-        Game Characterizations \sep
-        Modal Logics \sep
-        Program Verification \sep
-        Process Algebra \sep
-        Computer Science
-    }
-	\Copyright{CC-BY 4.0 Benjamin Bisping}
-	\CopyrightURL{http://creativecommons.org/licenses/by/4.0}
-	\BaseURL{https://generalized-equivalence-checking.equiv.io/}
-\end{filecontents*}
+% \begin{filecontents*}[overwrite]{\jobname.xmpdata}
+%     \Title{Generalized Equivalence Checking of Concurrent Programs}
+%     \Author{Benjamin Bisping}
+%     \Language{en-US}
+%     \Subject{
+%         Decide how equivalent processes are through energy games
+%         that cover the linear-time–branching-time spectrum of behavioral equivalences.
+%     }
+%     \Keywords{
+%         Equivalence Checking \sep
+%         Concurrency Theory \sep
+%         Bisimulation \sep
+%         Trace Equivalence \sep
+%         Game Characterizations \sep
+%         Modal Logics \sep
+%         Program Verification \sep
+%         Process Algebra \sep
+%         Computer Science
+%     }
+% 	\Copyright{CC-BY 4.0 Benjamin Bisping}
+% 	\CopyrightURL{http://creativecommons.org/licenses/by/4.0}
+% 	\BaseURL{https://generalized-equivalence-checking.equiv.io/}
+% \end{filecontents*}
 
 \usepackage[bottom]{footmisc}
 

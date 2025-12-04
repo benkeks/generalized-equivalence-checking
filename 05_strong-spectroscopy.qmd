@@ -101,7 +101,7 @@ $\hmlobs{\literal{a}}\hmlands \set{ \hmlobs{\literal{b}}, \hmlobs{\literal{b}} \
 ::::
 
 It might be possible to reconstruct trace observations from such tree-like observations as the one of @exm-trace-distinction-bisim-game.
-But by the closing arguments of @sec-spectrum-approach-discussion, and also according to @martensGroote2023minimalDistFormulasNP, this must inherently be $\complexityname{NP}$-hard.
+But by the closing arguments of @sec-spectrum-approach-discussion, and also in line with @martensGroote2023minimalDistFormulasNP, this must inherently be $\complexityname{NP}$-hard.
 What we will do instead is adapt the bisimulation game such that it also expresses trace-like distinctions, and precisely counts conjunctions.
 
 ### The Game

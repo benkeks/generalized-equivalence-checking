@@ -9,8 +9,7 @@ project:
     timeout: 30
 
 filters:
-#- teximg
-- noindent
+- thesis_macros
 - diagram
 
 number-sections: true
@@ -89,7 +88,6 @@ format:
     from: markdown
     theme: [cosmo, style/colors.scss]
     html-math-method: katex
-    #fig-cap-location: margin
     reference-location: margin
     crossrefs-hover: true
     citation-location: document

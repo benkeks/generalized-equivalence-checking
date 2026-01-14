@@ -10,6 +10,7 @@ site_libs
 _diagrams
 _cache_diagrams
 _latex-output
+Generalized-Equivalence-Checking-of-Concurrent-Programs.tex
 
 *.html
 tmp_*

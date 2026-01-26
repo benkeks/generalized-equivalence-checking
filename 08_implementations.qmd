@@ -119,7 +119,7 @@ The standard queries are:
 | `ready-trace`          |                                    | `stable-ready-trace`                       |
 | `impossible-future`    | `weak-impossible-future`             | `s-impossible-future`                    |
 | `possible-future`      | `weak-possible-future`               |                                          |
-| `simulation`           | `weak-simulation`                    | `stable-simulation`                        |
+| `simulation`           | `weak-simulation` <br> `eta-simulation`                  | `stable-simulation`                        |
 | `ready-simulation`     | `weak-ready-simulation`              | `s-ready-simulation`                       |
 | `2-nested-simulation`  | `2-nested-weak-simulation`           |                                          |
 | `bisimulation`         | `contrasimulation`<br> `weak-bisimulation`<br> `delay-bisimulation`<br> `eta-bisimulation`<br> `branching-bisimulation` | `stable-bisimulation`<br> `sr-delay-bisimulation`<br> `sr-branching-bisimulation` |
@@ -952,7 +952,7 @@ In this chapter, we have surveyed the four existing implementations of the spect
 
 We focused on {{< equivio >}}, which closely aligns with this thesis.
 We have seen how the tool easily answers questions such as “How equivalent is Peterson's algorithm to the specification of mutual exclusion.”
-{{< equivio >}} can check behavioral preorders and equivalences for more than 38 notions of strong and weak spectrum.
+{{< equivio >}} can check behavioral preorders and equivalences for more than 39 notions of strong and weak spectrum.
 Due to the possibility to mark divergences, even more notions are available via preprocessing.
 
 {{< paragraph_heading "Other tools." >}}

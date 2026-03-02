@@ -505,8 +505,8 @@ $$
 $$
 $$
 \inferrule[conj.\, answer]{
-  \defenderpos{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \\
   \forall q \in Q \ldotp \;
+  \defenderpos{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \; \land \;
   e_q = \energyupdate(u_q, e) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
   \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
 } {
@@ -542,9 +542,9 @@ $$
 $$
 $$
 \inferrule[stable\, conj.\, answer]{
-  \defenderpos[s]{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \quad
   Q \neq \varnothing \\
   \forall q \in Q \ldotp \;
+  \defenderpos[s]{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \; \land \;
   e_q = \energyupdate(u_q, e) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
   \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
 } {
@@ -556,7 +556,7 @@ $$
   \defenderpos[s]{p,\varnothing} \gamemove{u} \defenderpos{p,\varnothing} \quad
   e' = \energyupdate(u, e) \in \attackerwins(\defenderpos{p,\varnothing})
 } {
-  \hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue } \in \stratweak(\defenderpos[s]{p,Q}, e)
+  \hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue } \in \stratweak(\defenderpos[s]{p,\varnothing}, e)
 }
 $$
 $$
@@ -592,7 +592,7 @@ Strategy formulas for the weak spectroscopy.
 ::: {#def-strategy-formulas-weak}
 #### Strategy formulas for $\gamespectroscopyw$
 
-The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas and @fig-weak-spectroscopy-strategy-formulas-cont.{{<isb inductive Strategy_Formulas lts_tau.strategy_formula>}}
+The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas and @fig-weak-spectroscopy-strategy-formulas-cont .{{<isb inductive Strategy_Formulas lts_tau.strategy_formula>}}
 :::
 
 :::{#fig-weak-spectroscopy-strategy-formulas .column-body-outset fig-pos='t' fig-env="figure*"}
@@ -645,8 +645,9 @@ $$
 $$
 $$
 \inferrule[conj.\, answer]{
-  \defenderpos{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \\
   \forall q \in Q \ldotp \;
+  \defenderpos{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \\
+  \; \land \;
   e_q = \energyupdate(u_q, e) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
   \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
 } {
@@ -687,9 +688,9 @@ $$
 $$
 $$
 \inferrule[stable\, conj.\, answer]{
-  \defenderpos[s]{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \quad
   Q \neq \varnothing \\
   \forall q \in Q \ldotp \;
+  \defenderpos[s]{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \; \land \;
   e_q = \energyupdate(u_q, e) \in \attackerwins(\attackerpos[\land]{p,q}) \\ \; \land \;
   \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
 } {
@@ -701,7 +702,7 @@ $$
   \defenderpos[s]{p,\varnothing} \gamemove{u} \defenderpos{p,\varnothing} \quad
   e' = \energyupdate(u, e) \in \attackerwins(\defenderpos{p,\varnothing})
 } {
-  \hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue } \in \stratweak(\defenderpos[s]{p,Q}, e)
+  \hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue } \in \stratweak(\defenderpos[s]{p,\varnothing}, e)
 }
 $$
 $$

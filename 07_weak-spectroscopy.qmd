@@ -100,7 +100,7 @@ This makes the schematic depiction in @fig-weak-spectroscopy-game-schematic alre
       (DefStab) edge[bend right=10]
         node[align=right, pos=.85, label={[label distance=0.3cm]-170:$\textcolor{gray}{-\unitvec{4}}$}] {\mbox{}\hspace*{-1.5em}$q \in Q_\varepsilon$\\[2pt]\mbox{}\hspace*{-1.5em}$q \nostep{\tau}$} (AttConj)
       (DefStab) edge[bend left=10]
-        node[align=right, pos=.2, label={[label distance=0.3cm]165:$\textcolor{gray}{-\unitvec{4}-\unitvec{8}}$}] {\mbox{}\hspace*{-3em}$\varnothing = Q = \mbox{}$\\[2pt]\mbox{}\hspace*{-3em}$\set{ q\!\in\!Q_\varepsilon \mid q \nostep{\tau} }\;$} (Def)
+        node[align=right, pos=.4, label={[label distance=0.1cm]165:$\textcolor{gray}{-\unitvec{4}-\unitvec{8}}$}] {$Q = \varnothing$} (Def)
       (AttConj) edge[bend left=10]
         node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{1,6},0,0,0,0,0,0,0}$}] {} (AttContinue)
       (AttConj) edge[bend right=15]
@@ -131,7 +131,7 @@ consists of
 - *attacker (immediate) positions* $\attackerpos{p,Q} \in G_\attacker$,
 - **new:** *attacker delayed positions* $\attackerpos[\varepsilon]{p,Q} \in G_\attacker$,
 - *attacker conjunct positions* $\attackerpos[\land]{p,q} \in G_\attacker$,
-- **new:** *attacker branching positions* $\attackerpos[\eta]{p,Q} \in G_\defender$,
+- **new:** *attacker branching positions* $\attackerpos[\eta]{p,Q} \in G_\attacker$,
 - *defender conjunction positions* $\defenderpos{p,Q} \in G_\defender$,
 - **new:** *defender stable conjunction positions* $\defenderpos[s]{p,Q} \in G_\defender$,
 - **new:** *defender branching positions* $\defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha} \in G_\defender$,
@@ -218,7 +218,7 @@ $$
   & \text{if $q \in Q$,}
   \\
   \textit{stable finishing}
-  & \defenderpos[s]{p,\varnothing}
+  & \defenderpos[s]{p,Q}
   & \gamemove{0,0,0,-1,0,0,0,-1}
   & \defenderpos{p,\varnothing},
 \end{array}
@@ -332,7 +332,7 @@ $$
   & \text{if $q \in Q$,}
   \\
   \textit{stable finishing}
-  & \defenderpos[s]{p,\varnothing}
+  & \defenderpos[s]{p,Q}
   & \gamemove{0,0,0,-1,0,0,0,-1}
   & \defenderpos{p,\varnothing},
 \end{array}
@@ -1287,7 +1287,7 @@ The *simplified* weak spectroscopy game $\gamespectroscopywsimple$ in @fig-weak-
         (DefStab) edge[bend right=10]
           node[align=right, pos=.85, label={[label distance=0.3cm]-170:$\textcolor{gray}{-\unitvec{4}}$}] {\mbox{}\hspace*{-1.5em}$q \in Q_\varepsilon$\\[2pt]\mbox{}\hspace*{-1.5em}$q \nostep{\tau}$} (AttConj)
         (DefStab) edge[bend left=10]
-          node[align=right, pos=.2, label={[label distance=0.3cm]165:$\textcolor{gray}{-\unitvec{4}-\unitvec{8}}$}] {\mbox{}\hspace*{-3em}$\varnothing = Q = \mbox{}$\\[2pt]\mbox{}\hspace*{-3em}$\set{ q\!\in\!Q_\varepsilon \mid q \nostep{\tau} }\;$} (Def)
+          node[align=right, pos=.4, label={[label distance=0.1cm]165:$\textcolor{gray}{-\unitvec{4}-\unitvec{8}}$}] {$Q = \varnothing$} (Def)
         (AttConj) edge[bend left=10]
           node[label={[label distance=0.0cm]-75:$\textcolor{gray}{\updmin{1,6},0,0,0,0,0,0,0}$}] {} (AttContinue)
         (AttConj) edge[bend right=15]

@@ -29,10 +29,10 @@ jobs:
         id: svg-diagrams-restore
         uses: actions/cache/restore@v4
         with:
-          path: _cache_diagrams
-          key: svg-diagrams-${{ hashFiles('**/*.qmd', '**/*.md') }}
+          path: _cache_diagrams/lualatex
+          key: svg-diagrams-lualatex-${{ hashFiles('**/*.qmd', '**/*.md') }}
           restore-keys: |
-            svg-diagrams-
+            svg-diagrams-lualatex-
 
       - name: Install dependencies
         run: sudo apt update && sudo apt install pdf2svg fonts-linuxlibertine fonts-stix fonts-lmodern fonts-dejavu-mono librsvg2-bin python3-ipython python3-numpy python3-pandas python3-tabulate jupyter
@@ -42,7 +42,7 @@ jobs:
         with:
           packages: |
             scheme-basic
-            collection-xetex
+            collection-luatex
             xcolor
             standalone
             mathtools
@@ -56,6 +56,7 @@ jobs:
             fontspec
             fontsetup
             unicode-math
+            stix2-otf
             isodate
             newunicodechar
             setspace
@@ -77,6 +78,10 @@ jobs:
             xmpincl
             footmisc
             luatex85
+            hyperxmp
+            tabto
+            pdfpages
+            enumitem
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -99,8 +104,8 @@ jobs:
         if: always()
         uses: actions/cache/save@v4
         with:
-          path: _cache_diagrams
-          key: svg-diagrams-${{ hashFiles('**/*.qmd', '**/*.md') }}
+          path: _cache_diagrams/lualatex
+          key: svg-diagrams-lualatex-${{ hashFiles('**/*.qmd', '**/*.md') }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -272,7 +272,7 @@ MxIC = tau.ecA.lcA.MxIC + tau.ecB.lcB.MxIC
 
 This query leads to the output in @fig-peterson-spectrum,^[
   This thesis often provides snippets for models on {{< equivio >}}.
-  You can examine and modify the example models by clicking on the [links reading `Interactive model on equiv.io`]{.content-visible unless-profile="foc"}[triangles $\scriptsize\triangle$ next to the listings]{.content-visible when-profile="foc"}.
+  You can examine and modify the example models by clicking on the [links reading `Interactive model on equiv.io`]{.content-visible unless-format="pdf"}[triangles $\scriptsize\triangle$ next to the listings]{.content-visible when-format="pdf"}.
 ]
 which is to be understood as an interactive version of the linear-time--branching-time spectrum of @fig-ltbts2-paper.
 

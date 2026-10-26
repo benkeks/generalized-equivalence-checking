@@ -25,7 +25,7 @@ function CodeBlock(block)
   if prevent_link then
     block.text = block.text:gsub("@nolink", ""):gsub("^%s+", "")
     return block
-  elseif quarto.project.profile:find("foc") and quarto.doc.isFormat('pdf') then
+  elseif quarto.doc.isFormat('pdf') then
     return
       pandoc.Blocks {
         pandoc.RawBlock(

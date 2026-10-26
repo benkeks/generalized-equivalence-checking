@@ -877,72 +877,7 @@ $$
 An illustration of the connection property can be seen in @fig-galois-connection.
 <!--(The illustration also illuminates why the $α$-function is often referred to as “lower adjoint“ and $\gamma$ as “upper adjoint” of a Galois connection.)-->
 
-::: {.content-visible unless-profile="foc"}
-
-:::: {#fig-galois-connection .column-margin }
-```tikz
-\begin{tikzpicture}[auto, node distance = 1cm, minimum width=.8cm]
-  \node (c) {$c$};
-  \node (cleq) [above of=c, rotate=90] {$\leq$};
-  \node (agamma) [above of=cleq] {$\gamma(a)$};
-  \node (C) [above of=agamma] {$C$};
-  \node (cabs) [right of=c, node distance=3cm] {$α(c)$};
-  \node (aleq) [above of=cabs, rotate=90] {$\leq$};
-  \node (a) [above of=aleq] {$a$};
-  \node (A) [above of=a] {$A$};
-  \node (iff) [right of=cleq, node distance=1.5cm, rotate=-45] {$\iff$};
-  \path[->]
-    (c) edge[bend right=10, swap] node {$α$} (cabs)
-    (a) edge[bend right=10, swap] node {$\gamma$} (agamma);
-  \draw (cleq) ellipse (1cm and 1.7cm);
-  \draw (aleq) ellipse (1cm and 1.7cm);
-\end{tikzpicture}
-```
-Visualization of Galois connections according to @def-galois-connection.
-::::
-:::
-
-:::: {.content-visible when-profile="foc"}
-
-<!-- the code needs to be copied as Quarto's contents shortcode does not manage to move the margin figures... -->
-
-```{=latex}
-\begin{figure}[t]
-
-\begin{minipage}[b]{0.48\textwidth}
-```
-
-:::::: {#fig-galois-connection fig-pos="H"}
-```tikz
-\begin{tikzpicture}[auto, node distance = 1cm, minimum width=.8cm]
-  \node (c) {$c$};
-  \node (cleq) [above of=c, rotate=90] {$\leq$};
-  \node (agamma) [above of=cleq] {$\gamma(a)$};
-  \node (C) [above of=agamma] {$C$};
-  \node (cabs) [right of=c, node distance=3cm] {$α(c)$};
-  \node (aleq) [above of=cabs, rotate=90] {$\leq$};
-  \node (a) [above of=aleq] {$a$};
-  \node (A) [above of=a] {$A$};
-  \node (iff) [right of=cleq, node distance=1.5cm, rotate=-45] {$\iff$};
-  \node (Phantom) [below of=c, node distance=1cm] {$$};
-  \path[->]
-    (c) edge[bend right=10, swap] node {$α$} (cabs)
-    (a) edge[bend right=10, swap] node {$\gamma$} (agamma);
-  \draw (cleq) ellipse (1cm and 1.7cm);
-  \draw (aleq) ellipse (1cm and 1.7cm);
-\end{tikzpicture}
-```
-Visualization of Galois connections according to @def-galois-connection.
-\vspace{2\baselineskip}
-::::::
-
-```{=latex}
-\end{minipage}
-\hfill
-\begin{minipage}[b]{0.48\textwidth}
-```
-
-:::::: {#fig-galois-abstraction-reals  fig-pos="H"}
+::: {#wrapper-fig-galois-abstraction-reals}
 ```tikz
 \begin{tikzpicture}[]
   \draw[draw=red, thick] (-.25,0) -- ++(.5,0);
@@ -974,6 +909,58 @@ Visualization of Galois connections according to @def-galois-connection.
 \end{tikzpicture}
 ```
 Illustration of the Galois connection of @exm-galois-abstraction-reals between $\reals^{\geq 0}$ and $\nats$ using $\floor{\cdot}$-function, whose mapping is illustrated by the gray triangles.
+:::
+
+::: {#wrapper-fig-galois-connection}
+```tikz
+\begin{tikzpicture}[auto, node distance = 1cm, minimum width=.8cm]
+  \node (c) {$c$};
+  \node (cleq) [above of=c, rotate=90] {$\leq$};
+  \node (agamma) [above of=cleq] {$\gamma(a)$};
+  \node (C) [above of=agamma] {$C$};
+  \node (cabs) [right of=c, node distance=3cm] {$α(c)$};
+  \node (aleq) [above of=cabs, rotate=90] {$\leq$};
+  \node (a) [above of=aleq] {$a$};
+  \node (A) [above of=a] {$A$};
+  \node (iff) [right of=cleq, node distance=1.5cm, rotate=-45] {$\iff$};
+  \node (Phantom) [below of=c, node distance=1cm] {$$};
+  \path[->]
+    (c) edge[bend right=10, swap] node {$α$} (cabs)
+    (a) edge[bend right=10, swap] node {$\gamma$} (agamma);
+  \draw (cleq) ellipse (1cm and 1.7cm);
+  \draw (aleq) ellipse (1cm and 1.7cm);
+\end{tikzpicture}
+```
+Visualization of Galois connections according to @def-galois-connection.
+:::
+
+::: {.content-visible unless-format="pdf"}
+
+:::: {#fig-galois-connection .column-margin }
+{{< contents wrapper-fig-galois-connection >}}
+::::
+:::
+
+:::: {.content-visible when-format="pdf"}
+
+```{=latex}
+\begin{figure}[t]
+
+\begin{minipage}[b]{0.48\textwidth}
+```
+
+:::::: {#fig-galois-connection fig-pos="H"}
+{{< contents wrapper-fig-galois-connection >}}
+::::::
+
+```{=latex}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.48\textwidth}
+```
+
+:::::: {#fig-galois-abstraction-reals  fig-pos="H"}
+{{< contents wrapper-fig-galois-abstraction-reals >}}
 ::::::
 
 ```{=latex}
@@ -996,39 +983,9 @@ Therefore, $α_{\reals}$ and $\identity{\nats}$ form a Galois connection.
 :::
 
 
-::: {.content-visible unless-profile="foc"}
+::: {.content-visible unless-format="pdf"}
 :::: {#fig-galois-abstraction-reals .column-margin}
-```tikz
-\begin{tikzpicture}[]
-  \draw[draw=red, thick] (-.25,0) -- ++(.5,0);
-  \draw[draw=red, thick] (-.25,1) -- ++(.5,0);
-  \draw[draw=red, thick] (-.25,2) -- ++(.5,0);
-  \draw[draw=red, thick] (-.25,3) -- ++(.5,0);
-  \draw[draw=blue, thick] (1.75,0) -- ++(.5,0);
-  \draw[draw=blue, thick] (1.75,1) -- ++(.5,0);
-  \draw[draw=blue, thick] (1.75,2) -- ++(.5,0);
-  \draw[draw=blue, thick] (1.75,3) -- ++(.5,0);
-
-  \draw[draw=black] (-.125,0) rectangle ++(.25,1);
-  \draw[draw=black] (-.125,1) rectangle ++(.25,1);
-  \draw[draw=black] (-.125,2) rectangle ++(.25,1);
-  \draw[draw=gray] (0,0) -- ++(2,0) -- ++(-2,1);
-  \draw[draw=gray] (0,1) -- ++(2,0) -- ++(-2,1);
-  \draw[draw=gray] (0,2) -- ++(2,0) -- ++(-2,1);
-  \draw[] (0,3.6) node {$\vdots$};
-  \draw[] (2,3.6) node {$\vdots$};
-
-  \draw[] (0,-.5) node {$\reals^{\geq 0}$};
-  \draw[] (2,-.5) node {$\nats$};
-
-  \path[->, dotted]
-    (2,0) edge[bend right=15] (0,0)
-    (2,1) edge[bend right=15] (0,1)
-    (2,2) edge[bend right=15] (0,2)
-    (2,3) edge[bend right=15] (0,3);
-\end{tikzpicture}
-```
-Illustration of the Galois connection of @exm-galois-abstraction-reals between $\reals^{\geq 0}$ and $\nats$ using $\floor{\cdot}$-function, whose mapping is illustrated by the gray triangles.
+{{< contents wrapper-fig-galois-abstraction-reals >}}
 ::::
 :::
 
@@ -1239,25 +1196,7 @@ We list the steps of the computation in @tbl-simple-energy-game-execution, and e
 }
 ```
 
-::::{.content-visible unless-profile="foc"}
-::: {#fig-game-defender-intersection .column-margin}
-```tikz
-\begin{tikzpicture}[]
-  \begin{scope}[rotate=45, scale=1]
-    \draw[help lines] (0,0) grid (3.5,3.5);
-    \draw[opacity=0.9, thick, text opacity=.8] (0,3.7) -- (0,1) node[below left] {$\literal{g_5}: (0,1)$} -- (3.7,1);
-    \draw[opacity=0.9, thick, text opacity=.8] (1,3.7) -- (1,0) node[below right] {$(1,0)$} -- (3.7,0);
-    \path[thick, violet, opacity=0.9, ->] (0,0) edge node[left=-.1] {$\mathit{upd}^{\circlearrowleft}$} (1,0);
-    \node[label=270:{$\literal{g_6}: (0,0)$}] at (0,0) {};
-    \draw[thick, red, dashed, opacity=0.9, text opacity=.8, shift={(-.05,-.05)}] (1,3.7) -- (1,1) node[above=.5] {$(1,1)$} -- (3.7,1);
-  \end{scope}
-\end{tikzpicture}
-```
-
-Combination (dashed red) of successor Pareto fronts (black) to intersect at defender position $\literal{g_4}$ in step 4.
-:::
-
-::: {#fig-game-attacker-combination .column-margin}
+::: {#wrapper-fig-game-attacker-combination}
 ```tikz
 \begin{tikzpicture}[]
   \begin{scope}[rotate=45, scale=1]
@@ -1270,11 +1209,36 @@ Combination (dashed red) of successor Pareto fronts (black) to intersect at defe
     \node [label=270:{$\literal{g_3},\literal{g_4}: (1,1)$}] at (1,1) {};
     %\draw[thick, red, dashed, opacity=0.9, text opacity=.8] (1,3.7) -- (1,1) node[above=.5] {$(1,1)$} -- (3.7,1);
     \draw[thick, red, dashed, opacity=0.9, text opacity=.8, shift={(-.05,-.05)}] (0,3.7) -- (0,2) node[above=.3] {$(0,2)$} -- (2,2) -- (2,1) node[below right] {$(2,1)$} -- (3.7,1);
+    \node[label=270:{$\phantom{\literal{g_6}: (0,0)}$}] at (0,0) {};
   \end{scope}
 \end{tikzpicture}
 ```
-
 Combination (dashed red) of successor Pareto fronts (black) to take the union at attacker position $\literal{g_1}$ in step 8.
+:::
+
+::: {#wrapper-fig-game-defender-intersection}
+```tikz
+\begin{tikzpicture}[]
+  \begin{scope}[rotate=45, scale=1]
+    \draw[help lines] (0,0) grid (3.5,3.5);
+    \draw[opacity=0.9, thick, text opacity=.8] (0,3.7) -- (0,1) node[below left] {$\literal{g_5}: (0,1)$} -- (3.7,1);
+    \draw[opacity=0.9, thick, text opacity=.8] (1,3.7) -- (1,0) node[below right] {$(1,0)$} -- (3.7,0);
+    \path[thick, violet, opacity=0.9, ->] (0,0) edge node[left=-.1] {$\mathit{upd}^{\circlearrowleft}$} (1,0);
+    \node[label=270:{$\literal{g_6}: (0,0)$}] at (0,0) {};
+    \draw[thick, red, dashed, opacity=0.9, text opacity=.8, shift={(-.05,-.05)}] (1,3.7) -- (1,1) node[above=.5] {$(1,1)$} -- (3.7,1);
+  \end{scope}
+\end{tikzpicture}
+```
+Combination (dashed red) of successor Pareto fronts (black) to intersect at defender position $\literal{g_4}$ in step 4.
+:::
+
+::::{.content-visible unless-format="pdf"}
+::: {#fig-game-defender-intersection .column-margin}
+{{< contents wrapper-fig-game-defender-intersection >}}
+:::
+
+::: {#fig-game-attacker-combination .column-margin}
+{{< contents wrapper-fig-game-attacker-combination >}}
 :::
 ::::
 
@@ -1301,48 +1265,16 @@ Combination (dashed red) of successor Pareto fronts (black) to take the union at
   As $\variable{todo}$ is empty, the algorithm terminates.
 ::::
 
-:::: {.content-visible when-profile="foc"}
-
-<!-- the code needs to be copied as Quarto's contents shortcode does not manage to move the margin figures... -->
+:::: {.content-visible when-format="pdf"}
 
 ::::: {layout="[6,-0.5,6]" layout-valign="bottom"}
 
 :::::: {#fig-game-defender-intersection}
-```tikz
-\begin{tikzpicture}[]
-  \begin{scope}[rotate=45, scale=1]
-    \draw[help lines] (0,0) grid (3.5,3.5);
-    \draw[opacity=0.9, thick, text opacity=.8] (0,3.7) -- (0,1) node[below left] {$\literal{g_5}: (0,1)$} -- (3.7,1);
-    \draw[opacity=0.9, thick, text opacity=.8] (1,3.7) -- (1,0) node[below right] {$(1,0)$} -- (3.7,0);
-    \path[thick, violet, opacity=0.9, ->] (0,0) edge node[left=-.1] {$\mathit{upd}^{\circlearrowleft}$} (1,0);
-    \node[label=270:{$\literal{g_6}: (0,0)$}] at (0,0) {};
-    \draw[thick, red, dashed, opacity=0.9, text opacity=.8, shift={(-.05,-.05)}] (1,3.7) -- (1,1) node[above=.5] {$(1,1)$} -- (3.7,1);
-  \end{scope}
-\end{tikzpicture}
-```
-
-Combination (dashed red) of successor Pareto fronts (black) to intersect at defender position $\literal{g_4}$ in step 4.
+{{< contents wrapper-fig-game-defender-intersection >}}
 ::::::
 
 :::::: {#fig-game-attacker-combination}
-```tikz
-\begin{tikzpicture}[]
-  \begin{scope}[rotate=45, scale=1]
-    \draw[help lines] (0,0) grid (3.5,3.5);
-    \draw[opacity=0.9, thick, text opacity=.8] (0,3.7) -- (0,2) node[below left] {$\literal{g_2}$} -- (3.7,2);
-    \draw[opacity=0.9, thick, text opacity=.8] (2,3.7) -- (2,1) node[below right] {} -- (3.7,1);
-    \draw[opacity=0.9, thick, text opacity=.8] (3,3.7) -- (3,2) node[below right] {$(3,2)$} -- (3.7,2);
-    \path[thick, violet, opacity=0.9, ->] (1,1) edge node[left=-.1] {$\mathit{upd}^{\circlearrowleft}$} (2,1);
-    \path[thick, violet, opacity=0.9, ->, bend right=30] (1,1) edge node {} (3,2);
-    \node [label=270:{$\literal{g_3},\literal{g_4}: (1,1)$}] at (1,1) {};
-    %\draw[thick, red, dashed, opacity=0.9, text opacity=.8] (1,3.7) -- (1,1) node[above=.5] {$(1,1)$} -- (3.7,1);
-    \draw[thick, red, dashed, opacity=0.9, text opacity=.8, shift={(-.05,-.05)}] (0,3.7) -- (0,2) node[above=.3] {$(0,2)$} -- (2,2) -- (2,1) node[below right] {$(2,1)$} -- (3.7,1);
-    \node[label=270:{$\phantom{\literal{g_6}: (0,0)}$}] at (0,0) {};
-  \end{scope}
-\end{tikzpicture}
-```
-
-Combination (dashed red) of successor Pareto fronts (black) to take the union at attacker position $\literal{g_1}$ in step 8.
+{{< contents wrapper-fig-game-attacker-combination >}}
 ::::::
 :::::
 ::::

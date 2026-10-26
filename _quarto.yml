@@ -116,8 +116,8 @@ format:
     #   href: https://github.com/benkeks/generalized-equivalence-checking
   pdf:
     documentclass: book
-    classoption: [twoside]
-    pdf-engine: xelatex
+    classoption: [10pt, pagesize, twoside]
+    pdf-engine: lualatex
     from: markdown-latex_macros
     mainfont: Linux Libertine O
     monofont: DejaVu Sans Mono # IsabelleDejaVuSansMono
@@ -135,21 +135,27 @@ format:
     - Path=./lib/newcomputermodern-font/
     indent: true
     colorlinks: true # must be set in order for quarto to load dvipsnames in xcolor for book class ....
-    papersize: a4
+    papersize: a5
+    linestretch: 1.09
+    updated-pdf: true
     top-level-division: chapter
     toc: false # we add the latex toc manually
     template-partials:
-      - style/before-body.tex
+      - style-foc/passoptions.latex
+      - style-foc/before-body.tex
       - style/toc.tex
     #keep-md: true
-    #keep-tex: true
+    keep-tex: true
+    latex-output-dir: _latex-output
+    latex-clean: false
+    include-after-body: style-foc/foc-list.tex
     geometry:
-    - left=3.3cm
-    - textwidth=11cm
-    - marginparsep=0.4cm
-    - marginparwidth=5.4cm
-    reference-location: margin
-    include-in-header: style/preamble.tex
+    - left=1.2cm
+    - right=1.2cm
+    - top=1.8cm
+    - bottom=1.6cm
+    reference-location: block
+    include-in-header: style-foc/preamble-foc.tex
     #include-before-body:
     #  text: |
     #    \renewcommand{\bibsection}{}
@@ -166,11 +172,10 @@ format:
 
 diagram:
   cache: true
-  cache-dir:
-    _cache_diagrams
+  cache-dir: _cache_diagrams/lualatex
   engine:
     tikz:
-      execpath: xelatex
+      execpath: lualatex
       header-includes:
         - '\input{PROJECT/style/preamble-general.tex}'
         - '\usepackage{xr}'

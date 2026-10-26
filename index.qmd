@@ -86,8 +86,8 @@ Zentrale Teile der Arbeit werden durch eine *Isabelle/HOL-Formalisierung* gestü
 
 <div style="text-align: center; font-size:2em;"><a href="https://generalized-equivalence-checking.equiv.io/Generalized-Equivalence-Checking-of-Concurrent-Programs.pdf"><i class="bi bi-file-pdf"></i> View PDF </a></div>
 
+<!--
 ---
-
 ### Thesis Defense 2025-07-28
 
 Join my **thesis defense** on Monday, **2025-07-28**!
@@ -99,6 +99,7 @@ Join my **thesis defense** on Monday, **2025-07-28**!
 - (Maybe grab a drink in the evening for those who've got time.)
 
 For planning purposes, please RSVP via [LinkedIn event](https://www.linkedin.com/events/phddefense-generalizedequivalen7351619496245178369/) or [email](mailto:benjamin.bisping@tu-berlin.de)!
+-->
 
 ----
 

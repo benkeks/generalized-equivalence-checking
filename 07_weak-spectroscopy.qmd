@@ -138,122 +138,6 @@ consists of
 
 where $p, q \in \states$ and $Q, Q_\alpha \in \powerset{\states}$, and the following sixteen kinds of moves.{{<isb inductive Spectroscopy_Game lts_tau.spectroscopy_moves>}}
 
-::::{.content-visible unless-profile="foc"}
-
-Moves to allow *internal behavior* “$\hmleps \dots$” between observations:
-$$
-\begin{array}{rrcll}
-  \textit{delay}
-  & \attackerpos{p,Q}
-  & \gamemove{0,0,0,0,0,0,0,0}
-  & \attackerpos[\varepsilon]{p,Q'}
-  & \text{if $Q \stepweak Q'$,}
-  \\
-  \textit{procrastination}
-  & \attackerpos[\varepsilon]{p,Q}
-  & \gamemove{0,0,0,0,0,0,0,0}
-  & \attackerpos[\varepsilon]{p',Q}
-  & \text{if $p \step{\tau} p'$, $p \neq p'$,}
-\end{array}
-$$
-moves to represent the *known $\hml$ constructs* “$\hmlobs{a}\dots$”, “$\hmlands \set{\dots}$”, and “$\hmlneg \dots$” in the now *two* contexts:
-$$
-\begin{array}{rrcll}
-  \textit{observation}
-  & \attackerpos[\varepsilon]{p,Q}
-  & \gamemove{-1,0,0,0,0,0,0,0}
-  & \attackerpos{p',Q'}
-  & \text{if $p \step{a} p'\!$, $Q \step{a} Q'\!$, $a \neq \tau$,}
-  \\
-  \textit{finishing}
-  & \attackerpos{p,\varnothing}
-  & \gamemove{0,0,0,0,0,0,0,0}
-  & \defenderpos{p,\varnothing},
-  &
-  \\
-  \textit{immediate conj.}
-  & \attackerpos{p,Q}
-  & \gamemove{0,0,0,0,-1,0,0,0}
-  & \defenderpos{p,Q}
-  & \text{if $Q \neq \varnothing$,}
-  \\
-  \textit{late conj.}
-  & \attackerpos[\varepsilon]{p,Q}
-  & \gamemove{0,0,0,0,0,0,0,0}
-  & \defenderpos{p,Q},
-  &
-  \\
-  \textit{conj. answer}
-  & \defenderpos{p,Q}
-  & \gamemove{0,0,-1,0,0,0,0,0}
-  & \attackerpos[\land]{p,q}
-  & \text{if $q \in Q$,}
-  \\
-  \textit{positive conjunct}
-  & \attackerpos[\land]{p,q}
-  & \gamemove{\updmin{1,6},0,0,0,0,0,0,0}
-  & \attackerpos[\varepsilon]{p,Q}
-  & \text{if $\set{q} \stepweak Q$,}
-  \\
-  \textit{negative conjunct}
-  & \attackerpos[\land]{p,q}
-  & \gamemove{\updmin{1,7},0,0,0,0,0,0,-1}
-  & \attackerpos[\varepsilon]{q,Q}
-  & \text{if $\set{p} \stepweak Q$ and $p \neq q$,}
-\end{array}
-$$
-moves to encode *stable conjunctions* “$\hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue, \psi, \psi, ...}$”:
-$$
-\begin{array}{rrcll}
-  \textit{stable conj.}\vphantom{I^{I^I}}
-  & \attackerpos[\varepsilon]{p,Q}
-  & \gamemove{0,0,0,0,0,0,0,0}
-  & \defenderpos[s]{p,Q'}
-  & \text{if } Q' = \set{ q \in Q \mid q \nostep{\tau}}, p \nostep{\tau},
-  \\
-  \textit{stable conj. answer}
-  & \defenderpos[s]{p,Q}
-  & \gamemove{0,0,0,-1,0,0,0,0}
-  & \attackerpos[\land]{p,q}
-  & \text{if $q \in Q$,}
-  \\
-  \textit{stable finishing}
-  & \defenderpos[s]{p,Q}
-  & \gamemove{0,0,0,-1,0,0,0,-1}
-  & \defenderpos{p,\varnothing},
-\end{array}
-$$
-and moves to encode *branching conjunctions* “$\hmlands \set{\hmlsoft{\alpha}\varphi, \psi, \psi, ...}$”:
-$$
-\begin{array}{rrcll}
-  \textit{branching conj.}\vphantom{I^{I^I}}
-  & \attackerpos[\varepsilon]{p,Q}
-  & \gamemove{0,0,0,0,0,0,0,0}
-  & \defenderpos[\eta]{p,\alpha,p'\!,Q \setminus Q_\alpha,Q_\alpha}
-  & \text{if $p \stepsoft{\alpha} p'\!$, $Q_\alpha \subseteq Q$,}
-  \\
-  \textit{branch. answer}
-  & \defenderpos[\eta]{p,\alpha,p'\!,Q,Q_\alpha}
-  & \gamemove{0,-1,-1,0,0,0,0,0}
-  & \attackerpos[\land]{p,q}
-  & \text{if $q \in Q$,}
-  \\
-  \textit{branch. observation}
-  & \defenderpos[\eta]{p,\alpha,p'\!,Q,Q_\alpha}
-  & \gamemove{\updmin{1,6},-1,-1,0,0,0,0,0}
-  & \attackerpos[\eta]{p',Q'}
-  & \text{with $Q_\alpha \stepsoft{\alpha} Q'$,}
-  \\
-  \textit{branch. accounting}
-  & \attackerpos[\eta]{p,Q}
-  & \gamemove{-1,0,0,0,0,0,0,0}
-  & \attackerpos{p,Q}.
-\end{array}
-$$
-::::
-
-::::{.content-visible when-profile="foc"}
-
 Moves to allow *internal behavior* “$\hmleps \dots$” between observations:
 $$
 \begin{array}{rrcll}
@@ -364,7 +248,6 @@ $$
   & \attackerpos{p,Q}.
 \end{array}
 $$
-::::
 :::
 
 Intuitively, the attacker is heavily weakened in the weak spectroscopy game due to the requirement to pass delay-moves in order to formulate observation attacks.
@@ -447,152 +330,10 @@ This subsection limits itself to citing the lemma heads and the inductive predic
 
 The following facts moreover have been fully formalized in Isabelle/HOL, which will be the topic of the following @sec-isabelle-formalization.
 
-:::: {.content-visible unless-profile="foc"}
-
 ::: {#def-strategy-formulas-weak}
 #### Strategy formulas for $\gamespectroscopyw$
 
-The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas.{{<isb inductive Strategy_Formulas lts_tau.strategy_formula>}}
-:::
-
-:::{#fig-weak-spectroscopy-strategy-formulas .column-body-outset fig-pos='p' fig-env="figure*"}
-$$
-\inferrule[delay]{
-  \attackerpos{p,Q} \gamemove{u} \attackerpos[\varepsilon]{p,Q'} \quad
-  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{p,Q'}) \quad
-  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q'}, e')
-} {
-  \hmleps\chi \in \stratweak(\attackerpos{p,Q}, e)
-}
-$$
-$$
-\inferrule[procrastination]{
-  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \attackerpos[\varepsilon]{p',Q} \quad
-  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{p',Q}) \quad
-  \chi \in \stratweak(\attackerpos[\varepsilon]{p',Q}, e')
-} {
-  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
-}
-$$
-$$
-\inferrule[observation]{
-  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \attackerpos{p',Q'} \quad
-  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos{p',Q'}) \\
-  p \step{a} p' \quad
-  Q \step{a} Q' \quad
-  \varphi \in \stratweak(\attackerpos{p',Q'}, e')
-} {
-  \hmlobs{a}\varphi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
-}
-$$
-$$
-\inferrule[immediate\, conj.]{
-  \attackerpos{p,Q} \gamemove{u} \defenderpos{p,Q} \quad
-  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos{p,Q}) \quad
-  \varphi \in \stratweak(\defenderpos{p,Q}, e')
-} {
-  \varphi \in \stratweak(\attackerpos{p,Q}, e)
-}
-$$
-$$
-\inferrule[late\, conj.]{
-  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos{p,Q} \quad
-  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos{p,Q}) \quad
-  \chi \in \stratweak(\defenderpos{p,Q}, e')
-} {
-  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
-}
-$$
-$$
-\inferrule[conj.\, answer]{
-  \forall q \in Q \ldotp \;
-  \defenderpos{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \; \land \;
-  e_q = \energyupdate(u_q, e) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
-  \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
-} {
-  \hmlands\set{ \psi_q \mid q \in Q} \in \stratweak(\defenderpos{p,Q}, e)
-}
-$$
-$$
-\inferrule[positive\, conjunct]{
-  \attackerpos[\land]{p,q} \gamemove{u} \attackerpos[\varepsilon]{p,Q'} \quad
-  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{p,Q'}) \quad
-  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q'}, e')
-} {
-  \hmleps\chi \in \stratweak(\attackerpos[\land]{p,q}, e)
-}
-$$
-$$
-\inferrule[negative\, conjunct]{
-  \attackerpos[\land]{p,q} \gamemove{u} \attackerpos[\varepsilon]{q,P'} \quad
-  e' = \energyupdate(u, e) \in \attackerwins(\attackerpos[\varepsilon]{q,P'}) \quad
-  \chi \in \stratweak(\attackerpos[\varepsilon]{q,P'}, e')
-} {
-  \hmlneg \hmleps\chi \in \stratweak(\attackerpos[\land]{p,q}, e)
-}
-$$
-$$
-\inferrule[stable\, conj.]{
-  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos[s]{p,Q'} \quad
-  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos[s]{p,Q'}) \quad
-  \chi \in \stratweak(\defenderpos[s]{p,Q'}, e')
-} {
-  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
-}
-$$
-$$
-\inferrule[stable\, conj.\, answer]{
-  Q \neq \varnothing \\
-  \forall q \in Q \ldotp \;
-  \defenderpos[s]{p,Q} \gamemove{u_q} \attackerpos[\land]{p,q} \; \land \;
-  e_q = \energyupdate(u_q, e) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
-  \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
-} {
-  \hmlands \left(\set{\hmlneg\hmlobs{\tau}\hmltrue } \cup \set{ \psi_q \mid q \in Q }\right) \in \stratweak(\defenderpos[s]{p,Q}, e)
-}
-$$
-$$
-\inferrule[stable\, finishing]{
-  \defenderpos[s]{p,\varnothing} \gamemove{u} \defenderpos{p,\varnothing} \quad
-  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos{p,\varnothing})
-} {
-  \hmlands \set{\hmlneg\hmlobs{\tau}\hmltrue } \in \stratweak(\defenderpos[s]{p,\varnothing}, e)
-}
-$$
-$$
-\inferrule[branching\, conj.]{
-  \attackerpos[\varepsilon]{p,Q} \gamemove{u} \defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha} \quad
-  e' = \energyupdate(u, e) \in \attackerwins(\defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha}) \\
-  \chi \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q',Q_\alpha}, e')
-} {
-  \chi \in \stratweak(\attackerpos[\varepsilon]{p,Q}, e)
-}
-$$
-$$
-\inferrule[branch.\, answer]{
-  g_\mathrm{d} = \defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha} \gamemove{u_\alpha} \attackerpos[\eta]{p',Q'} \gamemove{u'_\alpha} \attackerpos{p',Q'} \\
-  e_\alpha = \energyupdate(u'_\alpha, \energyupdate(u_\alpha, e)) \in \attackerwins(\attackerpos{p',Q'}) \quad
-  \varphi_\alpha \in \stratweak(\attackerpos{p',Q'}, e_\alpha)\\
-  \forall q \in Q \ldotp \;
-  g_\mathrm{d} \gamemove{u_q} \attackerpos[\land]{p,q} \; \land \;
-  e_q = \energyupdate(u_q, e) \in \attackerwins(\attackerpos[\land]{p,q}) \; \land \;
-  \psi_q \in \stratweak(\attackerpos[\land]{p,q}, e_q)
-} {
-  \hmlands \left(\set{\hmlsoft{\alpha} \varphi_\alpha } \cup \set{ \psi_q \mid q \in Q }\right) \in \stratweak(\defenderpos[\eta]{p,\alpha,p',Q,Q_\alpha}, e)
-}
-$$
-
-Strategy formulas for the weak spectroscopy.
-:::
-
-::::
-
-:::: {.content-visible when-profile="foc"}
-
-::: {#def-strategy-formulas-weak}
-#### Strategy formulas for $\gamespectroscopyw$
-
-The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas and @fig-weak-spectroscopy-strategy-formulas-cont .{{<isb inductive Strategy_Formulas lts_tau.strategy_formula>}}
+The set of *strategy formulas* for a game position $g$ and a budget $e$, $\stratweak(g, e)$, in the context of a weak spectroscopy game $\gamespectroscopyw^{\system}$ is defined inductively by the rules in @fig-weak-spectroscopy-strategy-formulas and @fig-weak-spectroscopy-strategy-formulas-cont. {{<isb inductive Strategy_Formulas lts_tau.strategy_formula>}}
 :::
 
 :::{#fig-weak-spectroscopy-strategy-formulas .column-body-outset fig-pos='t' fig-env="figure*"}
@@ -731,7 +472,6 @@ $$
 Strategy formulas for the weak spectroscopy (cont.).
 :::
 
-::::
 
 Attacker winning budgets can be translated into strategy formulas of matching price, as illustrated in @exm-phil-weak-spectroscopy.
 
@@ -1124,7 +864,7 @@ Though both processes are weak-failure-equivalent, their variants $\literal{P}^\
 To reconstruct this result on {{< equivio >}}, we first have to translate the processes of @fig-idle-process-abstraction to CCS.
 We express $\literal{P}_e$ and $\literal{P}_\ell$ as `P_e` and `P_t` through mutual recursion in the following model:
 
-:::{.content-visible when-profile="foc"}
+:::{.content-visible when-format="pdf"}
 \pagebreak
 :::
 

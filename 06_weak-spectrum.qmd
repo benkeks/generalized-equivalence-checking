@@ -386,7 +386,7 @@ Consider the following sequential program $\literal{P_{Seq}}$, which computes `x
 
 ::::{#fig-parallelized-ts .column-margin}
 
-:::::{.content-visible unless-profile="foc"}
+:::::{.content-visible unless-format="pdf"}
 
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.5cm]
@@ -444,7 +444,7 @@ Consider the following sequential program $\literal{P_{Seq}}$, which computes `x
 \end{tikzpicture}
 ```
 :::::
-:::::{.content-visible when-profile="foc"}
+:::::{.content-visible when-format="pdf"}
 
 \begin{tikzpicture}[auto,node distance=1.5cm]
   \node[] (PSeq){$\literal{P_{Seq}}$};

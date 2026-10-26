@@ -74,13 +74,8 @@ function isb(args)
       pandoc.RawInline("latex",
         string.gsub(
           string.gsub(qualified_name, "%.", "\\allowbreak."), "_", "\\allowbreak\\_"))
-    icon = pandoc.RawInline("latex", "\\raggedright \\!")
-    if quarto.project.profile:find("foc") then
-      icon = pandoc.RawInline("latex", "")
-    end
     return pandoc.Note {
       pandoc.Inlines {
-        icon,
         pandoc.Image("isb", "img/isabelle.png", "Formalized in Isabelle", {height = "0.9em"}),
         pandoc.Str(" " .. tostring(args[1])),
         pandoc.RawInline("latex", "~"),
@@ -137,7 +132,7 @@ end
 function pic(args)
   img = args[1]
   width = args[2] or "90%"
-  if quarto.project.profile:find("foc") then
+  if quarto.doc.isFormat('pdf') then
     return pandoc.Image("", img, "", {width = width, class = "lightbox"})
   else
     return pandoc.Image("", img, "", {class = "lightbox"})

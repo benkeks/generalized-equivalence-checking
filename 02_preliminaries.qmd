@@ -250,7 +250,7 @@ Scenario of two philosophers needing a (second) fork to eat pasta.
 
 ::::: {#fig-isolated-philosopher .column-margin}
 
-::::::: {.content-visible when-profile="foc"}
+::::::: {.content-visible when-format="pdf"}
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.7cm]
   \node[] (Pa){$\literal{P_A}$};
@@ -265,7 +265,7 @@ Scenario of two philosophers needing a (second) fork to eat pasta.
 ```
 :::::::
 
-::::::: {.content-visible unless-profile="foc"}
+::::::: {.content-visible unless-format="pdf"}
 ```tikz
 \begin{tikzpicture}[auto,node distance=1.7cm]
   \node[] (Pa){$\literal{P_A}$};
@@ -737,7 +737,7 @@ $$
 $$
 This adds another deadlock state to the transition system, seen in @fig-bisim-sim-ts.
 
-:::: {.content-visible unless-profile="foc"}
+:::: {.content-visible unless-format="pdf"}
 ::::: {#fig-bisim-sim-ts .column-margin}
 {{< contents wrapper-fig-bisim-sim-ts >}}
 
@@ -761,7 +761,7 @@ There cannot be a *symmetric* simulation handling this transition as $\literal{Q
 Thus $\literal Q \nbeq{B} \literal{T}$.
 :::
 
-::: {.content-visible when-profile="foc"}
+::: {.content-visible when-format="pdf"}
 ```{=latex}
 \begin{figure}[t]
 
@@ -805,7 +805,7 @@ Two states $p$ and $q$ are considered *graph-isomorphism-equivalent*, $p \beq{IS
 ::: {#exm-graph-isomorphism}
 Consider the transition system in @fig-iso-ts. $\literal{p_{even}} \beq{ISO} \literal{p_{odd}}$ because $f ≔ \set{\literal{p_{even}} \mapsto \literal{p_{odd}}, \literal{p_{odd}} \mapsto \literal{p_{even}}}$ is a graph isomorphism.
 
-:::: {.content-visible unless-profile="foc"}
+:::: {.content-visible unless-format="pdf"}
 ::::: {#fig-iso-ts .column-margin fig-pos="H"}
 {{< contents wrapper-fig-iso-ts >}}
 
@@ -1343,7 +1343,7 @@ In @fig-game-ex, the winning regions are marked with blue for the defender and r
 
 :::: {#fig-game-ex .column-margin}
 
-::::::: {.content-visible when-profile="foc"}
+::::::: {.content-visible when-format="pdf"}
 ```tikz
 \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},
@@ -1364,7 +1364,7 @@ In @fig-game-ex, the winning regions are marked with blue for the defender and r
 ```
 :::::::
 
-::::::: {.content-visible unless-profile="foc"}
+::::::: {.content-visible unless-format="pdf"}
 ```tikz
 \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm,
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},
@@ -1442,7 +1442,7 @@ An excerpt of the game graph below $[3,1]$ and $[1,2]$ is shown in @fig-leq-game
 
 ::::{#fig-leq-game .column-margin}
 
-::::::: {.content-visible when-profile="foc"}
+::::::: {.content-visible when-format="pdf"}
 ```tikz
 \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm, 
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},
@@ -1468,7 +1468,7 @@ An excerpt of the game graph below $[3,1]$ and $[1,2]$ is shown in @fig-leq-game
 ```
 :::::::
 
-::::::: {.content-visible unless-profile="foc"}
+::::::: {.content-visible unless-format="pdf"}
 ```tikz
 \begin{tikzpicture}[>->, shorten <=1pt, shorten >=0.5pt, auto, node distance=2cm, 
     posStyle/.style={draw, inner sep=1ex, minimum size=1cm, minimum width=1.5cm, anchor=center, draw, black, fill=gray!5},

@@ -26,7 +26,7 @@ local function tikz2image(src, filetype, outfile)
   local f = io.open('tmp_tex.tex', 'w')
   f:write(tikz_doc_template:format(src))
   f:close()
-  os.execute('xelatex tmp_tex.tex')
+  os.execute('lualatex tmp_tex.tex')
   if filetype == 'pdf' then
     os.rename('tmp_tex.pdf', "att/" .. outfile)
   else

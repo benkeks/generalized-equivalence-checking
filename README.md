@@ -41,3 +41,17 @@ To build the website and PDF document:
 - pdf2svg, librsvg2-bin
 - fonts-linuxlibertine
 - Juypyter: python3-ipython python3-numpy python3-pandas python3-tabulate jupyter
+
+Both the PDF and TikZ diagrams require TeX Live with LuaLaTeX.
+The TeX Live packages needed by the build are listed in
+[the deployment workflow](.github/workflows/github-page.yml).
+
+## Building
+
+Build the website and the current PDF with:
+
+```sh
+quarto render
+```
+
+The output is written to `_book/`. To build only the PDF, use `quarto render --to pdf`.

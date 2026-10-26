@@ -1344,8 +1344,7 @@ deciding the whole game still has exponential time complexity of
 $\bigo{\relsize{\step{}} \cdot
 (\relsize{\step{}} \cdot 2^{\relsize{\states}})^{16} \cdot
 (\relsize{\step{}} \cdot 2^{\relsize{\states}})^{7}}
-= \bigo{ \relsize{\step{}}^{24} \cdot 2^{23 \relsize{\states}} }
-$,
+= \bigo{ \relsize{\step{}}^{24} \cdot 2^{23 \relsize{\states}} }$,
 and space complexity
 $\bigo{ \relsize{\step{}}^8 \cdot 2^{8 \relsize{\states}} }$.
 But these are much lower bounds than in the original game $\gamespectroscopyw$,

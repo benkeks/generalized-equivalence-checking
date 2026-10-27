@@ -13,7 +13,7 @@ toc-title: "Chapter 7"
 `\vspace{-2.1em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
 This chapter is based on “One energy game for the spectrum between branching bisimilarity and weak trace semantics.” [@bj2024silentStepSpectroscopyExpress],
-its extended draft version [@bj2025silentStepSpectroscopyJournal] and
+its extended journal version [@bj2025silentStepSpectroscopyJournal] and
 its Isabelle/HOL formalization [@bhlmmb2025weakSpectroscopyIsabelle].
 These publications make the contribution of characterizing the weak spectrum through a *weak spectroscopy* game.
 The present thesis is more detailed with respect to complexity and to handling of stable failure traces and related notions.

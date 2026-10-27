@@ -1,0 +1,22 @@
+---
+toc-title: "Updates"
+---
+
+::: {.content-visible when-format="html"}
+{{< include style/macros-html.md >}}
+{{< include style/macros.md >}}
+:::
+
+# Updates since Publication {#sec-updates .unnumbered}
+
+The version of this document that you are reading updates the [published PhD thesis](https://doi.org/10.14279/depositonce-24813) with small corrections and additional information.
+
+- In @def-weak-spectroscopy-game, the *stable finishing* move now starts from an arbitrary stable conjunction position $\defenderpos[s]{p,Q}$, rather than only from $\defenderpos[s]{p,\varnothing}$.
+  This corrects the underpricing of the negation in the stability test:
+  The defender should be able to require the budget for this test even when $Q$ is nonempty.
+- The list of game positions for @def-weak-spectroscopy-game correctly assigns attacker branching positions $\attackerpos[\eta]{p,Q}$ to $G_\attacker$, rather than $G_\defender$.
+- In the rules for @def-strategy-formulas-weak, the scope of $\forall q \in Q$ in *conjunction answer* and *stable conjunction answer* now includes the game-move premise as well as the budget and strategy-formula premises.
+  The conclusion of the *stable finishing* rule explicitly refers to $\defenderpos[s]{p,\varnothing}$, rather than to a position with an unspecified set $Q$.
+- The overview of standard queries in @sec-equivio-usage includes `eta-simulation`.
+  The implementation summary now states that {{< equivio >}} supports more than 39 notions of the strong and weak spectrum, rather than more than 30.
+- References to the silent-step spectroscopy preprint have been updated to the published journal article @bj2026silentStepSpectroscopyJournal, *Deciding all behavioral equivalences at once II: The silent-step spectrum*, published in *Information and Computation* 313 (2026), article 105499, [doi:10.1016/j.ic.2026.105499](https://doi.org/10.1016/j.ic.2026.105499).

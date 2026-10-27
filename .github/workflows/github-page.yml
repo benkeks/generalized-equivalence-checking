@@ -79,7 +79,7 @@ jobs:
             footmisc
             luatex85
             hyperxmp
-            tabto
+            tabto-ltx
             pdfpages
             enumitem
 
@@ -98,7 +98,6 @@ jobs:
         uses: quarto-dev/quarto-actions/render@v2
         with:
           to: all
-        continue-on-error: true
 
       - name: Save cache for diagrams
         if: always()

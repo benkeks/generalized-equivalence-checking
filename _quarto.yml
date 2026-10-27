@@ -37,6 +37,7 @@ syntax-definitions:
 
 book:
   title: "Generalized Equivalence Checking of Concurrent Programs"
+  llms-txt: true
   author:
   - name: Benjamin Bisping
     email: benjamin.bisping@tu-berlin.de

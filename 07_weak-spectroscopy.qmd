@@ -13,7 +13,7 @@ toc-title: "Chapter 7"
 `\vspace{-2.1em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
 This chapter is based on “One energy game for the spectrum between branching bisimilarity and weak trace semantics.” [@bj2024silentStepSpectroscopyExpress],
-its extended journal version [@bj2025silentStepSpectroscopyJournal] and
+its extended journal version [@bj2026silentStepSpectroscopyJournal] and
 its Isabelle/HOL formalization [@bhlmmb2025weakSpectroscopyIsabelle].
 These publications make the contribution of characterizing the weak spectrum through a *weak spectroscopy* game.
 The present thesis is more detailed with respect to complexity and to handling of stable failure traces and related notions.
@@ -326,7 +326,7 @@ This reasoning, of course, depends on the weak spectroscopy game being correct �
 ### Correctness {#sec-correctness-weak-spectroscopy}
 
 Establishing correctness now proceeds mostly as we are used to from @sec-correctness-poly-spectroscopy and -@sec-correctness-strong-spectroscopy.
-This subsection limits itself to citing the lemma heads and the inductive predicates used in the full proofs of @bj2025silentStepSpectroscopyJournal.
+This subsection limits itself to citing the lemma heads and the inductive predicates used in the full proofs of @bj2026silentStepSpectroscopyJournal.
 
 The following facts moreover have been fully formalized in Isabelle/HOL, which will be the topic of the following @sec-isabelle-formalization.
 
@@ -673,7 +673,7 @@ proof (induction rule: weak_spectroscopy_game.attacker_wins.induct)
 
 There are superficial differences due to the different medium.
 For instance, note that the inductive predicate in the Isabelle theory has a seventh case for `Attacker_Branch` / $\attackerpos[\eta]{\dots}$ that does not exist in the “paper version” of @lem-weak-spectroscopy-game-formulas.
-This is more natural for the “`case ... of ...`” formulation in the formalization, and addresses a technicality that @bj2025silentStepSpectroscopyJournal handle in the proof body.
+This is more natural for the “`case ... of ...`” formulation in the formalization, and addresses a technicality that @bj2026silentStepSpectroscopyJournal handle in the proof body.
 
 The (mutual) induction on the formula structure to establish the distinctiveness of $\stratweak$-formulas of @lem-weak-spectroscopy-game-soundness begins:{{<isb lemma Strategy_Formulas lts_tau.strategy_formulas_distinguish>}}
 
@@ -957,7 +957,7 @@ In @sec-extending-to-other-eqs, we close with some hints how even more nuances i
 
 ### Optimizing Branching Conjunctions {#sec-optimized-branching-conj}
 
-@bj2025silentStepSpectroscopyJournal show how to reduce the out-degree $o_{\gamemoveblank}$ of the weak spectroscopy game to be linear.
+@bj2026silentStepSpectroscopyJournal show how to reduce the out-degree $o_{\gamemoveblank}$ of the weak spectroscopy game to be linear.
 For this, we reformulate the branching conjunction part of the game to be closer to the operational @def-branching-bisim of branching bisimilarity.
 We can still solve the main spectroscopy problem, but lose some resolution about the number of nested conjunctions.
 
@@ -1056,7 +1056,7 @@ Schematic *simplified* weak spectroscopy game $\gamespectroscopywsimple$ with ad
 
 Intuitively, the simplified game part encodes nested conjunctions of the form $\hmlands\set{ \hmlsoft{\alpha} \mathhl{\hmlands \Psi'}, \psi_1, \ldots}$ or the cheaper form $\hmlands\set{ \hmlsoft{\alpha} \mathhl{\hmleps \hmlands \Psi'}, \psi_1, \ldots}$.
 The $\Psi'$ are the formulas from after branching observation moves $\attackerpos[\eta]{p,\alpha,p',q} \gamemoveblank \attackerpos[\eta]{p', Q_\alpha'} \gamemoveblank \attackerpos{p', Q'}$, while the $\psi_i$ come from the resets $\attackerpos[\eta]{p,\alpha,p',q} \gamemoveblank \attackerpos[\wedge]{p,q}$.
-In @bj2025silentStepSpectroscopyJournal, we discuss this game's strategy formulas in detail and prove its correctness, resulting in the following theorem.^[
+In @bj2026silentStepSpectroscopyJournal, we discuss this game's strategy formulas in detail and prove its correctness, resulting in the following theorem.^[
   Credit for the proof details goes to Jansen.
 ]
 

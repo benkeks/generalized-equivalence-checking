@@ -12,7 +12,7 @@ toc-title: "Chapter 6"
 ::::{#related-6 .column-margin}
 `\vspace{-2.1em}`{=latex}
 {{< paragraph_heading "Related publications." >}}
-This chapter is based on parts of “Deciding all behavioral equivalences at once II: The silent-step spectrum” [@bj2025silentStepSpectroscopyJournal] and of “Characterizing contrasimilarity through games, modal logic, and complexity” [@bm2024contrasimilarityInfComp].
+This chapter is based on parts of “Deciding all behavioral equivalences at once II: The silent-step spectrum” [@bj2026silentStepSpectroscopyJournal] and of “Characterizing contrasimilarity through games, modal logic, and complexity” [@bm2024contrasimilarityInfComp].
 For a fuller presentation of the spectrum of weak equivalences itself, @glabbeek1993ltbt is the authoritative work.
 A gentler introduction to key concepts is provided by @sangiorgi2012.
 ::::
@@ -326,7 +326,7 @@ there is a stability-respecting branching bisimulation $\rel R$ with $(p,q) \in 
 precisely if there is no formula $\varphi \in \hmlsrbb$ with $p \in \semantics{\varphi}$ and $q \notin \semantics{\varphi}$.{{<isb lemma Branching_Bisimilarity lts_tau.sr_branching_bisim_is_hmlsrbb>}}
 :::
 
-The paper proof in @bj2025silentStepSpectroscopyJournal proceeds quite similarly to other Hennessy–Milner theorems, as showcased in @thm-hennessy-milner.
+The paper proof in @bj2026silentStepSpectroscopyJournal proceeds quite similarly to other Hennessy–Milner theorems, as showcased in @thm-hennessy-milner.
 
 The example process groups of @fig-simple-weak-eq are stability-respecting branching bisimilar, as desired.
 But branching bisimilarity is more distinctive than weak bisimilarity:
@@ -1185,7 +1185,7 @@ For the abstractions of bisimilarity in @fig-weak-grammars-bisim-like, some more
 Grammars induced by coordinates for weak bisimulation-like notions.
 :::
 
-@bj2025silentStepSpectroscopyJournal [§ 3.3] prove in detail, for each of our abstractions of bisimilarity, that it corresponds to its respective relational characterization.
+@bj2026silentStepSpectroscopyJournal [§ 3.3] prove in detail, for each of our abstractions of bisimilarity, that it corresponds to its respective relational characterization.
 The Isabelle theory [@bhlmmb2025weakSpectroscopyIsabelle] features theorems for
 $\eta$-bisimilarity{{<isb theorem Eta_Bisimilarity lts_tau.eta_bisim_coordinate>}} and for
 stability-respecting branching bisimilarity{{<isb theorem Branching_Bisimilarity lts_tau.sr_branching_bisim_coordinate>}}.
@@ -1311,7 +1311,7 @@ At this point, they are not particularly interesting.
 Grammars induced by coordinates for weak simulation-like notions.
 :::
 
-@bj2025silentStepSpectroscopyJournal contains proofs that the observation languages for weak simulation and $\eta$-simulation correspond to their relational definitions (@def-weak-bisimilarity).{{<isb theorem Eta_Bisimilarity lts_tau.eta_sim_coordinate>}}
+@bj2026silentStepSpectroscopyJournal contains proofs that the observation languages for weak simulation and $\eta$-simulation correspond to their relational definitions (@def-weak-bisimilarity).{{<isb theorem Eta_Bisimilarity lts_tau.eta_sim_coordinate>}}
 
 :::{#rem-spurious-conjuncts}
 #### Spurious conjuncts and minimality

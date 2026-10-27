@@ -420,7 +420,7 @@ The following five publications fuel the thesis:
 - “Characterizing contrasimilarity through games, modal logic, and complexity” [Information & Computation -@bm2024contrasimilarityInfComp, with Montanari] closes *gaps in the weak spectrum of equivalences* for complexity, games, and their links to modal logics.
   [Isabelle/HOL theory: AFP -@bm2023contrasimilarityAFP; Workshop version: EXPRESS/SOS -@bm2021contrasimilarity]
 - “One energy game for the spectrum between branching bisimilarity and weak trace semantics” [EXPRESS/SOS -@bj2024silentStepSpectroscopyExpress, with Jansen] adapts the *spectroscopy approach for the weak spectrum*.
-  [Journal version: -@bj2025silentStepSpectroscopyJournal; Isabelle/HOL theory: AFP -@bhlmmb2025weakSpectroscopyIsabelle]
+  [Journal version: -@bj2026silentStepSpectroscopyJournal; Isabelle/HOL theory: AFP -@bhlmmb2025weakSpectroscopyIsabelle]
 
 \vspace*{-\medskipamount}
 {{< paragraph_heading "Prototype." >}}
